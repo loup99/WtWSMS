@@ -1,0 +1,221 @@
+decisions = {
+	
+	build_third_temple = {
+		is_high_prio = yes
+		potential = {
+			has_dlc = "Sons of Abraham"
+			religion_group = jewish_group
+			NOT = { has_global_flag = third_temple_built }
+			NOT = { has_global_flag = building_third_temple }
+		}
+		allow = {
+			completely_controls = c_jerusalem
+			774 = {
+				religion = ROOT
+			}
+			wealth = 1500
+			piety = 1500
+		}
+		effect = {
+			hidden_tooltip = {
+				character_event = { id = SoA.100 }
+				narrative_event = { id = SoA.101 days = 1460 random = 50 }
+			}
+			set_global_flag = building_third_temple
+			wealth = -1500
+			prestige = 500
+			piety = 500
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	
+	}	
+	
+	restore_high_priesthood = {
+		is_high_prio = yes
+		potential = {
+			has_dlc = "Sons of Abraham"
+			religion = jewish
+			has_landed_title = k_israel
+			has_global_flag = third_temple_built
+			NOT = { has_global_flag = jewish_priesthood_founded }
+		}
+		allow = {
+			completely_controls = c_jerusalem
+			774 = {
+				religion = jewish
+			}
+			piety = 1000
+		}
+		effect = {
+			set_global_flag = jewish_priesthood_founded
+			activate_title = { title = d_jewish status = yes }
+			hidden_tooltip = {
+				create_random_priest = {
+					random_traits = yes
+					religion = ROOT
+					culture = ROOT
+					dynasty = random
+					female = no
+					age = 41
+				}
+				new_character = {
+					d_jewish = {
+						grant_title = PREV
+					}
+					narrative_event = { id = SoA.550 }
+				}
+			}
+			d_jewish = {
+				holder_scope = {
+					k_israel = {
+						holder_scope = {
+							set_defacto_vassal = PREVPREV
+						}
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	create_israel = {
+		is_high_prio = yes
+		potential = {
+			has_dlc = "Sons of Abraham"
+			religion_group = jewish_group
+			k_israel = {
+				has_holder = no
+			}
+		}
+		allow = {
+			completely_controls = k_oriens
+			774 = {
+				religion = ROOT
+			}
+			piety = 500
+			prestige = 500
+		}
+		effect = {
+			narrative_event = { id = SoA.102 tooltip = EVTTOOLTIP_SoA_102 }
+			prestige = 1000
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	welcome_jews = {
+		potential = {
+			has_dlc = "Sons of Abraham"
+			NOT = { 
+				religion_group = jewish_group 
+				has_character_modifier = expelled_jews_timer
+			}
+			has_character_modifier = expelled_jewish
+			primary_title = { higher_tier_than = DUKE }
+		}
+		allow = {
+		}
+		effect = {
+			remove_character_modifier = expelled_jewish
+			custom_tooltip = {
+				text = jews_are_welcome
+			}
+			hidden_tooltip = {
+				character_event = { id = SoA.106 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0.1 # Less likely to do it
+			}
+			modifier = {
+				factor = 0
+				trait = zealous
+			}
+			modifier = {
+				factor = 0
+				religion = marcionism
+			}
+		}
+	}
+	
+	expel_jews = {
+		potential = {
+			has_dlc = "Sons of Abraham"
+			OR = {
+				religion_group = christian
+				religion_group = muslim
+				religion_group = zoroastrian_group
+			}	
+			NOT = { 
+				religion_group = jewish_group
+				has_character_modifier = expelled_jewish
+				trait = incapable
+				any_realm_province = { religion_group = jewish_group }
+			}
+			independent = yes
+			is_playable = yes
+			age = 16
+			prisoner = no
+		}
+		allow = {
+		}
+		effect = {
+			if = {
+				limit = { has_character_modifier = borrowed_from_jews }
+				remove_character_modifier = borrowed_from_jews
+			}
+			add_character_modifier = {
+				name = expelled_jewish
+				duration = -1
+				inherit = yes
+			}
+			custom_tooltip = {
+				text = jews_are_expelled
+			}
+			hidden_tooltip = {
+				character_event = { id = SoA.105 }
+				add_character_modifier = {
+					name = expelled_jews_timer
+					duration = 7300
+					hidden = yes
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0.001 # Less likely to do it
+			}
+			modifier = {
+				factor = 0
+				trait = kind
+			}
+			modifier = {
+				factor = 1.2
+				trait = zealous
+				trait = arbitrary
+			}	
+			modifier = {
+				factor = 5
+				religion = marcionism
+			}
+			modifier = {
+				factor = 1.2
+				trait = cruel
+			}	
+			modifier = {
+				factor = 1.2
+				trait = paranoid
+					}
+		}
+	}
+}

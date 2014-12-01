@@ -1,0 +1,348 @@
+decisions = {
+
+	invite_griot_to_court = { #Invite a Griot to court
+		potential = {
+			NOT = { has_global_flag = VIET_wafrican_features_off }
+			OR = {
+				culture_group = west_african
+				culture_group = central_african
+				religion = west_african_pagan
+				religion = west_african_pagan_reformed
+			}
+		}
+		allow = {
+			NOT = { has_character_modifier = new_griot_in_court }
+			NOT = { has_character_flag = inviting_griot_over }
+			primary_title = { higher_tier_than = BARON }
+			NOT = {
+				any_vassal = {
+					has_minor_title = title_court_griot
+				}
+			}
+			NOT = {
+				any_courtier = {
+					has_minor_title = title_court_griot
+				}
+			}
+		}
+		effect = {
+			scaled_wealth = -0.5
+			
+			set_character_flag = inviting_griot_over
+
+			hidden_tooltip = {
+				character_event = {
+					id = wafrica.1
+					days = 3
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.3 #Decrease chance AI will do this
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					any_vassal = {
+						has_minor_title = title_court_griot
+					}
+					any_courtier = {
+						has_minor_title = title_court_griot
+					}
+				}
+			}
+			modifier = {
+				factor = 0.1
+				any_vassal = {
+					trait = griot
+				}
+				any_courtier = {
+					trait = griot
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = diligent
+			}	
+			modifier = {
+				factor = 0.5
+				trait = slothful
+			}	
+			modifier = {
+				factor = 2
+				trait = ambitious
+			}	
+			modifier = {
+				factor = 0.5
+				trait = imbecile
+			}		
+			modifier = {
+				factor = 2
+				trait = zealous
+			}	
+			modifier = {
+				factor = 0.5
+				trait = cynical
+			}			
+			modifier = {
+				factor = 2
+				primary_title = { higher_tier_than = DUKE }
+			}	
+			modifier = {
+				factor = 0.5
+				trait = slow
+			}	
+		}
+	}	
+
+	assign_griot = { # For the AI, because they are dumb enough not to hand out minor titles
+		potential = {
+			ai = yes
+			NOT = { has_global_flag = VIET_wafrican_features_off }
+			OR = {
+				culture_group = west_african
+				culture_group = central_african
+				religion = west_african_pagan
+				religion = west_african_pagan_reformed
+			}
+			NOT = { 
+				any_courtier = {
+					has_minor_title = title_court_griot
+				}
+			}
+		}
+		allow = {
+			primary_title = { higher_tier_than = BARON }
+			any_courtier = {
+				trait = griot
+				is_female = no
+				is_adult = yes
+			}
+		}
+		effect = {
+			random_courtier = {
+				limit = {
+					is_adult = yes
+					is_female = no
+					trait = griot
+				}
+				give_minor_title = title_court_griot
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.75 #Decrease chance AI will do this - they'll still do it eventually anyways, this will just prevent them from doing it immediately
+			}
+		}
+	}
+	
+	receive_iron_woman = { # Receive an Iron Woman, a special ceremony staff/spear (historically and presently, used mostly by the Bambara Peoples, a Mande subgroup)
+		potential = {
+			OR = {
+				culture_group = west_african
+				religion = west_african_pagan
+				religion = west_african_pagan_reformed
+			}
+			NOT = { has_character_flag = received_iron_woman }
+			NOT = { has_global_flag = VIET_wafrican_features_off }
+		}
+		allow = {
+			primary_title = { higher_tier_than = BARON }
+			OR = {
+				any_vassal = {
+					has_minor_title = title_court_griot
+				}
+				any_courtier = {
+					has_minor_title = title_court_griot
+				}
+			}
+			wealth = 50
+			prestige = 30
+			piety = 30
+		}
+		effect = {
+			wealth = -50
+			prestige = -30
+			piety = -30
+
+			set_character_flag = iron_woman_ongoing
+			
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.5 #Decrease chance AI will do this
+			}
+			modifier = {
+				factor = 0
+				any_vassal = {
+					has_minor_title = title_court_griot
+				}
+				any_courtier = {
+					has_minor_title = title_court_griot
+				}
+			}
+			modifier = {
+				factor = 0.05
+				any_vassal = {
+					trait = griot
+				}
+				any_courtier = {
+					trait = griot
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = diligent
+			}	
+			modifier = {
+				factor = 0.5
+				trait = slothful
+			}	
+			modifier = {
+				factor = 2
+				trait = ambitious
+			}	
+			modifier = {
+				factor = 0.5
+				trait = imbecile
+			}		
+			modifier = {
+				factor = 2
+				trait = zealous
+			}	
+			modifier = {
+				factor = 0.5
+				trait = cynical
+			}			
+			modifier = {
+				factor = 2
+				primary_title = { higher_tier_than = DUKE }
+			}	
+			modifier = {
+				factor = 0.5
+				trait = slow
+			}	
+		}
+	}
+	
+	host_griot_performance = { # Start Griot performance event chain
+		potential = {
+			OR = {
+				culture_group = west_african
+				culture_group = central_african
+				religion = west_african_pagan
+				religion = west_african_pagan_reformed
+			}
+			NOT = { has_character_modifier = griot_performance_timer }
+			NOT = { has_character_modifier = held_griot_performance }
+			NOT = { has_global_flag = VIET_wafrican_features_off }
+			NOT = { has_character_flag = hosting_griot_performance }
+		}
+		allow = {
+			primary_title = { higher_tier_than = BARON }
+			OR = {
+				any_vassal = {
+					has_minor_title = title_court_griot
+				}
+				any_courtier = {
+					has_minor_title = title_court_griot
+				}
+			}
+			scaled_wealth = 0.2
+		}
+		effect = {
+			scaled_wealth = -0.2
+
+			hidden_tooltip = {
+				character_event = {
+					id = wafrica.16
+					days = 3
+				}
+			}
+			
+			set_character_flag = hosting_griot_performance
+			
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.7 #Decrease chance AI will do this
+			}
+			modifier = {
+				factor = 2
+				trait = diligent
+			}	
+			modifier = {
+				factor = 0.5
+				trait = slothful
+			}	
+			modifier = {
+				factor = 2
+				trait = ambitious
+			}	
+			modifier = {
+				factor = 0.5
+				trait = imbecile
+			}		
+			modifier = {
+				factor = 2
+				trait = zealous
+			}	
+			modifier = {
+				factor = 0.5
+				trait = cynical
+			}			
+			modifier = {
+				factor = 2
+				trait = charitable
+			}	
+			modifier = {
+				factor = 0.5
+				trait = slow
+			}				
+			modifier = {
+				factor = 2
+				trait = gregarious
+			}	
+			modifier = {
+				factor = 0.5
+				trait = shy
+			}				
+			modifier = {
+				factor = 2
+				trait = poet
+			}	
+			modifier = {
+				factor = 0.5
+				trait = inbred
+			}					
+			modifier = {
+				factor = 2
+				trait = scholar
+			}	
+			modifier = {
+				factor = 0.5
+				trait = cruel
+			}						
+			modifier = {
+				factor = 2
+				trait = proud
+			}	
+			modifier = {
+				factor = 0.5
+				trait = humble
+			}							
+			modifier = {
+				factor = 0.5
+				trait = arbitrary
+			}	
+		}
+	}
+}
+

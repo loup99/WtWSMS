@@ -1,0 +1,323 @@
+##########################################
+###Zoroastrian decisions by Maestro Ugo###
+##########################################
+
+decisions = {
+
+#####Convert to Zoroastrianism
+	convert_to_zoroastrianism = {
+		potential = {
+			is_ruler = yes
+			age = 16
+			prisoner = no
+			religion_group = muslim
+			culture_group = iranian
+			NOT = {trait = zealous}
+			NOT = {piety = 0}
+		}
+		allow = {
+			war = no
+			OR = {
+				AND = {
+					any_demesne_province = {
+					religion_group = zoroastrian_group
+						}
+					NOT = { religion_authority = 0.35 }
+					}
+				NOT = { religion_authority = 0.20 }
+			}
+			prisoner = no
+		}
+		effect = {
+			religion = zoroastrian
+			piety = -200
+			wealth = -100
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0
+				NOT = {
+					scaled_wealth = 2.0
+				}
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					learning = 8
+				}
+			}
+		}
+	}
+
+###Sacrifices
+	make_sacrifice_mithra = {
+		potential = {
+			is_ruler = yes
+			age = 16
+			is_female = no
+			prisoner = no
+			religion_group = zoroastrian_group
+			OR = {
+				NOT = { has_character_flag = made_sacrifice_1 }
+				had_character_flag = { flag = made_sacrifice_1 days = 1825 }
+			}
+			war = no
+		}
+		allow = {
+			prisoner = no
+			piety = 100
+		}
+		effect = {
+			scaled_wealth = -0.3
+			piety = -30
+			clr_character_flag = made_sacrifice_1
+			set_character_flag = made_sacrifice_1
+			add_character_modifier = {
+				name = zoroastrian_sacrifice_mithra
+				duration = 365
+				}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0
+				NOT = {
+					scaled_wealth = 3.0
+				}
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					learning = 8
+				}
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					piety = 100
+				}
+			}
+		}
+	}
+
+	make_sacrifice_parendi = {
+		potential = {
+			is_ruler = yes
+			age = 16
+			is_female = no
+			prisoner = no
+			religion_group = zoroastrian_group
+			OR = {
+				NOT = { has_character_flag = made_sacrifice_1 }
+				had_character_flag = { flag = made_sacrifice_1 days = 1825 }
+			}
+		}
+		allow = {
+			war = no
+			prisoner = no
+			piety = 100
+		}
+		effect = {
+			scaled_wealth = -0.3
+			piety = -30
+			clr_character_flag = made_sacrifice_1
+			set_character_flag = made_sacrifice_1
+			add_character_modifier = {
+				name = zoroastrian_sacrifice_parendi
+				duration = 365
+				}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0
+				NOT = {
+					scaled_wealth = 3.0
+				}
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					learning = 8
+				}
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					piety = 100
+				}
+			}
+		}
+	}
+
+	make_sacrifice_chisti = {
+		potential = {
+			is_ruler = yes
+			age = 16
+			is_female = no
+			prisoner = no
+			religion_group = zoroastrian_group
+			OR = {
+				NOT = { has_character_flag = made_sacrifice_1 }
+				had_character_flag = { flag = made_sacrifice_1 days = 1825 }
+			}
+		}
+		allow = {
+			war = no
+			prisoner = no
+			piety = 100
+		}
+		effect = {
+			scaled_wealth = -0.3
+			piety = -30
+			clr_character_flag = made_sacrifice_1
+			set_character_flag = made_sacrifice_1
+			add_character_modifier = {
+				name = zoroastrian_sacrifice_chisti
+				duration = 365
+				}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0
+				NOT = {
+					scaled_wealth = 3.0
+				}
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					learning = 8
+				}
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					piety = 100
+				}
+			}
+		}
+	}
+#####Rebuild Persepolis
+	rebuild_persepolis = {
+		is_high_prio = yes
+		potential = {
+			is_ruler = yes
+			age = 16
+			religion_group = zoroastrian_group
+			NOT = { has_global_flag = persepolis_rebuilt }
+			NOT = { has_global_flag = rebuilding_persepolis }
+		}
+		allow = {
+			wealth = 500
+			has_landed_title = b_perozabad
+			capital_scope = {
+				province_id = 643
+			}
+			OR = {
+				has_landed_title = k_persia
+				has_landed_title = e_persia
+				}
+			war = no
+			prisoner = no		
+		}
+		effect = {
+			capital_scope = {
+				province_event = { id = VIETnam.11 }
+			}
+			set_global_flag = rebuilding_persepolis
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0
+				NOT = {
+					scaled_wealth = 5.0
+				}
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					learning = 8
+				}
+			}
+		}
+	}
+#####Cleansing ritual
+	undergo_cleansing_ritual = {
+		potential = {
+			is_ruler = yes
+			age = 16
+			is_female = no
+			prisoner = no
+			religion_group = zoroastrian_group
+			OR = {
+				NOT = { has_character_flag = undergoing_cleansing_ritual }
+				had_character_flag = { flag = undergoing_cleansing_ritual days = 1825 }
+			}
+		}
+		allow = {
+			war = no
+			any_demesne_title = {
+				is_occupied = no
+			}
+			scaled_wealth = 0.30
+			prisoner = no
+		}
+		effect = {
+			scaled_wealth = -0.30
+			piety = 25
+			clr_character_flag = undergoing_cleansing_ritual
+			set_character_flag = undergoing_cleansing_ritual
+			add_character_modifier = {
+				name = zoroastrian_cleansing
+				duration = 365
+				}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0
+				NOT = {
+					scaled_wealth = 10.0
+				}
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					learning = 8
+				}
+			}
+			modifier = {
+				factor = 0
+				piety = 100
+			}
+		}
+	}
+}
