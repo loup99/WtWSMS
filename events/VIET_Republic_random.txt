@@ -1,0 +1,955 @@
+###########################################
+#
+# Various Republic Events
+#
+#
+#
+###########################################
+
+
+namespace = VIETrepublic
+
+#######################################
+# New Dynastic Marriage Events
+#######################################
+
+#SWEETHEARTS
+
+# Family member marries childhood friend (AI)
+character_event = {
+	id = VIETrepublic.0
+	hide_window = yes
+	
+	ai = yes
+	capable_only = yes
+	prisoner = no
+	min_age = 18
+	only_men = yes
+	
+	trigger = {
+		always = no #not finished yet
+		is_married = no
+		is_betrothed = no
+		is_primary_heir = no
+		is_pretender = no
+		is_theocracy = no
+		is_priest = no
+		liege = {
+			NOT = { any_child = { character = ROOT } }
+			is_patrician = yes
+			dynasty = ROOT
+		}
+		NOT = { age = 30 }
+	}
+	
+	mean_time_to_happen = {
+		months = 300
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				age = 18
+				NOT = { age = 22 }
+			}
+			liege = {
+				character_event = { id = VIETrepublic.1 }
+			}
+		}
+		if = {
+			limit = {
+				age = 22
+				NOT = { age = 26 }
+			}
+			liege = {
+				character_event = { id = VIETrepublic.2 }
+			}
+		}
+		if = {
+			limit = {
+				age = 26
+				NOT = { age = 30 }
+			}
+			liege = {
+				character_event = { id = VIETrepublic.3 }
+			}
+		}
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Family member marries childhood friend (age 18-22)
+character_event = {
+	id = VIETrepublic.1
+	desc = VIETrepublic.1.desc
+	picture = GFX_evt_marriage
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETrepublic.1.a
+		
+		FROM = {
+			create_character = {
+				random_traits = yes
+				dynasty = NONE
+				female = yes
+				age = 20
+				religion = FROM
+				culture = FROM
+			}
+			new_character = {
+				add_spouse = PREV
+				# Her traits aren't that random
+				random = {
+					chance = 10
+					add_trait = fair
+				}
+				random = {
+					chance = 10
+					add_trait = tall
+				}
+				random = {
+					chance = 25
+					add_trait = gregarious
+				}
+				random = {
+					chance = 10
+					add_trait = patient
+				}
+				random = {
+					chance = 10
+					add_trait = humble
+				}
+			}
+		}
+	}
+}
+
+# Family member marries childhood friend (age 22-26)
+character_event = {
+	id = VIETrepublic.2
+	desc = VIETrepublic.2.desc
+	picture = GFX_evt_marriage
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETrepublic.2.a
+		
+		FROM = {
+			create_character = {
+				random_traits = yes
+				dynasty = NONE
+				female = yes
+				age = 24
+				religion = FROM
+				culture = FROM
+			}
+			new_character = {
+				add_spouse = PREV
+				# Her traits aren't that random
+				random = {
+					chance = 10
+					add_trait = fair
+				}
+				random = {
+					chance = 10
+					add_trait = tall
+				}
+				random = {
+					chance = 25
+					add_trait = gregarious
+				}
+				random = {
+					chance = 10
+					add_trait = patient
+				}
+				random = {
+					chance = 10
+					add_trait = humble
+				}
+			}
+		}
+	}
+}
+
+# Family member marries childhood friend (age 26-30)
+character_event = {
+	id = VIETrepublic.3
+	desc = VIETrepublic.3.desc
+	picture = GFX_evt_marriage
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETrepublic.3.a
+		
+		FROM = {
+			create_character = {
+				random_traits = yes
+				dynasty = NONE
+				female = yes
+				age = 28
+				religion = FROM
+				culture = FROM
+			}
+			new_character = {
+				add_spouse = PREV
+				# Her traits aren't that random
+				random = {
+					chance = 10
+					add_trait = fair
+				}
+				random = {
+					chance = 10
+					add_trait = tall
+				}
+				random = {
+					chance = 25
+					add_trait = gregarious
+				}
+				random = {
+					chance = 10
+					add_trait = patient
+				}
+				random = {
+					chance = 10
+					add_trait = humble
+				}
+			}
+		}
+	}
+}
+
+
+
+# Family member marries orphan (AI)
+character_event = {
+	id = VIETrepublic.4
+	hide_window = yes
+	
+	ai = yes
+	capable_only = yes
+	prisoner = no
+	min_age = 20
+	only_men = yes
+	
+	trigger = {
+		always = no #not finished yet
+		is_married = no
+		is_betrothed = no
+		is_primary_heir = no
+		is_pretender = no
+		is_theocracy = no
+		is_priest = no
+		liege = {
+			NOT = { any_child = { character = ROOT } }
+			is_patrician = yes
+			dynasty = ROOT
+		}
+		NOT = { age = 32 }
+		OR = {
+			trait = kind
+			trait = charitable
+			trait = patient
+			trait = humble
+		}
+		NOT = { trait = cruel }
+		NOT = { trait = arbitrary }
+		NOT = { trait = envious }
+	}
+	
+	mean_time_to_happen = {
+		months = 300
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				age = 20
+				NOT = { age = 26 }
+			}
+			liege = {
+				character_event = { id = VIETrepublic.5 }
+			}
+		}
+		if = {
+			limit = {
+				age = 26
+				NOT = { age = 32 }
+			}
+			liege = {
+				character_event = { id = VIETrepublic.6 }
+			}
+		}
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Family member marries orphan (age 20-26)
+character_event = {
+	id = VIETrepublic.5
+	desc = VIETrepublic.5.desc
+	picture = GFX_evt_marriage
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETrepublic.5.a
+		
+		FROM = {
+			create_character = {
+				random_traits = yes
+				dynasty = NONE
+				female = yes
+				age = 16
+				religion = FROM
+				culture = FROM
+			}
+			new_character = {
+				add_spouse = PREV
+				# Her traits aren't that random
+				random = {
+					chance = 10
+					add_trait = fair
+				}
+				random = {
+					chance = 10
+					add_trait = quick
+				}
+				random = {
+					chance = 66
+					add_trait = kind
+				}
+				random = {
+					chance = 66
+					add_trait = charitable
+				}
+				random = {
+					chance = 25
+					add_trait = humble
+				}
+				random = {
+					chance = 25
+					add_trait = trusting
+				}
+				remove_trait = greedy
+				remove_trait = incapable
+				remove_trait = envious
+				remove_trait = cruel
+				remove_trait = impaler
+			}
+		}
+	}
+}
+
+# Family member marries orphan (age 26-32)
+character_event = {
+	id = VIETrepublic.6
+	desc = VIETrepublic.6.desc
+	picture = GFX_evt_marriage
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETrepublic.6.a
+		
+		FROM = {
+			create_character = {
+				random_traits = yes
+				dynasty = NONE
+				female = yes
+				age = 22
+				religion = FROM
+				culture = FROM
+			}
+			new_character = {
+				add_spouse = PREV
+				# Her traits aren't that random
+				random = {
+					chance = 10
+					add_trait = fair
+				}
+				random = {
+					chance = 10
+					add_trait = quick
+				}
+				random = {
+					chance = 66
+					add_trait = kind
+				}
+				random = {
+					chance = 66
+					add_trait = charitable
+				}
+				random = {
+					chance = 25
+					add_trait = humble
+				}
+				random = {
+					chance = 25
+					add_trait = trusting
+				}
+				remove_trait = greedy
+				remove_trait = incapable
+				remove_trait = envious
+				remove_trait = cruel
+				remove_trait = impaler
+			}
+		}
+	}
+}
+
+
+# Family member marries older friend (AI)
+character_event = {
+	id = VIETrepublic.7
+	hide_window = yes
+	
+	ai = yes
+	capable_only = yes
+	prisoner = no
+	min_age = 16
+	only_men = yes
+	
+	trigger = {
+		always = no #not finished yet
+		is_married = no
+		is_betrothed = no
+		is_primary_heir = no
+		is_pretender = no
+		is_theocracy = no
+		is_priest = no
+		liege = {
+			NOT = { any_child = { character = ROOT } }
+			is_patrician = yes
+			dynasty = ROOT
+		}
+		NOT = { age = 28 }
+	}
+	
+	mean_time_to_happen = {
+		months = 300
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				age = 16
+				NOT = { age = 20 }
+			}
+			liege = {
+				character_event = { id = VIETrepublic.8 }
+			}
+		}
+		if = {
+			limit = {
+				age = 20
+				NOT = { age = 24 }
+			}
+			liege = {
+				character_event = { id = VIETrepublic.9 }
+			}
+		}
+		if = {
+			limit = {
+				age = 24
+				NOT = { age = 28 }
+			}
+			liege = {
+				character_event = { id = VIETrepublic.10 }
+			}
+		}
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Family member marries older friend (age 16-20)
+character_event = {
+	id = VIETrepublic.8
+	desc = VIETrepublic.8.desc
+	picture = GFX_evt_marriage
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETrepublic.8.a
+		
+		FROM = {
+			create_character = {
+				random_traits = yes
+				dynasty = NONE
+				female = yes
+				age = 24
+				religion = FROM
+				culture = FROM
+			}
+			new_character = {
+				add_spouse = PREV
+				# Her traits aren't that random
+				random = {
+					chance = 10
+					add_trait = fair
+				}
+				random = {
+					chance = 10
+					add_trait = tall
+				}
+				random = {
+					chance = 25
+					add_trait = gregarious
+				}
+				random = {
+					chance = 25
+					add_trait = patient
+				}
+				random = {
+					chance = 10
+					add_trait = kind
+				}
+				random = {
+					chance = 10
+					add_trait = just
+				}
+				random = {
+					chance = 10
+					add_trait = charitable
+				}
+			}
+		}
+	}
+}
+
+# Family member marries older friend (age 20-24)
+character_event = {
+	id = VIETrepublic.9
+	desc = VIETrepublic.9.desc
+	picture = GFX_evt_marriage
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETrepublic.9.a
+		
+		FROM = {
+			create_character = {
+				random_traits = yes
+				dynasty = NONE
+				female = yes
+				age = 28
+				religion = FROM
+				culture = FROM
+			}
+			new_character = {
+				add_spouse = PREV
+				# Her traits aren't that random
+				random = {
+					chance = 10
+					add_trait = fair
+				}
+				random = {
+					chance = 10
+					add_trait = tall
+				}
+				random = {
+					chance = 25
+					add_trait = gregarious
+				}
+				random = {
+					chance = 25
+					add_trait = patient
+				}
+				random = {
+					chance = 10
+					add_trait = kind
+				}
+				random = {
+					chance = 10
+					add_trait = just
+				}
+				random = {
+					chance = 10
+					add_trait = charitable
+				}
+			}
+		}
+	}
+}
+
+# Family member marries older friend (age 24-28)
+character_event = {
+	id = VIETrepublic.10
+	desc = VIETrepublic.10.desc
+	picture = GFX_evt_marriage
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETrepublic.10.a
+		
+		FROM = {
+			create_character = {
+				random_traits = yes
+				dynasty = NONE
+				female = yes
+				age = 32
+				religion = FROM
+				culture = FROM
+			}
+			new_character = {
+				add_spouse = PREV
+				# Her traits aren't that random
+				random = {
+					chance = 10
+					add_trait = fair
+				}
+				random = {
+					chance = 10
+					add_trait = tall
+				}
+				random = {
+					chance = 25
+					add_trait = gregarious
+				}
+				random = {
+					chance = 25
+					add_trait = patient
+				}
+				random = {
+					chance = 10
+					add_trait = kind
+				}
+				random = {
+					chance = 10
+					add_trait = just
+				}
+				random = {
+					chance = 10
+					add_trait = charitable
+				}
+			}
+		}
+	}
+}
+
+
+
+# Family member marries personality (AI)
+character_event = {
+	id = VIETrepublic.11
+	hide_window = yes
+	
+	ai = yes
+	capable_only = yes
+	prisoner = no
+	min_age = 18
+	max_age = 40
+	only_men = yes
+	
+	trigger = {
+		always = no #not finished yet
+		is_married = no
+		is_betrothed = no
+		is_primary_heir = no
+		is_pretender = no
+		liege = {
+			NOT = { any_child = { character = ROOT } }
+			is_patrician = yes
+			dynasty = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 250
+	}
+	
+	immediate = {
+		random_list = {
+			25 = {
+				liege = {
+					character_event = { id = VIETrepublic.12 }
+				}
+			}
+			25 = {
+				liege = {
+					character_event = { id = VIETrepublic.13 }
+				}
+			}
+			25 = {
+				liege = {
+					character_event = { id = VIETrepublic.14 }
+				}
+			}
+			25 = {
+				liege = {
+					character_event = { id = VIETrepublic.15 }
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+
+# Family member marries tomboy
+character_event = {
+	id = VIETrepublic.12
+	desc = VIETrepublic.12.desc
+	picture = GFX_evt_marriage
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETrepublic.12.a
+		FROM = {
+			create_random_soldier = {
+				random_traits = yes
+				dynasty = NONE
+				female = yes
+				religion = FROM
+				culture = FROM
+			}
+			new_character = {
+				add_spouse = PREV
+				# Her traits aren't that random
+				random = {
+					chance = 25
+					add_trait = strong
+				}
+				random = {
+					chance = 10
+					add_trait = quick
+				}
+				random = {
+					chance = 10
+					add_trait = agile
+				}
+				random = {
+					chance = 10
+					add_trait = tall
+				}
+				random = {
+					chance = 75
+					add_trait = brave
+				}
+				random = {
+					chance = 25
+					add_trait = wroth
+				}
+				random = {
+					chance = 25
+					add_trait = duelist
+				}
+				random = {
+					chance = 25
+					add_trait = falconer
+				}
+				random = {
+					chance = 25
+					add_trait = hunter
+				}
+				random = {
+					chance = 25
+					add_trait = proud
+				}
+				remove_trait = craven
+			}
+		}
+	}
+}
+
+# Family member marries Senjougahara
+character_event = {
+	id = VIETrepublic.13
+	desc = VIETrepublic.13.desc
+	picture = GFX_evt_marriage
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETrepublic.13.a
+		FROM = {
+			create_character = {
+				random_traits = yes
+				dynasty = NONE
+				female = yes
+				religion = FROM
+				culture = FROM
+			}
+			new_character = {
+				add_spouse = PREV
+				# Her traits aren't that random
+				random = {
+					chance = 15
+					add_trait = quick
+				}
+				random = {
+					chance = 5
+					add_trait = genius
+				}
+				random = {
+					chance = 10
+					add_trait = fair
+				}
+				random = {
+					chance = 10
+					add_trait = strong
+				}
+				random = {
+					chance = 66
+					add_trait = wroth
+				}
+				random = {
+					chance = 66
+					add_trait = cruel
+				}
+				random = {
+					chance = 25
+					add_trait = proud
+				}
+				random = {
+					chance = 25
+					add_trait = kind
+				}
+				random = {
+					chance = 25
+					add_trait = gregarious
+				}
+				random = {
+					chance = 66
+					add_trait = chaste
+				}
+				random = {
+					chance = 25
+					add_trait = brave
+				}
+				remove_trait = craven
+				remove_trait = patient
+				remove_trait = humble
+				remove_trait = shy
+				remove_trait = lustful
+			}
+		}
+	}
+}
+
+# Family member marries bimbo
+character_event = {
+	id = VIETrepublic.14
+	desc = VIETrepublic.14.desc
+	picture = GFX_evt_marriage
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETrepublic.14.a
+		FROM = {
+			create_character = {
+				random_traits = yes
+				trait = slow
+				dynasty = NONE
+				female = yes
+				religion = FROM
+				culture = FROM
+			}
+			new_character = {
+				add_spouse = PREV
+				# Her traits aren't that random
+				random = {
+					chance = 25
+					remove_trait = slow
+					add_trait = imbecile
+				}
+				random = {
+					chance = 25
+					remove_trait = slow
+					add_trait = absentminded
+				}
+				remove_trait = genius
+				remove_trait = quick
+				remove_trait = perceptive
+			}
+		}
+	}
+}
+
+# Family member marries angel
+character_event = {
+	id = VIETrepublic.15
+	desc = VIETrepublic.15.desc
+	picture = GFX_evt_marriage
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETrepublic.15.a
+		FROM = {
+			create_character = {
+				random_traits = yes
+				dynasty = NONE
+				female = yes
+				religion = FROM
+				culture = FROM
+			}
+			new_character = {
+				add_spouse = PREV
+				# Her traits aren't that random
+				random = {
+					chance = 50
+					add_trait = kind
+				}
+				random = {
+					chance = 50
+					add_trait = charitable
+				}
+				random = {
+					chance = 50
+					add_trait = patient
+				}
+				random = {
+					chance = 50
+					add_trait = chaste
+				}
+				random = {
+					chance = 50
+					add_trait = humble
+				}
+				random = {
+					chance = 25
+					add_trait = just
+				}
+				random = {
+					chance = 25
+					add_trait = trusting
+				}
+				random = {
+					chance = 25
+					add_trait = just
+				}
+				remove_trait = cruel
+				remove_trait = envious
+				remove_trait = greedy
+				remove_trait = wroth
+				remove_trait = lustful
+				remove_trait = proud
+				remove_trait = slothful
+				remove_trait = deceitful
+				remove_trait = arbitrary
+				remove_trait = impaler
+			}
+		}
+	}
+}

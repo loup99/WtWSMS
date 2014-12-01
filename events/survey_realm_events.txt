@@ -1,0 +1,3131 @@
+###################################
+#
+# Survey Realm Events
+#
+# Reserved: VIETnam.33 - VIETnam.70
+#
+#
+###################################
+
+namespace = VIETsurvey
+namespace = qimatheliar
+
+#Survey Realm interrupted
+character_event = {
+	id = VIETnam.33
+	desc = "EVTDESC1000109048"
+	picture = GFX_evt_coming_home
+	
+	trigger = {
+		has_character_flag = surveyed_realm
+		trait = traveling
+		war = yes
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = "EVTOPTA1000109048"	
+	}
+}
+
+
+#Remove Realm Survey flag, allowing character to survey realm again
+character_event = {
+	id = VIETnam.34
+	desc = "EVTDESC1000109049"
+	picture = GFX_evt_small_town
+	
+	trigger = {
+		has_character_flag = surveyed_realm
+		had_character_flag = { flag = surveyed_realm days = 1825 }
+	}
+	
+	mean_time_to_happen = {
+		days = 7300
+		
+		modifier = {
+			factor = 0.8
+			trait = ambitious
+		}
+		modifier = {
+			factor = 0.8
+			trait = diligent
+		}
+		modifier = {
+			factor = 2
+			trait = slothful
+		}
+		modifier = {
+			factor = 2
+			trait = content
+		}
+		modifier = {
+			factor = 0.8
+			trait = just
+		}
+		modifier = {
+			factor = 0.8
+			trait = gregarious
+		}
+		modifier = {
+			factor = 1.3
+			trait = shy
+		}
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		modifier = {
+			factor = 0.9
+			trait = poet
+		}
+		modifier = {
+			factor = 0.9
+			trait = hedonist
+		}
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		modifier = {
+			factor = 1.5
+			trait = paranoid
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA1000109049"
+		clr_character_flag = surveyed_realm
+	}
+}
+
+#Preparations for Realm Survey
+character_event = {
+	id = VIETnam.35
+	desc = "EVTDESC1000109050"
+	picture = GFX_evt_emissary
+	
+	trigger = {
+		has_character_flag = begin_survey_realm
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+
+		modifier = {
+			factor = 0.001
+			is_ruler = yes
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA1000109050"
+		clr_character_flag = begin_survey_realm
+		character_event = { id = VIETnam.36 days = 3 tooltip = "EVTTOOLTIP1000109050" }
+	}
+}
+
+
+#Begin Survey Realm
+character_event = {
+	id = VIETnam.36
+	desc = "EVTDESC1000109051"
+	picture = GFX_evt_travel
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		hidden_tooltip = {
+			character_event = { id = VIETnam.37 days = 11 }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA1000109051"
+		add_trait = traveling
+		hidden_tooltip = { #Qi Ma the Liar
+			random_list = {
+				90 = { }
+				10 = {  character_event = { id = VIETnam.40 days = 3 random = 3 } set_character_flag = maiq_the_liar }
+			}
+		}
+		hidden_tooltip = {
+			random_list = {
+				#Conflict (4)
+				3 = {  character_event = { id = VIETnam.55 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.56 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.46 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.47 days = 2 random = 3 } }
+				#Society (4)
+				3 = {  character_event = { id = VIETnam.48 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.49 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.50 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.51 days = 2 random = 3 } }
+				#Relations (4)
+				3 = {  character_event = { id = VIETnam.53 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.54 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.58 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.60 days = 2 random = 3 } }
+				#Intrigue (4)
+				3 = {  character_event = { id = VIETnam.61 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.62 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.63 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.64 days = 2 random = 3 } }
+				#Nature (4)
+				3 = {  character_event = { id = VIETnam.66 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.67 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.68 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.70 days = 2 random = 3 } }
+				#Set 2 (13)
+				4 = {  character_event = { id = VIETsurvey.1 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.2 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.3 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.4 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.5 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.6 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.7 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.8 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.9 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.10 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.11 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.13 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.16 days = 2 random = 3 } }
+			}
+		}
+	}
+}
+
+
+#Middle Survey Realm
+character_event = {
+	id = VIETnam.37
+	desc = "EVTDESC1000109052"
+	picture = GFX_evt_travel
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		hidden_tooltip = {
+			character_event = { id = VIETnam.38 days = 11 }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA1000109052"
+		if = {
+			limit = {
+				NOT = { has_character_flag = maiq_the_liar }
+			}
+			hidden_tooltip = { #Qi Ma the Liar
+				random_list = {
+					90 = { }
+					10 = {  character_event = { id = VIETnam.40 days = 2 random = 3 } set_character_flag = maiq_the_liar }
+				}
+			}
+		}
+		hidden_tooltip = {
+			random_list = {
+				#Conflict (4)
+				3 = {  character_event = { id = VIETnam.55 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.56 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.46 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.47 days = 2 random = 3 } }
+				#Society (4)
+				3 = {  character_event = { id = VIETnam.48 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.49 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.50 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.51 days = 2 random = 3 } }
+				#Relations (4)
+				3 = {  character_event = { id = VIETnam.53 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.54 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.58 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.60 days = 2 random = 3 } }
+				#Intrigue (4)
+				3 = {  character_event = { id = VIETnam.61 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.62 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.63 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.64 days = 2 random = 3 } }
+				#Nature (4)
+				3 = {  character_event = { id = VIETnam.66 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.67 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.68 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.70 days = 2 random = 3 } }
+				#Set 2 (13)
+				4 = {  character_event = { id = VIETsurvey.1 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.2 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.3 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.4 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.5 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.6 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.7 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.8 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.9 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.10 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.11 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.13 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.16 days = 2 random = 3 } }
+			}
+		}
+	}
+}
+
+#Nearing end of Realm Survey
+character_event = {
+	id = VIETnam.38
+	desc = "EVTDESC1000109053"
+	picture = GFX_evt_travel
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		hidden_tooltip = {
+			character_event = { id = VIETnam.39 days = 11 }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA1000109053"
+		if = {
+			limit = {
+				NOT = { has_character_flag = maiq_the_liar }
+			}
+			hidden_tooltip = { #Qi Ma the Liar
+				random_list = {
+					90 = { }
+					10 = {  character_event = { id = VIETnam.40 days = 2 random = 2 } set_character_flag = maiq_the_liar }
+				}
+			}
+		}
+		hidden_tooltip = {
+			random_list = {
+				#Conflict (4)
+				3 = {  character_event = { id = VIETnam.55 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.56 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.46 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.47 days = 2 random = 3 } }
+				#Society (4)
+				3 = {  character_event = { id = VIETnam.48 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.49 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.50 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.51 days = 2 random = 3 } }
+				#Relations (4)
+				3 = {  character_event = { id = VIETnam.53 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.54 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.58 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.60 days = 2 random = 3 } }
+				#Intrigue (4)
+				3 = {  character_event = { id = VIETnam.61 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.62 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.63 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.64 days = 2 random = 3 } }
+				#Nature (4)
+				3 = {  character_event = { id = VIETnam.66 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.67 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.68 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETnam.70 days = 2 random = 3 } }
+				#Set 2 (13)
+				4 = {  character_event = { id = VIETsurvey.1 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.2 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.3 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.4 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.5 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.6 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.7 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.8 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.9 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.10 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.11 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.13 days = 2 random = 3 } }
+				3 = {  character_event = { id = VIETsurvey.16 days = 2 random = 3 } }
+			}
+		}
+	}
+}
+
+#Finish Realm Survey
+character_event = {
+	id = VIETnam.39
+	desc = "EVTDESC1000109054"
+	picture = GFX_evt_coming_home
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA1000109054"
+		prestige = 25
+		remove_trait = traveling
+		clr_character_flag = maiq_the_liar
+	}
+}
+
+
+##########################################################################
+# Conflict Type Events
+##########################################################################
+
+#Character stumbles on an "abandoned" bandit camp
+character_event = {
+	id = VIETnam.55
+	desc = "EVTDESC1000109071"
+	picture = GFX_evt_battle
+	
+	is_triggered_only = yes
+	
+	option = { #Fighto
+		name = "EVTOPTA1000109071"
+		trigger = {
+			NOT = { trait = craven }
+		}
+		prestige = 25
+		random_list = {
+			70 = {}
+			10 = { change_martial = 1 }
+			15 = {
+				add_trait = wounded
+				hidden_tooltip = { character_event = { id = 38280 } }
+			}
+			4 = {
+				add_trait = maimed
+				hidden_tooltip = { character_event = { id = 38281 } }
+			}
+			1 = {
+				death = {
+					death_reason = death_accident
+				}
+			}
+		}		
+	}
+	
+	option = { #Get help
+		name = "EVTOPTB1000109071"
+		prestige = 5
+		trigger = {
+			NOT = { trait = brave }
+		}
+		random_list = {
+			70 = {}
+			12 = { change_martial = 1 }
+			5 = {
+				add_trait = wounded
+				hidden_tooltip = { character_event = { id = 38280 } }
+			}
+			2 = {
+				add_trait = maimed
+				hidden_tooltip = { character_event = { id = 38281 } }
+			}
+			1 = {
+				death = {
+					death_reason = death_accident
+				}
+			}
+		}
+	}
+}
+
+#Character comes across a caravan of massacred merchants
+character_event = {
+	id = VIETnam.56
+	desc = "EVTDESC1000109072"
+	picture = GFX_evt_pale_rider
+	
+	is_triggered_only = yes
+	
+	option = { #Steal - Dead anyways
+		name = "EVTOPTA1000109072"
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 4
+				trait = greedy
+			}
+			modifier = {
+				factor = 1.2
+				trait = cynical
+			}
+			modifier = {
+				factor = 2
+				trait = arbitrary
+			}
+			modifier = {
+				factor = 1.2
+				trait = gluttonous
+			}
+			modifier = {
+				factor = 0.5
+				trait = charitable
+			}
+			modifier = {
+				factor = 0.3
+				trait = just
+			}
+			modifier = {
+				factor = 0.7
+				trait = temperate
+			}
+			modifier = {
+				factor = 0.7
+				trait = kind
+			}
+		}
+		random_list = {
+			50 = { wealth = 1 }
+			30 = { wealth = 2 }
+			15 = { wealth = 5 }
+			4 = { wealth = 10 }
+			1 = { wealth = 20 }
+		}
+		random_list = {
+			30 = { add_trait = greedy }
+			10 = { add_trait = arbitrary }
+			60 = { }
+		}
+	}
+	
+	option = { #Don't steal and bury properly
+		name = "EVTOPTB1000109072"
+		trigger = {
+			NOT = { trait = greedy }
+		}
+		ai_chance = {
+			factor = 3
+			modifier = {
+				factor = 1.5
+				trait = just
+			}
+			modifier = {
+				factor = 1.2
+				trait = zealous
+			}
+			modifier = {
+				factor = 1.2
+				trait = kind
+			}
+			modifier = {
+				factor = 0.5
+				trait = arbitrary
+			}
+			modifier = {
+				factor = 0.3
+				trait = greedy
+			}
+			modifier = {
+				factor = 0.8
+				trait = gluttonous
+			}
+		}
+		wealth = -1
+		piety = 10
+		random_list = {
+			20 = { add_trait = just }
+			10 = { add_trait = kind }
+			70 = { }
+		}
+	}	
+}
+
+#Character attacked by bandits, bandits defeated
+character_event = {
+	id = VIETnam.46
+	desc = "EVTDESC1000109061"
+	picture = GFX_evt_bandits
+	
+	is_triggered_only = yes
+	
+	option = { #Release the bandits
+		name = "EVTOPTA1000109061"
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 4
+				trait = kind
+			}
+			modifier = {
+				factor = 1.5
+				trait = patient
+			}
+			modifier = {
+				factor = 2
+				trait = trusting
+			}
+			modifier = {
+				factor = 1.5
+				trait = content
+			}
+			modifier = {
+				factor = 0.1
+				trait = cruel
+			}
+			modifier = {
+				factor = 0.7
+				trait = envious
+			}
+			modifier = {
+				factor = 0.1
+				trait = wroth
+			}
+			modifier = {
+				factor = 0.1
+				trait = paranoid
+			}
+		}
+		prestige = 5
+		random_list = {
+			15 = { add_trait = kind }
+			15 = { add_trait = trusting }
+			70 = { }
+		}
+		add_character_modifier = {
+			name = the_merciful
+			duration = 365
+		}
+	}
+	
+	option = { #Imprison them
+		name = "EVTOPTB1000109061"
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 3
+				trait = just
+			}
+			modifier = {
+				factor = 1.5
+				trait = patient
+			}
+			modifier = {
+				factor = 1.5
+				trait = diligent
+			}
+			modifier = {
+				factor = 1.5
+				trait = impaler
+			}
+			modifier = {
+				factor = 0.1
+				trait = cruel
+			}
+			modifier = {
+				factor = 0.7
+				trait = envious
+			}
+			modifier = {
+				factor = 0.3
+				trait = arbitrary
+			}
+			modifier = {
+				factor = 0.9
+				trait = content
+			}
+		}
+		prestige = 10
+	}
+
+	option = { #Execute them
+		name = "EVTOPTC1000109061"
+		trigger = {
+			NOT = { trait = kind }
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 3
+				trait = cruel
+			}
+			modifier = {
+				factor = 1.5
+				trait = wroth
+			}
+			modifier = {
+				factor = 1.5
+				trait = paranoid
+			}
+			modifier = {
+				factor = 0.3
+				trait = trusting
+			}
+			modifier = {
+				factor = 0.4
+				trait = patient
+			}
+		}
+		prestige = 5
+		random_list = {
+			20 = { add_trait = wroth }
+			10 = { add_trait = cruel }
+			70 = { }
+		}
+	}
+}
+
+#Character comes across unburied skeleton
+character_event = {
+	id = VIETnam.47
+	desc = "EVTDESC1000109062"
+	picture = GFX_evt_bloody_man
+	
+	is_triggered_only = yes
+	
+	option = { #Proper burial
+		name = "EVTOPTA1000109062"
+		wealth = -1
+		piety = 5
+		character_event = {
+			id = VIETnam.57
+			tooltip = "EVTTOOLTIP1000109075"
+		}
+	}
+	
+	option = { #Pray for the soul
+		name = "EVTOPTB1000109062"
+		piety = 20
+	}	
+}
+
+#Ghost of skeleton appears and tells character location of treasure
+character_event = {
+	id = VIETnam.57
+	desc = "EVTDESC1000109075"
+	picture = GFX_evt_pale_rider
+	
+	is_triggered_only = yes
+	
+	
+	option = { #Find treasure
+		name = "EVTOPTA1000109075"
+		prestige = 5
+		random_list = {
+			50 = { wealth = 5 }
+			30 = { wealth = 10 }
+			15 = { wealth = 20 }
+			4 = { wealth = 30 }
+			1 = { wealth = 40 }
+		}
+	}
+	
+	option = { #Refuse treasure
+		name = "EVTOPTB1000109075"
+		trigger = {
+			NOT = { trait = greedy }
+		}
+		piety = 20
+		prestige = 10
+		random_list = {
+			25 = { add_trait = humble }
+			25 = { add_trait = just }
+			50 = { }
+		}
+	}	
+}
+
+
+##########################################################################
+# Society Type Events
+##########################################################################
+
+# Minor Outpost Falling into Disrepair
+character_event = {
+	id = VIETnam.48
+	desc = "EVTDESC1000109063"
+	picture = GFX_evt_castle_construction
+	
+	is_triggered_only = yes
+	
+	
+	option = { #How Unfortunate
+		name = "EVTOPTA1000109063"
+	}
+	
+	option = { #Give outpost some money
+		name = "EVTOPTB1000109063"
+		scaled_wealth = -0.05
+		prestige = 10
+		random_list = {
+			80 = { }
+			15 = { change_stewardship = 1 }
+			5 = { change_martial = 1 }
+		}
+	}
+	
+	option = { #Bring in help from afar
+		name = "EVTOPTC1000109063"
+		scaled_wealth = -0.15
+		prestige = 20
+		random_list = {
+			65 = { }
+			25 = { change_stewardship = 1 }
+			10 = { change_martial = 1 }
+		}
+	}	
+}
+
+
+# Character visits a city's Pleasure Quarters
+character_event = {
+	id = VIETnam.49
+	desc = "EVTDESC1000109064"
+	picture = GFX_evt_brothel
+	
+	is_triggered_only = yes
+	
+	
+	option = { #whorehouse
+		name = "EVTOPTA1000109064"
+		tooltip_info = lustful
+		trigger = { 
+			trait = lustful
+		}
+		wealth = -1
+		add_character_modifier = {
+			name = lustful_ruler
+			duration = 365
+		}
+	}
+	
+	option = { #Get a drink
+		name = "EVTOPTB1000109064"
+		wealth = -1
+		prestige = 5
+		random_list = {
+			80 = { }
+			17 = { add_trait = gregarious }
+			3 = { add_trait = drunkard }
+		}
+	}
+	
+	option = { #Take a walk
+		name = "EVTOPTC1000109064"
+		prestige = 2
+	}
+
+	option = { #Pray at Church
+		name = "EVTOPTD1000109064"
+		trigger = { 
+			religion_group = christian
+		}
+		piety = 5
+	}
+
+	option = { #Pray at Mosque
+		name = "EVTOPTE1000109064"
+		trigger = { 
+			religion_group = muslim
+		}
+		piety = 5
+	}	
+
+	option = { #Pray at Temple
+		name = "EVTOPTF1000109064"
+		trigger = { 
+			NOT = { religion_group = christian }
+			NOT = { religion_group = muslim }
+		}
+		piety = 5
+	}		
+}
+
+# Character finds about untrained soldiers at a fort
+character_event = {
+	id = VIETnam.50
+	desc = "EVTDESC1000109065"
+	picture = GFX_evt_coming_home
+	
+	is_triggered_only = yes
+	
+	
+	option = { #Funds to help
+		name = "EVTOPTA1000109065"
+		wealth = -5
+	}
+	
+	option = { #Bring help from elsewhere
+		name = "EVTOPTB1000109065"
+		scaled_wealth = -0.05
+		prestige = 10
+		random_list = {
+			95 = { }
+			5 = { change_stewardship = 1 }
+		}
+	}
+	
+	option = { #Train them myself
+		name = "EVTOPTC1000109065"
+		tooltip_info = martial
+		trigger = { 
+			martial = 11
+		}
+		prestige = 15
+	}	
+}
+
+
+# Character comes to a poor village and decides whether to stay for the night
+character_event = {
+	id = VIETnam.51
+	desc = "EVTDESC1000109066"
+	picture = GFX_evt_village_at_night
+	
+	is_triggered_only = yes
+	
+	
+	option = { #Stay for the night
+		name = "EVTOPTA1000109066"
+		prestige = -5
+		character_event = {
+			id = VIETnam.52
+			tooltip = "EVTTOOLTIP1000109067"
+		}
+	}
+	
+	option = { #Leave
+		name = "EVTOPTB1000109066"
+		random_list = {
+			70 = { }
+			20 = { add_trait = proud }
+			10 = { add_trait = paranoid }
+		}
+	}
+		
+}
+
+
+
+# Villagers offer present to character
+character_event = {
+	id = VIETnam.52
+	desc = "EVTDESC1000109067"
+	picture = GFX_evt_small_town
+	
+	is_triggered_only = yes
+	
+	
+	option = { #Refuse it
+		name = "EVTOPTA1000109067"
+		trigger = {
+			NOT = { trait = greedy }
+		}
+		prestige = 5
+		add_character_modifier = {
+			name = the_kind
+			duration = 180
+		}
+	}
+	
+	option = { #Takes it
+		name = "EVTOPTB1000109067"
+		prestige = 5
+		wealth = 1
+	}
+	
+	option = { #Demands more
+		name = "EVTOPTC1000109067"
+		trigger = {
+			NOT = { trait = kind }
+			NOT = { trait = charitable }
+			NOT = { trait = just }
+			NOT = { trait = content }
+		}
+		wealth = 5
+		random_list = {
+			65 = { }
+			25 = { add_trait = greedy }
+			5 = { add_trait = cruel }
+			5 = { add_trait = arbitrary }
+		}
+		add_character_modifier = {
+			name = the_greedy
+			duration = 730
+		}
+	}
+	
+	option = { #Give them presents
+		name = "EVTOPTD1000109067"
+		tooltip_info = charitable
+		trigger = { 
+			trait = charitable
+		}
+		scaled_wealth = -0.1
+		prestige = 10
+		add_character_modifier = {
+			name = the_kind
+			duration = 730
+		}
+	}
+}
+
+
+##########################################################################
+# Relations Events
+##########################################################################
+
+
+
+# Character visits a religious site
+character_event = {
+	id = VIETnam.53
+	desc = "EVTDESC1000109068"
+	picture = GFX_evt_knight_kneeling
+	
+	is_triggered_only = yes
+	
+	
+	option = { #Pray
+		name = "EVTOPTA1000109068"
+		piety = 5
+		random_vassal = {
+			limit = {
+				is_priest = yes
+			}
+			opinion = {
+				modifier = opinion_pleased
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+	
+	option = { #Pray all day
+		name = "EVTOPTB1000109068"
+		tooltip_info = zealous
+		trigger = { 
+			trait = zealous
+		}
+		piety = 10
+		random_vassal = {
+			limit = {
+				is_priest = yes
+			}
+			opinion = {
+				modifier = opinion_impressed
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+	
+	option = { #Donate
+		name = "EVTOPTC1000109068"
+		scaled_wealth = -0.3
+		piety = 15
+		random_list = {
+			70 = { }
+			15 = { add_trait = zealous }
+			15 = { add_trait = charitable }
+		}
+		random_vassal = {
+			limit = {
+				is_priest = yes
+			}
+			opinion = {
+				modifier = approves_of_my_behaviour
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+	
+	option = { #Ignore and move on
+		name = "EVTOPTD1000109068"
+		tooltip_info = cynical
+		trigger = { 
+			trait = cynical
+		}
+		piety = -5
+		add_character_modifier = {
+			name = the_cynical
+			duration = 365
+		}
+		random_vassal = {
+			limit = {
+				is_priest = yes
+			}
+			opinion = {
+				modifier = opinion_angry
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+}
+
+
+# Character visits a vassal who has crappy food
+character_event = {
+	id = VIETnam.54
+	desc = "EVTDESC1000109069"
+	picture = GFX_evt_baklava
+	
+	is_triggered_only = yes
+	
+	
+	option = { #Lie
+		name = "EVTOPTA1000109069"
+		random_list = {
+			80 = { }
+			20 = { add_trait = deceitful }
+		}
+		random_vassal = {
+			limit = {
+				age = 20
+			}
+			opinion = {
+				modifier = opinion_happy
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+	
+	option = { #Tell how it is
+		name = "EVTOPTB1000109069"
+		random_list = {
+			60 = { }
+			20 = { add_trait = cynical }
+			20 = { add_trait = honest }
+		}
+		random_vassal = {
+			limit = {
+				age = 20
+			}
+			opinion = {
+				modifier = opinion_unhappy
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+	
+	option = { #I know where to get good food
+		name = "EVTOPTC1000109069"
+		tooltip_info = stewardship
+		trigger = { 
+			stewardship = 13
+		}
+		random_vassal = {
+			limit = {
+				age = 20
+			}
+			opinion = {
+				modifier = opinion_thankful
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+	
+	option = { #It's good either way
+		name = "EVTOPTD1000109069"
+		piety = 5
+		random_list = {
+			70 = { }
+			30 = { add_trait = content }
+		}
+		random_vassal = {
+			limit = {
+				age = 20
+			}
+			opinion = {
+				modifier = opinion_pleased
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+}
+
+
+# Character finds a lost child in the middle of the forest
+character_event = {
+	id = VIETnam.58
+	desc = "EVTDESC1000109080"
+	picture = GFX_evt_child_play
+	
+	is_triggered_only = yes
+	
+	
+	option = { #Ignore her
+		name = "EVTOPTA1000109080"
+		trigger = {
+			NOT = { trait = kind }
+			NOT = { trait = just }
+			NOT = { trait = charitable }
+		}
+		random_list = {
+			70 = { }
+			10 = { add_trait = arbitrary }
+			30 = { add_trait = cruel }
+		}
+	}
+	
+	option = { #Help her
+		name = "EVTOPTB1000109080"
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 3
+				trait = kind
+			}
+			modifier = {
+				factor = 1.5
+				trait = patient
+			}
+			modifier = {
+				factor = 1.5
+				trait = trusting
+			}
+			modifier = {
+				factor = 1.5
+				trait = charitable
+			}
+			modifier = {
+				factor = 1.5
+				trait = content
+			}
+			modifier = {
+				factor = 0.1
+				trait = cruel
+			}
+			modifier = {
+				factor = 0.7
+				trait = envious
+			}
+			modifier = {
+				factor = 0.1
+				trait = arbitrary
+			}
+			modifier = {
+				factor = 0.7
+				trait = lunatic
+			}
+		}
+		character_event = {
+			id = VIETnam.59
+			tooltip = "EVTTOOLTIP1000109081"
+		}
+	}
+}
+
+
+# Character returns child to her parent
+character_event = {
+	id = VIETnam.59
+	desc = "EVTDESC1000109081"
+	picture = GFX_evt_market
+	
+	is_triggered_only = yes
+	
+	
+	option = { #Only doing my duty
+		name = "EVTOPTA1000109081"
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 2
+				trait = charitable
+			}
+			modifier = {
+				factor = 2
+				trait = just
+			}
+			modifier = {
+				factor = 0.5
+				trait = greedy
+			}
+			modifier = {
+				factor = 0.5
+				trait = arbitrary
+			}
+		}
+		prestige = 10
+		random_list = {
+			70 = { }
+			10 = { add_trait = content }
+			10 = { add_trait = charitable }
+			10 = { add_trait = humble }
+		}
+	}
+	
+	option = { #Take it
+		name = "EVTOPTB1000109081"
+		prestige = 10
+		wealth = 5
+		random_list = {
+			60 = { }
+			20 = { add_trait = charitable }
+			20 = { add_trait = proud }
+		}
+	}
+	
+	option = { #My kids are crazy too
+		name = "EVTOPTC1000109081"
+		trigger = {
+			any_child = {
+				is_alive = yes
+				NOT = { age = 16 }
+			}
+		}
+		add_character_modifier = {
+			name = shared_parent_stories
+			duration = 365
+		}
+	}
+}
+
+# Character meets a talented guard captain
+character_event = {
+	id = VIETnam.60
+	desc = "EVTDESC1000109082"
+	picture = GFX_evt_castle_construction
+	
+	is_triggered_only = yes
+	
+	
+	option = { #Impressive
+		name = "EVTOPTA1000109082"
+		prestige = 10
+		random_vassal = {
+			limit = {
+				age = 20
+				is_priest = no
+			}
+			opinion = {
+				modifier = opinion_flattered
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+	
+	option = { #Bring him to court
+		name = "EVTOPTB1000109082"
+		wealth = -5
+		random_list = {
+			40 = {
+				create_random_soldier = {
+					random_traits = yes
+					dynasty = random
+					attributes = {
+						martial = 6
+					}					
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+			30 = {
+				create_random_soldier = {
+					random_traits = yes
+					dynasty = random
+					attributes = {
+						martial = 8
+					}					
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+			20 = {
+				create_random_soldier = {
+					random_traits = yes
+					dynasty = random
+					attributes = {
+						martial = 10
+					}					
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+			10 = {
+				create_random_soldier = {
+					random_traits = yes
+					dynasty = random
+					attributes = {
+						martial = 13
+					}					
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+	}
+}
+
+
+##########################################################################
+# Intrigue Events
+##########################################################################
+
+
+# Character finds bandits disguised as his soldiers
+character_event = {
+	id = VIETnam.61
+	desc = "EVTDESC1000109083"
+	picture = GFX_evt_melee
+	
+	is_triggered_only = yes
+	
+	
+	option = { #Arrest them
+		name = "EVTOPTA1000109083"
+		prestige = 10
+		random_list = {
+			90 = {}
+			10 = {
+				add_trait = wounded
+				hidden_tooltip = { character_event = { id = 38280 } }
+			}
+		}
+	}
+}
+
+# Character hearing conversations in a town
+character_event = {
+	id = VIETnam.62
+	desc = "EVTDESC1000109084"
+	picture = GFX_evt_small_town
+	
+	is_triggered_only = yes
+	
+	
+	option = { #Arrow to the knee
+		name = "EVTOPTA1000109084"
+		random_list = {
+			75 = { prestige = 1 }
+			5 = { change_diplomacy = 1 }
+			5 = { change_martial = 1 }
+			5 = { change_stewardship = 1 }
+			5 = { change_intrigue = 1 }
+			5 = { change_learning = 1 }
+		}
+	}
+}
+
+# Character hearing conversations in a peasant village
+character_event = {
+	id = VIETnam.63
+	desc = "EVTDESC1000109085"
+	picture = GFX_evt_village_at_night
+	
+	is_triggered_only = yes
+	
+	
+	option = { #Horrible creatures
+		name = "EVTOPTA1000109085"
+		random_list = {
+			75 = { prestige = 1 }
+			5 = { change_diplomacy = 1 }
+			5 = { change_martial = 1 }
+			5 = { change_stewardship = 1 }
+			5 = { change_intrigue = 1 }
+			5 = { change_learning = 1 }
+		}
+	}
+}
+
+# Character meets Glarthir
+character_event = {
+	id = VIETnam.64
+	desc = "EVTDESC1000109086"
+	picture = GFX_evt_village_at_night
+	
+	is_triggered_only = yes
+	
+	
+	option = { #Ignore Glarthir
+		name = "EVTOPTA1000109086"
+	}
+	option = { #Meet Glarthir at midnight
+		name = "EVTOPTB1000109086"
+		character_event = {
+			id = VIETnam.65
+			tooltip = "EVTTOOLTIP1000109087"
+		}
+	}
+}
+
+# Glarthir on the loose
+character_event = {
+	id = VIETnam.65
+	desc = "EVTDESC1000109087"
+	picture = GFX_evt_lunatic
+	
+	is_triggered_only = yes
+	
+	
+	option = { #Arrest Glarthir
+		name = "EVTOPTA1000109087"
+		prestige = 5
+	}
+	option = { #Glarthir on the loose
+		name = "EVTOPTB1000109087"
+		random_list = {
+			70 = { }
+			20 = { add_trait = arbitrary }
+			10 = { add_trait = slothful }
+		}
+	}
+}
+
+
+##########################################################################
+# Nature Events
+##########################################################################
+
+
+# Character comes across traveling baklava Merchant
+character_event = {
+	id = VIETnam.66
+	desc = "EVTDESC1000109088"
+	picture = GFX_evt_baklava
+	
+	is_triggered_only = yes
+	
+	
+	option = { #Buy some
+		name = "EVTOPTA1000109088"
+		trigger = {
+			NOT = { culture_group = byzantine }
+			NOT = { culture = turkish }
+			NOT = { culture = levantine_arabic }
+			NOT = { culture_group = south_slavic }
+			NOT = { culture_group = iranian }
+		}
+		wealth = -3
+		add_character_modifier = {
+			name = best_meal_in_ages
+			duration = 365
+		}
+	}
+	
+	option = { #Buy some (if from appropriate culture)
+		name = "EVTOPTB1000109088"
+		trigger = {
+			OR = {
+				culture_group = byzantine
+				culture = turkish
+				culture = levantine_arabic
+				culture_group = south_slavic
+				culture_group = iranian
+			}
+		}
+		wealth = -3
+		add_character_modifier = {
+			name = best_meal_in_ages
+			duration = 365
+		}
+	}
+
+	option = { #Try a bit
+		name = "EVTOPTC1000109088"
+		wealth = -1
+		add_character_modifier = {
+			name = best_meal_in_ages
+			duration = 90
+		}
+	}
+
+	option = { #Not Interested
+		name = "EVTOPTD1000109088"
+		trigger = {
+			NOT = { trait = gluttonous }
+		}
+		add_character_modifier = {
+			name = the_prude
+			duration = 90
+		}
+	}
+}
+
+# Character comes across city boy harassing peasant girl
+character_event = {
+	id = VIETnam.67
+	desc = "EVTDESC1000109089"
+	picture = GFX_evt_tuscan_country
+	
+	is_triggered_only = yes
+	
+	
+	option = { #Stop harassing her
+		name = "EVTOPTA1000109089"
+		random_list = {
+			50 = { prestige = 1 }
+			50 = { piety = 1 }
+		}
+	}
+	
+	option = { #Learn how to woo a lady properly
+		name = "EVTOPTB1000109089"
+		trigger = {
+			OR = {
+				trait = gregarious
+				trait = lustful
+				diplomacy = 14
+				trait = poet
+			}
+		}
+		add_character_modifier = {
+			name = advice_giver
+			duration = 180
+		}
+	}
+
+	option = { #Reminds me of my younger self
+		name = "EVTOPTC1000109089"
+		add_character_modifier = {
+			name = reminiscing
+			duration = 180
+		}
+	}
+
+	option = { #Bring the girl to me
+		name = "EVTOPTD1000109089"
+		tooltip_info = lustful
+		trigger = { 
+			trait = lustful
+			NOT = { trait = kind }
+			NOT = { trait = just }
+			NOT = { trait = temperate }
+		}
+		add_character_modifier = {
+			name = lustful_ruler
+			duration = 365
+		}
+	}
+}
+
+# Character comes across a traveling musician
+character_event = {
+	id = VIETnam.68
+	desc = "EVTDESC1000109090"
+	picture = GFX_evt_tuscan_country
+	
+	is_triggered_only = yes
+	
+	
+	option = { #Ignore him
+		name = "EVTOPTA1000109090"
+		add_character_modifier = {
+			name = the_prude
+			duration = 90
+		}
+	}
+	
+	option = { #Listen
+		name = "EVTOPTB1000109090"
+		wealth = -1
+		character_event = {
+			id = VIETnam.69
+			tooltip = "EVTTOOLTIP1000109091"
+		}
+	}
+}
+
+# Character listens to musician
+character_event = {
+	id = VIETnam.69
+	desc = "EVTDESC1000109091"
+	picture = GFX_evt_tuscan_country
+	
+	is_triggered_only = yes
+	
+	
+	option = { #Thank you
+		name = "EVTOPTA1000109091"
+		random_list = {
+			47 = { prestige = 2 }
+			47 = { piety = 2 }
+			3 = { change_learning = 1 }
+			3 = { change_diplomacy = 1 }
+		}
+	}
+}
+
+# Character sees peasants working
+character_event = {
+	id = VIETnam.70
+	desc = "EVTDESC1000109092"
+	picture = GFX_evt_autumn_harvest
+	
+	is_triggered_only = yes
+	
+	
+	option = { #Piety option
+		name = "EVTOPTA1000109092"
+		piety = 3
+	}
+	
+	option = { #Prestige option
+		name = "EVTOPTB1000109092"
+		prestige = 3
+	}
+}
+
+
+##########################################################################
+# Set 2 Events (VIET 1.5.0)
+##########################################################################
+
+
+# Drinking froma stream
+character_event = {
+	id = VIETsurvey.1
+	desc = VIETsurvey.1.desc
+	picture = GFX_evt_skyrim_forest
+	
+	is_triggered_only = yes
+	
+	
+	option = { #Amazing
+		name = VIETsurvey.1.a
+		piety = 2
+		if = {
+			limit = {
+				trait = stressed
+			}
+			random_list = {
+				50 = { }
+				50 = { remove_trait = stressed }
+			}
+		}
+		if = {
+			limit = {
+				trait = depressed
+			}
+			random_list = {
+				50 = { }
+				50 = { remove_trait = depressed }
+			}
+		}
+		if = {
+			limit = {
+				trait = ill
+			}
+			random_list = {
+				50 = { }
+				50 = { remove_trait = ill }
+			}
+		}
+	}
+	
+	option = { #Bah
+		name = VIETsurvey.1.b
+		tooltip_info = cynical
+		trigger = { 
+			trait = cynical
+		}
+		prestige = 2
+		if = {
+			limit = {
+				trait = stressed
+			}
+			random_list = {
+				50 = { }
+				50 = { remove_trait = stressed }
+			}
+		}
+		if = {
+			limit = {
+				trait = depressed
+			}
+			random_list = {
+				50 = { }
+				50 = { remove_trait = depressed }
+			}
+		}
+		if = {
+			limit = {
+				trait = ill
+			}
+			random_list = {
+				50 = { }
+				50 = { remove_trait = ill }
+			}
+		}
+	}
+	
+	option = { #Bah
+		name = VIETsurvey.1.c
+		tooltip_info = scholar
+		trigger = { 
+			trait = scholar
+		}
+		prestige = 1
+		piety = 1
+		if = {
+			limit = {
+				trait = stressed
+			}
+			random_list = {
+				50 = { }
+				50 = { remove_trait = stressed }
+			}
+		}
+		if = {
+			limit = {
+				trait = depressed
+			}
+			random_list = {
+				50 = { }
+				50 = { remove_trait = depressed }
+			}
+		}
+		if = {
+			limit = {
+				trait = ill
+			}
+			random_list = {
+				50 = { }
+				50 = { remove_trait = ill }
+			}
+		}
+	}
+}
+
+# An outspoken man
+character_event = {
+	id = VIETsurvey.2
+	desc = VIETsurvey.2.desc
+	picture = GFX_evt_brothel
+	
+	is_triggered_only = yes
+	
+	
+	option = { #Bring him to me!
+		name = VIETsurvey.2.a
+		trigger = {
+			NOT = { has_character_flag = VIET_survey_outspoken_man }
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = patient
+			}	
+			modifier = {
+				factor = 0.5
+				trait = wroth
+			}	
+			modifier = {
+				factor = 2
+				trait = just
+			}	
+			modifier = {
+				factor = 0.5
+				trait = arbitrary
+			}	
+		}
+		set_character_flag = VIET_survey_outspoken_man
+		add_character_modifier = {
+			name = listens_to_others
+			duration = 365
+		}
+		create_character = {
+			dynasty = random
+			female = no
+			min_age = 18
+			random_traits = yes
+			attributes = {
+				diplomacy = 7
+			}
+		}
+		new_character = {
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+			# Her traits aren't that random (they had to choose someone worthwhile for the whole bear hunt thingy, after all)
+			random = {
+				chance = 75
+				add_trait = brave
+			}
+			random = {
+				chance = 55
+				add_trait = just
+			}
+			random = {
+				chance = 5
+				add_trait = quick
+			}
+			random = {
+				chance = 25
+				add_trait = gregarious
+				remove_trait = shy
+			}
+			random = {
+				chance = 15
+				add_trait = diligent
+				remove_trait = slothful
+			}
+			random = {
+				chance = 15
+				add_trait = proud
+				remove_trait = humble
+			}
+			random = {
+				chance = 15
+				add_trait = honest
+				remove_trait = deceitful
+			}
+			remove_trait = content
+			remove_trait = incapable
+			remove_trait = arbitrary
+			remove_trait = craven
+			remove_trait = cruel
+			remove_trait = impaler
+			remove_trait = imbecile
+			remove_trait = slow
+			remove_trait = inbred
+			remove_trait = hunchback
+			remove_trait = clubfooted
+			remove_trait = weak
+		}
+	}	
+	
+	option = { #Imprison
+		name = VIETsurvey.2.b
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				trait = patient
+			}	
+			modifier = {
+				factor = 2
+				trait = wroth
+			}	
+			modifier = {
+				factor = 0.5
+				trait = just
+			}	
+			modifier = {
+				factor = 2
+				trait = arbitrary
+			}	
+		}
+		add_character_modifier = {
+			name = opressive_ruler
+			duration = 365
+		}
+		random_list = {
+			70 = { }
+			10 = { add_trait = cruel }
+			10 = { add_trait = arbitrary }
+			10 = { add_trait = wroth }
+		}
+	}	
+	
+	option = { #Help mayor
+		name = VIETsurvey.2.c
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = patient
+			}	
+			modifier = {
+				factor = 0.5
+				trait = wroth
+			}	
+			modifier = {
+				factor = 2
+				trait = just
+			}	
+			modifier = {
+				factor = 0.5
+				trait = arbitrary
+			}	
+		}
+		add_character_modifier = {
+			name = listens_to_others
+			duration = 365
+		}
+		random_list = {
+			75 = { }
+			8 = { add_trait = patient }
+			8 = { add_trait = just }
+			9 = { add_trait = humble }
+		}
+	}
+}
+
+# Evil tax collector
+character_event = {
+	id = VIETsurvey.3
+	desc = VIETsurvey.3.desc
+	picture = GFX_evt_wafrica_gold
+	
+	is_triggered_only = yes
+	
+	
+	option = { #Yes
+		name = VIETsurvey.3.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = just
+			}	
+			modifier = {
+				factor = 0.5
+				trait = arbitrary
+			}	
+		}
+		prestige = 5
+		if = {
+			limit = {
+				NOT = { trait = just }
+			}
+			random_list = {
+				70 = { }
+				30 = { add_trait = just }
+			}
+		}
+	}	
+	option = { #No
+		name = VIETsurvey.3.b
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				trait = just
+			}	
+			modifier = {
+				factor = 2
+				trait = arbitrary
+			}	
+		}
+		if = {
+			limit = {
+				NOT = { trait = arbitrary }
+			}
+			random_list = {
+				70 = { }
+				30 = { add_trait = arbitrary }
+			}
+		}
+	}
+}
+
+# Visiting a vassal
+character_event = {
+	id = VIETsurvey.4
+	desc = VIETsurvey.4.desc
+	picture = GFX_evt_council
+	
+	is_triggered_only = yes
+	
+	
+	option = { #okay
+		name = VIETsurvey.4.a
+		random_list = {
+			75 = { prestige = 3 }
+			5 = { change_diplomacy = 1 }
+			5 = { change_martial = 1 }
+			5 = { change_stewardship = 1 }
+			5 = { change_intrigue = 1 }
+			5 = { change_learning = 1 }
+		}
+		random_vassal = {
+			limit = {
+				age = 16
+			}
+			opinion = {
+				modifier = good_conversation
+				who = ROOT
+				years = 1
+			}
+			reverse_opinion = {
+				modifier = good_conversation
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+}
+
+# Arrogant noble
+character_event = {
+	id = VIETsurvey.5
+	desc = VIETsurvey.5.desc
+	picture = GFX_evt_coming_home
+	
+	is_triggered_only = yes
+	
+	
+	option = { #whatever
+		name = VIETsurvey.5.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = humble
+			}	
+			modifier = {
+				factor = 0.5
+				trait = proud
+			}	
+			modifier = {
+				factor = 2
+				trait = patient
+			}	
+			modifier = {
+				factor = 0.5
+				trait = wroth
+			}	
+		}
+		piety = 3
+		if = {
+			limit = {
+				NOT = { trait = humble }
+			}
+			random_list = {
+				80 = { }
+				20 = { add_trait = humble }
+			}
+		}
+	}	
+	option = { #how dare you!
+		name = VIETsurvey.5.b
+		ai_chance = {
+			factor = 3
+		}
+		prestige = 3
+	}
+	option = { #Imprison!
+		name = VIETsurvey.5.c
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				trait = humble
+			}	
+			modifier = {
+				factor = 2
+				trait = proud
+			}	
+			modifier = {
+				factor = 0.5
+				trait = patient
+			}	
+			modifier = {
+				factor = 2
+				trait = wroth
+			}	
+		}
+		prestige = 3
+		if = {
+			limit = {
+				NOT = { trait = wroth }
+			}
+			random_list = {
+				80 = { }
+				20 = { add_trait = wroth }
+			}
+		}
+	}
+}
+
+# Competent Soldiers
+character_event = {
+	id = VIETsurvey.6
+	desc = VIETsurvey.6.desc
+	picture = GFX_evt_bandits
+	
+	is_triggered_only = yes
+	
+	
+	option = { #whatever
+		name = VIETsurvey.6.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = humble
+			}	
+			modifier = {
+				factor = 0.5
+				trait = proud
+			}		
+		}
+		prestige = 4
+	}
+}
+
+# Meeting a noble
+character_event = {
+	id = VIETsurvey.7
+	desc = VIETsurvey.7.desc
+	picture = GFX_evt_tuscan_country
+	
+	is_triggered_only = yes
+	
+	
+	option = { #ok
+		name = VIETsurvey.7.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = humble
+			}	
+			modifier = {
+				factor = 0.5
+				trait = proud
+			}		
+		}
+		prestige = 4
+		random_realm_character = {
+			limit = {
+				is_ruler = no
+				is_female = no
+				is_adult = yes
+				NOT = { trait = incapable }
+			}
+			opinion = {
+				modifier = good_conversation
+				who = ROOT
+				years = 2
+			}
+			reverse_opinion = {
+				modifier = good_conversation
+				who = ROOT
+				years = 2
+			}
+		}
+	}
+}
+
+# Getting to know a soldier
+character_event = {
+	id = VIETsurvey.8
+	desc = VIETsurvey.8.desc
+	picture = GFX_evt_tuscan_country
+	
+	is_triggered_only = yes
+	
+	
+	option = { #ok
+		name = VIETsurvey.8.a
+		trigger = { 
+			NOT = { has_character_flag = VIET_survey_talk_with_knight }
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = humble
+			}	
+			modifier = {
+				factor = 0.5
+				trait = proud
+			}		
+		}
+		set_character_flag = VIET_survey_talk_with_knight
+		random_list = {
+			40 = {
+				create_random_soldier = {
+					random_traits = yes
+					dynasty = random
+					attributes = {
+						martial = 6
+					}					
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+			30 = {
+				create_random_soldier = {
+					random_traits = yes
+					dynasty = random
+					attributes = {
+						martial = 8
+					}					
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+			20 = {
+				create_random_soldier = {
+					random_traits = yes
+					dynasty = random
+					attributes = {
+						martial = 10
+					}					
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+			10 = {
+				create_random_soldier = {
+					random_traits = yes
+					dynasty = random
+					attributes = {
+						martial = 13
+					}					
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+	}	
+	
+	option = { #ok
+		name = VIETsurvey.8.b
+		trigger = { 
+			has_character_flag = VIET_survey_talk_with_knight
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = humble
+			}	
+			modifier = {
+				factor = 0.5
+				trait = proud
+			}		
+		}
+		prestige = 1
+		random_list = {
+			50 = { }
+			50 = { change_martial = 1 }
+		}
+	}
+}
+
+# An abandoned mine
+character_event = {
+	id = VIETsurvey.9
+	desc = VIETsurvey.9.desc
+	picture = GFX_evt_wafrica_gold
+	
+	is_triggered_only = yes
+	
+	
+	option = { #ok
+		name = VIETsurvey.9.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = humble
+			}	
+			modifier = {
+				factor = 0.5
+				trait = proud
+			}		
+		}
+		random_list = {
+			10 = { wealth = 1 }
+			15 = { wealth = 3 }
+			25 = { wealth = 5 }
+			25 = { wealth = 7 }
+			15 = { wealth = 10 }
+			10 = { wealth = 15 }
+		}
+	}
+}
+
+# Poor peasants
+character_event = {
+	id = VIETsurvey.10
+	desc = VIETsurvey.10.desc
+	picture = GFX_evt_small_town
+	
+	is_triggered_only = yes
+	
+	
+	option = { #ok
+		name = VIETsurvey.10.a
+		ai_chance = {
+			factor = 3	
+		}
+		prestige = 1
+	}	
+	option = { #ok
+		name = VIETsurvey.10.b
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = kind
+			}	
+			modifier = {
+				factor = 0.5
+				trait = cruel
+			}		
+			modifier = {
+				factor = 2
+				trait = just
+			}	
+			modifier = {
+				factor = 0.5
+				trait = arbitrary
+			}		
+			modifier = {
+				factor = 4
+				trait = charitable
+			}	
+			modifier = {
+				factor = 0.25
+				trait = greedy
+			}		
+		}
+		piety = 5
+		random_list = {
+			40 = { wealth = -2 }
+			30 = { wealth = -5 }
+			20 = { wealth = -10 }
+			10 = { wealth = -15 }
+		}
+		if = {
+			limit = {
+				NOT = { trait = charitable }
+			}
+			random_list = {
+				67 = { }
+				33 = { add_trait = charitable }
+			}
+		}
+		add_character_modifier = {
+			name = generous_ruler
+			duration = 365
+		}		
+	}
+}
+
+# A caravan of merchants
+character_event = {
+	id = VIETsurvey.11
+	desc = VIETsurvey.11.desc
+	picture = GFX_evt_small_town
+	
+	is_triggered_only = yes
+	
+	
+	option = { #ok
+		name = VIETsurvey.11.a
+		ai_chance = {
+			factor = 3
+			modifier = {
+				factor = 2
+				trait = kind
+			}	
+			modifier = {
+				factor = 0.5
+				trait = cruel
+			}	
+			modifier = {
+				factor = 2
+				trait = charitable
+			}	
+			modifier = {
+				factor = 0.5
+				trait = greedy
+			}	
+		}
+		character_event = {
+			id = VIETsurvey.12
+			tooltip = VIETsurvey.12.tooltip
+		}		
+	}	
+	option = { #ok
+		name = VIETsurvey.11.b
+		ai_chance = {
+			factor = 3
+			modifier = {
+				factor = 2
+				trait = arbitrary
+			}	
+			modifier = {
+				factor = 0.5
+				trait = just
+			}	
+			modifier = {
+				factor = 2
+				trait = envious
+			}	
+			modifier = {
+				factor = 0.5
+				trait = kind
+			}		
+			modifier = {
+				factor = 2
+				trait = proud
+			}	
+			modifier = {
+				factor = 0.5
+				trait = humble
+			}	
+		}		
+	}	
+	option = { #TAKE THE STUFF
+		name = VIETsurvey.11.c
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = cruel
+			}	
+			modifier = {
+				factor = 0.5
+				trait = kind
+			}	
+			modifier = {
+				factor = 2
+				trait = greedy
+			}	
+			modifier = {
+				factor = 0.5
+				trait = charitable
+			}	
+			modifier = {
+				factor = 2
+				trait = arbitrary
+			}	
+			modifier = {
+				factor = 0.5
+				trait = just
+			}
+		}
+		add_character_modifier = {
+			name = opressive_ruler
+			duration = 1095
+		}	
+		prestige = -5
+		random_list = {
+			50 = { wealth = 5 }
+			30 = { wealth = 10 }
+			20 = { wealth = 15 }
+		}
+	}
+}
+
+# A caravan of merchants part 2
+character_event = {
+	id = VIETsurvey.12
+	desc = VIETsurvey.12.desc
+	picture = GFX_evt_market
+	
+	is_triggered_only = yes
+	
+	
+	option = { #Keep the money
+		name = VIETsurvey.12.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = kind
+			}	
+			modifier = {
+				factor = 0.5
+				trait = cruel
+			}	
+			modifier = {
+				factor = 2
+				trait = charitable
+			}	
+			modifier = {
+				factor = 0.5
+				trait = greedy
+			}	
+		}
+		piety = 2
+		prestige = 2
+		if = {
+			limit = {
+				trait = greedy
+			}
+			random_list = {
+				75 = { }
+				25 = { remove_trait = greedy }
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = kind }
+			}
+			random_list = {
+				85 = { }
+				15 = { add_trait = kind }
+			}
+		}
+	}	
+	option = { #A pleasure
+		name = VIETsurvey.12.b
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = arbitrary
+			}	
+			modifier = {
+				factor = 0.5
+				trait = just
+			}	
+			modifier = {
+				factor = 2
+				trait = greedy
+			}	
+			modifier = {
+				factor = 0.5
+				trait = charitable
+			}	
+		}
+		random_list = {
+			20 = { wealth = 2 }
+			20 = { wealth = 4 }
+			20 = { wealth = 6 }
+			20 = { wealth = 8 }
+			20 = { wealth = 10 }
+		}
+	}
+}
+
+# Villagers need help against bandits
+character_event = {
+	id = VIETsurvey.13
+	desc = VIETsurvey.13.desc
+	picture = GFX_evt_small_town
+	
+	is_triggered_only = yes
+	
+	
+	option = { #Send for some soldiers
+		name = VIETsurvey.13.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = just
+			}	
+			modifier = {
+				factor = 0.5
+				trait = arbitrary
+			}	
+			modifier = {
+				factor = 2
+				trait = diligent
+			}	
+			modifier = {
+				factor = 0.5
+				trait = slothful
+			}	
+		}
+		prestige = 3
+	}	
+	option = { #Who cares
+		name = VIETsurvey.13.b
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = arbitrary
+			}	
+			modifier = {
+				factor = 0.5
+				trait = just
+			}	
+			modifier = {
+				factor = 2
+				trait = proud
+			}	
+			modifier = {
+				factor = 0.5
+				trait = humble
+			}	
+		}
+		add_character_modifier = {
+			name = arrogant_ruler
+			duration = 365
+		}			
+	}
+	option = { #Teach them to protect themselves
+		name = VIETsurvey.13.c
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = kind
+			}	
+			modifier = {
+				factor = 0.5
+				trait = cruel
+			}	
+			modifier = {
+				factor = 2
+				trait = just
+			}	
+			modifier = {
+				factor = 0.5
+				trait = arbitrary
+			}	
+			modifier = {
+				factor = 2
+				trait = brave
+			}	
+			modifier = {
+				factor = 0.5
+				trait = craven
+			}	
+		}
+		character_event = {
+			id = VIETsurvey.14
+			tooltip = VIETsurvey.14.tooltip
+		}		
+	}
+}
+
+# Villagers need help against bandits - part 2
+character_event = {
+	id = VIETsurvey.14
+	desc = VIETsurvey.14.desc
+	picture = GFX_evt_apocalypto
+	
+	is_triggered_only = yes
+	
+	
+	option = { #ok
+		name = VIETsurvey.14.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = diligent
+			}	
+			modifier = {
+				factor = 0.5
+				trait = slothful
+			}	
+		}
+		hidden_tooltip = {
+			random_list = {
+				50 = { 
+					character_event = {
+						id = VIETsurvey.15
+					}					
+				}
+				50 = { }
+			}
+		}
+		prestige = 5
+	}
+}
+
+# Villagers need help against bandits - a brave young man
+character_event = {
+	id = VIETsurvey.15
+	desc = VIETsurvey.15.desc
+	picture = GFX_evt_small_town
+	
+	is_triggered_only = yes
+	
+	
+	option = { #Your village needs you more than me
+		name = VIETsurvey.15.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = just
+			}	
+			modifier = {
+				factor = 0.5
+				trait = arbitrary
+			}	
+		}
+		prestige = 5
+	}	
+	option = { #Come with me
+		name = VIETsurvey.15.b
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = just
+			}	
+			modifier = {
+				factor = 0.5
+				trait = arbitrary
+			}	
+		}
+		create_random_soldier = {
+			dynasty = none
+			female = no
+			min_age = 16
+			max_age = 25
+			random_traits = yes
+			attributes = {
+				martial = 8
+			}
+		}
+		new_character = {
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+			# Her traits aren't that random (they had to choose someone worthwhile for the whole bear hunt thingy, after all)
+			random = {
+				chance = 50
+				add_trait = brave
+			}
+			random = {
+				chance = 5
+				add_trait = quick
+			}
+			random = {
+				chance = 5
+				add_trait = tall
+			}
+			random = {
+				chance = 10
+				add_trait = strong
+			}
+			random = {
+				chance = 10
+				add_trait = agile
+			}
+			random = {
+				chance = 15
+				add_trait = just
+				remove_trait = arbitrary
+			}
+			random = {
+				chance = 15
+				add_trait = diligent
+				remove_trait = slothful
+			}
+			random = {
+				chance = 15
+				add_trait = ambitious
+			}
+			remove_trait = content
+			remove_trait = incapable
+			remove_trait = craven
+			remove_trait = impaler
+			remove_trait = imbecile
+			remove_trait = inbred
+			remove_trait = hunchback
+			remove_trait = clubfooted
+			remove_trait = weak
+		}
+	}
+}
+
+# A kidnapped maiden
+character_event = {
+	id = VIETsurvey.16
+	desc = VIETsurvey.16.desc
+	picture = GFX_evt_maiden
+	
+	is_triggered_only = yes
+	
+	
+	option = { #ok
+		name = VIETsurvey.16.a
+		ai_chance = {
+			factor = 3
+			modifier = {
+				factor = 2
+				trait = just
+			}	
+			modifier = {
+				factor = 0.5
+				trait = arbitrary
+			}	
+			modifier = {
+				factor = 2
+				trait = kind
+			}	
+			modifier = {
+				factor = 0.5
+				trait = cruel
+			}	
+			modifier = {
+				factor = 2
+				trait = charitable
+			}	
+			modifier = {
+				factor = 0.5
+				trait = greedy
+			}		
+			modifier = {
+				factor = 2
+				trait = chaste
+			}	
+			modifier = {
+				factor = 0.5
+				trait = lustful
+			}	
+		}
+		piety = 4
+	}	
+	option = { #Heheheh
+		name = VIETsurvey.16.b
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 4
+				trait = lustful
+			}	
+			modifier = {
+				factor = 0.25
+				trait = chaste
+			}	
+			modifier = {
+				factor = 2
+				trait = arbitrary
+			}	
+			modifier = {
+				factor = 0.5
+				trait = just
+			}
+		}
+		piety = -5
+		if = {
+			limit = {
+				trait = kind
+			}
+			random_list = {
+				75 = { }
+				25 = { remove_trait = kind }
+			}
+		}
+		if = {
+			limit = {
+				trait = just
+			}
+			random_list = {
+				75 = { }
+				25 = { remove_trait = just }
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = lustful }
+			}
+			random_list = {
+				60 = { }
+				40 = { add_trait = lustful }
+			}
+		}
+		hidden_tooltip = {
+			random_list = {
+				50 = { 
+					character_event = {
+						id = VIETsurvey.17
+					}					
+				}
+				50 = { }
+			}
+		}
+	}	
+	option = { #sayonara
+		name = VIETsurvey.16.c
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = cruel
+			}	
+			modifier = {
+				factor = 0.5
+				trait = kind
+			}	
+			modifier = {
+				factor = 2
+				trait = arbitrary
+			}	
+			modifier = {
+				factor = 0.5
+				trait = just
+			}
+		}
+	}
+}
+
+# Don't hurt girls
+character_event = {
+	id = VIETsurvey.17
+	desc = VIETsurvey.17.desc
+	picture = GFX_evt_maiden
+	
+	is_triggered_only = yes
+	
+	
+	option = { #You're right
+		name = VIETsurvey.17.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = just
+			}	
+			modifier = {
+				factor = 0.5
+				trait = arbitrary
+			}	
+			modifier = {
+				factor = 2
+				trait = kind
+			}	
+			modifier = {
+				factor = 0.5
+				trait = cruel
+			}	
+			modifier = {
+				factor = 2
+				trait = zealous
+			}	
+			modifier = {
+				factor = 0.5
+				trait = hedonist
+			}		
+			modifier = {
+				factor = 2
+				trait = chaste
+			}	
+			modifier = {
+				factor = 0.5
+				trait = lustful
+			}	
+		}
+		piety = 2
+	}	
+	option = { #Go away
+		name = VIETsurvey.17.b
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 4
+				trait = lustful
+			}	
+			modifier = {
+				factor = 0.25
+				trait = chaste
+			}	
+			modifier = {
+				factor = 2
+				trait = arbitrary
+			}	
+			modifier = {
+				factor = 0.5
+				trait = just
+			}	
+			modifier = {
+				factor = 2
+				trait = cruel
+			}	
+			modifier = {
+				factor = 0.5
+				trait = kind
+			}
+		}
+		add_character_modifier = {
+			name = lustful_ruler
+			duration = 365
+		}
+		if = {
+			limit = {
+				NOT = { trait = cruel }
+			}
+			random_list = {
+				70 = { }
+				30 = { add_trait = cruel }
+			}
+		}
+	}
+}

@@ -1,0 +1,511 @@
+
+namespace = HRE
+
+# To the Emperor
+character_event = {
+	id = HRE.1
+	title = EVTNAMEHRE.1
+	desc = EVTDESCHRE.1
+	
+	picture = GFX_evt_icon
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAHRE.1
+
+		if = {
+			limit = { religion = arian}
+			set_parent_religion = { religion = catholic parent = arian}
+		}
+
+		set_global_flag = great_schism
+		give_nickname = nick_the_schismatic
+		hidden_tooltip = {
+			narrative_event = { id = HRE.3 }
+					
+				
+			
+		}
+	}
+}
+
+
+# The Schism itself 
+narrative_event = {
+	id = HRE.3
+	title = EVTNAMEHRE.3
+	desc = EVTDESCHRE.3
+	picture = GFX_evt_icon
+	
+	major = yes
+	religion = nicene
+	is_triggered_only = yes
+
+	immediate = {
+	
+	d_papal_state = {
+		holder_scope = {
+			k_papal_state = {
+				grant_title = PREV
+				}
+			}
+		}
+	d_orthodox = {
+		holder_scope = {
+			k_orthodox = {
+				grant_title = PREV
+				}
+			}
+		}
+	}
+	option = { # Orthodox
+		name = EVTOPTAHRE.3
+		trigger = {
+			religion = nicene
+		}
+		ai_chance = {
+			factor = 3
+			modifier = {
+				factor = 10
+				culture_group = byzantine # Greek Orthodoxy 
+			}
+			modifier = {
+				factor = 20
+				any_vassal = { controls_religion = yes }
+			}
+			modifier = {
+				factor = 10
+				culture_group = slavic # Kiev!!!
+			}
+			modifier = {
+				factor = 5
+				culture_group = arabic # Byzantine Influences
+			}
+			modifier = {
+				factor = 10
+				culture_group = altaic # Orthodoxy in the Steppes 
+			}
+		}
+		religion = orthodox
+		capital_scope = {
+			if = {
+				limit = { religion = nicene }
+			}
+			religion = orthodox
+		}
+		any_realm_province = {
+				limit = { 
+					religion = nicene
+          				}
+				religion = orthodox
+			                 }
+		any_realm_character = {
+			limit = { religion = nicene }
+			religion = orthodox
+		}
+	}
+	option = { # Catholic
+		name = EVTOPTBHRE.3
+		trigger = {
+			religion = nicene
+		}
+		ai_chance = {
+			factor = 3
+			modifier = {
+				factor = 10
+				culture_group = west_germanic # Duh, Germans!
+			}
+			modifier = {
+				factor = 20
+				any_vassal = { controls_religion = yes }
+			}
+			
+			modifier = {
+				factor = 10
+				culture_group = central_germanic # Holy Roman Empire
+			}
+			modifier = {
+				factor = 10
+				culture_group = celtic # Duh! Celts! 
+			}
+			modifier = {
+				factor = 5
+				culture_group = north_germanic # Really?
+			}
+			modifier = {
+				factor = 5
+				culture_group = east_germanic # Sympathy toward Pope, hated Ecumenical patriarch 
+			}
+			modifier = {
+				factor = 10
+				culture_group = latin # ROMAN Catholic church
+			}
+		}	
+		religion = catholic
+		capital_scope = {
+			if = {
+				limit = { religion = nicene }
+			}
+			religion = catholic
+		}
+		any_realm_province = {
+				limit = { 
+					religion = nicene
+          				}
+				religion = catholic
+			                 }
+		any_realm_character = {
+			limit = { religion = nicene }
+			religion = catholic
+		}
+	}
+	option = { # Pagan with Catholics
+		name = EVTOPTCHRE.3
+				factor = 10
+				culture_group = west_germanic # Duh, Germans!
+	trigger = {
+				NOT = { religion = nicene }		
+			
+		}
+		ai_chance = {
+			factor = 3
+			modifier = {
+				}
+			modifier = {
+				factor = 20
+				any_vassal = { controls_religion = yes }
+			}
+			
+			modifier = {
+				factor = 10
+				culture_group = central_germanic # Holy Roman Empire
+			}
+			modifier = {
+				factor = 10
+				culture_group = celtic # Duh! Celts! 
+			}
+			modifier = {
+				factor = 5
+				culture_group = north_germanic # Really?
+			}
+			modifier = {
+				factor = 5
+				culture_group = east_germanic # Sympathy toward Pope, hated Ecumenical patriarch 
+			}
+			modifier = {
+				factor = 10
+				culture_group = latin # ROMAN Catholic church
+			}
+		}	
+		any_realm_province = {
+				limit = { 
+					religion = nicene
+          				}
+				religion = catholic
+			                 }
+		any_realm_character = {
+			limit = { religion = nicene }
+			religion = catholic
+		}
+	}
+	option = { # Pagan with Orthodoxians
+		name = EVTOPTDHRE.3
+		trigger = {
+				NOT = { religion = nicene }		
+		}
+		ai_chance = {
+			factor = 3
+			modifier = {
+				factor = 10
+				culture_group = byzantine # Greek Orthodoxy 
+			}
+			modifier = {
+				factor = 20
+				any_vassal = { controls_religion = yes }
+			}
+			modifier = {
+				factor = 10
+				culture_group = slavic # Kiev!!!
+			}
+			modifier = {
+				factor = 5
+				culture_group = arabic # Byzantine Influences
+			}
+			modifier = {
+				factor = 10
+				culture_group = altaic # Orthodoxy in the Steppes 
+			}
+		}
+		any_realm_province = {
+				limit = { 
+					religion = nicene
+          				}
+				religion = orthodox
+			                 }
+		any_realm_character = {
+			limit = { religion = nicene }
+			religion = orthodox
+		}
+	}
+}
+
+# To the Emperor
+character_event = {
+	id = HRE.4
+	title = EVTNAMEHRE.4
+	desc = EVTDESCHRE.4
+	
+	picture = GFX_evt_icon
+	
+	trigger = {
+		year = 950
+		religion = nicene 
+		controls_religion = yes
+		NOT = { has_global_flag = great_schism }
+	}
+	
+	option = {
+		name = EVTOPTAHRE.4
+
+		set_parent_religion = { religion = arian parent = catholic }
+		set_parent_religion = { religion = valentinianism parent = catholic }
+		set_parent_religion = { religion = donatism parent = catholic }
+		set_parent_religion = { religion = docetic parent = orthodox }
+		set_parent_religion = { religion = ebionites parent = orthodox }
+		set_parent_religion = { religion = marcionism parent = orthodox }
+		set_parent_religion = { religion = binitarian parent = orthodox }
+		set_global_flag = great_schism
+		hidden_tooltip = {
+			narrative_event = { id = HRE.4 }
+					
+				
+			
+		}
+	}
+	option = {
+		name = EVTOPTBHRE.3
+			
+		
+	}
+}
+
+# The Schism itself 
+narrative_event = {
+	id = HRE.5
+	title = EVTNAMEHRE.3
+	desc = EVTDESCHRE.5
+	picture = GFX_evt_icon
+	
+	major = yes
+	religion = nicene
+	is_triggered_only = yes
+
+	immediate = {
+	
+	d_papal_state = {
+		holder_scope = {
+			k_papal_state = {
+				grant_title = PREV
+				}
+			}
+		}
+	d_orthodox = {
+		holder_scope = {
+			k_orthodox = {
+				grant_title = PREV
+				}
+			}
+		}
+	}
+	
+	option = { # Orthodox
+		name = EVTOPTAHRE.3
+		trigger = {
+			religion = nicene
+		}
+		ai_chance = {
+			factor = 3
+			modifier = {
+				factor = 10
+				culture_group = byzantine # Greek Orthodoxy 
+			}
+			modifier = {
+				factor = 20
+				any_vassal = { controls_religion = yes }
+			}
+			modifier = {
+				factor = 10
+				culture_group = slavic # Kiev!!!
+			}
+			modifier = {
+				factor = 5
+				culture_group = arabic # Byzantine Influences
+			}
+			modifier = {
+				factor = 10
+				culture_group = altaic # Orthodoxy in the Steppes 
+			}
+		}
+		religion = orthodox
+		capital_scope = {
+			if = {
+				limit = { religion = nicene }
+			}
+			religion = orthodox
+		}
+		any_realm_province = {
+				limit = { 
+					religion = nicene
+          				}
+				religion = orthodox
+			                 }
+		any_realm_character = {
+			limit = { religion = nicene }
+			religion = orthodox
+		}
+	}
+	option = { # Catholic
+		name = EVTOPTBHRE.3
+		trigger = {
+			religion = nicene
+		}
+		ai_chance = {
+			factor = 3
+			modifier = {
+				factor = 10
+				culture_group = west_germanic # Duh, Germans!
+			}
+			modifier = {
+				factor = 20
+				any_vassal = { controls_religion = yes }
+			}
+			
+			modifier = {
+				factor = 10
+				culture_group = central_germanic # Holy Roman Empire
+			}
+			modifier = {
+				factor = 10
+				culture_group = celtic # Duh! Celts! 
+			}
+			modifier = {
+				factor = 5
+				culture_group = north_germanic # Really?
+			}
+			modifier = {
+				factor = 5
+				culture_group = east_germanic # Sympathy toward Pope, hated Ecumenical patriarch 
+			}
+			modifier = {
+				factor = 10
+				culture_group = latin # ROMAN Catholic church
+			}
+		}	
+		religion = catholic
+		capital_scope = {
+			if = {
+				limit = { religion = nicene }
+			}
+			religion = catholic
+		}
+		any_realm_province = {
+				limit = { 
+					religion = nicene
+          				}
+				religion = catholic
+			                 }
+		any_realm_character = {
+			limit = { religion = nicene }
+			religion = catholic
+		}
+	}
+	option = { # Pagan with Catholics
+		name = EVTOPTCHRE.3
+				factor = 10
+				culture_group = west_germanic # Duh, Germans!
+	trigger = {
+				NOT = { religion = nicene }		
+			
+		}
+		ai_chance = {
+			factor = 3
+			modifier = {
+				}
+			modifier = {
+				factor = 20
+				any_vassal = { controls_religion = yes }
+			}
+			
+			modifier = {
+				factor = 10
+				culture_group = central_germanic # Holy Roman Empire
+			}
+			modifier = {
+				factor = 10
+				culture_group = celtic # Duh! Celts! 
+			}
+			modifier = {
+				factor = 5
+				culture_group = north_germanic # Really?
+			}
+			modifier = {
+				factor = 5
+				culture_group = east_germanic # Sympathy toward Pope, hated Ecumenical patriarch 
+			}
+			modifier = {
+				factor = 10
+				culture_group = latin # ROMAN Catholic church
+			}
+		}	
+		any_realm_province = {
+				limit = { 
+					religion = nicene
+          				}
+				religion = catholic
+			                 }
+		any_realm_character = {
+			limit = { religion = nicene }
+			religion = catholic
+		}
+	}
+	option = { # Pagan with Orthodoxians
+		name = EVTOPTDHRE.3
+		trigger = {
+				NOT = { religion = nicene }		
+		}
+		ai_chance = {
+			factor = 3
+			modifier = {
+				factor = 10
+				culture_group = byzantine # Greek Orthodoxy 
+			}
+			modifier = {
+				factor = 20
+				any_vassal = { controls_religion = yes }
+			}
+			modifier = {
+				factor = 10
+				culture_group = slavic # Kiev!!!
+			}
+			modifier = {
+				factor = 5
+				culture_group = arabic # Byzantine Influences
+			}
+			modifier = {
+				factor = 10
+				culture_group = altaic # Orthodoxy in the Steppes 
+			}
+		}
+		any_realm_province = {
+				limit = { 
+					religion = nicene
+          				}
+				religion = orthodox
+			                 }
+		any_realm_character = {
+			limit = { religion = nicene }
+			religion = orthodox
+		}
+	}
+}

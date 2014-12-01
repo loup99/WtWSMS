@@ -1,0 +1,3213 @@
+################################################################
+#
+# Events for Vegetarians
+#
+#
+################################################################
+
+namespace = vegetarian
+
+#######################################
+# Vegetarian Base Events
+#######################################
+
+
+# Become le Vegetarian
+character_event = {
+	id = vegetarian.1
+	desc = vegetarian.1.desc	
+	picture = GFX_evt_monk_eastern_group
+	
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = vegetarian.1.a
+		add_trait = vegetarian
+		set_character_flag = vegetarian_temp_tracker #temporarily track vegetarianism status
+		#Fires off events about how character adapts to being vegetarian
+		if = {
+			limit = {
+				AND = {
+					trait = temperate
+					trait = kind
+				}
+			}
+			hidden_tooltip = {
+				random_list = {
+					80 = { character_event = { id = vegetarian.4 days = 60 } } #Easy
+					15 = { character_event = { id = vegetarian.5 days = 60 } } #Medium
+					5 = { character_event = { id = vegetarian.6 days = 60 } } #Hard
+				}
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						trait = kind
+						NOT = { trait = temperate }
+						NOT = { trait = gluttonous }
+					}
+					AND = {
+						trait = temperate
+						NOT = { trait = kind }
+					}
+				}
+			}
+			hidden_tooltip = {
+				random_list = {
+					50 = { character_event = { id = vegetarian.4 days = 60 } } #Easy
+					30 = { character_event = { id = vegetarian.5 days = 60 } } #Medium
+					20 = { character_event = { id = vegetarian.6 days = 60 } } #Hard
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = kind }
+				NOT = { trait = temperate }
+				NOT = { trait = gluttonous }
+			}
+			hidden_tooltip = {
+				random_list = {
+					33 = { character_event = { id = vegetarian.4 days = 60 } } #Easy
+					33 = { character_event = { id = vegetarian.5 days = 60 } } #Medium
+					34 = { character_event = { id = vegetarian.6 days = 60 } } #Hard
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = kind }
+				NOT = { trait = temperate }
+				trait = gluttonous
+			}
+			hidden_tooltip = {
+				random_list = {
+					10 = { character_event = { id = vegetarian.4 days = 60 } } #Easy
+					15 = { character_event = { id = vegetarian.5 days = 60 } } #Medium
+					75 = { character_event = { id = vegetarian.6 days = 60 } } #Hard
+				}
+			}
+		}
+	}	
+}
+
+# Event vegetarian.2 removed as it is unnecessary
+
+# In most Buddhist and Hindu sects, with exceptions such as some Tibetan and Japanese Buddhists, monks must be vegetarian, this is a maintainence event to ensure that happens
+character_event = {
+	id = vegetarian.3
+	desc = vegetarian.3.desc	
+	picture = GFX_evt_monk
+	
+	min_age = 16
+	capable_only = yes
+	
+	trigger = {
+		is_theocracy = yes
+		OR = {
+			religion_group = indian_group
+			religion_group = gnostic_group
+			religion = qarmatian
+			religion = cathar
+			religion = bogomilist
+		}
+		NOT = { trait = vegetarian }
+		NOT = { has_character_flag = not_vegetarian_sect }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = { #Be vegetarian
+		name = vegetarian.3.a
+		trigger = {
+			NOT = { culture = tibetan }
+			NOT = { culture = japanese }
+		}
+		add_trait = vegetarian
+		set_character_flag = vegetarian_temp_tracker #temporarily track vegetarianism status
+		#Fires off events about how character adapts to being vegetarian
+		if = {
+			limit = {
+				AND = {
+					trait = temperate
+					trait = kind
+				}
+			}
+			hidden_tooltip = {
+				random_list = {
+					80 = { character_event = { id = vegetarian.4 days = 60 } } #Easy
+					15 = { character_event = { id = vegetarian.5 days = 60 } } #Medium
+					5 = { character_event = { id = vegetarian.6 days = 60 } } #Hard
+				}
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						trait = kind
+						NOT = { trait = temperate }
+						NOT = { trait = gluttonous }
+					}
+					AND = {
+						trait = temperate
+						NOT = { trait = kind }
+					}
+				}
+			}
+			hidden_tooltip = {
+				random_list = {
+					50 = { character_event = { id = vegetarian.4 days = 60 } } #Easy
+					30 = { character_event = { id = vegetarian.5 days = 60 } } #Medium
+					20 = { character_event = { id = vegetarian.6 days = 60 } } #Hard
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = kind }
+				NOT = { trait = temperate }
+				NOT = { trait = gluttonous }
+			}
+			hidden_tooltip = {
+				random_list = {
+					33 = { character_event = { id = vegetarian.4 days = 60 } } #Easy
+					33 = { character_event = { id = vegetarian.5 days = 60 } } #Medium
+					34 = { character_event = { id = vegetarian.6 days = 60 } } #Hard
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = kind }
+				NOT = { trait = temperate }
+				trait = gluttonous
+			}
+			hidden_tooltip = {
+				random_list = {
+					10 = { character_event = { id = vegetarian.4 days = 60 } } #Easy
+					15 = { character_event = { id = vegetarian.5 days = 60 } } #Medium
+					75 = { character_event = { id = vegetarian.6 days = 60 } } #Hard
+				}
+			}
+		}
+	}	
+	option = { #Be vegetarian
+		name = vegetarian.3.b
+		trigger = {
+			OR = {
+				culture = tibetan
+				culture = japanese
+			}
+		}
+		ai_chance = {
+			factor = 4
+			modifier = {
+				factor = 2
+				trait = kind
+			}	
+			modifier = {
+				factor = 2
+				trait = temperate
+			}	
+		}
+		add_trait = vegetarian
+		set_character_flag = vegetarian_temp_tracker #temporarily track vegetarianism status
+		#Fires off events about how character adapts to being vegetarian
+		if = {
+			limit = {
+				AND = {
+					trait = temperate
+					trait = kind
+				}
+			}
+			hidden_tooltip = {
+				random_list = {
+					80 = { character_event = { id = vegetarian.4 days = 60 } } #Easy
+					15 = { character_event = { id = vegetarian.5 days = 60 } } #Medium
+					5 = { character_event = { id = vegetarian.6 days = 60 } } #Hard
+				}
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						trait = kind
+						NOT = { trait = temperate }
+						NOT = { trait = gluttonous }
+					}
+					AND = {
+						trait = temperate
+						NOT = { trait = kind }
+					}
+				}
+			}
+			hidden_tooltip = {
+				random_list = {
+					50 = { character_event = { id = vegetarian.4 days = 60 } } #Easy
+					30 = { character_event = { id = vegetarian.5 days = 60 } } #Medium
+					20 = { character_event = { id = vegetarian.6 days = 60 } } #Hard
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = kind }
+				NOT = { trait = temperate }
+				NOT = { trait = gluttonous }
+			}
+			hidden_tooltip = {
+				random_list = {
+					33 = { character_event = { id = vegetarian.4 days = 60 } } #Easy
+					33 = { character_event = { id = vegetarian.5 days = 60 } } #Medium
+					34 = { character_event = { id = vegetarian.6 days = 60 } } #Hard
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = kind }
+				NOT = { trait = temperate }
+				trait = gluttonous
+			}
+			hidden_tooltip = {
+				random_list = {
+					10 = { character_event = { id = vegetarian.4 days = 60 } } #Easy
+					15 = { character_event = { id = vegetarian.5 days = 60 } } #Medium
+					75 = { character_event = { id = vegetarian.6 days = 60 } } #Hard
+				}
+			}
+		}
+	}		
+	option = { #Be not vegetarian
+		name = vegetarian.3.c
+		trigger = {
+			OR = {
+				culture = tibetan
+				culture = japanese
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = gluttonous
+			}	
+			modifier = {
+				factor = 2
+				trait = hedonist
+			}	
+			modifier = {
+				factor = 2
+				trait = arbitrary
+			}			
+		}
+		set_character_flag = not_vegetarian_sect
+	}	
+}
+
+# Being vegetarian is easy!
+character_event = {
+	id = vegetarian.4
+	desc = vegetarian.4.desc	
+	picture = GFX_evt_monk_eastern_group
+	
+	is_triggered_only = yes
+	
+	option = { #Be vegetarian
+		name = vegetarian.4.a
+		clr_character_flag = vegetarian_temp_tracker
+		clr_character_flag = vegetarian_perseverance_1
+		clr_character_flag = vegetarian_perseverance_2
+		set_character_flag = vegetarian_perseverance_3
+	}
+}
+
+# Being vegetarian is medium!
+character_event = {
+	id = vegetarian.5
+	desc = vegetarian.5.desc	
+	picture = GFX_evt_monk_eastern_group
+	
+	is_triggered_only = yes
+	
+	option = { #Be vegetarian
+		name = vegetarian.5.a
+		clr_character_flag = vegetarian_temp_tracker
+		clr_character_flag = vegetarian_perseverance_1
+		set_character_flag = vegetarian_perseverance_2
+		clr_character_flag = vegetarian_perseverance_3
+	}
+}
+
+# Being vegetarian is hard!
+character_event = {
+	id = vegetarian.6
+	desc = vegetarian.6.desc	
+	picture = GFX_evt_monk_eastern_group
+	
+	is_triggered_only = yes
+	
+	option = { #Be vegetarian
+		name = vegetarian.6.a
+		clr_character_flag = vegetarian_temp_tracker
+		set_character_flag = vegetarian_perseverance_1
+		clr_character_flag = vegetarian_perseverance_2
+		clr_character_flag = vegetarian_perseverance_3
+	}
+}
+
+# Can no longer be a vegetarian
+character_event = {
+	id = vegetarian.7
+	desc = vegetarian.7.desc	
+	picture = GFX_evt_vegetarian
+	
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		is_theocracy = no
+		trait = vegetarian
+		has_character_flag = vegetarian_perseverance_1
+	}
+	
+	mean_time_to_happen = {
+		days = 1800
+		modifier = {
+			factor = 1.25
+			trait = kind
+		}
+		modifier = {
+			factor = 0.8
+			trait = cruel
+		}
+		modifier = {
+			factor = 1.25
+			trait = temperate
+		}
+		modifier = {
+			factor = 0.8
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 1.25
+			piety = 1000
+		}
+		modifier = {
+			factor = 0.8
+			NOT = { piety = 50 }
+		}
+		modifier = {
+			factor = 1.25
+			trait = diligent
+		}
+		modifier = {
+			factor = 0.8
+			trait = slothful
+		}
+		modifier = {
+			factor = 1.25
+			trait = patient
+		}
+		modifier = {
+			factor = 0.8
+			trait = wroth
+		}
+		modifier = {
+			factor = 1.25
+			trait = zealous
+		}
+		modifier = {
+			factor = 0.8
+			trait = weak
+		}
+		modifier = {
+			factor = 0.8
+			trait = greedy
+		}
+		modifier = {
+			factor = 1.5
+			trait = retreat_veteran
+		}
+		modifier = {
+			factor = 1.75
+			trait = retreat_master
+		}
+	}
+	
+	option = { #Can't resist
+		name = vegetarian.7.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				trait = kind
+			}
+			modifier = {
+				factor = 2
+				trait = cruel
+			}
+			modifier = {
+				factor = 0.5
+				trait = temperate
+			}
+			modifier = {
+				factor = 2
+				trait = gluttonous
+			}
+			modifier = {
+				factor = 0.5
+				piety = 1000
+			}
+			modifier = {
+				factor = 2
+				NOT = { piety = 50 }
+			}
+			modifier = {
+				factor = 0.5
+				trait = diligent
+			}
+			modifier = {
+				factor = 2
+				trait = slothful
+			}
+			modifier = {
+				factor = 0.5
+				trait = patient
+			}
+			modifier = {
+				factor = 2
+				trait = wroth
+			}
+			modifier = {
+				factor = 0.5
+				trait = zealous
+			}
+			modifier = {
+				factor = 2
+				trait = weak
+			}	
+		}
+		clr_character_flag = vegetarian_perseverance_1
+		clr_character_flag = vegetarian_perseverance_2
+		clr_character_flag = vegetarian_perseverance_3
+		remove_trait = vegetarian
+	}	
+	option = { #Can resist
+		name = vegetarian.7.b
+		trigger = {
+			OR = {
+				NOT = { trait = gluttonous }
+				trait = zealous
+				trait = kind
+				trait = temperate
+			}
+			OR = {
+				NOT = { trait = hedonist }
+				trait = zealous
+				trait = kind
+				trait = temperate
+			}
+			OR = {
+				NOT = { trait = cruel }
+				trait = zealous
+				trait = kind
+				trait = temperate
+			}
+			OR = {
+				NOT = { trait = slothful }
+				trait = zealous
+				trait = kind
+				trait = temperate
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = kind
+			}
+			modifier = {
+				factor = 0.5
+				trait = cruel
+			}
+			modifier = {
+				factor = 2
+				trait = temperate
+			}
+			modifier = {
+				factor = 0.5
+				trait = gluttonous
+			}
+			modifier = {
+				factor = 2
+				piety = 1000
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { piety = 50 }
+			}
+			modifier = {
+				factor = 2
+				trait = diligent
+			}
+			modifier = {
+				factor = 0.5
+				trait = slothful
+			}
+			modifier = {
+				factor = 2
+				trait = patient
+			}
+			modifier = {
+				factor = 0.5
+				trait = wroth
+			}
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.5
+				trait = weak
+			}		
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_1
+			}
+			clr_character_flag = vegetarian_perseverance_1
+			set_character_flag = vegetarian_perseverance_2
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_2
+			}
+			clr_character_flag = vegetarian_perseverance_2
+			set_character_flag = vegetarian_perseverance_3
+		}
+		piety = 20
+		prestige = -40
+	}
+}
+
+# Maintainence event in case character has multiple vegetarian perseverance flags or none at all - also general vegetarian flavor event
+character_event = {
+	id = vegetarian.8
+	desc = vegetarian.8.desc	
+	picture = GFX_evt_vegetarian
+	
+	only_playable = yes
+	only_rulers = yes
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		is_theocracy = no
+
+		trait = vegetarian
+		OR = {
+			AND = {
+				NOT = { has_character_flag = vegetarian_perseverance_1 }
+				NOT = { has_character_flag = vegetarian_perseverance_2 }
+				NOT = { has_character_flag = vegetarian_perseverance_3 }
+			}
+			AND = {
+				has_character_flag = vegetarian_perseverance_1
+				has_character_flag = vegetarian_perseverance_2
+			}
+			AND = {
+				has_character_flag = vegetarian_perseverance_1
+				has_character_flag = vegetarian_perseverance_3
+			}
+			AND = {
+				has_character_flag = vegetarian_perseverance_2
+				has_character_flag = vegetarian_perseverance_3
+			}
+			AND = {
+				has_character_flag = vegetarian_perseverance_1
+				has_character_flag = vegetarian_perseverance_2
+				has_character_flag = vegetarian_perseverance_3
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 3
+	}
+	
+	option = { #ok
+		name = vegetarian.8.a
+		clr_character_flag = vegetarian_perseverance_1
+		clr_character_flag = vegetarian_perseverance_2
+		clr_character_flag = vegetarian_perseverance_3
+		hidden_tooltip = {
+			random_list = {
+				45 = { set_character_flag = vegetarian_perseverance_1 }
+				35 = { set_character_flag = vegetarian_perseverance_2 }
+				20 = { set_character_flag = vegetarian_perseverance_3 }
+			}
+		}
+	}
+}
+
+
+#######################################
+# Vegetarian Flavor Events
+#######################################
+
+
+# Courtier tempts
+character_event = {
+	id = vegetarian.9
+	desc = vegetarian.9.desc	
+	picture = GFX_evt_feast
+	
+	is_triggered_only = yes
+	
+	only_rulers = yes
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		is_theocracy = no
+
+		trait = vegetarian
+		any_courtier = {
+			is_adult = yes
+			NOT = { trait = incapable }
+			NOT = { trait = zealous }
+			NOT = { trait = kind }
+			religion_group = indian_group
+			OR = {
+				trait = gregarious
+				trait = hedonist
+				trait = gluttonous
+				trait = cynical
+				trait = arbitrary
+			}
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		modifier = {
+			factor = 2
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 0.5
+			trait = temperate
+		}
+		modifier = {
+			factor = 2
+			trait = patient
+		}
+		modifier = {
+			factor = 0.5
+			trait = wroth
+		}
+		modifier = {
+			factor = 2
+			trait = slothful
+		}
+		modifier = {
+			factor = 0.5
+			trait = diligent
+		}
+		modifier = {
+			factor = 2
+			trait = cynical
+		}
+		modifier = {
+			factor = 0.5
+			trait = zealous
+		}
+		modifier = {
+			factor = 2
+			trait = greedy
+		}
+		modifier = {
+			factor = 0.5
+			trait = charitable
+		}
+	}
+	
+	option = { # Just a wee bit
+		name = vegetarian.9.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				trait = kind
+			}
+			modifier = {
+				factor = 2
+				trait = gregarious
+			}	
+			modifier = {
+				factor = 0.5
+				trait = temperate
+			}
+			modifier = {
+				factor = 2
+				trait = gluttonous
+			}	
+			modifier = {
+				factor = 0.5
+				trait = zealous
+			}
+			modifier = {
+				factor = 2
+				trait = greedy
+			}	
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_2
+			}
+			clr_character_flag = vegetarian_perseverance_2
+			set_character_flag = vegetarian_perseverance_1
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_3
+			}
+			clr_character_flag = vegetarian_perseverance_3
+			set_character_flag = vegetarian_perseverance_2
+		}
+		piety = -5
+		add_character_modifier = {
+			name = best_meal_in_ages
+			duration = 30
+		}
+		random_courtier = {
+			limit = {
+				is_adult = yes
+				NOT = { trait = incapable }
+				NOT = { trait = zealous }
+				NOT = { trait = kind }
+				religion_group = indian_group
+				OR = {
+					trait = gregarious
+					trait = hedonist
+					trait = gluttonous
+					trait = cynical
+					trait = arbitrary
+				}
+			}
+			opinion = {
+				modifier = opinion_amused
+				who = ROOT
+				years = 1
+			}			
+		}
+	}
+	
+	option = { # No
+		name = vegetarian.9.b
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 2
+				trait = kind
+			}
+			modifier = {
+				factor = 0.5
+				trait = gregarious
+			}	
+			modifier = {
+				factor = 2
+				trait = temperate
+			}
+			modifier = {
+				factor = 0.5
+				trait = gluttonous
+			}	
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.5
+				trait = greedy
+			}	
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_1
+			}
+			clr_character_flag = vegetarian_perseverance_1
+			set_character_flag = vegetarian_perseverance_2
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_2
+			}
+			clr_character_flag = vegetarian_perseverance_2
+			set_character_flag = vegetarian_perseverance_3
+		}
+		piety = 10
+		random_courtier = {
+			limit = {
+				is_adult = yes
+				NOT = { trait = incapable }
+				NOT = { trait = zealous }
+				NOT = { trait = kind }
+				religion_group = indian_group
+				OR = {
+					trait = gregarious
+					trait = hedonist
+					trait = gluttonous
+					trait = cynical
+					trait = arbitrary
+				}
+			}
+			opinion = {
+				modifier = opinion_amused
+				who = ROOT
+				years = 1
+			}			
+		}
+	}
+}
+
+
+# Must have meat
+character_event = {
+	id = vegetarian.10
+	desc = vegetarian.10.desc	
+	picture = GFX_evt_vegetarian
+	
+	is_triggered_only = yes
+	
+	only_rulers = yes
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		is_theocracy = no
+
+		trait = vegetarian
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 4
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 0.25
+			trait = temperate
+		}
+		modifier = {
+			factor = 2
+			trait = wroth
+		}
+		modifier = {
+			factor = 0.5
+			trait = patient
+		}
+		modifier = {
+			factor = 2
+			trait = slothful
+		}
+		modifier = {
+			factor = 0.5
+			trait = diligent
+		}
+		modifier = {
+			factor = 2
+			trait = arbitrary
+		}
+		modifier = {
+			factor = 0.5
+			trait = just
+		}
+		modifier = {
+			factor = 2
+			trait = greedy
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				has_character_flag = vegetarian_perseverance_2
+				has_character_flag = vegetarian_perseverance_3
+			}
+		}
+	}
+	
+	option = { # Just a wee bit
+		name = vegetarian.10.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				trait = just
+			}
+			modifier = {
+				factor = 2
+				trait = arbitrary
+			}	
+			modifier = {
+				factor = 0.5
+				trait = temperate
+			}
+			modifier = {
+				factor = 2
+				trait = gluttonous
+			}	
+			modifier = {
+				factor = 0.5
+				trait = zealous
+			}
+			modifier = {
+				factor = 2
+				trait = greedy
+			}	
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_2
+			}
+			clr_character_flag = vegetarian_perseverance_2
+			set_character_flag = vegetarian_perseverance_1
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_3
+			}
+			clr_character_flag = vegetarian_perseverance_3
+			set_character_flag = vegetarian_perseverance_2
+		}
+		piety = -5
+		add_character_modifier = {
+			name = best_meal_in_ages
+			duration = 30
+		}
+	}
+	
+	option = { # No
+		name = vegetarian.10.b
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 2
+				trait = kind
+			}
+			modifier = {
+				factor = 0.5
+				trait = arbitrary
+			}	
+			modifier = {
+				factor = 2
+				trait = temperate
+			}
+			modifier = {
+				factor = 0.25
+				trait = gluttonous
+			}	
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.5
+				trait = greedy
+			}	
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_1
+			}
+			clr_character_flag = vegetarian_perseverance_1
+			set_character_flag = vegetarian_perseverance_2
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_2
+			}
+			clr_character_flag = vegetarian_perseverance_2
+			set_character_flag = vegetarian_perseverance_3
+		}
+		piety = 5
+	}
+}
+
+# Cook accidentally put in meat
+character_event = {
+	id = vegetarian.11
+	desc = vegetarian.11.desc	
+	picture = GFX_evt_feast
+	
+	is_triggered_only = yes
+	
+	only_rulers = yes
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		is_theocracy = no
+
+		trait = vegetarian
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 0.5
+			trait = temperate
+		}
+		modifier = {
+			factor = 2
+			trait = patient
+		}
+		modifier = {
+			factor = 0.5
+			trait = wroth
+		}
+		modifier = {
+			factor = 2
+			trait = slothful
+		}
+		modifier = {
+			factor = 0.5
+			trait = diligent
+		}
+		modifier = {
+			factor = 2
+			trait = kind
+		}
+		modifier = {
+			factor = 0.5
+			trait = cruel
+		}
+		modifier = {
+			factor = 2
+			trait = trusting
+		}
+		modifier = {
+			factor = 0.5
+			trait = paranoid
+		}
+	}
+	
+	option = { # Just a wee bit
+		name = vegetarian.11.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				trait = just
+			}
+			modifier = {
+				factor = 2
+				trait = arbitrary
+			}	
+			modifier = {
+				factor = 0.5
+				trait = temperate
+			}
+			modifier = {
+				factor = 2
+				trait = gluttonous
+			}	
+			modifier = {
+				factor = 0.5
+				trait = zealous
+			}
+			modifier = {
+				factor = 2
+				trait = greedy
+			}	
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_2
+			}
+			clr_character_flag = vegetarian_perseverance_2
+			set_character_flag = vegetarian_perseverance_1
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_3
+			}
+			clr_character_flag = vegetarian_perseverance_3
+			set_character_flag = vegetarian_perseverance_2
+		}
+		piety = -5
+		prestige = 3
+	}	
+	option = { # Just a wee bit
+		name = vegetarian.11.b
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				trait = just
+			}
+			modifier = {
+				factor = 2
+				trait = arbitrary
+			}	
+			modifier = {
+				factor = 0.5
+				trait = temperate
+			}
+			modifier = {
+				factor = 2
+				trait = gluttonous
+			}	
+			modifier = {
+				factor = 0.5
+				trait = zealous
+			}
+			modifier = {
+				factor = 2
+				trait = greedy
+			}	
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_2
+			}
+			hidden_tooltip = {
+				random_list = {
+					67 = { }
+					33 = {
+						clr_character_flag = vegetarian_perseverance_2
+						set_character_flag = vegetarian_perseverance_1					
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_3
+			}
+			hidden_tooltip = {
+				random_list = {
+					67 = { }
+					33 = {
+						clr_character_flag = vegetarian_perseverance_3
+						set_character_flag = vegetarian_perseverance_2					
+					}
+				}
+			}
+		}
+		piety = -1
+		add_character_modifier = {
+			name = polite_ruler
+			duration = 365
+		}
+	}
+	
+	option = { # No
+		name = vegetarian.11.c
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 2
+				trait = kind
+			}
+			modifier = {
+				factor = 0.5
+				trait = arbitrary
+			}	
+			modifier = {
+				factor = 2
+				trait = temperate
+			}
+			modifier = {
+				factor = 0.25
+				trait = gluttonous
+			}	
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.5
+				trait = greedy
+			}	
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_1
+			}
+			clr_character_flag = vegetarian_perseverance_1
+			set_character_flag = vegetarian_perseverance_2
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_2
+			}
+			clr_character_flag = vegetarian_perseverance_2
+			set_character_flag = vegetarian_perseverance_3
+		}
+		piety = 5
+	}
+}
+
+# Getting Used to Vegetarianism
+character_event = {
+	id = vegetarian.12
+	desc = vegetarian.12.desc	
+	picture = GFX_evt_vegetarian
+	
+	is_triggered_only = yes
+	
+	only_rulers = yes
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		is_theocracy = no
+
+		trait = vegetarian
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			trait = kind
+		}
+		modifier = {
+			factor = 0.5
+			trait = cruel
+		}
+		modifier = {
+			factor = 2
+			trait = zealous
+		}
+		modifier = {
+			factor = 0.5
+			trait = hedonist
+		}
+		modifier = {
+			factor = 2
+			trait = temperate
+		}
+		modifier = {
+			factor = 0.5
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 2
+			trait = content
+		}
+		modifier = {
+			factor = 0.5
+			trait = arbitrary
+		}
+		modifier = {
+			factor = 2
+			trait = diligent
+		}
+		modifier = {
+			factor = 0.5
+			trait = slothful
+		}
+		modifier = {
+			factor = 2
+			trait = patient
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { has_character_flag = vegetarian_perseverance_1 }
+		}
+	}
+	
+
+	option = { # Yay
+		name = vegetarian.12.a
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 2
+				trait = kind
+			}
+			modifier = {
+				factor = 0.5
+				trait = arbitrary
+			}	
+			modifier = {
+				factor = 2
+				trait = temperate
+			}
+			modifier = {
+				factor = 0.25
+				trait = gluttonous
+			}	
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.5
+				trait = greedy
+			}	
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_1
+			}
+			clr_character_flag = vegetarian_perseverance_1
+			set_character_flag = vegetarian_perseverance_2
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_2
+			}
+			clr_character_flag = vegetarian_perseverance_2
+			set_character_flag = vegetarian_perseverance_3
+		}
+		piety = 2
+		prestige = 1
+	}
+}
+
+# Monk lecture on vegetarianism
+character_event = {
+	id = vegetarian.13
+	desc = vegetarian.13.desc	
+	picture = GFX_evt_vegetarian
+	
+	is_triggered_only = yes
+	
+	only_rulers = yes
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		is_theocracy = no
+
+		trait = vegetarian
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			trait = kind
+		}
+		modifier = {
+			factor = 0.5
+			trait = cruel
+		}
+		modifier = {
+			factor = 2
+			trait = zealous
+		}
+		modifier = {
+			factor = 0.5
+			trait = cynical
+		}
+		modifier = {
+			factor = 2
+			trait = temperate
+		}
+		modifier = {
+			factor = 0.5
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 2
+			trait = ambitious
+		}
+		modifier = {
+			factor = 0.5
+			trait = content
+		}
+		modifier = {
+			factor = 2
+			trait = diligent
+		}
+		modifier = {
+			factor = 0.5
+			trait = slothful
+		}
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		modifier = {
+			factor = 2
+			trait = patient
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { has_character_flag = vegetarian_perseverance_1 }
+		}
+	}
+	
+
+	option = { # Pride
+		name = vegetarian.13.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = proud
+			}
+			modifier = {
+				factor = 0.5
+				trait = humble
+			}
+		}
+		prestige = 5
+		if = {
+			limit = {
+				NOT = { trait = proud }
+			}
+			random_list = {
+				70 = { }
+				30 = { add_trait = proud }
+			}
+		}
+	}
+	option = { # Humility
+		name = vegetarian.13.b
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = proud
+			}
+			modifier = {
+				factor = 0.5
+				trait = humble
+			}
+		}
+		piety = 5
+		if = {
+			limit = {
+				NOT = { trait = humble }
+			}
+			random_list = {
+				70 = { }
+				30 = { add_trait = humble }
+			}
+		}
+	}
+}
+
+# Save some animals?
+character_event = {
+	id = vegetarian.14
+	desc = vegetarian.14.desc	
+	picture = GFX_evt_garden
+	
+	is_triggered_only = yes
+	
+	only_rulers = yes
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		is_theocracy = no
+
+		trait = vegetarian
+		war = no
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			trait = kind
+		}
+		modifier = {
+			factor = 0.5
+			trait = cruel
+		}
+		modifier = {
+			factor = 2
+			trait = zealous
+		}
+		modifier = {
+			factor = 0.5
+			trait = envious
+		}
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		modifier = {
+			factor = 2
+			trait = wroth
+		}
+		modifier = {
+			factor = 0.5
+			trait = patient
+		}
+		modifier = {
+			factor = 2
+			trait = charitable
+		}
+		modifier = {
+			factor = 0.5
+			trait = greedy
+		}
+		modifier = {
+			factor = 2
+			trait = trusting
+		}
+		modifier = {
+			factor = 0.5
+			trait = paranoid
+		}
+	}
+	
+
+	option = { # Save em
+		name = vegetarian.14.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = kind
+			}
+			modifier = {
+				factor = 0.5
+				trait = cruel
+			}
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.5
+				trait = envious
+			}
+		}
+		wealth = -2
+		piety = 5
+		add_character_modifier = {
+			name = the_kind
+			duration = 365
+		}
+		if = {
+			limit = {
+				NOT = { trait = kind }
+			}
+			random_list = {
+				70 = { }
+				30 = { add_trait = kind }
+			}
+		}
+	}
+	option = { # who cares
+		name = vegetarian.14.b
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				trait = kind
+			}
+			modifier = {
+				factor = 2
+				trait = slothful
+			}
+			modifier = {
+				factor = 0.5
+				trait = zealous
+			}
+			modifier = {
+				factor = 2
+				trait = arbitrary
+			}
+		}
+		piety = -1
+		if = {
+			limit = {
+				trait = kind
+			}
+			random_list = {
+				75 = { }
+				25 = { remove_trait = kind }
+			}
+		}
+	}
+}
+
+# A courtier turns vegetarian
+character_event = {
+	id = vegetarian.15
+	desc = vegetarian.15.desc	
+	picture = GFX_evt_courtiers_talking
+	
+	is_triggered_only = yes
+	
+	only_rulers = yes
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		is_theocracy = no
+
+		trait = vegetarian
+		war = no
+		any_courtier = {
+			NOT = { trait = vegetarian }
+			NOT = { trait = incapable }
+			NOT = { has_character_flag = converted_to_vegetarianism }
+			is_adult = yes
+			religion_group = indian_group		
+			OR = {
+				trait = zealous
+				trait = kind
+				trait = temperate
+				trait = diligent
+				trait = trusting
+			}
+			NOT = { trait = cruel }
+			NOT = { trait = gluttonous }
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 0.05
+			has_character_flag = converted_a_courtier_to_vegetarianism
+		}
+		modifier = {
+			factor = 2
+			trait = kind
+		}
+		modifier = {
+			factor = 0.5
+			trait = cruel
+		}
+		modifier = {
+			factor = 2
+			trait = zealous
+		}
+		modifier = {
+			factor = 0.5
+			trait = envious
+		}
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		modifier = {
+			factor = 2
+			trait = ambitious
+		}
+		modifier = {
+			factor = 0.5
+			trait = content
+		}
+		modifier = {
+			factor = 2
+			trait = honest
+		}
+		modifier = {
+			factor = 0.5
+			trait = deceitful
+		}
+		modifier = {
+			factor = 2
+			trait = proud
+		}
+		modifier = {
+			factor = 0.5
+			trait = humble
+		}
+	}
+	
+
+	option = { # Yay vegetarians
+		name = vegetarian.15.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = kind
+			}
+			modifier = {
+				factor = 0.5
+				trait = cruel
+			}
+		}
+		prestige = 3
+		piety = 3
+		set_character_flag = converted_a_courtier_to_vegetarianism
+		random_courtier = {
+			limit = {
+				NOT = { trait = vegetarian }
+				NOT = { trait = incapable }
+				NOT = { has_character_flag = converted_to_vegetarianism }
+				is_adult = yes
+				religion_group = indian_group		
+				OR = {
+					trait = zealous
+					trait = kind
+					trait = temperate
+					trait = diligent
+					trait = trusting
+				}
+				NOT = { trait = cruel }
+				NOT = { trait = gluttonous }
+			}
+			add_trait = vegetarian
+			set_character_flag = converted_to_vegetarianism
+			opinion = {
+				modifier = convinced_me_to_be_vegetarian
+				who = ROOT
+				years = 25
+			}
+		}
+	}
+}
+
+
+
+# Malnourished?
+character_event = {
+	id = vegetarian.16
+	desc = vegetarian.16.desc	
+	picture = GFX_evt_monk_eastern_group
+	
+	is_triggered_only = yes
+	
+	only_rulers = yes
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		is_theocracy = no
+
+		trait = vegetarian
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			trait = shy
+		}
+		modifier = {
+			factor = 0.5
+			trait = gregarious
+		}
+		modifier = {
+			factor = 2
+			trait = patient
+		}
+		modifier = {
+			factor = 0.5
+			trait = wroth
+		}
+		modifier = {
+			factor = 2
+			trait = slothful
+		}
+		modifier = {
+			factor = 0.5
+			trait = diligent
+		}
+		modifier = {
+			factor = 2
+			trait = craven
+		}
+		modifier = {
+			factor = 0.5
+			trait = brave
+		}
+		modifier = {
+			factor = 2
+			trait = trusting
+		}
+		modifier = {
+			factor = 0.5
+			trait = paranoid
+		}
+		modifier = {
+			factor = 2
+			trait = weak
+		}
+		modifier = {
+			factor = 0.5
+			trait = strong
+		}
+		modifier = {
+			factor = 2
+			NOT = { health = 4 }
+		}
+		modifier = {
+			factor = 0.5
+			health = 6
+		}
+	}
+	
+	option = { # Not okay
+		name = vegetarian.16.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				trait = zealous
+			}
+			modifier = {
+				factor = 2
+				trait = trusting
+			}	
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_2
+			}
+			clr_character_flag = vegetarian_perseverance_2
+			set_character_flag = vegetarian_perseverance_1
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_3
+			}
+			clr_character_flag = vegetarian_perseverance_3
+			set_character_flag = vegetarian_perseverance_2
+		}
+		piety = 1
+	}	
+	
+	option = { # Okay
+		name = vegetarian.16.b
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.5
+				trait = gluttonous
+			}	
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_1
+			}
+			clr_character_flag = vegetarian_perseverance_1
+			set_character_flag = vegetarian_perseverance_2
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_2
+			}
+			clr_character_flag = vegetarian_perseverance_2
+			set_character_flag = vegetarian_perseverance_3
+		}
+		piety = 5
+	}
+}
+
+# New vegetarian diet
+character_event = {
+	id = vegetarian.17
+	desc = vegetarian.17.desc	
+	picture = GFX_evt_vegetarian
+	
+	is_triggered_only = yes
+	
+	only_rulers = yes
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		is_theocracy = no
+
+		trait = vegetarian
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		modifier = {
+			factor = 2
+			trait = arbitrary
+		}
+		modifier = {
+			factor = 0.5
+			trait = just
+		}
+		modifier = {
+			factor = 2
+			trait = lustful
+		}
+		modifier = {
+			factor = 0.5
+			trait = chaste
+		}
+		modifier = {
+			factor = 2
+			trait = brave
+		}
+		modifier = {
+			factor = 0.5
+			trait = craven
+		}
+		modifier = {
+			factor = 2
+			NOT = { health = 4 }
+		}
+		modifier = {
+			factor = 0.5
+			health = 6
+		}
+	}
+	
+	option = { # Meat
+		name = vegetarian.17.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				trait = temperate
+			}
+			modifier = {
+				factor = 2
+				trait = gluttonous
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_2
+			}
+			clr_character_flag = vegetarian_perseverance_2
+			set_character_flag = vegetarian_perseverance_1
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_3
+			}
+			clr_character_flag = vegetarian_perseverance_3
+			set_character_flag = vegetarian_perseverance_2
+		}
+		random_list = {
+			80 = { }
+			20 = { add_trait = ill }
+		}
+	}	
+	
+	option = { # Old diet
+		name = vegetarian.17.b
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.5
+				trait = gluttonous
+			}	
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_1
+			}
+			clr_character_flag = vegetarian_perseverance_1
+			set_character_flag = vegetarian_perseverance_2
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_2
+			}
+			clr_character_flag = vegetarian_perseverance_2
+			set_character_flag = vegetarian_perseverance_3
+		}
+		random_list = {
+			80 = { }
+			20 = { add_trait = ill }
+		}
+	}
+}
+
+# Evil meat-eaters!
+character_event = {
+	id = vegetarian.18
+	desc = vegetarian.18.desc	
+	picture = GFX_evt_vegetarian
+	
+	is_triggered_only = yes
+	
+	only_rulers = yes
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		is_theocracy = no
+
+		trait = vegetarian
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		modifier = {
+			factor = 4
+			trait = proud
+		}
+		modifier = {
+			factor = 0.25
+			trait = humble
+		}
+		modifier = {
+			factor = 2
+			trait = wroth
+		}
+		modifier = {
+			factor = 0.5
+			trait = patient
+		}
+		modifier = {
+			factor = 2
+			trait = ambitious
+		}
+		modifier = {
+			factor = 0.5
+			trait = content
+		}
+		modifier = {
+			factor = 2
+			trait = zealous
+		}
+		modifier = {
+			factor = 0.5
+			trait = cynical
+		}
+	}
+	
+	option = { # Foolz
+		name = vegetarian.18.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				trait = humble
+			}
+			modifier = {
+				factor = 2
+				trait = proud
+			}
+		}
+		piety = 5
+		any_courtier = {
+			limit = {
+				NOT = { trait = zealous }
+				NOT = { trait = vegetarian }
+				NOT = { trait = kind }
+				NOT = { trait = temperate }
+				NOT = { trait = humble }
+				NOT = { trait = patient }
+				NOT = { trait = trusting }
+				NOT = { trait = retreat_veteran }
+				NOT = { trait = retreat_master }
+				is_adult = yes
+			}
+			opinion = {
+				modifier = opinion_irritated
+				who = ROOT
+				years = 2
+			}
+		}
+	}	
+	
+	option = { # Too harsh?
+		name = vegetarian.18.b
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.5
+				trait = gluttonous
+			}	
+		}
+		prestige = 2
+		any_courtier = {
+			limit = {
+				NOT = { trait = zealous }
+				NOT = { trait = vegetarian }
+				NOT = { trait = kind }
+				NOT = { trait = temperate }
+				NOT = { trait = humble }
+				NOT = { trait = patient }
+				NOT = { trait = trusting }
+				NOT = { trait = retreat_veteran }
+				NOT = { trait = retreat_master }
+				is_adult = yes
+			}
+			opinion = {
+				modifier = opinion_irritated
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+}
+
+# Meat prank
+character_event = {
+	id = vegetarian.19
+	desc = vegetarian.19.desc	
+	picture = GFX_evt_scandal
+	
+	is_triggered_only = yes
+	
+	only_rulers = yes
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		is_theocracy = no
+
+		trait = vegetarian
+		any_courtier = {
+			OR = {
+				trait = gregarious
+				trait = cruel
+				trait = arbitrary
+			}
+			NOT = { trait = incapable }
+			NOT = { trait = shy }
+			NOT = { trait = kind }
+			NOT = {
+				AND = {
+					trait = zealous
+					religion_group = indian_group
+				}
+			}
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		modifier = {
+			factor = 2
+			trait = patient
+		}
+		modifier = {
+			factor = 0.5
+			trait = wroth
+		}
+		modifier = {
+			factor = 4
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 0.25
+			trait = temperate
+		}
+		modifier = {
+			factor = 2
+			trait = trusting
+		}
+		modifier = {
+			factor = 0.5
+			trait = paranoid
+		}
+		modifier = {
+			factor = 2
+			trait = craven
+		}
+		modifier = {
+			factor = 0.5
+			trait = brave
+		}
+		modifier = {
+			factor = 2
+			trait = slothful
+		}
+		modifier = {
+			factor = 0.5
+			trait = diligent
+		}
+		modifier = {
+			factor = 2
+			trait = kind
+		}
+		modifier = {
+			factor = 0.5
+			trait = cruel
+		}
+	}
+	
+	option = { # Foolz
+		name = vegetarian.19.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				trait = proud
+			}
+			modifier = {
+				factor = 2
+				trait = humble
+			}
+			modifier = {
+				factor = 0.5
+				trait = wroth
+			}
+			modifier = {
+				factor = 2
+				trait = patient
+			}
+			modifier = {
+				factor = 0.5
+				trait = cruel
+			}
+			modifier = {
+				factor = 2
+				trait = kind
+			}
+		}
+		random_courtier = {
+			limit = {
+				OR = {
+					trait = gregarious
+					trait = cruel
+					trait = arbitrary
+				}
+				NOT = { trait = incapable }
+				NOT = { trait = shy }
+				NOT = { trait = kind }
+				NOT = {
+					AND = {
+						trait = zealous
+						religion_group = indian_group
+					}
+				}
+			}
+			opinion = {
+				modifier = opinion_amused
+				who = ROOT
+				years = 1
+			}
+		}
+	}	
+	
+	option = { # Condemn
+		name = vegetarian.19.b
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.5
+				trait = cynical
+			}	
+			modifier = {
+				factor = 2
+				trait = just
+			}
+			modifier = {
+				factor = 0.5
+				trait = slothful
+			}	
+		}
+		piety = 2
+		random_courtier = {
+			limit = {
+				OR = {
+					trait = gregarious
+					trait = cruel
+					trait = arbitrary
+				}
+				NOT = { trait = incapable }
+				NOT = { trait = shy }
+				NOT = { trait = kind }
+				NOT = {
+					AND = {
+						trait = zealous
+						religion_group = indian_group
+					}
+				}
+			}
+			opinion = {
+				modifier = opinion_shamed_me
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+	
+	option = { # Day in the stocks
+		name = vegetarian.19.c
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = wroth
+			}
+			modifier = {
+				factor = 0.5
+				trait = patient
+			}	
+			modifier = {
+				factor = 2
+				trait = diligent
+			}
+			modifier = {
+				factor = 0.5
+				trait = kind
+			}	
+		}
+		prestige = 5
+		random_courtier = {
+			limit = {
+				OR = {
+					trait = gregarious
+					trait = cruel
+					trait = arbitrary
+				}
+				NOT = { trait = incapable }
+				NOT = { trait = shy }
+				NOT = { trait = kind }
+				NOT = {
+					AND = {
+						trait = zealous
+						religion_group = indian_group
+					}
+				}
+			}
+			opinion = {
+				modifier = opinion_angry
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+}
+
+# Vegetarians are supposed to be skinny
+character_event = {
+	id = vegetarian.20
+	desc = vegetarian.20.desc	
+	picture = GFX_evt_emissary
+	
+	is_triggered_only = yes
+	
+	only_rulers = yes
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		is_theocracy = no
+
+		trait = vegetarian
+		NOT = { trait = weak }
+		NOT = { trait = dwarf }
+		NOT = { trait = infirm }
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		modifier = {
+			factor = 2
+			trait = strong
+		}
+		modifier = {
+			factor = 0.5
+			trait = stressed
+		}
+		modifier = {
+			factor = 4
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 0.25
+			trait = temperate
+		}
+		modifier = {
+			factor = 2
+			trait = hunter
+		}
+		modifier = {
+			factor = 0.5
+			trait = scholar
+		}
+		modifier = {
+			factor = 2
+			trait = gardener
+		}
+		modifier = {
+			factor = 0.5
+			trait = poet
+		}
+		modifier = {
+			factor = 2
+			martial = 12
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { martial = 7 }
+		}
+	}
+	
+	option = { # ok
+		name = vegetarian.20.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				trait = proud
+			}
+			modifier = {
+				factor = 2
+				trait = humble
+			}
+		}
+		prestige = 5
+	}
+}
+
+# Sick of vegetarian diet
+character_event = {
+	id = vegetarian.21
+	desc = vegetarian.21.desc	
+	picture = GFX_evt_vegetarian
+	
+	is_triggered_only = yes
+	
+	only_rulers = yes
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		is_theocracy = no
+
+		trait = vegetarian
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 4
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 0.25
+			trait = temperate
+		}
+		modifier = {
+			factor = 2
+			trait = wroth
+		}
+		modifier = {
+			factor = 0.5
+			trait = patient
+		}
+		modifier = {
+			factor = 2
+			trait = arbitrary
+		}
+		modifier = {
+			factor = 0.5
+			trait = just
+		}
+		modifier = {
+			factor = 2
+			trait = hedonist
+		}
+		modifier = {
+			factor = 0.5
+			trait = celibate
+		}
+		modifier = {
+			factor = 2
+			trait = envious
+		}
+		modifier = {
+			factor = 0.5
+			trait = kind
+		}
+	}
+	
+	option = { # ok
+		name = vegetarian.21.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				trait = proud
+			}
+			modifier = {
+				factor = 2
+				trait = humble
+			}
+		}
+		piety = -3
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_2
+			}
+			clr_character_flag = vegetarian_perseverance_2
+			set_character_flag = vegetarian_perseverance_1
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_3
+			}
+			clr_character_flag = vegetarian_perseverance_3
+			set_character_flag = vegetarian_perseverance_2
+		}
+	}
+}
+
+# Mixing in meat
+character_event = {
+	id = vegetarian.22
+	desc = vegetarian.22.desc	
+	picture = GFX_evt_feast
+	
+	is_triggered_only = yes
+	
+	only_rulers = yes
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		is_theocracy = no
+
+		trait = vegetarian
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 0.5
+			trait = temperate
+		}
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		modifier = {
+			factor = 2
+			trait = lustful
+		}
+		modifier = {
+			factor = 0.5
+			trait = chaste
+		}
+		modifier = {
+			factor = 2
+			trait = diligent
+		}
+		modifier = {
+			factor = 0.5
+			trait = slothful
+		}
+		modifier = {
+			factor = 2
+			trait = ambitious
+		}
+		modifier = {
+			factor = 0.5
+			trait = content
+		}
+		modifier = {
+			factor = 2
+			trait = kind
+		}
+		modifier = {
+			factor = 0.5
+			trait = envious
+		}
+	}
+	
+	option = { # live with it
+		name = vegetarian.22.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				trait = diligent
+			}
+			modifier = {
+				factor = 2
+				trait = slothful
+			}
+			modifier = {
+				factor = 0.5
+				trait = zealous
+			}
+			modifier = {
+				factor = 2
+				trait = content
+			}
+		}
+		prestige = 2
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_2
+			}
+			hidden_tooltip = {
+				random_list = {
+					67 = { }
+					33 = {
+						clr_character_flag = vegetarian_perseverance_2
+						set_character_flag = vegetarian_perseverance_1					
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_3
+			}
+			hidden_tooltip = {
+				random_list = {
+					67 = { }
+					33 = {
+						clr_character_flag = vegetarian_perseverance_3
+						set_character_flag = vegetarian_perseverance_2					
+					}
+				}
+			}
+		}
+	}	
+	option = { # take precautions
+		name = vegetarian.22.b
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = slothful
+			}
+			modifier = {
+				factor = 0.5
+				trait = diligent
+			}
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.5
+				trait = content
+			}
+		}
+		piety = 2
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_1
+			}
+			clr_character_flag = vegetarian_perseverance_1
+			set_character_flag = vegetarian_perseverance_2
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_2
+			}
+			clr_character_flag = vegetarian_perseverance_2
+			set_character_flag = vegetarian_perseverance_3
+		}
+	}
+}
+
+# Kiss someone who ate meat?
+character_event = {
+	id = vegetarian.23
+	desc = vegetarian.23.desc	
+	picture = GFX_evt_lovers
+	
+	is_triggered_only = yes
+	
+	only_rulers = yes
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		is_theocracy = no
+
+		trait = vegetarian
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 0.5
+			trait = temperate
+		}
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		modifier = {
+			factor = 2
+			trait = lustful
+		}
+		modifier = {
+			factor = 0.5
+			trait = chaste
+		}
+		modifier = {
+			factor = 2
+			trait = diligent
+		}
+		modifier = {
+			factor = 0.5
+			trait = slothful
+		}
+		modifier = {
+			factor = 2
+			trait = arbitrary
+		}
+		modifier = {
+			factor = 0.5
+			trait = just
+		}
+		modifier = {
+			factor = 2
+			trait = kind
+		}
+		modifier = {
+			factor = 0.5
+			trait = envious
+		}
+	}
+	
+	option = { # Why are you asking me this question?
+		name = vegetarian.23.a
+		tooltip_info = celibate
+		trigger = {
+			trait = celibate
+		}		
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.5
+				trait = lustful
+			}
+			modifier = {
+				factor = 2
+				trait = chaste
+			}
+		}
+		piety = 3
+	}		
+	option = { # Yes
+		name = vegetarian.23.b
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				trait = chaste
+			}
+			modifier = {
+				factor = 2
+				trait = lustful
+			}
+			modifier = {
+				factor = 0.5
+				trait = zealous
+			}
+			modifier = {
+				factor = 2
+				trait = content
+			}
+		}
+		prestige = 2
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_2
+			}
+			hidden_tooltip = {
+				random_list = {
+					67 = { }
+					33 = {
+						clr_character_flag = vegetarian_perseverance_2
+						set_character_flag = vegetarian_perseverance_1					
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_3
+			}
+			hidden_tooltip = {
+				random_list = {
+					67 = { }
+					33 = {
+						clr_character_flag = vegetarian_perseverance_3
+						set_character_flag = vegetarian_perseverance_2					
+					}
+				}
+			}
+		}
+	}	
+	option = { # No
+		name = vegetarian.23.c
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.5
+				trait = content
+			}
+			modifier = {
+				factor = 2
+				trait = temperate
+			}
+			modifier = {
+				factor = 0.5
+				trait = slothful
+			}
+		}
+		piety = 3
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_1
+			}
+			clr_character_flag = vegetarian_perseverance_1
+			set_character_flag = vegetarian_perseverance_2
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_2
+			}
+			clr_character_flag = vegetarian_perseverance_2
+			set_character_flag = vegetarian_perseverance_3
+		}
+	}	
+	option = { # No
+		name = vegetarian.23.d
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = lustful
+			}
+			modifier = {
+				factor = 0.5
+				trait = chaste
+			}
+			modifier = {
+				factor = 2
+				trait = gregarious
+			}
+			modifier = {
+				factor = 0.5
+				trait = shy
+			}
+		}
+		random_list = {
+			80 = { }
+			20 = { add_trait = lustful }
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_2
+			}
+			hidden_tooltip = {
+				random_list = {
+					67 = { }
+					33 = {
+						clr_character_flag = vegetarian_perseverance_2
+						set_character_flag = vegetarian_perseverance_1					
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_3
+			}
+			hidden_tooltip = {
+				random_list = {
+					67 = { }
+					33 = {
+						clr_character_flag = vegetarian_perseverance_3
+						set_character_flag = vegetarian_perseverance_2					
+					}
+				}
+			}
+		}
+	}
+}
+
+# Only save a few animals
+character_event = {
+	id = vegetarian.24
+	desc = vegetarian.24.desc	
+	picture = GFX_evt_hunt
+	
+	is_triggered_only = yes
+	
+	only_rulers = yes
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		is_theocracy = no
+
+		trait = vegetarian
+		any_courtier = {
+			is_adult = yes
+			NOT = { trait = incapable }
+			NOT = { trait = zealous }
+			NOT = { trait = kind }
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			trait = temperate
+		}
+		modifier = {
+			factor = 0.5
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		modifier = {
+			factor = 2
+			trait = proud
+		}
+		modifier = {
+			factor = 0.5
+			trait = humble
+		}
+		modifier = {
+			factor = 2
+			trait = patient
+		}
+		modifier = {
+			factor = 0.5
+			trait = wroth
+		}
+		modifier = {
+			factor = 2
+			trait = arbitrary
+		}
+		modifier = {
+			factor = 0.5
+			trait = just
+		}
+		modifier = {
+			factor = 2
+			trait = kind
+		}
+		modifier = {
+			factor = 0.5
+			trait = envious
+		}
+	}
+		
+	option = { # Good point
+		name = vegetarian.24.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				trait = just
+			}
+			modifier = {
+				factor = 2
+				trait = arbitrary
+			}
+			modifier = {
+				factor = 0.5
+				trait = zealous
+			}
+			modifier = {
+				factor = 2
+				trait = cynical
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_2
+			}
+			clr_character_flag = vegetarian_perseverance_2
+			set_character_flag = vegetarian_perseverance_1
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_3
+			}
+			clr_character_flag = vegetarian_perseverance_3
+			set_character_flag = vegetarian_perseverance_2
+		}
+		random_courtier = {
+			limit = {
+				is_adult = yes
+				NOT = { trait = incapable }
+				NOT = { trait = zealous }
+				NOT = { trait = kind }			
+			}
+			opinion = {
+				modifier = agrees_with_me
+				who = ROOT
+				years = 2
+			}
+		}
+	}	
+	option = { # No
+		name = vegetarian.24.b
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.5
+				trait = content
+			}
+			modifier = {
+				factor = 2
+				trait = temperate
+			}
+			modifier = {
+				factor = 0.5
+				trait = slothful
+			}
+		}
+		piety = 5
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_1
+			}
+			clr_character_flag = vegetarian_perseverance_1
+			set_character_flag = vegetarian_perseverance_2
+		}
+		if = {
+			limit = {
+				has_character_flag = vegetarian_perseverance_2
+			}
+			clr_character_flag = vegetarian_perseverance_2
+			set_character_flag = vegetarian_perseverance_3
+		}
+		random_courtier = {
+			limit = {
+				is_adult = yes
+				NOT = { trait = incapable }
+				NOT = { trait = zealous }
+				NOT = { trait = kind }			
+			}
+			opinion = {
+				modifier = disagrees_with_me
+				who = ROOT
+				years = 2
+			}
+		}
+	}	
+}

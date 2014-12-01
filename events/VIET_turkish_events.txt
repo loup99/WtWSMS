@@ -1,0 +1,422 @@
+################################################################
+#
+# Events for the Turks (and Byzantines)
+#
+################################################################
+
+namespace = ottoman
+
+#Character conquers Constantinople
+
+character_event = {
+	id = ottoman.1
+	desc = ottoman.1.desc
+	picture = GFX_evt_fetih
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_global_flag = VIET_immersion_on
+		NOT = { has_global_flag = VIET_turkish_features_off }
+		culture = turkish
+		religion_group = muslim
+		independent = yes
+		prisoner = no
+		war = no
+		NOT = { has_global_flag = fall_of_constantinople }
+		OR = {
+			has_landed_title = c_byzantion
+			any_realm_lord = {
+				has_landed_title = c_byzantion
+			}
+		}
+	}
+	
+	mean_time_to_happen = { 
+		days = 1
+	}
+	
+	option = {
+		name = ottoman.1.a
+		set_dynasty_flag = the_ottomans
+		prestige = 300
+		piety = 300
+		give_nickname = nick_fetih
+		add_trait = kayser_i_rum
+		set_global_flag = fall_of_constantinople
+		if = {
+			limit = {
+				NOT = { has_landed_title = c_byzantion }
+			}
+			c_byzantion = {
+				usurp_title_plus_barony_if_unlanded_and_vassals = PREV
+			}
+		}
+		if = {
+			limit = {
+				NOT = { primary_title = { higher_tier_than = KING } }
+				e_turkish = { has_holder = no }
+			}
+			e_turkish = {
+				grant_title = ROOT
+			}
+		}
+		hidden_tooltip = {
+			any_playable_ruler = {
+				limit = {
+					ai = no
+				}
+				narrative_event = { id = VIETnarrative.1 }
+			}
+		}
+	}
+}
+
+#Rumelia gains all de jure territories of the Byzantine Empire
+character_event = {
+	id = ottoman.2
+	desc = "ottoman.2.desc"
+	picture = GFX_evt_tughra
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_global_flag = VIET_immersion_on
+		has_global_flag = fall_of_constantinople
+		NOT = { has_global_flag = VIET_turkish_features_off }
+		NOT = { has_global_flag = byzantium_eliminated }
+		is_adult = yes
+		culture = turkish
+		religion_group = muslim
+		independent = yes
+		has_landed_title = e_turkish
+		prisoner = no
+		war = no
+		e_byzantium = {
+			owner = {
+				war = no
+			}
+		}
+		OR = {
+			e_byzantium = { has_holder = no }
+			e_byzantium = {
+				holder_scope = {
+					NOT = { realm_size = 15 }
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = { days = 1 }
+	
+	option = {
+		name = "ottoman.2.a"
+		set_global_flag = byzantium_eliminated
+		e_byzantium = {
+			any_direct_de_jure_vassal_title = {
+				de_jure_liege = e_turkish
+			}
+		}
+		e_byzantium = {
+			destroy_landed_title = THIS
+		}
+	}
+}
+
+#Turkish Conquest CB gets free troops
+character_event = {
+	id = ottoman.3
+	desc = "ottoman.3.desc"
+	picture = GFX_evt_fetih
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_global_flag = VIET_immersion_on
+		is_adult = yes
+		culture = turkish
+		religion_group = muslim
+		any_war = {
+			using_cb = turkish_conquest
+			attacker = { character = ROOT }
+		}
+		NOT = { has_character_flag = turkish_got_free_troops_already }
+		NOT = { has_global_flag = VIET_turkish_features_off }
+	}
+	
+	option = {
+		name = "ottoman.3.a"
+		set_character_flag = turkish_got_free_troops_already
+		capital_scope = {
+			ROOT = {
+				spawn_unit = {
+					province = PREV
+					home = PREV
+					troops =
+					{
+						light_cavalry = { 100 100 }
+						light_infantry = { 1000 1000 }
+						heavy_infantry = { 500 500 }
+						knights = { 50 50 }
+						archers = { 500 500 }
+					}
+				}
+			}
+		}
+		random_list = {
+			50 = { }
+			50 = {
+				capital_scope = {
+					ROOT = {
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							troops =
+							{
+								light_cavalry = { 100 100 }
+								light_infantry = { 1000 1000 }
+								heavy_infantry = { 500 500 }
+								knights = { 50 50 }
+								archers = { 500 500 }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+#Turkish Muslim ruler of Rumelia becomes Kayser-i-Rum
+character_event = {
+	id = ottoman.4
+	desc = "ottoman.4.desc"
+	picture = GFX_evt_turkish_sultan
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_global_flag = VIET_immersion_on
+		culture = turkish
+		religion_group = muslim
+		has_landed_title = e_turkish
+		NOT = { trait = kayser_i_rum }
+		NOT = { has_global_flag = VIET_turkish_features_off }
+	}
+	
+	option = {
+		name = "ottoman.4.a"
+		add_trait = kayser_i_rum
+		prestige = 25
+		piety = 25
+	}
+}
+
+
+#Character who is Kaysar-i-Rum loses title
+character_event = {
+	id = ottoman.5
+	desc = "ottoman.5.desc"
+	picture = GFX_evt_turkish_sultan
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_global_flag = VIET_immersion_on
+		NOT = { has_landed_title = e_turkish }
+		trait = kayser_i_rum
+		NOT = { has_global_flag = VIET_turkish_features_off }
+	}
+	
+	option = {
+		name = "ottoman.5.a"
+		remove_trait = kayser_i_rum
+		prestige = -50
+		piety = -50
+	}
+}
+
+
+#Fall of Constantinople - replaced in VIET_Narrative
+# narrative_event = {
+	# id = ottoman.6
+	# title = "ottoman.6.name"
+	# desc = "ottoman.6.desc"
+	# major = yes
+	
+	# picture = "GFX_evt_fetih"
+	# border = "GFX_event_narrative_frame_war"
+	
+	# is_triggered_only = yes
+	
+	# option = {
+		# name = "ottoman.6.a"
+		# trigger = { 
+			# NOT = { religion_group = muslim } 
+			# NOT = { religion_group = christian } 
+		# }
+	# }
+	# option = {
+		# name = "ottoman.6.b"
+		# trigger = { religion_group = muslim }
+	# }	
+	# option = {
+		# name = "ottoman.6.c"
+		# trigger = { religion_group = christian }
+	# }
+# }
+
+
+#Free Eunuchs
+character_event = {
+	id = ottoman.7
+	desc = "ottoman.7.desc"
+	picture = GFX_evt_turkish_sultan
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_global_flag = VIET_immersion_on
+		has_landed_title = e_turkish
+		religion = sunni
+		culture = turkish
+		NOT = { has_global_flag = VIET_turkish_features_off }
+	}
+	
+	
+	mean_time_to_happen = { 
+		years = 10
+		modifier = {
+			factor = 3
+			has_character_flag = ottoman_eunuch
+		}
+		modifier = {
+			factor = 2
+			any_courtier = {
+				trait = eunuch
+			}
+		}
+	}
+	
+	option = {
+		name = "ottoman.7.a"
+		scaled_wealth = -0.1
+		prestige = 10
+		set_character_flag = ottoman_eunuch
+		random_list = {
+			10 = {
+				create_character = {
+					trait = eunuch
+					random_traits = yes
+					dynasty = none
+					religion = sunni
+					culture = ethiopian
+					female = no
+				}
+			}			
+			10 = {
+				create_character = {
+					trait = eunuch
+					random_traits = yes
+					dynasty = none
+					religion = sunni
+					culture = nubian
+					female = no
+				}
+			}
+			10 = {
+				create_character = {
+					trait = eunuch
+					random_traits = yes
+					dynasty = none
+					religion = sunni
+					culture = somali
+					female = no
+				}
+			}
+			10 = {
+				create_character = {
+					trait = eunuch
+					random_traits = yes
+					dynasty = none
+					religion = sunni
+					culture = ethiopian
+					female = no
+				}
+			}
+			10 = {
+				create_character = {
+					trait = eunuch
+					random_traits = yes
+					dynasty = none
+					religion = sunni
+					culture = armenian
+					female = no
+				}
+			}
+			10 = {
+				create_character = {
+					trait = eunuch
+					random_traits = yes
+					dynasty = none
+					religion = sunni
+					culture = serbian
+					female = no
+				}
+			}
+			10 = {
+				create_character = {
+					trait = eunuch
+					random_traits = yes
+					dynasty = none
+					religion = sunni
+					culture = greek
+					female = no
+				}
+			}
+			10 = {
+				create_character = {
+					trait = eunuch
+					random_traits = yes
+					dynasty = none
+					religion = sunni
+					culture = bulgarian
+					female = no
+				}
+			}
+			10 = {
+				create_character = {
+					trait = eunuch
+					random_traits = yes
+					dynasty = none
+					religion = sunni
+					culture = russian
+					female = no
+				}
+			}
+			10 = {
+				create_character = {
+					trait = eunuch
+					random_traits = yes
+					dynasty = none
+					religion = sunni
+					culture = cuman
+					female = no
+				}
+			}
+			10 = {
+				create_character = {
+					trait = eunuch
+					random_traits = yes
+					dynasty = none
+					religion = sunni
+					culture = georgian
+					female = no
+				}
+			}
+		}
+	}	
+	option = {
+		name = "ottoman.7.b"
+	}
+}

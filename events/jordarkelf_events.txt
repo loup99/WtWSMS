@@ -1,0 +1,329 @@
+####################################################################################
+#
+# Events based on Jordarkelf's Code
+#
+####################################################################################
+
+namespace = jordarkelf
+
+#Legitimize a hidden bastard if old and childless?
+character_event = {
+	id = jordarkelf.1
+	desc = jordarkelf.1.desc
+	picture = GFX_evt_courtiers_talking
+	
+	min_age = 50
+	only_rulers = yes
+		
+	trigger = {
+		NOT = { has_law = succ_feudal_elective }
+		is_feudal = yes
+		current_heir = { NOT = { dynasty = ROOT } }
+		NOT = {
+			any_child = {
+				dynasty = ROOT
+				is_female = no
+			}
+		}
+		any_child = {
+			was_conceived_a_bastard = yes
+			father = {
+				NOT = { character = ROOT }
+			}
+			is_female = no
+			NOT = { trait = bastard }
+			NOT = { trait = legit_bastard }
+		}
+	}
+	
+	mean_time_to_happen = {	years = 1 }
+	
+	option = {
+		name = EVTOPTA301 # Legitimize the child
+		ai_chance = { factor = 80 }
+		random_child = {
+			limit = {
+				was_conceived_a_bastard = yes
+				father = {
+					NOT = { character = ROOT }
+				}
+				is_female = no
+				NOT = { trait = bastard }
+				NOT = { trait = legit_bastard }
+			}
+			character_event = { id = 302 tooltip = EVTTOOLTIP302 } # The child gets the father's dynasty
+			mother = {
+				character_event = { id = jordarkelf.2 tooltip = EVTTOOLTIP303 } # The child's mother is very pleased
+				spouse = {
+					character_event = { id = 304 tooltip = EVTTOOLTIP304 } # The child's mother's husband is pissed off
+				}
+				consort = {
+					character_event = { id = 304 tooltip = EVTTOOLTIP304 } # The child's mother's lord is pissed off
+				}					
+			}
+		}
+		any_child = {
+			limit = {
+				dynasty = ROOT
+				was_conceived_a_bastard = no
+			}
+			opinion = {
+				who = ROOT
+				modifier = legitimized_bastard
+				months = 12
+			}
+		}
+	}
+	option = {
+		name = jordarkelf.1.b
+		ai_chance = { factor = 20 }
+	}
+}
+
+# The child's mother is very pleased
+character_event = {
+	id = jordarkelf.2
+	
+	is_triggered_only = yes 
+	desc = EVTDESC307
+	picture = GFX_evt_birth
+
+	option = {
+		name = EVTOPTA303
+		opinion = {
+			who = FROM
+			modifier = legitimized_child
+			years = 10
+		}
+	}
+}
+
+# Children of Jewish mothers are Jews
+character_event = {
+	id = jordarkelf.3
+	desc = jordarkelf.desc.3
+	picture = "GFX_evt_moorish_decor"
+	
+	min_age = 13
+	
+	trigger = {
+		is_ruler = no
+		NOT = { religion_group = jewish_group }
+		mother_even_if_dead = { religion_group = jewish_group }
+		NOT = { has_character_flag = no_more_jewish_event }
+	}
+	
+	mean_time_to_happen = {
+		months = 1
+	}
+	
+	option = {
+		name = jordarkelf.3.a
+		ai_chance = { factor = 100 }
+		set_character_flag = no_more_jewish_event
+		mother_even_if_dead = { 
+			reverse_religion = ROOT
+		}
+	}
+	
+	option = {
+		name = jordarkelf.3.b
+		ai_chance = { factor = 0 }
+		character_event = { id = jordarkelf.4 days = 5 }
+		set_character_flag = no_more_jewish_event
+	}
+}
+
+# Judaic culture but not a Jew?
+character_event = {
+	id = jordarkelf.4
+	desc = jordarkelf.4.desc
+	picture = "GFX_evt_moorish_decor"
+	
+	#min_age = 16
+	
+	trigger = {
+		is_adult = yes
+		culture_group = israelite
+		NOT = { religion_group = jewish_group }
+		NOT = { has_character_flag = no_more_jewish_event }
+		OR = {
+			mother_even_if_dead = { religion_group = jewish_group }
+			NOT = { #only member of dynasty so probably a spawned Jew
+				any_dynasty_member = {
+					NOT = { character = ROOT }
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 10
+	}
+	
+	option = {
+		name = jordarkelf.3.a
+		ai_chance = { factor = 100 }
+		set_character_flag = no_more_jewish_event
+		IF = { 
+			limit = { 
+				mother_even_if_dead = { religion_group = jewish_group }
+			}
+			mother_even_if_dead = {
+				reverse_religion = ROOT
+			}
+		}
+		IF = { 
+			limit = { 
+				NOT = { #only member of dynasty so probably a spawned Jew
+					any_dynasty_member = {
+						NOT = { character = ROOT }
+					}
+				}
+			}
+			religion = jewish
+		}
+	}
+	
+	option = {
+		name = jordarkelf.3.b
+		ai_chance = { factor = 0 }
+		set_character_flag = no_more_jewish_event
+		IF = { 
+			limit = { culture = ashkenazi }
+			culture = german
+		}
+		IF = { 
+			limit = { culture = crimean_jewish }
+			culture = cuman
+		}
+		IF = { 
+			limit = { culture = sephardi }
+			culture = andalusian_arabic
+		}
+		IF = { 
+			limit = { culture = mizrahi }
+			culture = bedouin_arabic
+		}
+		IF = { 
+			limit = { culture = falashim }
+			culture = ethiopian
+		}
+		IF = { 
+			limit = { culture = maghreb_jewish }
+			culture = maghreb_arabic
+		}
+		IF = { 
+			limit = { culture = italian_jewish }
+			culture = italian
+		}
+		IF = { 
+			limit = { culture = caucasian_jewish }
+			culture = georgian
+		}
+		IF = { 
+			limit = { culture = indian_jewish }
+			culture = hindustani
+		}
+		IF = { 
+			limit = { culture = bukharim }
+			culture = turkish
+		}
+		IF = { 
+			limit = { culture = chinese_jewish }
+			culture = chinese
+		}
+		IF = { 
+			limit = { culture = yemenite_jewish }
+			culture = bedouin_arabic
+		}
+	}
+}
+
+# jordarkelf.5 removed
+
+# Syphilis Effects
+character_event = {
+	id = jordarkelf.6
+	desc = jordarkelf.6.desc
+	picture = GFX_evt_illness
+	
+	trigger = {
+		trait = syphilitic
+	}
+	
+	mean_time_to_happen = {
+		years = 20
+		
+		modifier = {
+			factor = 0.5
+			NOT = { health = 6 }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { health = 5 }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { health = 4 }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { health = 3 }
+		}
+	}
+	
+	option = {
+		name = CURSES
+		random_list = {
+			50 = { add_trait = blinded }
+			30 = { add_trait = incapable }
+			20 = { death = { death_reason = death_trait } }
+		}
+	}
+}
+
+# Leprosy Effects
+character_event = {
+	id = jordarkelf.7
+	desc = jordarkelf.6.desc
+	picture = GFX_evt_illness
+	
+	trigger = {
+		trait = leper
+	}
+	
+	mean_time_to_happen = {
+		years = 20
+		
+		modifier = {
+			factor = 0.5
+			NOT = { health = 6 }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { health = 5 }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { health = 4 }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { health = 3 }
+		}
+	}
+	
+	option = {
+		name = CURSES
+		random_list = {
+			40 = { add_trait = blinded }
+			30 = { add_trait = deaf }
+			20 = { add_trait = incapable }
+			10 = { death = { death_reason = death_trait } }
+		}
+	}
+}
+
+# VIET SoA events moved to VIET_Immersion_religion_misc.txt
+#.8 next one

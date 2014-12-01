@@ -1,0 +1,139 @@
+#######################################
+#
+# ANCIENT RELIGIONS
+# - Flamines Maiores
+#
+# Event ID ancrel.2110 - ancrel.2119 reserved
+#
+#######################################
+
+# Written by Jon Severinsson
+
+namespace = ancrel
+
+# The Flamen Dialis must resign
+character_event = {
+	id = ancrel.2110
+	desc = EVTDESCancrel.2110
+	picture = GFX_evt_council
+	border = GFX_event_normal_frame_religion
+
+	trigger = {
+		has_minor_title = title_flamen_dialis
+		NOT = {
+			any_spouse = {
+				is_alive = yes
+				has_minor_title = title_flaminica_dialis
+			}
+		}
+	}
+
+	option = {
+		name = OK
+		remove_title = title_flamen_dialis
+		remove_character_modifier = modifier_flamen_dialis
+	}
+}
+
+# The Flamen Martialis must resign
+character_event = {
+	id = ancrel.2111
+	desc = EVTDESCancrel.2111
+	picture = GFX_evt_council
+	border = GFX_event_normal_frame_religion
+
+	trigger = {
+		has_minor_title = title_flamen_martialis
+		NOT = {
+			any_spouse = {
+				is_alive = yes
+				has_minor_title = title_flaminica_martialis
+			}
+		}
+	}
+
+	option = {
+		name = OK
+		remove_title = title_flamen_martialis
+		remove_character_modifier = modifier_flamen_martialis
+	}
+}
+
+# The Flamen Quirinalis must resign
+character_event = {
+	id = ancrel.2112
+	desc = EVTDESCancrel.2112
+	picture = GFX_evt_council
+	border = GFX_event_normal_frame_religion
+
+	trigger = {
+		has_minor_title = title_flamen_quirinalis
+		NOT = {
+			any_spouse = {
+				is_alive = yes
+				has_minor_title = title_flaminica_quirinalis
+			}
+		}
+	}
+
+	option = {
+		name = OK
+		remove_title = title_flamen_quirinalis
+		remove_character_modifier = modifier_flamen_quirinalis
+	}
+}
+
+# Cleanup when a Flamines lost his title some other way
+character_event = {
+	id = ancrel.2113
+	hide_window = yes
+
+	trigger = {
+		OR = {
+			AND = {
+				has_character_modifier = modifier_flamen_dialis
+				NOT = { has_minor_title = title_flamen_dialis }
+			}
+			AND = {
+				has_character_modifier = modifier_flamen_martialis
+				NOT = { has_minor_title = title_flamen_martialis }
+			}
+			AND = {
+				has_character_modifier = modifier_flamen_quirinalis
+				NOT = { has_minor_title = title_flamen_quirinalis }
+			}
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				has_character_modifier = modifier_flamen_dialis
+				NOT = { has_minor_title = title_flamen_dialis }
+			}
+			remove_character_modifier = modifier_flamen_dialis
+		}
+		if = {
+			limit = {
+				has_character_modifier = modifier_flamen_martialis
+				NOT = { has_minor_title = title_flamen_martialis }
+			}
+			remove_character_modifier = modifier_flamen_martialis
+		}
+		if = {
+			limit = {
+				has_character_modifier = modifier_flamen_quirinalis
+				NOT = { has_minor_title = title_flamen_quirinalis }
+			}
+			remove_character_modifier = modifier_flamen_quirinalis
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+	}
+}

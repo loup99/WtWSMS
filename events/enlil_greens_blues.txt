@@ -1,0 +1,298 @@
+###################################
+#
+# THE ENLIL ADDITIONS
+# - Chariot Teams
+#
+###################################
+
+namespace = SENATE
+
+# Support the Greens
+character_event = {
+	id = SENATE.600
+	desc = EVTDESC_SENATE_600
+	picture = GFX_evt_kaaba
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	hide_from = yes
+	
+	option = {
+		name = EVTOPTA_SoA_600
+		add_trait = greens_supporter
+		if = {
+			limit = {
+				primary_title = { higher_tier_than = COUNT }
+			}
+			piety = 100
+			military_techpoints = 50
+		}
+	}
+}
+
+# Support the Blues
+character_event = {
+	id = SENATE.601
+	desc = EVTDESC_SENATE_601
+	picture = GFX_evt_kaaba
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	hide_from = yes
+	
+	option = {
+		name = EVTOPTA_SoA_600
+		add_trait = blues_supporter
+		prestige = 100
+	}
+}
+
+# Blues liege has Greens vassal (Hidden)
+character_event = {
+	id = SENATE.602
+	
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "Sons of Abraham"
+		trait = greens_supporter
+		liege = { 
+			trait = blues_supporter
+			NOT = {
+				has_opinion_modifier = { who = ROOT modifier = opinion_rejected_school }
+			}
+		}
+	}
+	
+	immediate = {
+		liege = {
+			character_event = { id = SENATE.603 }
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 320
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Blues liege has Greens vassal
+character_event = {
+	id = SENATE.603
+	desc = EVTDESC_SENATE_603
+	picture = GFX_evt_kaaba
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_SoA_603
+		FROM = { 
+			letter_event = { id = SENATE.604 days = 3 tooltip = EVTTOOLTIP_SENATE_604 }
+		}
+	}
+	option = {
+		name = EVTOPTB_SoA_603
+	}
+}
+
+# Mu'tazila vassal receives letter
+letter_event = {
+	id = SENATE.604
+	desc = EVTDESC_SENATE_604
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_SoA_604
+		ai_chance = {
+			factor = 1
+		}
+		FROM = { 
+			letter_event = { id = SENATE.605 days = 3 tooltip = EVTTOOLTIP_SENATE_605 }
+		}
+		remove_trait = greens_supporter
+		add_trait = blues_supporter
+	}
+	option = {
+		name = EVTOPTB_SoA_604
+		ai_chance = {
+			factor = 1
+		}
+		FROM = { 
+			opinion = {
+				modifier = opinion_rejected_school
+				who = ROOT
+			}
+			letter_event = { id = SENATE.606 days = 3 tooltip = EVTTOOLTIP_SENATE_606 }
+		}
+	}
+}
+
+# Mu'tazila vassal complies
+letter_event = {
+	id = SENATE.605
+	desc = EVTDESC_SENATE_605
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_SENATE_605
+		tooltip = {
+			FROM = {
+				remove_trait = greens_supporter
+				add_trait = blues_supporter
+			}
+		}
+	}
+}
+
+# Mu'tazila vassal refuses
+letter_event = {
+	id = SENATE.606
+	desc = EVTDESC_SoA_606
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_SENATE_606
+	}
+}
+
+# Mu'tazila liege has Ash'ari vassal (Hidden)
+character_event = {
+	id = SENATE.610
+	
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "Sons of Abraham"
+		trait = ashari
+		liege = { 
+			trait = mutazilite
+			NOT = {
+				has_opinion_modifier = { who = ROOT modifier = opinion_rejected_school }
+			}
+		}
+	}
+	
+	immediate = {
+		liege = {
+			character_event = { id = SENATE.611 }
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 320
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Mu'tazila liege has Ash'ari vassal
+character_event = {
+	id = SoA.611
+	desc = EVTDESC_SoA_611
+	picture = GFX_evt_kaaba
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_SoA_611
+		FROM = { 
+			letter_event = { id = SENATE.612 days = 3 tooltip = EVTTOOLTIP_SENATE_612 }
+		}
+	}
+	option = {
+		name = EVTOPTB_SoA_611
+	}
+}
+
+# Ash'ari vassal receives letter
+letter_event = {
+	id = SENATE.612
+	desc = EVTDESC_SENATE_612
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_SoA_612
+		ai_chance = {
+			factor = 1
+		}
+		FROM = { 
+			letter_event = { id = SENATE.613 days = 3 tooltip = EVTTOOLTIP_SENATE_613 }
+		}
+		remove_trait = blues_supporter
+		add_trait = greens_supporter
+	}
+	option = {
+		name = EVTOPTB_SoA_612
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 1.5
+				decadence = 40
+			}
+			modifier = {
+				factor = 1.5
+				decadence = 60
+			}
+			modifier = {
+				factor = 1.5
+				decadence = 80
+			}
+		}
+		FROM = { 
+			opinion = {
+				modifier = opinion_rejected_school
+				who = ROOT
+			}
+			letter_event = { id = SENATE.614 days = 3 tooltip = EVTTOOLTIP_SENATE_614 }
+		}
+	}
+}
+
+# Ash'ari vassal complies
+letter_event = {
+	id = SENATE.613
+	desc = EVTDESC_SENATE_613
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_SENATE_613
+		tooltip = {
+			FROM = {
+				remove_trait = blues_supporter
+				add_trait = greens_supporter
+			}
+		}
+	}
+}
+
+# Ash'ari vassal refuses
+letter_event = {
+	id = SENATe.614
+	desc = EVTDESC_SENATE_614
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_SENATE_614
+	}
+}

@@ -1,0 +1,1780 @@
+###################################
+#
+# Love and Lovers Flavor Events
+#
+# Events to gain lovers and for lovers: VIETnam.164-VIETnam.169
+#
+# Fired from on actions
+#
+###################################
+
+# Meek child considers confessing love to another child
+character_event = {
+	id = VIETnam.164
+	desc = "EVTDESC1000109337"
+	picture = GFX_evt_maiden
+	
+	is_triggered_only = yes
+	
+	min_age = 9
+	max_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		NOT = { trait = homosexual }
+		has_lover = no
+		any_courtier = {
+			is_abroad = no
+			prisoner = no
+			at_location = ROOT
+			OR = {
+				AND = {
+					ROOT = {
+						is_female = yes
+						OR = {
+							trait = shy
+							trait = craven
+							trait = slothful
+							trait = chaste
+							trait = paranoid
+						}
+						NOT = { trait = brave }
+						NOT = { trait = gregarious }
+					}
+					is_female = no
+					OR = {
+						trait = shy
+						trait = craven
+						trait = slothful
+						trait = chaste
+						trait = paranoid
+					}
+					NOT = { trait = brave }
+					NOT = { trait = gregarious }					
+				}
+				AND = {
+					ROOT = {
+						is_female = no
+						OR = {
+							trait = shy
+							trait = craven
+							trait = slothful
+							trait = chaste
+							trait = paranoid
+						}
+						NOT = { trait = brave }
+						NOT = { trait = gregarious }
+					}
+					is_female = yes
+					OR = {
+						trait = shy
+						trait = craven
+						trait = slothful
+						trait = chaste
+						trait = paranoid
+					}
+					NOT = { trait = brave }
+					NOT = { trait = gregarious }
+				}
+			}
+			NOT = {
+				sibling = ROOT
+			}
+			age = 9
+			NOT = {
+				age = 16
+			}
+			opinion = { who = ROOT value = 40 }
+		}		
+	}
+	
+	weight_multiplier = {
+		days = 1
+
+		modifier = {
+			factor = 2
+			trait = kind
+		}
+		modifier = {
+			factor = 0.5
+			trait = content
+		}
+		modifier = {
+			factor = 2
+			trait = patient
+		}
+		modifier = {
+			factor = 0.5
+			trait = wroth
+		}
+		modifier = {
+			factor = 2
+			trait = lustful
+		}
+		modifier = {
+			factor = 0.5
+			trait = chaste
+		}
+		modifier = {
+			factor = 2
+			trait = fair
+		}
+		modifier = {
+			factor = 0.5
+			trait = ugly
+		}
+	}
+	
+	option = { #Spit it out
+		name = "EVTOPTA1000109337"
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				trait = paranoid
+			}
+			modifier = {
+				factor = 0.5
+				trait = chaste
+			}
+			modifier = {
+				factor = 4
+				trait = brave
+			}
+			modifier = {
+				factor = 0.25
+				trait = craven
+			}
+			modifier = {
+				factor = 0.25
+				trait = shy
+			}
+			modifier = {
+				factor = 4
+				trait = gregarious
+			}
+			modifier = {
+				factor = 2
+				trait = proud
+			}
+			modifier = {
+				factor = 2
+				trait = lustful
+			}
+		}
+		if = {
+			limit = {
+				trait = shy
+			}
+			random_list = {
+				70 = { }
+				30 = { remove_trait = shy }
+			}			
+		}			
+		if = {
+			limit = {
+				trait = craven
+			}
+			random_list = {
+				70 = { }
+				30 = { remove_trait = craven }
+			}			
+		}
+		if = {
+			limit = {
+				NOT = { trait = brave }
+				NOT = { trait = craven }
+			}
+			random_list = {
+				70 = { }
+				30 = { add_trait = brave }
+			}			
+		}
+		random_courtier = {
+			limit = {
+				is_abroad = no
+				prisoner = no
+				at_location = ROOT
+				OR = {
+					AND = {
+						ROOT = {
+							is_female = yes
+							OR = {
+								trait = shy
+								trait = craven
+								trait = slothful
+								trait = chaste
+								trait = paranoid
+							}
+							NOT = { trait = brave }
+							NOT = { trait = gregarious }
+						}
+						is_female = no
+						OR = {
+							trait = shy
+							trait = craven
+							trait = slothful
+							trait = chaste
+							trait = paranoid
+						}
+						NOT = { trait = brave }
+						NOT = { trait = gregarious }					
+					}
+					AND = {
+						ROOT = {
+							is_female = no
+							OR = {
+								trait = shy
+								trait = craven
+								trait = slothful
+								trait = chaste
+								trait = paranoid
+							}
+							NOT = { trait = brave }
+							NOT = { trait = gregarious }
+						}
+						is_female = yes
+						OR = {
+							trait = shy
+							trait = craven
+							trait = slothful
+							trait = chaste
+							trait = paranoid
+						}
+						NOT = { trait = brave }
+						NOT = { trait = gregarious }
+					}
+				}
+				NOT = {
+					sibling = ROOT
+				}
+				age = 9
+				NOT = {
+					age = 16
+				}
+				opinion = { who = ROOT value = 40 }				
+			}
+			add_lover = ROOT
+			add_character_modifier = {
+				name = "new_love"
+				duration = 90
+				hidden = yes
+			}
+		}
+		add_character_modifier = {
+			name = "new_love"
+			duration = 90
+			hidden = yes
+		}
+	}
+	
+	option = { #Can't spit it out
+		name = "EVTOPTB1000109337"
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = paranoid
+			}
+			modifier = {
+				factor = 2
+				trait = chaste
+			}
+			modifier = {
+				factor = 0.25
+				trait = brave
+			}
+			modifier = {
+				factor = 4
+				trait = craven
+			}
+			modifier = {
+				factor = 4
+				trait = shy
+			}
+			modifier = {
+				factor = 0.25
+				trait = gregarious
+			}
+			modifier = {
+				factor = 0.5
+				trait = proud
+			}
+			modifier = {
+				factor = 0.5
+				trait = lustful
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = chaste }
+			}
+			random_list = {
+				70 = { }
+				30 = { add_trait = chaste }
+			}			
+		}	
+		if = {
+			limit = {
+				NOT = { trait = shy }
+				NOT = { trait = gregarious }
+			}
+			random_list = {
+				70 = { }
+				30 = { add_trait = shy }
+			}			
+		}	
+		if = {
+			limit = {
+				trait = gregarious
+			}
+			random_list = {
+				70 = { }
+				30 = { remove_trait = gregarious }
+			}			
+		}
+		if = {
+			limit = {
+				trait = brave
+			}
+			random_list = {
+				70 = { }
+				30 = { remove_trait = brave }
+			}			
+		}
+	}
+}
+
+#Character can't satisfy lover
+character_event = {
+	id = VIETnam.165
+	desc = "EVTDESC1000109338"
+	picture = GFX_evt_lovers
+	
+	capable_only = yes
+	only_rulers = yes
+	prisoner = no
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		in_command = no
+		war = no
+		is_abroad = no
+		has_lover = yes
+		NOT = { trait = celibate }
+		any_lover = {
+			OR = {
+				trait = lustful
+				trait = hedonist
+				trait = gregarious
+				trait = strong
+			}
+			NOT = { trait = chaste }
+			NOT = { trait = celibate }
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 0.5
+			trait = hedonist
+		}
+		modifier = {
+			factor = 2
+			trait = content
+		}
+		modifier = {
+			factor = 0.5
+			trait = lustful
+		}
+		modifier = {
+			factor = 2
+			trait = chaste
+		}
+		modifier = {
+			factor = 0.5
+			trait = fair
+		}
+		modifier = {
+			factor = 2
+			trait = ugly
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA1000109338" #Try harder
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = content
+			}
+			modifier = {
+				factor = 0.5
+				trait = chaste
+			}
+			modifier = {
+				factor = 2
+				trait = brave
+			}
+			modifier = {
+				factor = 0.5
+				trait = craven
+			}
+			modifier = {
+				factor = 0.5
+				trait = shy
+			}
+			modifier = {
+				factor = 2
+				trait = gregarious
+			}
+			modifier = {
+				factor = 2
+				trait = hedonist
+			}
+			modifier = {
+				factor = 2
+				trait = lustful
+			}
+		}
+		if = {
+			limit = {
+				trait = chaste
+			}
+			random_list = {
+				70 = { }
+				30 = { remove_trait = chaste }
+			}			
+		}
+		random_lover = {
+			limit = {
+				OR = {
+					trait = lustful
+					trait = hedonist
+					trait = gregarious
+					trait = strong
+				}
+				NOT = { trait = chaste }
+				NOT = { trait = celibate }
+			}
+			opinion = {
+				modifier = opinion_reassured_of_love
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTB1000109338" #Nice and easy
+		tooltip_info = patient
+		trigger = { 
+			trait = patient
+		}
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 2
+				trait = chaste
+			}
+			modifier = {
+				factor = 2
+				trait = slothful
+			}
+			modifier = {
+				factor = 2
+				trait = hedonist
+			}
+			modifier = {
+				factor = 2
+				trait = lustful
+			}
+		}
+		if = {
+			limit = {
+				trait = chaste
+			}
+			random_list = {
+				70 = { }
+				30 = { remove_trait = chaste }
+			}			
+		}
+		random_lover = {
+			limit = {
+				OR = {
+					trait = lustful
+					trait = hedonist
+					trait = gregarious
+					trait = strong
+				}
+				NOT = { trait = chaste }
+				NOT = { trait = celibate }
+			}
+			opinion = {
+				modifier = opinion_delighted
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTC1000109338" #Exotica
+		tooltip_info = learning
+		trigger = { 
+			learning = 13
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = content
+			}
+			modifier = {
+				factor = 0.5
+				trait = chaste
+			}
+			modifier = {
+				factor = 2
+				trait = brave
+			}
+			modifier = {
+				factor = 0.5
+				trait = craven
+			}
+			modifier = {
+				factor = 0.5
+				trait = shy
+			}
+			modifier = {
+				factor = 2
+				trait = gregarious
+			}
+			modifier = {
+				factor = 2
+				trait = hedonist
+			}
+			modifier = {
+				factor = 2
+				trait = lustful
+			}
+		}
+		if = {
+			limit = {
+				trait = chaste
+			}
+			random_list = {
+				70 = { }
+				30 = { remove_trait = chaste }
+			}			
+		}
+		random_lover = {
+			limit = {
+				OR = {
+					trait = lustful
+					trait = hedonist
+					trait = gregarious
+					trait = strong
+				}
+				NOT = { trait = chaste }
+				NOT = { trait = celibate }
+			}
+			opinion = {
+				modifier = opinion_happy
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+}
+
+
+
+#Character & lover are too chaste
+character_event = {
+	id = VIETnam.166
+	desc = "EVTDESC1000109339"
+	picture = GFX_evt_maiden
+	
+	capable_only = yes
+	only_rulers = yes
+	prisoner = no
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		in_command = no
+		war = no
+		is_abroad = no
+		has_lover = yes
+		NOT = { trait = celibate }
+		NOT = { trait = lustful }
+		NOT = { trait = hedonist }
+		NOT = { trait = gregarious }
+		OR = {
+			trait = shy
+			trait = craven
+			trait = slothful
+			trait = chaste
+		}
+		any_lover = {
+			NOT = { trait = celibate }
+			NOT = { trait = lustful }
+			NOT = { trait = hedonist }
+			NOT = { trait = gregarious }
+			OR = {
+				trait = shy
+				trait = craven
+				trait = slothful
+				trait = chaste
+			}
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 0.5
+			trait = humble
+		}
+		modifier = {
+			factor = 2
+			trait = proud
+		}
+		modifier = {
+			factor = 0.5
+			trait = content
+		}
+		modifier = {
+			factor = 2
+			trait = ambitious
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA1000109339" #A little more physical?
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = content
+			}
+			modifier = {
+				factor = 0.5
+				trait = chaste
+			}
+			modifier = {
+				factor = 2
+				trait = brave
+			}
+			modifier = {
+				factor = 0.5
+				trait = craven
+			}
+			modifier = {
+				factor = 0.5
+				trait = shy
+			}
+			modifier = {
+				factor = 2
+				trait = gregarious
+			}
+			modifier = {
+				factor = 2
+				trait = hedonist
+			}
+			modifier = {
+				factor = 4
+				trait = lustful
+			}
+		}
+		if = {
+			limit = {
+				trait = chaste
+			}
+			random_list = {
+				70 = { }
+				30 = { remove_trait = chaste }
+			}			
+		}
+		prestige = 5
+		random_lover = {
+			limit = {
+				NOT = { trait = celibate }
+				NOT = { trait = lustful }
+				NOT = { trait = hedonist }
+				NOT = { trait = gregarious }
+				OR = {
+					trait = shy
+					trait = craven
+					trait = slothful
+					trait = chaste
+				}
+			}
+			opinion = {
+				modifier = opinion_confused
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTB1000109339" #Happy with how things are
+		tooltip_info = content
+		trigger = { 
+			trait = content
+		}
+		ai_chance = {
+			factor = 4
+			modifier = {
+				factor = 2
+				trait = chaste
+			}
+			modifier = {
+				factor = 2
+				trait = slothful
+			}
+			modifier = {
+				factor = 0.1
+				trait = hedonist
+			}
+			modifier = {
+				factor = 0.1
+				trait = lustful
+			}
+		}
+		prestige = -5
+		piety = 10
+		random_lover = {
+			limit = {
+				NOT = { trait = celibate }
+				NOT = { trait = lustful }
+				NOT = { trait = hedonist }
+				NOT = { trait = gregarious }
+				OR = {
+					trait = shy
+					trait = craven
+					trait = slothful
+					trait = chaste
+				}
+			}
+			opinion = {
+				modifier = opinion_approves
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTC1000109339" #Spread rumors
+		tooltip_info = intrigue
+		trigger = { 
+			intrigue = 13
+		}
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 5
+				trait = deceitful
+			}
+			modifier = {
+				factor = 2
+				trait = chaste
+			}
+			modifier = {
+				factor = 0.5
+				trait = brave
+			}
+			modifier = {
+				factor = 2
+				trait = craven
+			}
+			modifier = {
+				factor = 0.5
+				trait = just
+			}
+			modifier = {
+				factor = 0.1
+				trait = honest
+			}
+			modifier = {
+				factor = 2
+				trait = arbitrary
+			}
+		}
+		if = {
+			limit = {
+				trait = honest
+			}
+			random_list = {
+				70 = { }
+				30 = { remove_trait = honest }
+			}			
+		}
+		if = {
+			limit = {
+				NOT = { trait = deceitful }
+			}
+			random_list = {
+				70 = { }
+				30 = { add_trait = deceitful }
+			}			
+		}
+		prestige = 10
+		piety = -5
+	}
+}
+
+
+
+#Character & lover - why do you love me?
+character_event = {
+	id = VIETnam.167
+	desc = "EVTDESC1000109340"
+	picture = GFX_evt_maiden
+	
+	capable_only = yes
+	only_rulers = yes
+	prisoner = no
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		in_command = no
+		war = no
+		is_abroad = no
+		has_lover = yes
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 0.5
+			trait = humble
+		}
+		modifier = {
+			factor = 2
+			trait = proud
+		}
+		modifier = {
+			factor = 0.5
+			trait = envious
+		}
+		modifier = {
+			factor = 2
+			trait = kind
+		}
+		modifier = {
+			factor = 0.5
+			trait = deceitful
+		}
+		modifier = {
+			factor = 2
+			trait = honest
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA1000109340" # Pretty
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = kind
+			}
+			modifier = {
+				factor = 0.5
+				trait = cruel
+			}
+			modifier = {
+				factor = 2
+				trait = lustful
+			}
+			modifier = {
+				factor = 0.5
+				trait = chaste
+			}
+			modifier = {
+				factor = 0.5
+				any_lover = {
+					trait = ugly
+				}
+			}
+			modifier = {
+				factor = 2
+				any_lover = {
+					trait = fair
+				}
+			}
+			modifier = {
+				factor = 0.5
+				any_lover = {
+					trait = weak
+				}
+			}
+			modifier = {
+				factor = 2
+				any_lover = {
+					trait = strong
+				}
+			}
+			modifier = {
+				factor = 0.5
+				any_lover = {
+					trait = dwarf
+				}
+			}
+			modifier = {
+				factor = 2
+				any_lover = {
+					trait = tall
+				}
+			}
+		}
+		random_lover = {
+			opinion = {
+				modifier = opinion_flattered
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTB1000109340" #Great toy
+		ai_chance = {
+			factor = 0.5
+			modifier = {
+				factor = 0.25
+				trait = kind
+			}
+			modifier = {
+				factor = 4
+				trait = cruel
+			}
+		}
+		random_lover = {
+			opinion = {
+				modifier = opinion_shocked
+				who = ROOT
+				years = 1
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = lustful }
+			}
+			random_list = {
+				70 = { }
+				30 = { add_trait = lustful }
+			}			
+		}
+	}
+	option = {
+		name = "EVTOPTC1000109340" #Personality
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = kind
+			}
+			modifier = {
+				factor = 0.5
+				trait = cruel
+			}
+			modifier = {
+				factor = 2
+				trait = lustful
+			}
+			modifier = {
+				factor = 0.5
+				trait = chaste
+			}
+			modifier = {
+				factor = 0.5
+				any_lover = {
+					trait = envious
+				}
+			}
+			modifier = {
+				factor = 2
+				any_lover = {
+					trait = gregarious
+				}
+			}
+			modifier = {
+				factor = 0.5
+				any_lover = {
+					trait = cruel
+				}
+			}
+			modifier = {
+				factor = 2
+				any_lover = {
+					trait = kind
+				}
+			}
+			modifier = {
+				factor = 0.5
+				any_lover = {
+					trait = wroth
+				}
+			}
+			modifier = {
+				factor = 2
+				any_lover = {
+					trait = patient
+				}
+			}
+			modifier = {
+				factor = 0.5
+				any_lover = {
+					trait = arbitrary
+				}
+			}
+			modifier = {
+				factor = 2
+				any_lover = {
+					trait = just
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = kind }
+			}
+			random_list = {
+				70 = { }
+				30 = { add_trait = kind }
+			}			
+		}
+		 random_lover = {
+			opinion = {
+				modifier = opinion_flattered
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+}
+
+
+
+
+#Character & lover's display of affections are getting out of hand
+character_event = {
+	id = VIETnam.168
+	desc = "EVTDESC1000109341"
+	picture = GFX_evt_scandal
+	
+	capable_only = yes
+	only_rulers = yes
+	prisoner = no
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		in_command = no
+		war = no
+		is_abroad = no
+		has_lover = yes
+		NOT = { trait = chaste }
+		NOT = { trait = celibate }
+		NOT = { trait = shy }
+		NOT = { trait = humble }
+		any_lover = {
+			NOT = { trait = chaste }
+			NOT = { trait = celibate }
+			NOT = { trait = shy }
+			NOT = { trait = humble }
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 0.5
+			trait = patient
+		}
+		modifier = {
+			factor = 2
+			trait = proud
+		}
+		modifier = {
+			factor = 0.5
+			trait = slothful
+		}
+		modifier = {
+			factor = 2
+			trait = lustful
+		}
+		modifier = {
+			factor = 2
+			trait = hedonist
+		}
+		modifier = {
+			factor = 0.5
+			trait = temperate
+		}
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait = craven
+		}
+		modifier = {
+			factor = 2
+			trait = arbitrary
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA1000109341" # Fine we'll stop
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = content
+			}
+			modifier = {
+				factor = 0.2
+				trait = lustful
+			}
+			modifier = {
+				factor = 5
+				trait = craven
+			}
+			modifier = {
+				factor = 0.2
+				trait = hedonist
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = chaste }
+			}
+			random_list = {
+				70 = { }
+				30 = { add_trait = chaste }
+			}			
+		}
+		random_lover = {
+			limit = {
+				NOT = { trait = chaste }
+				NOT = { trait = celibate }
+				NOT = { trait = shy }
+				NOT = { trait = humble }
+			}
+			opinion = {
+				modifier = opinion_very_disappointed
+				who = ROOT
+				years = 1
+			}
+		}
+		prestige = 3
+		piety = 3
+	}
+	option = {
+		name = "EVTOPTB1000109341" #Act more modestly
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 2
+				trait = content
+			}
+			modifier = {
+				factor = 0.2
+				trait = lustful
+			}
+			modifier = {
+				factor = 2
+				trait = craven
+			}
+			modifier = {
+				factor = 0.2
+				trait = hedonist
+			}
+		}
+		random_lover = {
+			limit = {
+				NOT = { trait = chaste }
+				NOT = { trait = celibate }
+				NOT = { trait = shy }
+				NOT = { trait = humble }
+			}
+			opinion = {
+				modifier = opinion_disappointed
+				who = ROOT
+				years = 1
+			}
+		}
+		if = {
+			limit = {
+				trait = lustful
+			}
+			random_list = {
+				70 = { }
+				30 = { remove_trait = lustful }
+			}			
+		}
+		piety = 1
+		prestige = 1
+	}
+	option = {
+		name = "EVTOPTC1000109341" #NO
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = lustful
+			}
+			modifier = {
+				factor = 0.2
+				trait = craven
+			}
+			modifier = {
+				factor = 0.5
+				trait = just
+			}
+			modifier = {
+				factor = 0.5
+				trait = kind
+			}
+		}
+		if = {
+			limit = {
+				trait = lustful
+			}
+			random_list = {
+				70 = { }
+				30 = { remove_trait = lustful }
+			}			
+		}
+		random_lover = {
+			limit = {
+				NOT = { trait = chaste }
+				NOT = { trait = celibate }
+				NOT = { trait = shy }
+				NOT = { trait = humble }
+			}
+			opinion = {
+				modifier = opinion_happy
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+}
+
+
+# 2 good people fall in love?
+character_event = {
+	id = VIETnam.169
+	desc = "EVTDESC1000109342"
+	picture = GFX_evt_maiden
+	
+	is_triggered_only = yes
+	
+	min_age = 16
+	max_age = 40
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		NOT = { trait = homosexual }
+		has_lover = no
+		is_married = no
+		any_courtier = {
+			is_abroad = no
+			prisoner = no
+			at_location = ROOT
+			OR = {
+				AND = {
+					ROOT = {
+						is_female = yes
+						OR = {
+							trait = kind
+							trait = chaste
+							trait = charitable
+							trait = patient
+							trait = temperate
+							trait = diligent
+							trait = humble
+						}
+						NOT = { trait = lustful }
+						NOT = { trait = gluttonous }
+						NOT = { trait = greedy }
+						NOT = { trait = slothful }
+						NOT = { trait = envious }
+						NOT = { trait = wroth }
+						NOT = { trait = proud }
+					}
+					is_female = no
+					OR = {
+						trait = kind
+						trait = chaste
+						trait = charitable
+						trait = patient
+						trait = temperate
+						trait = diligent
+						trait = humble
+					}
+					NOT = { trait = lustful }
+					NOT = { trait = gluttonous }
+					NOT = { trait = greedy }
+					NOT = { trait = slothful }
+					NOT = { trait = envious }
+					NOT = { trait = wroth }
+					NOT = { trait = proud }					
+				}
+				AND = {
+					ROOT = {
+						is_female = no
+						OR = {
+							trait = kind
+							trait = chaste
+							trait = charitable
+							trait = patient
+							trait = temperate
+							trait = diligent
+							trait = humble
+						}
+						NOT = { trait = lustful }
+						NOT = { trait = gluttonous }
+						NOT = { trait = greedy }
+						NOT = { trait = slothful }
+						NOT = { trait = envious }
+						NOT = { trait = wroth }
+						NOT = { trait = proud }
+					}
+					is_female = yes
+					OR = {
+						trait = kind
+						trait = chaste
+						trait = charitable
+						trait = patient
+						trait = temperate
+						trait = diligent
+						trait = humble
+					}
+					NOT = { trait = lustful }
+					NOT = { trait = gluttonous }
+					NOT = { trait = greedy }
+					NOT = { trait = slothful }
+					NOT = { trait = envious }
+					NOT = { trait = wroth }
+					NOT = { trait = proud }
+				}
+			}
+			NOT = {
+				sibling = ROOT
+			}
+			is_adult = yes
+			NOT = { age = 40 }
+		}		
+	}
+	
+	weight_multiplier = {
+		days = 1
+
+		modifier = {
+			factor = 2
+			trait = kind
+		}
+		modifier = {
+			factor = 0.5
+			trait = content
+		}
+		modifier = {
+			factor = 2
+			trait = patient
+		}
+		modifier = {
+			factor = 0.5
+			trait = diligent
+		}
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		modifier = {
+			factor = 2
+			trait = fair
+		}
+		modifier = {
+			factor = 0.5
+			trait = ugly
+		}
+		modifier = {
+			factor = 2
+			trait = brave
+		}
+		modifier = {
+			factor = 0.5
+			trait = craven
+		}
+	}
+	
+	option = { #Rather not
+		name = "EVTOPTA1000109342"
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				trait = brave
+			}
+			modifier = {
+				factor = 0.5
+				trait = gregarious
+			}
+			modifier = {
+				factor = 3
+				trait = chaste
+			}
+			modifier = {
+				factor = 2
+				trait = craven
+			}
+			modifier = {
+				factor = 2
+				trait = shy
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = chaste }
+			}
+			random_list = {
+				70 = { }
+				30 = { add_trait = chaste }
+			}			
+		}
+		piety = 2
+	}
+	
+	option = { #Friendship
+		name = "EVTOPTC1000109342"
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = paranoid
+			}
+			modifier = {
+				factor = 4
+				trait = chaste
+			}
+			modifier = {
+				factor = 0.25
+				trait = brave
+			}
+			modifier = {
+				factor = 4
+				trait = craven
+			}
+			modifier = {
+				factor = 4
+				trait = shy
+			}
+			modifier = {
+				factor = 0.25
+				trait = gregarious
+			}
+			modifier = {
+				factor = 0.5
+				trait = proud
+			}
+			modifier = {
+				factor = 0.5
+				trait = lustful
+			}
+		}
+		if = {
+			limit = {
+				trait = shy
+			}
+			random_list = {
+				70 = { }
+				30 = { remove_trait = shy }
+			}			
+		}
+		random_courtier = {
+			limit = {
+				is_abroad = no
+				prisoner = no
+				at_location = ROOT
+				OR = {
+					AND = {
+						ROOT = {
+							is_female = yes
+							OR = {
+								trait = kind
+								trait = chaste
+								trait = charitable
+								trait = patient
+								trait = temperate
+								trait = diligent
+								trait = humble
+							}
+							NOT = { trait = lustful }
+							NOT = { trait = gluttonous }
+							NOT = { trait = greedy }
+							NOT = { trait = slothful }
+							NOT = { trait = envious }
+							NOT = { trait = wroth }
+							NOT = { trait = proud }
+						}
+						is_female = no
+						OR = {
+							trait = kind
+							trait = chaste
+							trait = charitable
+							trait = patient
+							trait = temperate
+							trait = diligent
+							trait = humble
+						}
+						NOT = { trait = lustful }
+						NOT = { trait = gluttonous }
+						NOT = { trait = greedy }
+						NOT = { trait = slothful }
+						NOT = { trait = envious }
+						NOT = { trait = wroth }
+						NOT = { trait = proud }					
+					}
+					AND = {
+						ROOT = {
+							is_female = no
+							OR = {
+								trait = kind
+								trait = chaste
+								trait = charitable
+								trait = patient
+								trait = temperate
+								trait = diligent
+								trait = humble
+							}
+							NOT = { trait = lustful }
+							NOT = { trait = gluttonous }
+							NOT = { trait = greedy }
+							NOT = { trait = slothful }
+							NOT = { trait = envious }
+							NOT = { trait = wroth }
+							NOT = { trait = proud }
+						}
+						is_female = yes
+						OR = {
+							trait = kind
+							trait = chaste
+							trait = charitable
+							trait = patient
+							trait = temperate
+							trait = diligent
+							trait = humble
+						}
+						NOT = { trait = lustful }
+						NOT = { trait = gluttonous }
+						NOT = { trait = greedy }
+						NOT = { trait = slothful }
+						NOT = { trait = envious }
+						NOT = { trait = wroth }
+						NOT = { trait = proud }
+					}
+				}
+				NOT = {
+					sibling = ROOT
+				}
+				is_adult = yes
+				NOT = { age = 40 }				
+			}
+			opinion = {
+				modifier = opinion_friend
+				who = ROOT
+				years = 100
+			}
+			reverse_opinion = {
+				modifier = opinion_friend
+				who = ROOT
+				years = 100
+			}
+		}
+		prestige = 1
+	}	
+	option = { #LOVE!
+		name = "EVTOPTC1000109342"
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = paranoid
+			}
+			modifier = {
+				factor = 2
+				trait = chaste
+			}
+			modifier = {
+				factor = 0.25
+				trait = brave
+			}
+			modifier = {
+				factor = 4
+				trait = craven
+			}
+			modifier = {
+				factor = 4
+				trait = shy
+			}
+			modifier = {
+				factor = 0.25
+				trait = gregarious
+			}
+			modifier = {
+				factor = 0.5
+				trait = proud
+			}
+			modifier = {
+				factor = 0.5
+				trait = lustful
+			}
+		}
+		if = {
+			limit = {
+				trait = shy
+			}
+			random_list = {
+				70 = { }
+				30 = { remove_trait = shy }
+			}			
+		}
+		random_courtier = {
+			limit = {
+				is_abroad = no
+				prisoner = no
+				at_location = ROOT
+				OR = {
+					AND = {
+						ROOT = {
+							is_female = yes
+							OR = {
+								trait = kind
+								trait = chaste
+								trait = charitable
+								trait = patient
+								trait = temperate
+								trait = diligent
+								trait = humble
+							}
+							NOT = { trait = lustful }
+							NOT = { trait = gluttonous }
+							NOT = { trait = greedy }
+							NOT = { trait = slothful }
+							NOT = { trait = envious }
+							NOT = { trait = wroth }
+							NOT = { trait = proud }
+						}
+						is_female = no
+						OR = {
+							trait = kind
+							trait = chaste
+							trait = charitable
+							trait = patient
+							trait = temperate
+							trait = diligent
+							trait = humble
+						}
+						NOT = { trait = lustful }
+						NOT = { trait = gluttonous }
+						NOT = { trait = greedy }
+						NOT = { trait = slothful }
+						NOT = { trait = envious }
+						NOT = { trait = wroth }
+						NOT = { trait = proud }					
+					}
+					AND = {
+						ROOT = {
+							is_female = no
+							OR = {
+								trait = kind
+								trait = chaste
+								trait = charitable
+								trait = patient
+								trait = temperate
+								trait = diligent
+								trait = humble
+							}
+							NOT = { trait = lustful }
+							NOT = { trait = gluttonous }
+							NOT = { trait = greedy }
+							NOT = { trait = slothful }
+							NOT = { trait = envious }
+							NOT = { trait = wroth }
+							NOT = { trait = proud }
+						}
+						is_female = yes
+						OR = {
+							trait = kind
+							trait = chaste
+							trait = charitable
+							trait = patient
+							trait = temperate
+							trait = diligent
+							trait = humble
+						}
+						NOT = { trait = lustful }
+						NOT = { trait = gluttonous }
+						NOT = { trait = greedy }
+						NOT = { trait = slothful }
+						NOT = { trait = envious }
+						NOT = { trait = wroth }
+						NOT = { trait = proud }
+					}
+				}
+				NOT = {
+					sibling = ROOT
+				}
+				is_adult = yes
+				NOT = { age = 40 }				
+			}
+			add_lover = ROOT
+			add_character_modifier = {
+				name = "new_love"
+				duration = 90
+				hidden = yes
+			}
+		}
+		add_character_modifier = {
+			name = "new_love"
+			duration = 90
+			hidden = yes
+		}
+	}
+}
+
+
+
+
+
+

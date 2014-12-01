@@ -1,0 +1,858 @@
+########################################################
+#
+# Events chains of awesomeness coded by OrdepNM. This has nothing to do with slavery.
+# ordepchains reserved
+#
+# 1000-1050: Ordep's silent protest over the lack of an EU:Rome II
+#
+#
+########################################################
+namespace = ordepchains
+###################################
+# VERY ANCIENT RUINS
+###################################
+#One day you get lost
+character_event = {
+	id = ordepchains.1000
+	desc = ordepchains.1000.desc
+	picture = GFX_evt_tuscan_country
+	is_triggered_only = yes
+	min_age = 16
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+	trigger = {
+		war = no
+		in_command = no
+		is_abroad = no        
+		capital_scope = {
+			OR = {
+				empire = { title = e_france }
+				duchy = { title = d_krete }
+			}
+		}
+	}
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 4
+			trait = hunter
+		}
+		modifier = {
+			factor = 0.5
+			trait = scholar
+		}
+		modifier = {
+			factor = 2
+			trait = mystic
+		}
+		modifier = {
+			factor = 0.5
+			trait = hedonist
+		}
+		modifier = {
+			factor = 2
+			trait = gardener
+		}
+		modifier = {
+			factor = 0.5
+			trait = drunkard
+		}
+		modifier = {
+			factor = 2
+			trait = diligent
+		}
+		modifier = {
+			factor = 0.5
+			trait = slothful
+		}
+		modifier = {
+			factor = 2
+			trait = brave
+		}
+		modifier = {
+			factor = 0.5
+			trait = craven
+		}
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+	}
+	option = {
+		name = ordepchains.1000.a
+		if = {
+			limit = {
+				capital_scope = {
+					empire = { title = e_france }
+				}
+			}
+			character_event = { id = ordepchains.1001 tooltip = ordepchains.1000.tooltip }
+		}
+		if = {
+			limit = {
+				capital_scope = {
+					duchy = { title = d_krete }
+				}
+			}
+			character_event = { id = ordepchains.1016 tooltip = ordepchains.1000.tooltip }
+		}
+	}
+}
+
+#And you find some ruins - Gaulish version
+narrative_event = {
+	id = ordepchains.1001
+	title = ordepchains.1001.title
+	desc = ordepchains.1001.desc
+	picture = GFX_evt_pagan
+	is_triggered_only = yes
+	option = {
+		name = ordepchains.1001.a
+		trigger = {
+			OR = {
+				trait = brave
+				trait = hunter
+			}
+			NOT = { trait = slothful }
+			NOT = { trait = craven }
+		}
+		character_event = { id = ordepchains.1002 tooltip = ordepchains.1001.a.tooltip }
+	}
+	option = {
+		name = ordepchains.1001.b
+		trigger = {
+			is_married = yes
+			spouse = {
+				prisoner = no
+				is_alive = yes
+				is_abroad = no
+				at_location = ROOT
+			}
+		}
+		hidden_tooltip = {
+			random_list = {
+				40 = {
+					character_event = { id = ordepchains.1010 }
+				}
+				40 = {
+					character_event = { id = ordepchains.1011 }
+				}
+				20 = {
+					character_event = { id = ordepchains.1012 }
+				}
+			}
+		}
+	}
+	option = {
+		name = ordepchains.1001.c
+		trigger = {
+			is_female = no
+			has_lover = no
+			OR = {
+				trait = lustful
+				trait = hedonist
+			}
+			any_courtier = {
+				is_female = yes
+				NOT = { is_close_relative = ROOT }
+				NOT = {
+					trait = homosexual
+				}
+				NOT = {
+					trait = celibate
+				}
+				is_adult = yes
+				NOT = {
+					age = 50
+				}
+				has_epidemic = no
+				is_ill = no
+				has_lover = no
+			}
+		}
+		hidden_tooltip = {
+			random_list = {
+				50 = {
+					character_event = { id = ordepchains.1013 }
+				}
+				50 = {
+					character_event = { id = ordepchains.1014 }
+				}
+			}
+		}
+	}
+	option  = {
+		name = ordepchains.1001.d
+		trigger = {
+			OR = {
+				trait = scholar
+				learning = 10
+				martial = 13
+			}
+		}
+		character_event = { id = ordepchains.1024 tooltip = ordepchains.1001.d.tooltip }
+	}
+	option  = {
+		name = ordepchains.1001.e
+	}
+}
+
+#It's dark and scary ahead
+character_event = {
+	id = ordepchains.1002
+	desc = ordepchains.1002.desc
+	picture = GFX_evt_nightmare
+	is_triggered_only = yes
+	option = {
+		name = ordepchains.1002.a
+		hidden_tooltip = {
+			if = {
+				limit = {
+					capital_scope = {
+						empire = { title = e_france }
+					}
+				}
+				random_list = {
+					60 = {
+						character_event = { id = ordepchains.1003 }
+					}
+					10 = {
+						character_event = { id = ordepchains.1004 }
+					}
+					15 = {
+						character_event = { id = ordepchains.1005 }
+					}
+					15 = {
+						character_event = { id = ordepchains.1006 }
+					}
+				}
+			}
+			if = {
+				limit = {
+					capital_scope = {
+						duchy = { title = d_krete }
+					}
+				}
+				random_list = {
+					30 = {
+						character_event = { id = ordepchains.1017 }
+					}
+					10 = {
+						character_event = { id = ordepchains.1018 }
+					}
+					15 = {
+						character_event = { id = ordepchains.1005 }
+					}
+					30 = {
+						character_event = { id = ordepchains.1019 }
+					}
+					15 = {
+						character_event = { id = ordepchains.1023 }
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = ordepchains.1002.b
+	}
+}
+
+#You find useless junk - Gaulish
+character_event = {
+	id = ordepchains.1003
+	desc = ordepchains.1003.desc
+	picture = GFX_evt_nightmare
+	is_triggered_only = yes
+	option = {
+		name = ordepchains.1003.a
+	}
+}
+
+#You find an ancient trinket, yay!
+narrative_event = {
+	id = ordepchains.1004
+	title = ordepchains.1004.title
+	desc = ordepchains.1004.desc
+	picture = GFX_evt_nightmare
+	is_triggered_only = yes
+	option = {
+		name = ordepchains.1004.a
+		wealth = 70
+	}
+	option = {
+		name = ordepchains.1004.b
+		add_character_modifier = {
+			name = ordep_ancient_artifact
+			duration = -1
+		}
+	}
+}
+
+#You fall and get hurt
+character_event = {
+	id = ordepchains.1005
+	desc = ordepchains.1005.desc
+	picture = GFX_evt_bloody_man
+	is_triggered_only = yes
+	option = {
+		name = ordepchains.1005.a
+		add_trait = wounded
+	}
+}
+
+#You find a bear!
+character_event = {
+	id = ordepchains.1006
+	desc = ordepchains.1006.desc
+	picture = GFX_evt_nightmare
+	is_triggered_only = yes
+	option = {
+		name = ordepchains.1006.a
+		custom_tooltip = { text = you_fight_the_bear }
+		if = {
+			limit = {
+				OR = {
+					trait = strong
+					trait = agile
+				}
+			}
+			random_list = {
+				60 = {
+					character_event = { id = ordepchains.1007 tooltip = ordepchains.1007.tooltip }
+				}
+				30 = {
+					character_event = { id = ordepchains.1008 tooltip = ordepchains.1008.tooltip }
+				}
+				10 = {
+					character_event = { id = ordepchains.1009 tooltip = ordepchains.1009.tooltip }
+				}
+			}
+		}
+		if = {
+			limit = {
+				AND = {
+					NOT = { trait = strong }
+					NOT = { trait = agile }
+				}
+			}
+			random_list = {
+				40 = {
+					character_event = { id = ordepchains.1007 tooltip = ordepchains.1007.tooltip }
+				}
+				45 = {
+					character_event = { id = ordepchains.1008 tooltip = ordepchains.1008.tooltip }
+				}
+				15 = {
+					character_event = { id = ordepchains.1009 tooltip = ordepchains.1009.tooltip }
+				}
+			}
+		}
+	}
+	option = {
+		name = ordepchains.1006.b
+		prestige = -15
+	}
+}
+
+#Sometimes you get the bear
+narrative_event = {
+	id = ordepchains.1007
+	title = ordepchains.1007.title
+	desc = ordepchains.1007.desc
+	picture = GFX_evt_nightmare
+	is_triggered_only = yes
+	option = {
+		name = ordepchains.1007.a
+		prestige = 20
+	}
+}
+
+#Sometimes its a draw
+narrative_event = {
+	id = ordepchains.1008
+	title = ordepchains.1008.title
+	desc = ordepchains.1008.desc
+	picture = GFX_evt_nightmare
+	is_triggered_only = yes
+	option = {
+		name = ordepchains.1008.a
+		add_trait = wounded
+		prestige = 10
+	}
+}
+
+#Sometimes the bear gets you
+narrative_event = {
+	id = ordepchains.1009
+	title = ordepchains.1009.title
+	desc = ordepchains.1009.desc
+	picture = GFX_evt_nightmare
+	is_triggered_only = yes
+	option = {
+		name = ordepchains.1009.a
+		add_trait = maimed
+	}
+}
+
+#Fun time with wife
+narrative_event = {
+	id = ordepchains.1010
+	title = ordepchains.1010.title
+	desc = ordepchains.1010.desc
+	picture = GFX_evt_family
+	is_triggered_only = yes
+	option = {
+		name = ordepchains.1010.a
+		spouse = {
+			opinion = {
+				modifier = ordep_fun_at_ruins
+				who = ROOT
+				years = 2
+			}
+		}
+	}
+}
+
+#Wife doesn't want to go
+character_event = {
+	id = ordepchains.1011
+	desc = ordepchains.1011.desc
+	picture = GFX_evt_quarrel
+	is_triggered_only = yes
+	option = {
+		name = ordepchains.1011.a
+	}
+}
+
+#Baby making under the stars
+narrative_event = {
+	id = ordepchains.1012
+	title = ordepchains.1012.title
+	desc = ordepchains.1012.desc
+	picture = GFX_evt_lovers
+	is_triggered_only = yes
+	option = {
+		name = ordepchains.1012.a
+		random = {
+			chance = 50
+			spouse = { impregnate = ROOT }
+		}
+	}
+}
+
+#L is for LoveR
+narrative_event = {
+	id = ordepchains.1013
+	title = ordepchains.1013.title
+	desc = ordepchains.1013.desc
+	picture = GFX_evt_maiden
+	is_triggered_only = yes
+	option = {
+		name = ordepchains.1013.a
+		random_courtier = {
+			limit = {
+				is_female = yes
+				NOT = { is_close_relative = ROOT }
+				NOT = {
+					trait = homosexual
+				}
+				NOT = {
+					trait = celibate
+				}
+				is_adult = yes
+				NOT = {
+					age = 50
+				}
+				has_epidemic = no
+				is_ill = no
+				has_lover = no
+			}
+			add_lover = ROOT
+		}
+	}
+}
+
+#No lover for you
+character_event = {
+	id = ordepchains.1014
+	desc = ordepchains.1014.desc
+	picture = GFX_evt_quarrel
+	is_triggered_only = yes
+	option = {
+		name = ordepchains.1014.a
+		random_courtier = {
+			limit = {
+				is_female = yes
+				NOT = { is_close_relative = ROOT }
+				NOT = {
+					trait = homosexual
+				}
+				NOT = {
+					trait = celibate
+				}
+				is_adult = yes
+				NOT = {
+					age = 50
+				}
+				has_epidemic = no
+				is_ill = no
+				has_lover = no
+			}
+			opinion = {
+				modifier = opinion_dislike
+				who = ROOT
+				years = 5
+			}
+		}
+	}
+}
+
+#You think about ancient history - Gaulish Version
+narrative_event = {
+	id = ordepchains.1015
+	title = ordepchains.1015.title
+	desc = ordepchains.1015.desc
+	picture = GFX_evt_pagan
+	is_triggered_only = yes
+	option = {
+		name = ordepchains.1015.a
+		hidden_tooltip = {
+			random_list = {
+				20 = { }
+				20 = { add_trait = proud }
+				20 = { add_trait = wroth }
+				20 = { add_trait = ambitious }
+				20 = { add_trait = diligent }
+			}
+		}
+	}
+	option = {
+		name = ordepchains.1015.b
+		hidden_tooltip = {
+			add_trait = sympathy_pagans
+		}
+	}
+	option = {
+		name = ordepchains.1015.c
+		trigger = {
+			trait = zealous
+		}
+		hidden_tooltip = {
+			piety = 25
+		}
+	}
+}
+
+#And you find some ruins - Minoan version
+narrative_event = {
+	id = ordepchains.1016
+	title = ordepchains.1016.title
+	desc = ordepchains.1016.desc
+	picture = GFX_evt_skyrim_forest_greek
+	is_triggered_only = yes
+	option = {
+		name = ordepchains.1001.a
+		trigger = {
+			OR = {
+				trait = brave
+				trait = hunter
+			}
+			NOT = { trait = slothful }
+			NOT = { trait = craven }
+		}
+		character_event = { id = ordepchains.1002 tooltip = ordepchains.1001.a.tooltip }
+	}
+	option = {
+		name = ordepchains.1001.b
+		trigger = {
+			is_married = yes
+			spouse = {
+				prisoner = no
+				is_alive = yes
+				is_abroad = no
+				at_location = ROOT
+			}
+		}
+		hidden_tooltip = {
+			random_list = {
+				40 = {
+					character_event = { id = ordepchains.1010 }
+				}
+				40 = {
+					character_event = { id = ordepchains.1011 }
+				}
+				20 = {
+					character_event = { id = ordepchains.1012 }
+				}
+			}
+		}
+	}
+	option = {
+		name = ordepchains.1001.c
+		trigger = {
+			is_female = no
+			has_lover = no
+			OR = {
+				trait = lustful
+				trait = hedonist
+			}
+			any_courtier = {
+				is_female = yes
+				NOT = { is_close_relative = ROOT }
+				NOT = {
+					trait = homosexual
+				}
+				NOT = {
+					trait = celibate
+				}
+				is_adult = yes
+				NOT = {
+					age = 50
+				}
+				has_epidemic = no
+				is_ill = no
+				has_lover = no
+			}
+		}
+		hidden_tooltip = {
+			random_list = {
+				50 = {
+					character_event = { id = ordepchains.1013 }
+				}
+				50 = {
+					character_event = { id = ordepchains.1014 }
+				}
+			}
+		}
+	}
+	option  = {
+		name = ordepchains.1016.d
+		trigger = {
+			OR = {
+				learning = 13
+				AND = {
+					learning = 10
+					trait = scholar
+				}
+			}
+		}
+		character_event = { id = ordepchains.1024 tooltip = ordepchains.1016.d.tooltip }
+	}
+	option  = {
+		name = ordepchains.1001.e
+	}
+}
+
+#You find useless junk - Minoan
+character_event = {
+	id = ordepchains.1017
+	desc = ordepchains.1017.desc
+	picture = GFX_evt_nightmare
+	is_triggered_only = yes
+	option = {
+		name = ordepchains.1017.a
+	}
+}
+
+#You find a Minoan mask! Yay!
+narrative_event = {
+	id = ordepchains.1018
+	title = ordepchains.1018.title
+	desc = ordepchains.1018.desc
+	picture = GFX_evt_nightmare
+	is_triggered_only = yes
+	option = {
+		name = ordepchains.1018.a
+		wealth = 80
+	}
+	option = {
+		name = ordepchains.1018.b
+		wealth = -10
+		add_character_modifier = {
+			name = VIET_minoan_mask
+			duration = -1
+		}
+	}
+}
+
+#You find bats!
+character_event = {
+	id = ordepchains.1019
+	desc = ordepchains.1019.desc
+	picture = GFX_evt_nightmare
+	is_triggered_only = yes
+	option = {
+		name = ordepchains.1019.a
+		custom_tooltip = { text = wait_what_is_that }
+		if = {
+			limit = {
+				OR = {
+					trait = brave
+					trait = agile
+				}
+			}
+			hidden_tooltip = {
+				random_list = {
+					65 = {
+						character_event = { id = ordepchains.1020 }
+					}
+					30 = {
+						character_event = { id = ordepchains.1021 }
+					}
+					5 = {
+						character_event = { id = ordepchains.1022 }
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				AND = {
+					NOT = { trait = brave }
+					NOT = { trait = agile }
+				}
+			}
+			random_list = {
+				40 = {
+					character_event = { id = ordepchains.1020 tooltip = ordepchains.1020.tooltip }
+				}
+				45 = {
+					character_event = { id = ordepchains.1021 tooltip = ordepchains.1021.tooltip }
+				}
+				15 = {
+					character_event = { id = ordepchains.1022 tooltip = ordepchains.1022.tooltip }
+				}
+			}
+		}
+	}
+}
+
+#Meh..Bats
+character_event = {
+	id = ordepchains.1020
+	desc = ordepchains.1020.desc
+	picture = GFX_evt_nightmare
+	is_triggered_only = yes
+	option = {
+		name = ordepchains.1020.a
+		hidden_tooltip = {
+			random_list = {
+				35 = {
+					character_event = { id = ordepchains.1017 }
+				}
+				20 = {
+					character_event = { id = ordepchains.1018 }
+				}
+				25 = {
+					character_event = { id = ordepchains.1005 }
+				}
+				20 = {
+					character_event = { id = ordepchains.1023 }
+				}
+			}
+		}
+	}
+}
+
+#Holy crap bats!
+character_event = {
+	id = ordepchains.1021
+	desc = ordepchains.1021.desc
+	picture = GFX_evt_nightmare
+	is_triggered_only = yes
+	option = {
+		name = ordepchains.1021.a
+		prestige = -15
+		hidden_tooltip = {
+			random_list = {
+				35 = {
+					character_event = { id = ordepchains.1017 }
+				}
+				20 = {
+					character_event = { id = ordepchains.1018 }
+				}
+				25 = {
+					character_event = { id = ordepchains.1005 }
+				}
+				20 = {
+					character_event = { id = ordepchains.1023 }
+				}
+			}
+		}
+	}
+}
+
+#Get it off get it off!
+character_event = {
+	id = ordepchains.1022
+	desc = ordepchains.1022.desc
+	picture = GFX_evt_nightmare
+	is_triggered_only = yes
+	option = {
+		name = ordepchains.1022.a
+		add_trait = ill
+		hidden_tooltip = {
+			random_list = {
+				35 = {
+					character_event = { id = ordepchains.1017 }
+				}
+				20 = {
+					character_event = { id = ordepchains.1018 }
+				}
+				25 = {
+					character_event = { id = ordepchains.1005 }
+				}
+				20 = {
+					character_event = { id = ordepchains.1023 }
+				}
+			}
+		}
+	}
+}
+
+#Bat bones are best bones
+character_event = {
+	id = ordepchains.1023
+	desc = ordepchains.1023.desc
+	picture = GFX_evt_nightmare
+	is_triggered_only = yes
+	option = {
+		name = ordepchains.1023.a
+		add_character_modifier = {
+			name = VIET_cretan_bat_bones
+			duration = -1
+		}
+	}
+}
+		
+#You think about ancient history - Minoan Version
+narrative_event = {
+	id = ordepchains.1024
+	title = ordepchains.1024.title
+	desc = ordepchains.1024.desc
+	picture = GFX_evt_skyrim_forest_greek
+	is_triggered_only = yes
+	option = {
+		name = ordepchains.1024.a
+		any_courtier = {
+			limit = {
+				is_adult = yes
+				OR = {
+					trait = scholar
+					learning = 10
+				}
+			}
+			opinion = {
+				modifier = viet_impressed_minoan
+				who = ROOT
+				years = 7
+			}
+		}
+	}
+}

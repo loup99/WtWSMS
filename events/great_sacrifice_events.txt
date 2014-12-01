@@ -1,0 +1,223 @@
+#THESE EVENTS CONCERN THE PAGAN/ZOROASTRIAN "Great Sacrifice to the Gods" DECISION
+#Pagan/Zoroastrian Sacrifice
+
+character_event = {
+	id = VIETnam.14
+	desc = "EVTDESC1000109004"
+	picture = "GFX_evt_pagan"
+	
+	trigger = {
+		has_character_modifier = performed_sacrifice
+		has_character_flag = sacrifice_blessing
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = "EVTOPTA1000109004"
+		prestige = 10
+		piety = 10
+		if = {
+			limit = {
+				has_character_flag = sacrifice_blessing
+			}
+			clr_character_flag = sacrifice_blessing
+		}
+		if = {
+			limit = {
+				has_character_flag = sacrifice_event_occurred
+			}
+			clr_character_flag = sacrifice_event_occurred
+		}
+		set_character_flag = finished_sacrifice
+	}
+}
+
+#Which blessing to ask for?
+character_event = {
+	id = VIETnam.19
+	desc = "EVTDESC1000109018"
+	picture = "GFX_evt_pagan"
+	
+	trigger = {
+		has_character_modifier = performed_sacrifice
+		has_character_flag = sacrifice_event_occurred
+		NOT = { has_character_flag = sacrifice_blessing }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = "EVTOPTA1000109018"
+		random_list = {
+			50 = {
+				add_character_modifier = {
+					name = pagan_wealth_blessing
+					duration = 90			
+				}
+			}
+			50 = { }
+		}
+		piety = 5
+		set_character_flag = sacrifice_blessing
+	}
+	option = {
+		name = "EVTOPTB1000109018"
+		random_list = {
+			50 = {
+				add_character_modifier = {
+					name = pagan_war_blessing
+					duration = 90			
+				}
+			}
+			50 = { }
+		}
+		piety = 5
+		set_character_flag = sacrifice_blessing
+	}
+	option = {
+		name = "EVTOPTC1000109018"
+		random_list = {
+			50 = {
+				add_character_modifier = {
+					name = pagan_peace_blessing
+					duration = 90			
+				}
+			}
+			50 = { }
+		}
+		piety = 5
+		set_character_flag = sacrifice_blessing
+	}
+	option = {
+		name = "EVTOPTD1000109018"
+		random_list = {
+			50 = {
+				add_character_modifier = {
+					name = pagan_luck_blessing
+					duration = 90			
+				}
+			}
+			50 = { }
+		}
+		set_character_flag = sacrifice_blessing
+		piety = 5
+	}
+}
+
+
+#Peace of mind
+character_event = {
+	id = VIETnam.15
+	desc = "EVTDESC1000109014"
+	picture = "GFX_evt_pagan"
+	
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTA1000109014"
+		piety = 5
+		set_character_flag = sacrifice_event_occurred
+	}
+}
+
+#Deity in the room
+character_event = {
+	id = VIETnam.16
+	desc = "EVTDESC1000109015"
+	picture = "GFX_evt_pagan"
+	
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTA1000109015"
+		piety = 5
+		set_character_flag = sacrifice_event_occurred
+	}
+	
+	option = {
+		name = "EVTOPTB1000109015"
+		prestige = 5
+		set_character_flag = sacrifice_event_occurred
+	}
+}
+
+#Happiness
+character_event = {
+	id = VIETnam.17
+	desc = "EVTDESC1000109016"
+	picture = "GFX_evt_pagan"
+	
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTA1000109016"
+		piety = 5
+		set_character_flag = sacrifice_event_occurred
+	}
+}
+
+
+#Forgot a line
+character_event = {
+	id = VIETnam.18
+	desc = "EVTDESC1000109017"
+	picture = "GFX_evt_pagan"
+	
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTA1000109017"
+		piety = -2
+		prestige = -2
+		set_character_flag = sacrifice_event_occurred
+	}
+}
+
+
+#The sacrifice begins
+character_event = {
+	id = VIETnam.21
+	desc = "EVTDESC1000109020"
+	picture = "GFX_evt_pagan"
+	
+	trigger = {
+		has_character_modifier = performed_sacrifice
+		NOT = { has_character_flag = sacrifice_event_occurred }
+		NOT = { has_character_flag = finished_sacrifice }		
+	}
+		
+	mean_time_to_happen = {
+		days = 1
+		
+		modifier = {
+			factor = 0.001
+			NOT = { religion_group = muslim }
+		}
+		
+		modifier = {
+			factor = 0.001
+			NOT = { religion_group = christian }
+		}		
+	}	
+	
+	option = {
+		name = "EVTOPTA1000109020"
+		piety = 1
+		hidden_tooltip = {
+			random_list = {
+				24 = { character_event = { id = VIETnam.18 days = 2 } } # Character forgets a line
+				24 = { character_event = { id = VIETnam.17 days = 2 } } # Character is inspired
+				24 = { character_event = { id = VIETnam.16 days = 2 } } # Character feels the presence of a god
+				24 = { character_event = { id = VIETnam.15 days = 2 } } # Character has peace of mind
+				4 = { } # Nothing happens - how unlucky
+			}
+		}
+	}
+	
+}
+

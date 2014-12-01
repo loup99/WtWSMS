@@ -1,0 +1,727 @@
+#Jewish Flavor events VIETnam.22 - VIETnam.29
+
+#FLAVOR EVENTS
+
+#A bigoted courtier questions why we must have Jews in the court
+character_event = {
+	id = VIETnam.22
+	desc = "EVTDESC1000109021"
+	picture = GFX_evt_moorish_decor
+	
+	is_triggered_only = yes
+	capable_only = yes
+	
+	trigger = {
+		is_ruler = yes
+		is_adult = yes
+		NOT = { religion_group = jewish_group }
+		NOT = { culture_group = israelite }
+		any_courtier = {
+			religion_group = jewish_group
+			culture_group = israelite
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		
+		modifier = {
+			factor = 1.5
+			trait = gregarious
+		}
+		
+		modifier = {
+			factor = 0.8
+			trait = shy
+		}
+		
+		modifier = {
+			factor = 1.1
+			trait = patient
+		}
+		
+		modifier = {
+			factor = 0.5
+			trait = zealous
+		}
+		
+		modifier = {
+			factor = 1.2
+			trait = cynical
+		}
+		
+	}
+
+	option = { #need educated people
+		name = "EVTOPTA1000109021"
+		prestige = 5
+		
+	}
+
+	option = { #I hate them too
+		name = "EVTOPTB1000109021"
+		random_list = {
+			90 = {}
+			10 = {
+				add_trait = zealous
+			}
+		}
+		
+	}
+	
+
+	option = { #Respect for diverse peoples and cultures!
+		name = "EVTOPTC1000109021"
+		random_list = {
+			70 = {}
+			15 = {
+				add_trait = kind
+			}
+			15 = {
+				add_trait = patient
+			}
+		}
+		
+	}
+}
+
+#Educated ruler has religious debate with educated Jewish courtier
+character_event = {
+	id = VIETnam.23
+	desc = "EVTDESC1000109022"
+	picture = GFX_evt_moorish_decor
+	
+	is_triggered_only = yes
+	capable_only = yes
+	
+	trigger = {
+		is_ruler = yes
+		is_adult = yes
+
+		NOT = { religion_group = jewish_group }
+		NOT = { culture_group = israelite }
+		OR = {
+			trait = scholar
+			learning = 12
+		}
+		any_courtier = {
+			religion_group = jewish_group
+			culture_group = israelite
+			OR = {
+				trait = scholar
+				learning = 12
+			}
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		
+		modifier = {
+			factor = 1.5
+			trait = gregarious
+		}
+		
+		modifier = {
+			factor = 1.3
+			trait = zealous
+		}
+		
+		modifier = {
+			factor = 1.3
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		
+		modifier = {
+			factor = 0.3
+			trait = slow
+		}
+		
+		modifier = {
+			factor = 0.2
+			trait = imbecile
+		}
+		
+		modifier = {
+			factor = 0.8
+			trait = envious
+		}
+		
+		
+		modifier = {
+			factor = 2
+			trait = scholar
+		}
+		
+	}
+
+	option = { #Start the debate
+		name = "EVTOPTA1000109022"
+		
+		piety = 1
+		random_list = {
+			50 = {
+				character_event = {
+					id = VIETnam.24
+					tooltip = "EVTTOOLTIP1000109023"
+				}
+			}
+			50 = {
+				character_event = {
+					id = VIETnam.25
+					tooltip = "EVTTOOLTIP1000109024"
+				}
+			}
+		}
+	}
+}
+
+#Debate ends on good terms
+character_event = {
+	id = VIETnam.24
+	desc = "EVTDESC1000109023"
+	picture = GFX_evt_moorish_decor
+
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTA1000109023"
+		random_courtier = {
+			limit = {
+				religion_group = jewish_group
+				culture_group = israelite
+				OR = {
+					trait = scholar
+					learning = 12
+				}
+			}
+			opinion = {
+				modifier = opinion_gained_respect
+				who = FROM
+				years = 10
+			}
+		}
+		opinion = {
+			modifier = opinion_gained_respect
+			who = ROOT
+			years = 10
+		}
+	}
+}
+
+#Debate ends on bad terms
+character_event = {
+	id = VIETnam.25
+	desc = "EVTDESC1000109024"
+	picture = GFX_evt_moorish_decor
+
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTA1000109024"
+		random_courtier = {
+			limit = {
+				religion_group = jewish_group
+				culture_group = israelite
+				OR = {
+					trait = scholar
+					learning = 12
+				}
+			}
+			opinion = {
+				modifier = opinion_lost_respect
+				who = FROM
+				years = 5
+			}
+		}
+		opinion = {
+			modifier = opinion_lost_respect
+			who = ROOT
+			years = 5
+		}
+	}
+}
+
+#REMOVED
+#Female Jewish courtier sings a Hebrew Song (AI Only)
+#id = 1000109025
+
+# Character hears Jewish courtier singing a Hebrew song
+character_event = {
+	id = VIETnam.26
+	desc = "EVTDESC1000109026"
+	picture = GFX_evt_moorish_decor
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_global_flag = VIET_Immersion_On
+		is_ruler = yes
+		is_adult = yes
+		NOT = { trait = incapable } 
+		NOT = { religion_group = jewish_group }
+		NOT = { culture_group = israelite }
+		any_courtier = {
+			religion_group = jewish_group
+			culture_group = israelite
+			is_female = yes
+			is_ruler = no		
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = gregarious
+		}
+						
+	}
+	
+	option = {
+		name = "EVTOPTA1000109026"  # Nice song
+		random_courtier = {
+			limit = {
+				religion_group = jewish_group
+				culture_group = israelite
+				is_female = yes
+				is_ruler = no	
+			}
+			opinion = {
+				modifier = opinion_flattered
+				who = ROOT
+				years = 1
+			}
+			reverse_opinion = {
+				modifier = opinion_impressed
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB1000109026"  # Song is terrible
+		random_courtier = {
+			limit = {
+				religion_group = jewish_group
+				culture_group = israelite
+				is_female = yes
+				is_ruler = no	
+			}
+			opinion = {
+				modifier = opinion_sad
+				who = ROOT
+				years = 1
+			}
+			reverse_opinion = {
+				modifier = opinion_disappointed
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTC1000109026"  # Jewish music is bad
+		trigger = {
+			NOT = { trait = cynical }
+		}
+		random_courtier = {
+			limit = {
+				religion_group = jewish_group
+				culture_group = israelite
+				is_female = yes
+				is_ruler = no	
+			}
+			opinion = {
+				modifier = opinion_angry
+				who = ROOT
+				years = 1
+			}
+		}
+		random_list = {
+			80 = {}
+			20 = {
+				add_trait = zealous
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTD1000109026"  # I understand Hebrew
+		tooltip_info = learning
+		trigger = { learning = 13 }
+		random_courtier = {
+			limit = {
+				religion_group = jewish_group
+				culture_group = israelite
+				is_female = yes
+				is_ruler = no	
+			}
+			opinion = {
+				modifier = opinion_interest_in_music
+				who = ROOT
+				years = 10
+			}
+			reverse_opinion = {
+				modifier = opinion_interest_in_music
+				who = ROOT
+				years = 10
+			}
+		}
+		random_list = {
+			50 = {}
+			50 = {
+				change_learning = 1
+			}
+		}
+	}
+}
+
+#REMOVED
+#Courtier begins to ask liege about lowering jizya tax
+# id = 1000109027
+
+# Jewish courtier asks liege to lower Jizya tax
+character_event = {
+	id = VIETnam.27
+	desc = "EVTDESC1000109028"
+	picture = GFX_evt_moorish_decor
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_global_flag = VIET_Immersion_On
+		is_ruler = yes
+		is_adult = yes
+		NOT = { trait = incapable } 
+		religion_group = muslim
+		NOT = { culture_group = israelite }
+		any_courtier = {
+			religion_group = jewish_group
+			culture_group = israelite
+			is_female = no
+			is_ruler = no		
+		}	
+	}
+	
+	weight_multiplier = {
+		days = 1
+		
+		modifier = {
+			factor = 1.5
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.9
+			trait = shy
+		}
+		modifier = {
+			factor = 1.3
+			trait = patient
+		}
+		modifier = {
+			factor = 0.7
+			trait = wroth
+		}
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}
+		modifier = {
+			factor = 1.2
+			trait = charitable
+		}
+		modifier = {
+			factor = 1.2
+			trait = just
+		}
+		modifier = {
+			factor = 0.6
+			trait = cruel
+		}
+		modifier = {
+			factor = 1.4
+			trait = kind
+		}
+		modifier = {
+			factor = 0.8
+			trait = envious
+		}
+		modifier = {
+			factor = 0.2
+			trait = zealous
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA1000109028"  # Fine
+		add_character_modifier = {
+			name = the_merciful
+			duration = 365
+		}
+		capital_scope = { 
+			add_province_modifier = { 
+				name = lowered_jizya_tax 
+				duration = 365 
+			} 
+		}
+		random_courtier = {
+			limit = {
+				religion_group = jewish_group
+				culture_group = israelite
+				is_female = no
+				is_ruler = no	
+			}
+			opinion = {
+				modifier = opinion_relieved
+				who = ROOT
+				years = 1
+			}
+			reverse_opinion = {
+				modifier = opinion_impressed
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB1000109028"  # No
+		random_courtier = {
+			limit = {
+				religion_group = jewish_group
+				culture_group = israelite
+				is_female = no
+				is_ruler = no	
+			}
+			opinion = {
+				modifier = opinion_sad
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+}
+
+#Zealous liege reconsiders hatred of Jews - hath not a Jew eyes?
+character_event = {
+	id = VIETnam.28
+	desc = "EVTDESC1000109029"
+	picture = GFX_evt_moorish_decor
+	
+	is_triggered_only = yes
+	capable_only = yes
+	
+	trigger = {
+		has_global_flag = VIET_Immersion_On
+		is_adult = yes
+		trait = zealous
+		NOT = { religion_group = jewish_group }
+		NOT = { culture_group = israelite }
+		any_courtier = {
+			religion_group = jewish_group
+			culture_group = israelite
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		
+		modifier = {
+			factor = 2
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 1.2
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 1.4
+			trait = patient
+		}
+		
+		modifier = {
+			factor = 1.3
+			trait = content
+		}
+		
+		modifier = {
+			factor = 0.6
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 0.7
+			trait = cruel
+		}
+		
+	}
+	
+	option = {
+		name = "EVTOPTA1000109029"  # No I will not
+		piety = 1
+		
+	}
+	
+	option = {
+		name = "EVTOPTB1000109029"  # Perhaps shouldn't be too hardheaded
+		piety = 1
+		random_list = {
+			60 = { }
+			40 = {
+				remove_trait = zealous
+			}
+		}
+		
+	}
+	
+	option = {
+		name = "EVTOPTC1000109029"  # Everybody children of God yay kumbaya
+		tooltip_info = kind
+		trigger = {
+			trait = kind
+		}
+		any_courtier = {
+			limit = {
+				religion_group = jewish_group
+				culture_group = israelite
+			}
+			opinion = {
+				modifier = opinion_pleased
+				who = ROOT
+				years = 1
+			}			
+		}
+		random_list = {
+			20 = { }
+			80 = {
+				remove_trait = zealous
+			}
+		}
+		
+	}
+	
+	option = {
+		name = "EVTOPTD1000109029"  # Just ruler respects everybody
+		tooltip_info = just
+		trigger = {
+			trait = just
+		}
+		any_courtier = {
+			limit = {
+				religion_group = jewish_group
+				culture_group = israelite
+			}
+			opinion = {
+				modifier = opinion_glad
+				who = ROOT
+				years = 1
+			}			
+		}
+		random_list = {
+			25 = { }
+			75 = {
+				remove_trait = zealous
+			}
+		}
+	}
+}
+
+#REMOVED
+#Jewish courtier hears about cousin fleeing persecution elsewhere
+# id = 1000109030 - 1000109031
+
+#Jewish person returns from funeral
+#id = 1000109036
+
+#Courtier returns from funeral
+character_event = {
+	id = VIETnam.29
+	desc = "EVTDESC1000109037"
+	picture = GFX_evt_moorish_decor
+
+	is_triggered_only = yes
+	
+	trigger = {
+		has_global_flag = VIET_Immersion_On
+		is_adult = yes
+		NOT = { trait = incapable } 
+		NOT = { religion_group = jewish_group }
+		NOT = { culture_group = israelite }
+		any_courtier = {
+			religion_group = jewish_group
+			culture_group = israelite
+		}	
+	}
+
+	option = { #Comfort the courtier
+		name = "EVTOPTA1000109037"
+		random_courtier = {
+			limit = {
+				religion_group = jewish_group
+				culture_group = israelite
+			}
+			opinion = {
+				modifier = opinion_comforted_me
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+	
+	option = { #CONVERT!
+		name = "EVTOPTB1000109037"
+		random_list = {
+			60 = { }
+			40 = { add_trait = zealous }
+		}
+		random_courtier = {
+			limit = {
+				religion_group = jewish_group
+				culture_group = israelite
+			}
+			opinion = {
+				modifier = opinion_irritated
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+	
+	
+	option = { #Jewish sayings
+		name = "EVTOPTC1000109037"
+		tooltip_info = learning
+		trigger = {
+			learning = 13
+		}
+		random_courtier = {
+			limit = {
+				religion_group = jewish_group
+				culture_group = israelite
+			}
+			opinion = {
+				modifier = opinion_respectful_of_jewish_customs
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+}
+
+

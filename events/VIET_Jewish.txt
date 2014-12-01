@@ -1,0 +1,4082 @@
+###########################################
+#
+# Jewish Events for VIET
+#
+###########################################
+
+namespace = VIETjewish
+namespace = passover
+namespace = exilarch
+
+#############################################
+#Aliyah & Israel
+#############################################
+
+# VIETjewish.0 free
+
+# Israel conquered by non-Jews
+narrative_event = {
+	id = VIETjewish.1
+	title = VIETjewish.1.name
+	desc = VIETjewish.1.desc
+	picture = GFX_evt_holy_jerusalem
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_landed_title = k_israel
+		NOT = { religion_group = jewish_group }
+		has_global_flag = jewish_homeland_restored
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = VIETjewish.1.a
+		if = {
+			limit = {
+				NOT = { has_landed_title = k_jerusalem }
+			}
+			k_jerusalem = {
+				grant_title = ROOT
+			}
+		}
+		k_israel = {
+			any_direct_de_jure_vassal_title = {
+				de_jure_liege = k_jerusalem
+			}
+		}
+		k_jerusalem = {
+			de_jure_liege = e_arabia
+		}
+		k_israel = {
+			destroy_landed_title = THIS
+		}
+	}
+}
+
+# Jewish rulers notified of Israel being conquered by non-Jews
+narrative_event = {
+	id = VIETjewish.2
+	title = VIETjewish.2.name
+	desc = VIETjewish.2.desc
+	picture = GFX_evt_holy_jerusalem
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETjewish.2.a
+	}
+}
+
+# Do I want to claim being of the House of David or not?
+narrative_event = {
+	id = VIETjewish.15
+	title = VIETjewish.15.title
+	desc = VIETjewish.15.desc
+	picture = GFX_evt_holy_jerusalem
+	
+	is_triggered_only = yes
+	
+	option = { #claim it!
+		name = VIETjewish.15.a
+		add_trait = house_of_david
+		set_dynasty_flag = claimed_descent_from_david
+	}	
+	option = { #don't claim it!
+		name = VIETjewish.15.b
+		trigger = {
+			ai = no
+		}
+		piety = 200
+	}
+}
+
+
+# Kingdom of Israel can now recruit aliyah unit
+character_event = {
+	id = VIETjewish.3
+	title = VIETjewish.3.name
+	desc = VIETjewish.3.desc
+	picture = GFX_evt_holy_jerusalem
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_landed_title = k_israel
+		NOT = { has_global_flag = israel_aliyah_sufficient }
+		has_global_flag = jewish_homeland_restored
+	}
+	
+	mean_time_to_happen = {
+		days = 1825
+		modifier = {
+			factor = 0.9
+			OR = {
+				trait = misguided_warrior
+				trait = tough_soldier
+				trait = skilled_tactician
+				trait = brilliant_strategist
+				martial = 16
+			}
+		}
+		modifier = {
+			factor = 0.9
+			OR = {
+				trait = diligent
+				trait = ambitious
+				trait = zealous
+			}
+		}
+	}
+	
+	option = {
+		name = VIETjewish.1.a
+		set_global_flag = israel_aliyah_sufficient
+		custom_tooltip = {
+			text = israel_aliyah_can_now_recruit
+		}		
+	}
+}
+
+# Aliyah - Ashkenazi Jews
+character_event = {
+	id = VIETjewish.4
+	desc = VIETjewish.4.desc
+	
+	picture = GFX_evt_holy_jerusalem
+	
+	only_rulers = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = k_israel
+			has_landed_title = d_jerusalem
+			top_liege = {
+				has_landed_title = k_israel
+			}
+		}
+		OR = {
+			has_landed_title = k_israel
+			has_landed_title = d_jerusalem
+			any_demesne_province = {
+				OR = {
+					province_id  = 723
+					province_id  = 769
+					province_id  = 770
+					province_id  = 771
+					province_id  = 772
+					province_id  = 773
+					province_id  = 774
+					province_id  = 775
+					province_id  = 776
+					province_id  = 777
+					province_id  = 778
+					province_id  = 779
+					province_id  = 780
+					province_id  = 781
+					province_id  = 782
+				}
+			}
+		}
+		religion_group = jewish_group
+		has_global_flag = jewish_homeland_restored
+	}
+	
+	mean_time_to_happen = {
+		years = 20
+
+		modifier = {
+			factor = 4
+			is_patrician = yes
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}		
+		modifier = {
+			factor = 0.8
+			culture = ashkenazi
+		}		
+		modifier = {
+			factor = 8
+			any_courtier = {
+				has_character_flag = israel_aliyah
+			}
+		}		
+	}
+	
+	option = { #accept them
+		name = VIETjewish.4.a
+		scaled_wealth = -0.05
+		create_character = {
+			female = no
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = ashkenazi
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}	
+		create_character = {
+			female = yes
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = ashkenazi
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}		
+		create_character = {
+			female = no
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = ashkenazi
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}
+
+	}	
+	option = { #tell them to move elsewhere
+		name = VIETjewish.4.b
+
+	}
+}
+
+# Aliyah - sephardi Jews
+character_event = {
+	id = VIETjewish.5
+	desc = VIETjewish.5.desc
+	
+	picture = GFX_evt_holy_jerusalem
+	
+	only_rulers = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = k_israel
+			has_landed_title = d_jerusalem
+			top_liege = {
+				has_landed_title = k_israel
+			}
+		}
+		OR = {
+			has_landed_title = k_israel
+			has_landed_title = d_jerusalem
+			any_demesne_province = {
+				OR = {
+					province_id  = 723
+					province_id  = 769
+					province_id  = 770
+					province_id  = 771
+					province_id  = 772
+					province_id  = 773
+					province_id  = 774
+					province_id  = 775
+					province_id  = 776
+					province_id  = 777
+					province_id  = 778
+					province_id  = 779
+					province_id  = 780
+					province_id  = 781
+					province_id  = 782
+				}
+			}
+		}
+		religion_group = jewish_group
+		has_global_flag = jewish_homeland_restored
+	}
+	
+	mean_time_to_happen = {
+		years = 20
+
+		modifier = {
+			factor = 4
+			is_patrician = yes
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}		
+		modifier = {
+			factor = 0.8
+			culture = sephardi
+		}		
+		modifier = {
+			factor = 8
+			any_courtier = {
+				has_character_flag = israel_aliyah
+			}
+		}		
+	}
+	
+	option = { #accept them
+		name = VIETjewish.5.a
+		scaled_wealth = -0.05
+		create_character = {
+			female = no
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = sephardi
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}	
+		create_character = {
+			female = yes
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = sephardi
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}		
+		create_character = {
+			female = no
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = sephardi
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}
+
+	}	
+	option = { #tell them to move elsewhere
+		name = VIETjewish.5.b
+
+	}
+}
+
+# Aliyah - Mizrahi Jews
+character_event = {
+	id = VIETjewish.6
+	desc = VIETjewish.6.desc
+	
+	picture = GFX_evt_holy_jerusalem
+	
+	only_rulers = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = k_israel
+			has_landed_title = d_jerusalem
+			top_liege = {
+				has_landed_title = k_israel
+			}
+		}
+		OR = {
+			has_landed_title = k_israel
+			has_landed_title = d_jerusalem
+			any_demesne_province = {
+				OR = {
+					province_id  = 723
+					province_id  = 769
+					province_id  = 770
+					province_id  = 771
+					province_id  = 772
+					province_id  = 773
+					province_id  = 774
+					province_id  = 775
+					province_id  = 776
+					province_id  = 777
+					province_id  = 778
+					province_id  = 779
+					province_id  = 780
+					province_id  = 781
+					province_id  = 782
+				}
+			}
+		}
+		religion_group = jewish_group
+		has_global_flag = jewish_homeland_restored
+	}
+	
+	mean_time_to_happen = {
+		years = 20
+
+		modifier = {
+			factor = 4
+			is_patrician = yes
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}		
+		modifier = {
+			factor = 0.8
+			culture = mizrahi
+		}		
+		modifier = {
+			factor = 8
+			any_courtier = {
+				has_character_flag = israel_aliyah
+			}
+		}		
+	}
+	
+	option = { #accept them
+		name = VIETjewish.6.a
+		scaled_wealth = -0.05
+		create_character = {
+			female = no
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = mizrahi
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}	
+		create_character = {
+			female = yes
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = mizrahi
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}		
+		create_character = {
+			female = no
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = mizrahi
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}
+
+	}	
+	option = { #tell them to move elsewhere
+		name = VIETjewish.6.b
+
+	}
+}
+
+# Aliyah - Romaniote Jews
+character_event = {
+	id = VIETjewish.12
+	desc = VIETjewish.12.desc
+	
+	picture = GFX_evt_holy_jerusalem
+	
+	only_rulers = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = k_israel
+			has_landed_title = d_jerusalem
+			top_liege = {
+				has_landed_title = k_israel
+			}
+		}
+		OR = {
+			has_landed_title = k_israel
+			has_landed_title = d_jerusalem
+			any_demesne_province = {
+				OR = {
+					province_id  = 723
+					province_id  = 769
+					province_id  = 770
+					province_id  = 771
+					province_id  = 772
+					province_id  = 773
+					province_id  = 774
+					province_id  = 775
+					province_id  = 776
+					province_id  = 777
+					province_id  = 778
+					province_id  = 779
+					province_id  = 780
+					province_id  = 781
+					province_id  = 782
+				}
+			}
+		}
+		religion_group = jewish_group
+		has_global_flag = jewish_homeland_restored
+	}
+	
+	mean_time_to_happen = {
+		years = 30
+
+		modifier = {
+			factor = 4
+			is_patrician = yes
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}		
+		modifier = {
+			factor = 0.8
+			culture = romaniote
+		}		
+		modifier = {
+			factor = 8
+			any_courtier = {
+				has_character_flag = israel_aliyah
+			}
+		}		
+	}
+	
+	option = { #accept them
+		name = VIETjewish.12.a
+		scaled_wealth = -0.05
+		create_character = {
+			female = no
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = romaniote
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}	
+		create_character = {
+			female = yes
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = romaniote
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}		
+		create_character = {
+			female = no
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = romaniote
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}
+
+	}	
+	option = { #tell them to move elsewhere
+		name = VIETjewish.12.b
+
+	}
+}
+
+
+# Aliyah - Crimean Jews
+character_event = {
+	id = VIETjewish.7
+	desc = VIETjewish.7.desc
+	
+	picture = GFX_evt_holy_jerusalem
+	
+	only_rulers = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = k_israel
+			has_landed_title = d_jerusalem
+			top_liege = {
+				has_landed_title = k_israel
+			}
+		}
+		OR = {
+			has_landed_title = k_israel
+			has_landed_title = d_jerusalem
+			any_demesne_province = {
+				OR = {
+					province_id  = 723
+					province_id  = 769
+					province_id  = 770
+					province_id  = 771
+					province_id  = 772
+					province_id  = 773
+					province_id  = 774
+					province_id  = 775
+					province_id  = 776
+					province_id  = 777
+					province_id  = 778
+					province_id  = 779
+					province_id  = 780
+					province_id  = 781
+					province_id  = 782
+				}
+			}
+		}
+		religion_group = jewish_group
+		has_global_flag = jewish_homeland_restored
+	}
+	
+	mean_time_to_happen = {
+		years = 30
+
+		modifier = {
+			factor = 4
+			is_patrician = yes
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}		
+		modifier = {
+			factor = 0.8
+			culture = crimean_jewish
+		}		
+		modifier = {
+			factor = 8
+			any_courtier = {
+				has_character_flag = israel_aliyah
+			}
+		}		
+	}
+	
+	option = { #accept them
+		name = VIETjewish.7.a
+		scaled_wealth = -0.05
+		create_character = {
+			female = no
+			random_traits = yes
+			dynasty = random
+			religion = karaite
+			culture = crimean_jewish
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}	
+		create_character = {
+			female = yes
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = crimean_jewish
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}		
+		create_character = {
+			female = no
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = crimean_jewish
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}
+
+	}	
+	option = { #tell them to move elsewhere
+		name = VIETjewish.7.b
+
+	}
+}
+
+# Aliyah - Bukharan Jews
+character_event = {
+	id = VIETjewish.8
+	desc = VIETjewish.8.desc
+	
+	picture = GFX_evt_holy_jerusalem
+	
+	only_rulers = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = k_israel
+			has_landed_title = d_jerusalem
+			top_liege = {
+				has_landed_title = k_israel
+			}
+		}
+		OR = {
+			has_landed_title = k_israel
+			has_landed_title = d_jerusalem
+			any_demesne_province = {
+				OR = {
+					province_id  = 723
+					province_id  = 769
+					province_id  = 770
+					province_id  = 771
+					province_id  = 772
+					province_id  = 773
+					province_id  = 774
+					province_id  = 775
+					province_id  = 776
+					province_id  = 777
+					province_id  = 778
+					province_id  = 779
+					province_id  = 780
+					province_id  = 781
+					province_id  = 782
+				}
+			}
+		}
+		religion_group = jewish_group
+		has_global_flag = jewish_homeland_restored
+	}
+	
+	mean_time_to_happen = {
+		years = 40
+
+		modifier = {
+			factor = 4
+			is_patrician = yes
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}		
+		modifier = {
+			factor = 0.8
+			culture = bukharim
+		}		
+		modifier = {
+			factor = 8
+			any_courtier = {
+				has_character_flag = israel_aliyah
+			}
+		}		
+	}
+	
+	option = { #accept them
+		name = VIETjewish.8.a
+		scaled_wealth = -0.05
+		create_character = {
+			female = no
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = bukharim
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}	
+		create_character = {
+			female = yes
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = bukharim
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}		
+		create_character = {
+			female = no
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = bukharim
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}
+
+	}	
+	option = { #tell them to move elsewhere
+		name = VIETjewish.8.b
+
+	}
+}
+
+# Aliyah - Indian Jews
+character_event = {
+	id = VIETjewish.9
+	desc = VIETjewish.9.desc
+	
+	picture = GFX_evt_holy_jerusalem
+	
+	only_rulers = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = k_israel
+			has_landed_title = d_jerusalem
+			top_liege = {
+				has_landed_title = k_israel
+			}
+		}
+		OR = {
+			has_landed_title = k_israel
+			has_landed_title = d_jerusalem
+			any_demesne_province = {
+				OR = {
+					province_id  = 723
+					province_id  = 769
+					province_id  = 770
+					province_id  = 771
+					province_id  = 772
+					province_id  = 773
+					province_id  = 774
+					province_id  = 775
+					province_id  = 776
+					province_id  = 777
+					province_id  = 778
+					province_id  = 779
+					province_id  = 780
+					province_id  = 781
+					province_id  = 782
+				}
+			}
+		}
+		religion_group = jewish_group
+		has_global_flag = jewish_homeland_restored
+	}
+	
+	mean_time_to_happen = {
+		years = 40
+
+		modifier = {
+			factor = 4
+			is_patrician = yes
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}		
+		modifier = {
+			factor = 0.8
+			culture = indian_jewish
+		}		
+		modifier = {
+			factor = 8
+			any_courtier = {
+				has_character_flag = israel_aliyah
+			}
+		}		
+	}
+	
+	option = { #accept them
+		name = VIETjewish.9.a
+		scaled_wealth = -0.05
+		create_character = {
+			female = no
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = indian_jewish
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}	
+		create_character = {
+			female = yes
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = indian_jewish
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}		
+		create_character = {
+			female = no
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = indian_jewish
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}
+
+	}	
+	option = { #tell them to move elsewhere
+		name = VIETjewish.9.b
+
+	}
+}
+
+
+# Aliyah - Chinese Jews
+character_event = {
+	id = VIETjewish.10
+	desc = VIETjewish.10.desc
+	
+	picture = GFX_evt_holy_jerusalem
+	
+	only_rulers = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = k_israel
+			has_landed_title = d_jerusalem
+			top_liege = {
+				has_landed_title = k_israel
+			}
+		}
+		OR = {
+			has_landed_title = k_israel
+			has_landed_title = d_jerusalem
+			any_demesne_province = {
+				OR = {
+					province_id  = 723
+					province_id  = 769
+					province_id  = 770
+					province_id  = 771
+					province_id  = 772
+					province_id  = 773
+					province_id  = 774
+					province_id  = 775
+					province_id  = 776
+					province_id  = 777
+					province_id  = 778
+					province_id  = 779
+					province_id  = 780
+					province_id  = 781
+					province_id  = 782
+				}
+			}
+		}
+		religion_group = jewish_group
+		has_global_flag = jewish_homeland_restored
+	}
+	
+	mean_time_to_happen = {
+		years = 50
+
+		modifier = {
+			factor = 4
+			is_patrician = yes
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}		
+		modifier = {
+			factor = 0.8
+			culture = chinese_jewish
+		}		
+		modifier = {
+			factor = 8
+			any_courtier = {
+				has_character_flag = israel_aliyah
+			}
+		}		
+	}
+	
+	option = { #accept them
+		name = VIETjewish.10.a
+		scaled_wealth = -0.05
+		create_character = {
+			female = no
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = chinese_jewish
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}	
+		create_character = {
+			female = yes
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = chinese_jewish
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}		
+		create_character = {
+			female = no
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = chinese_jewish
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}
+
+	}	
+	option = { #tell them to move elsewhere
+		name = VIETjewish.10.b
+
+	}
+}
+
+# Aliyah - Ethiopian Jews
+character_event = {
+	id = VIETjewish.11
+	desc = VIETjewish.11.desc
+	
+	picture = GFX_evt_holy_jerusalem
+	
+	only_rulers = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = k_israel
+			has_landed_title = d_jerusalem
+			top_liege = {
+				has_landed_title = k_israel
+			}
+		}
+		OR = {
+			has_landed_title = k_israel
+			has_landed_title = d_jerusalem
+			any_demesne_province = {
+				OR = {
+					province_id  = 723
+					province_id  = 769
+					province_id  = 770
+					province_id  = 771
+					province_id  = 772
+					province_id  = 773
+					province_id  = 774
+					province_id  = 775
+					province_id  = 776
+					province_id  = 777
+					province_id  = 778
+					province_id  = 779
+					province_id  = 780
+					province_id  = 781
+					province_id  = 782
+				}
+			}
+		}
+		religion_group = jewish_group
+		has_global_flag = jewish_homeland_restored
+	}
+	
+	mean_time_to_happen = {
+		years = 30
+
+		modifier = {
+			factor = 4
+			is_patrician = yes
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}		
+		modifier = {
+			factor = 0.8
+			culture = chinese_jewish
+		}		
+		modifier = {
+			factor = 8
+			any_courtier = {
+				has_character_flag = israel_aliyah
+			}
+		}		
+	}
+	
+	option = { #accept them
+		name = VIETjewish.11.a
+		scaled_wealth = -0.05
+		create_character = {
+			female = no
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = falashim
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}	
+		create_character = {
+			female = yes
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = falashim
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}		
+		create_character = {
+			female = no
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = falashim
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}
+
+	}	
+	option = { #tell them to move elsewhere
+		name = VIETjewish.11.b
+
+	}
+}
+
+
+
+
+# Aliyah - Maghreb Jews
+character_event = {
+	id = VIETjewish.13
+	desc = VIETjewish.13.desc
+	
+	picture = GFX_evt_holy_jerusalem
+	
+	only_rulers = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = k_israel
+			has_landed_title = d_jerusalem
+			top_liege = {
+				has_landed_title = k_israel
+			}
+		}
+		OR = {
+			has_landed_title = k_israel
+			has_landed_title = d_jerusalem
+			any_demesne_province = {
+				OR = {
+					province_id  = 723
+					province_id  = 769
+					province_id  = 770
+					province_id  = 771
+					province_id  = 772
+					province_id  = 773
+					province_id  = 774
+					province_id  = 775
+					province_id  = 776
+					province_id  = 777
+					province_id  = 778
+					province_id  = 779
+					province_id  = 780
+					province_id  = 781
+					province_id  = 782
+				}
+			}
+		}
+		religion_group = jewish_group
+		has_global_flag = jewish_homeland_restored
+	}
+	
+	mean_time_to_happen = {
+		years = 30
+
+		modifier = {
+			factor = 4
+			is_patrician = yes
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}		
+		modifier = {
+			factor = 0.8
+			culture = maghreb_jewish
+		}		
+		modifier = {
+			factor = 8
+			any_courtier = {
+				has_character_flag = israel_aliyah
+			}
+		}		
+	}
+	
+	option = { #accept them
+		name = VIETjewish.13.a
+		scaled_wealth = -0.05
+		create_character = {
+			female = no
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = maghreb_jewish
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}	
+		create_character = {
+			female = yes
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = maghreb_jewish
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}		
+		create_character = {
+			female = no
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = maghreb_jewish
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}
+
+	}	
+	option = { #tell them to move elsewhere
+		name = VIETjewish.13.b
+
+	}
+}
+
+
+
+# Other dynasty members get the House of David trait (only for characters who are alive unfortunately)
+character_event = {
+	id = VIETjewish.14
+	desc = VIETjewish.14.desc
+	picture = GFX_evt_holy_jerusalem
+	
+	trigger = {
+		has_dynasty_flag = claimed_descent_from_david
+		NOT = { trait = house_of_david }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = { #ok
+		name = VIETjewish.14.a
+		add_trait = house_of_david
+		prestige = 10
+		piety = 10
+	}
+}
+
+
+
+
+# Aliyah - Italian Jews
+character_event = {
+	id = VIETjewish.18
+	desc = VIETjewish.18.desc
+	
+	picture = GFX_evt_holy_jerusalem
+	
+	only_rulers = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = k_israel
+			has_landed_title = d_jerusalem
+			top_liege = {
+				has_landed_title = k_israel
+			}
+		}
+		OR = {
+			has_landed_title = k_israel
+			has_landed_title = d_jerusalem
+			any_demesne_province = {
+				OR = {
+					province_id  = 723
+					province_id  = 769
+					province_id  = 770
+					province_id  = 771
+					province_id  = 772
+					province_id  = 773
+					province_id  = 774
+					province_id  = 775
+					province_id  = 776
+					province_id  = 777
+					province_id  = 778
+					province_id  = 779
+					province_id  = 780
+					province_id  = 781
+					province_id  = 782
+				}
+			}
+		}
+		religion_group = jewish_group
+		has_global_flag = jewish_homeland_restored
+	}
+	
+	mean_time_to_happen = {
+		years = 30
+
+		modifier = {
+			factor = 4
+			is_patrician = yes
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}		
+		modifier = {
+			factor = 0.8
+			culture = italian_jewish
+		}		
+		modifier = {
+			factor = 8
+			any_courtier = {
+				has_character_flag = israel_aliyah
+			}
+		}		
+	}
+	
+	option = { #accept them
+		name = VIETjewish.18.a
+		scaled_wealth = -0.05
+		create_character = {
+			female = no
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = italian_jewish
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}	
+		create_character = {
+			female = yes
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = italian_jewish
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}		
+		create_character = {
+			female = no
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = italian_jewish
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}
+
+	}	
+	option = { #tell them to move elsewhere
+		name = VIETjewish.18.b
+
+	}
+}
+
+
+
+
+# Aliyah - Caucasian Jews
+character_event = {
+	id = VIETjewish.16
+	desc = VIETjewish.16.desc
+	
+	picture = GFX_evt_holy_jerusalem
+	
+	only_rulers = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = k_israel
+			has_landed_title = d_jerusalem
+			top_liege = {
+				has_landed_title = k_israel
+			}
+		}
+		OR = {
+			has_landed_title = k_israel
+			has_landed_title = d_jerusalem
+			any_demesne_province = {
+				OR = {
+					province_id  = 723
+					province_id  = 769
+					province_id  = 770
+					province_id  = 771
+					province_id  = 772
+					province_id  = 773
+					province_id  = 774
+					province_id  = 775
+					province_id  = 776
+					province_id  = 777
+					province_id  = 778
+					province_id  = 779
+					province_id  = 780
+					province_id  = 781
+					province_id  = 782
+				}
+			}
+		}
+		religion_group = jewish_group
+		has_global_flag = jewish_homeland_restored
+	}
+	
+	mean_time_to_happen = {
+		years = 30
+
+		modifier = {
+			factor = 4
+			is_patrician = yes
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}		
+		modifier = {
+			factor = 0.8
+			culture = caucasian_jewish
+		}		
+		modifier = {
+			factor = 8
+			any_courtier = {
+				has_character_flag = israel_aliyah
+			}
+		}		
+	}
+	
+	option = { #accept them
+		name = VIETjewish.16.a
+		scaled_wealth = -0.05
+		create_character = {
+			female = no
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = caucasian_jewish
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}	
+		create_character = {
+			female = yes
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = caucasian_jewish
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}		
+		create_character = {
+			female = no
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = caucasian_jewish
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}
+
+	}	
+	option = { #tell them to move elsewhere
+		name = VIETjewish.16.b
+
+	}
+}
+
+
+
+
+# Aliyah - Yemenite Jews
+character_event = {
+	id = VIETjewish.17
+	desc = VIETjewish.17.desc
+	
+	picture = GFX_evt_holy_jerusalem
+	
+	only_rulers = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = k_israel
+			has_landed_title = d_jerusalem
+			top_liege = {
+				has_landed_title = k_israel
+			}
+		}
+		OR = {
+			has_landed_title = k_israel
+			has_landed_title = d_jerusalem
+			any_demesne_province = {
+				OR = {
+					province_id  = 723
+					province_id  = 769
+					province_id  = 770
+					province_id  = 771
+					province_id  = 772
+					province_id  = 773
+					province_id  = 774
+					province_id  = 775
+					province_id  = 776
+					province_id  = 777
+					province_id  = 778
+					province_id  = 779
+					province_id  = 780
+					province_id  = 781
+					province_id  = 782
+				}
+			}
+		}
+		religion_group = jewish_group
+		has_global_flag = jewish_homeland_restored
+	}
+	
+	mean_time_to_happen = {
+		years = 30
+
+		modifier = {
+			factor = 4
+			is_patrician = yes
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}		
+		modifier = {
+			factor = 0.8
+			culture = yemenite_jewish
+		}		
+		modifier = {
+			factor = 8
+			any_courtier = {
+				has_character_flag = israel_aliyah
+			}
+		}		
+	}
+	
+	option = { #accept them
+		name = VIETjewish.17.a
+		scaled_wealth = -0.05
+		create_character = {
+			female = no
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = yemenite_jewish
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}	
+		create_character = {
+			female = yes
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = yemenite_jewish
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}		
+		create_character = {
+			female = no
+			random_traits = yes
+			dynasty = random
+			religion = jewish
+			culture = yemenite_jewish
+		}
+		new_character = {
+			set_character_flag = israel_aliyah
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}
+
+	}	
+	option = { #tell them to move elsewhere
+		name = VIETjewish.17.b
+
+	}
+}
+
+# Random courters in the Shield of the Third Temple
+character_event = {
+	id = VIETjewish.19
+	desc = VIETjewish.19.desc
+	picture = GFX_evt_holy_jerusalem
+	
+	trigger = {
+		has_landed_title = d_israel_defense
+		NOT = { has_global_flag = israel_defense_setup_complete }
+	}
+	
+	option = { #ok
+		name = VIETjewish.19.a
+		set_global_flag = israel_defense_setup_complete
+		hidden_tooltip = {
+			#The likely suspects
+			create_random_soldier = {
+				random_traits = yes
+				dynasty = random
+				religion = jewish
+				culture = sephardi
+				female = no
+			}
+			create_random_soldier = {
+				random_traits = yes
+				dynasty = random
+				religion = jewish
+				culture = mizrahi
+				female = no
+			}
+			create_random_soldier = {
+				random_traits = yes
+				dynasty = random
+				religion = jewish
+				culture = ashkenazi
+				female = no
+			}
+			#One more likely suspect
+			random_list = {
+				33 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = ashkenazi
+						female = no
+					}				
+				}
+				34 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = sephardi
+						female = no
+					}				
+				}
+				33 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = mizrahi
+						female = no
+					}				
+				}
+			}
+			#Somewhat likely - Romaniote, Maghreb Jewish, Italian Jewish, Crimean Jewish, Beta Israel
+			random_list = {
+				20 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = romaniote
+						female = no
+					}				
+				}
+				20 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = falashim
+						female = no
+					}				
+				}
+				20 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = maghreb_jewish
+						female = no
+					}				
+				}
+				20 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = italian_jewish
+						female = no
+					}				
+				}
+				20 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = crimean_jewish
+						female = no
+					}				
+				}
+			}
+			#Somewhat unlikely - Bukharan Jewish, Caucasian Jewish, Yemenite Jewish, Indian Jewish, Chinese Jewish
+			random_list = {
+				20 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = caucasian_jewish
+						female = no
+					}				
+				}
+				20 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = indian_jewish
+						female = no
+					}				
+				}
+				20 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = bukharim
+						female = no
+					}				
+				}
+				20 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = chinese_jewish
+						female = no
+					}				
+				}
+				20 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = yemenite_jewish
+						female = no
+					}				
+				}
+			}
+			#Now everyone has a chance
+			random_list = {
+				16 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = ashkenazi
+						female = no
+					}				
+				}
+				16 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = sephardi
+						female = no
+					}				
+				}
+				16 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = mizrahi
+						female = no
+					}				
+				}
+				7 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = romaniote
+						female = no
+					}				
+				}
+				7 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = falashim
+						female = no
+					}				
+				}
+				7 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = maghreb_jewish
+						female = no
+					}				
+				}
+				7 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = italian_jewish
+						female = no
+					}				
+				}
+				7 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = crimean_jewish
+						female = no
+					}				
+				}
+				4 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = caucasian_jewish
+						female = no
+					}				
+				}
+				4 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = yemenite_jewish
+						female = no
+					}				
+				}
+				4 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = bukharim
+						female = no
+					}				
+				}
+				3 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = indian_jewish
+						female = no
+					}				
+				}
+				2 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = chinese_jewish
+						female = no
+					}				
+				}
+			}			
+			#And again
+			random_list = {
+				16 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = ashkenazi
+						female = no
+					}				
+				}
+				16 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = sephardi
+						female = no
+					}				
+				}
+				16 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = mizrahi
+						female = no
+					}				
+				}
+				7 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = romaniote
+						female = no
+					}				
+				}
+				7 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = falashim
+						female = no
+					}				
+				}
+				7 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = maghreb_jewish
+						female = no
+					}				
+				}
+				7 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = italian_jewish
+						female = no
+					}				
+				}
+				7 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = crimean_jewish
+						female = no
+					}				
+				}
+				4 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = caucasian_jewish
+						female = no
+					}				
+				}
+				4 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = yemenite_jewish
+						female = no
+					}				
+				}
+				4 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = bukharim
+						female = no
+					}				
+				}
+				3 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = indian_jewish
+						female = no
+					}				
+				}
+				2 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = chinese_jewish
+						female = no
+					}				
+				}
+			}			
+			#One more time
+			random_list = {
+				16 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = ashkenazi
+						female = no
+					}				
+				}
+				16 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = sephardi
+						female = no
+					}				
+				}
+				16 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = mizrahi
+						female = no
+					}				
+				}
+				7 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = romaniote
+						female = no
+					}				
+				}
+				7 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = falashim
+						female = no
+					}				
+				}
+				7 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = maghreb_jewish
+						female = no
+					}				
+				}
+				7 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = italian_jewish
+						female = no
+					}				
+				}
+				7 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = crimean_jewish
+						female = no
+					}				
+				}
+				4 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = caucasian_jewish
+						female = no
+					}				
+				}
+				4 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = yemenite_jewish
+						female = no
+					}				
+				}
+				4 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = bukharim
+						female = no
+					}				
+				}
+				3 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = indian_jewish
+						female = no
+					}				
+				}
+				2 = {
+					create_random_soldier = {
+						random_traits = yes
+						dynasty = random
+						religion = jewish
+						culture = chinese_jewish
+						female = no
+					}				
+				}
+			}
+		}
+	}	
+}
+
+#############################################
+#PASSOVER Main Events
+#############################################
+
+# Passover preparations
+character_event = {
+	id = passover.0
+	desc = passover.0.desc
+	picture = GFX_evt_holy_jerusalem
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = passover.0.a
+		character_event = { id = passover.1 days = 6 random = 2 tooltip = "passover.1.tooltip" }
+		hidden_tooltip = { #random chance of favoring one of the flavor events
+			random_list = {
+				60 = { }
+				3 = { set_character_flag = passover_eat_chametz }			
+				3 = { set_character_flag = passover_foreign_jew }			
+				7 = { set_character_flag = passover_song_of_songs }			
+				10 = { set_character_flag = passover_matzo_matzo }			
+				10 = { set_character_flag = passover_bitter_herbs }			
+				7 = { set_character_flag = passover_zroa }			
+			}
+		}
+	}
+	
+}
+
+#Passover about to begin
+narrative_event = {
+	id = passover.1
+	title = passover.1.name
+	desc = passover.1.desc
+	picture = GFX_evt_nightmare
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = passover.1.a
+		#character_event = { id = passover.2 days = 3 random = 2 tooltip = "passover.2.tooltip" }
+		piety = 5
+	}
+	
+}
+
+#Passover meal of seder
+character_event = {
+	id = passover.2
+	#title = passover.2.name
+	desc = passover.2.desc
+	picture = GFX_evt_feast
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = passover.2.a
+		character_event = { id = passover.4 days = 2 random = 2 tooltip = "passover.4.tooltip" }
+		if = {
+			limit = {
+				any_child = {
+					is_alive = yes
+					is_adult = no
+					is_female = no
+					age = 5
+				}
+			}
+			character_event = { id = passover.3 days = 2 } #the questions
+		}
+		if = {
+			limit = {
+				NOT = { trait = temperate }
+			}
+			hidden_tooltip = { #eating chametz
+				random_list = {
+					85 = { }
+					15 = {
+						character_event = { id = passover.7 days = 2 random = 3 }
+					}
+				}
+			}
+		}
+		hidden_tooltip = { #song of songs
+			random_list = {
+				75 = { }
+				25 = { character_event = { id = passover.8 days = 2 random = 3 } }
+			}
+		}
+		hidden_tooltip = { #matzo
+			random_list = {
+				75 = { }
+				25 = { character_event = { id = passover.9 days = 2 random = 3 } }
+			}
+		}
+		hidden_tooltip = { #zroa
+			random_list = {
+				75 = { }
+				25 = { character_event = { id = passover.10 days = 2 random = 3 } }
+			}
+		}
+		hidden_tooltip = { #different kosher laws
+			random_list = {
+				85 = { }
+				15 = { character_event = { id = passover.11 days = 2 random = 3 } }
+			}
+		}
+		hidden_tooltip = { #bitter herbs
+			random_list = {
+				75 = { }
+				25 = { character_event = { id = passover.12 days = 2 random = 3 } }
+			}
+		}
+	}
+	
+}
+
+
+#The four questions
+character_event = {
+	id = passover.3
+	desc = passover.3.desc
+	picture = GFX_evt_the_torah
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = passover.3.a
+		random_child = {
+			limit = {
+				is_alive = yes
+				is_adult = no
+				is_female = no
+				age = 5
+			}
+			opinion = {
+				modifier = opinion_gained_respect
+				who = ROOT
+				years = 1
+			}
+		}
+		prestige = 5
+		piety = 5
+		custom_tooltip = { text = passover.3.tooltip }
+	}
+	
+}
+
+#Passover continues
+character_event = {
+	id = passover.4
+	desc = passover.4.desc
+	picture = GFX_evt_holy_jerusalem
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = passover.5.a
+		character_event = { id = passover.5 days = 4 random = 2 tooltip = "passover.5.tooltip" }
+		piety = 5
+	}
+}
+
+#Passover seventh meal
+narrative_event = {
+	id = passover.5
+	title = passover.5.name
+	desc = passover.5.desc
+	picture = GFX_evt_feast
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = passover.5.a
+		character_event = { id = passover.6 days = 2 random = 2 tooltip = "passover.6.tooltip" }
+	}
+}
+
+#Passover ends
+narrative_event = {
+	id = passover.6
+	title = passover.6.name
+	desc = passover.6.desc
+	picture = GFX_evt_feast
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = passover.6.a
+		piety = 40
+		prestige = 20
+		clr_character_flag = observing_passover
+		clr_character_flag = passover_eat_chametz
+		clr_character_flag = passover_foreign_jew
+		clr_character_flag = passover_song_of_songs
+		clr_character_flag = passover_matzo_matzo
+		clr_character_flag = passover_bitter_herbs
+		clr_character_flag = passover_zroa
+		add_character_modifier = {
+			name = observed_passover
+			duration = 365
+		}
+		add_character_modifier = {
+			name = passover_timer
+			duration = 1460
+			hidden = yes
+		}		
+	}
+}
+
+#############################################
+#PASSOVER Misc. Flavor Events
+#############################################
+
+#Passover glutton
+character_event = {
+	id = passover.7
+	desc = passover.7.desc
+	picture = GFX_evt_feast
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = passover.7.a #will resist
+		ai_chance = {
+			factor = 4
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.1
+				trait = gluttonous
+			}
+		}
+
+		piety = 3
+		if = {
+			limit = {
+				trait = gluttonous
+			}
+			random_list = {
+				75 = { }
+				25 = { remove_trait = gluttonous }
+			}	
+		}
+	}	
+	option = {
+		name = passover.7.b #will not resist
+		ai_chance = {
+			factor = 4
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.1
+				trait = gluttonous
+			}
+		}
+
+		piety = -5
+		if = {
+			limit = {
+				NOT = { trait = gluttonous }
+			}
+			random_list = {
+				67 = { }
+				33 = { add_trait = gluttonous }
+			}	
+		}
+		add_character_modifier = {
+			name = best_meal_in_ages
+			duration = 180
+		}
+	}
+}
+
+#Passover Song of Songs
+character_event = {
+	id = passover.8
+	desc = passover.8.desc
+	picture = GFX_evt_the_torah
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = passover.8.a #ok
+		piety = 2
+
+	}
+}
+
+#Passover Matzo, Matzo, Matzo
+character_event = {
+	id = passover.9
+	desc = passover.9.desc
+	picture = GFX_evt_moorish_decor
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = passover.9.a #ok
+
+		if = {
+			limit = {
+				NOT = { trait = humble }
+				NOT = { trait = proud }
+			}
+			random_list = {
+				75 = { }
+				25 = { add_trait = humble }
+			}
+		}
+		if = {
+			limit = {
+				trait = proud
+			}
+			random_list = {
+				80 = { }
+				20 = { remove_trait = proud }
+			}
+		}
+	}
+}
+
+#Passover zroa
+character_event = {
+	id = passover.10
+	desc = passover.10.desc
+	picture = GFX_evt_moorish_decor
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = passover.10.a #ok
+		piety = 2
+
+	}
+}
+
+#Passover different laws
+character_event = {
+	id = passover.11
+	desc = passover.11.desc
+	picture = GFX_evt_moorish_decor
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = passover.11.a #Obey
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.5
+				trait = kind
+			}
+			modifier = {
+				factor = 2
+				trait = wroth
+			}
+			modifier = {
+				factor = 0.5
+				trait = patient
+			}
+			modifier = {
+				factor = 2
+				trait = proud
+			}
+			modifier = {
+				factor = 0.5
+				trait = humble
+			}
+			modifier = {
+				factor = 2
+				trait = paranoid
+			}
+			modifier = {
+				factor = 0.5
+				trait = content
+			}
+		}
+
+		piety = 3
+		any_courtier = {
+			limit = {
+				religion = ROOT
+				culture = ROOT
+				NOT = { trait = cynical }
+				NOT = { trait = patient }
+				NOT = { trait = kind }
+				NOT = { trait = slothful }
+				NOT = { trait = content }
+			}
+			opinion = {
+				modifier = opinion_respected_kosher_laws
+				who = ROOT
+				years = 3
+			}	
+		}
+	}	
+	option = {
+		name = passover.11.b #Respect
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 0.5
+				trait = zealous
+			}
+			modifier = {
+				factor = 2
+				trait = kind
+			}
+			modifier = {
+				factor = 0.5
+				trait = wroth
+			}
+			modifier = {
+				factor = 2
+				trait = patient
+			}
+			modifier = {
+				factor = 0.5
+				trait = proud
+			}
+			modifier = {
+				factor = 2
+				trait = humble
+			}
+			modifier = {
+				factor = 0.5
+				trait = paranoid
+			}
+			modifier = {
+				factor = 2
+				trait = content
+			}
+		}
+
+		prestige = 3
+		any_courtier = {
+			limit = {
+				religion = ROOT
+				culture = ROOT
+				NOT = { trait = cynical }
+				NOT = { trait = slothful }
+			}
+			opinion = {
+				modifier = opinion_ignored_kosher_laws
+				who = ROOT
+				years = 3
+			}	
+		}
+		add_character_modifier = {
+			name = tolerant_of_minor_religious_differences
+			duration = 730
+		}
+	}
+}
+
+# The bitterness of herbs
+character_event = {
+	id = passover.12
+	desc = passover.12.desc
+	picture = GFX_evt_holy_jerusalem
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = passover.12.a # Oy vey
+
+		piety = 4
+	}
+}
+
+#############################################
+# Exilarch Fun Fun Fun
+#############################################
+
+# Wifey for the Exilarch
+character_event = {
+	id = exilarch.0
+	desc = exilarch.0.desc
+	picture = GFX_evt_holy_jerusalem
+	
+	only_men = yes
+	only_rulers = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = d_exilarch
+			has_landed_title = d_exilarch_karaite
+		}
+		is_adult = yes
+		is_married = no
+		is_female = no
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = exilarch.0.a # Oy vey!
+		create_character = {
+			female = yes
+			min_age = 16
+			religion = ROOT
+			culture = ROOT
+			random_traits = yes
+		}
+		new_character = {
+			add_spouse = ROOT
+		}
+	}	
+}
+# End of the Exilarchy
+narrative_event = {
+	id = exilarch.1
+	title = exilarch.1.title
+	desc = exilarch.1.desc
+	major = yes
+	
+	picture = GFX_evt_holy_jerusalem
+	
+	only_men = yes
+	only_rulers = yes
+	
+	trigger = {
+		has_landed_title = d_exilarch
+		NOT = { trait = house_of_david }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_global_flag = VIET_end_of_exilarch
+		activate_title = { title = d_exilarch status = no }
+	}
+	
+	option = {
+		name = exilarch.1.a # Oy vey!
+		trigger = { has_landed_title = d_exilarch }
+		d_exilarch = {
+			destroy_landed_title = THIS
+		}
+	}	
+	option = {
+		name = exilarch.1.b # Oy vey!
+		trigger = { 
+			NOT = { has_landed_title = d_exilarch }
+			religion_group = jewish_group
+		}
+	}	
+	option = {
+		name = exilarch.1.c # Oy vey!
+		trigger = { 
+			NOT = { has_landed_title = d_exilarch }
+			NOT = { religion_group = jewish_group }
+		}
+	}
+}
+# End of the Karaite Exilarchy
+narrative_event = {
+	id = exilarch.2
+	title = exilarch.2.title
+	desc = exilarch.2.desc
+	major = yes
+	
+	picture = GFX_evt_holy_jerusalem
+	
+	only_men = yes
+	only_rulers = yes
+	
+	trigger = {
+		has_landed_title = d_exilarch_karaite
+		NOT = { trait = house_of_david }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_global_flag = VIET_end_of_exilarch_karaite
+		activate_title = { title = d_exilarch_karaite status = no }
+	}
+	
+	option = {
+		name = exilarch.2.a # Oy vey!
+		trigger = { has_landed_title = d_exilarch_karaite }
+		d_exilarch_karaite = {
+			destroy_landed_title = THIS
+		}
+	}
+	option = {
+		name = exilarch.2.b # Oy vey!
+		trigger = { 
+			NOT = { has_landed_title = d_exilarch_karaite }
+			religion_group = jewish_group
+		}
+	}	
+	option = {
+		name = exilarch.2.c # Oy vey!
+		trigger = { 
+			NOT = { has_landed_title = d_exilarch_karaite }
+			NOT = { religion_group = jewish_group }
+		}
+	}
+}
+# Fix the exilarch's religion
+character_event = {
+	id = exilarch.4
+	desc = exilarch.4.desc	
+	picture = GFX_evt_holy_jerusalem
+	
+	only_men = yes
+	only_rulers = yes
+	
+	trigger = {
+		OR = {
+			AND = {
+				has_landed_title = d_exilarch
+				NOT = { has_landed_title = d_exilarch_karaite }
+				NOT = { religion = jewish }
+			}
+			AND = {
+				has_landed_title = d_exilarch_karaite
+				NOT = { has_landed_title = d_exilarch }
+				NOT = { religion = karaite }
+			}
+			AND = {
+				has_landed_title = d_exilarch
+				has_landed_title = d_exilarch_karaite
+				NOT = { religion = jewish }
+				NOT = { religion = karaite }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = exilarch.4.a # Oy vey!
+		if = {
+			limit = {
+				has_landed_title = d_exilarch
+				NOT = { has_landed_title = d_exilarch_karaite }
+			}
+			religion = jewish
+		}
+		if = {
+			limit = {
+				has_landed_title = d_exilarch_karaite
+				NOT = { has_landed_title = d_exilarch }
+			}
+			religion = karaite
+		}
+		if = {
+			limit = {
+				has_landed_title = d_exilarch
+				has_landed_title = d_exilarch_karaite
+			}
+			religion = jewish
+		}
+	}	
+}
+# Exilarch becomes vassal of Israel
+character_event = {
+	id = exilarch.5
+	desc = exilarch.5.desc	
+	picture = GFX_evt_holy_jerusalem
+	
+	only_men = yes
+	only_rulers = yes
+	
+	trigger = {
+		has_landed_title = k_israel
+		NOT = { has_global_flag = the_exilarch_returns }
+		NOT = { has_global_flag = the_karaite_exilarch_returns }
+		has_global_flag = jewish_homeland_restored
+		OR = {
+			d_exilarch = { has_holder = yes }
+			d_exilarch_karaite = { has_holder = yes }
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = exilarch.5.a # Oy vey!
+		if = {
+			limit = {
+				d_exilarch = { has_holder = yes }
+			}
+			set_global_flag = the_exilarch_returns
+			custom_tooltip = { 
+				text = the_exilarch_returns
+				hidden_tooltip = {
+					d_exilarch = {
+						holder_scope = {
+							set_defacto_liege = ROOT
+						}
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				d_exilarch_karaite = { has_holder = yes }
+			}
+			set_global_flag = the_karaite_exilarch_returns
+			custom_tooltip = { 
+				text = the_karaite_exilarch_returns
+				hidden_tooltip = {
+					d_exilarch_karaite = {
+						holder_scope = {
+							set_defacto_liege = ROOT
+						}
+					}
+				}
+			}
+		}
+	}	
+}
+# Exilarch gets free claim on Israel
+character_event = {
+	id = exilarch.6
+	desc = exilarch.6.desc
+	
+	picture = GFX_evt_holy_jerusalem
+	
+	only_men = yes
+	only_rulers = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = d_exilarch
+			has_landed_title = d_exilarch_karaite
+		}
+		trait = house_of_david
+		NOT = { has_character_flag = VIET_Israel_claim_given }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = exilarch.6.a # Oy vey!
+		add_weak_claim = k_israel
+		set_character_flag = VIET_Israel_claim_given
+	}
+}
+# Exilarch destroys the karaite exilarchy
+character_event = {
+	id = exilarch.7
+	desc = exilarch.7.desc
+
+	picture = GFX_evt_holy_jerusalem
+
+	only_men = yes
+	only_rulers = yes
+	
+	trigger = {
+		has_landed_title = d_exilarch
+		has_landed_title = d_exilarch_karaite
+		trait = house_of_david
+		religion = jewish
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_global_flag = VIET_end_of_exilarch_karaite
+		activate_title = { title = d_exilarch_karaite status = no }
+	}
+	
+	option = {
+		name = exilarch.7.a
+		d_exilarch_karaite = {
+			destroy_landed_title = THIS
+		}
+	}
+}
+# Karaite exilarch destroy the other exilarch
+character_event = {
+	id = exilarch.8
+	desc = exilarch.8.desc
+
+	picture = GFX_evt_holy_jerusalem
+
+	only_men = yes
+	only_rulers = yes
+	
+	trigger = {
+		has_landed_title = d_exilarch
+		has_landed_title = d_exilarch_karaite
+		trait = house_of_david
+		religion = karaite
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_global_flag = VIET_end_of_exilarch
+		activate_title = { title = d_exilarch status = no }
+	}
+	
+	option = {
+		name = exilarch.8.a
+		d_exilarch = {
+			destroy_landed_title = THIS
+		}
+	}
+}
+# A new jewish exilarch rises
+character_event = {
+	id = exilarch.9
+	desc = exilarch.9.desc
+
+	picture = GFX_evt_holy_jerusalem
+
+	only_men = yes
+	
+	trigger = {
+		NOT = { has_landed_title = d_exilarch }
+		NOT = { has_landed_title = d_exilarch_karaite }
+		trait = house_of_david
+		religion = jewish
+		has_global_flag = VIET_end_of_exilarch
+		OR = {
+			AND = {
+				diplomacy = 15
+				learning = 10
+			}
+			AND = {
+				diplomacy = 10
+				learning = 15
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		clr_global_flag= VIET_end_of_exilarch
+		activate_title = { title = d_exilarch status = yes }
+	}
+
+	option = {
+		name = exilarch.9.a
+		d_exilarch = {
+			grant_title = PREV
+		}
+	}
+}
+# A new karaite exilarch rises
+character_event = {
+	id = exilarch.10
+	desc = exilarch.10.desc
+
+	picture = GFX_evt_holy_jerusalem
+
+	only_men = yes
+	
+	trigger = {
+		NOT = { has_landed_title = d_exilarch }
+		NOT = { has_landed_title = d_exilarch_karaite }
+		trait = house_of_david
+		religion = karaite
+		has_global_flag = VIET_end_of_exilarch_karaite
+		OR = {
+			AND = {
+				diplomacy = 15
+				learning = 10
+			}
+			AND = {
+				diplomacy = 10
+				learning = 15
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		clr_global_flag= VIET_end_of_exilarch_karaite
+		activate_title = { title = d_exilarch_karaite status = yes }
+	}
+
+	option = {
+		name = exilarch.9.a
+		d_exilarch_karaite = {
+			grant_title = PREV
+		}
+	}
+}

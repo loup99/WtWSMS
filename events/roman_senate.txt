@@ -1,0 +1,837 @@
+################################################################
+#
+# Flavor Events tied to the Roman Senate
+#
+# SENATE.9000-9999 reserved
+#
+################################################################
+
+namespace = SENATE
+
+##############################################################
+#CRETESENATE
+##############################################################
+
+
+# Circus Maximus Construction Begun
+character_event = {
+	id = SENATE.100
+	desc = EVTDESC_SENATE_100
+	picture = GFX_evt_castle_construction
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	hide_from = yes
+	
+	option = {
+		name = EVTOPTA_SENATE_100
+		set_global_flag = building_circus_maximus
+		custom_tooltip = { text = circus_maximus_construction }
+	}
+}
+
+# Circus Maximus Rebuilt 
+narrative_event = {
+	id = SENATE.101
+	title = EVTNAME_SENATE_101
+	desc = EVTDESC_SENATE_101
+	picture = GFX_evt_hippodrome_byzantine
+	border = GFX_event_narrative_frame_religion
+	major = yes
+	
+	is_triggered_only = yes
+	
+	hide_from = yes
+	
+	major_trigger = {
+		ai = no
+	}
+	
+	immediate = {
+		set_global_flag = circus_maximus_built
+		clr_global_flag = building_circus_maximus
+	}
+	
+	option = {
+		name = EVTOPTA_SENATE_101
+	}
+}
+
+
+# Lustful/Chaste - male
+character_event = {
+	id = SENATE.9000
+	desc = "EVTDESCSENATE_9000"
+	picture = "GFX_evt_deca_romana"
+	
+	min_age = 16
+	only_men = yes
+	is_triggered_only = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = d_senate
+			has_landed_title = k_republic
+			has_landed_title = e_roman_empire
+		}
+		NOT = {
+			personality_traits = 5
+		}
+		NOT = {
+			religion_group = muslim
+		}
+		NOT = {
+			trait = chaste
+		}
+		NOT = {
+			trait = lustful
+		}
+		NOT = {
+			trait = celibate
+		}
+		NOT = {
+			trait = homosexual
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		
+		modifier = {
+			factor = 1.7
+			trait = greedy
+		}
+		modifier = {
+			factor = 1.7
+			trait = hedonist
+		}
+		modifier = {
+			factor = 1.7
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 0.5
+			trait = temperate
+		}
+	}
+
+	option = {
+		name = "EVTOPTASENATE_9000"
+		if = {
+			limit = {
+				trait = honest
+				NOT = {
+					trait = slothful
+				}
+			}
+			random = {
+				chance = 70
+				
+				add_trait = lustful
+				hidden_tooltip = {
+					character_event = {
+						id = 38272 #Notify Lustful
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				trait = slothful
+				NOT = {
+					trait = honest
+				}
+			}
+			random = {
+				chance = 20
+				
+				add_trait = lustful
+				hidden_tooltip = {
+					character_event = {
+						id = 38272 #Notify Lustful
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					trait = honest
+				}
+				NOT = {
+					trait = slothful
+				}
+			}
+			random = {
+				chance = 45
+				
+				add_trait = lustful
+				hidden_tooltip = {
+					character_event = {
+						id = 38272 #Notify Lustful
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				trait = honest
+				trait = slothful
+			}
+			random = {
+				chance = 45
+				
+				add_trait = lustful
+				hidden_tooltip = {
+					character_event = {
+						id = 38272 #Notify Lustful
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBSENATE_9000"
+		if = {
+			limit = {
+				trait = arbitrary
+				NOT = {
+					trait = proud
+				}
+			}
+			random = {
+				chance = 70
+				
+				add_trait = chaste
+				hidden_tooltip = {
+					character_event = {
+						id = 38274 #Notify Chaste
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				trait = proud
+				NOT = {
+					trait = arbitrary
+				}
+			}
+			random = {
+				chance = 20
+				
+				add_trait = chaste
+				hidden_tooltip = {
+					character_event = {
+						id = 38274 #Notify Chaste
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					trait = proud
+				}
+				NOT = {
+					trait = arbitrary
+				}
+			}
+			random = {
+				chance = 45
+				
+				add_trait = chaste
+				hidden_tooltip = {
+					character_event = {
+						id = 38274 #Notify Chaste
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				trait = proud
+				trait = arbitrary
+			}
+			random = {
+				chance = 45
+				
+				add_trait = chaste
+				hidden_tooltip = {
+					character_event = {
+						id = 38274 #Notify Chaste
+					}
+				}
+			}
+		}
+	}
+}
+
+#Charitable/Greedy
+character_event = {
+	id = SENATE.9001
+	desc = "EVTDESCSENATE_9001"
+	picture = "GFX_evt_empire"
+	
+	min_age = 16
+
+	is_triggered_only = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = d_senate
+			has_landed_title = k_republic
+			has_landed_title = e_roman_empire
+		}
+		NOT = {
+			personality_traits = 5
+		}
+		NOT = {
+			trait = greedy
+		}
+		NOT = {
+			trait = charitable
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		
+		modifier = {
+			factor = 1.7
+			trait = kind
+		}
+	}
+	
+	option = {
+		name = "EVTOPTASENATE_9001"
+		scaled_wealth = -0.5
+		if = {
+			limit = {
+				trait = honest
+				NOT = {
+					trait = envious
+				}
+			}
+			random = {
+				chance = 70
+				
+				add_trait = charitable
+				hidden_tooltip = {
+					character_event = {
+						id = 38273 #Notify Charitable
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				trait = envious
+				NOT = {
+					trait = honest
+				}
+			}
+			random = {
+				chance = 20
+				
+				add_trait = charitable
+				hidden_tooltip = {
+					character_event = {
+						id = 38273 #Notify Charitable
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					trait = envious
+				}
+				NOT = {
+					trait = honest
+				}
+			}
+			random = {
+				chance = 45
+				
+				add_trait = charitable
+				hidden_tooltip = {
+					character_event = {
+						id = 38273 #Notify Charitable
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				trait = envious
+				trait = honest
+			}
+			random = {
+				chance = 45
+				
+				add_trait = charitable
+				hidden_tooltip = {
+					character_event = {
+						id = 38273 #Notify Charitable
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBSENATE_9001"
+		if = {
+			limit = {
+				trait = proud
+				NOT = {
+					trait = content
+				}
+			}
+			random = {
+				chance = 70
+				
+				add_trait = greedy
+				hidden_tooltip = {
+					character_event = {
+						id = 38252 #Notify Greedy
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				trait = content
+				NOT = {
+					trait = proud
+				}
+			}
+			random = {
+				chance = 20
+				
+				add_trait = greedy
+				hidden_tooltip = {
+					character_event = {
+						id = 38252 #Notify Greedy
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					trait = content
+				}
+				NOT = {
+					trait = proud
+				}
+			}
+			random = {
+				chance = 45
+				
+				add_trait = greedy
+				hidden_tooltip = {
+					character_event = {
+						id = 38252 #Notify Greedy
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				trait = content
+				trait = proud
+			}
+			random = {
+				chance = 45
+				
+				add_trait = greedy
+				hidden_tooltip = {
+					character_event = {
+						id = 38252 #Notify Greedy
+					}
+				}
+			}
+		}
+	}
+}
+
+#Wroth/Patient
+character_event = {
+	id = SENATE.9002
+	desc = "EVTDESCSENATE_9002"
+	picture = "GFX_evt_throne_room_roman"
+	
+	min_age = 16
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = d_senate
+			has_landed_title = k_republic
+			has_landed_title = e_roman_empire
+		}
+		NOT = {
+			personality_traits = 5
+		}
+		NOT = {
+			trait = wroth
+		}
+		NOT = {
+			trait = patient
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		
+		modifier = {
+			factor = 1.7
+			trait = envious
+		}
+		modifier = {
+			factor = 1.7
+			trait = cruel
+		}
+		modifier = {
+			factor = 1.7
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 0.5
+			trait = kind
+		}
+		modifier = {
+			factor = 0.5
+			trait = temperate
+		}
+	}
+	
+	option = {
+		name = "EVTOPTASENATE_9002"
+		if = {
+			limit = {
+				trait = paranoid
+				NOT = {
+					trait = trusting
+				}
+			}
+			random = {
+				chance = 70
+				
+				add_trait = wroth
+				hidden_tooltip = {
+					character_event = {
+						id = 38254 #Notify Wroth
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				trait = trusting
+				NOT = {
+					trait = paranoid
+				}
+			}
+			random = {
+				chance = 20
+				
+				add_trait = wroth
+				hidden_tooltip = {
+					character_event = {
+						id = 38254 #Notify Wroth
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					trait = trusting
+				}
+				NOT = {
+					trait = paranoid
+				}
+			}
+			random = {
+				chance = 45
+				
+				add_trait = wroth
+				hidden_tooltip = {
+					character_event = {
+						id = 38254 #Notify Wroth
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				trait = trusting
+				trait = paranoid
+			}
+			random = {
+				chance = 45
+				
+				add_trait = wroth
+				hidden_tooltip = {
+					character_event = {
+						id = 38254 #Notify Wroth
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBSENATE_9002"
+		if = {
+			limit = {
+				trait = temperate
+				NOT = {
+					trait = craven
+				}
+			}
+			random = {
+				chance = 70
+				
+				add_trait = patient
+				hidden_tooltip = {
+					character_event = {
+						id = 38264 #Notify Patient
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				trait = craven
+				NOT = {
+					trait = temperate
+				}
+			}
+			random = {
+				chance = 20
+				
+				add_trait = patient
+				hidden_tooltip = {
+					character_event = {
+						id = 38264 #Notify Patient
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					trait = temperate
+				}
+				NOT = {
+					trait = craven
+				}
+			}
+			random = {
+				chance = 45
+				
+				add_trait = patient
+				hidden_tooltip = {
+					character_event = {
+						id = 38264 #Notify Patient
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				trait = temperate
+				trait = craven
+			}
+			random = {
+				chance = 45
+				
+				add_trait = patient
+				hidden_tooltip = {
+					character_event = {
+						id = 38264 #Notify Patient
+					}
+				}
+			}
+		}
+	}
+}
+
+#Proud/Humble
+character_event = {
+	id = SENATE.9003
+	desc = "EVTDESCSENATE_9003"
+	picture = "GFX_evt_throne_room_roman"
+	
+	min_age = 16
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = d_senate
+			has_landed_title = k_republic
+			has_landed_title = e_roman_empire
+		}
+		NOT = {
+			personality_traits = 5
+		}
+		NOT = {
+			trait = proud
+		}
+		NOT = {
+			trait = humble
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		
+		modifier = {
+			factor = 1.7
+			trait = ambitious
+		}
+		modifier = {
+			factor = 0.5
+			trait = content
+		}
+	}
+	
+	option = {
+		name = "EVTOPTASENATE_9003"
+		if = {
+			limit = {
+				trait = fair
+				NOT = {
+					trait = honest
+				}
+			}
+			random = {
+				chance = 70
+				
+				add_trait = proud
+				hidden_tooltip = {
+					character_event = {
+						id = 38261 #Notify Proud
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					trait = fair
+				}
+				NOT = {
+					trait = honest
+				}
+			}
+			random = {
+				chance = 45
+				
+				add_trait = proud
+				hidden_tooltip = {
+					character_event = {
+						id = 38261 #Notify Proud
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				trait = fair
+				trait = honest
+			}
+			random = {
+				chance = 45
+				
+				add_trait = proud
+				hidden_tooltip = {
+					character_event = {
+						id = 38261 #Notify Proud
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBSENATE_9003"
+		if = {
+			limit = {
+				trait = ugly
+				NOT = {
+					trait = ambitious
+				}
+			}
+			random = {
+				chance = 70
+				
+				add_trait = humble
+				hidden_tooltip = {
+					character_event = {
+						id = 38260 #Notify Humble
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				trait = ugly
+				NOT = {
+					trait = ambitious
+				}
+			}
+			random = {
+				chance = 20
+				
+				add_trait = humble
+				hidden_tooltip = {
+					character_event = {
+						id = 38260 #Notify Humble
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					trait = ugly
+				}
+				NOT = {
+					trait = ambitious
+				}
+			}
+			random = {
+				chance = 45
+				
+				add_trait = humble
+				hidden_tooltip = {
+					character_event = {
+						id = 38260 #Notify Humble
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				trait = ugly
+				trait = ambitious
+			}
+			random = {
+				chance = 45
+				
+				add_trait = humble
+				hidden_tooltip = {
+					character_event = {
+						id = 38260 #Notify Humble
+					}
+				}
+			}
+		}
+	}
+}
+

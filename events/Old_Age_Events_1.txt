@@ -1,0 +1,575 @@
+###################################
+#
+# Old Age Events (for old characters)
+#
+# Set 1: VIETnam.106-VIETnam.110
+#
+# Fired from on actions
+#
+###################################
+
+# Hunting in old age
+character_event = {
+	id = VIETnam.106
+	desc = "EVTDESC1000109136"
+	picture = GFX_evt_hunt
+	
+	is_triggered_only = yes
+	
+	min_age = 55
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		war = no
+		in_command = no
+		is_ruler = yes
+		OR = {
+			has_character_modifier = old_age
+			age = 65
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		
+		modifier = {
+			factor = 2
+			trait = weak
+		}
+		modifier = {
+			factor = 2
+			trait = ill
+		}
+		modifier = {
+			factor = 1.2
+			trait = brave
+		}
+		modifier = {
+			factor = 1.2
+			trait = proud
+		}
+		modifier = {
+			factor = 0.5
+			trait = strong
+		}
+		modifier = {
+			factor = 0.8
+			trait = humble
+		}
+		modifier = {
+			factor = 0.8
+			trait = craven
+		}
+		modifier = {
+			factor = 0.8
+			trait = content
+		}
+		modifier = {
+			factor = 3
+			has_character_flag = holding_grand_hunt
+		}
+	}
+	
+	option = { #I'll be fine
+		name = "EVTOPTA1000109136"
+		prestige = 10
+		random_list = {
+			75 = {}
+			20 = {
+				add_trait = wounded
+				hidden_tooltip = { character_event = { id = 38280 } }
+			}
+			4 = {
+				add_trait = maimed
+				hidden_tooltip = { character_event = { id = 38281 } }
+			}
+			1 = {
+				death = {
+					death_reason = death_accident
+				}
+			}
+		}
+	}
+	
+	option = { #Watch old age
+		name = "EVTOPTB1000109136"
+		piety = 5
+		random_list = {
+			75 = { }
+			25 = { add_trait = humble }
+		}
+	}
+	
+	option = { #Don't participate as much
+		name = "EVTOPTC1000109136"
+		prestige = 5
+		random_list = {
+			40 = {}
+			30 = { add_trait = gregarious }
+			20 = { add_trait = humble }
+			9 = {
+				add_trait = wounded
+				hidden_tooltip = { character_event = { id = 38280 } }
+			}
+			1 = {
+				add_trait = maimed
+				hidden_tooltip = { character_event = { id = 38281 } }
+			}
+		}
+	}
+	
+	option = { #God will protect
+		name = "EVTOPTD1000109136"
+		tooltip_info = zealous
+		trigger = {
+			trait = zealous
+		}
+		piety = 15
+		random_list = {
+			85 = {}
+			12 = {
+				add_trait = wounded
+				hidden_tooltip = { character_event = { id = 38280 } }
+			}
+			2 = {
+				add_trait = maimed
+				hidden_tooltip = { character_event = { id = 38281 } }
+			}
+			1 = {
+				death = {
+					death_reason = death_accident
+				}
+			}
+		}
+	}
+}
+
+
+# Character complains about youth
+character_event = {
+	id = VIETnam.107
+	desc = "EVTDESC1000109137"
+	picture = GFX_evt_courtiers_talking
+	
+	is_triggered_only = yes
+	
+	min_age = 55
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		in_command = no
+		is_ruler = yes
+		OR = {
+			has_character_modifier = old_age
+			age = 65
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		modifier = {
+			factor = 1.5
+			trait = proud
+		}
+		modifier = {
+			factor = 1.2
+			trait = cynical
+		}
+		modifier = {
+			factor = 1.2
+			trait = wroth
+		}
+		modifier = {
+			factor = 0.6
+			trait = humble
+		}
+		modifier = {
+			factor = 0.8
+			trait = patient
+		}
+		modifier = {
+			factor = 0.8
+			trait = content
+		}
+		modifier = {
+			factor = 0.8
+			trait = kind
+		}
+	}
+	
+	option = { #I was like that once
+		name = "EVTOPTA1000109137"
+		random_list = {
+			80 = { }
+			10 = { add_trait = humble }
+			10 = { add_trait = patient }
+		}
+		add_character_modifier = {
+			name = reminiscing
+			duration = 100
+		}
+	}
+	
+	option = { #Kids don't understand hardship
+		name = "EVTOPTB1000109137"
+		prestige = 10
+	}
+	
+	option = { #Pray God gives strength to young folks
+		name = "EVTOPTC1000109137"
+		prestige = 5
+		random_list = {
+			70 = {}
+			15 = { add_trait = zealous }
+			15 = { add_trait = temperate }
+		}
+	}
+	
+	option = { #Kids are useless crud these days
+		name = "EVTOPTD1000109137"
+		random_list = {
+			70 = { prestige = 5 }
+			20 = { add_trait = proud }
+			10 = { add_trait = wroth }
+		}
+	}
+}
+
+
+# Character worrying about the afterlife
+character_event = {
+	id = VIETnam.108
+	desc = "EVTDESC1000109138"
+	picture = GFX_evt_knight_kneeling
+	
+	is_triggered_only = yes
+	
+	min_age = 55
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		OR = {
+			has_character_modifier = old_age
+			age = 65
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		
+		modifier = {
+			factor = 1.5
+			trait = zealous
+		}
+		modifier = {
+			factor = 1.5
+			trait = ambitious
+		}
+		modifier = {
+			factor = 1.2
+			trait = diligent
+		}
+		modifier = {
+			factor = 1.2
+			trait = paranoid
+		}
+		modifier = {
+			factor = 1.2
+			trait = envious
+		}
+		modifier = {
+			factor = 1.2
+			trait = craven
+		}
+		modifier = {
+			factor = 0.7
+			trait = slothful
+		}
+		modifier = {
+			factor = 0.7
+			trait = cynical
+		}
+		modifier = {
+			factor = 0.7
+			trait = content
+		}
+		modifier = {
+			factor = 0.6
+			trait = brave
+		}
+	}
+	
+	option = { #Pray
+		name = "EVTOPTA1000109138"
+		piety = 10
+	}
+	
+	option = { #Don't care
+		name = "EVTOPTB1000109138"
+		ai_chance = {
+			factor = 5
+		}
+		tooltip_info = cynical
+		trigger = { 
+			trait = cynical
+		}
+		prestige = 10
+	}
+	
+	option = { #Lived a good life
+		name = "EVTOPTC1000109138"
+		trigger = {
+			OR = {
+				trait = kind
+				trait = chaste
+				trait = charitable
+				trait = patient
+				trait = temperate
+				trait = humble
+				trait = diligent
+				trait = zealous
+				trait = just
+			}
+			NOT = {
+				trait = cruel
+				trait = arbitrary
+				trait = impaler
+			}
+		}
+		prestige = 5
+		piety = 5
+	}
+}
+
+
+# Character doesn't understand new slang
+character_event = {
+	id = VIETnam.109
+	desc = "EVTDESC1000109139"
+	picture = GFX_evt_courtiers_talking
+	
+	is_triggered_only = yes
+	
+	min_age = 55
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		war = no
+		in_command = no
+		OR = {
+			has_character_modifier = old_age
+			age = 65
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		
+		modifier = {
+			factor = 1.5
+			trait = shy
+		}
+		modifier = {
+			factor = 1.5
+			trait = imbecile
+		}
+		modifier = {
+			factor = 1.5
+			trait = slow
+		}
+		modifier = {
+			factor = 1.2
+			trait = slothful
+		}
+		modifier = {
+			factor = 1.2
+			trait = proud
+		}
+		modifier = {
+			factor = 1.2
+			trait = envious
+		}
+		modifier = {
+			factor = 1.2
+			trait = chaste
+		}
+		modifier = {
+			factor = 0.6
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.8
+			trait = hedonist
+		}
+		modifier = {
+			factor = 0.8
+			trait = lustful
+		}
+		modifier = {
+			factor = 0.7
+			trait = humble
+		}
+		modifier = {
+			factor = 0.8
+			trait = genius
+		}
+		modifier = {
+			factor = 0.8
+			trait = quick
+		}
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+	}
+	
+	option = { #Make an effort to learn new slang
+		name = "EVTOPTA1000109139"
+		prestige = 1
+		random_list = {
+			25 = { change_diplomacy = 1 }
+			25 = { change_intrigue = 1 }
+			50 = { }
+		}
+	}
+	
+	option = { #Should worry about more important things
+		name = "EVTOPTB1000109139"
+		piety = 1
+		random_list = {
+			25 = { change_learning = 1 }
+			25 = { change_stewardship = 1 }
+			50 = { }
+		}
+	}
+}
+
+
+# Character feels weaker and weaker as they get older and oler
+character_event = {
+	id = VIETnam.110
+	desc = "EVTDESC1000109140"
+	picture = GFX_evt_tuscan_country
+	
+	is_triggered_only = yes
+	
+	min_age = 55
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		OR = {
+			has_character_modifier = old_age
+			age = 65
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+
+		modifier = {
+			factor = 2
+			age = 80
+		}		
+		modifier = {
+			factor = 1.5
+			trait = weak
+		}
+		modifier = {
+			factor = 1.5
+			age = 70
+		}
+		modifier = {
+			factor = 1.3
+			NOT = { health = 3 }
+		}
+		modifier = {
+			factor = 1.1
+			NOT = { health = 6 }
+			health = 3
+		}
+		modifier = {
+			factor = 1.2
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 1.2
+			age = 65
+		}
+		modifier = {
+			factor = 1.1
+			trait = slothful
+		}
+		modifier = {
+			factor = 0.6
+			health = 6
+		}
+		modifier = {
+			factor = 0.8
+			trait = temperate
+		}
+		modifier = {
+			factor = 0.8
+			trait = content
+		}
+		modifier = {
+			factor = 0.3
+			trait = strong
+		}
+	}
+	
+	option = { #It's nothing
+		name = "EVTOPTA1000109140"
+		ai_chance = {
+			factor = 100
+		}
+		tooltip_info = strong
+		trigger = { 
+			trait = strong
+		}
+		prestige = 10
+	}
+	
+	option = { #Can't work much
+		name = "EVTOPTB1000109140"
+		prestige = -5
+		random_list = {
+			10 = { add_trait = ill }
+			90 = { }
+		}
+	}
+	
+	option = { #Work harder
+		name = "EVTOPTC1000109140"
+		prestige = 10
+		random_list = {
+			15 = { add_trait = stressed }
+			10 = { add_trait = stressed add_trait = diligent }
+			15 = { add_trait = ill }
+			10 = { add_trait = ill add_trait = diligent }
+			50 = { }
+		}
+	}
+	
+	option = { #Get help from others
+		name = "EVTOPTD1000109140"
+		prestige = -25
+		random_list = {
+			25 = { }
+			15 = { add_trait = gregarious }
+			15 = { add_trait = diligent }
+			15 = { add_trait = slothful }
+			15 = { add_trait = trusting }
+			15 = { add_trait = humble }
+		}
+	}
+}

@@ -1,0 +1,221 @@
+#######################################
+#
+# ANCIENT RELIGIONS
+# - Vestales
+#
+# Event ID ancrel.2120 - ancrel.2129 reserved
+#
+#######################################
+
+# Written by Jon Severinsson
+
+namespace = ancrel
+
+# The Vestalis Maxima should be the guardian of all underage Vestalis
+character_event = {
+	id = ancrel.2120
+	hide_window = yes
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	trigger = {
+		has_minor_title = title_vestalis_maxima
+		host = {
+			any_courtier = {
+				has_minor_title = title_vestalis
+				age = 6
+				NOT = { age = 16 }
+				NOT = { guardian = { character = ROOT } }
+			}
+		}
+	}
+
+	immediate = {
+		host = {
+			any_courtier = {
+				limit = {
+					has_minor_title = title_vestalis
+					age = 6
+					NOT = { age = 16 }
+					NOT = { guardian = { character = ROOT } }
+				}
+				set_guardian = ROOT
+			}
+		}
+	}
+
+	option = {
+		name = OK
+	}
+}
+
+# A vestalis must retire after 30 years
+character_event = {
+	id = ancrel.2121
+	desc = EVTDESCancrel.2121
+	picture = GFX_evt_princess_byzantine
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	trigger = {
+		had_character_flag = {
+			flag = flag_vestalis
+			days = 10958 # 30 years
+		}
+		OR = {
+			has_minor_title = title_vestalis
+			has_minor_title = title_vestalis_maxima
+		}
+	}
+
+	option = {
+		name = OK
+
+		remove_title = title_vestalis
+		remove_title = title_vestalis_maxima
+		remove_trait = celibate
+		remove_trait = vestalis
+		add_trait = retired_vestalis
+		recalc_succession = yes
+		clr_character_flag = flag_vestalis
+		d_hellenic_pagan = { owner = { change_variable = { which = "num_vestales" value = -1 } } }
+	}
+}
+
+# Cleanup when a Vestalis lost her title by some way other than retireing
+character_event = {
+	id = ancrel.2122
+	hide_window = yes
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	trigger = {
+		has_character_flag = flag_vestalis
+		NOT = { has_minor_title = title_vestalis }
+		NOT = { has_minor_title = title_vestalis_maxima }
+	}
+
+	immediate = {
+		remove_trait = celibate
+		remove_trait = vestalis
+		recalc_succession = yes
+		clr_character_flag = flag_vestalis
+		d_hellenic_pagan = { owner = { change_variable = { which = "num_vestales" value = -1 } } }
+	}
+
+	option = {
+		name = OK
+	}
+}
+
+#[on_death] Cleanup when a Vestalis dies
+character_event = {
+	id = ancrel.2123
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_character_flag = flag_vestalis
+	}
+
+	immediate = {
+		clr_character_flag = flag_vestalis
+		d_hellenic_pagan = { owner = { change_variable = { which = "num_vestales" value = -1 } } }
+	}
+
+	option = {
+		name = OK
+	}
+}
+
+# A vassal has nominated a vestalis
+character_event = {
+	id = ancrel.2124
+	desc = EVTDESCancrel.2124
+	picture = GFX_evt_princess_byzantine
+
+	is_triggered_only = yes
+
+	option = {
+		name = EVTOPTAancrel.2124
+		trigger = {
+			NOT = { check_variable = { which = "num_vestales" value = 5 } }
+		}
+		ai_chance = {
+			factor = 60
+			modifier = {
+				factor = 0
+				OR = {
+					is_primary_heir = ROOT
+					is_pretender = ROOT
+				}
+			}
+			modifier = {
+				factor = 1.5
+				dynasty = ROOT
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { FROM = { host = { reverse_opinion = { who = ROOT value = -40 } } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { host = { reverse_opinion = { who = ROOT value = 40 } } }
+			}
+			modifier = {
+				factor = 0.5
+				check_variable = { which = "num_vestales" value = 4 }
+			}
+			modifier = {
+				factor = 2
+				NOT = { check_variable = { which = "num_vestales" value = 2 } }
+			}
+		}
+
+		FROM = { clr_character_flag = flag_nominated_as_vestalis }
+		hidden_tooltip = { FROM = { banish = ROOT } } # Move FROM to ROOT's court
+		FROM = {
+			host = { prestige = 50 }
+			host = { piety = 50 }
+			host = { opinion = { modifier = opinion_nominated_vestalis who = ROOT } }
+		}
+
+		FROM = {
+			give_minor_title = title_vestalis
+			hidden_tooltip = {
+				remove_trait = hedonist
+				add_trait = celibate
+				add_trait = vestalis
+				recalc_succession = yes
+				set_character_flag = flag_vestalis
+				d_hellenic_pagan = { owner = { change_variable = { which = "num_vestales" value = 1 } } }
+			}
+		}
+	}
+
+	option = {
+		name = EVTOPTBancrel.2124
+		trigger = {
+			NOT = { check_variable = { which = "num_vestales" value = 5 } }
+		}
+		ai_chance = {
+			factor = 40
+		}
+
+		FROM = { host = { prestige = -10 } }
+	}
+
+	option = {
+		name = EVTOPTCancrel.2124
+		trigger = {
+			check_variable = { which = "num_vestales" value = 5 }
+		}
+	}
+}

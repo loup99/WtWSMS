@@ -1,0 +1,7958 @@
+#####################################################################
+#
+# silkroad #0-9999 reserved
+#
+# 0-99 Sogdians
+# 100-199 Silk Road History Stuff
+# 200-299 Courtier Spawn
+# 300-399 Nowruz
+#
+#####################################################################
+
+namespace = silkroad
+
+###################################################
+# Sogdians
+###################################################
+
+# Become SarTA PAAAWWW
+character_event = {
+	id = 40994985
+	desc = silkroad.0.desc
+
+	hide_window = yes
+
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	only_men = yes
+
+	trigger = {
+		culture = sogdian
+		NOT = { has_global_flag = silk_road_level_0 }
+		NOT = { trait = sartapaw }
+		OR = {
+			is_ruler = no
+			tier = baron
+			tier = count
+			AND = {
+				tier = duke
+				independent = no
+			}
+		}
+		AND = {
+			stewardship = 10
+			diplomacy = 10
+		}
+		OR = {
+			stewardship = 13
+			diplomacy = 13
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 840
+		modifier = {
+			factor = 0.95
+			stewardship = 16
+		}
+		modifier = {
+			factor = 0.95
+			diplomacy = 16
+		}
+		modifier = {
+			factor = 0.95
+			trait = greedy
+		}
+		modifier = {
+			factor = 1.1
+			trait = charitable
+		}
+		modifier = {
+			factor = 0.95
+			trait = genius
+		}
+		modifier = {
+			factor = 1.1
+			trait = imbecile
+		}
+		modifier = {
+			factor = 0.95
+			trait = quick
+		}
+		modifier = {
+			factor = 1.1
+			trait = slow
+		}
+		modifier = {
+			factor = 0.95
+			trait = diligent
+		}
+		modifier = {
+			factor = 1.1
+			trait = slothful
+		}
+		modifier = {
+			factor = 0.95
+			trait = ambitious
+		}
+		modifier = {
+			factor = 1.1
+			trait = content
+		}
+		modifier = {
+			factor = 0.95
+			trait = just
+		}
+		modifier = {
+			factor = 1.1
+			trait = arbitrary
+		}
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				ai = yes
+			}
+			add_trait = sartapaw
+		}
+		if = {
+			limit = {
+				ai = no
+				NOT = { has_global_flag = silk_road_level_3 }
+			}
+			character_event = { id = silkroad.1 }
+		}
+		if = {
+			limit = {
+				ai = no
+				has_global_flag = silk_road_level_3
+			}
+			character_event = { id = silkroad.2 }
+		}
+	}
+}
+
+
+# Become an Accomplished Sartapaw (Silk Road Decline Version)
+character_event = {
+	id = 40994987
+	desc = silkroad.1.desc
+	picture = GFX_evt_silk_road
+	
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = "silkroad.1.a"
+		add_trait = sartapaw
+	}
+}
+
+# Become an Accomplished Sartapaw (Silk Road Reborn Version)
+character_event = {
+	id = 40994986
+	desc = silkroad.2.desc
+	picture = GFX_evt_silk_road
+	
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = "silkroad.2.a"
+		add_trait = sartapaw
+	}
+}
+
+
+# Sogdian Colonists Moving In
+province_event = {
+	id = 40994986
+	title = silkroad.3.name
+	desc = silkroad.3.desc
+	picture = GFX_evt_silk_road
+
+
+	trigger = {
+		NOT = { has_global_flag = silk_road_level_0 }
+		NOT = { has_province_modifier = VIET_sogdian_colony }
+		NOT = { culture = sogdian }
+		OR = {
+			kingdom = { title = k_turkestan }
+			kingdom = { title = k_afghanistan }
+			kingdom = { title = k_khiva }
+			kingdom = { title = k_baluchistan }
+			kingdom = { title = k_persia }
+			kingdom = { title = k_kipchak }
+			kingdom = { title = k_sogdiana }
+			empire = { title = e_persia }
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 900
+
+		modifier = {
+			factor = 4
+			owner = {
+				any_demesne_province = {
+					has_province_modifier = VIET_sogdian_colony
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			NOT = { kingdom = { title = k_sogdiana } }
+			NOT = { kingdom = { title = k_khiva } }
+			NOT = { kingdom = { title = k_turkestan } }
+		}
+		modifier = {
+			factor = 0.66
+			owner = { realm_stewardship = 40 }
+		}
+		modifier = {
+			factor = 0.8
+			owner = { realm_stewardship = 30 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { owner = { realm_stewardship = 15 } }
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { owner = { realm_stewardship = 10 } }
+		}
+		modifier = {
+			factor = 0.66
+			owner = { realm_diplomacy = 40 }
+		}
+		modifier = {
+			factor = 0.8
+			owner = { realm_diplomacy = 30 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { owner = { realm_diplomacy = 15 } }
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { owner = { realm_diplomacy = 10 } }
+		}
+		modifier = {
+			factor = 1.1
+			owner = { trait = content }
+		}
+		modifier = {
+			factor = 0.95
+			owner = { trait = ambitious }
+		}
+		modifier = {
+			factor = 1.1
+			owner = { trait = slothful }
+		}
+		modifier = {
+			factor = 0.95
+			owner = { trait = diligent }
+		}
+		modifier = {
+			factor = 0.95
+			owner = { trait = greedy }
+		}
+	}
+
+	option = {
+		name = silkroad.3.a
+		add_province_modifier =  {
+			name = VIET_sogdian_colony
+			duration = -1
+		}
+	}
+}
+
+
+# Sogdian Colonists Moving Out
+province_event = {
+	id = silkroad.4
+	title = silkroad.4.name
+	desc = silkroad.4.desc
+	picture = GFX_persepolis_ruin
+
+
+	trigger = {
+		has_province_modifier = VIET_sogdian_colony
+		NOT = { culture = sogdian }
+	}
+	
+	mean_time_to_happen = {
+		months = 1500
+
+		modifier = {
+			factor = 1.5
+			owner = { realm_stewardship = 40 }
+		}
+		modifier = {
+			factor = 1.25
+			owner = { realm_stewardship = 30 }
+		}
+		modifier = {
+			factor = 0.8
+			NOT = { owner = { realm_stewardship = 15 } }
+		}
+		modifier = {
+			factor = 0.66
+			NOT = { owner = { realm_stewardship = 10 } }
+		}
+		modifier = {
+			factor = 1.5
+			owner = { realm_diplomacy = 40 }
+		}
+		modifier = {
+			factor = 1.25
+			owner = { realm_diplomacy = 30 }
+		}
+		modifier = {
+			factor = 0.8
+			NOT = { owner = { realm_diplomacy = 15 } }
+		}
+		modifier = {
+			factor = 0.66
+			NOT = { owner = { realm_diplomacy = 10 } }
+		}
+		modifier = {
+			factor = 0.95
+			owner = { trait = content }
+		}
+		modifier = {
+			factor = 1.1
+			owner = { trait = ambitious }
+		}
+		modifier = {
+			factor = 0.95
+			owner = { trait = slothful }
+		}
+		modifier = {
+			factor = 1.1
+			owner = { trait = diligent }
+		}
+		modifier = {
+			factor = 1.1
+			owner = { trait = greedy }
+		}
+		modifier = {
+			factor = 0.01
+			owner = { has_global_flag = silk_road_level_0 }
+		}
+		modifier = {
+			factor = 0.5
+			owner = { has_global_flag = silk_road_level_1 }
+		}
+		modifier = {
+			factor = 1.25
+			owner = { has_global_flag = silk_road_level_3 }
+		}
+	}
+
+	option = {
+		name = silkroad.4.a
+		remove_province_modifier = VIET_sogdian_colony
+	}
+}
+
+
+# Sogdian Colonists are now Majority
+province_event = {
+	id = silkroad.5
+	title = silkroad.5.name
+	desc = silkroad.5.desc
+	picture = GFX_evt_silk_road
+
+
+	trigger = {
+		has_province_modifier = VIET_sogdian_colony
+		culture = sogdian
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = silkroad.5.a
+		remove_province_modifier = VIET_sogdian_colony
+	}
+}
+
+
+# Sogdiana Proclaimed
+character_event = {
+	id = silkroad.6
+	title = silkroad.6.name
+	desc = silkroad.6.desc
+	picture = GFX_evt_silk_road
+
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = {
+				NOT = { has_global_flag = silk_road_level_0 }
+			}
+			set_global_flag = sogdian_merchants_supported
+		}	
+	}
+
+	option = {
+		name = silkroad.6.a
+		prestige = 250
+		primary_title = {
+			 k_sogdiana = {
+				grant_title = ROOT
+				copy_title_laws = PREV
+			}
+		}
+		give_nickname = nick_the_liberator
+		if = {
+			limit = {
+				NOT = { has_landed_title = k_sogdiana }
+			}
+			k_sogdiana = {
+				grant_title = ROOT
+			}
+		}
+		d_samarkand = {
+			de_jure_liege = k_sogdiana
+		}
+		d_khiva = {
+			de_jure_liege = k_sogdiana
+		}
+		d_fergana = {
+			de_jure_liege = k_sogdiana
+		}
+		k_sogdiana = {
+			de_jure_liege = e_persia
+		}		
+		k_sogdiana = { make_primary_title = yes }		
+		hidden_tooltip = {
+			character_event = { id = silkroad.7 }
+		}
+	}
+
+}
+
+
+
+# ALL HEIIRRR Sogdiana?
+narrative_event = {
+	id = silkroad.7
+	title = silkroad.7.name
+	desc = silkroad.7.desc
+	picture = GFX_evt_silk_road
+
+ 	is_triggered_only = yes
+
+	option = {
+		name = silkroad.7.a
+		trigger = {
+			culture = sogdian
+		}
+	}
+	option = {
+		name = silkroad.7.b
+		trigger = {
+			NOT = { culture = sogdian }
+		}
+	}
+}
+
+# Supporting the Silk Road
+narrative_event = {
+	id = silkroad.8
+	title = silkroad.8.name
+	desc = silkroad.8.desc
+	picture = GFX_evt_silk_road
+
+ 	is_triggered_only = yes
+
+	option = {
+		name = silkroad.8.a
+	}
+}
+
+
+
+###################################################
+# Silk Road History
+###################################################
+
+# Silk Road Declining!
+narrative_event = {
+	id = silkroad.100
+	title = silkroad.100.name
+	desc = silkroad.100.desc
+	major = yes
+	
+	picture = GFX_evt_desert_serindian
+	
+	only_rulers = yes
+	
+	trigger = {
+		year = 840
+		NOT = { has_global_flag = sogdian_merchants_supported }
+		has_global_flag = silk_road_level_2
+		has_global_flag = fall_of_tang
+	}
+	
+	mean_time_to_happen = {
+		months = 400
+	}
+	
+	immediate = {
+		clr_global_flag = silk_road_level_3
+		clr_global_flag = silk_road_level_2
+		clr_global_flag = silk_road_level_0
+		set_global_flag = silk_road_level_1
+	}
+	
+	option = {
+		name = silkroad.100.a # Oh oh
+		trigger = { NOT = { culture = sogdian } }
+	}		
+	option = {
+		name = silkroad.100.b # Oh oh
+		trigger = { culture = sogdian }
+	}	
+}
+
+# Silk Road Dead
+narrative_event = {
+	id = silkroad.101
+	title = silkroad.101.name
+	desc = silkroad.101.desc
+	major = yes
+	
+	picture = GFX_evt_desert_serindian
+	
+	only_rulers = yes
+	
+	trigger = {
+		NOT = { has_global_flag = sogdian_merchants_supported }
+		has_global_flag = silk_road_level_1
+		has_global_flag = fall_of_tang
+	}
+	
+	mean_time_to_happen = {
+		months = 400
+	}
+	
+	immediate = {
+		clr_global_flag = silk_road_level_3
+		clr_global_flag = silk_road_level_2
+		clr_global_flag = silk_road_level_1
+		set_global_flag = silk_road_level_0
+	}
+	
+	option = {
+		name = silkroad.101.a # Oh oh
+		trigger = { NOT = { culture = sogdian } }
+	}		
+	option = {
+		name = silkroad.101.b # NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+		trigger = { culture = sogdian }
+	}	
+}
+
+# Silk Road Lingering ON
+narrative_event = {
+	id = silkroad.102
+	title = silkroad.102.name
+	desc = silkroad.102.desc
+	major = yes
+	
+	picture = GFX_evt_silk_road
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_global_flag = silk_road_level_1
+		has_global_flag = sogdian_merchants_supported
+	}
+	
+	mean_time_to_happen = {
+		months = 400
+	}
+	
+	immediate = {
+		clr_global_flag = silk_road_level_0
+		clr_global_flag = silk_road_level_1
+		clr_global_flag = silk_road_level_3
+		set_global_flag = silk_road_level_2
+	}
+	
+	option = {
+		name = silkroad.102.a # ok
+		trigger = { NOT = { culture = sogdian } }
+	}		
+	option = {
+		name = silkroad.102.b # ya
+		trigger = { culture = sogdian }
+	}	
+}
+
+# Silk Road revives
+narrative_event = {
+	id = silkroad.103
+	title = silkroad.103.name
+	desc = silkroad.103.desc
+	major = yes
+	
+	picture = GFX_evt_silk_road
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_global_flag = silk_road_level_2
+		has_global_flag = sogdian_merchants_supported
+	}
+	
+	mean_time_to_happen = {
+		months = 400
+		modifier = {
+			factor = 0.5
+			has_global_flag = rise_of_song
+		}
+	}
+	
+	immediate = {
+		clr_global_flag = silk_road_level_0
+		clr_global_flag = silk_road_level_1
+		clr_global_flag = silk_road_level_2
+		set_global_flag = silk_road_level_3
+	}
+	
+	option = {
+		name = silkroad.103.a # ok
+		trigger = { NOT = { culture = sogdian } }
+	}		
+	option = {
+		name = silkroad.103.b # ya
+		trigger = { culture = sogdian }
+	}	
+}
+
+# Fall of the Tang Dynasty
+narrative_event = {
+	id = silkroad.104
+	title = silkroad.104.name
+	desc = silkroad.104.desc
+	major = yes
+	
+	picture = GFX_evt_siege_sinic
+	
+	only_rulers = yes
+	
+	trigger = {
+		year = 880		
+		religion = miaphysite 
+		controls_religion = yes # Let it happen for the Pope - he's always around OR IS HE
+		NOT = { has_global_flag = fall_of_tang }
+	}
+	
+	mean_time_to_happen = {
+		months = 330
+		modifier = {
+			factor = 0.1
+			year = 910
+		}
+		modifier = {
+			factor = 0.01
+			year = 915
+		}
+	}
+	
+	immediate = {
+		set_global_flag = fall_of_tang
+	}
+	
+	option = {
+		name = silkroad.104.a # ok
+		trigger = { 
+			OR = {
+				religion_group = muslim
+				religion_group = zoroastrian_group
+				religion_group = gnostic_group
+				religion_group = indian_group
+				religion = nestorian
+				religion = messalian
+				religion = arkagun
+				religion = chaldean
+				religion = tengri_pagan
+				religion = tengri_pagan_reformed
+				culture_group = sinic
+				culture_group = serindian
+				culture = sogdian
+			}
+		}
+	}		
+	option = {
+		name = silkroad.104.b # ya
+		trigger = { 
+			NOT = { religion_group = muslim }
+			NOT = { religion_group = zoroastrian_group }
+			NOT = { religion_group = gnostic_group }
+			NOT = { religion_group = indian_group }
+			NOT = { religion = nestorian }
+			NOT = { religion = messalian }
+			NOT = { religion = arkagun }
+			NOT = { religion = chaldean }
+			NOT = { religion = tengri_pagan }
+			NOT = { religion = tengri_pagan_reformed }		
+			NOT = { culture_group = sinic }		
+			NOT = { culture_group = serindian }		
+			NOT = { culture = sogdian }		
+		}
+	}	
+}
+
+# Rise of the Song Dynasty
+narrative_event = {
+	id = silkroad.105
+	title = silkroad.105.name
+	desc = silkroad.105.desc
+	major = yes
+	
+	picture = GFX_evt_emissary_sinic
+	
+	only_rulers = yes
+	
+	trigger = {
+		year = 960		
+		religion = miaphysite 
+		controls_religion = yes # Let it happen for the Pope - he's always around OR IS HE
+		has_global_flag = fall_of_tang
+		has_global_flag = rise_of_khitan
+		NOT = { has_global_flag = rise_of_song }
+	}
+	
+	mean_time_to_happen = {
+		months = 240
+		modifier = {
+			factor = 0.1
+			year = 990
+		}
+		modifier = {
+			factor = 0.01
+			year = 1000
+		}
+	}
+	
+	immediate = {
+		set_global_flag = rise_of_song
+	}
+	
+	option = {
+		name = silkroad.105.a # ok
+		trigger = { 
+			OR = {
+				religion_group = muslim
+				religion_group = zoroastrian_group
+				religion_group = gnostic_group
+				religion_group = indian_group
+				religion = nestorian
+				religion = messalian
+				religion = arkagun
+				religion = chaldean
+				religion = tengri_pagan
+				religion = tengri_pagan_reformed
+				culture_group = sinic
+				culture_group = serindian
+				culture = sogdian
+			}
+		}
+	}		
+	option = {
+		name = silkroad.105.b # ya
+		trigger = { 
+			NOT = { religion_group = muslim }
+			NOT = { religion_group = zoroastrian_group }
+			NOT = { religion_group = gnostic_group }
+			NOT = { religion_group = indian_group }
+			NOT = { religion = nestorian }
+			NOT = { religion = messalian }
+			NOT = { religion = arkagun }
+			NOT = { religion = chaldean }
+			NOT = { religion = tengri_pagan }
+			NOT = { religion = tengri_pagan_reformed }
+			NOT = { culture_group = sinic }		
+			NOT = { culture_group = serindian }		
+			NOT = { culture = sogdian }				
+		}
+	}	
+}
+
+# Rise of the Khitan
+narrative_event = {
+	id = silkroad.106
+	title = silkroad.106.name
+	desc = silkroad.106.desc
+	major = yes
+	
+	picture = GFX_evt_khitan
+	
+	only_rulers = yes
+	
+	trigger = {
+		year = 910		
+		religion = miaphysite 
+		controls_religion = yes # Let it happen for the Pope - he's always around OR IS HE
+		has_global_flag = fall_of_tang
+		NOT = { has_global_flag = rise_of_khitan }
+	}
+	
+	mean_time_to_happen = {
+		months = 180
+		modifier = {
+			factor = 0.1
+			year = 930
+		}
+		modifier = {
+			factor = 0.01
+			year = 940
+		}
+	}
+	
+	immediate = {
+		set_global_flag = rise_of_khitan
+	}
+	
+	option = {
+		name = silkroad.106.a # ok
+		trigger = { 
+			OR = {
+				religion_group = muslim
+				religion_group = zoroastrian_group
+				religion_group = gnostic_group
+				religion_group = indian_group
+				religion = nestorian
+				religion = messalian
+				religion = arkagun
+				religion = chaldean
+				religion = tengri_pagan
+				religion = tengri_pagan_reformed
+				culture_group = sinic
+				culture_group = serindian
+				culture = sogdian
+			}
+		}
+	}		
+	option = {
+		name = silkroad.106.b # ya
+		trigger = { 
+			NOT = { religion_group = muslim }
+			NOT = { religion_group = zoroastrian_group }
+			NOT = { religion_group = gnostic_group }
+			NOT = { religion_group = indian_group }
+			NOT = { religion = nestorian }
+			NOT = { religion = messalian }
+			NOT = { religion = arkagun }
+			NOT = { religion = chaldean }
+			NOT = { religion = tengri_pagan }
+			NOT = { religion = tengri_pagan_reformed }
+			NOT = { culture_group = sinic }		
+			NOT = { culture_group = serindian }		
+			NOT = { culture = sogdian }				
+		}
+	}	
+}
+
+
+################################################
+#
+# Courtier Spawn
+#
+# 200 - Buddhist Sogdians
+# 201 - Manichean Sogdians
+# 202 - Nestorian Sogdians
+# 203 - Zoroastrian Sogdians
+# 204 - Khurramite Sogdians
+# 205 - Denawar Sogdians
+# 206 - Buddhist Uighurs
+# 207 - Manichean Uighurs
+# 208 - Denawar Uighurs
+# 209 - Khotanese
+# 210 - Crimean Goths
+# 211 - Parsis
+# 212 - Assyrians
+# 213 - Copts
+# 214 - Japanese
+# 215 - Vietnamese
+# 216 - Chinese (Silk Road/Mongol)
+# 217 - Korean
+# 218 - Chinese (Indian Ocean)
+# 219 - Javanese (Buddhist)
+# 220 - Javanese (Hindu)
+# 221 - Malay (Hindu)
+# 222 - Malay (Buddhist)
+################################################
+
+
+# Buddhist sogdian
+character_event = {
+	id = silkroad.200
+	desc = silkroad.200.desc
+	picture = GFX_evt_silk_road
+	
+	prisoner = no
+	only_rulers = yes
+	capable_only = yes
+	
+	trigger = {
+		NOT = { has_global_flag = silk_road_level_0 }
+		NOT = { culture = sogdian }
+		NOT = {
+			any_courtier = {
+				culture = sogdian
+			}
+		}
+		NOT = {
+			any_courtier = {
+				culture = sogdian
+				has_character_flag = VIET_spawned_courtier
+			}
+		}
+		capital_scope = {
+			OR = {
+				empire = { title = e_tartaria }
+				empire = { title = e_persia }
+				empire = { title = e_rajastan }
+			}
+		}
+		OR = {
+			has_global_flag = silk_road_level_3
+			any_demesne_province = {
+				OR = {
+					has_province_modifier = VIET_sogdian_colony
+					culture = sogdian
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 800
+
+		modifier = { #Should appear mostly in Khiva, Turkestan, or Sogdiana
+			factor = 2
+			NOT = {
+				capital_scope = {
+					kingdom = { title = k_khiva }
+				}			
+			}
+			NOT = {
+				capital_scope = {
+					kingdom = { title = k_turkestan }
+				}			
+			}
+			NOT = {
+				capital_scope = {
+					kingdom = { title = k_sogdiana }
+				}			
+			}
+		}
+		
+		modifier = {
+			factor = 3
+			AND = {
+				NOT = { culture_group = serindian }
+				NOT = { culture_group = sinic }
+				religion_group = muslim
+			}
+		}
+		
+		modifier = {
+			factor = 3
+			has_global_flag = silk_road_level_1
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}
+		
+	}
+	
+	option = {
+		name = "silkroad.200.a"
+
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = buddhist
+			culture = sogdian
+			attributes = {
+				diplomacy = 3
+				martial = 3
+				stewardship = 5
+				intrigue = 3
+				learning = 3
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+			# Traits aren't that random
+			random = {
+				chance = 25
+				add_trait = sartapaw
+			}			
+		}
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = buddhist
+			culture = sogdian
+			attributes = {
+				diplomacy = 5
+				martial = 5
+				stewardship = 7
+				intrigue = 5
+				learning = 5
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+			# Traits aren't that random
+			random = {
+				chance = 25
+				add_trait = sartapaw
+			}				
+		}
+		random_list = {
+			30 = {}
+			70 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = sogdian
+					attributes = {
+						diplomacy = 7
+						martial = 7
+						stewardship = 9
+						intrigue = 7
+						learning = 7
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}
+					# Traits aren't that random
+					random = {
+						chance = 25
+						add_trait = sartapaw
+					}						
+				}
+			}
+		}
+		random_list = {
+			70 = {}
+			30 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = sogdian
+					attributes = {
+						diplomacy = 8
+						martial = 8
+						stewardship = 10
+						intrigue = 8
+						learning = 8
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}
+					# Traits aren't that random
+					random = {
+						chance = 25
+						add_trait = sartapaw
+					}						
+				}
+			}
+		}
+		random_list = {
+			95 = {}
+			5 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = sogdian
+					attributes = {
+						diplomacy = 10
+						martial = 10
+						stewardship = 12
+						intrigue = 10
+						learning = 10
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}
+					# Traits aren't that random
+					random = {
+						chance = 25
+						add_trait = sartapaw
+					}						
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "reject.VIET.courtiers"
+	}	
+	
+}
+
+# manichean sogdian
+character_event = {
+	id = silkroad.201
+	desc = silkroad.200.desc
+	picture = GFX_evt_silk_road
+	
+	prisoner = no
+	only_rulers = yes
+	capable_only = yes
+	
+	trigger = {
+		NOT = { has_global_flag = silk_road_level_0 }
+		NOT = { culture = sogdian }
+		NOT = {
+			any_courtier = {
+				culture = sogdian
+			}
+		}
+		NOT = {
+			any_courtier = {
+				culture = sogdian
+				has_character_flag = VIET_spawned_courtier
+			}
+		}
+		capital_scope = {
+			OR = {
+				empire = { title = e_tartaria }
+				empire = { title = e_persia }
+				empire = { title = e_rajastan }
+			}
+		}
+		OR = {
+			has_global_flag = silk_road_level_3
+			any_demesne_province = {
+				OR = {
+					has_province_modifier = VIET_sogdian_colony
+					culture = sogdian
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 800
+
+		modifier = { #Should appear mostly in Khiva, Turkestan, or Sogdiana
+			factor = 2
+			NOT = {
+				capital_scope = {
+					kingdom = { title = k_khiva }
+				}			
+			}
+			NOT = {
+				capital_scope = {
+					kingdom = { title = k_turkestan }
+				}			
+			}
+			NOT = {
+				capital_scope = {
+					kingdom = { title = k_sogdiana }
+				}			
+			}
+		}
+		
+		modifier = {
+			factor = 3
+			AND = {
+				NOT = { culture_group = serindian }
+				NOT = { culture_group = sinic }
+				religion_group = muslim
+			}
+		}
+		
+		modifier = {
+			factor = 3
+			has_global_flag = silk_road_level_1
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}
+		
+	}
+	
+	option = {
+		name = "silkroad.200.a"
+
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = manichean
+			culture = sogdian
+			attributes = {
+				diplomacy = 3
+				martial = 3
+				stewardship = 5
+				intrigue = 3
+				learning = 3
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+			# Traits aren't that random
+			random = {
+				chance = 25
+				add_trait = sartapaw
+			}				
+		}
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = manichean
+			culture = sogdian
+			attributes = {
+				diplomacy = 5
+				martial = 5
+				stewardship = 7
+				intrigue = 5
+				learning = 5
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+			# Traits aren't that random
+			random = {
+				chance = 25
+				add_trait = sartapaw
+			}				
+		}
+		random_list = {
+			30 = {}
+			70 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = manichean
+					culture = sogdian
+					attributes = {
+						diplomacy = 7
+						martial = 7
+						stewardship = 9
+						intrigue = 7
+						learning = 7
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}
+					# Traits aren't that random
+					random = {
+						chance = 25
+						add_trait = sartapaw
+					}					
+				}
+			}
+		}
+		random_list = {
+			70 = {}
+			30 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = manichean
+					culture = sogdian
+					attributes = {
+						diplomacy = 8
+						martial = 8
+						stewardship = 10
+						intrigue = 8
+						learning = 8
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}
+					# Traits aren't that random
+					random = {
+						chance = 25
+						add_trait = sartapaw
+					}					
+				}
+			}
+		}
+		random_list = {
+			95 = {}
+			5 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = manichean
+					culture = sogdian
+					attributes = {
+						diplomacy = 10
+						martial = 10
+						stewardship = 12
+						intrigue = 10
+						learning = 10
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}
+					# Traits aren't that random
+					random = {
+						chance = 25
+						add_trait = sartapaw
+					}					
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "reject.VIET.courtiers"
+	}	
+	
+}
+
+# nestorian sogdian
+character_event = {
+	id = silkroad.202
+	desc = silkroad.200.desc
+	picture = GFX_evt_silk_road
+	
+	prisoner = no
+	only_rulers = yes
+	capable_only = yes
+	
+	trigger = {
+		NOT = { has_global_flag = silk_road_level_0 }
+		NOT = { culture = sogdian }
+		NOT = {
+			any_courtier = {
+				culture = sogdian
+			}
+		}
+		NOT = {
+			any_courtier = {
+				culture = sogdian
+				has_character_flag = VIET_spawned_courtier
+			}
+		}
+		capital_scope = {
+			OR = {
+				empire = { title = e_tartaria }
+				empire = { title = e_persia }
+				empire = { title = e_rajastan }
+			}
+		}
+		OR = {
+			has_global_flag = silk_road_level_3
+			any_demesne_province = {
+				OR = {
+					has_province_modifier = VIET_sogdian_colony
+					culture = sogdian
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 1000
+
+		modifier = { #Should appear mostly in Khiva, Turkestan, or Sogdiana
+			factor = 2
+			NOT = {
+				capital_scope = {
+					kingdom = { title = k_khiva }
+				}			
+			}
+			NOT = {
+				capital_scope = {
+					kingdom = { title = k_turkestan }
+				}			
+			}
+			NOT = {
+				capital_scope = {
+					kingdom = { title = k_sogdiana }
+				}			
+			}
+		}
+		
+		modifier = {
+			factor = 3
+			AND = {
+				NOT = { culture_group = serindian }
+				NOT = { culture_group = sinic }
+				religion_group = muslim
+			}
+		}
+		
+		modifier = {
+			factor = 3
+			has_global_flag = silk_road_level_1
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}
+		
+	}
+	
+	option = {
+		name = "silkroad.200.a"
+
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = nestorian
+			culture = sogdian
+			attributes = {
+				diplomacy = 3
+				martial = 3
+				stewardship = 5
+				intrigue = 3
+				learning = 3
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+			# Traits aren't that random
+			random = {
+				chance = 25
+				add_trait = sartapaw
+			}				
+		}
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = nestorian
+			culture = sogdian
+			attributes = {
+				diplomacy = 5
+				martial = 5
+				stewardship = 7
+				intrigue = 5
+				learning = 5
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+			# Traits aren't that random
+			random = {
+				chance = 25
+				add_trait = sartapaw
+			}				
+		}
+		random_list = {
+			30 = {}
+			70 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = nestorian
+					culture = sogdian
+					attributes = {
+						diplomacy = 7
+						martial = 7
+						stewardship = 9
+						intrigue = 7
+						learning = 7
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}
+					# Traits aren't that random
+					random = {
+						chance = 25
+						add_trait = sartapaw
+					}					
+				}
+			}
+		}
+		random_list = {
+			70 = {}
+			30 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = nestorian
+					culture = sogdian
+					attributes = {
+						diplomacy = 8
+						martial = 8
+						stewardship = 10
+						intrigue = 8
+						learning = 8
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}
+					# Traits aren't that random
+					random = {
+						chance = 25
+						add_trait = sartapaw
+					}					
+				}
+			}
+		}
+		random_list = {
+			95 = {}
+			5 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = nestorian
+					culture = sogdian
+					attributes = {
+						diplomacy = 10
+						martial = 10
+						stewardship = 12
+						intrigue = 10
+						learning = 10
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}
+					# Traits aren't that random
+					random = {
+						chance = 25
+						add_trait = sartapaw
+					}					
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "reject.VIET.courtiers"
+	}	
+	
+}
+
+# zoroastrian sogdian
+character_event = {
+	id = silkroad.203
+	desc = silkroad.200.desc
+	picture = GFX_evt_silk_road
+	
+	prisoner = no
+	only_rulers = yes
+	capable_only = yes
+	
+	trigger = {
+		NOT = { has_global_flag = silk_road_level_0 }
+		NOT = { culture = sogdian }
+		NOT = {
+			any_courtier = {
+				culture = sogdian
+			}
+		}
+		NOT = {
+			any_courtier = {
+				culture = sogdian
+				has_character_flag = VIET_spawned_courtier
+			}
+		}
+		capital_scope = {
+			OR = {
+				empire = { title = e_tartaria }
+				empire = { title = e_persia }
+				empire = { title = e_rajastan }
+			}
+		}
+		OR = {
+			has_global_flag = silk_road_level_3
+			any_demesne_province = {
+				OR = {
+					has_province_modifier = VIET_sogdian_colony
+					culture = sogdian
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 850
+
+		modifier = { #Should appear mostly in Khiva, Turkestan, or Sogdiana
+			factor = 2
+			NOT = {
+				capital_scope = {
+					kingdom = { title = k_khiva }
+				}			
+			}
+			NOT = {
+				capital_scope = {
+					kingdom = { title = k_turkestan }
+				}			
+			}
+			NOT = {
+				capital_scope = {
+					kingdom = { title = k_sogdiana }
+				}			
+			}
+		}
+		
+		modifier = {
+			factor = 3
+			has_global_flag = silk_road_level_1
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}
+		
+	}
+	
+	option = {
+		name = "silkroad.200.a"
+
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = zoroastrian
+			culture = sogdian
+			attributes = {
+				diplomacy = 3
+				martial = 3
+				stewardship = 5
+				intrigue = 3
+				learning = 3
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+			# Traits aren't that random
+			random = {
+				chance = 25
+				add_trait = sartapaw
+			}				
+		}
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = zoroastrian
+			culture = sogdian
+			attributes = {
+				diplomacy = 5
+				martial = 5
+				stewardship = 7
+				intrigue = 5
+				learning = 5
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+			# Traits aren't that random
+			random = {
+				chance = 25
+				add_trait = sartapaw
+			}				
+		}
+		random_list = {
+			30 = {}
+			70 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = zoroastrian
+					culture = sogdian
+					attributes = {
+						diplomacy = 7
+						martial = 7
+						stewardship = 9
+						intrigue = 7
+						learning = 7
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}
+					# Traits aren't that random
+					random = {
+						chance = 25
+						add_trait = sartapaw
+					}					
+				}
+			}
+		}
+		random_list = {
+			70 = {}
+			30 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = zoroastrian
+					culture = sogdian
+					attributes = {
+						diplomacy = 8
+						martial = 8
+						stewardship = 10
+						intrigue = 8
+						learning = 8
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}
+					# Traits aren't that random
+					random = {
+						chance = 25
+						add_trait = sartapaw
+					}					
+				}
+			}
+		}
+		random_list = {
+			95 = {}
+			5 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = zoroastrian
+					culture = sogdian
+					attributes = {
+						diplomacy = 10
+						martial = 10
+						stewardship = 12
+						intrigue = 10
+						learning = 10
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}
+					# Traits aren't that random
+					random = {
+						chance = 25
+						add_trait = sartapaw
+					}					
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "reject.VIET.courtiers"
+	}	
+	
+}
+
+
+# khurramite sogdian
+character_event = {
+	id = silkroad.204
+	desc = silkroad.200.desc
+	picture = GFX_evt_silk_road
+	
+	prisoner = no
+	only_rulers = yes
+	capable_only = yes
+	
+	trigger = {
+		NOT = { has_global_flag = silk_road_level_0 }
+		NOT = { culture = sogdian }
+		NOT = {
+			any_courtier = {
+				culture = sogdian
+			}
+		}
+		NOT = {
+			any_courtier = {
+				culture = sogdian
+				has_character_flag = VIET_spawned_courtier
+			}
+		}
+		capital_scope = {
+			OR = {
+				empire = { title = e_tartaria }
+				empire = { title = e_persia }
+				empire = { title = e_rajastan }
+			}
+		}
+		OR = {
+			has_global_flag = silk_road_level_3
+			any_demesne_province = {
+				OR = {
+					has_province_modifier = VIET_sogdian_colony
+					culture = sogdian
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 850
+
+		modifier = { #Should appear mostly in Khiva, Turkestan, or Sogdiana
+			factor = 2
+			NOT = {
+				capital_scope = {
+					kingdom = { title = k_khiva }
+				}			
+			}
+			NOT = {
+				capital_scope = {
+					kingdom = { title = k_turkestan }
+				}			
+			}
+			NOT = {
+				capital_scope = {
+					kingdom = { title = k_sogdiana }
+				}			
+			}
+		}
+		
+		modifier = {
+			factor = 3
+			has_global_flag = silk_road_level_1
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}
+		
+	}
+	
+	option = {
+		name = "silkroad.200.a"
+
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = khurramite
+			culture = sogdian
+			attributes = {
+				diplomacy = 3
+				martial = 3
+				stewardship = 5
+				intrigue = 3
+				learning = 3
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+			# Traits aren't that random
+			random = {
+				chance = 25
+				add_trait = sartapaw
+			}				
+		}
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = khurramite
+			culture = sogdian
+			attributes = {
+				diplomacy = 5
+				martial = 5
+				stewardship = 7
+				intrigue = 5
+				learning = 5
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+			# Traits aren't that random
+			random = {
+				chance = 25
+				add_trait = sartapaw
+			}				
+		}
+		random_list = {
+			30 = {}
+			70 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = khurramite
+					culture = sogdian
+					attributes = {
+						diplomacy = 7
+						martial = 7
+						stewardship = 9
+						intrigue = 7
+						learning = 7
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}
+					# Traits aren't that random
+					random = {
+						chance = 25
+						add_trait = sartapaw
+					}					
+				}
+			}
+		}
+		random_list = {
+			70 = {}
+			30 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = khurramite
+					culture = sogdian
+					attributes = {
+						diplomacy = 8
+						martial = 8
+						stewardship = 10
+						intrigue = 8
+						learning = 8
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}
+					# Traits aren't that random
+					random = {
+						chance = 25
+						add_trait = sartapaw
+					}					
+				}
+			}
+		}
+		random_list = {
+			95 = {}
+			5 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = khurramite
+					culture = sogdian
+					attributes = {
+						diplomacy = 10
+						martial = 10
+						stewardship = 12
+						intrigue = 10
+						learning = 10
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}
+					# Traits aren't that random
+					random = {
+						chance = 25
+						add_trait = sartapaw
+					}					
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "reject.VIET.courtiers"
+	}	
+	
+}
+
+
+# denawar sogdian
+character_event = {
+	id = silkroad.205
+	desc = silkroad.200.desc
+	picture = GFX_evt_silk_road
+	
+	prisoner = no
+	only_rulers = yes
+	capable_only = yes
+	
+	trigger = {
+		NOT = { has_global_flag = silk_road_level_0 }
+		NOT = { culture = sogdian }
+		NOT = {
+			any_courtier = {
+				culture = sogdian
+			}
+		}
+		NOT = {
+			any_courtier = {
+				culture = sogdian
+				has_character_flag = VIET_spawned_courtier
+			}
+		}
+		capital_scope = {
+			OR = {
+				empire = { title = e_tartaria }
+				empire = { title = e_persia }
+				empire = { title = e_rajastan }
+			}
+		}
+		OR = {
+			has_global_flag = silk_road_level_3
+			any_demesne_province = {
+				OR = {
+					has_province_modifier = VIET_sogdian_colony
+					culture = sogdian
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 850
+
+		modifier = { #Should appear mostly in Khiva, Turkestan, or Sogdiana
+			factor = 2
+			NOT = {
+				capital_scope = {
+					kingdom = { title = k_khiva }
+				}			
+			}
+			NOT = {
+				capital_scope = {
+					kingdom = { title = k_turkestan }
+				}			
+			}
+			NOT = {
+				capital_scope = {
+					kingdom = { title = k_sogdiana }
+				}			
+			}
+		}
+		
+		modifier = {
+			factor = 3
+			has_global_flag = silk_road_level_1
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}
+		
+	}
+	
+	option = {
+		name = "silkroad.200.a"
+
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = denawar
+			culture = sogdian
+			attributes = {
+				diplomacy = 3
+				martial = 3
+				stewardship = 5
+				intrigue = 3
+				learning = 3
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+			# Traits aren't that random
+			random = {
+				chance = 25
+				add_trait = sartapaw
+			}				
+		}
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = denawar
+			culture = sogdian
+			attributes = {
+				diplomacy = 5
+				martial = 5
+				stewardship = 7
+				intrigue = 5
+				learning = 5
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+			# Traits aren't that random
+			random = {
+				chance = 25
+				add_trait = sartapaw
+			}				
+		}
+		random_list = {
+			30 = {}
+			70 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = denawar
+					culture = sogdian
+					attributes = {
+						diplomacy = 7
+						martial = 7
+						stewardship = 9
+						intrigue = 7
+						learning = 7
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}
+					# Traits aren't that random
+					random = {
+						chance = 25
+						add_trait = sartapaw
+					}					
+				}
+			}
+		}
+		random_list = {
+			70 = {}
+			30 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = denawar
+					culture = sogdian
+					attributes = {
+						diplomacy = 8
+						martial = 8
+						stewardship = 10
+						intrigue = 8
+						learning = 8
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}
+					# Traits aren't that random
+					random = {
+						chance = 25
+						add_trait = sartapaw
+					}											
+				}
+			}
+		}
+		random_list = {
+			95 = {}
+			5 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = denawar
+					culture = sogdian
+					attributes = {
+						diplomacy = 10
+						martial = 10
+						stewardship = 12
+						intrigue = 10
+						learning = 10
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}
+					# Traits aren't that random
+					random = {
+						chance = 25
+						add_trait = sartapaw
+					}						
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "reject.VIET.courtiers"
+	}	
+	
+}
+
+
+# buddhist uighurs
+character_event = {
+	id = silkroad.206
+	desc = silkroad.206.desc
+	picture = GFX_evt_silk_road
+	
+	prisoner = no
+	only_rulers = yes
+	capable_only = yes
+	
+	trigger = {
+		NOT = { culture = uighur }
+		NOT = {
+			any_courtier = {
+				culture = uighur
+			}
+		}
+		NOT = {
+			any_courtier = {
+				culture = uighur
+				has_character_flag = VIET_spawned_courtier
+			}
+		}
+		OR = {
+			culture = mongol
+			AND = {
+				OR = {
+					has_global_flag = silk_road_level_2
+					has_global_flag = silk_road_level_3
+				}
+				capital_scope = {
+					OR = {
+						kingdom = { title = k_khiva }
+						kingdom = { title = k_turkestan }
+						kingdom = { title = k_sogdiana }
+						kingdom = { title = k_afghanistan }
+					}
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 800
+
+		modifier = { #Shouldn't appear after 1400 in Mongol territories
+			factor = 10
+			AND = {
+				culture = mongol
+				year = 1400
+			}
+		}
+		
+		modifier = { #Shouldn't appear in large numbers after 1300 in Mongol territories
+			factor = 2
+			AND = {
+				culture = mongol
+				year = 1300
+			}
+		}
+		
+		modifier = {
+			factor = 3
+			has_global_flag = silk_road_level_1
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}
+		
+	}
+	
+	option = {
+		name = "silkroad.206.a"
+
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = buddhist
+			culture = uighur
+			attributes = {
+				diplomacy = 3
+				martial = 3
+				stewardship = 3
+				intrigue = 3
+				learning = 3
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = buddhist
+			culture = uighur
+			attributes = {
+				diplomacy = 5
+				martial = 5
+				stewardship = 5
+				intrigue = 5
+				learning = 5
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		random_list = {
+			30 = {}
+			70 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = uighur
+					attributes = {
+						diplomacy = 7
+						martial = 7
+						stewardship = 7
+						intrigue = 7
+						learning = 7
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			70 = {}
+			30 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = uighur
+					attributes = {
+						diplomacy = 8
+						martial = 8
+						stewardship = 8
+						intrigue = 8
+						learning = 8
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			95 = {}
+			5 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = uighur
+					attributes = {
+						diplomacy = 10
+						martial = 10
+						stewardship = 10
+						intrigue = 10
+						learning = 10
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "reject.VIET.courtiers"
+	}	
+	
+}
+
+
+# manichean uighurs
+character_event = {
+	id = silkroad.207
+	desc = silkroad.206.desc
+	picture = GFX_evt_silk_road
+	
+	prisoner = no
+	only_rulers = yes
+	capable_only = yes
+	
+	trigger = {
+		NOT = { culture = uighur }
+		NOT = {
+			any_courtier = {
+				culture = uighur
+			}
+		}
+		NOT = {
+			any_courtier = {
+				culture = uighur
+				has_character_flag = VIET_spawned_courtier
+			}
+		}
+		OR = {
+			culture = mongol
+			AND = {
+				OR = {
+					has_global_flag = silk_road_level_2
+					has_global_flag = silk_road_level_3
+				}
+				capital_scope = {
+					OR = {
+						kingdom = { title = k_khiva }
+						kingdom = { title = k_turkestan }
+						kingdom = { title = k_sogdiana }
+						kingdom = { title = k_afghanistan }
+					}
+				}
+			}
+		}
+		OR = {
+			has_global_flag = silk_road_level_3
+			religion_group = gnostic_group
+			NOT = { year = 1000 } #Uighurs converting to Buddhism
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 800
+
+		modifier = { #Shouldn't appear after 1400 in Mongol territories
+			factor = 10
+			AND = {
+				culture = mongol
+				year = 1400
+			}
+		}
+		
+		modifier = { #Shouldn't appear in large numbers after 1300 in Mongol territories
+			factor = 2
+			AND = {
+				culture = mongol
+				year = 1300
+			}
+		}
+		
+		modifier = {
+			factor = 3
+			has_global_flag = silk_road_level_1
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}
+		
+	}
+	
+	option = {
+		name = "silkroad.206.a"
+
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = manichean
+			culture = uighur
+			attributes = {
+				diplomacy = 3
+				martial = 3
+				stewardship = 3
+				intrigue = 3
+				learning = 3
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = manichean
+			culture = uighur
+			attributes = {
+				diplomacy = 5
+				martial = 5
+				stewardship = 5
+				intrigue = 5
+				learning = 5
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		random_list = {
+			30 = {}
+			70 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = manichean
+					culture = uighur
+					attributes = {
+						diplomacy = 7
+						martial = 7
+						stewardship = 7
+						intrigue = 7
+						learning = 7
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			70 = {}
+			30 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = manichean
+					culture = uighur
+					attributes = {
+						diplomacy = 8
+						martial = 8
+						stewardship = 8
+						intrigue = 8
+						learning = 8
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			95 = {}
+			5 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = manichean
+					culture = uighur
+					attributes = {
+						diplomacy = 10
+						martial = 10
+						stewardship = 10
+						intrigue = 10
+						learning = 10
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "reject.VIET.courtiers"
+	}	
+	
+}
+
+
+# denawar uighurs
+character_event = {
+	id = silkroad.208
+	desc = silkroad.206.desc
+	picture = GFX_evt_silk_road
+	
+	prisoner = no
+	only_rulers = yes
+	capable_only = yes
+	
+	trigger = {
+		NOT = { culture = uighur }
+		NOT = {
+			any_courtier = {
+				culture = uighur
+			}
+		}
+		NOT = {
+			any_courtier = {
+				culture = uighur
+				has_character_flag = VIET_spawned_courtier
+			}
+		}
+		OR = {
+			culture = mongol
+			AND = {
+				OR = {
+					has_global_flag = silk_road_level_2
+					has_global_flag = silk_road_level_3
+				}
+				capital_scope = {
+					OR = {
+						kingdom = { title = k_khiva }
+						kingdom = { title = k_turkestan }
+						kingdom = { title = k_sogdiana }
+						kingdom = { title = k_afghanistan }
+					}
+				}
+			}
+		}
+		OR = {
+			has_global_flag = silk_road_level_3
+			religion_group = gnostic_group
+			NOT = { year = 1000 } #Uighurs converting to Buddhism
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 800
+
+		modifier = { #Shouldn't appear after 1400 in Mongol territories
+			factor = 10
+			AND = {
+				culture = mongol
+				year = 1400
+			}
+		}
+		
+		modifier = { #Shouldn't appear in large numbers after 1300 in Mongol territories
+			factor = 2
+			AND = {
+				culture = mongol
+				year = 1300
+			}
+		}
+		
+		modifier = {
+			factor = 3
+			has_global_flag = silk_road_level_1
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}
+		
+	}
+	
+	option = {
+		name = "silkroad.206.a"
+
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = denawar
+			culture = uighur
+			attributes = {
+				diplomacy = 3
+				martial = 3
+				stewardship = 3
+				intrigue = 3
+				learning = 3
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = denawar
+			culture = uighur
+			attributes = {
+				diplomacy = 5
+				martial = 5
+				stewardship = 5
+				intrigue = 5
+				learning = 5
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		random_list = {
+			30 = {}
+			70 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = denawar
+					culture = uighur
+					attributes = {
+						diplomacy = 7
+						martial = 7
+						stewardship = 7
+						intrigue = 7
+						learning = 7
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			70 = {}
+			30 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = denawar
+					culture = uighur
+					attributes = {
+						diplomacy = 8
+						martial = 8
+						stewardship = 8
+						intrigue = 8
+						learning = 8
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			95 = {}
+			5 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = denawar
+					culture = uighur
+					attributes = {
+						diplomacy = 10
+						martial = 10
+						stewardship = 10
+						intrigue = 10
+						learning = 10
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "reject.VIET.courtiers"
+	}	
+	
+}
+
+
+# khotanese
+character_event = {
+	id = silkroad.209
+	desc = silkroad.209.desc
+	picture = GFX_evt_silk_road
+	
+	prisoner = no
+	only_rulers = yes
+	capable_only = yes
+	
+	trigger = {
+		NOT = { has_global_flag = silk_road_level_0 }
+		NOT = { culture = khotanese }
+		NOT = {
+			any_courtier = {
+				culture = khotanese
+			}
+		}
+		NOT = {
+			any_courtier = {
+				culture = khotanese
+				has_character_flag = VIET_spawned_courtier
+			}
+		}
+		culture = mongol
+		AND = {
+			OR = {
+				has_global_flag = silk_road_level_2
+				has_global_flag = silk_road_level_3
+				NOT = { year = 1100 }
+			}
+			capital_scope = {
+				OR = {
+					kingdom = { title = k_khiva }
+					kingdom = { title = k_turkestan }
+					kingdom = { title = k_sogdiana }
+					kingdom = { title = k_afghanistan }
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 1500
+		
+		modifier = {
+			factor = 3
+			has_global_flag = silk_road_level_1
+		}
+		
+		modifier = {
+			factor = 2
+			AND = {
+				religion_group = muslim
+				NOT = {
+					any_demesne_province = {
+						culture_group = serindian
+					}
+				}
+			}
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}
+		
+	}
+	
+	option = {
+		name = "silkroad.209.a"
+
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = buddhist
+			culture = khotanese
+			attributes = {
+				diplomacy = 3
+				martial = 3
+				stewardship = 3
+				intrigue = 3
+				learning = 3
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = buddhist
+			culture = khotanese
+			attributes = {
+				diplomacy = 5
+				martial = 5
+				stewardship = 5
+				intrigue = 5
+				learning = 5
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		random_list = {
+			30 = {}
+			70 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = khotanese
+					attributes = {
+						diplomacy = 7
+						martial = 7
+						stewardship = 7
+						intrigue = 7
+						learning = 7
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			70 = {}
+			30 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = khotanese
+					attributes = {
+						diplomacy = 8
+						martial = 8
+						stewardship = 8
+						intrigue = 8
+						learning = 8
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			95 = {}
+			5 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = khotanese
+					attributes = {
+						diplomacy = 10
+						martial = 10
+						stewardship = 10
+						intrigue = 10
+						learning = 10
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "reject.VIET.courtiers"
+	}	
+	
+}
+
+# Crimean Gothic
+character_event = {
+	id = silkroad.210
+	desc = silkroad.210.desc
+	picture = GFX_evt_market_byzantine
+	
+	prisoner = no
+	only_rulers = yes
+	capable_only = yes
+	
+	trigger = {
+		NOT = { culture = crimean_gothic }
+		NOT = {
+			any_courtier = {
+				culture = crimean_gothic
+			}
+		}
+		NOT = {
+			any_courtier = {
+				culture = crimean_gothic
+				has_character_flag = VIET_spawned_courtier
+			}
+		}
+		capital_scope = {
+			NOT = { culture = crimean_gothic }
+			OR = {
+				duchy = { title = d_crimea }
+				duchy = { title = d_cherson }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 2000
+		
+		
+		modifier = {
+			factor = 2.5
+			NOT = { culture_group = byzantine }
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}
+		
+	}
+	
+	option = {
+		name = "silkroad.210.a"
+
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = orthodox
+			culture = crimean_gothic
+			attributes = {
+				diplomacy = 3
+				martial = 3
+				stewardship = 3
+				intrigue = 3
+				learning = 3
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = orthodox
+			culture = crimean_gothic
+			attributes = {
+				diplomacy = 5
+				martial = 5
+				stewardship = 5
+				intrigue = 5
+				learning = 5
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		random_list = {
+			30 = {}
+			70 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = orthodox
+					culture = crimean_gothic
+					attributes = {
+						diplomacy = 7
+						martial = 7
+						stewardship = 7
+						intrigue = 7
+						learning = 7
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			70 = {}
+			30 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = orthodox
+					culture = crimean_gothic
+					attributes = {
+						diplomacy = 8
+						martial = 8
+						stewardship = 8
+						intrigue = 8
+						learning = 8
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			95 = {}
+			5 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = orthodox
+					culture = crimean_gothic
+					attributes = {
+						diplomacy = 10
+						martial = 10
+						stewardship = 10
+						intrigue = 10
+						learning = 10
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "reject.VIET.courtiers"
+	}	
+	
+}
+
+# Parsi
+character_event = {
+	id = silkroad.211
+	desc = silkroad.211.desc
+	picture = GFX_evt_indian_market
+	
+	prisoner = no
+	only_rulers = yes
+	capable_only = yes
+	
+	trigger = {
+		NOT = { culture_group = iranian }
+		NOT = { religion_group = zoroastrian_group }
+		NOT = {
+			any_courtier = {
+				culture = parsi
+			}
+		}
+		NOT = {
+			any_courtier = {
+				culture = parsi
+				has_character_flag = VIET_spawned_courtier
+			}
+		}
+		capital_scope = {
+			NOT = { culture_group = iranian }
+			NOT = { religion_group = zoroastrian_group }
+			OR = {
+				empire = { title = e_rajastan }
+				empire = { title = e_deccan }
+			}
+			port = yes
+		}
+		year = 950
+		NOT = {
+			e_persia = {
+				holder_scope = {
+					religion_group = zoroastrian_group
+				}
+			}
+		}
+		NOT = {
+			k_persia = {
+				holder_scope = {
+					religion_group = zoroastrian_group
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 1000
+		
+		
+		modifier = {
+			factor = 4
+			religion_group = muslim
+		}
+		
+		modifier = { #Should appear mostly in northeastern coastal India
+			factor = 2
+			NOT = {
+				capital_scope = {
+					kingdom = { title = k_sindh }
+				}			
+			}
+			NOT = {
+				capital_scope = {
+					kingdom = { title = k_gujarat }
+				}			
+			}
+			NOT = {
+				capital_scope = {
+					kingdom = { title = k_rajputana }
+				}			
+			}
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}
+		
+	}
+	
+	option = {
+		name = "silkroad.211.a"
+
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = zoroastrian
+			culture = parsi
+			attributes = {
+				diplomacy = 3
+				martial = 3
+				stewardship = 3
+				intrigue = 3
+				learning = 3
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = zoroastrian
+			culture = parsi
+			attributes = {
+				diplomacy = 5
+				martial = 5
+				stewardship = 5
+				intrigue = 5
+				learning = 5
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		random_list = {
+			30 = {}
+			70 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = zoroastrian
+					culture = parsi
+					attributes = {
+						diplomacy = 7
+						martial = 7
+						stewardship = 7
+						intrigue = 7
+						learning = 7
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			70 = {}
+			30 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = zoroastrian
+					culture = parsi
+					attributes = {
+						diplomacy = 8
+						martial = 8
+						stewardship = 8
+						intrigue = 8
+						learning = 8
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			95 = {}
+			5 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = zoroastrian
+					culture = parsi
+					attributes = {
+						diplomacy = 10
+						martial = 10
+						stewardship = 10
+						intrigue = 10
+						learning = 10
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "reject.VIET.courtiers"
+	}	
+	
+}
+
+# Assyrians
+character_event = {
+	id = silkroad.212
+	desc = silkroad.212.desc
+	picture = GFX_evt_moorish_decor
+	
+	prisoner = no
+	only_rulers = yes
+	capable_only = yes
+	
+	trigger = {
+		NOT = { culture = assyrian }
+		NOT = { religion_group = christian }
+		NOT = {
+			any_courtier = {
+				culture = assyrian
+			}
+		}
+		NOT = {
+			any_courtier = {
+				culture = assyrian
+				has_character_flag = VIET_spawned_courtier
+			}
+		}
+		capital_scope = {
+			kingdom = { title = k_mesopotamia }
+			NOT = { culture = assyrian }
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 1500
+		
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}
+		
+	}
+	
+	option = {
+		name = "silkroad.212.a"
+
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = nestorian
+			culture = assyrian
+			attributes = {
+				diplomacy = 3
+				martial = 3
+				stewardship = 3
+				intrigue = 3
+				learning = 3
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = nestorian
+			culture = assyrian
+			attributes = {
+				diplomacy = 5
+				martial = 5
+				stewardship = 5
+				intrigue = 5
+				learning = 5
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		random_list = {
+			30 = {}
+			70 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = nestorian
+					culture = assyrian
+					attributes = {
+						diplomacy = 7
+						martial = 7
+						stewardship = 7
+						intrigue = 7
+						learning = 7
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			70 = {}
+			30 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = nestorian
+					culture = assyrian
+					attributes = {
+						diplomacy = 8
+						martial = 8
+						stewardship = 8
+						intrigue = 8
+						learning = 8
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			95 = {}
+			5 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = nestorian
+					culture = assyrian
+					attributes = {
+						diplomacy = 10
+						martial = 10
+						stewardship = 10
+						intrigue = 10
+						learning = 10
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "reject.VIET.courtiers"
+	}	
+	
+}
+
+# Copts
+character_event = {
+	id = silkroad.213
+	desc = silkroad.213.desc
+	picture = GFX_evt_moorish_decor
+	
+	prisoner = no
+	only_rulers = yes
+	capable_only = yes
+	
+	trigger = {
+		NOT = { culture = coptic }
+		NOT = { religion_group = christian }
+		NOT = {
+			any_courtier = {
+				culture = coptic
+			}
+		}
+		NOT = {
+			any_courtier = {
+				culture = coptic
+				has_character_flag = VIET_spawned_courtier
+			}
+		}
+		capital_scope = {
+			kingdom = { title = k_egypt }
+			NOT = { culture = coptic }
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 1500
+		
+		modifier = {
+			factor = 0.75
+			NOT = { year = 1000 }
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}
+		
+	}
+	
+	option = {
+		name = "silkroad.213.a"
+
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = miaphysite
+			culture = coptic
+			attributes = {
+				diplomacy = 3
+				martial = 3
+				stewardship = 3
+				intrigue = 3
+				learning = 3
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = miaphysite
+			culture = coptic
+			attributes = {
+				diplomacy = 5
+				martial = 5
+				stewardship = 5
+				intrigue = 5
+				learning = 5
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		random_list = {
+			30 = {}
+			70 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = miaphysite
+					culture = coptic
+					attributes = {
+						diplomacy = 7
+						martial = 7
+						stewardship = 7
+						intrigue = 7
+						learning = 7
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			70 = {}
+			30 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = miaphysite
+					culture = coptic
+					attributes = {
+						diplomacy = 8
+						martial = 8
+						stewardship = 8
+						intrigue = 8
+						learning = 8
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			95 = {}
+			5 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = miaphysite
+					culture = coptic
+					attributes = {
+						diplomacy = 10
+						martial = 10
+						stewardship = 10
+						intrigue = 10
+						learning = 10
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "reject.VIET.courtiers"
+	}	
+	
+}
+
+# Japanese
+character_event = {
+	id = silkroad.214
+	desc = silkroad.214.desc
+	picture = GFX_evt_emissary_sinic
+	
+	prisoner = no
+	only_rulers = yes
+	capable_only = yes
+	
+	trigger = {
+		NOT = { culture = japanese }
+		NOT = {
+			any_courtier = {
+				culture = japanese
+			}
+		}
+		NOT = {
+			any_courtier = {
+				culture = japanese
+				has_character_flag = VIET_spawned_courtier
+			}
+		}
+		capital_scope = {
+			OR = {
+				kingdom = { title = k_khiva }
+				kingdom = { title = k_turkestan }
+				kingdom = { title = k_sogdiana }
+			}
+			NOT = { culture = japanese }
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 4000
+		
+		modifier = {
+			factor = 0.9
+			OR = {
+				culture_group = sinic
+				AND = {
+					culture = mongol
+					OR = {
+						top_liege = { has_landed_title = e_il-khanate }
+						top_liege = { has_landed_title = e_golden_horde }
+						top_liege = { has_landed_title = e_mongol_empire }						
+					}
+				}
+			}
+		}
+		
+		modifier = {
+			factor = 1.25
+			year = 1000
+			NOT = {
+				culture = mongol
+				top_liege = { has_landed_title = e_il-khanate }
+				top_liege = { has_landed_title = e_golden_horde }
+				top_liege = { has_landed_title = e_mongol_empire }				
+			}
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}
+		
+	}
+	
+	option = {
+		name = "silkroad.214.a"
+		custom_tooltip = { text = VIET_silly_gaijin }
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = buddhist
+			culture = japanese
+			attributes = {
+				diplomacy = 3
+				martial = 3
+				stewardship = 3
+				intrigue = 3
+				learning = 3
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = buddhist
+			culture = japanese
+			attributes = {
+				diplomacy = 5
+				martial = 5
+				stewardship = 5
+				intrigue = 5
+				learning = 5
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		random_list = {
+			30 = {}
+			70 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = japanese
+					attributes = {
+						diplomacy = 7
+						martial = 7
+						stewardship = 7
+						intrigue = 7
+						learning = 7
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			70 = {}
+			30 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = japanese
+					attributes = {
+						diplomacy = 8
+						martial = 8
+						stewardship = 8
+						intrigue = 8
+						learning = 8
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			95 = {}
+			5 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = japanese
+					attributes = {
+						diplomacy = 10
+						martial = 10
+						stewardship = 10
+						intrigue = 10
+						learning = 10
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "reject.VIET.courtiers"
+	}	
+	
+}
+
+# vietnamese
+character_event = {
+	id = silkroad.215
+	desc = silkroad.215.desc
+	picture = GFX_evt_emissary_sinic
+	
+	prisoner = no
+	only_rulers = yes
+	capable_only = yes
+	
+	trigger = {
+		NOT = { culture = vietnamese }
+		NOT = {
+			any_courtier = {
+				culture = vietnamese
+			}
+		}
+		NOT = {
+			any_courtier = {
+				culture = vietnamese
+				has_character_flag = VIET_spawned_courtier
+			}
+		}
+		capital_scope = {
+			OR = {
+				kingdom = { title = k_khiva }
+				kingdom = { title = k_turkestan }
+				kingdom = { title = k_sogdiana }
+			}
+			NOT = { culture = vietnamese }
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 6666
+		
+		modifier = {
+			factor = 0.9
+			OR = {
+				culture_group = sinic
+				AND = {
+					culture = mongol
+					OR = {
+						top_liege = { has_landed_title = e_il-khanate }
+						top_liege = { has_landed_title = e_golden_horde }
+						top_liege = { has_landed_title = e_mongol_empire }						
+					}
+				}
+			}
+		}
+		
+		modifier = {
+			factor = 1.25
+			year = 1000
+			NOT = {
+				culture = mongol
+				top_liege = { has_landed_title = e_il-khanate }
+				top_liege = { has_landed_title = e_golden_horde }
+				top_liege = { has_landed_title = e_mongol_empire }				
+			}
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}
+		
+	}
+	
+	option = {
+		name = "silkroad.215.a"
+
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = buddhist
+			culture = vietnamese
+			attributes = {
+				diplomacy = 3
+				martial = 3
+				stewardship = 3
+				intrigue = 3
+				learning = 3
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = buddhist
+			culture = vietnamese
+			attributes = {
+				diplomacy = 5
+				martial = 5
+				stewardship = 5
+				intrigue = 5
+				learning = 5
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		random_list = {
+			30 = {}
+			70 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = vietnamese
+					attributes = {
+						diplomacy = 7
+						martial = 7
+						stewardship = 7
+						intrigue = 7
+						learning = 7
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			70 = {}
+			30 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = vietnamese
+					attributes = {
+						diplomacy = 8
+						martial = 8
+						stewardship = 8
+						intrigue = 8
+						learning = 8
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			95 = {}
+			5 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = vietnamese
+					attributes = {
+						diplomacy = 10
+						martial = 10
+						stewardship = 10
+						intrigue = 10
+						learning = 10
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "reject.VIET.courtiers"
+	}	
+	
+}
+
+
+# chinese (silk road/mongol)
+character_event = {
+	id = silkroad.216
+	desc = silkroad.216.desc
+	picture = GFX_evt_emissary_sinic
+	
+	prisoner = no
+	only_rulers = yes
+	capable_only = yes
+	
+	trigger = {
+		NOT = { culture = chinese }
+		NOT = {
+			any_courtier = {
+				culture = chinese
+			}
+		}
+		NOT = {
+			any_courtier = {
+				culture = chinese
+				has_character_flag = VIET_spawned_courtier
+			}
+		}
+		capital_scope = {
+			OR = {
+				kingdom = { title = k_khiva }
+				kingdom = { title = k_turkestan }
+				kingdom = { title = k_sogdiana }
+			}
+			NOT = { culture = chinese }
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 2000
+		
+		modifier = {
+			factor = 0.9
+			OR = {
+				culture_group = sinic
+				AND = {
+					culture = mongol
+					OR = {
+						top_liege = { has_landed_title = e_il-khanate }
+						top_liege = { has_landed_title = e_golden_horde }
+						top_liege = { has_landed_title = e_mongol_empire }						
+					}
+				}
+			}
+		}
+		
+		modifier = {
+			factor = 1.25
+			year = 1000
+			NOT = {
+				culture = mongol
+				top_liege = { has_landed_title = e_il-khanate }
+				top_liege = { has_landed_title = e_golden_horde }
+				top_liege = { has_landed_title = e_mongol_empire }				
+			}
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}
+		
+	}
+	
+	option = {
+		name = "silkroad.216.a"
+
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = buddhist
+			culture = chinese
+			attributes = {
+				diplomacy = 3
+				martial = 3
+				stewardship = 3
+				intrigue = 3
+				learning = 3
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = buddhist
+			culture = chinese
+			attributes = {
+				diplomacy = 5
+				martial = 5
+				stewardship = 5
+				intrigue = 5
+				learning = 5
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		random_list = {
+			30 = {}
+			70 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = chinese
+					attributes = {
+						diplomacy = 7
+						martial = 7
+						stewardship = 7
+						intrigue = 7
+						learning = 7
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			70 = {}
+			30 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = chinese
+					attributes = {
+						diplomacy = 8
+						martial = 8
+						stewardship = 8
+						intrigue = 8
+						learning = 8
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			95 = {}
+			5 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = chinese
+					attributes = {
+						diplomacy = 10
+						martial = 10
+						stewardship = 10
+						intrigue = 10
+						learning = 10
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "reject.VIET.courtiers"
+	}	
+	
+}
+
+
+# korean
+character_event = {
+	id = silkroad.217
+	desc = silkroad.217.desc
+	picture = GFX_evt_emissary_sinic
+	
+	prisoner = no
+	only_rulers = yes
+	capable_only = yes
+	
+	trigger = {
+		NOT = { culture = korean }
+		NOT = {
+			any_courtier = {
+				culture = korean
+			}
+		}
+		NOT = {
+			any_courtier = {
+				culture = korean
+				has_character_flag = VIET_spawned_courtier
+			}
+		}
+		capital_scope = {
+			OR = {
+				kingdom = { title = k_khiva }
+				kingdom = { title = k_turkestan }
+				kingdom = { title = k_sogdiana }
+			}
+			NOT = { culture = korean }
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 4000
+		
+		modifier = {
+			factor = 0.7
+			AND = {
+				culture = mongol
+				OR = {
+					top_liege = { has_landed_title = e_il-khanate }
+					top_liege = { has_landed_title = e_golden_horde }
+					top_liege = { has_landed_title = e_mongol_empire }						
+				}
+			}
+		}
+		
+		modifier = {
+			factor = 0.9
+			culture_group = sinic
+		}
+		
+		modifier = {
+			factor = 1.25
+			year = 1000
+			NOT = {
+				culture = mongol
+				top_liege = { has_landed_title = e_il-khanate }
+				top_liege = { has_landed_title = e_golden_horde }
+				top_liege = { has_landed_title = e_mongol_empire }				
+			}
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}
+		
+	}
+	
+	option = {
+		name = "silkroad.217.a"
+
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = buddhist
+			culture = korean
+			attributes = {
+				diplomacy = 3
+				martial = 3
+				stewardship = 3
+				intrigue = 3
+				learning = 3
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = buddhist
+			culture = korean
+			attributes = {
+				diplomacy = 5
+				martial = 5
+				stewardship = 5
+				intrigue = 5
+				learning = 5
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		random_list = {
+			30 = {}
+			70 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = korean
+					attributes = {
+						diplomacy = 7
+						martial = 7
+						stewardship = 7
+						intrigue = 7
+						learning = 7
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			70 = {}
+			30 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = korean
+					attributes = {
+						diplomacy = 8
+						martial = 8
+						stewardship = 8
+						intrigue = 8
+						learning = 8
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			95 = {}
+			5 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = korean
+					attributes = {
+						diplomacy = 10
+						martial = 10
+						stewardship = 10
+						intrigue = 10
+						learning = 10
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "reject.VIET.courtiers"
+	}	
+	
+}
+
+
+# chinese (Indian Ocean)
+character_event = {
+	id = silkroad.218
+	desc = silkroad.218.desc
+	picture = GFX_evt_emissary_sinic
+	
+	prisoner = no
+	only_rulers = yes
+	capable_only = yes
+	
+	trigger = {
+		NOT = { culture = chinese }
+		NOT = {
+			any_courtier = {
+				culture = chinese
+			}
+		}
+		NOT = {
+			any_courtier = {
+				culture = chinese
+				has_character_flag = VIET_spawned_courtier
+			}
+		}
+		capital_scope = {
+			port = yes
+			OR = {
+				empire = { title = e_india }
+				empire = { title = e_rajastan }
+				empire = { title = e_bengal }
+				empire = { title = e_deccan }
+				empire = { title = e_persia }
+				empire = { title = e_arabia }
+				empire = { title = e_abyssinia }
+			}
+			NOT = { culture = chinese }
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 4000
+		
+		modifier = { #Should appear mostly in India
+			factor = 0.5
+			capital_scope = {
+				OR = {
+					empire = { title = e_india }
+					empire = { title = e_rajastan }
+					empire = { title = e_bengal }
+					empire = { title = e_deccan }
+				}
+			}
+		}
+		
+		modifier = {
+			factor = 0.85
+			OR = {
+				is_patrician = yes
+				is_merchant_republic = yes
+			}
+		}
+		
+		modifier = {
+			factor = 0.7
+			AND = {
+				culture = mongol
+				OR = {
+					top_liege = { has_landed_title = e_il-khanate }
+					top_liege = { has_landed_title = e_golden_horde }
+					top_liege = { has_landed_title = e_mongol_empire }						
+				}
+			}
+		}
+		
+		modifier = {
+			factor = 0.9
+			culture_group = sinic
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}
+		
+	}
+	
+	option = {
+		name = "silkroad.218.a"
+
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = buddhist
+			culture = chinese
+			attributes = {
+				diplomacy = 3
+				martial = 3
+				stewardship = 3
+				intrigue = 3
+				learning = 3
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = buddhist
+			culture = chinese
+			attributes = {
+				diplomacy = 5
+				martial = 5
+				stewardship = 5
+				intrigue = 5
+				learning = 5
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		random_list = {
+			30 = {}
+			70 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = chinese
+					attributes = {
+						diplomacy = 7
+						martial = 7
+						stewardship = 7
+						intrigue = 7
+						learning = 7
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			70 = {}
+			30 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = chinese
+					attributes = {
+						diplomacy = 8
+						martial = 8
+						stewardship = 8
+						intrigue = 8
+						learning = 8
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			95 = {}
+			5 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = chinese
+					attributes = {
+						diplomacy = 10
+						martial = 10
+						stewardship = 10
+						intrigue = 10
+						learning = 10
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "reject.VIET.courtiers"
+	}	
+	
+}
+
+
+# javanese (buddhist)
+character_event = {
+	id = silkroad.219
+	desc = silkroad.219.desc
+	picture = GFX_evt_emissary_sinic
+	
+	prisoner = no
+	only_rulers = yes
+	capable_only = yes
+	
+	trigger = {
+		NOT = { culture = javanese }
+		NOT = {
+			any_courtier = {
+				culture = javanese
+			}
+		}
+		NOT = {
+			any_courtier = {
+				culture = javanese
+				has_character_flag = VIET_spawned_courtier
+			}
+		}
+		capital_scope = {
+			port = yes
+			OR = {
+				empire = { title = e_india }
+				empire = { title = e_rajastan }
+				empire = { title = e_bengal }
+				empire = { title = e_deccan }
+				empire = { title = e_persia }
+				empire = { title = e_arabia }
+				empire = { title = e_abyssinia }
+			}
+			NOT = { culture = javanese }
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 3000
+		
+		modifier = {
+			factor = 2
+			NOT = { year = 1200 }
+		}
+		
+		modifier = { #Should appear mostly in India
+			factor = 0.5
+			capital_scope = {
+				OR = {
+					empire = { title = e_india }
+					empire = { title = e_rajastan }
+					empire = { title = e_bengal }
+					empire = { title = e_deccan }
+				}
+			}
+		}
+		
+		modifier = {
+			factor = 0.85
+			OR = {
+				is_patrician = yes
+				is_merchant_republic = yes
+			}
+		}
+		
+		modifier = {
+			factor = 0.7
+			AND = {
+				culture = mongol
+				OR = {
+					top_liege = { has_landed_title = e_il-khanate }
+					top_liege = { has_landed_title = e_golden_horde }
+					top_liege = { has_landed_title = e_mongol_empire }						
+				}
+			}
+		}
+		
+		modifier = {
+			factor = 0.9
+			culture_group = southeast_asian
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}
+		
+	}
+	
+	option = {
+		name = "silkroad.219.a"
+
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = buddhist
+			culture = javanese
+			attributes = {
+				diplomacy = 3
+				martial = 3
+				stewardship = 3
+				intrigue = 3
+				learning = 3
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = buddhist
+			culture = javanese
+			attributes = {
+				diplomacy = 5
+				martial = 5
+				stewardship = 5
+				intrigue = 5
+				learning = 5
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		random_list = {
+			30 = {}
+			70 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = javanese
+					attributes = {
+						diplomacy = 7
+						martial = 7
+						stewardship = 7
+						intrigue = 7
+						learning = 7
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			70 = {}
+			30 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = javanese
+					attributes = {
+						diplomacy = 8
+						martial = 8
+						stewardship = 8
+						intrigue = 8
+						learning = 8
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			95 = {}
+			5 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = javanese
+					attributes = {
+						diplomacy = 10
+						martial = 10
+						stewardship = 10
+						intrigue = 10
+						learning = 10
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "reject.VIET.courtiers"
+	}	
+	
+}
+
+# javanese (hindu)
+character_event = {
+	id = silkroad.220
+	desc = silkroad.219.desc
+	picture = GFX_evt_emissary_sinic
+	
+	prisoner = no
+	only_rulers = yes
+	capable_only = yes
+	
+	trigger = {
+		NOT = { culture = javanese }
+		NOT = {
+			any_courtier = {
+				culture = javanese
+			}
+		}
+		NOT = {
+			any_courtier = {
+				culture = javanese
+				has_character_flag = VIET_spawned_courtier
+			}
+		}
+		capital_scope = {
+			port = yes
+			OR = {
+				empire = { title = e_india }
+				empire = { title = e_rajastan }
+				empire = { title = e_bengal }
+				empire = { title = e_deccan }
+				empire = { title = e_persia }
+				empire = { title = e_arabia }
+				empire = { title = e_abyssinia }
+			}
+			NOT = { culture = javanese }
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 3000
+		
+		modifier = {
+			factor = 2
+			NOT = { year = 1200 }
+		}
+		
+		modifier = { #Should appear mostly in India
+			factor = 0.5
+			capital_scope = {
+				OR = {
+					empire = { title = e_india }
+					empire = { title = e_rajastan }
+					empire = { title = e_bengal }
+					empire = { title = e_deccan }
+				}
+			}
+		}
+		
+		modifier = {
+			factor = 0.85
+			OR = {
+				is_patrician = yes
+				is_merchant_republic = yes
+			}
+		}
+		
+		modifier = {
+			factor = 0.7
+			AND = {
+				culture = mongol
+				OR = {
+					top_liege = { has_landed_title = e_il-khanate }
+					top_liege = { has_landed_title = e_golden_horde }
+					top_liege = { has_landed_title = e_mongol_empire }						
+				}
+			}
+		}
+		
+		modifier = {
+			factor = 0.9
+			culture_group = southeast_asian
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}
+		
+	}
+	
+	option = {
+		name = "silkroad.219.a"
+
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = hindu
+			culture = javanese
+			attributes = {
+				diplomacy = 3
+				martial = 3
+				stewardship = 3
+				intrigue = 3
+				learning = 3
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = hindu
+			culture = javanese
+			attributes = {
+				diplomacy = 5
+				martial = 5
+				stewardship = 5
+				intrigue = 5
+				learning = 5
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		random_list = {
+			30 = {}
+			70 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = hindu
+					culture = javanese
+					attributes = {
+						diplomacy = 7
+						martial = 7
+						stewardship = 7
+						intrigue = 7
+						learning = 7
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			70 = {}
+			30 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = hindu
+					culture = javanese
+					attributes = {
+						diplomacy = 8
+						martial = 8
+						stewardship = 8
+						intrigue = 8
+						learning = 8
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			95 = {}
+			5 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = hindu
+					culture = javanese
+					attributes = {
+						diplomacy = 10
+						martial = 10
+						stewardship = 10
+						intrigue = 10
+						learning = 10
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "reject.VIET.courtiers"
+	}	
+	
+}
+
+# malay (hindu)
+character_event = {
+	id = silkroad.221
+	desc = silkroad.219.desc
+	picture = GFX_evt_emissary_sinic
+	
+	prisoner = no
+	only_rulers = yes
+	capable_only = yes
+	
+	trigger = {
+		NOT = { culture = malay }
+		NOT = {
+			any_courtier = {
+				culture = malay
+			}
+		}
+		NOT = {
+			any_courtier = {
+				culture = malay
+				has_character_flag = VIET_spawned_courtier
+			}
+		}
+		capital_scope = {
+			port = yes
+			OR = {
+				empire = { title = e_india }
+				empire = { title = e_rajastan }
+				empire = { title = e_bengal }
+				empire = { title = e_deccan }
+				empire = { title = e_persia }
+				empire = { title = e_arabia }
+				empire = { title = e_abyssinia }
+			}
+			NOT = { culture = javanese }
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 3000
+		
+		modifier = {
+			factor = 2
+			year = 1200
+		}
+		
+		modifier = { #Should appear mostly in India
+			factor = 0.5
+			capital_scope = {
+				OR = {
+					empire = { title = e_india }
+					empire = { title = e_rajastan }
+					empire = { title = e_bengal }
+					empire = { title = e_deccan }
+				}
+			}
+		}
+		
+		modifier = {
+			factor = 0.85
+			OR = {
+				is_patrician = yes
+				is_merchant_republic = yes
+			}
+		}
+		
+		modifier = {
+			factor = 0.7
+			AND = {
+				culture = mongol
+				OR = {
+					top_liege = { has_landed_title = e_il-khanate }
+					top_liege = { has_landed_title = e_golden_horde }
+					top_liege = { has_landed_title = e_mongol_empire }						
+				}
+			}
+		}
+		
+		modifier = {
+			factor = 0.9
+			culture_group = southeast_asian
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}
+		
+	}
+	
+	option = {
+		name = "silkroad.219.a"
+
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = hindu
+			culture = malay
+			attributes = {
+				diplomacy = 3
+				martial = 3
+				stewardship = 3
+				intrigue = 3
+				learning = 3
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = hindu
+			culture = malay
+			attributes = {
+				diplomacy = 5
+				martial = 5
+				stewardship = 5
+				intrigue = 5
+				learning = 5
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		random_list = {
+			30 = {}
+			70 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = hindu
+					culture = malay
+					attributes = {
+						diplomacy = 7
+						martial = 7
+						stewardship = 7
+						intrigue = 7
+						learning = 7
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			70 = {}
+			30 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = hindu
+					culture = malay
+					attributes = {
+						diplomacy = 8
+						martial = 8
+						stewardship = 8
+						intrigue = 8
+						learning = 8
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			95 = {}
+			5 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = hindu
+					culture = malay
+					attributes = {
+						diplomacy = 10
+						martial = 10
+						stewardship = 10
+						intrigue = 10
+						learning = 10
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "reject.VIET.courtiers"
+	}	
+	
+}
+
+# malay (buddhist)
+character_event = {
+	id = silkroad.222
+	desc = silkroad.219.desc
+	picture = GFX_evt_emissary_sinic
+	
+	prisoner = no
+	only_rulers = yes
+	capable_only = yes
+	
+	trigger = {
+		NOT = { culture = malay }
+		NOT = {
+			any_courtier = {
+				culture = malay
+			}
+		}
+		NOT = {
+			any_courtier = {
+				culture = malay
+				has_character_flag = VIET_spawned_courtier
+			}
+		}
+		capital_scope = {
+			port = yes
+			OR = {
+				empire = { title = e_india }
+				empire = { title = e_rajastan }
+				empire = { title = e_bengal }
+				empire = { title = e_deccan }
+				empire = { title = e_persia }
+				empire = { title = e_arabia }
+				empire = { title = e_abyssinia }
+			}
+			NOT = { culture = javanese }
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 3000
+		
+		modifier = {
+			factor = 2
+			year = 1200
+		}
+		
+		modifier = { #Should appear mostly in India
+			factor = 0.5
+			capital_scope = {
+				OR = {
+					empire = { title = e_india }
+					empire = { title = e_rajastan }
+					empire = { title = e_bengal }
+					empire = { title = e_deccan }
+				}
+			}
+		}
+		
+		modifier = {
+			factor = 0.85
+			OR = {
+				is_patrician = yes
+				is_merchant_republic = yes
+			}
+		}
+		
+		modifier = {
+			factor = 0.7
+			AND = {
+				culture = mongol
+				OR = {
+					top_liege = { has_landed_title = e_il-khanate }
+					top_liege = { has_landed_title = e_golden_horde }
+					top_liege = { has_landed_title = e_mongol_empire }						
+				}
+			}
+		}
+		
+		modifier = {
+			factor = 0.9
+			culture_group = southeast_asian
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = cynical
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			trait = scholar
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}
+		
+	}
+	
+	option = {
+		name = "silkroad.219.a"
+
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = buddhist
+			culture = malay
+			attributes = {
+				diplomacy = 3
+				martial = 3
+				stewardship = 3
+				intrigue = 3
+				learning = 3
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = buddhist
+			culture = malay
+			attributes = {
+				diplomacy = 5
+				martial = 5
+				stewardship = 5
+				intrigue = 5
+				learning = 5
+			}
+		}
+		new_character = {
+			set_character_flag = VIET_spawned_courtier
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		random_list = {
+			30 = {}
+			70 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = malay
+					attributes = {
+						diplomacy = 7
+						martial = 7
+						stewardship = 7
+						intrigue = 7
+						learning = 7
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			70 = {}
+			30 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = malay
+					attributes = {
+						diplomacy = 8
+						martial = 8
+						stewardship = 8
+						intrigue = 8
+						learning = 8
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+		random_list = {
+			95 = {}
+			5 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = buddhist
+					culture = malay
+					attributes = {
+						diplomacy = 10
+						martial = 10
+						stewardship = 10
+						intrigue = 10
+						learning = 10
+					}
+				}
+				new_character = {
+					set_character_flag = VIET_spawned_courtier
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "reject.VIET.courtiers"
+	}	
+	
+}
+
+
+###################################################
+# Nowruz
+###################################################
+
+
+# Nowruz Preparations
+character_event = {
+	id = silkroad.300
+	desc = silkroad.300.desc
+	picture = GFX_evt_throne_room
+	
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = "silkroad.300.a"
+		set_character_flag = VIET_nowruz
+		character_event = { id = silkroad.301 days = 7 tooltip = silkroad.301.tooltip }
+	}
+}
+
+# Waking up
+character_event = {
+	id = silkroad.301
+	desc = silkroad.301.desc
+	picture = GFX_evt_feast
+	
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = "silkroad.301.a"
+		character_event = { id = silkroad.302 tooltip = silkroad.302.tooltip }
+	}
+}
+
+# Nowruz Begins
+narrative_event = {
+	id = silkroad.302
+	title = silkroad.302.name
+	desc = silkroad.302.desc
+	picture = GFX_evt_feast
+	
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = "silkroad.302.a"
+		add_character_modifier =  {
+			name = VIET_celebrating_nowruz
+			duration = -1
+		}
+		character_event = { id = silkroad.303 tooltip = silkroad.303.tooltip }
+		hidden_tooltip = { #le random events
+			random_list = {
+				25 = { character_event = { id = silkroad.305 days = 10 random = 10 } }
+				75 = { }
+			}
+			random_list = {
+				25 = { character_event = { id = silkroad.306 days = 10 random = 10 } }
+				75 = { }
+			}
+			random_list = {
+				25 = { character_event = { id = silkroad.307 days = 10 random = 10 } }
+				75 = { }
+			}
+			random_list = {
+				25 = { character_event = { id = silkroad.308 days = 10 random = 10 } }
+				75 = { }
+			}
+			random_list = {
+				25 = { character_event = { id = silkroad.309 days = 10 random = 10 } }
+				75 = { }
+			}
+			random_list = {
+				25 = { character_event = { id = silkroad.310 days = 10 random = 10 } }
+				75 = { }
+			}
+		}
+	}
+}
+
+# Nowruz Song and Music
+narrative_event = {
+	id = silkroad.303
+	title = silkroad.303.name
+	desc = silkroad.303.desc
+	picture = GFX_evt_jugglers
+	
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = "silkroad.303.a"
+		prestige = 4
+		character_event = { id = silkroad.304 tooltip = silkroad.304.tooltip days = 30 }
+	}	
+	option = { #ok
+		name = "silkroad.303.b"
+		piety = 4
+		character_event = { id = silkroad.304 tooltip = silkroad.304.tooltip days = 30 }
+	}	
+	option = { #ok
+		name = "silkroad.303.c"
+		prestige = 1
+		piety = 3
+		character_event = { id = silkroad.304 tooltip = silkroad.304.tooltip days = 30 }
+	}	
+	option = { #ok
+		name = "silkroad.303.d"
+		prestige = 3
+		piety = 1
+		character_event = { id = silkroad.304 tooltip = silkroad.304.tooltip days = 30 }
+	}
+}
+
+
+# Nowruz Over
+narrative_event = {
+	id = silkroad.304
+	title = silkroad.304.name
+	desc = silkroad.304.desc
+	picture = GFX_evt_skyrim_forest_muslim
+	
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = "silkroad.304.a"
+		prestige = 50
+		remove_character_modifier = VIET_celebrating_nowruz
+		clr_character_flag = VIET_nowruz
+		clr_character_flag = do_not_disturb
+		add_character_modifier =  {
+			name = VIET_nowruz_timer
+			duration = 1825
+			hidden = yes
+		}
+		add_character_modifier =  {
+			name = VIET_celebrated_nowruz
+			duration = 730
+		}
+	}
+}
+
+# Sugar
+character_event = {
+	id = silkroad.305
+	desc = silkroad.305.desc
+	picture = GFX_evt_baklava
+	
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = "silkroad.305.a"
+		scaled_wealth = -0.1
+		any_courtier = {
+			limit = {
+				OR = {
+					is_close_relative = ROOT
+					is_friend = ROOT
+					opinion = { who = ROOT value = 80 }
+				}
+			}
+			opinion = {
+				modifier = opinion_nowruz_present_large
+				who = ROOT
+				years = 1
+			}			
+		}
+	}	
+	option = { #ok
+		name = "silkroad.305.b"
+		scaled_wealth = -0.05
+		any_courtier = {
+			limit = {
+				OR = {
+					is_close_relative = ROOT
+					is_friend = ROOT
+					opinion = { who = ROOT value = 80 }
+				}
+			}
+			opinion = {
+				modifier = opinion_nowruz_present_medium
+				who = ROOT
+				years = 1
+			}			
+		}
+	}	
+	option = { #ok
+		name = "silkroad.305.c"
+		scaled_wealth = -0.02
+		any_courtier = {
+			limit = {
+				OR = {
+					is_close_relative = ROOT
+					is_friend = ROOT
+					opinion = { who = ROOT value = 80 }
+				}
+			}
+			opinion = {
+				modifier = opinion_nowruz_present_small
+				who = ROOT
+				years = 1
+			}			
+		}
+	}
+}
+
+# Water pouring day
+character_event = {
+	id = silkroad.306
+	desc = silkroad.306.desc
+	picture = GFX_evt_courtiers_talking
+	
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = "silkroad.306.a"
+		prestige = 3
+	}
+}
+
+# Eggs
+character_event = {
+	id = silkroad.307
+	desc = silkroad.307.desc
+	picture = GFX_evt_jugglers
+	
+	is_triggered_only = yes
+	
+	option = { #Magnificent
+		name = "silkroad.307.a"
+		prestige = 1
+	}
+}
+
+# Fires
+character_event = {
+	id = silkroad.308
+	desc = silkroad.308.desc
+	picture = GFX_evt_jugglers
+	
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = "silkroad.308.a"
+		prestige = 2
+		if = {
+			limit = {
+				NOT = { religion_group = muslim }
+			}
+			piety = 2
+		}
+	}	
+	option = { #ok
+		name = "silkroad.308.b"
+		trigger = {
+			religion_group = muslim
+		}
+		piety = 5
+		prestige = -2
+	}
+}
+
+# Drink
+character_event = {
+	id = silkroad.309
+	desc = silkroad.309.desc
+	picture = GFX_evt_drunk
+	
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = "silkroad.309.a"
+		prestige = 2
+	}		
+	option = { #ok
+		name = "silkroad.309.b"
+		prestige = 5
+		random = {
+			chance = 5
+			add_trait = drunkard
+		}
+	}	
+	option = { #ok
+		name = "silkroad.309.c"
+		trigger = {
+			religion_group = muslim
+		}
+		piety = 5
+		prestige = -5
+		random = {
+			chance = 5
+			add_trait = zealous
+		}
+	}
+}
+
+# Mir-e Nowruzi set-up
+character_event = {
+	id = silkroad.310
+	desc = silkroad.310.desc
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		random_courtier = {
+			limit = {
+				is_adult = yes
+				NOT = { trait = incapable }
+				is_female = no
+				NOT = { is_close_relative = ROOT }
+			}
+			character_event = { id = silkroad.311 }
+		}
+	}
+}
+
+# Mir-e Nowruzi set-up 2
+character_event = {
+	id = silkroad.311
+	desc = silkroad.311.desc
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		FROM = { character_event = { id = silkroad.312 } }
+	}
+}
+
+# Mir-e Nowruzi start
+narrative_event = {
+	id = silkroad.312
+	title = silkroad.312.name
+	desc = silkroad.312.desc
+	picture = GFX_evt_jugglers
+	
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = "silkroad.312.a"
+		FROM = { character_event = { id = silkroad.313 tooltip = silkroad.313.tooltip } }
+	}
+}
+
+# Mir-e Nowruzi hoho
+character_event = {
+	id = silkroad.313
+	desc = silkroad.313.desc
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		FROM = { character_event = { id = silkroad.315 days = 4 } }
+		if = {
+			limit = {
+				NOT = { opinion = { who = FROM value = 25 } }
+			}
+			random_list = {
+				30 = { }
+				70 = { FROM = { character_event = { id = silkroad.314 days = 2 } } } 
+			}
+		}	
+		if = {
+			limit = {
+				opinion = { who = FROM value = 25 }
+			}
+			random_list = {
+				70 = { }
+				30 = { FROM = { character_event = { id = silkroad.314 days = 2 } } } 
+			}
+		}		
+	}
+}
+
+# Le Embarassment!
+character_event = {
+	id = silkroad.314
+	desc = silkroad.314.desc
+	picture = GFX_evt_scandal
+	
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = "silkroad.314.a"
+		prestige = -5
+		opinion = {
+			modifier = opinion_shamed_me
+			who = FROM
+			years = 1
+		}
+	}
+}
+
+# Mir-e Nowruzi Over
+character_event = {
+	id = silkroad.315
+	desc = silkroad.315.desc
+	picture = GFX_evt_jugglers
+	
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = "silkroad.315.a"
+		FROM = {
+			prestige = -20
+		}
+		reverse_opinion = {
+			modifier = opinion_no_sympathy_for_me
+			who = FROM
+			years = 1
+		}
+	}	
+	option = { #ok
+		name = "silkroad.315.b"
+		trigger = {
+			NOT = { trait = cruel }
+			NOT = { trait = envious }
+			NOT = { trait = arbitrary }
+			OR = {
+				trait = kind
+				trait = trusting
+				trait = charitable
+				trait = patient
+				trait = just
+			}
+		}
+		FROM = {
+			prestige = -20
+		}
+		reverse_opinion = {
+			modifier = opinion_sympathy_for_me
+			who = FROM
+			years = 1
+		}
+	}
+}
+

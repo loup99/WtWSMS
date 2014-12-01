@@ -1,0 +1,307 @@
+##################Zoroastrian events by Maestro Ugo
+#########Random events
+#########Navjote ceremony
+
+namespace = VIETnam
+
+#####Help in fighting the local bandits
+character_event = {
+	id = VIETnam.7
+	title = "EVTNAME1000094001"
+	desc = "EVTDESC1000094001"
+	picture = "GFX_evt_bandits"
+	
+	min_age = 16
+	prisoner = no
+	only_playable = yes
+	capable_only = yes
+	
+	trigger = {
+		war = no
+		is_ill = no
+		religion_group = zoroastrian_group
+		any_demesne_province = {
+			OR = {
+				has_province_modifier = highway_robber_band
+				has_province_modifier = smugglers_ring
+				has_province_modifier = thieves_guild
+				revolt_risk = 3
+			}
+		}
+	}
+	mean_time_to_happen = {
+		months = 36
+		
+		modifier = {
+			factor = 0.8
+			trait = diligent
+		}
+		
+		modifier = {
+			factor = 0.6
+			realm_learning = 30
+		}
+	}
+	option = {
+		name = "EVTOPTA1000094001"
+		wealth = -30
+		piety = 50
+		random_list = {
+			85 = {}
+			15 = {
+				add_trait = wounded
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTB1000094001"
+		wealth = -50
+		prestige = 20
+	}
+	option = {
+		name = "EVTOPTC1000094001"
+		prestige = -10
+		piety = -10
+	}
+}
+
+#####Rebuild a local mosque?
+character_event = {
+	id = VIETnam.8
+	title = "EVTNAME1000094002"
+	desc = "EVTDESC1000094002"
+	picture = "GFX_evt_burning_house_muslim"
+	
+	trigger = {
+		religion_group = zoroastrian_group
+		any_demesne_province = {
+			religion_group = muslim
+		}
+	}
+	mean_time_to_happen = {
+		months = 300
+		
+		modifier = {
+			factor = 0.8
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.7
+			trait = charitable
+		}
+	}
+	option = {
+		name = "EVTOPTA1000094002"
+		wealth = -75
+		piety = 20
+		add_character_modifier = {
+			name = zoroastrian_tolerance
+			duration = 365
+			}
+	}
+	option = {
+		name = "EVTOPTB1000094002"
+		random_list = {
+			80 = {}
+			20 = {
+				add_trait = cruel
+			}
+		}
+	}
+}
+
+#####Sedreh Pushi ritual - child's event - moved
+#####Sedreh Pushi ritual - fathher's event
+character_event = {
+	id = VIETnam.10
+	title = "EVTNAME1000094004"
+	desc = "EVTDESC1000094004"
+	picture = "GFX_evt_guardian"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA1000094004" # Talk to him about Asha – righteousness
+		trigger = {
+			OR = {
+				trait = just
+				trait = kind
+			}
+		}
+		FROM = { piety = 10}
+		FROM = { change_intrigue = -1}
+		FROM = { change_learning = 2}
+	}
+
+	option = {
+		name = "EVTOPTB1000094004" # Talk to him about Khshatr – divine power.
+		trigger = {
+			OR = {
+				trait = brave
+				trait = strong
+			}
+		}
+		FROM = {prestige = 20}
+		FROM = { change_intrigue = -1}
+		FROM = { change_martial = 1}
+	}
+
+	option = {
+		name = "EVTOPTC1000094004" # Talk to him about  Armaiti – devotion.
+		trigger = {
+			OR = {
+				trait = zealous
+				piety = 400
+			}
+		}
+		FROM = {piety = 30}
+		FROM = { change_intrigue = -1}
+		FROM = { change_diplomacy = 1}
+	}
+	
+	option = {
+		name = "EVTOPTD1000094004" # Talk to him about Vohu Manah – holy spirit.
+		trigger = {
+			OR = {
+				trait = diligent
+				piety = 800
+			}
+		}
+		FROM = {piety = 10	prestige = 10}
+		FROM = { change_intrigue = -1}
+		FROM = { change_stewardship = 1}
+	}
+	
+	option = {
+		name = "EVTOPTE1000094004" # I have nothing to teach him.
+		random_list = {
+			50 = {	FROM = { change_learning = 1} }
+			50 = {	FROM = { change_learning = -1} }
+		}
+	}
+}
+
+####Rebuild Persepolis
+province_event = {
+	id = VIETnam.11
+	title = "EVTNAME1000094010"
+	desc = "EVTDESC1000094010"
+	picture = "GFX_persepolis_ruin"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA1000094010" # Rebuild just the royal palace.
+		owner = {
+			capital_scope = {
+				add_province_modifier = { name = "rebuilding_persepolis_local" duration = 730 }
+			}
+			wealth = -100
+			character_event = { id = VIETnam.12 days = 730 }
+		}
+	}
+
+	option = {
+		name = "EVTOPTB1000094010" # Rebuild the entire city.
+		owner = {
+			capital_scope = {
+				add_province_modifier = { name = "rebuilding_persepolis_local" duration = 1460 }
+			}
+			wealth = -200
+			character_event = { id = VIETnam.12 days = 1460 }
+		}
+	}
+
+	option = {
+		name = "EVTOPTC1000094010" # Make it the greatest city there ever was!
+		owner = {
+			capital_scope = {
+				add_province_modifier = { name = "rebuilding_persepolis_local" duration = 2920 }
+			}
+			wealth = -300
+			character_event = { id = VIETnam.12 days = 2920 }
+		}
+	}
+}
+
+####Rebuild Persepolis 2
+character_event = {
+	id = VIETnam.12
+	title = "EVTNAME1000094011"
+	desc = "EVTDESC1000094011"
+	picture = "GFX_persepolis_built"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA1000094011" #Library
+		prestige = 500
+		set_global_flag = persepolis_rebuilt
+		b_perozabad = { set_name = Persepolis }
+		capital_scope = {
+			add_province_modifier = { name = "persepolis_library" duration = -1 }
+			}
+	}
+	option = {
+		name = "EVTOPTB1000094011" #Irrigation system
+		prestige = 500
+		set_global_flag = persepolis_rebuilt
+		b_perozabad = { set_name = Persepolis }
+		capital_scope = {
+			add_province_modifier = { name = "persepolis_irrigation" duration = -1 }
+			}
+	}
+	option = {
+		name = "EVTOPTC1000094011" #Gate of all nations
+		prestige = 500
+		set_global_flag = persepolis_rebuilt
+		b_perozabad = { set_name = Persepolis }
+		capital_scope = {
+			add_province_modifier = { name = "persepolis_gate" duration = -1 }
+			}
+	}
+}
+
+
+# On-action event: Zoroastrian Marriage
+#character_event = {
+#	id = 1000094008
+#	desc = "EVTDESC1000094008"
+#	picture = "GFX_evt_marriage"
+#	
+#	is_triggered_only = yes
+#	
+#	trigger = {
+#		religion_group = zoroastrian_group
+#		OR = {
+#			FROM = { character = ROOT }
+#			FROM = {
+#				dynasty = ROOT
+#				is_primary_heir = ROOT
+#			}
+#		}
+#	}
+#
+#	immediate = {
+#		hidden_tooltip = {
+#			if = {
+#				limit = { ai = no }
+#				set_character_flag = achievement_get_married
+#			}
+#		}
+#	}
+#	
+#	option = {
+#		name = "EVTOPTA1000094008"
+#		piety = 20		
+#		scaled_wealth = 0.5
+#		
+#	}
+#	option = {
+#		name = "EVTOPTB1000094008"
+#		piety = 20
+#		prestige = 50
+#	}
+#}
+

@@ -1,0 +1,282 @@
+##############################################
+#
+#
+#	LIP READER EVENTS
+#
+#
+##############################################
+
+namespace = lipread
+
+#Character tries to learn lip-reading in childhood
+character_event = {
+	id = lipread.0
+	desc = EVTDESC1000109212
+	picture = GFX_evt_whispers
+
+	min_age = 4
+	max_age = 16
+	capable_only = yes
+	prisoner = no
+
+	trigger = {
+		trait = deaf
+		NOT = { has_character_modifier = lip_reader }
+	}
+
+	mean_time_to_happen = {
+		years = 5
+
+		modifier = {
+			factor = 0.7
+			trait = perceptive
+		}		
+		modifier = {
+			factor = 0.7
+			trait = genius
+		}
+		modifier = {
+			factor = 0.75
+			trait = quick
+		}
+		modifier = {
+			factor = 0.8
+			trait = diligent
+		}
+		modifier = {
+			factor = 0.8
+			trait = cynical
+		}
+		modifier = {
+			factor = 0.8
+			trait = ambitious
+		}
+		modifier = {
+			factor = 1.05
+			trait = content
+		}
+		modifier = {
+			factor = 1.1
+			trait = slothful
+		}
+		modifier = {
+			factor = 1.5
+			trait = slow
+		}
+		modifier = {
+			factor = 4.0
+			trait = imbecile
+		}
+	}
+
+	option = { #Tries to learn lip-reading on own
+		name = EVTOPTA1000109212
+		trigger = {
+			NOT = {
+				trait = perceptive
+				intrigue = 10
+				trait = genius
+				trait = quick
+			}
+		}
+		random_list = {
+			70 = {
+			}
+			30 = {
+				add_character_modifier = {
+					name = lip_reader
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	option = { #Tries to learn lip-reading from observation
+		name = EVTOPTB1000109212
+		trigger = {
+			OR = {
+				trait = perceptive
+				intrigue = 10
+			}
+		}
+		random_list = {
+			50 = {
+			}
+			50 = {
+				add_character_modifier = {
+					name = lip_reader
+					duration = -1
+				}
+			}
+		}
+	}
+
+	option = { #Tries to learn lip-reading using intelligence
+		name = EVTOPTC1000109212
+		trigger = {
+			OR = {
+				trait = genius
+				trait = quick
+			}
+		}
+		random_list = {
+			50 = {
+			}
+			50 = {
+				add_character_modifier = {
+					name = lip_reader
+					duration = -1
+				}
+			}
+		}
+	}
+}
+
+
+#Character tries to learn lip-reading in adulthood
+character_event = {
+	id = lipread.1
+	desc = EVTDESC1000109046
+	picture = GFX_evt_whispers
+
+	min_age = 16
+	max_age = 60
+	capable_only = yes
+	prisoner = no
+
+	trigger = {
+		trait = deaf
+		NOT = { has_character_modifier = lip_reader }
+	}
+
+	mean_time_to_happen = {
+		years = 25
+
+		modifier = {
+			factor = 0.85
+			trait = perceptive
+		}		
+		modifier = {
+			factor = 0.85
+			trait = genius
+		}
+		modifier = {
+			factor = 0.9
+			trait = quick
+		}
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}
+		modifier = {
+			factor = 0.95
+			trait = cynical
+		}
+		modifier = {
+			factor = 0.95
+			trait = ambitious
+		}
+		modifier = {
+			factor = 1.05
+			trait = content
+		}
+		modifier = {
+			factor = 1.1
+			trait = slothful
+		}
+		modifier = {
+			factor = 1.5
+			trait = slow
+		}
+		modifier = {
+			factor = 4.0
+			trait = imbecile
+		}
+	}
+
+	option = { #Tries to learn lip-reading on own
+		name = EVTOPTA1000109046
+		trigger = {
+			NOT = {
+				trait = perceptive
+				intrigue = 10
+				trait = genius
+				trait = quick
+			}
+		}
+		random_list = {
+			70 = {
+			}
+			30 = {
+				add_character_modifier = {
+					name = lip_reader
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	option = { #Tries to learn lip-reading from observation
+		name = EVTOPTB1000109046
+		trigger = {
+			OR = {
+				trait = perceptive
+				intrigue = 10
+			}
+		}
+		random_list = {
+			50 = {
+			}
+			50 = {
+				add_character_modifier = {
+					name = lip_reader
+					duration = -1
+				}
+			}
+		}
+	}
+
+	option = { #Tries to learn lip-reading using intelligence
+		name = EVTOPTC1000109046
+		trigger = {
+			OR = {
+				trait = genius
+				trait = quick
+			}
+		}
+		random_list = {
+			40 = {
+			}
+			60 = {
+				add_character_modifier = {
+					name = lip_reader
+					duration = -1
+				}
+			}
+		}
+	}
+}
+
+
+
+
+#Character is blinded rendering lipreading useless
+character_event = {
+	id = lipread.2
+	desc = EVTDESC1000109041
+	picture = GFX_evt_whispers
+
+	trigger = {
+		trait = blinded
+		has_character_modifier = lip_reader
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = { #Lose lipreading ability
+		name = EVTOPTA1000109041
+		remove_character_modifier = lip_reader
+	}
+}

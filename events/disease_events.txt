@@ -1,0 +1,158 @@
+namespace = ds
+
+# Jews Expelled
+character_event = {
+	id = ds.1
+	desc = EVTDESC_ds_1
+	picture = GFX_evt_plague_doctor
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	hide_from = yes
+	
+	option = {
+		name = EVTOPTA_ds_1
+		wealth = -200
+		prestige = -100
+		any_realm_province = {
+			add_province_modifier = { 
+				name = quarantined_province 
+			} 
+		}
+		hidden_tooltip = {
+			any_realm_lord = {
+				limit = { ai = no }
+				character_event = { id = ds.3 }
+			}
+		}
+	}
+}
+
+# Jews Welcomed Back
+character_event = {
+	id = ds.2
+	desc = EVTDESC_ds_2
+	picture = GFX_evt_jewish_market
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	hide_from = yes
+	
+	option = {
+		name = EVTOPTA_ds_2
+		prestige = 150
+		any_realm_province = {
+			clr_province_modifier = { 
+				name = quarantined_province 
+			} 
+		}
+		hidden_tooltip = {
+			any_realm_lord = {
+				limit = { ai = no }
+				character_event = { id = ds.4 }
+			}
+		}
+	}
+}
+
+# Jews Expelled (Notifier for Vassals)
+character_event = {
+	id = ds.3
+	desc = EVTDESC_ds_3
+	picture = GFX_evt_plague_doctor
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_ds_3
+		trigger = {
+			NOT = { has_character_modifier = borrowed_from_jews }
+			}
+			
+	}
+}
+
+# Jews Welcomed Back (Notifier for Vassals)
+character_event = {
+	id = ds.4
+	desc = EVTDESC_ds_4
+	picture = GFX_evt_jewish_market
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_ds_4
+	}
+}
+
+
+# Quaranta placed 
+character_event = {
+	id = ds.5
+	desc = EVTDESC_ds_5
+	picture = GFX_evt_busy_trading_dock_republic
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	hide_from = yes
+	
+	option = {
+		name = EVTOPTA_ds_5
+		wealth = -200
+		prestige = -50
+		any_realm_province = {
+			limit = { has_trade_post = yes }
+			add_province_modifier = { 
+				name = quaranta
+			} 
+		}
+	}
+}
+
+# Quaranta Removed 
+character_event = {
+	id = ds.6
+	desc = EVTDESC_ds_6
+	picture = GFX_evt_busy_trading_dock_republic
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	hide_from = yes
+	
+	option = {
+		name = EVTOPTA_ds_6
+		prestige = 150
+		any_realm_province = {
+			clr_province_modifier = { 
+				name = quaranta
+			} 
+		}
+		hidden_tooltip = {
+			any_realm_lord = {
+				limit = { ai = no }
+				character_event = { id = ds.4 }
+			}
+		}
+	}
+}
+
+# Roma Quarantines
+character_event = {
+	id = ds.7
+	desc = EVTDESC_ds_7
+	picture = GFX_evt_cathedral
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_ds_7
+		prestige = 50
+	}
+}

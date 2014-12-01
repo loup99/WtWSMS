@@ -1,0 +1,73 @@
+### Empire of the Mediterranean
+
+namespace = MED
+
+# The Restoration of Rome
+narrative_event = {
+	id = MED.20
+	title = EVTNAMEMED.20
+	desc = EVTDESCMED.20
+	
+	picture = GFX_evt_coastal_land
+	
+	is_triggered_only = yes
+		
+	option = {
+		name = EVTOPTALMED.20
+		hidden_tooltip = {
+			primary_title = {
+				any_direct_de_jure_vassal_title = {
+					de_jure_liege = e_mediterranean
+				}
+			}
+		}
+		e_byzantium = {
+			destroy_landed_title = THIS
+		}
+		e_italy = {
+			destroy_landed_title = THIS
+		}
+		e_spain= {
+			destroy_landed_title = THIS
+		}
+		add_trait = legendary_leader
+		give_nickname = nick_the_glorious
+		hidden_tooltip = {
+			activate_title = { title = e_byzantium status = no }
+			activate_title = { title = e_italy status = no }
+			activate_title = { title = e_spain status = no }
+			any_playable_ruler = {
+				limit = {
+					NOT = { has_landed_title = e_mediterranean }
+					ai = no
+				}
+				narrative_event = { id = LoR.21 }
+			}
+		}
+	}	
+}
+
+# Informed about Restoration of Rome
+narrative_event = {
+	id = MED.21
+	title = EVTNAMEMED.21
+	desc = EVTDESCMED.21
+	
+	picture = GFX_evt_rome_restored_byzantine
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAMED.21
+		trigger = {
+			NOT = { has_landed_title = e_wre }
+		}
+	}
+	option = {
+		name = EVTOPTBMED.21
+		trigger = {
+			has_landed_title = e_wre
+		}
+		prestige = -500
+	}
+}

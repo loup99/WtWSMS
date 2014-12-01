@@ -1,0 +1,1199 @@
+###########################################
+#
+# Find Love Events
+#
+#
+#
+###########################################
+
+namespace = VIETlove
+
+#CHARACTER TRIES TO FALL IN LOVE WITH SPOUSE
+
+#Character will spend time with spouse (if only one wife or if female)
+character_event = {
+	id = VIETlove.1
+	desc = VIETlove.1.desc
+	picture = GFX_evt_lovers
+
+	trigger = {
+		has_lover = no
+		is_ruler = yes
+		NOT = {
+			any_spouse = { 
+				is_main_spouse = no 
+				is_alive = yes
+			}
+		}
+		spouse = {
+			has_lover = no
+		}
+		has_character_modifier = interest_in_spouse_start
+	}
+	
+	option = {
+		name = VIETlove.1.a
+		spouse = {
+			character_event = { id = VIETlove.3 days = 2 tooltip = "VIETlove.3.tooltip" }
+		}
+	}
+}
+
+#Character will choose spouse to spend time with (if more than one wife)
+character_event = {
+	id = VIETlove.2
+	desc = VIETlove.2.desc
+	picture = GFX_evt_lovers
+
+	trigger = {
+		has_lover = no
+		is_ruler = yes
+		any_spouse = { 
+			is_main_spouse = no 
+			is_alive = yes
+		}
+		is_female = no
+		has_character_modifier = interest_in_spouse_start
+	}
+	
+	option = { #main spouse
+		name = VIETlove.2.a
+		random_spouse = {
+			limit = { is_main_spouse = yes has_lover = no }
+			character_event = { id = VIETlove.3 days = 2 tooltip = "VIETlove.3.tooltip" }
+		}
+	}
+	option = { #random non-main spouse
+		name = VIETlove.2.b
+		random_spouse = {
+			limit = { 
+				is_main_spouse = no 
+				has_lover = no
+				is_alive = yes				
+			}
+			character_event = { id = VIETlove.3 days = 2 tooltip = "VIETlove.3.tooltip" }
+		}
+	}
+}
+
+
+#Spouse chooses how to react to character
+character_event = {
+	id = VIETlove.3
+	desc = VIETlove.3.desc
+	picture = GFX_evt_lovers
+	
+	is_triggered_only = yes
+	
+	option = { #Yes I'm starting to like him/her
+		name = VIETlove.3.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				trait = kind
+				FROM = {
+					trait = envious
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = humble
+				FROM = {
+					trait = proud
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = diligent
+				FROM = {
+					trait = slothful
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = temperate
+				FROM = {
+					trait = gluttonous
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = patient
+				FROM = {
+					trait = wroth
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = wroth
+				FROM = {
+					trait = patient
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = proud
+				FROM = {
+					trait = humble
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = charitable
+				FROM = {
+					trait = greedy
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = greedy
+				FROM = {
+					trait = charitable
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = envious
+				FROM = {
+					trait = kind
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = honest
+				FROM = {
+					trait = deceitful
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = deceitful
+				FROM = {
+					trait = honest
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = just
+				FROM = {
+					trait = arbitrary
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = kind
+				FROM = {
+					trait = cruel
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = kind
+				FROM = {
+					trait = kind
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = temperate
+				FROM = {
+					trait = temperate
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = charitable
+				FROM = {
+					trait = charitable
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = diligent
+				FROM = {
+					trait = diligent
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = patient
+				FROM = {
+					trait = patient
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = humble
+				FROM = {
+					trait = humble
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = brave
+				FROM = {
+					trait = brave
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = brave
+				FROM = {
+					trait = craven
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = shy
+				FROM = {
+					trait = shy
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = gregarious
+				FROM = {
+					trait = gregarious
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = zealous
+				FROM = {
+					trait = zealous
+				}
+			}			
+			modifier = {
+				factor = 2
+				trait = just
+				FROM = {
+					trait = just
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = trusting
+				FROM = {
+					trait = trusting
+				}
+			}
+			modifier = {
+				factor = 1.5
+				opinion = { who = FROM value = 25 }
+			}			
+			modifier = {
+				factor = 2
+				opinion = { who = FROM value = 50 }
+			}			
+			modifier = {
+				factor = 3
+				opinion = { who = FROM value = 75 }
+			}			
+			modifier = {
+				factor = 4
+				opinion = { who = FROM value = 100 }
+			}			
+			modifier = {
+				factor = 0.9
+				opinion = { who = FROM value = -10 }
+			}			
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROM value = -25 }
+			}			
+			modifier = {
+				factor = 0.7
+				opinion = { who = FROM value = -50 }
+			}			
+			modifier = {
+				factor = 0.6
+				opinion = { who = FROM value = -75 }
+			}			
+			modifier = {
+				factor = 0.5
+				opinion = { who = FROM value = -100 }
+			}
+			modifier = {
+				factor = 4
+				FROM = {
+					trait = fair
+				}
+			}
+			modifier = {
+				factor = 2
+				FROM = {
+					trait = strong
+				}
+			}
+			modifier = {
+				factor = 2
+				FROM = {
+					trait = tall
+				}
+			}
+			modifier = {
+				factor = 0.2
+				FROM = {
+					trait = dwarf
+				}
+			}
+			modifier = {
+				factor = 0.5
+				FROM = {
+					trait = weak
+				}
+			}
+			modifier = {
+				factor = 0.2
+				FROM = {
+					trait = ugly
+				}
+			}
+			modifier = {
+				factor = 2
+				FROM = {
+					trait = poet
+				}
+			}
+			modifier = {
+				factor = 1.5
+				FROM = {
+					diplomacy = 11
+					NOT = { diplomacy = 15 }
+				}
+			}
+			modifier = {
+				factor = 2
+				FROM = {
+					diplomacy = 15
+					NOT = { diplomacy = 20 }
+				}
+			}
+			modifier = {
+				factor = 3
+				FROM = {
+					diplomacy = 20
+				}
+			}
+			modifier = {
+				factor = 1.1
+				FROM = {
+					diplomacy = 8
+					NOT = { diplomacy = 11 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				FROM = {
+					diplomacy = 4
+					NOT = { diplomacy = 8 }
+				}
+			}
+			modifier = {
+				factor = 0.6
+				FROM = {
+					NOT = { diplomacy = 4 }
+				}
+			}
+		}
+		FROM = {
+			character_event = { id = VIETlove.4 days = 2 tooltip = "VIETlove.4.tooltip" }
+		}
+	}
+	option = { #No, not interested
+		name = VIETlove.3.b
+		FROM = {
+			character_event = { id = VIETlove.5 days = 2 tooltip = "VIETlove.5.tooltip" }
+		}
+	}
+	option = { #Just friends
+		name = VIETlove.3.c
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 1.25
+				trait = kind
+			}
+			modifier = {
+				factor = 1.25
+				trait = gregarious
+			}
+			modifier = {
+				factor = 1.25
+				trait = shy
+			}
+			modifier = {
+				factor = 1.5
+				trait = chaste
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 25 }
+			}			
+			modifier = {
+				factor = 1.5
+				opinion = { who = FROM value = 50 }
+			}			
+			modifier = {
+				factor = 1.75
+				opinion = { who = FROM value = 75 }
+			}			
+			modifier = {
+				factor = 2
+				opinion = { who = FROM value = 100 }
+			}			
+			modifier = {
+				factor = 0.95
+				opinion = { who = FROM value = -10 }
+			}			
+			modifier = {
+				factor = 0.9
+				opinion = { who = FROM value = -25 }
+			}			
+			modifier = {
+				factor = 0.85
+				opinion = { who = FROM value = -50 }
+			}			
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROM value = -75 }
+			}			
+			modifier = {
+				factor = 0.75
+				opinion = { who = FROM value = -100 }
+			}
+		}
+		opinion = {
+			modifier = opinion_friend
+			who = FROM
+			years = 100
+		}
+		FROM = {
+			character_event = { id = VIETlove.12 days = 2 tooltip = "VIETlove.12.tooltip" }
+		}
+	}
+}
+
+
+#Character accepted by spouse
+character_event = {
+	id = VIETlove.4
+	desc = VIETlove.4.desc
+	picture = GFX_evt_lovers
+	
+	is_triggered_only = yes
+	
+	option = { #Yes!
+		name = VIETlove.4.a
+		add_lover = FROM
+		FROM = {
+			add_character_modifier = {
+				name = "new_love"
+				duration = 90
+				hidden = yes
+			}
+		}
+		add_character_modifier = {
+			name = "new_love"
+			duration = 90
+			hidden = yes
+		}
+		remove_character_modifier = interest_in_spouse_start
+		add_character_modifier = {
+			name = successful_in_love
+			duration = 365
+		}
+	}
+}
+
+
+#Character rejected by spouse
+character_event = {
+	id = VIETlove.5
+	desc = VIETlove.5.desc
+	picture = GFX_evt_lovers
+	
+	is_triggered_only = yes
+	
+	option = { #Boohoohoo
+		name = VIETlove.5.a
+		remove_character_modifier = interest_in_spouse_start
+		add_character_modifier = {
+			name = love_rejected
+			duration = 550
+		}
+	}
+}
+
+
+
+#CHARACTER TRIES TO FALL IN LOVE WITH COURTIER
+
+#Heterosexual Character will spend time with courtier
+character_event = {
+	id = VIETlove.6
+	desc = VIETlove.6.desc
+	picture = GFX_evt_lovers
+
+	trigger = {
+		has_lover = no
+		is_ruler = yes
+		OR = {
+			AND = {
+				is_female = no
+				NOT = { trait = homosexual }
+				any_courtier = {
+					is_female = yes
+					is_adult = yes
+					NOT = { age = 35 }
+					NOT = { trait = homosexual }
+					has_lover = no
+					NOT = { is_close_relative = ROOT }
+				}
+			}
+			AND = {
+				is_female = yes
+				NOT = { trait = homosexual }
+				any_courtier = {
+					is_female = no
+					is_adult = yes
+					NOT = { age = 50 }
+					NOT = { trait = homosexual }
+					has_lover = no
+					NOT = { is_close_relative = ROOT }
+				}
+			}
+		}
+		has_character_modifier = interest_in_courtier_start
+	}
+	
+	option = {#start
+		name = VIETlove.6.a
+		trigger = {
+			is_female = no
+		}
+		random_courtier = {
+			limit = {
+				is_female = yes
+				is_adult = yes
+				NOT = { age = 35 }
+				NOT = { trait = homosexual }
+				has_lover = no
+				NOT = { is_close_relative = ROOT }
+			}
+			character_event = { id = VIETlove.8 days = 2 tooltip = "VIETlove.8.tooltip" }
+		}
+	}
+	option = {#start
+		name = VIETlove.6.a
+		trigger = {
+			is_female = yes
+		}
+		random_courtier = {
+			limit = {
+				is_female = no
+				is_adult = yes
+				NOT = { age = 50 }
+				NOT = { trait = homosexual }
+				has_lover = no
+				NOT = { is_close_relative = ROOT }
+			}
+			character_event = { id = VIETlove.8 days = 2 tooltip = "VIETlove.8.tooltip" }
+		}
+	}
+}
+
+#Homosexual Character will spend time with courtier
+character_event = {
+	id = VIETlove.7
+	desc = VIETlove.7.desc
+	picture = GFX_evt_lovers
+
+	trigger = {
+		has_lover = no
+		is_ruler = yes
+		OR = {
+			AND = {
+				is_female = yes
+				trait = homosexual
+				any_courtier = {
+					is_female = yes
+					is_adult = yes
+					NOT = { age = 35 }
+					trait = homosexual
+					has_lover = no
+					NOT = { is_close_relative = ROOT }
+				}
+			}
+			AND = {
+				is_female = no
+				trait = homosexual
+				any_courtier = {
+					is_female = no
+					is_adult = yes
+					NOT = { age = 50 }
+					trait = homosexual
+					has_lover = no
+					NOT = { is_close_relative = ROOT }
+				}
+			}
+		}
+		has_character_modifier = interest_in_courtier_start
+	}
+	
+	option = {#start
+		name = VIETlove.6.a
+		trigger = {
+			is_female = yes
+		}
+		random_courtier = {
+			limit = {
+				is_female = yes
+				is_adult = yes
+				NOT = { age = 35 }
+				trait = homosexual
+				has_lover = no
+				NOT = { is_close_relative = ROOT }
+			}
+			character_event = { id = VIETlove.8 days = 2 tooltip = "VIETlove.8.tooltip" }
+		}
+	}
+	
+	option = {#start
+		name = VIETlove.6.a
+		trigger = {
+			is_female = no
+		}
+		random_courtier = {
+			limit = {
+				is_female = no
+				is_adult = yes
+				NOT = { age = 50 }
+				trait = homosexual
+				has_lover = no
+				NOT = { is_close_relative = ROOT }
+			}
+			character_event = { id = VIETlove.8 days = 2 tooltip = "VIETlove.8.tooltip" }
+		}
+	}
+}
+
+
+#Courtier chooses how to react to character
+character_event = {
+	id = VIETlove.8
+	desc = VIETlove.8.desc
+	picture = GFX_evt_lovers
+	
+	is_triggered_only = yes
+	
+	option = { #Yes I'm starting to like him/her
+		name = VIETlove.8.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				trait = kind
+				FROM = {
+					trait = envious
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = humble
+				FROM = {
+					trait = proud
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = diligent
+				FROM = {
+					trait = slothful
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = temperate
+				FROM = {
+					trait = gluttonous
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = patient
+				FROM = {
+					trait = wroth
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = wroth
+				FROM = {
+					trait = patient
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = proud
+				FROM = {
+					trait = humble
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = charitable
+				FROM = {
+					trait = greedy
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = greedy
+				FROM = {
+					trait = charitable
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = envious
+				FROM = {
+					trait = kind
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = honest
+				FROM = {
+					trait = deceitful
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = deceitful
+				FROM = {
+					trait = honest
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = just
+				FROM = {
+					trait = arbitrary
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = kind
+				FROM = {
+					trait = cruel
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = kind
+				FROM = {
+					trait = kind
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = temperate
+				FROM = {
+					trait = temperate
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = charitable
+				FROM = {
+					trait = charitable
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = diligent
+				FROM = {
+					trait = diligent
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = patient
+				FROM = {
+					trait = patient
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = humble
+				FROM = {
+					trait = humble
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = brave
+				FROM = {
+					trait = brave
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = brave
+				FROM = {
+					trait = craven
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = shy
+				FROM = {
+					trait = shy
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = gregarious
+				FROM = {
+					trait = gregarious
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = zealous
+				FROM = {
+					trait = zealous
+				}
+			}			
+			modifier = {
+				factor = 2
+				trait = just
+				FROM = {
+					trait = just
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = trusting
+				FROM = {
+					trait = trusting
+				}
+			}
+			modifier = {
+				factor = 1.5
+				opinion = { who = FROM value = 25 }
+			}			
+			modifier = {
+				factor = 2
+				opinion = { who = FROM value = 50 }
+			}			
+			modifier = {
+				factor = 3
+				opinion = { who = FROM value = 75 }
+			}			
+			modifier = {
+				factor = 4
+				opinion = { who = FROM value = 100 }
+			}			
+			modifier = {
+				factor = 0.9
+				opinion = { who = FROM value = -10 }
+			}			
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROM value = -25 }
+			}			
+			modifier = {
+				factor = 0.7
+				opinion = { who = FROM value = -50 }
+			}			
+			modifier = {
+				factor = 0.6
+				opinion = { who = FROM value = -75 }
+			}			
+			modifier = {
+				factor = 0.5
+				opinion = { who = FROM value = -100 }
+			}
+			modifier = {
+				factor = 4
+				FROM = {
+					trait = fair
+				}
+			}
+			modifier = {
+				factor = 2
+				FROM = {
+					trait = strong
+				}
+			}
+			modifier = {
+				factor = 2
+				FROM = {
+					trait = tall
+				}
+			}
+			modifier = {
+				factor = 0.2
+				FROM = {
+					trait = dwarf
+				}
+			}
+			modifier = {
+				factor = 0.5
+				FROM = {
+					trait = weak
+				}
+			}
+			modifier = {
+				factor = 0.2
+				FROM = {
+					trait = ugly
+				}
+			}
+			modifier = {
+				factor = 2
+				FROM = {
+					trait = poet
+				}
+			}
+			modifier = {
+				factor = 1.5
+				FROM = {
+					diplomacy = 11
+					NOT = { diplomacy = 15 }
+				}
+			}
+			modifier = {
+				factor = 2
+				FROM = {
+					diplomacy = 15
+					NOT = { diplomacy = 20 }
+				}
+			}
+			modifier = {
+				factor = 3
+				FROM = {
+					diplomacy = 20
+				}
+			}
+			modifier = {
+				factor = 1.2
+				FROM = {
+					diplomacy = 8
+					NOT = { diplomacy = 11 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				FROM = {
+					diplomacy = 4
+					NOT = { diplomacy = 8 }
+				}
+			}
+			modifier = {
+				factor = 0.6
+				FROM = {
+					NOT = { diplomacy = 4 }
+				}
+			}
+		}
+		FROM = {
+			character_event = { id = VIETlove.9 days = 2 tooltip = "VIETlove.9.tooltip" }
+		}
+	}
+	option = { #No, not interested
+		name = VIETlove.9.b
+		FROM = {
+			character_event = { id = VIETlove.10 days = 2 tooltip = "VIETlove.10.tooltip" }
+		}
+	}
+	option = { #Just friends
+		name = VIETlove.9.c
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 1.25
+				trait = kind
+			}
+			modifier = {
+				factor = 1.25
+				trait = gregarious
+			}
+			modifier = {
+				factor = 1.25
+				trait = shy
+			}
+			modifier = {
+				factor = 1.5
+				trait = chaste
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 25 }
+			}			
+			modifier = {
+				factor = 1.5
+				opinion = { who = FROM value = 50 }
+			}			
+			modifier = {
+				factor = 1.75
+				opinion = { who = FROM value = 75 }
+			}			
+			modifier = {
+				factor = 2
+				opinion = { who = FROM value = 100 }
+			}			
+			modifier = {
+				factor = 0.95
+				opinion = { who = FROM value = -10 }
+			}			
+			modifier = {
+				factor = 0.9
+				opinion = { who = FROM value = -25 }
+			}			
+			modifier = {
+				factor = 0.85
+				opinion = { who = FROM value = -50 }
+			}			
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROM value = -75 }
+			}			
+			modifier = {
+				factor = 0.75
+				opinion = { who = FROM value = -100 }
+			}
+		}
+		opinion = {
+			modifier = opinion_friend
+			who = FROM
+			years = 100
+		}
+		FROM = {
+			character_event = { id = VIETlove.12 days = 2 tooltip = "VIETlove.12.tooltip" }
+		}
+	}
+}
+
+
+#Character accepted by courtier
+character_event = {
+	id = VIETlove.9
+	desc = VIETlove.9.desc
+	picture = GFX_evt_lovers
+	
+	is_triggered_only = yes
+	
+	option = { #Yes!
+		name = VIETlove.9.a
+		add_lover = FROM
+		FROM = {
+			add_character_modifier = {
+				name = "new_love"
+				duration = 90
+				hidden = yes
+			}
+		}
+		add_character_modifier = {
+			name = "new_love"
+			duration = 90
+			hidden = yes
+		}
+		remove_character_modifier = interest_in_courtier_start
+		add_character_modifier = {
+			name = successful_in_love
+			duration = 365
+		}
+	}
+}
+
+
+#Character rejected by courtier
+character_event = {
+	id = VIETlove.10
+	desc = VIETlove.10.desc
+	picture = GFX_evt_lovers
+	
+	is_triggered_only = yes
+	
+	option = { #Boohoohoo
+		name = VIETlove.10.a
+		FROM = {
+			opinion = {
+				modifier = opinion_angry
+				who = ROOT
+				years = 1
+			}
+		}
+		opinion = {
+			modifier = opinion_spurned
+			who = FROM
+			years = 1
+		}
+		remove_character_modifier = interest_in_courtier_start
+		add_character_modifier = {
+			name = love_rejected
+			duration = 550
+		}
+	}
+}
+
+
+#Character never gets love for whatever reason
+character_event = {
+	id = VIETlove.11
+	desc = VIETlove.11.desc
+	picture = GFX_evt_lovers
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_lover = no
+		NOT = {
+			any_spouse = { is_main_spouse = no }
+		}
+		OR = {
+			had_character_flag = { flag = interest_in_spouse_start days = 30 }
+			had_character_flag = { flag = interest_in_courtier_start days = 30 }
+		}
+	}
+	
+	option = { #Forever alone
+		name = VIETlove.11.a
+		remove_character_modifier = interest_in_spouse_start
+		remove_character_modifier = interest_in_courtier_start
+		add_character_modifier = {
+			name = love_rejected
+			duration = 550
+		}
+	}
+}
+
+#Just friends
+character_event = {
+	id = VIETlove.12
+	desc = VIETlove.12.desc
+	picture = GFX_evt_lovers
+	
+	is_triggered_only = yes
+	
+	option = { #Boohoohoo?
+		name = VIETlove.12.a
+		opinion = {
+			modifier = opinion_friend
+			who = FROM
+			years = 100
+		}
+		remove_character_modifier = interest_in_spouse_start
+		remove_character_modifier = interest_in_courtier_start
+		add_character_modifier = {
+			name = love_rejected
+			duration = 550
+		}
+	}
+}
+
+

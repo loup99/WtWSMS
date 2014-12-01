@@ -1,0 +1,702 @@
+#####################################################################
+#
+# ON ACTIONS EVENTS
+#
+# These events are placed here to ensure compatibility if
+# VIET Immersion is not used, as VIET Events also has an on_actions.
+# Several files in the Additional Objectives events files should
+# be here, but have been left in their original files to make
+# updating easier.
+#
+# VIETmisc #100-199 reserved
+#
+#####################################################################
+
+namespace = VIETmisc
+namespace = finnish
+namespace = family_relations
+namespace = VIETceltic
+
+
+# Raider Trait Gained
+character_event = {
+	id = VIETmisc.100
+	desc = VIETmisc.100.desc
+	picture = GFX_evt_vikings_arriving_oldgods
+	border = GFX_event_normal_frame_war
+	
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	min_age = 16
+	only_men = yes
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		NOT = { trait = raider }
+		OR = {
+			religion = finnish_pagan
+			religion = finnish_pagan_reformed
+			religion = tengri_pagan
+			religion = tengri_pagan_reformed
+			religion = baltic_pagan
+			religion = baltic_pagan_reformed
+			religion = slavic_pagan
+			religion = slavic_pagan_reformed
+			religion = west_african_pagan
+			religion = west_african_pagan_reformed
+			religion = east_african_pagan
+			religion = east_african_pagan_reformed
+			religion = aztec
+			religion = aztec_reformed
+			religion = hellenic_pagan
+		}
+	}
+	
+	option = {
+		name = VIETmisc.100.a
+		add_trait = raider
+	}
+}
+
+#Karsikko marking
+character_event = {
+	id = finnish.1
+	desc = finnish.1.desc
+	picture = GFX_evt_death
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		any_child = {
+			is_alive = yes
+			is_abroad = no
+			is_adult = yes
+			OR = {
+				religion = finnish_pagan
+				religion = finnish_pagan_reformed			
+			}
+		}
+	}
+
+	option = {
+		name = finnish.1.a
+		any_child = {
+			limit = {
+				is_alive = yes
+				is_abroad = no
+				is_adult = yes
+				OR = {
+					religion = finnish_pagan
+					religion = finnish_pagan_reformed			
+				}			
+			}
+			character_event = { id = finnish.2 days = 1 tooltip = finnish.2.tooltip } 
+		}
+	}
+}
+
+#Family Relations
+character_event = {
+	id = family_relations.0
+	desc = "EVTDESCfamily_relations.0"
+	
+	trigger = {
+		NOT = { has_character_flag = family_relations_initialised }
+		has_global_flag = VIET_Immersion_On
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_character_flag = family_relations_initialised
+		spouse = {		#spouse
+			reverse_remove_opinion = {
+				modifier = opinion_husband
+				who = ROOT
+			}
+			reverse_remove_opinion = {
+				modifier = opinion_wife
+				who = ROOT
+			}
+			if = {
+				limit = {
+					is_female = no
+				}
+				reverse_opinion = {
+					modifier = opinion_husband
+					who = ROOT
+					years = 100
+				}
+			}
+			if = {
+				limit = {
+					is_female = yes
+				}
+				reverse_opinion = {
+					modifier = opinion_wife
+					who = ROOT
+					years = 100
+				}
+			}
+			father = {		#father-in-law
+				remove_opinion = {
+					modifier = opinion_son_in_law
+					who = ROOT
+				}
+				remove_opinion = {
+					modifier = opinion_daughter_in_law
+					who = ROOT
+				}
+				reverse_remove_opinion = {
+					modifier = opinion_father_in_law
+					who = ROOT
+				}
+				if = {
+					limit = {
+						ROOT = {
+							is_female = no
+						}
+					}
+					opinion = {
+						modifier = opinion_son_in_law
+						who = ROOT
+						years = 100
+					}
+				}
+				if = {
+					limit = {
+						ROOT = {
+							is_female = yes
+						}
+					}
+					opinion = {
+						modifier = opinion_daughter_in_law
+						who = ROOT
+						years = 100
+					}
+				}
+				reverse_opinion = {
+					modifier = opinion_father_in_law
+					who = ROOT
+					years = 100
+				}
+			}		#END father-in-law
+			mother = {		#mother-in-law
+				remove_opinion = {
+					modifier = opinion_son_in_law
+					who = ROOT
+				}
+				remove_opinion = {
+					modifier = opinion_daughter_in_law
+					who = ROOT
+				}
+				reverse_remove_opinion = {
+					modifier = opinion_mother_in_law
+					who = ROOT
+				}
+				if = {
+					limit = {
+						ROOT = {
+							is_female = no
+						}
+					}
+					opinion = {
+						modifier = opinion_son_in_law
+						who = ROOT
+						years = 100
+					}
+				}
+				if = {
+					limit = {
+						ROOT = {
+							is_female = yes
+						}
+					}
+					opinion = {
+						modifier = opinion_daughter_in_law
+						who = ROOT
+						years = 100
+					}
+				}
+				reverse_opinion = {
+					modifier = opinion_mother_in_law
+					who = ROOT
+					years = 100
+				}
+			}		#END mother-in-law
+		}		#END spouse
+		any_sibling = {		#brothers/sisters
+			remove_opinion = {
+				modifier = opinion_brother
+				who = ROOT
+			}
+			remove_opinion = {
+				modifier = opinion_sister
+				who = ROOT
+			}
+			reverse_remove_opinion = {
+				modifier = opinion_brother
+				who = ROOT
+			}
+			reverse_remove_opinion = {
+				modifier = opinion_sister
+				who = ROOT
+			}
+			if = {
+				limit = {
+					ROOT = {
+						is_female = no
+					}
+				}
+				opinion = {
+					modifier = opinion_brother
+					who = ROOT
+					years = 100
+				}
+			}
+			if = {
+				limit = {
+					ROOT = {
+						is_female = yes
+					}
+				}
+				opinion = {
+					modifier = opinion_sister
+					who = ROOT
+					years = 100
+				}
+			}
+			if = {
+				limit = {
+					is_female = no
+				}
+				reverse_opinion = {
+					modifier = opinion_brother
+					who = ROOT
+					years = 100
+				}
+			}
+			if = {
+				limit = {
+					is_female = yes
+				}
+				reverse_opinion = {
+					modifier = opinion_sister
+					who = ROOT
+					years = 100
+				}
+			}
+			any_child = {		#nephews/nieces
+				remove_opinion = {
+					modifier = opinion_uncle
+					who = ROOT
+				}
+				remove_opinion = {
+					modifier = opinion_aunt
+					who = ROOT
+				}
+				reverse_remove_opinion = {
+					modifier = opinion_nephew
+					who = ROOT
+				}
+				reverse_remove_opinion = {
+					modifier = opinion_niece
+					who = ROOT
+				}
+				if = {
+					limit = {
+						ROOT = {
+							is_female = no
+						}
+					}
+					opinion = {
+						modifier = opinion_uncle
+						who = ROOT
+						years = 100
+					}
+				}
+				if = {
+					limit = {
+						ROOT = {
+							is_female = yes
+						}
+					}
+					opinion = {
+						modifier = opinion_aunt
+						who = ROOT
+						years = 100
+					}
+				}
+				if = {
+					limit = {
+						is_female = no
+					}
+					reverse_opinion = {
+						modifier = opinion_nephew
+						who = ROOT
+						years = 100
+					}
+				}
+				if = {
+					limit = {
+						is_female = yes
+					}
+					reverse_opinion = {
+						modifier = opinion_niece
+						who = ROOT
+						years = 100
+					}
+				}
+			}		#END nephews/nieces
+			spouse = {		#brothers/sisters-in-law
+				remove_opinion = {
+					modifier = opinion_brother_in_law
+					who = ROOT
+				}
+				remove_opinion = {
+					modifier = opinion_sister_in_law
+					who = ROOT
+				}
+				reverse_remove_opinion = {
+					modifier = opinion_brother_in_law
+					who = ROOT
+				}
+				reverse_remove_opinion = {
+					modifier = opinion_sister_in_law
+					who = ROOT
+				}
+				if = {
+					limit = {
+						ROOT = {
+							is_female = no
+						}
+					}
+					opinion = {
+						modifier = opinion_brother_in_law
+						who = ROOT
+						years = 100
+					}
+				}
+				if = {
+					limit = {
+						ROOT = {
+							is_female = yes
+						}
+					}
+					opinion = {
+						modifier = opinion_sister_in_law
+						who = ROOT
+						years = 100
+					}
+				}
+				if = {
+					limit = {
+						is_female = no
+					}
+					reverse_opinion = {
+						modifier = opinion_brother_in_law
+						who = ROOT
+						years = 100
+					}
+				}
+				if = {
+					limit = {
+						is_female = yes
+					}
+					reverse_opinion = {
+						modifier = opinion_sister_in_law
+						who = ROOT
+						years = 100
+					}
+				}
+			}		#END brothers/sisters-in-law
+		}		#END brothers/sisters
+		father_even_if_dead = {		#father
+			#opinion = {				#vanilla modifier used here
+			#	modifier = opinion_child
+			#	who = ROOT
+			#	years = 100
+			#}
+			reverse_opinion = {
+				modifier = opinion_father
+				who = ROOT
+				years = 100
+			}
+			father = {		#grandfather
+				opinion = {
+					modifier = opinion_grandchild
+					who = ROOT
+					years = 100
+				}
+				reverse_opinion = {
+					modifier = opinion_grandfather
+					who = ROOT
+					years = 100
+				}
+			}		#END grandfather
+			mother = {		#grandmother
+				opinion = {
+					modifier = opinion_grandchild
+					who = ROOT
+					years = 100
+				}
+				reverse_opinion = {
+					modifier = opinion_grandmother
+					who = ROOT
+					years = 100
+				}
+			}		#END grandmother
+			any_sibling = {		#uncles/aunts
+				remove_opinion = {
+					modifier = opinion_nephew
+					who = ROOT
+				}
+				remove_opinion = {
+					modifier = opinion_niece
+					who = ROOT
+				}
+				reverse_remove_opinion = {
+					modifier = opinion_uncle
+					who = ROOT
+				}
+				reverse_remove_opinion = {
+					modifier = opinion_aunt
+					who = ROOT
+				}
+				if = {
+					limit = {
+						ROOT = {
+							is_female = no
+						}
+					}
+					opinion = {
+						modifier = opinion_nephew
+						who = ROOT
+						years = 100
+					}
+				}
+				if = {
+					limit = {
+						ROOT = {
+							is_female = yes
+						}
+					}
+					opinion = {
+						modifier = opinion_niece
+						who = ROOT
+						years = 100
+					}
+				}
+				if = {
+					limit = {
+						is_female = no
+					}
+					reverse_opinion = {
+						modifier = opinion_uncle
+						who = ROOT
+						years = 100
+					}
+				}
+				if = {
+					limit = {
+						is_female = yes
+					}
+					reverse_opinion = {
+						modifier = opinion_aunt
+						who = ROOT
+						years = 100
+					}
+				}
+				any_child = {		#cousins
+					remove_opinion = {
+						modifier = opinion_cousin
+						who = ROOT
+					}
+					reverse_remove_opinion = {
+						modifier = opinion_cousin
+						who = ROOT
+					}
+					opinion = {
+						modifier = opinion_cousin
+						who = ROOT
+						years = 100
+					}
+					reverse_opinion = {
+						modifier = opinion_cousin
+						who = ROOT
+						years = 100
+					}
+				}		#END cousins
+			}		#END uncles/aunts
+		}		#END father
+		
+		mother = {		#mother
+			opinion = {
+				modifier = opinion_child
+				who = ROOT
+				years = 100
+			}
+			reverse_opinion = {
+				modifier = opinion_mother
+				who = ROOT
+				years = 100
+			}
+			father = {		#grandfather
+				opinion = {
+					modifier = opinion_grandchild
+					who = ROOT
+					years = 100
+				}
+				reverse_opinion = {
+					modifier = opinion_grandfather
+					who = ROOT
+					years = 100
+				}
+			}		#END grandfather
+			mother = {		#grandmother
+				opinion = {
+					modifier = opinion_grandchild
+					who = ROOT
+					years = 100
+				}
+				reverse_opinion = {
+					modifier = opinion_grandmother
+					who = ROOT
+					years = 100
+				}
+			}		#END grandmother
+			any_sibling = {		#uncles/aunts
+				remove_opinion = {
+					modifier = opinion_nephew
+					who = ROOT
+				}
+				remove_opinion = {
+					modifier = opinion_niece
+					who = ROOT
+				}
+				reverse_remove_opinion = {
+					modifier = opinion_uncle
+					who = ROOT
+				}
+				reverse_remove_opinion = {
+					modifier = opinion_aunt
+					who = ROOT
+				}
+				if = {
+					limit = {
+						ROOT = {
+							is_female = no
+						}
+					}
+					opinion = {
+						modifier = opinion_nephew
+						who = ROOT
+						years = 100
+					}
+				}
+				if = {
+					limit = {
+						ROOT = {
+							is_female = yes
+						}
+					}
+					opinion = {
+						modifier = opinion_niece
+						who = ROOT
+						years = 100
+					}
+				}
+				if = {
+					limit = {
+						is_female = no
+					}
+					reverse_opinion = {
+						modifier = opinion_uncle
+						who = ROOT
+						years = 100
+					}
+				}
+				if = {
+					limit = {
+						is_female = yes
+					}
+					reverse_opinion = {
+						modifier = opinion_aunt
+						who = ROOT
+						years = 100
+					}
+				}
+				any_child = {		#cousins
+					remove_opinion = {
+						modifier = opinion_cousin
+						who = ROOT
+					}
+					reverse_remove_opinion = {
+						modifier = opinion_cousin
+						who = ROOT
+					}
+					opinion = {
+						modifier = opinion_cousin
+						who = ROOT
+						years = 100
+					}
+					reverse_opinion = {
+						modifier = opinion_cousin
+						who = ROOT
+						years = 100
+					}
+				}		#END cousins
+			}		#END uncles/aunts
+		}		#END mother
+	}
+	
+	option = {
+		name = "EVTOPTAfamily_relations.0"	
+	}
+}
+
+#####Sedreh Pushi ritual - child's event
+character_event = {
+	id = VIETnam.9
+	title = "EVTNAME1000094003"
+	desc = "EVTDESC1000094003"
+	picture = "GFX_evt_child_bully"
+	
+	is_triggered_only = yes
+	
+	min_age = 6
+	max_age = 16
+
+	trigger = {
+		has_global_flag = VIET_Immersion_On
+		religion_group = zoroastrian_group
+		father = { is_alive = yes }
+		NOT = {
+				has_character_flag = had_sedreh_pushi
+			}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = "EVTOPTA1000094003"	
+		set_character_flag = had_sedreh_pushi
+		hidden_tooltip = {
+			father = {
+				character_event = {
+					id = VIETnam.10
+					days = 3
+				}
+			}
+		}
+	}
+}
+
