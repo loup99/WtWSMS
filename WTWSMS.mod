@@ -1,5 +1,5 @@
 name = "When the World Stopped Making Sense"
-path = "mod/WTWSMS_MOD"
+path = "mod/WTWSMS"
 user_dir = "WTWSMS"
 replace_path = "history"
 replace_path = "common"
