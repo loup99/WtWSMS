@@ -42,6 +42,7 @@ NDiplomacy = {
 	VASSAL_LIMIT_GREAT_DUKE_BONUS = 5.0, 		-- Extra Vassal Limit for Dukes with more than one Duchy
 	VASSAL_LIMIT_DIPLOMACY_MULT = 0.3,			-- Extra Vasal Limit from ruler and spouse diplomacy
 	VASSAL_LIMIT_TRIBAL_BONUS = -10,			-- All rulers with tribal holdings as their capital have smaller demesnes
+	VASSAL_LIMIT_DECADENCE_MULTIPLIER = 0.25,	-- Negative modifier, multiplied with the current decadence.
 	VASSAL_LIMIT_LEVY_MULTIPLIER = 1,			-- Used for levy penalty calculation for being over vassal limit.
 	VASSAL_LIMIT_LEVY_BASE = 4,					-- Used for levy penalty calculation for being over vassal limit.
 	VASSAL_LIMIT_TAX_MULTIPLIER = 1,			-- Used for tax penalty calculation for being over vassal limit.
@@ -501,7 +502,8 @@ NCharacter = {
 	TRIBAL_WRONG_CULTURE_MOD = -0.15,
 	TRIBAL_WRONG_CULTURE_GROUP_MOD = -0.25,
 	CHANGE_SUCC_LAW_YEARS = 10,						-- Rulers must have reigned this long before they can change succession laws
-	CHANGE_AMBITION_YEARS = 3,						-- Delay between being able to pick a new ambition of plot after cancelling
+	CHANGE_AMBITION_YEARS = 3,						-- Delay between being able to pick a new ambition
+	CHANGE_FOCUS_YEARS = 5,							-- Delay between being able to change focus
 	PRESTIGE_FROM_DYNASTY_ON_BIRTH_DIV = 5, 		-- Newly born characters get the dynasty prestige of their mother and father divided by this as their starting prestige
 	PRESTIGE_FROM_DYNASTY_ON_MARRIAGE_DIV = 10, 	-- Characters get the dynasty prestige of the spouse divided by this on marriage
 	NEED_GUARDIAN_AT_AGE = 6, 						-- The age at which children should be appointed a mentor/guardian
@@ -560,6 +562,8 @@ NCharacter = {
 	TRIBAL_EMPTY_HOLDING_LEVY_MULTIPLIER = 0.5,
 	TRIBAL_EMPTY_HOLDING_GARRISON_MULTIPLIER = 0.5,
 	TRIBAL_EMPTY_HOLDING_TAX_MULTIPLIER = 0.5,
+	MALE_ATTRACTION_CUTOFF = 65,					-- After this age, the sex appeal of traits no longer have any effect
+	FEMALE_ATTRACTION_CUTOFF = 45					-- After this age, the sex appeal of traits no longer have any effect
 },
 
 NTitle = {
@@ -643,6 +647,7 @@ NTitle = {
 	CLAIM_VASSAL_TITLE_COST_MOD = 0.75,
 	CLAIM_DE_JURE_TITLE_COST_MOD = 0.5,
 	NORMAL_LAW_CHANGE_MONTHS = 60,
+	MAX_CROWN_LAW_CHANGES = 1,
 	TITLE_USURP_COOLDOWN_MONTHS = 60,
 	DE_JURE_ASSIMILATION_YEARS = 100,			-- Duchies a under the de facto control of another kingdom will change de jure liege after this many years
 	EMPIRE_DE_JURE_ASSIMILATION_YEARS = 100,	-- Kingdoms under the de facto control of another empire will change de jure liege after this many years
@@ -709,8 +714,8 @@ NEconomy = {
 	REPUBLIC_CITY_TAX_BONUS = 0.15,					-- Republics (at least Count tier) receive a tax bonus for all cities in their realm
 	REPUBLIC_COASTAL_CITY_TAX_BONUS = 0.25,			-- Republics (at least Count tier) receive a tax bonus for all coastal cities in their realm
 	REPUBLIC_CAPITAL_CITY_TAX_BONUS = 1.0,			-- Duke or above tier Republics receive a tax bonus for their capital city
-	BISHOP_TAX_TO_POPE_FACTOR = 0.4,				-- Bishops only pay half the tax to the Pope if they are loyal to him
-	BISHOP_TAX_TO_ANTI_POPE_FACTOR = 0.20,			-- Bishops only pay a quarter taxes to an Anti-Pope if they are loyal to him	
+	BISHOP_TAX_TO_POPE_FACTOR = 0.1,				-- Bishops only pay half the tax to the Pope if they are loyal to him
+	BISHOP_TAX_TO_ANTI_POPE_FACTOR = 0.05,			-- Bishops only pay a quarter taxes to an Anti-Pope if they are loyal to him	
 	DECADENCE_MODIFIER = 0.2,						-- Maximum effect of decadence, positive for low dec, negative for high
 	DECADENCE_PER_WEEK_OF_COMBAT = -0.04,			-- Decadence lost per 7 days of combat, for each participant in the combat
 	DECADENCE_PER_WEEK_OF_SIEGE = -0.008,			-- Decadence lost per 7 days of siege, for each participant in the siege
@@ -752,12 +757,12 @@ NEconomy = {
 },
 
 NDecadence = {
-	BASE_EMPEROR_GAIN = 0.32,
-	BASE_KING_GAIN = 0.24,
-	BASE_DUKE_GAIN = 0.16,
-	BASE_COUNT_GAIN = 0.08,
-	BASE_BARON_GAIN = 0.04,
-	BASE_UNLANDED_GAIN = 0.02,
+	BASE_EMPEROR_GAIN = 0.45,
+	BASE_KING_GAIN = 0.36,
+	BASE_DUKE_GAIN = 0.24,
+	BASE_COUNT_GAIN = 0.18,
+	BASE_BARON_GAIN = 0.09,
+	BASE_UNLANDED_GAIN = 0.045,
 	REALM_SIZE_MULTIPLIER = 0.005,
 	DEMESNE_FRACTION_MULT_POS = 0.5,
 	DEMESNE_FRACTION_MULT_NEG = -0.8,
@@ -834,7 +839,7 @@ NMilitary = {
 	ATTRITION_LEVEL_FACTOR_50_OVER = 1.0,			-- A general "attrition per month" multiplier when 50% over the supply limit
 	ATTRITION_LEVEL_FACTOR_100_OVER = 2.0,			-- A general "attrition per month" multiplier when 100% over the supply limit
 	COASTAL_SUPPLY_BONUS = 0.5,						-- Supply bonus in coastal provinces
-	PAGAN_HOME_SUPPLY_MOD = 0.05,					-- Non Pagans suffer extreme attrition in some Pagan homelands (based on province religion)
+	PAGAN_HOME_SUPPLY_MOD = 0.12,					-- Non Pagans suffer extreme attrition in some Pagan homelands (based on province religion)
 	NAVAL_ATTRITION = 0.0,							-- Attrition taken monthly by units loaded on ships
 	ARMY_MOVEMENT_SPEED = 3,						-- Base movement speed of land units
 	NAVY_MOVEMENT_SPEED = 15,						-- Base movement speed of naval units
@@ -1007,7 +1012,7 @@ NMilitary = {
 },
 
 NTechnology = {
-	DONT_EXECUTE_TECH_BEFORE = 796,				-- Set this to your earliest starting year
+	DONT_EXECUTE_TECH_BEFORE = 769,				-- Set this to your earliest starting year
 	POINTS_PER_ATTRIBUTE = 0.04,
 
 	BASE_NEIGHBOUR_SPREAD_BONUS = 0.03, 		-- bonus for each neighbour with the tech
@@ -1023,7 +1028,7 @@ NTechnology = {
 	IDEAL_YEAR_AHEAD_PENALTY = -0.2,			-- UNUSED
 	IDEAL_YEAR_AHEAD_PENALTY_INVEST = 0.6,		-- Percent increase in cost pre level ahead of ideal date
 	
-	PAGAN_HOME_ATTRITION_REMOVAL_LEVEL = 2.0,
+	PAGAN_HOME_ATTRITION_REMOVAL_LEVEL = 4.0,
 },  
 
 NDisease = {
@@ -1232,17 +1237,16 @@ NRulerDesigner =
 	MAX_AGE = 50
 },
 
-
 NLearningScenario = 
 {
-	START_YEAR = 480,
-	START_MONTH = 1,
-	START_DAY = 1,
-	START_CHARACTER = 70515,
+	START_YEAR = 1066,
+	START_MONTH = 8,
+	START_DAY = 14,
+	START_CHARACTER = 108500,
 	FIRST_EVENT = 107000,
 	HAS_WIFE_EVENT = 107100,
-	ANGRY_VASSAL = 215003,
-	REVOLT_PROVINCE = 741,
+	ANGRY_VASSAL = 108510,
+	REVOLT_PROVINCE = 192,
 	REVOLT_EVENT = 107201,
 	TOG_REVOLT_EVENT = 107200,
 	COMBAT_EVENT = 107202,
@@ -1259,7 +1263,7 @@ NLearningScenario =
 	SECOND_INTRIGUE_CHARACTER = 109500,
 	SECOND_INTRIGUE_EVENT = 107343,
 	AFTER_INTRIGUE_EVENT = 107344,
-	FACTION_CHARACTER = 125700,
+	FACTION_CHARACTER = 108501,
 	FACTION_EVENT = 107345,
 	OVER_DEMESNE_LIMIT_EVENT = 107325,
 	OVER_VASSAL_LIMIT_EVENT = 107326,
@@ -1274,4 +1278,3 @@ NLearningScenario =
 }
 
 }
-
