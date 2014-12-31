@@ -57,14 +57,22 @@ character_event = {
 		set_character_flag = attending_ukon_juhla
 		set_character_flag = do_not_disturb
 		hidden_tooltip = { character_event = { id = TOG.899 days = 100 } } # Safety catch flag clearing
+		if = {
+			limit = { trait = in_hiding	}
+			remove_trait = in_hiding
+			add_character_modifier = {
+				name = went_out_of_hiding_timer
+				duration = 180
+				hidden = yes
+			}
+			hidden_tooltip = { character_event = { id = CM.6400 } } # Notify plotters and family
+		}
 	}
 	option = {
 		name = EVTOPTB_TOG_701
 		trigger = {
-			NOT = {
-				religion = finnish_pagan
-				religion = finnish_pagan_reformed
-			}
+			NOT = { religion = finnish_pagan }
+			NOT = { religion = finnish_pagan_reformed }
 		}
 		FROM = {
 			character_event = { id = TOG.702 days = 5 tooltip = DIPLOWINDOW_REJECT }
@@ -159,6 +167,42 @@ character_event = {
 					character_event = { id = TOG.706 }
 				}
 				character_event = { id = TOG.707 days = 25 }
+				random_list = {
+					10 = { character_event = { id = TOG.741 days = 3 } } 
+					10 = { character_event = { id = TOG.742 days = 3 } }
+					10 = { character_event = { id = TOG.743 days = 3 } }
+					10 = { character_event = { id = TOG.744 days = 3 } }
+					10 = { character_event = { id = TOG.745 days = 3 } }
+					10 = { character_event = { id = TOG.746 days = 3 } }
+					10 = { character_event = { id = TOG.747 days = 3 } }
+				}
+				random_list = {
+					10 = { character_event = { id = TOG.741 days = 8 } }
+					10 = { character_event = { id = TOG.742 days = 8 } }
+					10 = { character_event = { id = TOG.743 days = 8 } }
+					10 = { character_event = { id = TOG.744 days = 8 } }
+					10 = { character_event = { id = TOG.745 days = 8 } }
+					10 = { character_event = { id = TOG.746 days = 8 } }
+					10 = { character_event = { id = TOG.747 days = 8 } }
+				}
+				random_list = {
+					10 = { character_event = { id = TOG.741 days = 13 } }
+					10 = { character_event = { id = TOG.742 days = 13 } }
+					10 = { character_event = { id = TOG.743 days = 13 } }
+					10 = { character_event = { id = TOG.744 days = 13 } }
+					10 = { character_event = { id = TOG.745 days = 13 } }
+					10 = { character_event = { id = TOG.746 days = 13 } }
+					10 = { character_event = { id = TOG.747 days = 13 } }
+				}
+				random_list = {
+					10 = { character_event = { id = TOG.741 days = 18 } }
+					10 = { character_event = { id = TOG.742 days = 18 } }
+					10 = { character_event = { id = TOG.743 days = 18 } }
+					10 = { character_event = { id = TOG.744 days = 18 } }
+					10 = { character_event = { id = TOG.745 days = 18 } }
+					10 = { character_event = { id = TOG.746 days = 18 } }
+					10 = { character_event = { id = TOG.747 days = 18 } }
+				}
 			}
 		}
 	}
@@ -255,6 +299,9 @@ character_event = {
 	picture = GFX_evt_drunk
 	border = GFX_event_normal_frame_religion
 	
+	hide_from = yes
+	is_triggered_only = yes
+	
 	trigger = {
 		has_dlc = "The Old Gods"
 		has_character_flag = ukon_juhla_feast_vassal
@@ -266,34 +313,34 @@ character_event = {
 		trait = drunkard
 	}
 	
-	mean_time_to_happen = {
-		days = 60
-		
-		modifier = {
-			factor = 1.1
-			liege = { num_of_vassals = 10 }
-		}
-		modifier = {
-			factor = 1.2
-			liege = { num_of_vassals = 20 }
-		}
-		modifier = {
-			factor = 1.3
-			liege = { num_of_vassals = 30 }
-		}
-		modifier = {
-			factor = 1.4
-			liege = { num_of_vassals = 40 }
-		}
-		modifier = {
-			factor = 1.5
-			liege = { num_of_vassals = 50 }
-		}
-		modifier = {
-			factor = 3
-			liege = { num_of_vassals = 100 }
-		}
-	}
+#	mean_time_to_happen = {
+#		days = 60
+#		
+#		modifier = {
+#			factor = 1.1
+#			liege = { num_of_vassals = 10 }
+#		}
+#		modifier = {
+#			factor = 1.2
+#			liege = { num_of_vassals = 20 }
+#		}
+#		modifier = {
+#			factor = 1.3
+#			liege = { num_of_vassals = 30 }
+#		}
+#		modifier = {
+#			factor = 1.4
+#			liege = { num_of_vassals = 40 }
+#		}
+#		modifier = {
+#			factor = 1.5
+#			liege = { num_of_vassals = 50 }
+#		}
+#		modifier = {
+#			factor = 3
+#			liege = { num_of_vassals = 100 }
+#		}
+#	}
 	
 	option = {
 		name = EVTOPTA_TOG_650
@@ -392,6 +439,8 @@ character_event = {
 	id = TOG.722
 	hide_window = yes
 	
+	is_triggered_only = yes
+	
 	trigger = {
 		has_dlc = "The Old Gods"
 		has_character_flag = ukon_juhla_feast_vassal
@@ -407,34 +456,34 @@ character_event = {
 		}
 	}
 	
-	mean_time_to_happen = {
-		days = 60
-		
-		modifier = {
-			factor = 1.1
-			liege = { num_of_vassals = 10 }
-		}
-		modifier = {
-			factor = 1.2
-			liege = { num_of_vassals = 20 }
-		}
-		modifier = {
-			factor = 1.3
-			liege = { num_of_vassals = 30 }
-		}
-		modifier = {
-			factor = 1.4
-			liege = { num_of_vassals = 40 }
-		}
-		modifier = {
-			factor = 1.5
-			liege = { num_of_vassals = 50 }
-		}
-		modifier = {
-			factor = 3
-			liege = { num_of_vassals = 100 }
-		}
-	}
+#	mean_time_to_happen = {
+#		days = 60
+#		
+#		modifier = {
+#			factor = 1.1
+#			liege = { num_of_vassals = 10 }
+#		}
+#		modifier = {
+#			factor = 1.2
+#			liege = { num_of_vassals = 20 }
+#		}
+#		modifier = {
+#			factor = 1.3
+#			liege = { num_of_vassals = 30 }
+#		}
+#		modifier = {
+#			factor = 1.4
+#			liege = { num_of_vassals = 40 }
+#		}
+#		modifier = {
+#			factor = 1.5
+#			liege = { num_of_vassals = 50 }
+#		}
+#		modifier = {
+#			factor = 3
+#			liege = { num_of_vassals = 100 }
+#		}
+#	}
 	
 	immediate = {
 		liege = {
@@ -558,6 +607,9 @@ character_event = {
 	desc = EVTDESC_TOG_656
 	picture = GFX_evt_lunatic
 	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+	hide_from = yes
 	
 	trigger = {
 		has_dlc = "The Old Gods"
@@ -570,34 +622,34 @@ character_event = {
 		trait = lunatic
 	}
 	
-	mean_time_to_happen = {
-		days = 60
-		
-		modifier = {
-			factor = 1.1
-			liege = { num_of_vassals = 10 }
-		}
-		modifier = {
-			factor = 1.2
-			liege = { num_of_vassals = 20 }
-		}
-		modifier = {
-			factor = 1.3
-			liege = { num_of_vassals = 30 }
-		}
-		modifier = {
-			factor = 1.4
-			liege = { num_of_vassals = 40 }
-		}
-		modifier = {
-			factor = 1.5
-			liege = { num_of_vassals = 50 }
-		}
-		modifier = {
-			factor = 3
-			liege = { num_of_vassals = 100 }
-		}
-	}
+#	mean_time_to_happen = {
+#		days = 60
+#		
+#		modifier = {
+#			factor = 1.1
+#			liege = { num_of_vassals = 10 }
+#		}
+#		modifier = {
+#			factor = 1.2
+#			liege = { num_of_vassals = 20 }
+#		}
+#		modifier = {
+#			factor = 1.3
+#			liege = { num_of_vassals = 30 }
+#		}
+#		modifier = {
+#			factor = 1.4
+#			liege = { num_of_vassals = 40 }
+#		}
+#		modifier = {
+#			factor = 1.5
+#			liege = { num_of_vassals = 50 }
+#		}
+#		modifier = {
+#			factor = 3
+#			liege = { num_of_vassals = 100 }
+#		}
+#	}
 	
 	option = {
 		name = EVTOPTA_TOG_656
@@ -698,6 +750,9 @@ character_event = {
 	picture = GFX_evt_brothel
 	border = GFX_event_normal_frame_religion
 	
+	is_triggered_only = yes
+	hide_from = yes
+	
 	trigger = {
 		has_dlc = "The Old Gods"
 		has_character_flag = ukon_juhla_feast_vassal
@@ -710,34 +765,34 @@ character_event = {
 		is_female = no
 	}
 	
-	mean_time_to_happen = {
-		days = 60
-		
-		modifier = {
-			factor = 1.1
-			liege = { num_of_vassals = 10 }
-		}
-		modifier = {
-			factor = 1.2
-			liege = { num_of_vassals = 20 }
-		}
-		modifier = {
-			factor = 1.3
-			liege = { num_of_vassals = 30 }
-		}
-		modifier = {
-			factor = 1.4
-			liege = { num_of_vassals = 40 }
-		}
-		modifier = {
-			factor = 1.5
-			liege = { num_of_vassals = 50 }
-		}
-		modifier = {
-			factor = 3
-			liege = { num_of_vassals = 100 }
-		}
-	}
+#	mean_time_to_happen = {
+#		days = 60
+#		
+#		modifier = {
+#			factor = 1.1
+#			liege = { num_of_vassals = 10 }
+#		}
+#		modifier = {
+#			factor = 1.2
+#			liege = { num_of_vassals = 20 }
+#		}
+#		modifier = {
+#			factor = 1.3
+#			liege = { num_of_vassals = 30 }
+#		}
+#		modifier = {
+#			factor = 1.4
+#			liege = { num_of_vassals = 40 }
+#		}
+#		modifier = {
+#			factor = 1.5
+#			liege = { num_of_vassals = 50 }
+#		}
+#		modifier = {
+#			factor = 3
+#			liege = { num_of_vassals = 100 }
+#		}
+#	}
 	
 	option = {
 		name = EVTOPTA_TOG_658
@@ -920,6 +975,8 @@ character_event = {
 	id = TOG.730
 	hide_window = yes
 	
+	is_triggered_only = yes
+	
 	trigger = {
 		has_dlc = "The Old Gods"
 		has_character_flag = ukon_juhla_feast_vassal
@@ -935,34 +992,34 @@ character_event = {
 		}
 	}
 	
-	mean_time_to_happen = {
-		days = 60
-		
-		modifier = {
-			factor = 1.1
-			liege = { num_of_vassals = 10 }
-		}
-		modifier = {
-			factor = 1.2
-			liege = { num_of_vassals = 20 }
-		}
-		modifier = {
-			factor = 1.3
-			liege = { num_of_vassals = 30 }
-		}
-		modifier = {
-			factor = 1.4
-			liege = { num_of_vassals = 40 }
-		}
-		modifier = {
-			factor = 1.5
-			liege = { num_of_vassals = 50 }
-		}
-		modifier = {
-			factor = 3
-			liege = { num_of_vassals = 100 }
-		}
-	}
+#	mean_time_to_happen = {
+#		days = 60
+#		
+#		modifier = {
+#			factor = 1.1
+#			liege = { num_of_vassals = 10 }
+#		}
+#		modifier = {
+#			factor = 1.2
+#			liege = { num_of_vassals = 20 }
+#		}
+#		modifier = {
+#			factor = 1.3
+#			liege = { num_of_vassals = 30 }
+#		}
+#		modifier = {
+#			factor = 1.4
+#			liege = { num_of_vassals = 40 }
+#		}
+#		modifier = {
+#			factor = 1.5
+#			liege = { num_of_vassals = 50 }
+#		}
+#		modifier = {
+#			factor = 3
+#			liege = { num_of_vassals = 100 }
+#		}
+#	}
 	
 	immediate = {
 		set_character_flag = feast_friendship
@@ -1054,6 +1111,8 @@ character_event = {
 	id = TOG.733
 	hide_window = yes
 	
+	is_triggered_only = yes
+	
 	trigger = {
 		has_dlc = "The Old Gods"
 		has_character_flag = ukon_juhla_feast_vassal
@@ -1076,34 +1135,34 @@ character_event = {
 		}
 	}
 	
-	mean_time_to_happen = {
-		days = 40
-		
-		modifier = {
-			factor = 1.1
-			liege = { num_of_vassals = 10 }
-		}
-		modifier = {
-			factor = 1.2
-			liege = { num_of_vassals = 20 }
-		}
-		modifier = {
-			factor = 1.3
-			liege = { num_of_vassals = 30 }
-		}
-		modifier = {
-			factor = 1.4
-			liege = { num_of_vassals = 40 }
-		}
-		modifier = {
-			factor = 1.5
-			liege = { num_of_vassals = 50 }
-		}
-		modifier = {
-			factor = 3
-			liege = { num_of_vassals = 100 }
-		}
-	}
+#	mean_time_to_happen = {
+#		days = 40
+#		
+#		modifier = {
+#			factor = 1.1
+#			liege = { num_of_vassals = 10 }
+#		}
+#		modifier = {
+#			factor = 1.2
+#			liege = { num_of_vassals = 20 }
+#		}
+#		modifier = {
+#			factor = 1.3
+#			liege = { num_of_vassals = 30 }
+#		}
+#		modifier = {
+#			factor = 1.4
+#			liege = { num_of_vassals = 40 }
+#		}
+#		modifier = {
+#			factor = 1.5
+#			liege = { num_of_vassals = 50 }
+#		}
+#		modifier = {
+#			factor = 3
+#			liege = { num_of_vassals = 100 }
+#		}
+#	}
 	
 	immediate = {
 		set_character_flag = feast_homosexual
@@ -1201,6 +1260,8 @@ character_event = {
 character_event = {
 	id = TOG.736
 	hide_window = yes
+
+	is_triggered_only = yes
 	
 	trigger = {
 		has_dlc = "The Old Gods"
@@ -1224,34 +1285,34 @@ character_event = {
 		}
 	}
 	
-	mean_time_to_happen = {
-		days = 40
-		
-		modifier = {
-			factor = 1.1
-			liege = { num_of_vassals = 10 }
-		}
-		modifier = {
-			factor = 1.2
-			liege = { num_of_vassals = 20 }
-		}
-		modifier = {
-			factor = 1.3
-			liege = { num_of_vassals = 30 }
-		}
-		modifier = {
-			factor = 1.4
-			liege = { num_of_vassals = 40 }
-		}
-		modifier = {
-			factor = 1.5
-			liege = { num_of_vassals = 50 }
-		}
-		modifier = {
-			factor = 3
-			liege = { num_of_vassals = 100 }
-		}
-	}
+#	mean_time_to_happen = {
+#		days = 40
+#		
+#		modifier = {
+#			factor = 1.1
+#			liege = { num_of_vassals = 10 }
+#		}
+#		modifier = {
+#			factor = 1.2
+#			liege = { num_of_vassals = 20 }
+#		}
+#		modifier = {
+#			factor = 1.3
+#			liege = { num_of_vassals = 30 }
+#		}
+#		modifier = {
+#			factor = 1.4
+#			liege = { num_of_vassals = 40 }
+#		}
+#		modifier = {
+#			factor = 1.5
+#			liege = { num_of_vassals = 50 }
+#		}
+#		modifier = {
+#			factor = 3
+#			liege = { num_of_vassals = 100 }
+#		}
+#	}
 	
 	immediate = {
 		set_character_flag = feast_homosexual
@@ -1431,6 +1492,282 @@ character_event = {
 	}
 }
 
+### Feast event bounces
+character_event = { #feast_drunkard
+	id = TOG.741
+	
+	is_triggered_only = yes
+	
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = holding_ukon_juhla
+		NOT = { has_character_flag = feast_drunkard }
+		any_vassal = {
+			has_character_flag = ukon_juhla_feast_vassal
+			NOT = { has_character_flag = feast_drunkard }
+			trait = drunkard
+		}
+	}
+	
+	immediate = {
+		random_vassal = {
+			limit = {
+				has_character_flag = ukon_juhla_feast_vassal
+				trait = drunkard
+			}
+			character_event = { id = TOG.720 }
+		}
+	}
+}
+
+character_event = {
+	id = TOG.742 #feast_gluttonous
+	
+	is_triggered_only = yes
+	
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = holding_ukon_juhla
+		NOT = { has_character_flag = feast_gluttonous }
+		any_vassal = {
+			has_character_flag = ukon_juhla_feast_vassal
+			NOT = { has_character_flag = feast_gluttonous }
+			trait = gluttonous
+		}
+	}
+	
+	immediate = {
+		random_vassal = {
+			limit = {
+				has_character_flag = ukon_juhla_feast_vassal
+				trait = gluttonous
+			}
+			character_event = { id = TOG.722 }
+		}
+	}
+}
+
+character_event = {
+	id = TOG.743 #feast_lunatic
+	
+	is_triggered_only = yes
+	
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = holding_ukon_juhla
+		NOT = { has_character_flag = feast_lunatic }
+		any_vassal = {
+			has_character_flag = ukon_juhla_feast_vassal
+			NOT = { has_character_flag = feast_lunatic }
+			trait = lunatic
+		}
+	}
+	
+	immediate = {
+		random_vassal = {
+			limit = {
+				has_character_flag = ukon_juhla_feast_vassal
+				trait = lunatic
+			}
+			character_event = { id = TOG.726 }
+		}
+	}
+}
+
+character_event = {
+	id = TOG.744 #feast_lustful
+	
+	is_triggered_only = yes
+	
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = holding_ukon_juhla
+		NOT = { has_character_flag = feast_lustful }
+		any_vassal = { 
+			has_character_flag = ukon_juhla_feast_vassal
+			NOT = { has_character_flag = feast_lustful }
+			trait = lustful
+			is_female = no
+		}
+	}
+	
+	immediate = {
+		random_vassal = {
+			limit = {
+				has_character_flag = ukon_juhla_feast_vassal
+				trait = lustful
+				is_female = no
+			}
+			character_event = { id = TOG.728 }
+		}
+	}
+}
+
+character_event = {
+	id = TOG.745 #feast_friendship
+	
+	is_triggered_only = yes
+	
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = holding_ukon_juhla
+		NOT = { has_character_flag = feast_friendship }
+		has_character_flag = ukon_juhla_feast_vassal
+		any_vassal = {
+			has_character_flag = ukon_juhla_feast_vassal
+			NOT = { has_character_flag = feast_friendship }
+			liege = { 
+				any_vassal = {
+					has_character_flag = ukon_juhla_feast_vassal
+					NOT = { has_character_flag = feast_friendship }
+					NOT = { character = PREVPREV }
+					opinion = { who = PREVPREV value =  20 }
+				}		
+			}
+		}
+	}
+	
+	immediate = {
+		random_vassal = {
+			limit = {
+				has_character_flag = ukon_juhla_feast_vassal
+				NOT = { has_character_flag = feast_friendship }
+				liege = { 
+					any_vassal = {
+						has_character_flag = ukon_juhla_feast_vassal
+						NOT = { has_character_flag = feast_friendship }
+						NOT = { character = PREVPREV }
+						opinion = { who = PREVPREV value =  20 }
+					}		
+				}
+			}
+			character_event = { id = TOG.730 }
+		}
+	}
+}
+
+character_event = {
+	id = TOG.746 #male_homosexual
+	
+	is_triggered_only = yes
+	
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		NOT = { has_character_flag = feast_homosexual }
+		has_character_flag = holding_ukon_juhla
+		any_vassal = { 
+			has_character_flag = ukon_juhla_feast_vassal
+			NOT = { has_character_flag = feast_homosexual }
+			trait = homosexual
+			is_female = no
+			has_lover = no
+			liege = { 
+				any_vassal = {
+					has_character_flag = ukon_juhla_feast_vassal
+					NOT = { has_character_flag = feast_homosexual }
+					NOT = { character = PREVPREV }
+					opinion = { who = PREVPREV value =  0 }
+					trait = homosexual
+					is_female = no
+					has_lover = no
+				}		
+			}
+		}
+	}
+	
+	immediate = {
+		random_vassal = {
+			limit = {
+				has_character_flag = ukon_juhla_feast_vassal
+				NOT = { has_character_flag = feast_homosexual }
+				trait = homosexual
+				is_female = no
+				has_lover = no
+				liege = { 
+					any_vassal = {
+						has_character_flag = ukon_juhla_feast_vassal
+						NOT = { has_character_flag = feast_homosexual }
+						NOT = { character = PREVPREV }
+						opinion = { who = PREVPREV value =  0 }
+						trait = homosexual
+						is_female = no
+						has_lover = no
+					}		
+				}
+			}
+			character_event = { id = TOG.733 }
+		}
+	}
+}
+
+character_event = {
+	id = TOG.747 #female_homosexual
+	
+	is_triggered_only = yes
+	
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		NOT = { has_character_flag = feast_homosexual }
+		has_character_flag = holding_ukon_juhla
+		any_vassal = { 
+			has_character_flag = ukon_juhla_feast_vassal
+			NOT = { has_character_flag = feast_homosexual }
+			trait = homosexual
+			is_female = yes
+			has_lover = no
+			liege = { 
+				any_vassal = {
+					has_character_flag = ukon_juhla_feast_vassal
+					NOT = { has_character_flag = feast_homosexual }
+					NOT = { character = PREVPREV }
+					opinion = { who = PREVPREV value =  0 }
+					trait = homosexual
+					is_female = yes
+					has_lover = no
+				}		
+			}
+		}
+	}
+	
+	immediate = {
+		random_vassal = {
+			limit = {
+				has_character_flag = ukon_juhla_feast_vassal
+				NOT = { has_character_flag = feast_homosexual }
+				trait = homosexual
+				is_female = yes
+				has_lover = no
+				liege = { 
+					any_vassal = {
+						has_character_flag = ukon_juhla_feast_vassal
+						NOT = { has_character_flag = feast_homosexual }
+						NOT = { character = PREVPREV }
+						opinion = { who = PREVPREV value =  0 }
+						trait = homosexual
+						is_female = yes
+						has_lover = no
+					}		
+				}
+			}
+			character_event = { id = TOG.736 }
+		}
+	}
+}
+
 ### Romuva Užgavenes Festival
 
 # Invitations Sent (Liege)
@@ -1479,14 +1816,22 @@ character_event = {
 		set_character_flag = attending_uzgavenes
 		set_character_flag = do_not_disturb
 		hidden_tooltip = { character_event = { id = TOG.899 days = 100 } } # Safety catch flag clearing
+		if = {
+			limit = { trait = in_hiding	}
+			remove_trait = in_hiding
+			add_character_modifier = {
+				name = went_out_of_hiding_timer
+				duration = 180
+				hidden = yes
+			}
+			hidden_tooltip = { character_event = { id = CM.6400 } } # Notify plotters and family
+		}
 	}
 	option = {
 		name = EVTOPTB_TOG_701
 		trigger = {
-			NOT = {
-				religion = baltic_pagan
-				religion = baltic_pagan_reformed
-			}
+			NOT = { religion = baltic_pagan }
+			NOT = { religion = baltic_pagan_reformed }
 		}
 		FROM = {
 			character_event = { id = TOG.752 days = 5 tooltip = DIPLOWINDOW_REJECT }
@@ -1580,6 +1925,42 @@ character_event = {
 					character_event = { id = TOG.756 }
 				}
 				character_event = { id = TOG.757 days = 25 }
+				random_list = {
+					10 = { character_event = { id = TOG.791 days = 3 } } 
+					10 = { character_event = { id = TOG.792 days = 3 } }
+					10 = { character_event = { id = TOG.793 days = 3 } }
+					10 = { character_event = { id = TOG.794 days = 3 } }
+					10 = { character_event = { id = TOG.795 days = 3 } }
+					10 = { character_event = { id = TOG.796 days = 3 } }
+					10 = { character_event = { id = TOG.797 days = 3 } }
+				}
+				random_list = {
+					10 = { character_event = { id = TOG.791 days = 8 } }
+					10 = { character_event = { id = TOG.792 days = 8 } }
+					10 = { character_event = { id = TOG.793 days = 8 } }
+					10 = { character_event = { id = TOG.794 days = 8 } }
+					10 = { character_event = { id = TOG.795 days = 8 } }
+					10 = { character_event = { id = TOG.796 days = 8 } }
+					10 = { character_event = { id = TOG.797 days = 8 } }
+				}
+				random_list = {
+					10 = { character_event = { id = TOG.791 days = 13 } }
+					10 = { character_event = { id = TOG.792 days = 13 } }
+					10 = { character_event = { id = TOG.793 days = 13 } }
+					10 = { character_event = { id = TOG.794 days = 13 } }
+					10 = { character_event = { id = TOG.795 days = 13 } }
+					10 = { character_event = { id = TOG.796 days = 13 } }
+					10 = { character_event = { id = TOG.797 days = 13 } }
+				}
+				random_list = {
+					10 = { character_event = { id = TOG.791 days = 18 } }
+					10 = { character_event = { id = TOG.792 days = 18 } }
+					10 = { character_event = { id = TOG.793 days = 18 } }
+					10 = { character_event = { id = TOG.794 days = 18 } }
+					10 = { character_event = { id = TOG.795 days = 18 } }
+					10 = { character_event = { id = TOG.796 days = 18 } }
+					10 = { character_event = { id = TOG.797 days = 18 } }
+				}
 			}
 		}
 	}
@@ -1676,6 +2057,9 @@ character_event = {
 	picture = GFX_evt_drunk
 	border = GFX_event_normal_frame_religion
 	
+	is_triggered_only = yes
+	hide_from = yes
+	
 	trigger = {
 		has_dlc = "The Old Gods"
 		has_character_flag = uzgavenes_feast_vassal
@@ -1687,34 +2071,34 @@ character_event = {
 		trait = drunkard
 	}
 	
-	mean_time_to_happen = {
-		days = 60
-		
-		modifier = {
-			factor = 1.1
-			liege = { num_of_vassals = 10 }
-		}
-		modifier = {
-			factor = 1.2
-			liege = { num_of_vassals = 20 }
-		}
-		modifier = {
-			factor = 1.3
-			liege = { num_of_vassals = 30 }
-		}
-		modifier = {
-			factor = 1.4
-			liege = { num_of_vassals = 40 }
-		}
-		modifier = {
-			factor = 1.5
-			liege = { num_of_vassals = 50 }
-		}
-		modifier = {
-			factor = 3
-			liege = { num_of_vassals = 100 }
-		}
-	}
+#	mean_time_to_happen = {
+#		days = 60
+#		
+#		modifier = {
+#			factor = 1.1
+#			liege = { num_of_vassals = 10 }
+#		}
+#		modifier = {
+#			factor = 1.2
+#			liege = { num_of_vassals = 20 }
+#		}
+#		modifier = {
+#			factor = 1.3
+#			liege = { num_of_vassals = 30 }
+#		}
+#		modifier = {
+#			factor = 1.4
+#			liege = { num_of_vassals = 40 }
+#		}
+#		modifier = {
+#			factor = 1.5
+#			liege = { num_of_vassals = 50 }
+#		}
+#		modifier = {
+#			factor = 3
+#			liege = { num_of_vassals = 100 }
+#		}
+#	}
 	
 	option = {
 		name = EVTOPTA_TOG_650
@@ -1813,6 +2197,8 @@ character_event = {
 	id = TOG.772
 	hide_window = yes
 	
+	is_triggered_only = yes
+	
 	trigger = {
 		has_dlc = "The Old Gods"
 		has_character_flag = uzgavenes_feast_vassal
@@ -1828,34 +2214,34 @@ character_event = {
 		}
 	}
 	
-	mean_time_to_happen = {
-		days = 60
-		
-		modifier = {
-			factor = 1.1
-			liege = { num_of_vassals = 10 }
-		}
-		modifier = {
-			factor = 1.2
-			liege = { num_of_vassals = 20 }
-		}
-		modifier = {
-			factor = 1.3
-			liege = { num_of_vassals = 30 }
-		}
-		modifier = {
-			factor = 1.4
-			liege = { num_of_vassals = 40 }
-		}
-		modifier = {
-			factor = 1.5
-			liege = { num_of_vassals = 50 }
-		}
-		modifier = {
-			factor = 3
-			liege = { num_of_vassals = 100 }
-		}
-	}
+#	mean_time_to_happen = {
+#		days = 60
+#		
+#		modifier = {
+#			factor = 1.1
+#			liege = { num_of_vassals = 10 }
+#		}
+#		modifier = {
+#			factor = 1.2
+#			liege = { num_of_vassals = 20 }
+#		}
+#		modifier = {
+#			factor = 1.3
+#			liege = { num_of_vassals = 30 }
+#		}
+#		modifier = {
+#			factor = 1.4
+#			liege = { num_of_vassals = 40 }
+#		}
+#		modifier = {
+#			factor = 1.5
+#			liege = { num_of_vassals = 50 }
+#		}
+#		modifier = {
+#			factor = 3
+#			liege = { num_of_vassals = 100 }
+#		}
+#	}
 	
 	immediate = {
 		liege = {
@@ -1980,6 +2366,9 @@ character_event = {
 	picture = GFX_evt_lunatic
 	border = GFX_event_normal_frame_religion
 	
+	is_triggered_only = yes
+	hide_from = yes
+	
 	trigger = {
 		has_dlc = "The Old Gods"
 		has_character_flag = uzgavenes_feast_vassal
@@ -1991,34 +2380,34 @@ character_event = {
 		trait = lunatic
 	}
 	
-	mean_time_to_happen = {
-		days = 60
-		
-		modifier = {
-			factor = 1.1
-			liege = { num_of_vassals = 10 }
-		}
-		modifier = {
-			factor = 1.2
-			liege = { num_of_vassals = 20 }
-		}
-		modifier = {
-			factor = 1.3
-			liege = { num_of_vassals = 30 }
-		}
-		modifier = {
-			factor = 1.4
-			liege = { num_of_vassals = 40 }
-		}
-		modifier = {
-			factor = 1.5
-			liege = { num_of_vassals = 50 }
-		}
-		modifier = {
-			factor = 3
-			liege = { num_of_vassals = 100 }
-		}
-	}
+#	mean_time_to_happen = {
+#		days = 60
+#		
+#		modifier = {
+#			factor = 1.1
+#			liege = { num_of_vassals = 10 }
+#		}
+#		modifier = {
+#			factor = 1.2
+#			liege = { num_of_vassals = 20 }
+#		}
+#		modifier = {
+#			factor = 1.3
+#			liege = { num_of_vassals = 30 }
+#		}
+#		modifier = {
+#			factor = 1.4
+#			liege = { num_of_vassals = 40 }
+#		}
+#		modifier = {
+#			factor = 1.5
+#			liege = { num_of_vassals = 50 }
+#		}
+#		modifier = {
+#			factor = 3
+#			liege = { num_of_vassals = 100 }
+#		}
+#	}
 	
 	option = {
 		name = EVTOPTA_TOG_656
@@ -2119,6 +2508,9 @@ character_event = {
 	picture = GFX_evt_brothel
 	border = GFX_event_normal_frame_religion
 	
+	is_triggered_only = yes
+	hide_from = yes
+	
 	trigger = {
 		has_dlc = "The Old Gods"
 		has_character_flag = uzgavenes_feast_vassal
@@ -2131,34 +2523,34 @@ character_event = {
 		is_female = no
 	}
 	
-	mean_time_to_happen = {
-		days = 60
-		
-		modifier = {
-			factor = 1.1
-			liege = { num_of_vassals = 10 }
-		}
-		modifier = {
-			factor = 1.2
-			liege = { num_of_vassals = 20 }
-		}
-		modifier = {
-			factor = 1.3
-			liege = { num_of_vassals = 30 }
-		}
-		modifier = {
-			factor = 1.4
-			liege = { num_of_vassals = 40 }
-		}
-		modifier = {
-			factor = 1.5
-			liege = { num_of_vassals = 50 }
-		}
-		modifier = {
-			factor = 3
-			liege = { num_of_vassals = 100 }
-		}
-	}
+#	mean_time_to_happen = {
+#		days = 60
+#		
+#		modifier = {
+#			factor = 1.1
+#			liege = { num_of_vassals = 10 }
+#		}
+#		modifier = {
+#			factor = 1.2
+#			liege = { num_of_vassals = 20 }
+#		}
+#		modifier = {
+#			factor = 1.3
+#			liege = { num_of_vassals = 30 }
+#		}
+#		modifier = {
+#			factor = 1.4
+#			liege = { num_of_vassals = 40 }
+#		}
+#		modifier = {
+#			factor = 1.5
+#			liege = { num_of_vassals = 50 }
+#		}
+#		modifier = {
+#			factor = 3
+#			liege = { num_of_vassals = 100 }
+#		}
+#	}
 	
 	option = {
 		name = EVTOPTA_TOG_658
@@ -2341,6 +2733,8 @@ character_event = {
 	id = TOG.780
 	hide_window = yes
 	
+	is_triggered_only = yes
+	
 	trigger = {
 		has_dlc = "The Old Gods"
 		has_character_flag = uzgavenes_feast_vassal
@@ -2356,34 +2750,34 @@ character_event = {
 		}
 	}
 	
-	mean_time_to_happen = {
-		days = 60
-		
-		modifier = {
-			factor = 1.1
-			liege = { num_of_vassals = 10 }
-		}
-		modifier = {
-			factor = 1.2
-			liege = { num_of_vassals = 20 }
-		}
-		modifier = {
-			factor = 1.3
-			liege = { num_of_vassals = 30 }
-		}
-		modifier = {
-			factor = 1.4
-			liege = { num_of_vassals = 40 }
-		}
-		modifier = {
-			factor = 1.5
-			liege = { num_of_vassals = 50 }
-		}
-		modifier = {
-			factor = 3
-			liege = { num_of_vassals = 100 }
-		}
-	}
+#	mean_time_to_happen = {
+#		days = 60
+#		
+#		modifier = {
+#			factor = 1.1
+#			liege = { num_of_vassals = 10 }
+#		}
+#		modifier = {
+#			factor = 1.2
+#			liege = { num_of_vassals = 20 }
+#		}
+#		modifier = {
+#			factor = 1.3
+#			liege = { num_of_vassals = 30 }
+#		}
+#		modifier = {
+#			factor = 1.4
+#			liege = { num_of_vassals = 40 }
+#		}
+#		modifier = {
+#			factor = 1.5
+#			liege = { num_of_vassals = 50 }
+#		}
+#		modifier = {
+#			factor = 3
+#			liege = { num_of_vassals = 100 }
+#		}
+#	}
 	
 	immediate = {
 		set_character_flag = feast_friendship
@@ -2475,6 +2869,8 @@ character_event = {
 	id = TOG.783
 	hide_window = yes
 	
+	is_triggered_only = yes
+	
 	trigger = {
 		has_dlc = "The Old Gods"
 		has_character_flag = uzgavenes_feast_vassal
@@ -2497,34 +2893,34 @@ character_event = {
 		}
 	}
 	
-	mean_time_to_happen = {
-		days = 40
-		
-		modifier = {
-			factor = 1.1
-			liege = { num_of_vassals = 10 }
-		}
-		modifier = {
-			factor = 1.2
-			liege = { num_of_vassals = 20 }
-		}
-		modifier = {
-			factor = 1.3
-			liege = { num_of_vassals = 30 }
-		}
-		modifier = {
-			factor = 1.4
-			liege = { num_of_vassals = 40 }
-		}
-		modifier = {
-			factor = 1.5
-			liege = { num_of_vassals = 50 }
-		}
-		modifier = {
-			factor = 3
-			liege = { num_of_vassals = 100 }
-		}
-	}
+#	mean_time_to_happen = {
+#		days = 40
+#		
+#		modifier = {
+#			factor = 1.1
+#			liege = { num_of_vassals = 10 }
+#		}
+#		modifier = {
+#			factor = 1.2
+#			liege = { num_of_vassals = 20 }
+#		}
+#		modifier = {
+#			factor = 1.3
+#			liege = { num_of_vassals = 30 }
+#		}
+#		modifier = {
+#			factor = 1.4
+#			liege = { num_of_vassals = 40 }
+#		}
+#		modifier = {
+#			factor = 1.5
+#			liege = { num_of_vassals = 50 }
+#		}
+#		modifier = {
+#			factor = 3
+#			liege = { num_of_vassals = 100 }
+#		}
+#	}
 	
 	immediate = {
 		set_character_flag = feast_homosexual
@@ -2623,6 +3019,8 @@ character_event = {
 	id = TOG.786
 	hide_window = yes
 	
+	is_triggered_only = yes
+	
 	trigger = {
 		has_dlc = "The Old Gods"
 		has_character_flag = uzgavenes_feast_vassal
@@ -2645,34 +3043,34 @@ character_event = {
 		}
 	}
 	
-	mean_time_to_happen = {
-		days = 40
-		
-		modifier = {
-			factor = 1.1
-			liege = { num_of_vassals = 10 }
-		}
-		modifier = {
-			factor = 1.2
-			liege = { num_of_vassals = 20 }
-		}
-		modifier = {
-			factor = 1.3
-			liege = { num_of_vassals = 30 }
-		}
-		modifier = {
-			factor = 1.4
-			liege = { num_of_vassals = 40 }
-		}
-		modifier = {
-			factor = 1.5
-			liege = { num_of_vassals = 50 }
-		}
-		modifier = {
-			factor = 3
-			liege = { num_of_vassals = 100 }
-		}
-	}
+#	mean_time_to_happen = {
+#		days = 40
+#		
+#		modifier = {
+#			factor = 1.1
+#			liege = { num_of_vassals = 10 }
+#		}
+#		modifier = {
+#			factor = 1.2
+#			liege = { num_of_vassals = 20 }
+#		}
+#		modifier = {
+#			factor = 1.3
+#			liege = { num_of_vassals = 30 }
+#		}
+#		modifier = {
+#			factor = 1.4
+#			liege = { num_of_vassals = 40 }
+#		}
+#		modifier = {
+#			factor = 1.5
+#			liege = { num_of_vassals = 50 }
+#		}
+#		modifier = {
+#			factor = 3
+#			liege = { num_of_vassals = 100 }
+#		}
+#	}
 	
 	immediate = {
 		set_character_flag = feast_homosexual
@@ -2852,6 +3250,282 @@ character_event = {
 	}
 }
 
+### Feast event bounces
+character_event = { #feast_drunkard
+	id = TOG.791
+	
+	is_triggered_only = yes
+	
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = holding_uzgavenes
+		NOT = { has_character_flag = feast_drunkard }
+		any_vassal = {
+			has_character_flag = uzgavanes_feast_vassal
+			NOT = { has_character_flag = feast_drunkard }
+			trait = drunkard
+		}
+	}
+	
+	immediate = {
+		random_vassal = {
+			limit = {
+				has_character_flag = uzgavanes_feast_vassal
+				trait = drunkard
+			}
+			character_event = { id = TOG.770 }
+		}
+	}
+}
+
+character_event = {
+	id = TOG.792 #feast_gluttonous
+	
+	is_triggered_only = yes
+	
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = holding_uzgavenes
+		NOT = { has_character_flag = feast_gluttonous }
+		any_vassal = {
+			has_character_flag = uzgavanes_feast_vassal
+			NOT = { has_character_flag = feast_gluttonous }
+			trait = gluttonous
+		}
+	}
+	
+	immediate = {
+		random_vassal = {
+			limit = {
+				has_character_flag = uzgavanes_feast_vassal
+				trait = gluttonous
+			}
+			character_event = { id = TOG.772 }
+		}
+	}
+}
+
+character_event = {
+	id = TOG.793 #feast_lunatic
+	
+	is_triggered_only = yes
+	
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = holding_uzgavenes
+		NOT = { has_character_flag = feast_lunatic }
+		any_vassal = {
+			has_character_flag = uzgavanes_feast_vassal
+			NOT = { has_character_flag = feast_lunatic }
+			trait = lunatic
+		}
+	}
+	
+	immediate = {
+		random_vassal = {
+			limit = {
+				has_character_flag = uzgavanes_feast_vassal
+				trait = lunatic
+			}
+			character_event = { id = TOG.776 }
+		}
+	}
+}
+
+character_event = {
+	id = TOG.794 #feast_lustful
+	
+	is_triggered_only = yes
+	
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = holding_uzgavenes
+		NOT = { has_character_flag = feast_lustful }
+		any_vassal = { 
+			has_character_flag = uzgavanes_feast_vassal
+			NOT = { has_character_flag = feast_lustful }
+			trait = lustful
+			is_female = no
+		}
+	}
+	
+	immediate = {
+		random_vassal = {
+			limit = {
+				has_character_flag = uzgavanes_feast_vassal
+				trait = lustful
+				is_female = no
+			}
+			character_event = { id = TOG.778 }
+		}
+	}
+}
+
+character_event = {
+	id = TOG.795 #feast_friendship
+	
+	is_triggered_only = yes
+	
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = holding_uzgavenes
+		NOT = { has_character_flag = feast_friendship }
+		has_character_flag = uzgavanes_feast_vassal
+		any_vassal = {
+			has_character_flag = uzgavanes_feast_vassal
+			NOT = { has_character_flag = feast_friendship }
+			liege = { 
+				any_vassal = {
+					has_character_flag = uzgavanes_feast_vassal
+					NOT = { has_character_flag = feast_friendship }
+					NOT = { character = PREVPREV }
+					opinion = { who = PREVPREV value =  20 }
+				}		
+			}
+		}
+	}
+	
+	immediate = {
+		random_vassal = {
+			limit = {
+				has_character_flag = uzgavanes_feast_vassal
+				NOT = { has_character_flag = feast_friendship }
+				liege = { 
+					any_vassal = {
+						has_character_flag = uzgavanes_feast_vassal
+						NOT = { has_character_flag = feast_friendship }
+						NOT = { character = PREVPREV }
+						opinion = { who = PREVPREV value =  20 }
+					}		
+				}
+			}
+			character_event = { id = TOG.780 }
+		}
+	}
+}
+
+character_event = {
+	id = TOG.796 #male_homosexual
+	
+	is_triggered_only = yes
+	
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		NOT = { has_character_flag = feast_homosexual }
+		has_character_flag = holding_uzgavenes
+		any_vassal = { 
+			has_character_flag = uzgavanes_feast_vassal
+			NOT = { has_character_flag = feast_homosexual }
+			trait = homosexual
+			is_female = no
+			has_lover = no
+			liege = { 
+				any_vassal = {
+					has_character_flag = uzgavanes_feast_vassal
+					NOT = { has_character_flag = feast_homosexual }
+					NOT = { character = PREVPREV }
+					opinion = { who = PREVPREV value =  0 }
+					trait = homosexual
+					is_female = no
+					has_lover = no
+				}		
+			}
+		}
+	}
+	
+	immediate = {
+		random_vassal = {
+			limit = {
+				has_character_flag = uzgavanes_feast_vassal
+				NOT = { has_character_flag = feast_homosexual }
+				trait = homosexual
+				is_female = no
+				has_lover = no
+				liege = { 
+					any_vassal = {
+						has_character_flag = uzgavanes_feast_vassal
+						NOT = { has_character_flag = feast_homosexual }
+						NOT = { character = PREVPREV }
+						opinion = { who = PREVPREV value =  0 }
+						trait = homosexual
+						is_female = no
+						has_lover = no
+					}		
+				}
+			}
+			character_event = { id = TOG.783 }
+		}
+	}
+}
+
+character_event = {
+	id = TOG.797 #female_homosexual
+	
+	is_triggered_only = yes
+	
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		NOT = { has_character_flag = feast_homosexual }
+		has_character_flag = holding_uzgavenes
+		any_vassal = { 
+			has_character_flag = uzgavanes_feast_vassal
+			NOT = { has_character_flag = feast_homosexual }
+			trait = homosexual
+			is_female = yes
+			has_lover = no
+			liege = { 
+				any_vassal = {
+					has_character_flag = uzgavanes_feast_vassal
+					NOT = { has_character_flag = feast_homosexual }
+					NOT = { character = PREVPREV }
+					opinion = { who = PREVPREV value =  0 }
+					trait = homosexual
+					is_female = yes
+					has_lover = no
+				}		
+			}
+		}
+	}
+	
+	immediate = {
+		random_vassal = {
+			limit = {
+				has_character_flag = uzgavanes_feast_vassal
+				NOT = { has_character_flag = feast_homosexual }
+				trait = homosexual
+				is_female = yes
+				has_lover = no
+				liege = { 
+					any_vassal = {
+						has_character_flag = uzgavanes_feast_vassal
+						NOT = { has_character_flag = feast_homosexual }
+						NOT = { character = PREVPREV }
+						opinion = { who = PREVPREV value =  0 }
+						trait = homosexual
+						is_female = yes
+						has_lover = no
+					}		
+				}
+			}
+			character_event = { id = TOG.786 }
+		}
+	}
+}
+
 ### Slavic Jarilo Festival
 
 # Invitations Sent (Liege)
@@ -2900,14 +3574,22 @@ character_event = {
 		set_character_flag = attending_jarilo
 		set_character_flag = do_not_disturb
 		hidden_tooltip = { character_event = { id = TOG.899 days = 100 } } # Safety catch flag clearing
+		if = {
+			limit = { trait = in_hiding	}
+			remove_trait = in_hiding
+			add_character_modifier = {
+				name = went_out_of_hiding_timer
+				duration = 180
+				hidden = yes
+			}
+			hidden_tooltip = { character_event = { id = CM.6400 } } # Notify plotters and family
+		}
 	}
 	option = {
 		name = EVTOPTB_TOG_701
 		trigger = {
-			NOT = {
-				religion = slavic_pagan
-				religion = slavic_pagan_reformed
-			}
+			NOT = { religion = slavic_pagan }
+			NOT = { religion = slavic_pagan_reformed }
 		}
 		FROM = {
 			character_event = { id = TOG.802 days = 5 tooltip = DIPLOWINDOW_REJECT }
@@ -3208,6 +3890,42 @@ character_event = {
 				character_event = { id = TOG.806 }
 			}
 			character_event = { id = TOG.807 days = 25 }
+			random_list = {
+					10 = { character_event = { id = TOG.841 days = 3 } } 
+					10 = { character_event = { id = TOG.842 days = 3 } }
+					10 = { character_event = { id = TOG.843 days = 3 } }
+					10 = { character_event = { id = TOG.844 days = 3 } }
+					10 = { character_event = { id = TOG.849 days = 3 } }
+					10 = { character_event = { id = TOG.850 days = 3 } }
+					10 = { character_event = { id = TOG.851 days = 3 } }
+				}
+				random_list = {
+					10 = { character_event = { id = TOG.841 days = 8 } }
+					10 = { character_event = { id = TOG.842 days = 8 } }
+					10 = { character_event = { id = TOG.843 days = 8 } }
+					10 = { character_event = { id = TOG.844 days = 8 } }
+					10 = { character_event = { id = TOG.849 days = 8 } }
+					10 = { character_event = { id = TOG.850 days = 8 } }
+					10 = { character_event = { id = TOG.851 days = 8 } }
+				}
+				random_list = {
+					10 = { character_event = { id = TOG.841 days = 13 } }
+					10 = { character_event = { id = TOG.842 days = 13 } }
+					10 = { character_event = { id = TOG.843 days = 13 } }
+					10 = { character_event = { id = TOG.844 days = 13 } }
+					10 = { character_event = { id = TOG.849 days = 13 } }
+					10 = { character_event = { id = TOG.850 days = 13 } }
+					10 = { character_event = { id = TOG.851 days = 13 } }
+				}
+				random_list = {
+					10 = { character_event = { id = TOG.841 days = 18 } }
+					10 = { character_event = { id = TOG.842 days = 18 } }
+					10 = { character_event = { id = TOG.843 days = 18 } }
+					10 = { character_event = { id = TOG.844 days = 18 } }
+					10 = { character_event = { id = TOG.849 days = 18 } }
+					10 = { character_event = { id = TOG.850 days = 18 } }
+					10 = { character_event = { id = TOG.851 days = 18 } }
+				}
 		}
 		custom_tooltip = { text = feast_begins }
 	}
@@ -3304,6 +4022,9 @@ character_event = {
 	picture = GFX_evt_drunk
 	border = GFX_event_normal_frame_religion
 	
+	is_triggered_only = yes
+	hide_from = yes
+	
 	trigger = {
 		has_dlc = "The Old Gods"
 		has_character_flag = jarilo_feast_vassal
@@ -3315,34 +4036,34 @@ character_event = {
 		trait = drunkard
 	}
 	
-	mean_time_to_happen = {
-		days = 60
-		
-		modifier = {
-			factor = 1.1
-			liege = { num_of_vassals = 10 }
-		}
-		modifier = {
-			factor = 1.2
-			liege = { num_of_vassals = 20 }
-		}
-		modifier = {
-			factor = 1.3
-			liege = { num_of_vassals = 30 }
-		}
-		modifier = {
-			factor = 1.4
-			liege = { num_of_vassals = 40 }
-		}
-		modifier = {
-			factor = 1.5
-			liege = { num_of_vassals = 50 }
-		}
-		modifier = {
-			factor = 3
-			liege = { num_of_vassals = 100 }
-		}
-	}
+#	mean_time_to_happen = {
+#		days = 60
+#		
+#		modifier = {
+#			factor = 1.1
+#			liege = { num_of_vassals = 10 }
+#		}
+#		modifier = {
+#			factor = 1.2
+#			liege = { num_of_vassals = 20 }
+#		}
+#		modifier = {
+#			factor = 1.3
+#			liege = { num_of_vassals = 30 }
+#		}
+#		modifier = {
+#			factor = 1.4
+#			liege = { num_of_vassals = 40 }
+#		}
+#		modifier = {
+#			factor = 1.5
+#			liege = { num_of_vassals = 50 }
+#		}
+#		modifier = {
+#			factor = 3
+#			liege = { num_of_vassals = 100 }
+#		}
+#	}
 	
 	option = {
 		name = EVTOPTA_TOG_650
@@ -3441,6 +4162,8 @@ character_event = {
 	id = TOG.822
 	hide_window = yes
 	
+	is_triggered_only = yes
+	
 	trigger = {
 		has_dlc = "The Old Gods"
 		has_character_flag = jarilo_feast_vassal
@@ -3456,34 +4179,34 @@ character_event = {
 		}
 	}
 	
-	mean_time_to_happen = {
-		days = 60
-		
-		modifier = {
-			factor = 1.1
-			liege = { num_of_vassals = 10 }
-		}
-		modifier = {
-			factor = 1.2
-			liege = { num_of_vassals = 20 }
-		}
-		modifier = {
-			factor = 1.3
-			liege = { num_of_vassals = 30 }
-		}
-		modifier = {
-			factor = 1.4
-			liege = { num_of_vassals = 40 }
-		}
-		modifier = {
-			factor = 1.5
-			liege = { num_of_vassals = 50 }
-		}
-		modifier = {
-			factor = 3
-			liege = { num_of_vassals = 100 }
-		}
-	}
+#	mean_time_to_happen = {
+#		days = 60
+#		
+#		modifier = {
+#			factor = 1.1
+#			liege = { num_of_vassals = 10 }
+#		}
+#		modifier = {
+#			factor = 1.2
+#			liege = { num_of_vassals = 20 }
+#		}
+#		modifier = {
+#			factor = 1.3
+#			liege = { num_of_vassals = 30 }
+#		}
+#		modifier = {
+#			factor = 1.4
+#			liege = { num_of_vassals = 40 }
+#		}
+#		modifier = {
+#			factor = 1.5
+#			liege = { num_of_vassals = 50 }
+#		}
+#		modifier = {
+#			factor = 3
+#			liege = { num_of_vassals = 100 }
+#		}
+#	}
 	
 	immediate = {
 		liege = {
@@ -3608,6 +4331,9 @@ character_event = {
 	picture = GFX_evt_lunatic
 	border = GFX_event_normal_frame_religion
 	
+	is_triggered_only = yes
+	hide_from = yes
+	
 	trigger = {
 		has_dlc = "The Old Gods"
 		has_character_flag = jarilo_feast_vassal
@@ -3619,34 +4345,34 @@ character_event = {
 		trait = lunatic
 	}
 	
-	mean_time_to_happen = {
-		days = 60
-		
-		modifier = {
-			factor = 1.1
-			liege = { num_of_vassals = 10 }
-		}
-		modifier = {
-			factor = 1.2
-			liege = { num_of_vassals = 20 }
-		}
-		modifier = {
-			factor = 1.3
-			liege = { num_of_vassals = 30 }
-		}
-		modifier = {
-			factor = 1.4
-			liege = { num_of_vassals = 40 }
-		}
-		modifier = {
-			factor = 1.5
-			liege = { num_of_vassals = 50 }
-		}
-		modifier = {
-			factor = 3
-			liege = { num_of_vassals = 100 }
-		}
-	}
+#	mean_time_to_happen = {
+#		days = 60
+#		
+#		modifier = {
+#			factor = 1.1
+#			liege = { num_of_vassals = 10 }
+#		}
+#		modifier = {
+#			factor = 1.2
+#			liege = { num_of_vassals = 20 }
+#		}
+#		modifier = {
+#			factor = 1.3
+#			liege = { num_of_vassals = 30 }
+#		}
+#		modifier = {
+#			factor = 1.4
+#			liege = { num_of_vassals = 40 }
+#		}
+#		modifier = {
+#			factor = 1.5
+#			liege = { num_of_vassals = 50 }
+#		}
+#		modifier = {
+#			factor = 3
+#			liege = { num_of_vassals = 100 }
+#		}
+#	}
 	
 	option = {
 		name = EVTOPTA_TOG_656
@@ -3747,6 +4473,9 @@ character_event = {
 	picture = GFX_evt_brothel
 	border = GFX_event_normal_frame_religion
 	
+	is_triggered_only = yes
+	hide_from = yes
+	
 	trigger = {
 		has_dlc = "The Old Gods"
 		has_character_flag = jarilo_feast_vassal
@@ -3759,34 +4488,34 @@ character_event = {
 		is_female = no
 	}
 	
-	mean_time_to_happen = {
-		days = 60
-		
-		modifier = {
-			factor = 1.1
-			liege = { num_of_vassals = 10 }
-		}
-		modifier = {
-			factor = 1.2
-			liege = { num_of_vassals = 20 }
-		}
-		modifier = {
-			factor = 1.3
-			liege = { num_of_vassals = 30 }
-		}
-		modifier = {
-			factor = 1.4
-			liege = { num_of_vassals = 40 }
-		}
-		modifier = {
-			factor = 1.5
-			liege = { num_of_vassals = 50 }
-		}
-		modifier = {
-			factor = 3
-			liege = { num_of_vassals = 100 }
-		}
-	}
+#	mean_time_to_happen = {
+#		days = 60
+#		
+#		modifier = {
+#			factor = 1.1
+#			liege = { num_of_vassals = 10 }
+#		}
+#		modifier = {
+#			factor = 1.2
+#			liege = { num_of_vassals = 20 }
+#		}
+#		modifier = {
+#			factor = 1.3
+#			liege = { num_of_vassals = 30 }
+#		}
+#		modifier = {
+#			factor = 1.4
+#			liege = { num_of_vassals = 40 }
+#		}
+#		modifier = {
+#			factor = 1.5
+#			liege = { num_of_vassals = 50 }
+#		}
+#		modifier = {
+#			factor = 3
+#			liege = { num_of_vassals = 100 }
+#		}
+#	}
 	
 	option = {
 		name = EVTOPTA_TOG_658
@@ -3969,6 +4698,8 @@ character_event = {
 	id = TOG.830
 	hide_window = yes
 	
+	is_triggered_only = yes
+	
 	trigger = {
 		has_dlc = "The Old Gods"
 		has_character_flag = jarilo_feast_vassal
@@ -3984,34 +4715,34 @@ character_event = {
 		}
 	}
 	
-	mean_time_to_happen = {
-		days = 60
-		
-		modifier = {
-			factor = 1.1
-			liege = { num_of_vassals = 10 }
-		}
-		modifier = {
-			factor = 1.2
-			liege = { num_of_vassals = 20 }
-		}
-		modifier = {
-			factor = 1.3
-			liege = { num_of_vassals = 30 }
-		}
-		modifier = {
-			factor = 1.4
-			liege = { num_of_vassals = 40 }
-		}
-		modifier = {
-			factor = 1.5
-			liege = { num_of_vassals = 50 }
-		}
-		modifier = {
-			factor = 3
-			liege = { num_of_vassals = 100 }
-		}
-	}
+#	mean_time_to_happen = {
+#		days = 60
+#		
+#		modifier = {
+#			factor = 1.1
+#			liege = { num_of_vassals = 10 }
+#		}
+#		modifier = {
+#			factor = 1.2
+#			liege = { num_of_vassals = 20 }
+#		}
+#		modifier = {
+#			factor = 1.3
+#			liege = { num_of_vassals = 30 }
+#		}
+#		modifier = {
+#			factor = 1.4
+#			liege = { num_of_vassals = 40 }
+#		}
+#		modifier = {
+#			factor = 1.5
+#			liege = { num_of_vassals = 50 }
+#		}
+#		modifier = {
+#			factor = 3
+#			liege = { num_of_vassals = 100 }
+#		}
+#	}
 	
 	immediate = {
 		set_character_flag = feast_friendship
@@ -4103,6 +4834,8 @@ character_event = {
 	id = TOG.833
 	hide_window = yes
 	
+	is_triggered_only = yes
+	
 	trigger = {
 		has_dlc = "The Old Gods"
 		has_character_flag = jarilo_feast_vassal
@@ -4125,34 +4858,34 @@ character_event = {
 		}
 	}
 	
-	mean_time_to_happen = {
-		days = 40
-		
-		modifier = {
-			factor = 1.1
-			liege = { num_of_vassals = 10 }
-		}
-		modifier = {
-			factor = 1.2
-			liege = { num_of_vassals = 20 }
-		}
-		modifier = {
-			factor = 1.3
-			liege = { num_of_vassals = 30 }
-		}
-		modifier = {
-			factor = 1.4
-			liege = { num_of_vassals = 40 }
-		}
-		modifier = {
-			factor = 1.5
-			liege = { num_of_vassals = 50 }
-		}
-		modifier = {
-			factor = 3
-			liege = { num_of_vassals = 100 }
-		}
-	}
+#	mean_time_to_happen = {
+#		days = 40
+#		
+#		modifier = {
+#			factor = 1.1
+#			liege = { num_of_vassals = 10 }
+#		}
+#		modifier = {
+#			factor = 1.2
+#			liege = { num_of_vassals = 20 }
+#		}
+#		modifier = {
+#			factor = 1.3
+#			liege = { num_of_vassals = 30 }
+#		}
+#		modifier = {
+#			factor = 1.4
+#			liege = { num_of_vassals = 40 }
+#		}
+#		modifier = {
+#			factor = 1.5
+#			liege = { num_of_vassals = 50 }
+#		}
+#		modifier = {
+#			factor = 3
+#			liege = { num_of_vassals = 100 }
+#		}
+#	}
 	
 	immediate = {
 		set_character_flag = feast_homosexual
@@ -4251,6 +4984,8 @@ character_event = {
 	id = TOG.836
 	hide_window = yes
 	
+	is_triggered_only = yes
+	
 	trigger = {
 		has_dlc = "The Old Gods"
 		has_character_flag = jarilo_feast_vassal
@@ -4273,34 +5008,34 @@ character_event = {
 		}
 	}
 	
-	mean_time_to_happen = {
-		days = 40
-		
-		modifier = {
-			factor = 1.1
-			liege = { num_of_vassals = 10 }
-		}
-		modifier = {
-			factor = 1.2
-			liege = { num_of_vassals = 20 }
-		}
-		modifier = {
-			factor = 1.3
-			liege = { num_of_vassals = 30 }
-		}
-		modifier = {
-			factor = 1.4
-			liege = { num_of_vassals = 40 }
-		}
-		modifier = {
-			factor = 1.5
-			liege = { num_of_vassals = 50 }
-		}
-		modifier = {
-			factor = 3
-			liege = { num_of_vassals = 100 }
-		}
-	}
+#	mean_time_to_happen = {
+#		days = 40
+#		
+#		modifier = {
+#			factor = 1.1
+#			liege = { num_of_vassals = 10 }
+#		}
+#		modifier = {
+#			factor = 1.2
+#			liege = { num_of_vassals = 20 }
+#		}
+#		modifier = {
+#			factor = 1.3
+#			liege = { num_of_vassals = 30 }
+#		}
+#		modifier = {
+#			factor = 1.4
+#			liege = { num_of_vassals = 40 }
+#		}
+#		modifier = {
+#			factor = 1.5
+#			liege = { num_of_vassals = 50 }
+#		}
+#		modifier = {
+#			factor = 3
+#			liege = { num_of_vassals = 100 }
+#		}
+#	}
 	
 	immediate = {
 		set_character_flag = feast_homosexual
@@ -4480,6 +5215,282 @@ character_event = {
 	}
 }
 
+### Feast event bounces
+character_event = { #feast_drunkard
+	id = TOG.841
+	
+	is_triggered_only = yes
+	
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = holding_jarilo
+		NOT = { has_character_flag = feast_drunkard }
+		any_vassal = {
+			has_character_flag = jarilo_feast_vassal
+			NOT = { has_character_flag = feast_drunkard }
+			trait = drunkard
+		}
+	}
+	
+	immediate = {
+		random_vassal = {
+			limit = {
+				has_character_flag = jarilo_feast_vassal
+				trait = drunkard
+			}
+			character_event = { id = TOG.820 }
+		}
+	}
+}
+
+character_event = {
+	id = TOG.842 #feast_gluttonous
+	
+	is_triggered_only = yes
+	
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = holding_jarilo
+		NOT = { has_character_flag = feast_gluttonous }
+		any_vassal = {
+			has_character_flag = jarilo_feast_vassal
+			NOT = { has_character_flag = feast_gluttonous }
+			trait = gluttonous
+		}
+	}
+	
+	immediate = {
+		random_vassal = {
+			limit = {
+				has_character_flag = jarilo_feast_vassal
+				trait = gluttonous
+			}
+			character_event = { id = TOG.822 }
+		}
+	}
+}
+
+character_event = {
+	id = TOG.843 #feast_lunatic
+	
+	is_triggered_only = yes
+	
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = holding_jarilo
+		NOT = { has_character_flag = feast_lunatic }
+		any_vassal = {
+			has_character_flag = jarilo_feast_vassal
+			NOT = { has_character_flag = feast_lunatic }
+			trait = lunatic
+		}
+	}
+	
+	immediate = {
+		random_vassal = {
+			limit = {
+				has_character_flag = jarilo_feast_vassal
+				trait = lunatic
+			}
+			character_event = { id = TOG.826 }
+		}
+	}
+}
+
+character_event = {
+	id = TOG.844 #feast_lustful
+	
+	is_triggered_only = yes
+	
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = holding_jarilo
+		NOT = { has_character_flag = feast_lustful }
+		any_vassal = { 
+			has_character_flag = jarilo_feast_vassal
+			NOT = { has_character_flag = feast_lustful }
+			trait = lustful
+			is_female = no
+		}
+	}
+	
+	immediate = {
+		random_vassal = {
+			limit = {
+				has_character_flag = jarilo_feast_vassal
+				trait = lustful
+				is_female = no
+			}
+			character_event = { id = TOG.828 }
+		}
+	}
+}
+
+character_event = {
+	id = TOG.849 #feast_friendship
+	
+	is_triggered_only = yes
+	
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = holding_jarilo
+		NOT = { has_character_flag = feast_friendship }
+		has_character_flag = jarilo_feast_vassal
+		any_vassal = {
+			has_character_flag = jarilo_feast_vassal
+			NOT = { has_character_flag = feast_friendship }
+			liege = { 
+				any_vassal = {
+					has_character_flag = jarilo_feast_vassal
+					NOT = { has_character_flag = feast_friendship }
+					NOT = { character = PREVPREV }
+					opinion = { who = PREVPREV value =  20 }
+				}		
+			}
+		}
+	}
+	
+	immediate = {
+		random_vassal = {
+			limit = {
+				has_character_flag = jarilo_feast_vassal
+				NOT = { has_character_flag = feast_friendship }
+				liege = { 
+					any_vassal = {
+						has_character_flag = jarilo_feast_vassal
+						NOT = { has_character_flag = feast_friendship }
+						NOT = { character = PREVPREV }
+						opinion = { who = PREVPREV value =  20 }
+					}		
+				}
+			}
+			character_event = { id = TOG.830 }
+		}
+	}
+}
+
+character_event = {
+	id = TOG.850 #male_homosexual
+	
+	is_triggered_only = yes
+	
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		NOT = { has_character_flag = feast_homosexual }
+		has_character_flag = holding_jarilo
+		any_vassal = { 
+			has_character_flag = jarilo_feast_vassal
+			NOT = { has_character_flag = feast_homosexual }
+			trait = homosexual
+			is_female = no
+			has_lover = no
+			liege = { 
+				any_vassal = {
+					has_character_flag = jarilo_feast_vassal
+					NOT = { has_character_flag = feast_homosexual }
+					NOT = { character = PREVPREV }
+					opinion = { who = PREVPREV value =  0 }
+					trait = homosexual
+					is_female = no
+					has_lover = no
+				}		
+			}
+		}
+	}
+	
+	immediate = {
+		random_vassal = {
+			limit = {
+				has_character_flag = jarilo_feast_vassal
+				NOT = { has_character_flag = feast_homosexual }
+				trait = homosexual
+				is_female = no
+				has_lover = no
+				liege = { 
+					any_vassal = {
+						has_character_flag = jarilo_feast_vassal
+						NOT = { has_character_flag = feast_homosexual }
+						NOT = { character = PREVPREV }
+						opinion = { who = PREVPREV value =  0 }
+						trait = homosexual
+						is_female = no
+						has_lover = no
+					}		
+				}
+			}
+			character_event = { id = TOG.833 }
+		}
+	}
+}
+
+character_event = {
+	id = TOG.851 #female_homosexual
+	
+	is_triggered_only = yes
+	
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		NOT = { has_character_flag = feast_homosexual }
+		has_character_flag = holding_jarilo
+		any_vassal = { 
+			has_character_flag = jarilo_feast_vassal
+			NOT = { has_character_flag = feast_homosexual }
+			trait = homosexual
+			is_female = yes
+			has_lover = no
+			liege = { 
+				any_vassal = {
+					has_character_flag = jarilo_feast_vassal
+					NOT = { has_character_flag = feast_homosexual }
+					NOT = { character = PREVPREV }
+					opinion = { who = PREVPREV value =  0 }
+					trait = homosexual
+					is_female = yes
+					has_lover = no
+				}		
+			}
+		}
+	}
+	
+	immediate = {
+		random_vassal = {
+			limit = {
+				has_character_flag = jarilo_feast_vassal
+				NOT = { has_character_flag = feast_homosexual }
+				trait = homosexual
+				is_female = yes
+				has_lover = no
+				liege = { 
+					any_vassal = {
+						has_character_flag = jarilo_feast_vassal
+						NOT = { has_character_flag = feast_homosexual }
+						NOT = { character = PREVPREV }
+						opinion = { who = PREVPREV value =  0 }
+						trait = homosexual
+						is_female = yes
+						has_lover = no
+					}		
+				}
+			}
+			character_event = { id = TOG.836 }
+		}
+	}
+}
+
 ###########################################
 # Flag management                         #
 ###########################################
@@ -4500,9 +5511,9 @@ character_event = {
 		clr_character_flag = attending_ukon_juhla
 		clr_character_flag = attending_jarilo
 		clr_character_flag = attending_uzgavenes
-		set_character_flag = jarilo_feast_vassal
-		set_character_flag = ukon_juhla_feast_vassal
-		set_character_flag = uzgavenes_feast_vassal
+		clr_character_flag = jarilo_feast_vassal
+		clr_character_flag = ukon_juhla_feast_vassal
+		clr_character_flag = uzgavenes_feast_vassal
 		clr_character_flag = feast_drunkard
 		clr_character_flag = feast_gluttonous
 		clr_character_flag = feast_lunatic

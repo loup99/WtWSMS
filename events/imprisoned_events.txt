@@ -114,7 +114,6 @@ character_event = {
 	option = {
 		name = "EVTOPTA50001"
 		prestige = 10
-		add_trait=convict
 		prisoner = no
 	}
 }
@@ -262,12 +261,14 @@ character_event = {
 	id = 50005
 	desc = "EVTDESC50005"
 	picture = "GFX_evt_into_the_dungeon"
+	border = GFX_event_normal_frame_intrigue
 	
 	min_age = 14
 	capable_only = yes
 	prisoner = yes
 	
 	trigger = {
+		NOT = { has_character_modifier = zun_judgement }
 		NOT = { has_character_modifier = the_oubliette }
 		NOT = { has_character_modifier = house_arrest }
 		NOT = { has_character_flag = asked_for_better_prison }
@@ -307,8 +308,9 @@ character_event = {
 #Host responds to the prisoner's request
 character_event = {
 	id = 50006
-	desc = "EVTDESC50006"
-	picture = "GFX_evt_into_the_dungeon"
+	desc = EVTDESC50006
+	picture = GFX_evt_into_the_dungeon
+	border = GFX_event_normal_frame_intrigue
 	
 	is_triggered_only = yes
 	
@@ -424,6 +426,7 @@ character_event = {
 	id = 50007
 	desc = "EVTDESC50007"
 	picture = "GFX_evt_into_the_dungeon"
+	border = GFX_event_normal_frame_intrigue
 	
 	is_triggered_only = yes
 	
@@ -452,6 +455,7 @@ character_event = {
 	id = 50008
 	desc = "EVTDESC50008"
 	picture = "GFX_evt_into_the_dungeon"
+	border = GFX_event_normal_frame_intrigue
 	
 	is_triggered_only = yes
 	
@@ -483,6 +487,7 @@ character_event = {
 	id = 50010
 	desc = "EVTDESC50010"
 	picture = "GFX_evt_torture"
+	border = GFX_event_normal_frame_intrigue
 	
 	min_age = 14
 	only_rulers = yes
@@ -595,6 +600,7 @@ character_event = {
 	id = 50011
 	desc = "EVTDESC50011"
 	picture = "GFX_evt_torture"
+	border = GFX_event_normal_frame_intrigue
 	
 	is_triggered_only = yes
 	
@@ -613,6 +619,7 @@ character_event = {
 	id = 50012
 	desc = "EVTDESC50012"
 	picture = "GFX_evt_torture"
+	border = GFX_event_normal_frame_intrigue
 	
 	is_triggered_only = yes
 	
@@ -627,6 +634,7 @@ character_event = {
 	id = 50013
 	desc = "EVTDESC50013"
 	picture = "GFX_evt_torture"
+	border = GFX_event_normal_frame_intrigue
 	
 	is_triggered_only = yes
 	
@@ -641,6 +649,7 @@ character_event = {
 	id = 50014
 	desc = "EVTDESC50014"
 	picture = "GFX_evt_death"
+	border = GFX_event_normal_frame_intrigue
 	
 	is_triggered_only = yes
 	
@@ -665,6 +674,7 @@ character_event = {
 	id = 50015
 	desc = "EVTDESC50015"
 	picture = "GFX_evt_death"
+	border = GFX_event_normal_frame_intrigue
 	
 	is_triggered_only = yes
 	
@@ -682,6 +692,7 @@ character_event = {
 	id = 50020
 	desc = "EVTDESC50020"
 	picture = "GFX_evt_battle"
+	border = GFX_event_normal_frame_war
 	
 	is_triggered_only = yes
 	
@@ -823,5 +834,239 @@ character_event = {
 				years = 5
 			}
 		}
+	}
+}
+
+####################################################
+# Zunist torture events
+# By Henrik "Groogy" Hansson
+####################################################
+character_event = {
+	id = CM.15000
+	
+	desc = "EVTDESCCM15000"
+	picture = GFX_evt_emissary
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		add_character_modifier = {
+			name = zun_judgement
+			duration = -1
+		}
+		
+		character_event = { id = CM.15001 days = 30 }
+	}
+	
+	option = {
+		name = "OK"
+	}
+}
+
+character_event = {
+	id = CM.15001
+	
+	hide_window = yes
+	#desc = "EVTDESCCM15001"
+	#picture = GFX_evt_emissary
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = {
+				NOT = { trait = incapable }
+				NOT = { has_character_flag = passing_zen_judgement }
+				NOT = { trait = zealous }
+				NOT = { trait = cynical }
+				NOT = { religion = zun_pagan }
+				NOT = { religion = zun_pagan_reformed }
+				NOT = { trait = lunatic }
+			}
+			
+			set_character_flag = passing_zen_judgement
+			random_list = {
+				60 = { character_event = { id = CM.15003 } } # Character lives
+				10 = { character_event = { id = CM.15004 } } # Character dies
+				5 = { character_event = { id = CM.15005 } } # Character goes insane
+				5 = { character_event = { id = CM.15006 } } # Character goes zealous
+				5 = { character_event = { id = CM.15007 } } # Character goes zunist
+				10 = { character_event = { id = CM.15002 } }  # Character is freed
+			}
+		}
+		
+		if = {
+			limit = {
+				NOT = { trait = incapable }
+				NOT = { has_character_flag = passing_zen_judgement }
+				NOT = { trait = zealous }
+				NOT = { trait = cynical }
+				NOT = { religion = zun_pagan }
+				NOT = { religion = zun_pagan_reformed }
+				trait = lunatic
+			}
+			
+			set_character_flag = passing_zen_judgement
+			random_list = {
+				60 = { character_event = { id = CM.15003 } } # Character lives
+				5 = { character_event = { id = CM.15004 } } # Character dies
+				5 = { character_event = { id = CM.15006 } } # Character goes zealous
+				5 = { character_event = { id = CM.15007 } } # Character goes zunist
+				20 = { character_event = { id = CM.15002 } }  # Character is freed
+			}
+		}
+		
+		if = {
+			limit = {
+				NOT = { trait = incapable }
+				NOT = { has_character_flag = passing_zen_judgement }
+				NOT = { trait = lunatic }
+			}
+			
+			set_character_flag = passing_zen_judgement
+			random_list = {
+				60 = { character_event = { id = CM.15003 } } # Character lives
+				5 = { character_event = { id = CM.15004 } } # Character dies
+				5 = { character_event = { id = CM.15005 } } # Character goes insane
+				20 = { character_event = { id = CM.15002 } }  # Character is freed
+			}
+		}
+		
+		if = {
+			limit = {
+				NOT = { trait = incapable }
+				NOT = { has_character_flag = passing_zen_judgement }
+			}
+			
+			set_character_flag = passing_zen_judgement
+			random_list = {
+				60 = { character_event = { id = CM.15003 } } # Character lives
+				5 = { character_event = { id = CM.15004 } } # Character dies
+				20 = { character_event = { id = CM.15002 } }  # Character is freed
+			}
+		}
+		
+		if = {
+			limit = {
+				trait = incapable
+				NOT = { has_character_flag = passing_zen_judgement }
+			}
+			
+			set_character_flag = passing_zen_judgement
+			random_list = {
+				60 = { character_event = { id = CM.15003 } } # Character lives
+				40 = { character_event = { id = CM.15004 } } # Character dies
+				10 = { character_event = { id = CM.15002 } }  # Character is freed
+			}
+		}
+	}
+}
+
+character_event = {	# End torture
+	id = CM.15002
+	
+	desc = "EVTDESCCM15002"
+	picture = GFX_evt_emissary
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_character_modifier = zun_judgement
+		prisoner = yes
+	}
+	
+	option = {
+		name = "EVTOPTACM15002"
+		remove_character_modifier = zun_judgement
+		clr_character_flag = passing_zen_judgement
+		prisoner = no
+	}
+}
+
+character_event = {	# Character lives
+	id = CM.15003
+	
+	#desc = "EVTDESCCM15003"
+	#picture = GFX_evt_emissary
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTACM15003"
+		clr_character_flag = passing_zen_judgement
+		character_event = { id = CM.15001 days = 30 }
+	}
+}
+
+character_event = {	# Character dies
+	id = CM.15004
+	
+	desc = "EVTDESCCM15004"
+	picture = GFX_evt_emissary
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTACM15004"
+		remove_character_modifier = zun_judgement
+		clr_character_flag = passing_zen_judgement
+		host = {
+			ROOT = {
+				death = { 
+					killer = PREV
+					death_reason = death_sacrificed
+				}
+			}
+		}
+
+	}
+}
+
+character_event = {	# Character goes insane
+	id = CM.15005
+	
+	desc = "EVTDESCCM15005"
+	picture = GFX_evt_emissary
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTACM15005"
+		clr_character_flag = passing_zen_judgement
+		add_trait = lunatic
+		character_event = { id = CM.15001 days = 30 }
+	}
+}
+
+character_event = {	# Character goes zealous
+	id = CM.15006
+	
+	desc = "EVTDESCCM15006"
+	picture = GFX_evt_emissary
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTACM15006"
+		clr_character_flag = passing_zen_judgement
+		add_trait = zealous
+		character_event = { id = CM.15001 days = 30 }
+	}
+}
+
+character_event = {	# Character goes zunist
+	id = CM.15007
+	
+	desc = "EVTDESCCM15007"
+	picture = GFX_evt_emissary
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTACM15007"
+		clr_character_flag = passing_zen_judgement
+		religion = zun_pagan
+		character_event = { id = CM.15001 days = 30 }
 	}
 }

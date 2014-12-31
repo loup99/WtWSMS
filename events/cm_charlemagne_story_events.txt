@@ -541,6 +541,7 @@ narrative_event = {
 		has_dlc = "Charlemagne"
 		religion_group = christian
 		has_character_flag = is_charlemagne
+		independent = yes
 		OR = {
 			primary_title = { tier = EMPEROR }
 			primary_title = { tier = KING }
@@ -575,7 +576,7 @@ narrative_event = {
 				trait = brave
 				trait = tough_soldier
 				trait = strong
-				trait = attractive
+				trait = fair
 				trait = aggressive_leader
 				attributes = {
 					diplomacy = 11
@@ -780,6 +781,11 @@ character_event = {
 				is_primary_heir = ROOT
 			}
 		}
+		any_sibling = {
+			has_character_flag = is_charlemagne      # To ensure he has certain power and to avoid problems with ruler designer
+			independent = yes
+			higher_tier_than = DUKE
+		}
 	}
 	
 	immediate = {
@@ -844,6 +850,11 @@ character_event = {
 				is_primary_heir = ROOT
 			}
 		}
+		any_sibling = {
+			has_character_flag = is_carloman      # To ensure he has certain power and to avoid problems with ruler designer
+			independent = yes
+			higher_tier_than = DUKE
+		}
 	}
 	
 	immediate = {
@@ -894,6 +905,8 @@ narrative_event = {
 	trigger = {
 		has_dlc = "Charlemagne"
 		religion_group = christian
+		NOT = { year = 820 }
+		independent = yes
 		OR = {
 			primary_title = { tier = EMPEROR }
 			primary_title = { tier = KING }
@@ -921,7 +934,6 @@ narrative_event = {
 			}
 		}
 		NOT = { has_global_flag = ogier_spawned }
-
 	}
 	
 	mean_time_to_happen = {
@@ -1060,9 +1072,7 @@ character_event = {
 			}
 			ROOT = {
 				primary_title = {
-					PREVPREV = {
-						add_claim = PREV
-					}
+					add_claim = PREVPREV
 				}
 			}
 			character_event = { id = CM.1077 }
@@ -1313,6 +1323,7 @@ narrative_event = {
 					}
 				}
 				NOT = { year = 830 }
+				is_feudal = yes
 			}
 		}
 		NOT = { has_global_flag = saxon_wars }
@@ -1377,10 +1388,6 @@ narrative_event = {
 				top_liege = {
 					any_war = {
 						attacker = { character = ROOT }
-						OR = {
-							using_cb = crusade
-							using_cb = religious
-						}
 					}
 				}
 			}
@@ -1546,10 +1553,6 @@ narrative_event = {
 		if = {
 			limit = { NOT = { trait = cruel } }
 			add_trait = cruel
-		}
-		if = {
-			limit = { NOT = { trait = crusader } }
-			add_trait = crusader
 		}
 		if = {
 			limit = { NOT = { trait = zealous } }
@@ -2310,6 +2313,7 @@ character_event = {
 		}
 		any_courtier = {
 			NOT = { has_character_flag = meddling_mother_conflict }
+			NOT = { any_child = { character =  ROOT } }
 			is_councillor = yes
 			liege = { character = ROOT }
 			OR = {
@@ -2339,6 +2343,7 @@ character_event = {
 		random_courtier = {
 			limit = {
 				is_councillor = yes
+				NOT = { any_child = { character =  ROOT } }
 				liege = { character = ROOT }
 				OR = {
 					trait = ambitious

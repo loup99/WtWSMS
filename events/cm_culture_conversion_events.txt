@@ -22,10 +22,9 @@ province_event = {
 	picture = GFX_evt_stone_church
 
 	trigger = {
-		has_dlc = "Charlemagne"
 		culture = pictish
 		owner = {
-			NOT = {	culture_group = celtic }
+			NOT = {	culture = pictish }
 		}
 	}
 	
@@ -35,7 +34,7 @@ province_event = {
 
 	option = {
 		name = EVTOPTA_CM_1
-		culture = pictish
+		culture = scottish
 	}
 }
 
@@ -46,7 +45,6 @@ province_event = {
 	picture = GFX_evt_stone_church
 
 	trigger = {
-		has_dlc = "Charlemagne"
 		culture = lombard
 		county = {
 			empire = { title = e_italy }
@@ -76,7 +74,6 @@ province_event = {
 	picture = GFX_evt_tribal_lands
 
 	trigger = {
-		has_dlc = "Charlemagne"
 		county = { kingdom = { title = k_frisia } }
 		OR = {
 			culture = old_frankish
@@ -114,7 +111,6 @@ province_event = {
 	picture = GFX_evt_tribal_lands
 
 	trigger = {
-		has_dlc = "Charlemagne"
 		culture = old_saxon
 		has_global_flag = widukind_spawned
 		NOT = { kingdom = { title = k_frisia } }
@@ -146,7 +142,6 @@ province_event = {
 	picture = GFX_evt_stone_church
 
 	trigger = {
-		has_dlc = "Charlemagne"
 		year = 776
 		culture = old_frankish
 		NOT = { kingdom = { title = k_frisia } }
@@ -181,7 +176,6 @@ province_event = {
 	picture = GFX_evt_stone_church
 
 	trigger = {
-		has_dlc = "Charlemagne"
 		culture = visigothic
 		NOT = { religion_group = muslim }
 		county = {
@@ -212,7 +206,6 @@ province_event = {
 	picture = GFX_evt_stone_church
 
 	trigger = {
-		has_dlc = "Charlemagne"
 		culture = visigothic
 		NOT = { religion_group = muslim }
 		OR = {
@@ -246,7 +239,6 @@ province_event = {
 	picture = GFX_evt_stone_church
 
 	trigger = {
-		has_dlc = "Charlemagne"
 		culture = visigothic
 		NOT = { religion_group = muslim }
 		OR = {
@@ -278,7 +270,6 @@ province_event = {
 	picture = GFX_evt_stone_church
 
 	trigger = {
-		has_dlc = "Charlemagne"
 		culture = suebi
 		NOT = { religion_group = muslim }
 		OR = {
@@ -311,7 +302,6 @@ province_event = {
 	picture = GFX_evt_monk_muslim
 
 	trigger = {
-		has_dlc = "Charlemagne"
 		culture = visigothic
 		religion_group = muslim
 		OR = {
@@ -343,16 +333,20 @@ province_event = {
 	picture = GFX_evt_tribal_lands
 
 	trigger = {
-		has_dlc = "Charlemagne"
 		culture_group = east_slavic
 		NOT = { culture = russian }
 		owner = {
 			OR = {
-				culture_group = north_germanic
-				culture_group = central_germanic
-				culture_group = west_germanic
-				religion = norse_pagan
-				religion = norse_pagan_reformed
+				culture = russian
+				AND = {
+					NOT = { culture_group = east_slavic }
+					NOT = { culture_group = finno_ugric }
+				}
+				NOT = { religion_group = pagan_group }
+				AND = {
+					religion_group = pagan_group
+					is_reformed_religion = yes
+				}
 			}
 		}
 	}

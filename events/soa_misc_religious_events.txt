@@ -887,6 +887,10 @@ character_event = {
 	
 	mean_time_to_happen = {
 		months = 5000
+		modifier = {
+			factor = 0.3
+			has_focus = focus_theology
+		}
 	}
 
 	option = {
@@ -932,6 +936,10 @@ character_event = {
 	
 	mean_time_to_happen = {
 		months = 5000
+		modifier = {
+			factor = 0.3
+			has_focus = focus_theology
+		}
 	}
 
 	option = {
@@ -1215,6 +1223,7 @@ character_event = {
 			has_landed_title = d_yazidi
 			has_landed_title = d_ibadi
 			has_landed_title = d_hurufi
+			has_landed_title = d_kharajite
 		}
 		NOT = { intrigue = 3 }
 		NOT = { diplomacy = 3 }
@@ -1670,6 +1679,7 @@ character_event = {
 			has_landed_title = d_yazidi
 			has_landed_title = d_ibadi
 			has_landed_title = d_hurufi
+			has_landed_title = d_kharajite
 		}
 		trait = bad_priest_muslim
 		NOT = { has_character_modifier = bad_rel_head }
@@ -1980,6 +1990,10 @@ narrative_event = {
 	
 	mean_time_to_happen = {
 		months = 2000
+		modifier = {
+			factor = 0.3
+			has_focus = focus_theology
+		}
 	}
 	
 	option = {
@@ -2054,10 +2068,15 @@ narrative_event = {
 			value = 300	# Not too far away
 		}
 		NOT = { has_character_flag = do_not_disturb }
+		NOT = { trait = in_hiding }
 	}
 	
 	mean_time_to_happen = {
 		months = 2000
+		modifier = {
+			factor = 0.5
+			has_focus = focus_theology
+		}
 	}
 
 	option = {
@@ -2096,7 +2115,10 @@ narrative_event = {
 	option = {
 		name = EVTOPTB_SoA_5343
 		if = {
-			limit = { NOT = { lifestyle_traits = 1 } }
+			limit = {
+				NOT = { lifestyle_traits = 1 }
+				NOT = { has_dlc = "Way of Life" }
+			}
 			random = {
 				chance = 50
 				add_trait = scholar
@@ -2110,7 +2132,10 @@ narrative_event = {
 	option = {
 		name = EVTOPTC_SoA_5343
 		if = {
-			limit = { NOT = { lifestyle_traits = 1 } }
+			limit = {
+				NOT = { lifestyle_traits = 1 }
+				NOT = { has_dlc = "Way of Life" }
+			}
 			random = {
 				chance = 50
 				add_trait = hedonist
@@ -2204,6 +2229,10 @@ narrative_event = {
 	
 	mean_time_to_happen = {
 		months = 2000
+		modifier = {
+			factor = 0.3
+			has_focus = focus_theology
+		}
 	}
 	
 	option = {
@@ -2252,12 +2281,13 @@ narrative_event = {
 		has_dlc = "Sons of Abraham"
 		year = 885
 		in_command = no
+		NOT = { has_character_flag = do_not_disturb }
+		NOT = { trait = in_hiding }
 		b_mntathos = {
 			holder_scope = {
 				is_priest = yes
 				religion = ROOT
 			}
-		NOT = { has_character_flag = do_not_disturb }
 		}
 		OR = {
 			religion = orthodox
@@ -2274,6 +2304,10 @@ narrative_event = {
 	
 	mean_time_to_happen = {
 		months = 2000
+		modifier = {
+			factor = 0.5
+			has_focus = focus_theology
+		}
 	}
 
 	option = {
@@ -2316,7 +2350,10 @@ narrative_event = {
 			change_learning = 1
 		}
 		if = {
-			limit = { NOT = { lifestyle_traits = 1 } }
+			limit = {
+				NOT = { lifestyle_traits = 1 }
+				NOT = { has_dlc = "Way of Life" }
+			}
 			random = {
 				chance = 50
 				add_trait = scholar
@@ -2353,6 +2390,7 @@ character_event = {
 	
 	trigger = {
 		has_dlc = "Sons of Abraham"
+		year = 1000
 		OR = {
 			tier = emperor
 			tier = king
@@ -2505,7 +2543,7 @@ narrative_event = {
 					NOT = { trait = kind }
 					NOT = { trait = humble }
 				}
-				hidden_trooltip = {
+				hidden_tooltip = {
 					opinion = {
 						modifier = opinion_angry
 						who = ROOT
@@ -3005,7 +3043,7 @@ narrative_event = {
 			limit = {
 				has_character_flag = is_jeanne_darc
 			}
-			character_event = { id = SoA.5396 days = 1460 }
+			hidden_tooltip = { character_event = { id = SoA.5396 days = 1460 } }
 		}
 	}
 	option = {
@@ -3210,7 +3248,7 @@ narrative_event = {
 		hidden_tooltip = {
 			any_courtier = {
 				limit = { has_character_flag = is_jeanne_darc }
-				character_event = { id = SoA.5450 days = 30 random = 30 }
+				hidden_tooltip = { character_event = { id = SoA.5450 days = 30 random = 30 } }
 			}
 		}
 	}
@@ -3326,7 +3364,7 @@ narrative_event = {
 			}
 			prisoner = no
 			add_trait = nun
-			character_event = { id = SoA.5396 days = 1460 }
+			hidden_tooltip = { character_event = { id = SoA.5396 days = 1460 } }
 		}
 	}
 }

@@ -290,8 +290,10 @@ character_event = {
 					sibling = ROOT
 				}
 				trait = shy
+				NOT = { trait = in_hiding }
 			}
 		}
+		NOT = { trait = in_hiding }
 	}
 	
 	mean_time_to_happen = {
@@ -1022,7 +1024,7 @@ character_event = {
 				add_trait = proud
 				hidden_tooltip = {
 					character_event = {
-						id = 38261 #Notify Shy
+						id = 38261 #Notify Proud
 					}
 				}
 			}
@@ -4298,6 +4300,11 @@ character_event = {
 			has_character_flag = crusader_prestige
 		}
 		add_rival = FROM
+		opinion = {
+			modifier = grievously_offended
+			who = FROM
+			years = 10
+		}
 		clr_character_flag = crusader_prestige
 		FROM = {
 			set_character_flag = prestige_crusader
@@ -4314,7 +4321,12 @@ character_event = {
 		trigger = {
 			has_character_flag = crusader_piety
 		}
-		add_rival = FROM	
+		add_rival = FROM
+		opinion = {
+			modifier = grievously_offended
+			who = FROM
+			years = 10
+		}
 		clr_character_flag = crusader_piety
 		FROM = {
 			set_character_flag = piety_crusader
@@ -4386,6 +4398,11 @@ character_event = {
 		}
 		clr_character_flag = piety_crusader
 		add_rival = FROM
+		opinion = {
+			modifier = grievously_offended
+			who = FROM
+			years = 10
+		}
 	}
 	option = {
 		name = EVTOPTB100107
@@ -4397,6 +4414,11 @@ character_event = {
 		}
 		clr_character_flag = prestige_crusader
 		add_rival = FROM
+		opinion = {
+			modifier = grievously_offended
+			who = FROM
+			years = 10
+		}
 	}
 }
 
@@ -6149,6 +6171,7 @@ character_event = {
 	
 	min_age = 16
 	prisoner = no
+	capable_only = yes
 	
 	trigger = {
 		war = no
@@ -6169,6 +6192,7 @@ character_event = {
 			war = no
 			in_command = no
 			prisoner = no
+			NOT = { trait = incapable }
 			OR = {
 				is_heretic = yes
 				NOT = {
@@ -6864,7 +6888,7 @@ character_event = {
 	}
 }
 
-### My friend has much better martial stats than me, ask for help? ###
+### My friend has much better martial stats than me, ask for help? ### 
 character_event = {
 	id = 100200
 	desc = EVTDESC100200
@@ -7204,7 +7228,7 @@ character_event = {
 				value = 0.25
 			}
 			tooltip = {
-				character_event = {
+				character_event = { 
 					id = 100205
 					tooltip = EVTTOOLTIPC100205
 				}
@@ -7900,7 +7924,7 @@ character_event = {
 				value = 0.25
 			}
 		}
-		FROM = {
+		FROM = { 
 			set_character_flag = paid_intrigue
 			character_event = {
 				id = 100225
@@ -7982,6 +8006,7 @@ character_event = {
 	id = 100230
 	desc = EVTDESC100230
 	picture = GFX_evt_courtiers_talking
+	border = GFX_event_normal_frame_religion
 	
 	prisoner = no
 	min_age = 16
@@ -8100,6 +8125,7 @@ character_event = {
 	id = 100231
 	desc = EVTDESC100231
 	picture = GFX_evt_courtiers_talking
+	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
@@ -8158,6 +8184,7 @@ character_event = {
 	id = 100232
 	desc = EVTDESC100232
 	picture = GFX_evt_courtiers_talking
+	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
@@ -8207,6 +8234,7 @@ character_event = {
 	id = 100233
 	desc = EVTDESC100233
 	picture = GFX_evt_courtiers_talking
+	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
@@ -8235,6 +8263,7 @@ character_event = {
 	id = 100234
 	desc = EVTDESC100234
 	picture = GFX_evt_courtiers_talking
+	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
@@ -8307,6 +8336,7 @@ character_event = {
 	id = 100235
 	desc = EVTDESC100235
 	picture = GFX_evt_courtiers_talking
+	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
@@ -8800,6 +8830,7 @@ character_event = {
 	id = 100260
 	desc = EVTDESC100260
 	picture = GFX_evt_library
+	border = GFX_event_normal_frame_religion
 	
 	min_age = 23
 	capable_only = yes
@@ -8820,7 +8851,7 @@ character_event = {
 			war = no
 			in_command = no
 			prisoner = no
-			#trait = scholar
+			#trait = scholar 
 		}
 	}
 	
@@ -9614,6 +9645,11 @@ character_event = {
 			clr_character_flag = friendly_rival
 		}
 		add_rival = FROM
+		opinion = {
+			modifier = grievously_offended
+			who = FROM
+			years = 10
+		}
 	}
 }
 
@@ -9678,7 +9714,9 @@ character_event = {
 			NOT = {
 				has_character_flag = duel_rival
 			}
+			NOT = { trait = in_hiding }
 		}
+		NOT = { trait = in_hiding }
 	}
 	
 	mean_time_to_happen = {
@@ -12244,6 +12282,8 @@ character_event = {
 	only_rulers = yes
 	prisoner = no
 	
+	is_triggered_only = yes
+	
 	trigger = {
 		war = no
 		in_command = no
@@ -12252,13 +12292,12 @@ character_event = {
 		NOT = {
 			has_character_modifier = religious_rival_timer
 		}
-		any_rival = {
+		FROM = {
 			war = no
 			age = 16
 			in_command = no
 			prisoner = no
 			religion = ROOT
-			
 			NOT = {
 				reverse_has_opinion_modifier = { who = ROOT modifier = opinion_continued_rivalry }
 			}
@@ -12268,23 +12307,23 @@ character_event = {
 		}
 	}
 	
-	mean_time_to_happen = {
-		months = 300
-		
-		modifier = {
-			factor = 0.5
-			trait = zealous
-		}
-		modifier = {
-			factor = 0.5
-			piety = 500
-		}
-		
-		modifier = {
-			factor = 2
-			trait = deceitful
-		}
-	}
+#	mean_time_to_happen = {
+#		months = 300
+#		
+#		modifier = {
+#			factor = 0.5
+#			trait = zealous
+#		}
+#		modifier = {
+#			factor = 0.5
+#			piety = 500
+#		}
+#		
+#		modifier = {
+#			factor = 2
+#			trait = deceitful
+#		}
+#	}
 	
 	immediate = {
 		hidden_tooltip = {
@@ -12298,14 +12337,7 @@ character_event = {
 	
 	option = {
 		name = EVTOPTA100500
-		random_rival = {
-			limit = {
-				war = no
-				age = 16
-				in_command = no
-				prisoner = no
-				religion_group = christian
-			}
+		FROM = {
 			character_event = {
 				id = 100501
 				days = 7
@@ -12955,6 +12987,11 @@ character_event = {
 			}
 		}
 		add_rival = FROM
+		opinion = {
+			modifier = grievously_offended
+			who = FROM
+			years = 10
+		}
 	}
 }
 
@@ -13542,6 +13579,11 @@ character_event = {
 			}
 		}
 		add_rival = FROM
+		opinion = {
+			modifier = grievously_offended
+			who = FROM
+			years = 10
+		}
 	}
 }
 

@@ -40,12 +40,6 @@ province_event = {
 	
 	mean_time_to_happen = {
 		months = 9600 # 800 years
-
-		modifier = {
-			factor = 10
-			religion_group = pagan_group
-		}
-
 		modifier = {
 			factor = 1.5
 			religion_authority = 0.6
@@ -177,6 +171,26 @@ province_event = {
 				character_event = { id = 39400 }
 			}
 		}
+		owner = {
+			if = {
+				limit = { ai = no }
+				chronicle = {
+					entry = CHRONICLE_HERESY_SPREAD
+					picture = GFX_evt_heretic
+				}
+			}
+		}
+		owner = {
+			any_liege = {
+				if = {
+					limit = { ai = no }
+					chronicle = {
+						entry = CHRONICLE_HERESY_SPREAD
+						picture = GFX_evt_heretic
+					}
+				}
+			}
+		}
 	}
 	
 	option = {
@@ -247,6 +261,7 @@ character_event = {
 				religion_authority = ROOT # The local religion has at least the same authority as my religion
 			}
 		}
+		NOT = { trait = in_hiding }
 	}
 	
 	mean_time_to_happen = {
@@ -544,7 +559,7 @@ character_event = {
 		is_ruler = no
 		
 		has_dlc = "Sons of Abraham"
-		
+		NOT = { trait = in_hiding }
 		liege = {
 			NOT = { religion = ROOT }
 			religion_group = ROOT
@@ -555,6 +570,7 @@ character_event = {
 			age = 16
 			prisoner = no
 			NOT = { trait = incapable }
+			NOT = { trait = in_hiding }
 			OR = {
 				same_liege = ROOT
 				is_liege_of = ROOT
@@ -638,6 +654,7 @@ character_event = {
 				age = 16
 				prisoner = no
 				NOT = { trait = incapable }
+				NOT = { trait = in_hiding }
 				mercenary = false
 				holy_order = false
 				OR = {
@@ -1462,11 +1479,25 @@ narrative_event = {
 		trigger = {
 			religion = FROM
 		}
+		if = {
+			limit = { ai = no }
+			chronicle = {
+				entry = CHRONICLE_HERESY_TAKEOVER_PLAYER_IS_NEW
+				portrait = [Root.GetID]
+			}
+		}
 	}
 	option = {
 		name = EVTOPTB_SOA_4200
 		trigger = {
 			religion = FROMFROM
+		}
+		if = {
+			limit = { ai = no }
+			chronicle = {
+				entry = CHRONICLE_HERESY_TAKEOVER_PLAYER_IS_OLD
+				portrait = [Root.GetID]
+			}
 		}
 	}
 	option = {

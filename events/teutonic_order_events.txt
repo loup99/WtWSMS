@@ -222,6 +222,25 @@ province_event = {
 			clr_province_flag = land_wanted_by_teutonic_order
 			clr_global_flag = land_wanted_by_teutonic_order
 			owner = { narrative_event = { id = 8703 days = 7 } }
+			any_playable_ruler = {
+				limit = {
+					ai = no
+					NOT = { character = FROM }
+					OR = {
+						religion_group = christian
+						war_with = FROM
+						capital_scope = {
+							NOT = {
+								distance = {
+								where = ROOT
+								value = 100	# Means we live fairly near the province where the castle is built
+								}
+							}
+						}
+					}
+				}
+				narrative_event = { id = 8703 days = 7 }
+			}
 		}
 	}
 }
@@ -234,7 +253,6 @@ narrative_event = {
 	picture = "GFX_evt_crusaders"
 	border = "GFX_event_narrative_frame_religion"
 	
-	major = yes
 	only_rulers = yes
 	
 	is_triggered_only = yes
@@ -290,8 +308,13 @@ province_event = {
 			
 			# The Emperor is Top liege
 			top_liege = {
-				primary_title = {
-					title = e_hre
+				OR = {
+					AND = {
+						primary_title = { title = e_hre	}
+						e_germany = { has_holder = no }
+						culture_group = central_germanic
+					}
+					primary_title = { title = e_germany	}
 				}
 			}
 

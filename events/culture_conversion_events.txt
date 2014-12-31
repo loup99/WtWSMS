@@ -85,10 +85,6 @@ province_event = {
 			owner = { stewardship = 15 }
 		}
 		modifier = {
-			factor = 0.4
-			owner = { has_character_modifier = tyrant }
-		}
-		modifier = {
 			factor = 0.4 # Altaic nomad steppe bonus vs non-Altaics
 			owner = {
 				culture_group = altaic
@@ -147,7 +143,9 @@ province_event = {
 	option = {
 		name = "EVTOPTA55000"
 		owner = {
-			reverse_culture = ROOT
+			ROOT = {
+				culture = PREV
+			}
 		}
 	}
 }
@@ -295,12 +293,14 @@ province_event = {
 	option = {
 		name = "EVTOPTA55001"
 		owner = {
-			reverse_culture = ROOT
-			if = {
-				limit = {
-					NOT = { religion = ROOT }
+			ROOT = {
+				culture = PREV
+				if = {
+					limit = {
+						NOT = { religion = PREV }
+					}
+					religion = PREV
 				}
-				reverse_religion = ROOT
 			}
 		}
 	}

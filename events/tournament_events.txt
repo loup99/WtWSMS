@@ -21,12 +21,34 @@ character_event = {
 
 	option = {
 		name = "EVTOPTA70000"
+		ai_chance = {
+			factor = 1
+			modifier  = {
+				factor = 0.1
+				ai = yes
+				trait = in_hiding
+			}
+		}
 		prestige = 50
 		set_character_flag = attending_tournament
 		set_character_flag = do_not_disturb
+		hidden_tooltip = { character_event = { id = 70999 days = 150 } } # Safety catch flag clearing
+		if = {
+			limit = { trait = in_hiding	}
+			remove_trait = in_hiding
+			add_character_modifier = {
+				name = went_out_of_hiding_timer
+				duration = 180
+				hidden = yes
+			}
+			hidden_tooltip = { character_event = { id = CM.6400 } } # Notify plotters and family
+		}
 	}
 	option = {
 		name = "EVTOPTB70000"
+		ai_chance = {
+			factor = 1
+		}
 	}
 }
 
@@ -47,9 +69,11 @@ character_event = {
 		hidden_tooltip = {
 			set_character_flag = tournament_begins
 			set_character_flag = attending_tournament
-			location = {
-				set_province_flag = tournament_60_days
-			}
+			set_character_flag = tournament_60_days
+		}
+		chronicle = {
+			entry = CHRONICLE_GRAND_TOURNAMENT
+			picture = GFX_evt_joust
 		}
 	}
 	option = {
@@ -159,24 +183,22 @@ character_event = {
 }
 
 # Tournament is over
-province_event = {
+character_event = {
 	id = 70002
 	title = "TOURNAMENTTITLE"
 	desc = "EVTDESC70002"
 	picture = "GFX_evt_joust"
 
 	trigger = {
-		had_province_flag = {
+		had_character_flag = {
 			flag = tournament_60_days
 			days = 60
 		}
-		owner = {
-			has_character_flag = winner
-			has_character_flag = second_place
-			had_character_flag = {
-				flag = third_place
-				days = 3
-			}
+		has_character_flag = winner
+		has_character_flag = second_place
+		had_character_flag = {
+			flag = third_place
+			days = 3
 		}
 	}
 
@@ -186,89 +208,87 @@ province_event = {
 
 	option = {
 		name = "EVTOPTA70002"
-		clr_province_flag = tournament_60_days
-		owner = {
-			clr_character_flag = tournament_begins
-			clr_character_flag = winner
-			clr_character_flag = second_place
-			clr_character_flag = third_place
-			clr_character_flag = attending_tournament
-			clr_character_flag = attending_tournament_event
-			clr_character_flag = do_not_disturb
+		clr_character_flag = tournament_60_days
+		clr_character_flag = tournament_begins
+		clr_character_flag = winner
+		clr_character_flag = second_place
+		clr_character_flag = third_place
+		clr_character_flag = attending_tournament
+		clr_character_flag = attending_tournament_event
+		clr_character_flag = do_not_disturb
+		clr_character_flag = tournament_third_place
+		clr_character_flag = tournament_second_place
+		clr_character_flag = tournament_winner
+		set_character_flag = tournament_has_ended
+		any_realm_character = {
+			limit = {
+				has_character_flag = attending_tournament
+				OR = {
+					has_character_flag = tournament_third_place
+					has_character_flag = tournament_second_place
+					has_character_flag = tournament_winner
+				}
+			}
+			set_character_flag = tournament_has_ended
 			clr_character_flag = tournament_third_place
 			clr_character_flag = tournament_second_place
 			clr_character_flag = tournament_winner
+			opinion = {
+				modifier = opinion_tournament_participant
+				who = PREV
+				years = 2
+			}
+			clr_character_flag = attending_tournament
+			clr_character_flag = attending_tournament_event
+			clr_character_flag = do_not_disturb
+		}
+		any_realm_character = {
+			limit = {
+				has_character_flag = attending_tournament
+				NOT = {
+					character = PREV
+				}
+				NOT = {
+					has_character_flag = tournament_third_place
+				}
+				NOT = {
+					has_character_flag = tournament_second_place
+				}
+				NOT = {
+					has_character_flag = tournament_winner
+				}
+			}
+			hidden_tooltip = {
+				random_list = {
+					10 = {
+						character_event = { id = 70003 }
+					}
+					10 = {
+						character_event = { id = 70004 }
+					}
+					10 = {
+						character_event = { id = 70005 }
+					}
+					10 = {
+						character_event = { id = 70006 }
+					}
+					10 = {
+						character_event = { id = 70007 }
+					}
+					10 = {
+						character_event = { id = 70008 }
+					}
+				}
+			}
+			opinion = {
+				modifier = opinion_tournament_participant
+				who = PREV
+				years = 2
+			}
 			set_character_flag = tournament_has_ended
-			any_realm_character = {
-				limit = {
-					has_character_flag = attending_tournament
-					OR = {
-						has_character_flag = tournament_third_place
-						has_character_flag = tournament_second_place
-						has_character_flag = tournament_winner
-					}
-				}
-				set_character_flag = tournament_has_ended
-				clr_character_flag = tournament_third_place
-				clr_character_flag = tournament_second_place
-				clr_character_flag = tournament_winner
-				opinion = {
-					modifier = opinion_tournament_participant
-					who = PREV
-					years = 2
-				}
-				clr_character_flag = attending_tournament
-				clr_character_flag = attending_tournament_event
-				clr_character_flag = do_not_disturb
-			}
-			any_realm_character = {
-				limit = {
-					has_character_flag = attending_tournament
-					NOT = {
-						character = PREV
-					}
-					NOT = {
-						has_character_flag = tournament_third_place
-					}
-					NOT = {
-						has_character_flag = tournament_second_place
-					}
-					NOT = {
-						has_character_flag = tournament_winner
-					}
-				}
-				hidden_tooltip = {
-					random_list = {
-						10 = {
-							character_event = { id = 70003 }
-						}
-						10 = {
-							character_event = { id = 70004 }
-						}
-						10 = {
-							character_event = { id = 70005 }
-						}
-						10 = {
-							character_event = { id = 70006 }
-						}
-						10 = {
-							character_event = { id = 70007 }
-						}
-						10 = {
-							character_event = { id = 70008 }
-						}
-					}
-				}
-				opinion = {
-					modifier = opinion_tournament_participant
-					who = PREV
-					years = 2
-				}
-				set_character_flag = tournament_has_ended
-				clr_character_flag = attending_tournament
-				clr_character_flag = attending_tournament_event
-				clr_character_flag = do_not_disturb
-			}
+			clr_character_flag = attending_tournament
+			clr_character_flag = attending_tournament_event
+			clr_character_flag = do_not_disturb
 		}
 	}
 }
@@ -2056,6 +2076,7 @@ character_event = {
 	prisoner = no
 
 	trigger = {
+		NOT = { has_dlc = "Way of Life" }
 		has_character_flag = attending_tournament
 		NOT = {
 			has_character_flag = tournament_has_ended

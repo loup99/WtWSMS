@@ -26,6 +26,18 @@ character_event = {
 }
 
 # Third Temple Built
+province_event = {
+	id = SoA.10199
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		owner = { narrative_event = { id = SoA.101 } }
+	}
+}
+
 narrative_event = {
 	id = SoA.101
 	title = EVTNAME_SoA_101
@@ -193,7 +205,8 @@ character_event = {
 			religion_group = muslim
 			religion_group = zoroastrian_group
 			religion_group = jewish_group
-		}	
+			culture = khazar
+		}
 		NOT = { 
 			capital_scope = {
 				empire = { title = e_spain }
@@ -245,6 +258,7 @@ character_event = {
 			religion_group = muslim
 			religion_group = zoroastrian_group
 			religion_group = jewish_group
+			culture = khazar
 		}	
 		NOT = { 
 			capital_scope = {
@@ -297,7 +311,8 @@ character_event = {
 			religion_group = muslim
 			religion_group = zoroastrian_group
 			religion_group = jewish_group
-		}	
+			culture = khazar
+		}
 		NOT = { 
 			capital_scope = {
 				empire = { title = e_spain }
@@ -594,6 +609,11 @@ character_event = {
 		name = EVTOPTA_SoA_501
 		ai_chance = {
 			factor = 80
+			modifier  = {
+				factor = 0.1
+				ai = yes
+				trait = in_hiding
+			}
 			modifier = {
 				factor = 0
 				NOT = {	opinion = { who = ROOT value = -20 } }
@@ -604,6 +624,16 @@ character_event = {
 		set_character_flag = do_not_disturb
 		hidden_tooltip = { character_event = { id = SoA.503 days = 8 } }
 		hidden_tooltip = { character_event = { id = SoA.599 days = 20 } } # Safety catch flag clearing
+		if = {
+			limit = { trait = in_hiding	}
+			remove_trait = in_hiding
+			add_character_modifier = {
+				name = went_out_of_hiding_timer
+				duration = 180
+				hidden = yes
+			}
+			hidden_tooltip = { character_event = { id = CM.6400 } } # Notify plotters and family
+		}
 	}
 	option = {
 		name = EVTOPTB_SoA_501
@@ -763,6 +793,13 @@ character_event = {
 	
 	mean_time_to_happen = {
 		months = 280
+		modifier = {
+			factor = 0.5
+			OR = {
+				has_focus = focus_scholarship
+				liege = { has_focus = focus_scholarship }
+			}
+		}
 	}
 	
 	immediate = {
@@ -806,6 +843,13 @@ character_event = {
 	
 	mean_time_to_happen = {
 		months = 280
+		modifier = {
+			factor = 0.5
+			OR = {
+				has_focus = focus_scholarship
+				liege = { has_focus = focus_scholarship }
+			}
+		}
 	}
 	
 	immediate = {
@@ -849,6 +893,13 @@ character_event = {
 	
 	mean_time_to_happen = {
 		months = 280
+		modifier = {
+			factor = 0.5
+			OR = {
+				has_focus = focus_scholarship
+				liege = { has_focus = focus_scholarship }
+			}
+		}
 	}
 	
 	immediate = {

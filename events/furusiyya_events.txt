@@ -18,11 +18,33 @@ character_event = {
 
 	option = {
 		name = "EVTOPTA88250"
+		ai_chance = {
+			factor = 1
+			modifier  = {
+				factor = 0.1
+				ai = yes
+				trait = in_hiding
+			}
+		}
 		prestige = 50
 		set_character_flag = attending_tournament_furusiyya
+		if = {
+			limit = { trait = in_hiding	}
+			remove_trait = in_hiding
+			clr_character_flag = do_not_disturb
+			add_character_modifier = {
+				name = went_out_of_hiding_timer
+				duration = 180
+				hidden = yes
+			}
+			hidden_tooltip = { character_event = { id = CM.6400 } } # Notify plotters and family
+		}
 	}
 	option = {
 		name = "EVTOPTB88250"
+		ai_chance = {
+			factor = 1
+		}
 		prestige = -100
 	}
 }
@@ -44,9 +66,11 @@ character_event = {
 		hidden_tooltip = {
 			set_character_flag = tournament_begins_furusiyya
 			set_character_flag = attending_tournament_furusiyya
-			location = {
-				set_province_flag = tournament_60_days_furusiyya
-			}
+			set_character_flag = tournament_60_days_furusiyya
+		}
+		chronicle = {
+			entry = CHRONICLE_FURUSIYYA
+			picture = GFX_evt_joust
 		}
 	}
 	option = {
@@ -155,7 +179,7 @@ character_event = {
 }
 
 # Tournament is over
-province_event = {
+character_event = {
 	id = 88252
 	title = "FURUSIYYATITLE"
 	desc = "EVTDESC88252"
@@ -163,29 +187,23 @@ province_event = {
 
 	trigger = {
 		OR = {
-			owner = {
-				had_character_flag = {
-					flag = tournament_begins_furusiyya
-					days = 365
-				}
+			had_character_flag = {
+				flag = tournament_begins_furusiyya
+				days = 365
 			}
-			had_province_flag = {
+			had_character_flag = {
 				flag = tournament_60_days_furusiyya
 				days = 60
 			}
 		}
 		OR = {
-			owner = {
-				had_character_flag = {
-					flag = tournament_begins_furusiyya
-					days = 365
-				}
+			had_character_flag = {
+				flag = tournament_begins_furusiyya
+				days = 365
 			}
-			owner = {
-				has_character_flag = winner_furusiyya
-				has_character_flag = second_place_furusiyya
-				has_character_flag = third_place_furusiyya
-			}
+			has_character_flag = winner_furusiyya
+			has_character_flag = second_place_furusiyya
+			has_character_flag = third_place_furusiyya
 		}
 	}
 
@@ -195,86 +213,84 @@ province_event = {
 
 	option = {
 		name = "EVTOPTA88252"
-		clr_province_flag = tournament_60_days_furusiyya
-		owner = {
-			clr_character_flag = tournament_begins_furusiyya
-			clr_character_flag = winner_furusiyya
-			clr_character_flag = second_place_furusiyya
-			clr_character_flag = third_place_furusiyya
-			clr_character_flag = attending_tournament_furusiyya
-			clr_character_flag = attending_tournament_event_furusiyya
+		clr_character_flag = tournament_60_days_furusiyya
+		clr_character_flag = tournament_begins_furusiyya
+		clr_character_flag = winner_furusiyya
+		clr_character_flag = second_place_furusiyya
+		clr_character_flag = third_place_furusiyya
+		clr_character_flag = attending_tournament_furusiyya
+		clr_character_flag = attending_tournament_event_furusiyya
+		clr_character_flag = tournament_third_place_furusiyya
+		clr_character_flag = tournament_second_place_furusiyya
+		clr_character_flag = tournament_winner_furusiyya
+		set_character_flag = tournament_has_ended_furusiyya
+		any_realm_character = {
+			limit = {
+				has_character_flag = attending_tournament_furusiyya
+				OR = {
+					has_character_flag = tournament_third_place_furusiyya
+					has_character_flag = tournament_second_place_furusiyya
+					has_character_flag = tournament_winner_furusiyya
+				}
+			}
+			set_character_flag = tournament_has_ended_furusiyya
 			clr_character_flag = tournament_third_place_furusiyya
 			clr_character_flag = tournament_second_place_furusiyya
 			clr_character_flag = tournament_winner_furusiyya
+			opinion = {
+				modifier = opinion_tournament_participant
+				who = PREV
+				years = 2
+			}
+			clr_character_flag = attending_tournament_furusiyya
+			clr_character_flag = attending_tournament_event_furusiyya
+		}
+		any_realm_character = {
+			limit = {
+				has_character_flag = attending_tournament_furusiyya
+				NOT = {
+					character = PREV
+				}
+				NOT = {
+					has_character_flag = tournament_third_place_furusiyya
+				}
+				NOT = {
+					has_character_flag = tournament_second_place_furusiyya
+				}
+				NOT = {
+					has_character_flag = tournament_winner_furusiyya
+				}
+			}
+			hidden_tooltip = {
+				random_list = {
+					10 = {
+						character_event = { id = 88253 }
+					}
+					10 = {
+						character_event = { id = 88254 }
+					}
+					10 = {
+						character_event = { id = 88255 }
+					}
+					10 = {
+						character_event = { id = 88256 }
+					}
+					10 = {
+						character_event = { id = 88257 }
+					}
+					10 = {
+						character_event = { id = 88258 }
+					}
+				}
+			}
+			opinion = {
+				modifier = opinion_tournament_participant
+				who = PREV
+				years = 2
+			}
 			set_character_flag = tournament_has_ended_furusiyya
-			any_realm_character = {
-				limit = {
-					has_character_flag = attending_tournament_furusiyya
-					OR = {
-						has_character_flag = tournament_third_place_furusiyya
-						has_character_flag = tournament_second_place_furusiyya
-						has_character_flag = tournament_winner_furusiyya
-					}
-				}
-				set_character_flag = tournament_has_ended_furusiyya
-				clr_character_flag = tournament_third_place_furusiyya
-				clr_character_flag = tournament_second_place_furusiyya
-				clr_character_flag = tournament_winner_furusiyya
-				opinion = {
-					modifier = opinion_tournament_participant
-					who = PREV
-					years = 2
-				}
-				clr_character_flag = attending_tournament_furusiyya
-				clr_character_flag = attending_tournament_event_furusiyya
-			}
-			any_realm_character = {
-				limit = {
-					has_character_flag = attending_tournament_furusiyya
-					NOT = {
-						character = PREV
-					}
-					NOT = {
-						has_character_flag = tournament_third_place_furusiyya
-					}
-					NOT = {
-						has_character_flag = tournament_second_place_furusiyya
-					}
-					NOT = {
-						has_character_flag = tournament_winner_furusiyya
-					}
-				}
-				hidden_tooltip = {
-					random_list = {
-						10 = {
-							character_event = { id = 88253 }
-						}
-						10 = {
-							character_event = { id = 88254 }
-						}
-						10 = {
-							character_event = { id = 88255 }
-						}
-						10 = {
-							character_event = { id = 88256 }
-						}
-						10 = {
-							character_event = { id = 88257 }
-						}
-						10 = {
-							character_event = { id = 88258 }
-						}
-					}
-				}
-				opinion = {
-					modifier = opinion_tournament_participant
-					who = PREV
-					years = 2
-				}
-				set_character_flag = tournament_has_ended_furusiyya
-				clr_character_flag = attending_tournament_furusiyya
-				clr_character_flag = attending_tournament_event_furusiyya
-			}
+			clr_character_flag = attending_tournament_furusiyya
+			clr_character_flag = attending_tournament_event_furusiyya
 		}
 	}
 }
@@ -2619,6 +2635,7 @@ character_event = {
 		has_character_flag = attending_tournament_furusiyya
 		NOT = { has_character_flag = attending_tournament_event_furusiyya }
 		NOT = { has_character_flag = tournament_has_ended_furusiyya }
+		NOT = { has_dlc = "Way of Life" }
 		NOT = {
 			lifestyle_traits = 1
 		}

@@ -652,9 +652,16 @@ letter_event = {
 		name = EVTOPTA_CM_4101 #Travel to the feast
 		ai_chance = {
 			factor = 2
+			modifier = {
+				factor = 10
+				has_focus = focus_theology
+				OR = {
+					religion = zun_pagan
+					religion = zun_pagan_reformed
+				}
+			}
 			modifier  = {
 				factor = 0.1
-				ai = yes
 				trait = in_hiding
 			}
 			modifier  = {
@@ -688,10 +695,9 @@ letter_event = {
 		name = EVTOPTB_RoI_1001 #Refuse invitation
 		ai_chance = {
 			factor = 1
-			modifier  = {
+			modifier = {
 				factor = 0
 				opinion = { who = FROM value = 25 }
-				NOT = { trait = in_hiding }
 			}
 			modifier  = {
 				factor = 5
@@ -722,7 +728,7 @@ letter_event = {
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTA_CM_4102 
+		name = EVTOPTA_SoA_502 
 		opinion = {
 			modifier = opinion_dislike
 			who = FROM
@@ -822,7 +828,7 @@ character_event = {
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTA_ROI_1996
+		name = EVTOPTA_CM_4196
 		add_character_modifier = {
 			name = large_feast_timer
 			duration = 365
@@ -1367,7 +1373,6 @@ narrative_event = {
 		activate_title = { title = d_haruriyyah status = yes }
 		create_character = {
 			random_traits = no
-			name = Bektash
 			dynasty = random
 			religion = ROOT
 			culture = persian

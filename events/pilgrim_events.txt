@@ -24,7 +24,6 @@ character_event = {
 	option = {
 		name = EVTOPTA_SoA_5000
 		piety = 20
-		set_character_flag = do_not_disturb
 		set_character_flag = preparing_pilgrimage
 		clr_character_flag = activated_pilgrimage
 		hidden_tooltip = {
@@ -38,11 +37,6 @@ character_event = {
 						religion = bogomilist
 						religion = messalian
 						religion = paulician
-						religion = nicene # Jeru, Antio, Axum
-						religion = donatist
-						religion = ebionites
-						religion = docetic
-						religion = priscillianism
 					}
 				}
 				character_event = { id = SoA.5011 }
@@ -143,6 +137,13 @@ character_event = {
 		hidden_tooltip = {
 			character_event = { id = SoA.5022 days = 15 }
 		}
+		if = {
+			limit = { ai = no }
+			chronicle = {
+				entry = CHRONICLE_PILGRIMAGE_TO_JERUSALEM
+				picture = GFX_evt_pilgrims_epic_journey
+			}
+		}
 	}
 
 	option = {
@@ -156,6 +157,13 @@ character_event = {
 		hidden_tooltip = {
 			character_event = { id = SoA.5094 days = 15 }
 		}
+		if = {
+			limit = { ai = no }
+			chronicle = {
+				entry = CHRONICLE_PILGRIMAGE_TO_CONSTANTINOPLE
+				picture = GFX_evt_pilgrims_epic_journey
+			}
+		}
 	}
 	option = {
 		name = EVTOPTC_SoA_5011
@@ -165,6 +173,13 @@ character_event = {
 		set_character_flag = pilgrimage_to_antioch
 		hidden_tooltip = {
 			character_event = { id = SoA.5096 days = 15 }
+		}
+		if = {
+			limit = { ai = no }
+			chronicle = {
+				entry = CHRONICLE_PILGRIMAGE_TO_ANTIOCH
+				picture = GFX_evt_pilgrims_epic_journey
+			}
 		}
 	}
 	option = {
@@ -179,6 +194,13 @@ character_event = {
 		set_character_flag = pilgrimage_to_axum
 		hidden_tooltip = {
 			character_event = { id = SoA.5095 days = 15 }
+		}
+		if = {
+			limit = { ai = no }
+			chronicle = {
+				entry = CHRONICLE_PILGRIMAGE_TO_AXUM
+				picture = GFX_evt_pilgrims_epic_journey
+			}
 		}
 	}
 }
@@ -198,6 +220,13 @@ character_event = {
 		hidden_tooltip = {
 			character_event = { id = SoA.5022 days = 15 }
 		}
+		if = {
+			limit = { ai = no }
+			chronicle = {
+				entry = CHRONICLE_PILGRIMAGE_TO_JERUSALEM
+				picture = GFX_evt_pilgrims_epic_journey
+			}
+		}
 	}
 }
 
@@ -215,6 +244,13 @@ character_event = {
 		set_character_flag = pilgrimage_to_rome
 		hidden_tooltip = {
 			character_event = { id = SoA.5024 days = 15 }
+		}
+		if = {
+			limit = { ai = no }
+			chronicle = {
+				entry = CHRONICLE_PILGRIMAGE_TO_ROME
+				picture = GFX_evt_pilgrims_epic_journey
+			}
 		}
 	}
 }
@@ -258,7 +294,14 @@ character_event = {
 		ai_chance = { factor = 25 }
 		set_character_flag = pilgrimage_to_canterbury
 		hidden_tooltip = { character_event = { id = SoA.5021 days = 15 } }
+		if = {
+			limit = { ai = no }
+			chronicle = {
+				entry = CHRONICLE_PILGRIMAGE_TO_CANTERBURY
+				picture = GFX_evt_pilgrims_epic_journey
+			}
 		}
+	}
 	option = {
 		name = EVTOPTB_SoA_5019
 		trigger = {
@@ -267,12 +310,26 @@ character_event = {
 		ai_chance = { factor = 25 }
 		set_character_flag = pilgrimage_to_koln
 		hidden_tooltip = { character_event = { id = SoA.5023 days = 15 } }
+		if = {
+			limit = { ai = no }
+			chronicle = {
+				entry = CHRONICLE_PILGRIMAGE_TO_KOLN
+				picture = GFX_evt_pilgrims_epic_journey
+			}
+		}
 	}
 	option = {
 		name = EVTOPTC_SoA_5019
 		ai_chance = { factor = 50 }
 		set_character_flag = pilgrimage_to_santiago
 		hidden_tooltip = { character_event = { id = SoA.5025 days = 15 } }
+		if = {
+			limit = { ai = no }
+			chronicle = {
+				entry = CHRONICLE_PILGRIMAGE_TO_SANTIAGO
+				picture = GFX_evt_pilgrims_epic_journey
+			}
+		}
 	}
 }
 
@@ -292,6 +349,13 @@ character_event = {
 		hidden_tooltip = {
 			character_event = { id = SoA.5022 days = 15 }
 		}
+		if = {
+			limit = { ai = no }
+			chronicle = {
+				entry = CHRONICLE_PILGRIMAGE_TO_JERUSALEM
+				picture = GFX_evt_pilgrims_epic_journey
+			}
+		}
 	}
 
 	option = {
@@ -300,6 +364,13 @@ character_event = {
 		set_character_flag = pilgrimage_to_rome
 		hidden_tooltip = {
 			character_event = { id = SoA.5024 days = 15 }
+		}
+		if = {
+			limit = { ai = no }
+			chronicle = {
+				entry = CHRONICLE_PILGRIMAGE_TO_ROME
+				picture = GFX_evt_pilgrims_epic_journey
+			}
 		}
 	}
 }
@@ -1040,120 +1111,28 @@ character_event = {
 		name = EVTOPTA_SoA_5031
 		random_list = {
 			10 = {
-				if = {
-					limit = { trait = celibate }
-					remove_trait = celibate
+				modifier = {
+					factor = 0
+					has_dlc = "Way of Life"
 				}
-				if = {
-					limit = { trait = hedonist }
-					remove_trait = hedonist
-				}
-				if = {
-					limit = { trait = gardener }
-					remove_trait = gardener
-				}
-				if = {
-					limit = { trait = mystic }
-					remove_trait = mystic
-				}
-				if = {
-					limit = { trait = impaler }
-					remove_trait = impaler
-				}
-				if = {
-					limit = { trait = duelist }
-					remove_trait = duelist
-				}
-				if = {
-					limit = { trait = hunter }
-					remove_trait = hunter
-				}
-				if = {
-					limit = { trait = poet }
-					remove_trait = poet
-				}
-				if = {
-					limit = { trait = falconer }
-					remove_trait = falconer
+				modifier = {
+					factor = 0
+					lifestyle_traits = 1
 				}
 				add_trait = scholar
 			}
 			10 = {
-				if = {
-					limit = { trait = celibate }
-					remove_trait = celibate
+				modifier = {
+					factor = 0
+					has_dlc = "Way of Life"
 				}
-				if = {
-					limit = { trait = hedonist }
-					remove_trait = hedonist
-				}
-				if = {
-					limit = { trait = scholar }
-					remove_trait = scholar
-				}
-				if = {
-					limit = { trait = gardener }
-					remove_trait = gardener
-				}
-				if = {
-					limit = { trait = impaler }
-					remove_trait = impaler
-				}
-				if = {
-					limit = { trait = duelist }
-					remove_trait = duelist
-				}
-				if = {
-					limit = { trait = hunter }
-					remove_trait = hunter
-				}
-				if = {
-					limit = { trait = poet }
-					remove_trait = poet
-				}
-				if = {
-					limit = { trait = falconer }
-					remove_trait = falconer
+				modifier = {
+					factor = 0
+					lifestyle_traits = 1
 				}
 				add_trait = mystic
 			}
 			10 = {
-				if = {
-					limit = { trait = celibate }
-					remove_trait = celibate
-				}
-				if = {
-					limit = { trait = hedonist }
-					remove_trait = hedonist
-				}
-				if = {
-					limit = { trait = scholar }
-					remove_trait = scholar
-				}
-				if = {
-					limit = { trait = gardener }
-					remove_trait = gardener
-				}
-				if = {
-					limit = { trait = mystic }
-					remove_trait = mystic
-				}
-				if = {
-					limit = { trait = impaler }
-					remove_trait = impaler
-				}
-				if = {
-					limit = { trait = duelist }
-					remove_trait = duelist
-				}
-				if = {
-					limit = { trait = hunter }
-					remove_trait = hunter
-				}
-				if = {
-					limit = { trait = falconer }
-					remove_trait = falconer
-				}
 				add_trait = poet
 			}
 			10 = {
@@ -2856,6 +2835,7 @@ character_event = {
 			add_trait = cynical
 		}
 		clr_character_flag = good_pilgrimage
+		clr_character_flag = abominable_pilgrimage
 		set_character_flag = bad_pilgrimage
 		hidden_tooltip = { character_event = { id = SoA.5090 days = 10 } } # Stay a little longer then go home
 		}
@@ -2949,6 +2929,7 @@ character_event = {
 				chance = 50
 				impregnate = 0
 				clr_character_flag = good_pilgrimage
+				clr_character_flag = abominable_pilgrimage
 				set_character_flag = bad_pilgrimage
 				}
 		}
@@ -2960,6 +2941,7 @@ character_event = {
 				chance = 5
 				add_trait = syphilitic
 				clr_character_flag = good_pilgrimage
+				clr_character_flag = abominable_pilgrimage
 				set_character_flag = bad_pilgrimage
 			}
 		}
@@ -3078,6 +3060,10 @@ narrative_event = {
 	}
 	option = {
 		name = EVTOPTC_SoA_5064
+		trigger = {
+			NOT = { lifestyle_traits = 1 }
+			NOT = { has_dlc = "Way of Life" }
+		}
 		ai_chance = {
 			factor = 10
 		}
@@ -3097,46 +3083,7 @@ narrative_event = {
 			limit = { trait = wounded }
 			remove_trait = wounded
 		}
-		if = {
-			limit = { NOT = { trait = mystic } }
-			if = {
-				limit = { trait = celibate }
-				remove_trait = celibate
-			}
-			if = {
-				limit = { trait = hedonist }
-				remove_trait = hedonist
-			}
-			if = {
-				limit = { trait = scholar }
-				remove_trait = scholar
-			}
-			if = {
-				limit = { trait = gardener }
-				remove_trait = gardener
-			}
-			if = {
-				limit = { trait = impaler }
-				remove_trait = impaler
-			}
-			if = {
-				limit = { trait = duelist }
-				remove_trait = duelist
-			}
-			if = {
-				limit = { trait = hunter }
-				remove_trait = hunter
-			}
-			if = {
-				limit = { trait = poet }
-				remove_trait = poet
-			}
-			if = {
-				limit = { trait = falconer }
-				remove_trait = falconer
-			}
-			add_trait = mystic
-		}
+		add_trait = mystic
 		hidden_tooltip = { character_event = { id = SoA.5090 days = 10 } } # Stay a little longer then go home
 	}
 }
@@ -3180,58 +3127,29 @@ character_event = {
 		ai_chance = {
 			factor = 80
 		}
-			if = {
-				limit = { NOT = { trait = hedonist } }
-				random = {
-					chance = 30
-					if = {
-						limit = { trait = celibate }
-						remove_trait = celibate
-					}
-					if = {
-						limit = { trait = mystic }
-						remove_trait = mystic
-					}
-					if = {
-						limit = { trait = scholar }
-						remove_trait = scholar
-					}
-					if = {
-						limit = { trait = gardener }
-						remove_trait = gardener
-					}
-					if = {
-						limit = { trait = impaler }
-						remove_trait = impaler
-					}
-					if = {
-						limit = { trait = duelist }
-						remove_trait = duelist
-					}
-					if = {
-						limit = { trait = hunter }
-						remove_trait = hunter
-					}
-					if = {
-						limit = { trait = poet }
-						remove_trait = poet
-					}
-					if = {
-						limit = { trait = falconer }
-						remove_trait = falconer
-					}
-					add_trait = hedonist
-				}
+		if = {
+			limit = {
+				NOT = { lifestyle_traits = 1 }
+				NOT = { has_dlc = "Way of Life" }
 			}
-			if = {
-				limit = { NOT = { trait = drunkard } }
-				random = {
-					chance = 30
-					add_trait = drunkard
-				}
+			random = {
+				chance = 30
+				add_trait = hedonist
 			}
-		hidden_tooltip = { character_event = { id = SoA.5090 days = 10 } } # Stay a little longer then go home
 		}
+		if = {
+			limit = { NOT = { trait = drunkard } }
+			random = {
+				chance = 30
+				add_trait = drunkard
+			}
+		}
+		add_character_modifier = {
+			name = good_times
+			days = 730
+		}
+		hidden_tooltip = { character_event = { id = SoA.5090 days = 10 } } # Stay a little longer then go home
+	}
 	option = {
 		name = EVTOPTB_SoA_5066
 		ai_chance = {
@@ -3290,6 +3208,8 @@ character_event = {
 	option = {
 		name = EVTOPTA_SoA_5080
 		prestige = -10
+		clr_character_flag = good_pilgrimage
+		clr_character_flag = bad_pilgrimage
 		set_character_flag = abominable_pilgrimage
 		if = {
 			limit = { NOT = { trait = lunatic } }

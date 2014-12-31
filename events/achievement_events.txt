@@ -389,6 +389,7 @@ character_event = {
 			has_landed_title = e_rajastan
 			has_landed_title = e_bengal
 			has_landed_title = e_deccan
+			has_landed_title = e_india
 			any_realm_title = {
 				tier = KING
 				de_jure_liege = e_rajastan 
@@ -400,6 +401,10 @@ character_event = {
 			any_realm_title = {
 				tier = KING
 				de_jure_liege = e_deccan 
+			}
+			any_realm_title = {
+				tier = KING
+				de_jure_liege = e_india 
 			}
 		}
 	}
@@ -428,14 +433,31 @@ character_event = {
 		has_dlc = "Rajas of India"
 		religion_group = muslim
 		NOT = { has_character_flag = achievement_great_indian_sultanate }
-		has_landed_title = e_rajastan
-		NOT = {
-			any_independent_ruler = {
-				any_realm_province = {
-					county = {
-						empire = { title = e_rajastan }
+		OR = {
+			AND = {
+				has_landed_title = e_rajastan
+				NOT = {
+					any_independent_ruler = {
+						any_realm_province = {
+							county = {
+								empire = { title = e_rajastan }
+							}
+							NOT = { religion_group = muslim }
+						}
 					}
-					NOT = { religion_group = muslim }
+				}
+			}
+			AND = {
+				has_landed_title = e_india
+				NOT = {
+					any_independent_ruler = {
+						any_realm_province = {
+							county = {
+								empire = { title = e_india }
+							}
+							NOT = { religion_group = muslim }
+						}
+					}
 				}
 			}
 		}
@@ -469,6 +491,7 @@ character_event = {
 			has_landed_title = e_rajastan
 			has_landed_title = e_bengal
 			has_landed_title = e_deccan
+			has_landed_title = e_india
 			any_realm_title = {
 				tier = KING
 				de_jure_liege = e_rajastan 
@@ -481,6 +504,10 @@ character_event = {
 				tier = KING
 				de_jure_liege = e_deccan 
 			}
+			any_realm_title = {
+				tier = KING
+				de_jure_liege = e_india 
+			}
 		}
 		NOT = {
 			any_independent_ruler = {
@@ -490,6 +517,7 @@ character_event = {
 							empire = { title = e_rajastan }
 							empire = { title = e_bengal }
 							empire = { title = e_deccan }
+							empire = { title = e_india }
 						}
 						de_jure_liege_or_above = ROOT
 					}
@@ -534,7 +562,7 @@ character_event = {
 				}
 			}
 		}
-		497 = { # Thrace
+		496 = { # Constantinople
 			religion = ROOT
 			OR = {
 				owner = { character = ROOT }
@@ -607,8 +635,11 @@ character_event = {
 	trigger = {
 		has_dlc = "Rajas of India"
 		NOT = { has_character_flag = achievement_looking_east_and_west }
-		has_landed_title = e_rajastan
 		has_landed_title = e_persia
+		OR = {
+			has_landed_title = e_rajastan
+			has_landed_title = e_india
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -621,5 +652,193 @@ character_event = {
 	
 	option = {
 		name = "OK"
+	}
+}
+
+# Medieval Schlieffen
+character_event = {
+	id = 716
+	hide_window = yes
+	
+	ai = no
+	
+	trigger = {
+		NOT = {
+			OR = {
+				culture = mongol
+				culture = nahuatl
+			}
+		}
+		OR = {
+			any_war = {
+				defender = { character = ROOT }
+				attacker = { culture = mongol }
+			}
+			any_war = {
+				attacker = { character = ROOT }
+				defender = { culture = mongol }
+			}
+		}
+		OR = {
+			any_war = {
+				defender = { character = ROOT }
+				attacker = { culture = nahuatl }
+			}
+			any_war = {
+				attacker = { character = ROOT }
+				defender = { culture = nahuatl }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_character_flag = achievement_medieval_schlieffen
+	}		
+	
+	option = {
+		name = "OK"
+	}
+}
+
+# I'm sorry, Desiderata
+character_event = {
+	id = 717
+	hide_window = yes
+	
+	ai = no
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		spouse = {
+			culture = lombard
+			is_female = yes
+			father = { 
+				primary_title = { higher_tier_than = DUKE }
+			}
+		}
+	}
+	
+	immediate = {
+		set_character_flag = achievement_desiderata
+	}		
+	
+	option = {
+		name = "OK"
+	}
+}
+
+# Casanova
+character_event = {
+	id = 718
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	ai = no
+	
+	trigger = {
+		NOT = { has_character_flag = achievement_casanova }
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				NOT = { check_variable = { which = "casanova_check" value = 9.5 } }
+			}
+			change_variable = { which = "casanova_check" value = 1 }
+		}
+		if = {
+			limit = {
+				check_variable = { which = "casanova_check" value = 9.5 }
+			}
+			set_character_flag = achievement_casanova
+		}
+	}
+}
+
+# Mudslinger
+character_event = {
+	id = 719
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	ai = no
+	
+	trigger = {
+		NOT = { has_character_flag = achievement_mudslinger }
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				NOT = { check_variable = { which = "mudslinger_check" value = 19.5 } }
+			}
+			change_variable = { which = "mudslinger_check" value = 1 }
+		}
+		if = {
+			limit = {
+				check_variable = { which = "mudslinger_check" value = 19.5 }
+			}
+			set_character_flag = achievement_mudslinger
+		}
+	}
+}
+
+# Bring it On
+character_event = {
+	id = 720
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	ai = no
+	
+	trigger = {
+		NOT = { has_character_flag = achievement_bring_it_on }
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				NOT = { check_variable = { which = bring_it_on_check value = 6.5 } }
+			}
+			change_variable = { which = bring_it_on_check value = 1 }
+		}
+		if = {
+			limit = {
+				check_variable = { which = bring_it_on_check value = 6.5 }
+			}
+			set_character_flag = achievement_bring_it_on
+		}
+	}
+}
+
+# Family Bliss
+character_event = {
+	id = 721
+	hide_window = yes
+	
+	ai = no
+	
+	trigger = {
+		NOT = { has_character_flag = achievement_family_bliss }
+		any_close_relative = {
+			count = 6
+			is_friend = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		set_character_flag = achievement_family_bliss
 	}
 }
