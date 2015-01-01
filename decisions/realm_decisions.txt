@@ -365,11 +365,12 @@ decisions = {
 	demand_liege_title = {
 		is_high_prio = yes
 		potential = {
+			ai = no
 			NOT = { has_character_flag = requested_de_jure_title }
 			liege = {
 				NOT = { character = ROOT }
 			}
-			age = 16
+			is_adult = yes
 			prisoner = no
 			is_playable = yes
 			tier = count
@@ -809,6 +810,7 @@ decisions = {
 	make_rome_capital = {
 		is_high_prio = yes
 		potential = {
+			ai = no
 			has_dlc = "Legacy of Rome"
 			has_landed_title = e_roman_empire
 			capital_scope = {
@@ -1035,6 +1037,9 @@ decisions = {
 			k_hungary = {
 				has_holder = no
 			}
+			k_magyar = {
+				is_vice_royalty = no
+			}
 		}
 		allow = {
 			war = no
@@ -1142,6 +1147,9 @@ decisions = {
 			has_landed_title = k_asturias
 			k_leon = {
 				has_holder = no
+			}
+			k_asturias = {
+				is_vice_royalty = no
 			}
 		}
 		allow = {
@@ -1321,6 +1329,124 @@ decisions = {
 		}
 	}
 	
+	welcome_jews = {
+		potential = {
+			has_dlc = "Sons of Abraham"
+			NOT = { 
+				religion_group = jewish_group 
+				has_character_modifier = expelled_jews_timer
+			}
+			has_character_modifier = expelled_jewish
+			primary_title = { higher_tier_than = DUKE }
+		}
+		allow = {
+		}
+		effect = {
+			remove_character_modifier = expelled_jewish
+			custom_tooltip = {
+				text = jews_are_welcome
+			}
+			hidden_tooltip = {
+				character_event = { id = SoA.106 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0.1 # Less likely to do it
+			}
+			modifier = {
+				factor = 0
+				trait = zealous
+			}
+		}
+	}
+	
+	expel_jews = {
+		potential = {
+			has_dlc = "Sons of Abraham"
+			OR = {
+				religion_group = christian
+				religion_group = muslim
+				religion_group = zoroastrian_group
+			}	
+			NOT = { 
+				religion_group = jewish_group
+				has_character_modifier = expelled_jewish
+				trait = incapable
+				any_realm_province = { religion_group = jewish_group }
+			}
+			independent = yes
+			is_playable = yes
+			age = 16
+			prisoner = no
+		}
+		allow = {
+		}
+		effect = {
+			if = {
+				limit = { has_character_modifier = borrowed_from_jews }
+				remove_character_modifier = borrowed_from_jews
+			}
+			add_character_modifier = {
+				name = expelled_jewish
+				duration = -1
+				inherit = yes
+			}
+			custom_tooltip = {
+				text = jews_are_expelled
+			}
+			hidden_tooltip = {
+				character_event = { id = SoA.105 }
+				add_character_modifier = {
+					name = expelled_jews_timer
+					duration = 7300
+					hidden = yes
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0.001 # Less likely to do it
+			}
+			modifier = {
+				factor = 0
+				any_courtier = {
+					religion_group = jewish_group
+					reverse_opinion = { who = ROOT value = 20 }
+				}
+			}
+			modifier = {
+				factor = 0
+				any_spouse = {
+					religion_group = jewish_group
+				}
+			}
+			modifier = {
+				factor = 0
+				any_child = {
+					religion_group = jewish_group
+				}
+			}
+			modifier = {
+				factor = 0
+				trait = kind
+			}
+			modifier = {
+				factor = 1.2
+				trait = zealous
+				trait = arbitrary
+			}
+			modifier = {
+				factor = 1.2
+				has_character_modifier = borrowed_from_jews
+				trait = greedy
+			}
+		}
+	}
 	
 	embrace_mutazila = {
 		potential = {
@@ -1498,6 +1624,7 @@ decisions = {
 		effect = {
 			wealth = -500
 			prestige = 500
+			activate_title = { title = e_india status = yes }
 			hidden_tooltip = {
 				k_sindh = { de_jure_liege = e_india }
 				k_punjab = { de_jure_liege = e_india }

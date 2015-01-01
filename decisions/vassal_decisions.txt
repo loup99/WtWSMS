@@ -187,8 +187,43 @@ vassal_decisions = {
 				piety = -50
 			}
 			hidden_tooltip = {
+				mother = {
+					opinion = {
+						modifier = opinion_castrated_close_kin
+						who = FROM
+					}
+				}
+				father = {
+					opinion = {
+						modifier = opinion_castrated_close_kin
+						who = FROM
+					}
+				}
+				spouse = {
+					opinion = {
+						modifier = opinion_castrated_close_kin
+						who = FROM
+					}
+				}
+				any_child = {
+					opinion = {
+						modifier = opinion_castrated_close_kin
+						who = FROM
+					}
+				}
 				if = {
-					limit = { FROM = { NOT = { dynasty = ROOT } } }
+					limit = {
+						FROM = {
+							NOT = { dynasty = ROOT }
+							NOT = { sibling = ROOT }
+						}
+					}
+					any_sibling = {
+						opinion = {
+							modifier = opinion_castrated_close_kin
+							who = FROM
+						}
+					}
 					any_dynasty_member = {
 						opinion = {
 							modifier = opinion_castrated_family
@@ -218,7 +253,7 @@ vassal_decisions = {
 				FROM = { trait = kind }
 			}
 			modifier = {
-				factor = 0.05 # Less likely to do it
+				factor = 0.2 # Less likely to do it
 			}
 			modifier = {
 				factor = 1.2
