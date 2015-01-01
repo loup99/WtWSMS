@@ -715,24 +715,7 @@ plot_kill_character = {
 			trait = lunatic
 		}
 		NOT = { any_spouse = { character = FROM } } # This case is covered by another plot
-		
 		is_within_diplo_range = FROM
-		
-		# Don't kill my lovers, or their children
-		NOT = {
-			FROM = {
-				any_lover = {
-					OR = {
-						character = ROOT
-						is_father = ROOT
-						is_mather = ROOT
-					}
-				}
-			}
-		}
-		
-		NOT = { is_friend = FROM }
-		
 		FROM = {
 			OR = {
 				# Get rid of the current heir if I'm a pretender
@@ -1040,9 +1023,6 @@ plot_kill_spouse = {
 	
 	# Target character scope
 	allow = {
-		
-		NOT = { is_lover = FROM }
-		
 		OR = {
 			# Human
 			FROM = { ai = no }
@@ -1216,8 +1196,6 @@ plot_weaken_fellow_vassal = {
 	
 	# Plotter scope
 	potential = {
-		always = no # v2.21 - Disabled - not working well
-		
 		prisoner = no
 		is_patrician = no
 		liege = { 
@@ -1264,7 +1242,6 @@ plot_weaken_fellow_vassal = {
 	
 	# Target scope
 	allow = {
-		is_vice_royalty = no
 		higher_tier_than = COUNT
 		is_primary_holder_title = no
 		current_heir = {
@@ -1543,7 +1520,6 @@ plot_gain_liege_title = {
 	
 	# Target scope
 	allow = {
-		is_vice_royalty = no
 		NOT = { claimed_by = FROM }
 		current_heir = {
 			NOT = { character = FROM }
@@ -1747,7 +1723,6 @@ plot_gain_fellow_vassal_title = {
 	
 	# Target scope
 	allow = {
-		is_vice_royalty = no
 		NOT = { claimed_by = FROM }
 		current_heir = {
 			NOT = { character = FROM }
