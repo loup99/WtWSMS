@@ -3,6 +3,7 @@ decisions = {
 	form_new_kingdom = {
 		is_high_prio = yes
 		potential = {
+			has_dlc = "Charlemagne"
 			is_playable = yes
 			tier = DUKE
 			NOT = { tier = KING }
@@ -23,12 +24,7 @@ decisions = {
 			is_adult = yes
 			prisoner = no
 			NOT = { trait = incapable }
-			OR = {
-				independent = yes
-				liege = {
-					tier = EMPEROR
-				}
-			}
+			independent = yes
 			prestige = 1000
 			OR = {
 				realm_size = 35
@@ -42,7 +38,7 @@ decisions = {
 					}
 				}
 			}
-			scaled_wealth = 2
+			wealth = 300
 		}
 		effect = {
 			primary_title = {
@@ -54,9 +50,59 @@ decisions = {
 					culture = ROOT
 					holder = ROOT
 					base_title = THIS
+					copy_title_laws = yes
 				}
+
+				hidden_tooltip = {
+					empire = {
+						ROOT = {
+							primary_title = {
+								de_jure_liege = PREVPREV
+							}
+						}
+					}
+
+					ROOT = {
+						primary_title = {
+							holder_scope = {
+								any_title_under = {
+									limit = {
+										tier = DUKE
+										kingdom = {
+											has_holder = no
+										}
+									}
+									de_jure_liege = PREVPREV
+								}
+								any_title_under = {
+									limit = {
+										tier = COUNT
+										location = {
+											duchy = {
+												kingdom = {
+													has_holder = no
+												}
+												
+												NOT = { de_jure_liege_or_above = PREVPREVPREVPREV }
+												ROOT = {
+													completely_controls = PREV
+												}
+											}
+										}
+									}
+									location = {
+										duchy = {
+											de_jure_liege = PREVPREVPREVPREV
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+
 			}
-			scaled_wealth = -2
+			wealth = -300
 			custom_tooltip = { text = form_new_kingdom_tooltip }
 			chronicle = {
 				entry = CHRONICLE_FOUNDED_NEW_KINGDOM_OR_EMPIRE
@@ -74,6 +120,7 @@ decisions = {
 	form_new_empire = {
 		is_high_prio = yes
 		potential = {
+			has_dlc = "Charlemagne"
 			is_playable = yes
 			tier = KING
 			NOT = { tier = EMPEROR }
@@ -96,17 +143,19 @@ decisions = {
 			NOT = { trait = incapable }
 			independent = yes
 			prestige = 8000
-			realm_size = 180
-			custom_tooltip = {
-				text = form_new_empire_requirement_tooltip
-				hidden_tooltip = {
-					any_demesne_title = {
-						count = 3
-						tier = KING
+			OR = {
+				realm_size = 180
+				custom_tooltip = {
+					text = form_new_empire_requirement_tooltip
+					hidden_tooltip = {
+						any_demesne_title = {
+							count = 3
+							tier = KING
+						}
 					}
 				}
 			}
-			scaled_wealth = 4
+			wealth = 1000
 		}
 		effect = {
 			primary_title = {
@@ -118,9 +167,50 @@ decisions = {
 					culture = ROOT
 					holder = ROOT
 					base_title = THIS
+					copy_title_laws = yes
+				}
+
+				hidden_tooltip = {
+					ROOT = {
+						primary_title = {
+							holder_scope = {
+								any_title_under = {
+									limit = {
+										tier = KING
+										empire = {
+											has_holder = no
+										}
+									}
+									de_jure_liege = PREVPREV
+								}
+								any_title_under = {
+									limit = {
+										tier = DUKE
+										location = {
+											kingdom = {
+												empire = {
+													has_holder = no
+												}
+												
+												NOT = { de_jure_liege_or_above = PREVPREVPREVPREV }
+												ROOT = {
+													completely_controls = PREV
+												}
+											}
+										}
+									}
+									location = {
+										kingdom = {
+											de_jure_liege = PREVPREVPREVPREV
+										}
+									}
+								}
+							}
+						}
+					}
 				}
 			}
-			scaled_wealth = -4
+			wealth = -1000
 			custom_tooltip = { text = form_new_empire_tooltip }
 			chronicle = {
 				entry = CHRONICLE_FOUNDED_NEW_KINGDOM_OR_EMPIRE
@@ -1647,6 +1737,95 @@ decisions = {
 			factor = 1 # On average ca 1 year before taken
 		}
 	}
+	convert_to_castle = {
+		is_high_prio = yes
+		potential = {
+			OR = {
+				is_feudal = yes
+				AND = {
+					is_tribal = yes
+					liege = {
+						is_feudal = yes
+					}
+				}
+			}
+			any_demesne_title = { is_tribal = yes }
+		}
+		allow = {
+			any_demesne_title = {
+				is_tribal = yes
+				has_any_building = tb_hillfort_4
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				any_demesne_title = {
+					if = {
+						limit = {
+							is_tribal = yes
+							has_building = tb_hillfort_4
+						}
+						convert_to_castle = yes
+						refill_holding_levy = yes
+					}
+				}
+			}
+			custom_tooltip = {
+				text = adopt_feudalism_tooltip_2
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1 # On average ca 1 year before taken
+		}
+	}
+	convert_to_city = {
+		is_high_prio = yes
+		potential = {
+			OR = {
+				is_republic = yes
+				AND = {
+					is_tribal = yes
+					liege = {
+						is_republic = yes
+					}
+				}
+			}
+			any_demesne_title = { is_tribal = yes }
+		}
+		allow = {
+			any_demesne_title = {
+				is_tribal = yes
+				has_any_building = tb_market_town_4
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				any_demesne_title = {
+					if = {
+						limit = {
+							is_tribal = yes
+							has_building = tb_market_town_4
+						}
+						convert_to_city = yes
+						refill_holding_levy = yes
+					}
+				}
+			}
+			custom_tooltip = {
+				text = adopt_republicanism_tooltip_2
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1 # On average ca 1 year before taken
+		}
+	}
+	
 	organize_scholae_palatinae = {
 		is_high_prio = yes
 		potential = {
