@@ -13,10 +13,10 @@ character_event = {
 	
 	capable_only = yes
 	prisoner = no
-	is_landed = no
 	min_age = 16
 	
 	trigger = {
+		is_landed = no
 		religion = nicene
 		NOT = {
 			year = 1000
@@ -151,10 +151,10 @@ character_event = {
 	
 	capable_only = yes
 	prisoner = no
-	is_landed = no
 	min_age = 16
 	
 	trigger = {
+		is_landed = no
 		religion = nicene
 		NOT = {
 			year = 1000
@@ -285,10 +285,10 @@ character_event = {
 	
 	capable_only = yes
 	prisoner = no
-	is_landed = no
 	min_age = 16
 	
 	trigger = {
+		is_landed = no
 		religion = nicene
 		NOT = {
 			year = 1000
@@ -413,24 +413,21 @@ province_event = {
 	desc = zusk_event.4.desc
 	picture = GFX_evt_bandits
 	
-	capable_only = yes
-	prisoner = no
-	independent = yes
-	
 	trigger = {
 	    NOT = { has_province_flag = roman_aqueduct }
 		NOT = { year = 800 }
 		culture_group = latin
 		owner = { 
-		independent = yes
-		OR = {
-		culture_group = north_germanic
-		culture_group = central_germanic
-		culture_group = east_germanic
-		culture_group = west_germanic
-		     }
-			        }
-			    }
+			prisoner = no
+			independent = yes
+			OR = {
+				culture_group = north_germanic
+				culture_group = central_germanic
+				culture_group = east_germanic
+				culture_group = west_germanic
+			}
+        }
+    }
 	
 	mean_time_to_happen = {
 		years = 1000
@@ -442,17 +439,17 @@ province_event = {
 			factor = 25
 			modifier = {
 				factor = 5
-				liege = {
-                    trait = roman_nostalgia
-                    NOT = { learning = 10 }
-					    }
-						}
+				owner = {
+					liege = {
+	                    trait = roman_nostalgia
+	                    NOT = { learning = 10 }
+				    }
+			    }
 			}
+		}
 		set_province_flag = roman_aqueduct
 		owner = {
-				owner = {
-		        prestige = 50
-				            }
+        	prestige = 50
 		}
 	}
 	option = {
@@ -467,9 +464,11 @@ province_event = {
 					    }
 						}
 			}
-		tooltip_info = learning
+		# tooltip_info = learning
 		trigger = {
-			learning = 10
+			owner = { 
+				learning = 10
+			}
 		}
 		set_province_flag = roman_aqueduct
 		owner = {
@@ -783,9 +782,9 @@ character_event = {
 					usurp_title_plus_barony_if_unlanded = PREV
 					set_defacto_liege = THIS
 				}
-				clr_province_flag = migration_give_away
-			       }
-		              }
+			}
+			clr_province_flag = migration_give_away
+		}
 	}
 	
 	option = {
