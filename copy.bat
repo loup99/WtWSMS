@@ -1,1 +1,0 @@
-xcopy /d /y /c /s /e /EXCLUDE:excluded.txt "." "%HOME%\\Documents\\Paradox Interactive\\Crusader Kings II\\mod"
