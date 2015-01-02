@@ -1,0 +1,5 @@
+mklink /J "%HOME%\\Documents\\Paradox Interactive\\Crusader Kings II\\mod\\WTWSMS" ".\\WTWSMS"
+mklink /J "%HOME%\\Documents\\Paradox Interactive\\Crusader Kings II\\mod\\WTWSMS_AfricanPortraits" ".\\WTWSMS_AfricanPortraits"
+mklink /J "%HOME%\\Documents\\Paradox Interactive\\Crusader Kings II\\mod\\WTWSMS_CelticPortraits" ".\\WTWSMS_CelticPortraits"
+mklink /J "%HOME%\\Documents\\Paradox Interactive\\Crusader Kings II\\mod\\WTWSMS_NorsePortraits" ".\\WTWSMS_NorsePortraits"
+mklink /J "%HOME%\\Documents\\Paradox Interactive\\Crusader Kings II\\mod\\WTWSMS_TurkishAndCelticPortraits" ".\\WTWSMS_TurkishAndCelticPortraits"
