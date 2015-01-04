@@ -2,7 +2,11 @@
 
 A Dark Ages mod for CK2! 
 
-Allows you to play from 476 (Fall of Western Roman Empire) to 1453 (Fall of Eastern Roman Empire).
+Allows you to play from 476 (Fall of Western Roman Empire) to 1453 (Fall of Eastern Roman Empire). Bookmarks will feature the 476-700 period, with possible extensions. Some added bookmarks are Shattered Empire (480), The Gothic Wars (535) and Frankish steel (486). Flavour, historical setup and accurate gameplay mechanics for the period are of course also featured.
+
+### Players & Followers
+
+This is a version of the mod that is constanly updated. Therefor, it is not recommended to use if you want to play a game. If you do, however, want to help us testing the mod or join our team, please PM or contact us in some way and we will give you directions. The Git version will never recive any support and bugreports with it will be ignored.
 
 
 ### Developers & Testers
