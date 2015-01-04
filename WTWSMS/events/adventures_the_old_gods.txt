@@ -30,10 +30,17 @@ character_event = {
 		
 		is_ruler = no
 		
+		year = 867
+		
 		any_claim = {
 			has_holder = yes
 			holder_scope = {
 				independent = yes # Only do this vs independent rulers
+				OR = {
+						# Don't target my liege unless I am ambitious
+						NOT = { is_vassal_or_below = ROOT }
+						ROOT = { trait = ambitious }
+					}
 				OR = {
 					is_merchant_republic = no
 					NOT = {
@@ -136,6 +143,10 @@ character_event = {
 						}
 					}
 				}
+				OR = {
+					tier = KING
+					holder_scope = { tier = PREV }
+				}
 			}
 			
 			holder_scope = {
@@ -160,6 +171,18 @@ character_event = {
 				}
 			}
 		}
+		if = {
+			limit = { trait = in_hiding	}
+			remove_trait = in_hiding
+			add_character_modifier = {
+				name = went_out_of_hiding_timer
+				duration = 180
+				hidden = yes
+			}
+			hidden_tooltip = { character_event = { id = CM.6400 } } # Notify plotters and family
+		}
+		set_character_flag = do_not_disturb
+		character_event = { id = TOG.1215 days = 730 }
 	}
 	
 	option = {
@@ -207,8 +230,12 @@ character_event = {
 			has_holder = yes
 			holder_scope = {
 				independent = yes # Only do this vs independent rulers
+				reverse_has_opinion_modifier = {
+					who = ROOT
+					modifier = opinion_claimant_adventure_target
+				}
 				OR = {
-					# Don't target a liege unless I am ambitious
+					# Don't target my liege unless I am ambitious
 					NOT = { is_vassal_or_below = ROOT }
 					ROOT = { trait = ambitious }
 				}
@@ -237,6 +264,7 @@ character_event = {
 	immediate = {
 		
 		wealth = 500
+		clr_character_flag = do_not_disturb
 		
 		liege = {
 			character_event = {
@@ -268,6 +296,11 @@ character_event = {
 									modifier = opinion_claimant_adventure_target
 								}
 								OR = {
+									# Don't target my liege unless I am ambitious
+									NOT = { is_vassal_or_below = ROOT }
+									ROOT = { trait = ambitious }
+								}
+								OR = {
 									is_merchant_republic = no
 									NOT = {
 										capital_holding = {
@@ -292,7 +325,7 @@ character_event = {
 											owner = THIS
 											leader = THIS
 											match_character = PREV
-											match_mult = 0.25
+											match_mult = 0.125
 											match_min = 300
 											match_max = 5000
 											attrition = 0.25
@@ -303,7 +336,7 @@ character_event = {
 											home = PREVPREVPREVPREV
 											owner = THIS
 											match_character = PREV
-											match_mult = 0.25
+											match_mult = 0.125
 											match_min = 300
 											match_max = 5000
 											attrition = 0.25
@@ -314,7 +347,7 @@ character_event = {
 											home = PREVPREVPREVPREV
 											owner = THIS
 											match_character = PREV
-											match_mult = 0.25
+											match_mult = 0.125
 											match_min = 300
 											match_max = 5000
 											attrition = 0.25
@@ -325,7 +358,7 @@ character_event = {
 											home = PREVPREVPREVPREV
 											owner = THIS
 											match_character = PREV
-											match_mult = 0.25
+											match_mult = 0.125
 											match_min = 300
 											match_max = 5000
 											attrition = 0.25
@@ -336,7 +369,7 @@ character_event = {
 											home = PREVPREVPREVPREV
 											owner = THIS
 											match_character = PREV
-											match_mult = 0.25
+											match_mult = 0.125
 											match_min = 300
 											match_max = 5000
 											attrition = 0.25
@@ -347,76 +380,7 @@ character_event = {
 											home = PREVPREVPREVPREV
 											owner = THIS
 											match_character = PREV
-											match_mult = 0.25
-											match_min = 300
-											match_max = 5000
-											attrition = 0.25
-											earmark = claimant_adventure
-										}
-									}
-									33 = {
-										spawn_unit = {
-											province = PREVPREVPREVPREV
-											home = PREVPREVPREVPREV
-											owner = THIS
-											leader = THIS
-											match_character = PREV
-											match_mult = 0.2
-											match_min = 300
-											match_max = 5000
-											attrition = 0.25
-											earmark = claimant_adventure
-										}
-										spawn_unit = {
-											province = PREVPREVPREVPREV
-											home = PREVPREVPREVPREV
-											owner = THIS
-											match_character = PREV
-											match_mult = 0.2
-											match_min = 300
-											match_max = 5000
-											attrition = 0.25
-											earmark = claimant_adventure
-										}
-										spawn_unit = {
-											province = PREVPREVPREVPREV
-											home = PREVPREVPREVPREV
-											owner = THIS
-											match_character = PREV
-											match_mult = 0.2
-											match_min = 300
-											match_max = 5000
-											attrition = 0.25
-											earmark = claimant_adventure
-										}
-										spawn_unit = {
-											province = PREVPREVPREVPREV
-											home = PREVPREVPREVPREV
-											owner = THIS
-											match_character = PREV
-											match_mult = 0.2
-											match_min = 300
-											match_max = 5000
-											attrition = 0.25
-											earmark = claimant_adventure
-										}
-										spawn_unit = {
-											province = PREVPREVPREVPREV
-											home = PREVPREVPREVPREV
-											owner = THIS
-											match_character = PREV
-											match_mult = 0.2
-											match_min = 300
-											match_max = 5000
-											attrition = 0.25
-											earmark = claimant_adventure
-										}
-										spawn_unit = {
-											province = PREVPREVPREVPREV
-											home = PREVPREVPREVPREV
-											owner = THIS
-											match_character = PREV
-											match_mult = 0.2
+											match_mult = 0.125
 											match_min = 300
 											match_max = 5000
 											attrition = 0.25
@@ -430,7 +394,7 @@ character_event = {
 											owner = THIS
 											leader = THIS
 											match_character = PREV
-											match_mult = 0.15
+											match_mult = 0.1
 											match_min = 300
 											match_max = 5000
 											attrition = 0.25
@@ -441,7 +405,7 @@ character_event = {
 											home = PREVPREVPREVPREV
 											owner = THIS
 											match_character = PREV
-											match_mult = 0.15
+											match_mult = 0.1
 											match_min = 300
 											match_max = 5000
 											attrition = 0.25
@@ -452,7 +416,7 @@ character_event = {
 											home = PREVPREVPREVPREV
 											owner = THIS
 											match_character = PREV
-											match_mult = 0.15
+											match_mult = 0.1
 											match_min = 300
 											match_max = 5000
 											attrition = 0.25
@@ -463,7 +427,7 @@ character_event = {
 											home = PREVPREVPREVPREV
 											owner = THIS
 											match_character = PREV
-											match_mult = 0.15
+											match_mult = 0.1
 											match_min = 300
 											match_max = 5000
 											attrition = 0.25
@@ -474,7 +438,7 @@ character_event = {
 											home = PREVPREVPREVPREV
 											owner = THIS
 											match_character = PREV
-											match_mult = 0.15
+											match_mult = 0.1
 											match_min = 300
 											match_max = 5000
 											attrition = 0.25
@@ -485,7 +449,76 @@ character_event = {
 											home = PREVPREVPREVPREV
 											owner = THIS
 											match_character = PREV
-											match_mult = 0.15
+											match_mult = 0.1
+											match_min = 300
+											match_max = 5000
+											attrition = 0.25
+											earmark = claimant_adventure
+										}
+									}
+									33 = {
+										spawn_unit = {
+											province = PREVPREVPREVPREV
+											home = PREVPREVPREVPREV
+											owner = THIS
+											leader = THIS
+											match_character = PREV
+											match_mult = 0.075
+											match_min = 300
+											match_max = 5000
+											attrition = 0.25
+											earmark = claimant_adventure
+										}
+										spawn_unit = {
+											province = PREVPREVPREVPREV
+											home = PREVPREVPREVPREV
+											owner = THIS
+											match_character = PREV
+											match_mult = 0.075
+											match_min = 300
+											match_max = 5000
+											attrition = 0.25
+											earmark = claimant_adventure
+										}
+										spawn_unit = {
+											province = PREVPREVPREVPREV
+											home = PREVPREVPREVPREV
+											owner = THIS
+											match_character = PREV
+											match_mult = 0.075
+											match_min = 300
+											match_max = 5000
+											attrition = 0.25
+											earmark = claimant_adventure
+										}
+										spawn_unit = {
+											province = PREVPREVPREVPREV
+											home = PREVPREVPREVPREV
+											owner = THIS
+											match_character = PREV
+											match_mult = 0.075
+											match_min = 300
+											match_max = 5000
+											attrition = 0.25
+											earmark = claimant_adventure
+										}
+										spawn_unit = {
+											province = PREVPREVPREVPREV
+											home = PREVPREVPREVPREV
+											owner = THIS
+											match_character = PREV
+											match_mult = 0.075
+											match_min = 300
+											match_max = 5000
+											attrition = 0.25
+											earmark = claimant_adventure
+										}
+										spawn_unit = {
+											province = PREVPREVPREVPREV
+											home = PREVPREVPREVPREV
+											owner = THIS
+											match_character = PREV
+											match_mult = 0.075
 											match_min = 300
 											match_max = 5000
 											attrition = 0.25
@@ -498,6 +531,14 @@ character_event = {
 					}
 				}
 			}
+		}
+		
+		# I no longer have a valid claim on the target
+		if = {
+			limit = {
+				NOT = { has_character_flag = claimant_adventurer }
+			}
+			break = yes
 		}
 		
 		# Create some decent commander characters
@@ -556,6 +597,11 @@ character_event = {
 						modifier = opinion_claimant_adventure_target
 					}
 					OR = {
+						# Don't target my liege unless I am ambitious
+						NOT = { is_vassal_or_below = ROOT }
+						ROOT = { trait = ambitious }
+					}
+					OR = {
 						is_merchant_republic = no
 						NOT = {
 							capital_holding = {
@@ -564,7 +610,13 @@ character_event = {
 						}
 					}
 				}
+				OR = {
+					tier = KING
+					holder_scope = { tier = PREV }
+				}
 			}
+			
+#			log = "TOG.1202: [Root.GetBestName] starts claim adventure for [This.GetName]"
 			
 			holder_scope = {
 				reverse_war = {
@@ -644,6 +696,8 @@ character_event = {
 		has_dlc = "The Old Gods"
 		
 		is_ruler = no
+		
+		year = 867
 		
 		diplomacy = 7
 		martial = 9
@@ -890,6 +944,18 @@ character_event = {
 				}
 			}
 		}
+		if = {
+			limit = { trait = in_hiding	}
+			remove_trait = in_hiding
+			add_character_modifier = {
+				name = went_out_of_hiding_timer
+				duration = 180
+				hidden = yes
+			}
+			hidden_tooltip = { character_event = { id = CM.6400 } } # Notify plotters and family
+		}
+		set_character_flag = do_not_disturb
+		character_event = { id = TOG.1215 days = 730 }
 	}
 	
 	option = {
@@ -983,6 +1049,7 @@ character_event = {
 	
 	immediate = {
 		wealth = 500
+		clr_character_flag = do_not_disturb
 		
 		liege = {
 			character_event = {
@@ -1077,7 +1144,7 @@ character_event = {
 								owner = THIS
 								leader = THIS
 								match_character = PREVPREV
-								match_mult = 0.25
+								match_mult = 0.125
 								match_min = 500
 								match_max = 10000
 								attrition = 0.25
@@ -1087,7 +1154,7 @@ character_event = {
 								home = PREVPREVPREV
 								owner = THIS
 								match_character = PREVPREV
-								match_mult = 0.25
+								match_mult = 0.125
 								match_min = 500
 								match_max = 10000
 								attrition = 0.25
@@ -1097,7 +1164,7 @@ character_event = {
 								home = PREVPREVPREV
 								owner = THIS
 								match_character = PREVPREV
-								match_mult = 0.25
+								match_mult = 0.125
 								match_min = 500
 								match_max = 10000
 								attrition = 0.25
@@ -1197,5 +1264,18 @@ character_event = {
 	
 	option = {
 		name = "EVTOPTA_TOG_1203"
+	}
+}
+
+#safety clear of DND
+character_event = {
+	id = TOG.1215
+	
+	is_triggered_only = yes
+	
+	hide_window = yes
+	
+	immediate = {
+		clr_character_flag = do_not_disturb
 	}
 }

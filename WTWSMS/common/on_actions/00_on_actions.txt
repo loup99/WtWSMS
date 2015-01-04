@@ -116,16 +116,16 @@ on_yearly_pulse = {
 		100 = 30105
 		100 = 30110
 		
-		#Lovers Events
-		100 = 64000
-		100 = 64005
-		100 = 64006
-		100 = 64010
-		100 = 64015
-		100 = 64025
-		100 = 64030
-		100 = 64035
-		100 = 64040
+		# Old Lover Events (Disabled in "Way of Life")
+		100 = 64000 # Confronts spouse about lover. Rivalries, lover lost.
+		100 = 64005 # Lover is ill. Give comfort.
+		100 = 64006 # Wounded lover. Wound removed.
+		100 = 64010 # Teenage infatuation starts.
+		100 = 64015 # Wife is old and ugly. Take a mistress?
+		100 = 64025 # Fallen in love with spouse
+		100 = 64030 # Vacation with lover
+		100 = 64035 # Party/hunting/nothing with lover
+		100 = 64040 # Ruler confronts spouse about lover
 		
 		#Job Flavour Events
 		100 = 75010
@@ -794,6 +794,11 @@ on_yearly_childhood_pulse = {
 	}
 }
 
+# Yearly pulse (six months from on_yearly_pulse) intended for Focus events (only fires for characters with a Focus)
+# DISABLED FOR NOW
+on_focus_pulse = {
+}
+
 #on combat pulse
 on_combat_pulse = {
 	random_events = {
@@ -882,14 +887,29 @@ on_major_battle_won_leader = {
 # Any leader in battle on losing side is ROOT - opponent army leader is FROM
 on_battle_lost = {
 	random_events = {
-		900 = 0
+		700 = 0
 		50 = 250 # Imprisoned by the enemy
 		50 = 8320 # Crusader becomes cynical
+		200 = CM.1056 # Death of Roland
 	}
 }
 
-on_battle_lost_leader = {
+# Any leader in battle on losing side is ROOT - opponent army leader is FROM
+on_major_battle_lost = {
+	events = {
+		CM.10030 # Chronicle
+	}
+}
 
+# Losing army leader ROOT - opponent army leader is FROM
+on_battle_lost_leader = {
+}
+
+# Losing army leader ROOT - opponent army leader is FROM
+on_major_battle_lost_leader = {
+	events = {
+		CM.10032
+	}
 }
 
 # The taken Holding title is in FROM.
@@ -1004,9 +1024,11 @@ on_birth = {
 		312 # The child of a consort is born		
 		318 # A Bastard is born, but is not recognized as such by the mother's spouse (cuckoo!)
 		TOG.3206 # Child Perceived to be Demon Born
-		CM.10011 # Chronicle entry
+		
 		706 # Full House achievement
 		707 # Keeping it in the Family achievement
+		CM.10011 # Chronicle entry
+		
 		ancrel.0215 # Child Perceived to be a Changeling
 	}
 	random_events = {
@@ -1050,11 +1072,13 @@ on_crusade_creation = {
  		321 # Christian Crusade against Heretics
  		320 # Jihad against Christians
  		322 # Jihad against Pagans
-		CM.10015  # Chronicle entry
+		
  		323 # Jihad against Heretics
  		324 # Pagan Holy War against Christians
  		325 # Pagan Holy War against Muslims
  		326 # Pagan Holy War against other Pagans
+		CM.10015  # Chronicle entry
+		
 		spirit.10 # Zoroastrian Holy War against Abrahamics 
 		spirit.11 # Zoroastrian Holy War against Pagans 
  		spirit.12 # Zoroastrian Holy War against Heretics
@@ -1153,17 +1177,19 @@ on_death = {
 		70041
 		88291
 		SoA.5306
-		zusk_islam_event.8
-		ancrel.1194 # Ruler has died, the Aonach is over
-		ancrel.2123 # Cleanup when a Vestalis dies
-		45340 # Thirteen treasures inheritance
+		705
 		CM.1068 # Carloman dies
 		CM.1069 # Charlemagne dies
 		CM.10010 # Chronicle entry
 		CM.6185 # Dies of other causes while assassination is in progress - clear flags
-		705
+		
 		WoL.6335 # Owner of Necronomicon dies...
 #		WoL.11300 # Check if spouse is executed or killed by someone.
+
+		zusk_islam_event.8
+		ancrel.1194 # Ruler has died, the Aonach is over
+		ancrel.2123 # Cleanup when a Vestalis dies
+		45340 # Thirteen treasures inheritance
 	}
 	random_events = {
 		10 = 24505

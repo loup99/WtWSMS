@@ -2496,6 +2496,7 @@ tribal_invasion = {
 						title = PREV
 						enemy = FROM
 						is_crusade = yes # Even if the title holder is not participating in the war, gain holdings occupied by all Crusade participants
+						type = invasion
 					}
 				}
 			}
@@ -2599,6 +2600,10 @@ tribal_invasion = {
 	
 	ai_will_do = { 
 		factor = 1
+		
+		modifier = {
+			factor = 0.9 # Prefer using CB's without on_add costs
+		}
 		
 		# Try to guide the Hordes in the right direction
 		modifier = {
@@ -2791,6 +2796,7 @@ crusade = {
 					title = PREV
 					enemy = FROM
 					is_crusade = yes # Even if the title holder is not participating in the war, gain holdings occupied by all Crusade participants
+					type = holy_war
 				}
 			}
 		}
@@ -2829,6 +2835,7 @@ crusade = {
 					title = PREV
 					enemy = FROM
 					is_crusade = yes # Even if the title holder is not participating in the war, gain holdings occupied by all Crusade participants
+					type = holy_war
 				}
 			}
 		}
@@ -2855,6 +2862,7 @@ crusade = {
 				gain_settlements_under_title = {
 					title = PREV
 					enemy = FROM
+					type = holy_war
 				}
 				if  = {
 					limit = {
@@ -2868,7 +2876,7 @@ crusade = {
 							}
 						}
 					}
-					usurp_title = PREV
+					usurp_title = { target = PREV type = holy_war }
 					
 					if = {
 						limit = {
@@ -3302,6 +3310,7 @@ religious = {
 						enemy = FROM
 						same_religion = yes # Only vassalize rulers of my religion
 						is_religious = yes
+						type = holy_war
 					}
 	#				gain_settlements_under_title = {
 	#					title = PREV
@@ -3818,6 +3827,7 @@ depose_liege = {
 	major_revolt = no
 
 	can_use = {
+		always = no # v2.21 - Disabled - not working well
 		ROOT = {
 			de_facto_liege = FROM
 		}
@@ -6032,6 +6042,7 @@ imperial_reconquest = {
 					vassalize_or_take_under_title = {
 						title = PREV
 						enemy = FROM
+						type = invasion
 					}
 				}
 			}
@@ -6531,10 +6542,11 @@ viking_invasion = {
 				}
 				ROOT = {
 					occupy_minors_of_occupied_settlements = FROM
-					gain_all_occupied_titles = FROM
+					gain_all_occupied_titles = { who = FROM type = invasion }
 					vassalize_or_take_under_title_destroy_duchies = {
 						title = PREV
 						enemy = FROM
+						type = invasion
 					}
 					
 					# Settle the special invasion forces
@@ -7326,7 +7338,7 @@ liberation_revolt = {
 		ROOT = {
 			prestige = 1000
 			occupy_minors_of_occupied_settlements = FROM
-			gain_all_occupied_titles = FROM
+			gain_all_occupied_titles = { who = FROM type = revolt }
 			clr_character_flag = nationalist_rebel
 			give_nickname = nick_the_liberator
 		}
@@ -7774,6 +7786,7 @@ pagan_holy_war = {
 						enemy = FROM
 						same_religion = yes # Only vassalize rulers of my religion
 						is_religious = yes
+						type = holy_war
 					}
 				}
 			}
@@ -10105,6 +10118,7 @@ manifest_destiny_invasion = {
 						title = PREV
 						enemy = FROM
 						is_crusade = yes # Even if the kingdom title holder is not participating in the war, gain holdings occupied by all participants
+						type = invasion
 					}
 				}
 			}

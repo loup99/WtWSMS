@@ -587,9 +587,7 @@ decisions = {
 			}
 		}
 		
-		effect = {
-			piety = 1000
-			
+		effect = {		
 			if = {
 				limit = {
 					religion = catholic
@@ -599,12 +597,26 @@ decisions = {
 						c_roma = {
 							grant_title = PREV
 						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					AND = {
+						religion = catholic
+						NOT = { has_character_flag = restored_catholic_pope_in_rome }
+					}
+				}
+				k_papal_state = {
+					holder_scope = {
 						opinion = {
 							who = ROOT
 							modifier = opinion_restored_to_rome
 						}
 					}
 				}
+				piety = 1000
+				set_character_flag = restored_catholic_pope_in_rome
 			}
 			
 			if = {
@@ -618,6 +630,16 @@ decisions = {
 						}
 					}
 				}
+			}
+			if = {
+				limit = {
+					AND = {
+						religion = fraticelli
+						 NOT = { has_character_flag = restored_fraticelli_pope_in_rome }
+					}
+				}
+				piety = 1000
+				set_character_flag = restored_fraticelli_pope_in_rome
 			}
 		}
 		

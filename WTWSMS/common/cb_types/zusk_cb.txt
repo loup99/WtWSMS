@@ -19,40 +19,40 @@ migration = {
 	allow_distant = yes
 
 	on_add = {
-                #Sets the flag for giving units & giving the provinces away if you win the war
-		        ROOT = { character_event = { id = zusk_event.12 } }
-                #Then gives event troops for every owned province
-                ROOT = { character_event = { id = zusk_event.13 } }
-                ROOT = { 				
-                add_character_modifier = { 
-					name = launched_migration_war
-					days = 3650
-					hidden = yes
-		        }
-                       }
+        #Sets the flag for giving units & giving the provinces away if you win the war
+        ROOT = { character_event = { id = zusk_event.12 } }
+        #Then gives event troops for every owned province
+        ROOT = { character_event = { id = zusk_event.13 } }
+        ROOT = { 				
+            add_character_modifier = { 
+				name = launched_migration_war
+				days = 3650
+				hidden = yes
+	        }
+   		}
 	}
 
 	can_use = {	
-                                        NOT = { year = 800  } #The migration period ended around 800
-		                        ROOT = {
-				         OR = {
-				          religion = tengri_pagan
-			                  religion = scythian_pagan
-			                  religion = slavic_pagan
-                                          religion = germanic_pagan
-                                          culture = alan
-					      }
-                                        NOT = { has_character_modifier = launched_migration_war }
-					higher_tier_than = COUNT #Dukes or Kings
-                                        NOT = { culture = FROM }
-                                        independent = yes #No vassals
-                                        war = no #Ensures that the events activate correctly  
-				                              }
-		                                FROM = {
-                                        independent = yes
-                                        higher_tier_than = COUNT	
-		                                       }
+		NOT = { year = 800  } #The migration period ended around 800
+		ROOT = {
+			OR = {
+				religion = tengri_pagan
+				religion = scythian_pagan
+				religion = slavic_pagan
+				religion = germanic_pagan
+				culture = alan
+			}
+			NOT = { has_character_modifier = launched_migration_war }
+			higher_tier_than = COUNT #Dukes or Kings
+			NOT = { culture = FROM }
+			independent = yes #No vassals
+			war = no #Ensures that the events activate correctly  
 		}
+		FROM = {
+			independent = yes
+			higher_tier_than = COUNT	
+		}
+	}
 	is_valid_title = {
 		FROM = {
 			any_realm_title = {
@@ -62,30 +62,21 @@ migration = {
 	}
 
 	on_success = {
-			
 		ROOT = {
 			prestige = 200
-		}
-		
-		ROOT = {
-				occupy_minors_of_occupied_settlements = FROM
-				gain_all_occupied_titles = FROM			
+			occupy_minors_of_occupied_settlements = FROM
+			gain_all_occupied_titles = { who = FROM type = invasion }
+			any_vassal = { 
+				limit = {
+					higher_tier_than = BARON
+				}
+				set_defacto_liege = THIS
 			}
-
-                ROOT = {
-                     any_vassal = { 
-                              limit = {
-                               higher_tier_than = BARON
-                                      }
-                            set_defacto_liege = THIS
-                                  }
-                       }
-		
+		}
 		FROM = {
 			prestige = -200
 		}
-		
-		}
+	}
 
 	on_success_title = {
 		custom_tooltip = {
@@ -96,6 +87,7 @@ migration = {
 						title = PREV
 						enemy = FROM
 						is_crusade = yes # Even if the title holder is not participating in the war, gain holdings occupied by all Crusade participants
+						type = invasion
 					}
 				}
 			}
@@ -108,37 +100,43 @@ migration = {
 					character = FROM
 				}
 			}
-			ROOT = { usurp_title = PREV }
+			ROOT = { 
+				usurp_title = { target = PREV type = invasion } 
+			}
 		}
 		
-			# Take the enemy's duchies within the target kingdom
-			FROM = {
-				any_demesne_title = {
-					limit = {
-						tier = DUKE
-						OR = {
-							title = PREVPREV
-							de_jure_liege_or_above = PREVPREV
-						}
+		# Take the enemy's duchies within the target kingdom
+		FROM = {
+			any_demesne_title = {
+				limit = {
+					tier = DUKE
+					OR = {
+						title = PREVPREV
+						de_jure_liege_or_above = PREVPREV
 					}
-					ROOT = { usurp_title = PREV }
+				}
+				ROOT = { 
+					usurp_title = { target = PREV type = invasion }
 				}
 			}
+		}
 
 
-		ROOT = { character_event = { id = zusk_event.14 } }
+		ROOT = { 
+			character_event = { id = zusk_event.14 } 
+		}
 	}
 
 	on_fail = {
 		ROOT = {
 			prestige = -50
+			
+			#Does not give away provinces but cleans up the migration_give_away flag used in the event
+        	character_event = { id = zusk_event.15 }
 		}
 		FROM = {
 			prestige = 50
 		}
-
-                #Does not give away provinces but cleans up the migration_give_away flag used in the event
-                ROOT = { character_event = { id = zusk_event.15 } }
 	}
 
 	on_reverse_demand = {
@@ -148,28 +146,25 @@ migration = {
 				to = FROM
 				value = 8.0
 			}
+			
+			#Disbands all troops gained in the Migration CB Migration 
+        	character_event = { id = zusk_event.11 }
+
+        	#Does not give away provinces but cleans up the migration_give_away flag used in the event
+       		character_event = { id = zusk_event.15 }
 		}
 		FROM = {
 			prestige = 200
 		}
-
-                #Disbands all troops gained in the Migration CB Migration 
-                ROOT = { character_event = { id = zusk_event.11 } }
-
-                #Does not give away provinces but cleans up the migration_give_away flag used in the event
-                ROOT = { character_event = { id = zusk_event.15 } }
-		
 	}
 
 	on_attacker_leader_death = {
-                #Does not give away provinces but cleans up the migration_give_away flag used in the event
-                ROOT = { character_event = { id = zusk_event.15 } }
+        #Does not give away provinces but cleans up the migration_give_away flag used in the event
+        ROOT = { character_event = { id = zusk_event.15 } }
 
 		hidden_tooltip = {
 			any_defender = {
-				letter_event = {
-					id = 251
-				}
+				letter_event = { id = 251 }
 			}
 		}
 
@@ -194,53 +189,53 @@ migration = {
 
 	ai_will_do = { 
 		factor = 1
-                        modifier = {
+        modifier = {
 			factor = 1.2
 			ROOT = {
 				religion = tengri_pagan
 			}
 		}	
-                        modifier = {
+        modifier = {
 			factor = 0
 			OR = {
-                         FROM = { culture_group = north_germanic }
-                         FROM = { culture_group = finno_ugric }
-                             }
+                 FROM = { culture_group = north_germanic }
+                 FROM = { culture_group = finno_ugric }
+             }
 		}	
-                        modifier = {
+        modifier = {
 			factor = 0
                          NOT = { FROM = { realm_size = 10 } }
 		}    
-                        modifier = {
+        modifier = {
 			factor = 0
-                         ROOT = { realm_size = 30 }
+			ROOT = { realm_size = 30 }
 		}         
-                       modifier = {
+        modifier = {
 			factor = 0
-                         ROOT = { higher_tier_than = KING }
+         	ROOT = { higher_tier_than = KING }
 		}         
-                        modifier = {
+        modifier = {
 			factor = 0
-                         ROOT = { 
-                          OR = { 
-                           culture = old_frankish
-                           culture = old_saxon
-                           culture = thuringian
-                           culture = alamannian
-                               }
-	                	}
-                }           
-                        modifier = {
+			ROOT = { 
+				OR = { 
+					culture = old_frankish
+					culture = old_saxon
+					culture = thuringian
+					culture = alamannian
+				}
+			}
+		}           
+		modifier = {
 			factor = 10
 			ROOT = {
-                                OR = {
-				culture = avar
-                                culture_group = magyar
-                                     }
+				OR = {
+					culture = avar
+					culture_group = magyar
+				}
 			}
-                        FROM = {
-                                culture = gepid
-                        }
+			FROM = {
+				culture = gepid
+			}
 		}		
 	}		
 }
@@ -257,53 +252,57 @@ unification = {
 	check_de_jure_tier = EMPEROR
 
 	can_use_title = {
-                        has_holder = no
-			ROOT = { has_claim = PREV  }
-		        FROM = {
+		has_holder = no
+		ROOT = { has_claim = PREV  }
+		FROM = {
 			any_realm_title = {
 				de_jure_liege_or_above = PREVPREV
 			}
-		               }
+		}
 	}
 
 	is_valid_title = {
-                has_holder = no
-		ROOT = { has_claim = PREV }
-		        FROM = {
+		has_holder = no
+		ROOT = { 
+			has_claim = PREV
+		}
+		FROM = {
 			any_realm_title = {
 				de_jure_liege_or_above = PREVPREV
 			}
-		               }
+		}
 	}
 
 	on_success = {
-                hidden_tooltip = {
-                FROM = { #Julis Nepos becomes independant following Odoacers war
-                     any_vassal = { 
-                         limit = { character = 175110 } 
-                            set_defacto_liege = THIS
-                                  }
-                       }
-                ROOT = { #Without this Theodoric doesnt get Italy if he wins
-                     IF = {
-                      limit = {
-                        has_character_flag = give_italy_if_win 
-                        NOT = { has_landed_title = k_italy }
-                              }
-		  primary_title = {
-			  k_italy = {
-				  grant_title = ROOT
-				  copy_title_laws = PREV
-			           }
-		                  }
-                  clr_character_flag = give_italy_if_win
-
-                          }
-                       }
-                          }
+		hidden_tooltip = {
+			FROM = { #Julis Nepos becomes independant following Odoacers war
+				any_vassal = { 
+					limit = { character = 175110 } 
+					set_defacto_liege = THIS
+				}
+			}
+			ROOT = { #Without this Theodoric doesnt get Italy if he wins
+				if = {
+					limit = {
+						has_character_flag = give_italy_if_win 
+						NOT = { has_landed_title = k_italy }
+					}
+					primary_title = {
+						k_italy = {
+							grant_title = ROOT
+							copy_title_laws = PREV
+						}
+					}
+					clr_character_flag = give_italy_if_win
+				}
+			}
+		}
                     
 		ROOT = {
 			prestige = 200
+		}
+		FROM = {
+			prestige = -200
 		}
 		any_attacker = {
 			limit = { character = ROOT }
@@ -313,9 +312,6 @@ unification = {
 			limit = { NOT = { character = ROOT } }
 			hidden_tooltip = { participation_scaled_prestige = 200 }
 		}
-		FROM = {
-			prestige = -200
-		}
 		hidden_tooltip = {
 			ROOT = {
 				occupy_minors_of_occupied_settlements = FROM
@@ -323,7 +319,6 @@ unification = {
 			}
 		}
 	}
-	
 	
 	on_success_title = {
 
@@ -355,11 +350,11 @@ unification = {
 	}
 
 	on_fail = {
-                hidden_tooltip = {
-                ROOT = {
-                clr_character_flag = give_italy_if_win
-                }
-                }
+		hidden_tooltip = {
+			ROOT = {
+				clr_character_flag = give_italy_if_win
+			}
+        }
 		FROM = {
 			prestige = 100
 		}
@@ -368,7 +363,11 @@ unification = {
 			participation_scaled_prestige = 100
 		}
 		any_defender = {
-			limit = { NOT = { character = FROM } }
+			limit = { 
+				NOT = { 
+					character = FROM
+				}
+			}
 			hidden_tooltip = { participation_scaled_prestige = 100 }
 		}
 		ROOT = {
@@ -428,25 +427,24 @@ unification = {
 
 	ai_will_do = { 
 		factor = 10
-
-                        modifier = {
+		modifier = {
 			factor = 50
 			ROOT = {
-                                 character = 63
+				character = 63
 			}
-                        FROM = {
-                                character = 175110
-                        }
+			FROM = {
+				character = 175110
+			}
 		}	
 
-                        modifier = {
+		modifier = {
 			factor = 100
 			ROOT = {
-                                 character = 63
+				character = 63
 			}
-                        FROM = {
-                                character = 55
-                        }
+			FROM = {
+				character = 55
+			}
 		}
-        }
+    }
 }

@@ -275,7 +275,7 @@ nick_the_leper = {
 		trait = leper
 	}
 	chance = {
-		factor = 1
+		factor = 3
 		modifier = {
 			factor = 5 #OBJGETNICK
 			has_ambition = obj_get_nick
@@ -366,7 +366,7 @@ nick_half_hand = {
 		trait = maimed
 	}
 	chance = {
-		factor = 2
+		factor = 1
 		modifier = {
 			factor = 5 #OBJGETNICK
 			has_ambition = obj_get_nick
@@ -591,7 +591,7 @@ nick_the_drunkard = {
 			trait = hedonist
 		}
 		modifier = {
-			factor = 5.0
+			factor = 2.0
 			trait = drunkard
 		}
 		modifier = {
@@ -1320,8 +1320,8 @@ nick_the_magnificent = {
 nick_the_quarreller = {
 	allow = {
 		age = 30
-		ruled_years = 10
-		OR={
+		ruled_years = 15
+		OR = {
 			trait = arbitrary
 			trait = wroth
 		}
@@ -1371,11 +1371,16 @@ nick_the_devil = {
 nick_the_dragon = {
 	allow = {
 		ruled_years = 10
-		trait = wroth
 		OR = {
-			trait = kinslayer
-			trait = excommunicated
-			trait = impaler
+			has_character_modifier = cannibal
+			AND = {
+				trait = wroth
+				OR = {
+					trait = kinslayer
+					trait = excommunicated
+					trait = impaler
+				}
+			}
 		}
 	}
 	chance = {
@@ -1383,6 +1388,10 @@ nick_the_dragon = {
 		modifier = {
 			factor = 2
 			trait = kinslayer
+		}
+		modifier = {
+			factor = 5
+			has_character_modifier = cannibal
 		}
 		modifier = {
 			factor = 5 #OBJGETNICK
@@ -1485,26 +1494,79 @@ nick_the_great = {
 	allow = {
 		age = 25
 		ruled_years = 10
-		prestige = 1000
+		prestige = 2000
+		higher_tier_than = COUNT
 	}
 	chance = {
-		factor = 3
-		modifier = {
-			factor = 2.0
-			prestige = 2000
-		}
+		factor = 1
 		modifier = {
 			factor = 2.0
 			prestige = 4000
 		}
 		modifier = {
 			factor = 2.0
-			prestige = 6000
+			prestige = 8000
+		}
+		modifier = {
+			factor = 5.0
+			prestige = 15000
 		}
 		modifier = {
 			factor = 5 #OBJGETNICK
 			has_ambition = obj_get_nick
 		}
+	}
+}
+
+
+nick_the_hunchback = {
+	allow = {
+		age = 20
+		trait = hunchback
+	}
+	chance = {
+		factor = 1
+	}
+	modifier = {
+		factor = 5 #OBJGETNICK
+		has_ambition = obj_get_nick
+	}
+}
+
+nick_the_scholar = {
+	allow = {
+		age = 20
+		trait = scholar
+	}
+	chance = {
+		factor = 1
+		modifier = {
+			factor = 2.0
+			learning = 20
+		}
+		modifier = {
+			factor = 2.0
+			learning = 26
+		}
+		modifier = {
+			factor = 5 #OBJGETNICK
+			has_ambition = obj_get_nick
+		}
+	}
+}
+
+nick_the_black = {
+	allow = {
+		religion_group = christian
+		OR = {
+			trait = kinslayer
+			trait = excommunicated
+			trait = impaler
+			trait = bad_priest_christian
+		}
+	}
+	chance = {
+		factor = 3
 	}
 }
 
@@ -2150,7 +2212,7 @@ nick_the_martyr = {
 	}
 }
 nick_the_saint = {
-allow={
+	allow={
 		piety = 500
 		religion_group = christian
 		NOT = { trait = lustful }
@@ -2250,20 +2312,7 @@ allow={
 		}
 	}
 }
-nick_the_black = {
-	allow = {
-		religion_group = christian
-		OR = {
-			trait = kinslayer
-			trait = excommunicated
-			trait = impaler
-			trait = bad_priest_christian
-		}
-	}
-	chance = {
-		factor = 3
-	}
-}
+
 nick_the_clueless = {
 	allow={
 		NOT = { diplomacy = 12 }
