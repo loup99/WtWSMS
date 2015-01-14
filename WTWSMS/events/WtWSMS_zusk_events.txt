@@ -515,7 +515,7 @@ character_event = {
 		culture_group = east_germanic
 		culture_group = west_germanic
 		culture_group = latin
-		culture_group = romano_british
+		culture = romano_british
 		     }
 	}
 	
@@ -1398,7 +1398,7 @@ character_event = {
 	trigger = {
                 has_global_flag = historical_events_fall_of_rome
                 NOT = { has_global_flag = justinian_adopted }
-                has_landed_title = e_ere
+                has_landed_title = e_byzantium
 		independent = yes
                 year = 482
                 NOT = { year = 565 }
@@ -3693,16 +3693,18 @@ narrative_event = {
 
 	
 	trigger = {
-                e_byzantium = {
-				has_holder = no
+		e_byzantium = {
+			has_holder = no
+		}
+		has_global_flag = fall_of_constantinople
+		NOT = { has_global_flag = byzantine_egypt }
+		k_egypt = {
+			holder_scope = {
+				character = ROOT
 			}
-                has_global_flag = fall_of_constantinople
-                NOT = { has_global_flag = byzantine_egypt }
-                k_egypt = {
-				has_holder = ROOT
-			}
-                prestige = 1000
-                war = no
+		}
+		prestige = 1000
+		war = no
 	}
 	
 	mean_time_to_happen = {
@@ -4578,11 +4580,14 @@ province_event = {
 			female = no
 			age = 45
 			
-			martial=6
-			diplomacy=8
-			intrigue=5
-			stewardship=8
-			learning=10
+			attributes = {
+				martial=6
+				diplomacy=8
+				intrigue=5
+				stewardship=8
+				learning=10
+			}
+			
 			trait="mastermind_theologian"
 			trait="mystic"
 			trait="zealous"
