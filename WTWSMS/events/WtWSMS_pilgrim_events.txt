@@ -1,0 +1,154 @@
+###########################################
+#                                         #
+# Catholic Pilgrimage Events              #             
+#                                         #
+# ID WtWSMSsoa.1-                         #
+#                                         #
+###########################################
+
+namespace = WtWSMSsoa
+
+# Check Nicene pilgrim's location - then send on to destination choice event
+character_event = {
+	id = WtWSMSsoa.1
+
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		hidden_tooltip = {
+			if = {
+				limit = {
+					OR = {
+						capital_scope = { province_id = 333 }
+						capital_scope = { province_id = 764 }
+						capital_scope = { province_id = 496 }
+					}
+				}
+				character_event = { id = SoA.5016 days = 4 } # Go to Jerusalem
+			}
+			if = {
+				limit = {
+					capital_scope = { province_id = 774 }
+				}
+				character_event = { id = SoA.5017 days = 4 } # Go to Rome
+			}
+			if = {
+				limit = { 
+					NOT = {
+						OR = {
+							capital_scope = { province_id = 774 }
+							capital_scope = { province_id = 333 }
+						}
+					}
+				}
+				character_event = { id = WtWSMSsoa.2 days = 4 } # May choose destination
+			}
+		}
+	}
+}
+
+# Nicene - Chose destination
+character_event = {
+	id = WtWSMSsoa.2
+	desc = EVTDESC_SoA_5011
+	picture = GFX_evt_icon
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_SoA_5011
+		trigger = {
+			NOT = { capital_scope = { province_id = 774 } }
+		}
+		set_character_flag = pilgrimage_to_jerusalem
+		hidden_tooltip = {
+			character_event = { id = SoA.5022 days = 15 }
+		}
+		if = {
+			limit = { ai = no }
+			chronicle = {
+				entry = CHRONICLE_PILGRIMAGE_TO_JERUSALEM
+				picture = GFX_evt_pilgrims_epic_journey
+			}
+		}
+	}
+
+	option = {
+		name = EVTOPTB_SoA_5011
+		trigger = {
+			NOT = { capital_scope = { province_id = 496 } }
+			NOT = { religion = miaphysite }
+			NOT = { religion = monophysite }
+		}
+		set_character_flag = pilgrimage_to_constantinople
+		hidden_tooltip = {
+			character_event = { id = SoA.5094 days = 15 }
+		}
+		if = {
+			limit = { ai = no }
+			chronicle = {
+				entry = CHRONICLE_PILGRIMAGE_TO_CONSTANTINOPLE
+				picture = GFX_evt_pilgrims_epic_journey
+			}
+		}
+	}
+	option = {
+		name = EVTOPTC_SoA_5011
+		trigger = {
+			NOT = { capital_scope = { province_id = 764 } }
+		}
+		set_character_flag = pilgrimage_to_antioch
+		hidden_tooltip = {
+			character_event = { id = SoA.5096 days = 15 }
+		}
+		if = {
+			limit = { ai = no }
+			chronicle = {
+				entry = CHRONICLE_PILGRIMAGE_TO_ANTIOCH
+				picture = GFX_evt_pilgrims_epic_journey
+			}
+		}
+	}
+
+	option = {
+		name = EVTOPTB_SoA_5020
+		ai_chance = { factor = 50 }
+		set_character_flag = pilgrimage_to_rome
+		hidden_tooltip = {
+			character_event = { id = SoA.5024 days = 15 }
+		}
+		if = {
+			limit = { ai = no }
+			chronicle = {
+				entry = CHRONICLE_PILGRIMAGE_TO_ROME
+				picture = GFX_evt_pilgrims_epic_journey
+			}
+		}
+	}
+}
+
+# Insular - Chose destination
+character_event = {
+	id = WtWSMSsoa.3
+	desc = EVTDESC_SoA_5011
+	picture = GFX_evt_cathedral
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+
+	option = {
+		name = EVTDESC_WtWSMSsoa_3
+		set_character_flag = pilgrimage_to_canterbury
+		hidden_tooltip = { character_event = { id = SoA.5021 days = 15 } }
+		if = {
+			limit = { ai = no }
+			chronicle = {
+				entry = CHRONICLE_PILGRIMAGE_TO_CANTERBURY
+				picture = GFX_evt_pilgrims_epic_journey
+			}
+		}
+	}
+}
