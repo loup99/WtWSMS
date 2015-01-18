@@ -1,0 +1,98 @@
+# Vanilla diplomatic actions, re-coded as a targeted decision for more flexibility on hardcoded triggers.
+# ROOT is targeted character
+# FROM is the decision taker
+
+targetted_decisions = {
+
+	# "Demand Religious Conversion"
+	# - Workaround bug on diploaction not working even if at +100 opinion
+	# - Split in 2 decisions as there is no ai_target_filter for both direct vassals and courtiers.
+	
+	demand_courtier_religious_conversion = {
+		ai_target_filter = home_court
+		from_potential = {
+			is_ruler = yes
+		}
+		potential = {
+			NOT = { religion = FROM }
+			vassal_of = FROM
+			is_ruler = no
+		}
+		allow = {
+			opinion = { who = FROM value = 25}
+			FROM = {
+				custom_tooltip = { 
+					text = TT_NOT_UNREFORMED_PAGAN
+					hidden_tooltip = {
+						OR = {
+							NOT = { religion_group = pagan_group }
+							is_reformed_religion = yes
+						}
+					}
+				}
+			}
+			NOT = { controls_religion = yes }
+		}
+		effect = {
+			# Fire any event that would normally be fired by the on_action on_vassal_accepts_religious_conversion
+			custom_tooltip = {
+				text = "demand_religious_conversion_tooltip"
+				hidden_tooltip = {
+					FROM = { 
+						character_event = { id = WtWSMSconv.1 }
+					}
+				}
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	demand_vassal_religious_conversion = {
+		ai_target_filter = vassals
+		from_potential = {
+			is_ruler = yes
+		}
+		potential = {
+			NOT = { religion = FROM }
+			vassal_of = FROM
+			is_ruler = yes
+		}
+		allow = {
+			opinion = { who = FROM value = 35}
+			FROM = {
+				custom_tooltip = { 
+					text = TT_NOT_UNREFORMED_PAGAN
+					hidden_tooltip = {
+						OR = {
+							NOT = { religion_group = pagan_group }
+							is_reformed_religion = yes
+						}
+					}
+				}
+			}
+			NOT = { controls_religion = yes }
+		}
+		effect = {
+			# Fire any event that would normally be fired by the on_action on_vassal_accepts_religious_conversion
+			custom_tooltip = {
+				text = "demand_religious_conversion_tooltip"
+				hidden_tooltip = {
+					FROM = { 
+						character_event = { id = WtWSMSconv.1 }
+					}
+				}
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}
