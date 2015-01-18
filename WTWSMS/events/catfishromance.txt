@@ -16,10 +16,14 @@ province_event = {
 	border = GFX_event_normal_frame_diplomacy
 
 	trigger = {
-		year = 480 #This date will be changed to 700's to that decree in 813 on emergence of Old French will be valid
+		year = 700 #This date will be changed to 700's to that decree in 813 on emergence of Old French will be valid
 		culture = romano_gallic
 		county = {
-			kingdom = { title = k_lugdunensis }
+			kingdom = { 
+				OR = {
+					title = k_lugdunensis
+					title = k_belgica }
+				}
 		}
 		owner = {
 			religion = ROOT
@@ -47,5 +51,42 @@ province_event = {
 			owner = { culture = frankish }
 		}
 		culture = frankish
+	}
+}
+
+# Province culture changes from Romano-Gallic to Occitan.
+province_event = {
+	id = ROM.1100
+	desc = EVTDESC_ROM_1100
+	picture = GFX_evt_stone_church #Placeholder
+	border = GFX_event_normal_frame_diplomacy
+
+	trigger = {
+		year = 700 #700s sometime actually just for testing
+		culture = romano_gallic
+		county = {
+			kingdom = { title = k_septem_provincae }
+		}	
+	}
+
+	mean_time_to_happen = {
+		months = 360 #Again placeholder
+	}
+
+	option = {
+		name = EVTOPTA_ROM_1100
+		trigger = {
+			NOT = {
+				owner = { culture = occitan }
+			}
+		}
+		culture = occitan
+	}
+	option = { 
+		name = EVTOPTB_ROM_1100
+		trigger = {
+			owner = { culture = occitan }
+		}
+		culture = occitan
 	}
 }
