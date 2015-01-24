@@ -5,18 +5,21 @@
 targetted_decisions = {
 
 	# "Demand Religious Conversion"
-	# - Workaround bug on diploaction not working even if at +100 opinion
+	# Note: need to disable DEMAND_RELIGIOUS_CONVERSION_INTERACTION_ENABLED in defines.lua
+	# - Workaround to a bug with diploaction not working even if at +100 opinion
 	# - Split in 2 decisions as there is no ai_target_filter for both direct vassals and courtiers.
 	
 	demand_courtier_religious_conversion = {
 		ai_target_filter = home_court
 		from_potential = {
 			is_ruler = yes
+			always = no
 		}
 		potential = {
 			NOT = { religion = FROM }
 			vassal_of = FROM
 			is_ruler = no
+			always = no
 		}
 		allow = {
 			opinion = { who = FROM value = 25}
@@ -56,11 +59,13 @@ targetted_decisions = {
 		ai_target_filter = vassals
 		from_potential = {
 			is_ruler = yes
+			always = no
 		}
 		potential = {
 			NOT = { religion = FROM }
 			vassal_of = FROM
 			is_ruler = yes
+			always = no
 		}
 		allow = {
 			opinion = { who = FROM value = 35}
