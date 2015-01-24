@@ -126,7 +126,7 @@ province_event = {
 	}
 }
 
-#Visigoth and Castillian flip into GLORIOUS GOTHI culture
+#Visigoth and romano hispanicflip into GLORIOUS GOTHI culture
 province_event = {
 	id = ROM.2000
 	desc = EVTDESC_ROM_2000
@@ -167,5 +167,66 @@ province_event = {
 	}
 }
 
-#Visigoths---->Iberians
+#Continental celtic provinces in Spain flip to Romano_hispanic to better facilitate melting pots into Castillian and the like later on
+province_event = {
+	id = ROM.2001
+	desc = EVTDESC_ROM_2001
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_diplomacy
+
+	trigger = {
+		year = 550 # just needs to be before visigoth>gothi
+		OR = {
+			culture = astures
+			culture = cantabrian
+			culture = galician
+		}
+		NOT = {
+			owner = { culture_group = continental_celtic }
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 120 #idk placeholder
+	}
+	option = {
+		name = EVTOPTA_ROM_2001
+		trigger = {
+			NOT = {
+				owner = { culture_group = continental_celtic }
+			}
+		}
+		culture = romano_hispanic
+	}
+}
+
+#Same thing as above with gauls
+province_event = {
+	id = ROM.2048
+	desc = EVTDESC_ROM_2048
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_diplomacy
+
+	trigger = {
+		year = 550 # just needs to be before visigoth>gothi
+		culture = gallic
+		NOT = {
+			owner = { culture_group = continental_celtic }
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 120 #idk placeholder
+	}
+	option = {
+		name = EVTOPTA_ROM_2048
+		trigger = {
+			NOT = {
+				owner = { culture_group = continental_celtic }
+			}
+		}
+		culture = romano_gallic
+	}
+}
+
 
