@@ -18,3 +18,7 @@ To run the mod from a Git local repository:
  - Alternatively, you can also delete the WTWSMS folder (**Warning**: make sure all your local work is commited & pushed to github, otherwise keep a backup copy !) and re-clone the repository from Github to another location
 - Run create_symbolic_links.bat to create symbolic links from CK2 mod folder to the actual folders in your Git working directory
 - Copy over all the .mod files from Git folder to CKII mod folder (you will need to re-copy them occasionally when they change in Git). 
+
+### Commits & Pull Requests
+
+As we now use GitHub and is a relatively large team, some guidelines are needed. Therefor, I would like to ask you the following: before making any new new commit to the master, please check your code (either by using the Validator or reading it through) in order to avoid any issues. If you are doing any major or minor change to the mod, please add a mention to it in ChangeLog.txt, in order for us to easier make public releases and keep track of changes. It is better to have a too full changelog rather than a one that is incomplete. Also, if you are about to make a commit, please check the issues and reference your commit to an appropriate one if existing, for example for any change to the legions use #16 which stands for that legion. This highly facilitates the usage of those issues as discusions and archives allowing us keeping track of different commits.
