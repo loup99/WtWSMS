@@ -2,7 +2,7 @@ namespace = spirit
 # Germanic/Norse Schism
 narrative_event = {
 	id = spirit.1
-	desc = EVTDESC_spirit.1 
+	desc = EVTDESC_spirit.1
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_diplomacy
 	
@@ -29,7 +29,7 @@ narrative_event = {
 			religion = germanic_pagan
 		}
 		hidden_tooltip = {
-			narrative_event = { id = spirit.2 }
+			character_event = { id = spirit.2 }
 		}
 	}
 	option = {
@@ -152,9 +152,9 @@ character_event = {
 	}
 	option = { # Non-Pagan with Saxons
 		name = EVTOPTEspirit.2
-			trigger = {
-				NOT = { religion = germanic_pagan }		
-			}
+		trigger = {
+			NOT = { religion = germanic_pagan }		
+		}
 		ai_chance = {
 			factor = 0
 			modifier = {
@@ -175,9 +175,9 @@ character_event = {
 	}
 	option = { # Non-Pagan with Normal Germans
 		name = EVTOPTFspirit.2
-			trigger = {
-				NOT = { religion = germanic_pagan }		
-			}
+		trigger = {
+			NOT = { religion = germanic_pagan }		
+		}
 		ai_chance = {
 			factor = 10
 			modifier = {
@@ -279,18 +279,20 @@ character_event = {
 		name = EVTOPTAspirit.4
 		set_character_flag = first_holy_emperor
 		set_global_flag = hre_formed
-		e_hre = { 
-			copy_title_laws = ROOT
-			grant_title = ROOT
+		primary_title = {
+			e_hre = { 
+				copy_title_laws = PREV
+				grant_title = ROOT
+			}
 		}
 		hidden_tooltip = {
-				any_direct_de_jure_vassal_title = {
-					de_jure_liege = e_hre
-				}
+			any_direct_de_jure_vassal_title = {
+				de_jure_liege = e_hre
 			}
+		}
 		prestige = 150
 		hidden_tooltip = {
-			character_event = { id = schism.1 days = 3 random = 7 }
+			character_event = { id = spirit.6 days = 3 random = 7 }
 		}
 	}
 }
@@ -382,9 +384,11 @@ character_event = {
 		name = EVTOPTAspirit.7
 		set_character_flag = restored_western_emperor
 		set_global_flag = wre_formed
-		e_wre = { 
-			copy_title_laws = ROOT
-			grant_title = ROOT
+		primary_title = {
+			e_wre = { 
+				copy_title_laws = PREV
+				grant_title = ROOT
+			}
 		}
 		hidden_tooltip = {
 			any_direct_de_jure_vassal_title = {
