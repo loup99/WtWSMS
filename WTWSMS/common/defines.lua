@@ -1012,7 +1012,7 @@ NMilitary = {
 },
 
 NTechnology = {
-	DONT_EXECUTE_TECH_BEFORE = 769,				-- Set this to your earliest starting year
+	DONT_EXECUTE_TECH_BEFORE = 475,				-- Set this to your earliest starting year
 	POINTS_PER_ATTRIBUTE = 0.04,
 
 	BASE_NEIGHBOUR_SPREAD_BONUS = 0.03, 		-- bonus for each neighbour with the tech
@@ -1023,7 +1023,7 @@ NTechnology = {
 	TRADEPOST_SPREAD_BONUS = 0.002, 			-- Spread from trade posts
 	SPYACTION_SPREAD_BONUS = 0.006,				-- Spread from the target of the study technology spymaster action
 	
-	IDEAL_YEAR_LEVEL_0 = 700, 					-- the chance to get a progress to this level will increase after this date and decrease before it
+	IDEAL_YEAR_LEVEL_0 = 400, 					-- the chance to get a progress to this level will increase after this date and decrease before it
 	IDEAL_YEAR_LEVEL_8 = 1500,
 	IDEAL_YEAR_AHEAD_PENALTY = -0.2,			-- UNUSED
 	IDEAL_YEAR_AHEAD_PENALTY_INVEST = 0.6,		-- Percent increase in cost pre level ahead of ideal date
