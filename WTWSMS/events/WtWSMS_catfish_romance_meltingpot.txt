@@ -39,7 +39,7 @@ province_event = {
 		name = EVTOPTA_ROM_1000
 		trigger = {
 			NOT = {
-				owner = { culture = frankish}
+				owner = { culture = frankish }
 			}
 		}
 		culture = frankish
@@ -467,3 +467,45 @@ province_event = {
 		culture = italian
 	}
 }
+
+namespace = CELT
+
+# Province culture changes from Pictish to Scottish
+province_event = {
+	id = CELT.1000
+	desc = EVTDESC_CELT_1000
+	picture = GFX_evt_stone_church #Placeholder
+	border = GFX_event_normal_frame_diplomacy
+
+	trigger = {
+		year = 900 #Give me a better year please
+		culture = pictish
+		kingdom = { title = k_scotland }
+		OR = {
+			owner = { culture = scottish }
+			owner = { culture = irish }
+		}
+	}
+	mean_time_to_happen = {
+		months = 180 #Again placeholder
+	}
+
+	option = {
+		name = EVTOPTA_CELT_1000
+		trigger = {
+			NOT = {
+				owner = { culture = irish }
+			}
+		}
+		culture = scottish
+	}
+	option = { 
+		name = EVTOPTB_CELT_1000
+		trigger = {
+			owner = { culture = irish }
+		}
+		culture = irish
+		owner = { culture = scottish }
+	}
+}
+
