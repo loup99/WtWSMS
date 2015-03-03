@@ -12,6 +12,8 @@ title_court_druid = {
 	monthly_prestige = 0.01
 	monthly_piety = 0.01
 	
+	is_unique = yes
+	
 	allow = {
 		is_adult = yes
 		is_ruler = no
@@ -24,6 +26,10 @@ title_court_druid = {
 			religion = celtic_pagan_reformed
 		}
 		FROM = {
+			OR = {
+				is_feudal = yes
+				is_tribal = yes
+			}
 			OR = {
 				religion = celtic_pagan
 				religion = celtic_pagan_reformed
@@ -38,37 +44,6 @@ title_court_druid = {
 
 	message = yes
 }
-# title_uchelwr = {
-	# dignity = 0.075
-	# grant_limit = 4
-	# opinion_effect = 10
-	
-	# monthly_salary = 0.005
-	# monthly_prestige = 0.005
-	
-	# allow = {
-		# is_adult = yes
-		# is_female = no
-		# FROM = {
-			# is_feudal = yes
-			# OR = {
-				# religion = celtic_pagan
-				# religion = celtic_pagan_reformed
-			# }
-		# }
-		# NOT = { has_minor_title = title_vates }
-		# NOT = { has_minor_title = title_court_druid }
-		# NOT = { has_minor_title = title_champion }
-		# NOT = { has_minor_title = title_court_bard }
-	# }
-	
-	# gain_effect = {
-	# }
-	# lose_effect = {
-	# }
-
-	# message = yes
-# }
 
 title_royal_champion = {
 	dignity = 0.2
@@ -79,10 +54,15 @@ title_royal_champion = {
 	monthly_salary = 0.1
 	monthly_prestige = 0.075
 	
+	is_unique = yes
+	
 	allow = {
 		is_adult = yes
 		FROM = {
-			is_feudal = yes
+			OR = {
+				is_feudal = yes
+				is_tribal = yes
+			}
 			OR = {
 				primary_title = {
 					higher_tier_than = duke		# is a king or emperor
@@ -100,19 +80,14 @@ title_royal_champion = {
 			}
 		}
 		OR = {
-				religion = celtic_pagan
-				religion = celtic_pagan_reformed
+			religion = celtic_pagan
+			religion = celtic_pagan_reformed
 		}
 		OR = {
 			trait = head1
 			trait = head2
 			trait = fian
 		}
-		NOT = { has_minor_title = title_vates }
-		NOT = { has_minor_title = title_court_druid }
-		NOT = { has_minor_title = title_court_bard }
-		NOT = { has_minor_title = title_uchelwr }
-		NOT = { has_minor_title = title_laoch }
 	}
 	
 	gain_effect = {
@@ -122,41 +97,7 @@ title_royal_champion = {
 
 	message = yes
 }
-# title_vates = {
-	# dignity = 0.1
-	# realm_in_name = yes
-	# grant_limit = 2
-	# opinion_effect = 10
-	
-	# monthly_salary = 0.05
-	# monthly_prestige = 0.015
-	
-	# allow = {
-		# is_adult = yes
-		# FROM = {
-			# is_feudal = yes
-			# OR = {
-				# religion = celtic_pagan
-				# religion = celtic_pagan_reformed
-			# }
-		# }
-		# OR = {
-				# religion = druidic
-				# religion = druidic_reformed
-		# }
-		# NOT = { has_minor_title = title_champion }
-		# NOT = { has_minor_title = title_court_druid }
-		# NOT = { has_minor_title = title_court_bard }
-		# NOT = { has_minor_title = title_uchelwr }
-	# }
-	
-	# gain_effect = {
-	# }
-	# lose_effect = {
-	# }
 
-	# message = yes
-# }
 title_court_bard = {
 	dignity = 0.15
 	realm_in_name = yes
@@ -166,20 +107,21 @@ title_court_bard = {
 	monthly_salary = 0.075
 	monthly_prestige = 0.075
 	
+	is_unique = yes
+	
 	allow = {
 		is_adult = yes
 		FROM = {
-			is_feudal = yes
+			OR = {
+				is_feudal = yes
+				is_tribal = yes
+			}
 			OR = {
 				religion = celtic_pagan
 				religion = celtic_pagan_reformed
 			}
 		}
 		trait = poet
-		NOT = { has_minor_title = title_court_druid }
-		NOT = { has_minor_title = title_champion }
-		NOT = { has_minor_title = title_vates }
-		NOT = { has_minor_title = title_uchelwr }
 	}
 
 	gain_effect = {

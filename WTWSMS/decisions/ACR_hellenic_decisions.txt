@@ -1,0 +1,205 @@
+decisions = {
+	hold_titan_thysia = {
+		is_high_prio = yes
+		potential = {
+			has_dlc = "The Old Gods"
+			is_ruler = yes
+			age = 16
+			prisoner = no
+			
+			religion = titan_pagan
+			
+			NOT = { has_character_modifier = held_titan_thysia_timer }
+			NOT = {	has_character_flag = holding_titan_thysia }
+			NOT = {	has_character_flag = do_not_disturb }
+		}
+		allow = {
+			war = no
+			any_demesne_title = {
+				is_occupied = no
+			}
+			OR = {
+				NOT = { month = 2 }
+				month = 10
+			}
+			wealth = 50
+			prisoner = no
+			NOT = { trait = in_hiding }
+		}
+		effect = {
+			wealth = -50
+			set_character_flag = holding_titan_thysia
+			set_character_flag = recent_minor_decision
+			set_character_flag = do_not_disturb
+			hidden_tooltip = { character_event = { id = ancrel.3699 days = 150 } } # Safety catch flag clearing
+			custom_tooltip = {
+				text = prepare_titan_thysia
+				hidden_tooltip = { 
+					character_event = { id = ancrel.3600 } 
+				}
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0
+				NOT = {
+					wealth = 300
+				}
+			}
+			modifier = {
+				factor = 0
+				trait = shy
+			}
+			modifier = {
+				factor = 0
+				NOT = { diplomacy = 10 }
+			}	
+			modifier = {
+				factor = 0
+				has_character_flag = recent_minor_decision
+				NOT = {
+					had_character_flag = {
+						flag = recent_minor_decision
+						days = 730
+					}
+				}
+			}
+		}
+	}
+	recreate_pontificate = {
+		is_high_prio = yes
+		potential = {
+			religion = hellenic_pagan
+			primary_title = { higher_real_tier_than = DUKE }
+			d_hellenic_pagan = {
+				has_holder = no #Covers the case of destroyed title considered active
+			}
+		}
+		allow = {
+			c_roma = { holder = ROOT }
+			OR = {
+				completely_controls = d_latium
+				e_byzantium = { holder = ROOT }
+				e_roman_empire = { holder = ROOT }
+				e_latin_empire = { holder = ROOT }
+			}
+			piety = 500
+			prestige = 300
+			religion_authority = 0.5
+		}
+		effect = {
+			piety = -500
+			prestige = -300
+			activate_title = { title = d_hellenic_pagan status = yes }
+			d_hellenic_pagan = {
+				grant_title = PREV
+			}
+			religion_authority = { modifier = pontifex_restored }
+			hidden_tooltip = {
+				narrative_event = { id = ancrel.2104 }
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0
+				NOT = {
+					prestige = 500
+				}
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					piety = 700
+				}
+			}			
+			modifier = {
+				factor = 0
+				trait = content
+			}
+			modifier = {
+				factor = 0
+				NOT = { diplomacy = 10 }
+			}			
+		}
+	}
+}
+
+vassal_decisions = {
+
+	nominate_vestalis_decision = {
+		from_potential = {
+			religion = hellenic_pagan
+			NOT = { has_landed_title = d_hellenic_pagan }
+			NOT = { NOT = { d_hellenic_pagan = { owner = { always = yes } } } } # There is currently a Pontifex Maximus
+			d_hellenic_pagan = { owner = { NOT = { check_variable = { which = "num_vestales" value = 5 } } } } # The College of the Vestales has a seat open.
+		}
+
+		potential = {
+			age = 6
+			NOT = { age = 10 }
+			is_female = yes
+			is_landed = no
+			is_betrothed = no
+			prisoner = no
+			host = { character = FROM }
+			NOT = { has_character_flag = flag_nominated_as_vestalis }
+		}
+
+		allow = {
+			age = 6
+			NOT = { age = 10 }
+			is_female = yes
+			NOT = { trait = bastard }
+			NOT = { trait = legit_bastard }
+			NOT = { trait = child_of_consort }
+			religion = hellenic_pagan
+			father_even_if_dead = { religion = hellenic_pagan }
+			mother = { religion = hellenic_pagan }
+		}
+
+		effect = {
+			set_character_flag = flag_nominated_as_vestalis
+			d_hellenic_pagan = { owner = { character_event = { id = ancrel.2124 days = 1 } } }
+		}
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.2
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					is_primary_heir = FROM
+					FROM = { is_pretender = yes }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { trait = cynical }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { trait = zealous }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { d_hellenic_pagan = { owner = { reverse_opinion = { who = FROM value = -40 } } } }
+			}
+			modifier = {
+				factor = 1.25
+				d_hellenic_pagan = { owner = { reverse_opinion = { who = FROM value = 40 } } }
+			}
+		}
+	}
+}

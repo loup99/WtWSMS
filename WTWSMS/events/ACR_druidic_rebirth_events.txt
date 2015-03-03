@@ -1,0 +1,589 @@
+#######################################
+#
+# ANCIENT RELIGIONS
+# - Rebirth of Druidism
+#
+# Event ID ancrel.0000 - ancrel.0009 reserved
+#          ancrel.0280
+#
+#######################################
+
+# Written by Patrick Marchand
+
+namespace = ancrel
+
+# Old "Wizard" Appears
+character_event = {
+	id = ancrel.0000
+	desc = EVTDESCancrel.0000
+	picture = GFX_evt_Whispering_in_ear
+	border = GFX_event_normal_frame_religion
+	
+	ai = no
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		is_ruler = yes
+		in_command = no
+		culture_group = celtic
+		NOT = {
+			OR = {
+				religion = celtic_pagan
+				religion = celtic_pagan_reformed
+			}
+			has_character_flag = hates_magic
+			any_courtier = {
+				has_minor_title = title_pagan_wizard
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 24
+	}	
+	
+	option = {
+		name = EVTOPTAancrel.0000
+		
+		create_character = {
+			random_traits = no
+			dynasty = NONE
+			female = no
+			age = 53
+			religion = celtic_pagan
+			culture = ROOT
+			trait = mystic
+			trait = scholarly_theologian
+		}
+		new_character = {
+			give_minor_title = title_pagan_wizard
+		}
+	}
+	option = {
+		name = EVTOPTBancrel.0000
+		custom_tooltip = {
+			text = begone_sorcerer
+			set_character_flag = hates_magic
+		}
+	}
+}
+
+# Adopt celtic rites
+character_event = {
+	id = ancrel.0001
+	desc = EVTDESCancrel.0001
+	picture = GFX_evt_Pagan_dolmen
+	
+	prisoner = no
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.0001
+		custom_tooltip = {
+			text = adopt_celtic_rites
+			piety = -50
+			if = {
+				limit = {
+					NOT = { religion_group = pagan_group }
+				}
+				add_trait = sympathy_pagans
+			}
+			add_character_modifier = {
+				name = celtic_ways
+				duration = -1
+			}
+			hidden_tooltip = {
+				any_vassal = {
+					limit = {
+						NOT = {
+							religion = celtic_pagan
+						}
+						age = 16
+						prisoner = no
+						war = no
+						NOT = { trait = incapable }
+					}
+					character_event = { id = ancrel.0003 days = 5 }
+				}
+				any_courtier = {
+					limit = {
+						NOT = {
+							religion = celtic_pagan
+						}
+						age = 16
+						prisoner = no
+						war = no
+						NOT = { trait = incapable }
+						is_ruler = no # Councillors can be both courtier and vassals
+					}
+					character_event = { id = ancrel.0003 days = 5 }
+				}
+			}
+		}
+	}
+}
+
+# Bishop asks character to reform Celtic ways
+character_event = {
+	id = ancrel.0002
+	desc = EVTDESCancrel.0002
+	picture = GFX_evt_scandal
+	
+	prisoner = no
+	capable_only = yes
+	
+	trigger = {
+		NOT = {
+			religion = celtic_pagan
+		}
+		has_character_modifier = celtic_ways
+	}
+	
+	mean_time_to_happen = {
+		months = 24
+	}
+	
+	option = {
+		name = EVTOPTAancrel.0002
+		ai_chance = { factor = 50 }
+		hidden_tooltip = { remove_character_modifier = celtic_ways }
+		if = {
+			limit = {
+				religion_group = christian
+			}
+			add_trait = sympathy_christendom
+		}
+		religion = celtic_pagan
+		piety = 50
+	}
+	option = {
+		name = EVTOPTBancrel.0002
+		piety = 50
+		remove_trait = sympathy_pagans
+		ai_chance = { factor = 50 }
+		religion_head = {
+			opinion = {
+				modifier = opinion_happy
+				who = ROOT
+				years = 2
+			}
+		}
+		hidden_tooltip = { remove_character_modifier = celtic_ways }
+	}
+}
+
+# Adopt celtic rites (vassal)
+character_event = {
+	id = ancrel.0003
+	desc = EVTDESCancrel.0003
+	picture = GFX_evt_Pagan_dolmen
+	
+	prisoner = no
+	capable_only = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.0003
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0
+				trait = zealous
+			}
+		}
+		custom_tooltip = {
+			text = adopt_celtic_rites
+			piety = -50
+			if = {
+				limit = {
+					NOT = { religion_group = pagan_group }
+				}
+				add_trait = sympathy_pagans
+			}
+			add_character_modifier = {
+				name = celtic_ways
+				duration = -1
+			}
+			hidden_tooltip = {
+				IF = {
+					limit = { is_ruler = yes }
+					top_liege = { character_event = { id = ancrel.0004 days = 5 } }
+				}
+			}
+		}
+	}
+	option = {
+		name = EVTOPTBancrel.0003
+		piety = 50
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+		}
+		random_vassal = {
+			limit = {
+				is_theocracy = yes
+				religion = catholic
+			}
+			opinion = {
+				modifier = opinion_happy
+				who = ROOT
+				years = 2
+			}
+		}
+		set_character_flag = refuse_celtic_ways
+		hidden_tooltip = {
+			IF = {
+				limit = { is_ruler = yes }
+				top_liege = { character_event = { id = ancrel.0005 days = 5 } }
+			}
+		}
+	}
+}
+# Vassal adopted celtic rites
+character_event = {
+	id = ancrel.0004
+	desc = EVTDESCancrel.0004
+	picture = GFX_evt_Pagan_dolmen
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.0004
+	}
+}
+# Vassal refuses celtic rites
+character_event = {
+	id = ancrel.0005
+	desc = EVTDESCancrel.0005
+	picture = GFX_evt_Ruler_listening_to_supplicant
+
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.0005
+	}
+}
+
+### Lunatic and Possessed conversion
+# Hear a tapping at the door
+character_event = {
+	id = ancrel.0006
+	desc = EVTDESCancrel.0006
+	picture = GFX_evt_courier
+	
+	min_age = 16
+	prisoner = no
+	
+	trigger = {
+		culture_group = celtic
+		OR = {
+			trait = lunatic
+			trait = possessed
+		}
+		NOT = { has_character_modifier = voice_of_jesus }
+	}
+	
+	mean_time_to_happen = {
+		months = 420
+	}
+	
+	option = {
+		name = EVTOPTAancrel.0006
+		ai_chance = {
+			factor = 50
+		}
+		tooltip_info = lunatic
+		hidden_tooltip = {
+			character_event = { id = ancrel.0007 }
+		}
+	}
+	option = {
+		name = EVTOPTBancrel.0006
+		tooltip_info = lunatic
+		ai_chance = {
+			factor = 50
+		}
+	}
+}
+# The elves come in
+character_event = {
+	id = ancrel.0007
+	desc = EVTDESCancrel.0007
+	picture = GFX_evt_courier
+	
+	min_age = 16
+	prisoner = no
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.0007
+		tooltip_info = lunatic
+		ai_chance = {
+			factor = 50
+		}
+		hidden_tooltip = {
+			character_event = { id = ancrel.0008 }
+		}
+	}
+	option = {
+		name = EVTOPTBancrel.0007
+		tooltip_info = lunatic
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+		}
+	}
+}
+# King of the Elves!
+character_event = {
+	id = ancrel.0008
+	desc = EVTDESCancrel.0008
+	picture = GFX_evt_courier
+	
+	min_age = 16
+	prisoner = no
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.0008
+		tooltip_info = lunatic
+		religion = celtic_pagan
+	}
+}
+
+# override of vanilla event to support Druidic
+#[on_reform_religion]
+narrative_event = {
+	id = ancrel.0009
+	title = EVTNAME670
+	desc = EVTDESC670
+	picture = GFX_evt_heretic
+	border = GFX_event_narrative_frame_religion	
+	
+	is_triggered_only = yes
+	major = yes
+	show_ROOT = yes
+	hide_new = yes
+	
+	only_rulers = yes
+	
+	immediate = {
+		if = {
+			limit = { ai = no }
+			set_character_flag = achievement_new_ways
+		}
+		any_courtier = {
+			limit = {
+				is_heresy_of = ROOT
+				employer = { character = ROOT }
+			}
+			religion = ROOT
+		}
+		any_dynasty_member = {
+			limit = {
+				is_heresy_of = ROOT
+				is_playable = no
+			}
+			religion = ROOT
+		}
+		any_vassal = {
+			limit = {
+				is_playable = no
+				is_heresy_of = ROOT
+			}
+			religion = ROOT
+		}
+		capital_scope = {
+			if = {
+				limit = { is_heresy_of = ROOT }
+				religion = ROOT
+			}
+		}
+		if = {
+			limit = { religion = celtic_pagan_reformed }
+			set_global_flag = celtic_pagan_reformation
+			
+			# Make sure the Arch-druid owns a holy site (without hardcoding them...)
+			# Prefer reformer culture and culture_group, due to papal suitability bonus to religious head culture
+			# Also granting title to another character kicks off the cardinal seat nominations (vanilla bug)
+
+			# Find a new holy_site holder of reformer's culture
+			random_realm_title = {
+				limit = {
+					is_holy_site = ROOT
+					is_theocracy = yes
+					holder_scope = {
+						NOT = { character = ROOT }
+						religion = celtic_pagan_reformed
+						controls_religion = no
+						culture = ROOT
+					}
+				}
+				holder_scope = {
+					d_celtic_pagan_reformed = {
+						usurp_title_only = PREV
+					}
+				}
+				break = yes
+			}
+			
+			# Find a new holy_site holder of reformer's culture group
+			random_realm_title = {
+				limit = {
+					is_holy_site = ROOT
+					is_theocracy = yes
+					holder_scope = {
+						NOT = { character = ROOT }
+						religion = celtic_pagan_reformed
+						controls_religion = no
+						culture_group = ROOT
+					}
+				}
+				holder_scope = {
+					d_celtic_pagan_reformed = {
+						usurp_title_only = PREV
+					}
+				}
+				break = yes
+			}
+			
+			# Fallback - any culture will do
+			# Note: there should always be one eligible character, otherwise it's a game over even before on_reform fires.
+			random_realm_title = {
+				limit = {
+					is_holy_site = ROOT
+					is_theocracy = yes
+					holder_scope = {
+						NOT = { character = ROOT }
+						religion = celtic_pagan_reformed
+						controls_religion = no
+					}
+				}
+				holder_scope = {
+					d_celtic_pagan_reformed = {
+						usurp_title_only = PREV
+					}
+				}
+				break = yes
+			}
+		}
+	}
+
+	option = {
+		name = EVTOPTA670 # The Reformer
+		trigger = { religion = ROOT }
+		if = {
+			limit = { ai = no }
+			chronicle = {
+				entry = CHRONICLE_PLAYER_REFORMED_RELIGION
+				portrait = [Root.GetID]
+			}
+		}
+	}
+	option = {
+		name = EVTOPTB670 # Rulers of the old Faith - Accept
+		trigger = {
+			is_heresy_of = ROOT # The old religion has become a heresy of the Reformed one
+		}
+		if = {
+			limit = { ai = no }
+			chronicle = {
+				entry = CHRONICLE_OTHER_REFORMED_PLAYERS_RELIGION
+				portrait = [Root.GetID]
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 5
+				any_liege = { religion = ROOT }
+			}
+			modifier = {
+				factor = 2
+				same_realm = ROOT
+			}
+			modifier = {
+				factor = 5
+				trait = cynical
+			}
+			modifier = {
+				factor = 10
+				dynasty = ROOT
+			}
+			modifier = {
+				factor = 0.1
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.5
+				trait = content
+			}
+		}
+		
+		religion = ROOT
+		
+		hidden_tooltip = {
+			any_courtier = {
+				limit = {
+					is_heresy_of = ROOT
+					employer = { character = PREV }
+				}
+				religion = ROOT
+			}
+			any_vassal = {
+				limit = {
+					is_playable = no
+					is_heresy_of = ROOT
+				}
+				religion = ROOT
+			}
+			capital_scope = {
+				if = {
+					limit = { is_heresy_of = ROOT }
+					religion = ROOT
+				}
+			}
+		}
+	}
+	option = {
+		name = EVTOPTC670 # Rulers of the old Faith - Decline
+		trigger = {
+			is_heresy_of = ROOT # The old religion has become a heresy of the Reformed one
+		}
+		if = {
+			limit = { ai = no }
+			chronicle = {
+				entry = CHRONICLE_OTHER_REFORMED_PLAYERS_RELIGION
+				portrait = [Root.GetID]
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0
+				has_landed_title = d_jomsvikings
+			}
+		}
+		tooltip = { religion = THIS }
+	}
+	option = {
+		name = EVTOPTD670 # Other playable rulers
+		trigger = {
+			NOT = { religion = ROOT }
+			NOT = { is_heresy_of = ROOT }
+		}
+	}
+}

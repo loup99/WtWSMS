@@ -1,0 +1,1543 @@
+#######################################
+#
+# ANCIENT RELIGIONS
+# - Druidic Caste Events
+#
+# Event ID ancrel.0152 - ancrel.0207
+#
+#######################################
+
+# Written by Patrick Marchand
+
+namespace = ancrel
+
+# Character gets priestly Druid
+character_event = {
+	id = ancrel.0152
+	desc = EVTDESCancrel.0152
+	picture = GFX_evt_druid
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.0152
+		add_character_modifier = {
+			name = "new_druid_in_court"
+			duration = 730
+			hidden = yes
+		}
+		clr_character_flag = inviting_druid_over
+		random_list = {
+			35 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					trait = druid
+					trait = detached_priest
+					attributes = {
+						diplomacy = 3
+						martial = 3
+						stewardship = 3
+						intrigue = 3
+						learning = 3
+					}
+				}
+				new_character = {
+					character_event = { id = ancrel.0158 }
+				}
+			}
+			30 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					trait = druid
+					trait = martial_cleric
+					attributes = {
+						diplomacy = 5
+						martial = 5
+						stewardship = 5
+						intrigue = 5
+						learning = 5
+					}
+				}
+				new_character = {
+					character_event = { id = ancrel.0158 }
+				}
+			}
+			20 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					trait = druid
+					trait = scholarly_theologian
+					attributes = {
+						diplomacy = 8
+						martial = 8
+						stewardship = 8
+						intrigue = 8
+						learning = 8
+					}
+				}
+				new_character = {
+					character_event = { id = ancrel.0158 }
+				}
+			}
+			12 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					trait = druid
+					trait = mastermind_theologian
+					attributes = {
+						diplomacy = 10
+						martial = 10
+						stewardship = 10
+						intrigue = 10
+						learning = 10
+					}
+				}
+				new_character = {
+					character_event = { id = ancrel.0158 }
+				}
+			}
+			3 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					trait = druid
+					trait = mastermind_theologian
+					attributes = {
+						diplomacy = 13
+						martial = 13
+						stewardship = 13
+						intrigue = 13
+						learning = 13
+					}
+				}
+				new_character = {
+					character_event = { id = ancrel.0158 }
+				}
+			}
+		}
+	}
+}
+
+#[on_yearly_pulse] Liege doesn't have a Druid - fired on a yearly basis to remind players
+character_event = {
+	id = ancrel.0153
+	desc = EVTDESCancrel.0153
+	picture = GFX_evt_druid
+	
+	is_triggered_only = yes
+	
+	only_rulers = yes
+	
+	trigger = {
+		ai = no
+		OR = {
+			religion = celtic_pagan
+			religion = celtic_pagan_reformed
+		}
+		primary_title = { higher_tier_than = BARON }
+		NOT = {
+			OR = {
+				any_courtier = {
+					has_minor_title = title_court_druid
+				}
+				any_vassal = {
+					has_minor_title = title_court_druid
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = EVTOPTBancrel.0153
+		trigger = {
+			any_courtier = {
+				trait = druid
+				is_adult = yes
+				is_ruler = no # Councillor landed vassals are courtier
+				OR = {
+					religion = celtic_pagan
+					religion = celtic_pagan_reformed
+				}
+			}
+		}
+		random_courtier = {
+			limit = { 
+				trait = druid 
+				is_adult = yes
+				is_ruler = no # Councillor landed vassals are courtier
+				OR = {
+					religion = celtic_pagan
+					religion = celtic_pagan_reformed
+				}
+			}
+			give_minor_title = title_court_druid
+		}
+	}
+
+	option = {
+		name = EVTOPTAancrel.0153 #Ok
+	}
+}
+
+# Character gets diplomatic Druid
+character_event = {
+	id = ancrel.0154
+	desc = EVTDESCancrel.0154
+	picture = GFX_evt_druid
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.0154
+		add_character_modifier = {
+			name = "new_druid_in_court"
+			duration = 730
+			hidden = yes
+		}
+		clr_character_flag = inviting_druid_over
+		random_list = {
+			35 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					trait = naive_appeaser
+					trait = druid
+					attributes = {
+						diplomacy = 3
+						martial = 3
+						stewardship = 3
+						intrigue = 3
+						learning = 3
+					}
+				}
+				new_character = {
+					character_event = { id = ancrel.0158 }
+				}		
+			}
+			30 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					trait = druid
+					trait = underhanded_rogue
+					attributes = {
+						diplomacy = 5
+						martial = 5
+						stewardship = 5
+						intrigue = 5
+						learning = 5
+					}
+				}
+				new_character = {
+					character_event = { id = ancrel.0158 }
+				}			
+			}
+			20 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					trait = druid
+					trait = charismatic_negotiator
+					attributes = {
+						diplomacy = 8
+						martial = 8
+						stewardship = 8
+						intrigue = 8
+						learning = 8
+					}
+				}
+				new_character = {
+					character_event = { id = ancrel.0158 }
+				}			
+			}
+			12 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					trait = druid
+					trait = grey_eminence
+					attributes = {
+						diplomacy = 10
+						martial = 10
+						stewardship = 10
+						intrigue = 10
+						learning = 10
+					}
+				}
+				new_character = {
+					character_event = { id = ancrel.0158 }
+				}			
+			}
+			3 = {
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					trait = druid
+					trait = grey_eminence
+					attributes = {
+						diplomacy = 13
+						martial = 13
+						stewardship = 13
+						intrigue = 13
+						learning = 13
+					}
+				}
+				new_character = {
+					character_event = { id = ancrel.0158 }
+				}			
+			}
+		}
+	}
+}
+
+# Character chooses type of druid Druid
+character_event = {
+	id = ancrel.0155
+	desc = EVTDESCancrel.0155
+	picture = GFX_evt_viking_throneroom_oldgods
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.0155 # Send for a master of law
+		hidden_tooltip = {
+			character_event = {
+				id = ancrel.0154 
+				days = 1
+			}
+		}
+	}
+	
+	option = {
+		name = EVTOPTBancrel.0155 # Send for a servant of god
+		hidden_tooltip = {
+			character_event = {
+				id = ancrel.0152
+				days = 1
+			}
+		}
+	}
+}
+
+# Druidic priest get the druid trait as well
+character_event = {
+	id = ancrel.0156
+	hide_window = yes
+	
+	trigger = {
+		is_ruler = yes
+		is_priest = yes
+		OR = {
+			religion = celtic_pagan
+			religion = celtic_pagan_reformed
+		}
+		NOT = { 
+			trait = druid 
+			trait = bad_druid 
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		add_trait = druid	
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Druid can become known as wicked, if he can't hide his sins
+character_event = {
+	id = ancrel.0157
+	desc = EVTDESCancrel.0157
+	picture = GFX_evt_druid
+	
+	trigger = {
+		has_dlc = "Sons of Abraham"
+		OR = {
+			religion = celtic_pagan
+			religion = celtic_pagan_reformed
+		}
+		trait = druid
+		NOT = { trait = bad_druid }
+		NOT = { trait = incapable }
+		NOT = { intrigue = 3 }
+		NOT = { diplomacy = 5 } # 5 instead of 3 (vanilla) to compensate from druid trait +2 bonus
+		OR = {
+			trait = deceitful 
+			trait = cruel
+			trait = arbitrary 
+			trait = envious
+			trait = craven
+			trait = slothful
+			trait = shy
+			trait = paranoid
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 24
+		modifier = {
+			factor = 0.5
+			trait = ambitious
+		}
+	}
+	
+	option = {
+		name = EVTOPTAancrel.0157
+		add_trait = bad_druid
+		remove_trait = druid
+		if = {
+			limit = {
+				is_ruler = yes
+				has_nickname = no
+			}
+			give_nickname = nick_the_wicked
+		}
+	}
+}
+
+# Ping new Druid to set correct scopes scope.
+# FROM is the liege
+character_event = {
+	id = ancrel.0158
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		FROM = {
+			character_event = { id = ancrel.0159 }
+		}
+	}
+
+	option = {
+		name = OK
+	}
+}
+
+# Liege is notified that a Druid arrived at court
+# FROM is the druid
+character_event = {
+	id = ancrel.0159
+	desc = EVTDESCancrel.0159
+	picture = GFX_evt_viking_throneroom_oldgods
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		FROM = { 
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}
+	}
+	
+	option = {
+		name = EVTOPTAancrel.0159
+
+		trigger = {
+			NOT = {
+				OR = {
+					any_courtier = {
+						has_minor_title = title_court_druid
+					}
+					any_vassal = {
+						has_minor_title = title_court_druid
+					}
+				}
+			}
+		}
+		FROM = {
+			give_minor_title = title_court_druid
+		}
+	}
+	
+	option = {
+		name = EVTOPTBancrel.0159
+		
+		trigger = {
+			NOT = {
+				any_courtier = {
+					has_job_title = job_chancellor
+				}
+			}
+		}
+		FROM = {
+			give_job_title = job_chancellor
+		}
+	}
+	
+	option = {
+		name = EVTOPTCancrel.0159
+		
+		trigger = {
+			NOT = { 
+				any_courtier = {
+					has_job_title = job_spiritual
+				}
+			}
+		}
+		FROM = {
+			give_job_title = job_spiritual 
+		}
+	}
+	
+	option = {
+		name = EVTOPTDancrel.0159
+	}
+}
+
+# Remove druidic traits on conversion
+# Note: using religious = yes is not suitable as it also removes the trait on reformation
+character_event = {
+	id = ancrel.0160
+	hide_window = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				religion = celtic_pagan
+				religion = celtic_pagan_reformed
+			}
+		}
+		OR = {
+			trait = head1
+			trait = head2
+			trait = druid
+			trait = bad_druid
+			trait = fian
+			trait = changeling
+			trait = learning_druidic_arts
+			trait = celtic_knight
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		remove_trait = head1
+		remove_trait = head2
+		remove_trait = druid
+		remove_trait = bad_druid
+		remove_trait = fian
+		remove_trait = changeling
+		remove_trait = learning_druidic_arts
+		remove_trait = celtic_knight
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+##### Coming of age ceremony - father's event
+character_event = {
+	id = ancrel.0183
+	title = EVTNAMEancrel.0183
+	desc = EVTDESCancrel.0183
+	picture = GFX_evt_guardian
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.0183 # Send them on the path of the warrior
+		
+		custom_tooltip = {
+			text = path_of_the_warriors
+		
+			FROM = { prestige = 50}
+			FROM = { change_martial = 1}
+			FROM = { change_learning = -1}
+		}
+	}
+
+	option = {
+		name = EVTOPTBancrel.0183 # Send them to the druids
+		trigger = {
+			OR = {
+				trait = zealous
+				trait = diligent
+				trait = patient
+				trait = ambitious
+				trait = scholar
+				trait = poet
+				trait = mystic
+				trait = druid
+				trait = content
+			}
+			OR = {
+				FROM = { NOT = { is_ruler = yes }}
+				FROM = { is_theocracy = yes }
+			}
+		}
+		custom_tooltip = {
+			text = path_of_the_druids
+			FROM = { piety = 50 }
+			FROM = { change_learning = 1}
+			FROM = { change_martial = -1}
+			hidden_tooltip = {
+				FROM = {
+					narrative_event = {
+						id = ancrel.0185
+						days = 3
+					}
+				}
+			}
+		}
+	}
+}
+
+##### Coming of age ceremony - child's event
+character_event = {
+	id = ancrel.0184
+	title = EVTNAMEancrel.0184
+	desc = EVTDESCancrel.0184
+	picture = GFX_evt_son_bully
+	
+	min_age = 13
+	max_age = 16
+
+	trigger = {
+		OR = {		
+			religion = celtic_pagan
+			religion = celtic_pagan_reformed
+		}
+		father = { is_alive = yes }
+		NOT = {
+			has_character_flag = had_coming_of_age_celtic
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 6
+	}
+	
+	option = {
+		name = EVTOPTAancrel.0184
+		set_character_flag = had_coming_of_age_celtic
+		hidden_tooltip = {
+			father = {
+				character_event = {
+					id = ancrel.0183
+					days = 3
+				}
+			}
+		}
+	}
+}
+
+# Training about to begin
+narrative_event = {
+	id = ancrel.0185
+	title = EVTNAMEancrel.0185
+	desc = EVTDESCancrel.0185
+	picture = GFX_evt_buddhist_pagoda
+	
+	is_triggered_only = yes
+
+	option = { # Training starts
+		name = EVTOPTAancrel.0185
+		add_trait = learning_druidic_arts
+		set_character_flag = druidic_training
+		clr_character_flag = wants_druidic_training
+	}
+}
+
+##################################################################
+#
+# Druidic training - fired via coming of age event
+#
+# There can be a variety of results
+#
+##################################################################
+
+# Child wants to become a druid (Child)
+character_event = {
+	id = ancrel.0186
+	hide_window = yes
+	
+	ai = yes
+    min_age = 16
+    max_age = 25
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		is_landed = no
+		in_command = no
+		OR = {
+			religion = celtic_pagan
+			religion = celtic_pagan_reformed
+		}
+		NOT = {
+			OR = {
+				trait = cynical
+				trait = imbecile
+				trait = slow
+				trait = craven
+				trait = learning_druidic_arts #don't ask to be a druid if you already are one
+				trait = druid
+				trait = bad_druid
+			}
+			has_character_flag = wants_druidic_training
+		}
+		father = {
+			is_alive = yes
+			OR = {
+				religion = celtic_pagan
+				religion = celtic_pagan_reformed
+			}
+			is_ruler = yes
+			is_liege_of = ROOT
+			prisoner = no
+			NOT = { trait = incapable }
+			ROOT = { host = { character = PREVPREV } }
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 450
+		
+		modifier = { 
+			factor = 0.75
+			trait = zealous
+		}
+		modifier = {
+			factor = 0.5
+			trait = content
+		}
+		modifier = {
+			factor = 1.5
+			trait = brave
+		}
+		modifier = {
+			factor = 0.75
+			trait = quick
+		}
+		modifier = {
+			factor = 0.75
+			trait = genius
+		}
+		modifier = {
+			factor = 0.5
+			trait = craven
+		}
+		modifier = {
+			factor = 1.5
+			trait = ambitious
+		}
+		modifier = {
+			factor = 2.0
+			is_primary_heir = yes
+		}
+		modifier = {
+			factor = 2.0
+			trait = hunter
+		}
+	}
+	
+	immediate = {
+		father = { character_event = { id = ancrel.0187 } }
+		set_character_flag = wants_druidic_training
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Child wants to become a druid (Father)
+character_event = {
+	id = ancrel.0187
+	desc = EVTDESCancrel.0187
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.0187
+		FROM = {
+			opinion = {
+				modifier = opinion_very_disappointed
+				years = 1
+				who = ROOT
+			}
+		}
+		piety = -100
+	}
+	option = {
+		name = EVTOPTBancrel.0187
+		hidden_tooltip = {
+			FROM = { 
+				character_event = { id = ancrel.0118 days = 1460 }
+				narrative_event = { id = ancrel.0185 days = 3 }
+			}
+		}
+		piety = 100
+	}
+}
+
+# Child returns scarred but learned (Child)
+character_event = {
+	id = ancrel.0188
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = druidic_training
+		NOT = { trait = scarred }
+		age = 18
+	}
+	
+	mean_time_to_happen = {
+		months = 160
+		
+		modifier = {
+			factor = 0.75
+			trait = brave
+		}
+		modifier = {
+			factor = 1.25
+			trait = craven
+		}
+	}
+	
+	immediate = {
+		father = { character_event = { id = ancrel.0189 } }
+		clr_character_flag = druidic_training
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Child returns scarred but learned in the ways of the druids
+character_event = {
+	id = ancrel.0189
+	desc = EVTDESCancrel.0189
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.0189
+		FROM = {
+			add_trait = scarred
+			custom_tooltip = { 
+				text = return_from_druidic_training
+				remove_trait = learning_druidic_arts
+				random_list = {
+					10 = { add_trait = scholar }
+					10 = { add_trait = mystic }
+					40 = { add_trait = poet }
+					40 = { add_trait = druid }
+				}
+			}
+		}
+	}
+}
+
+# Child returns maimed (Child)
+character_event = {
+	id = ancrel.0190
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = druidic_training
+		NOT = {
+			trait = maimed
+		}
+		age = 18
+	}
+	
+	mean_time_to_happen = {
+		months = 250
+	}
+	
+	immediate = {
+		add_trait = maimed
+		father = { character_event = { id = ancrel.0191 } }
+		clr_character_flag = druidic_training
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Child returns maimed
+character_event = {
+	id = ancrel.0191
+	desc = EVTDESCancrel.0191
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.0191
+		FROM = {
+			custom_tooltip = { 
+				text = return_from_druidic_training
+				remove_trait = learning_druidic_arts
+				random_list = {
+					10 = { add_trait = scholar }
+					10 = { add_trait = mystic }
+					40 = { add_trait = poet }
+					40 = { add_trait = druid }
+				}
+			}
+			tooltip = { add_trait = maimed }
+		}
+	}
+}
+
+# Child returns as excellent theologian (Child)
+character_event = {
+	id = ancrel.0192
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = druidic_training
+		NOT = { trait = brilliant_strategist }
+		OR = {
+			trait = detached_priest
+			trait = martial_cleric
+			trait = scholarly_theologian
+		}
+		age = 18
+	}
+	
+	mean_time_to_happen = {
+		months = 160
+		
+		modifier = {
+			factor = 0.5
+			trait = genius
+		}
+		modifier = {
+			factor = 0.75
+			trait = diligent
+		}
+		modifier = {
+			factor = 0.75
+			trait = quick
+		}
+		modifier = {
+			factor = 1.5
+			trait = slow
+		}
+		modifier = {
+			factor = 1.5
+			trait = imbecile
+		}
+	}
+
+	immediate = {
+		father = { character_event = { id = ancrel.0193 } }
+		clr_character_flag = druidic_training
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Child returns as excellent theologian
+character_event = {
+	id = ancrel.0193
+	desc = EVTDESCancrel.0193
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.0193
+		if = {
+			limit = {
+				FROM = {
+					trait = scholarly_theologian
+				}
+			}
+			FROM = {
+				hidden_tooltip = { remove_trait = scholarly_theologian }
+				add_trait = mastermind_theologian
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					OR = {
+						trait = detached_priest
+						trait = martial_cleric
+					}	
+				}
+			}
+			FROM = {
+				hidden_tooltip = { 
+					remove_trait = detached_priest
+					remove_trait = martial_cleric
+				}
+				add_trait = scholarly_theologian
+			}
+		}
+		FROM = {
+			custom_tooltip = { 
+				text = return_from_druidic_training
+				remove_trait = learning_druidic_arts
+				random_list = {
+					10 = { add_trait = scholar }
+					10 = { add_trait = mystic }
+					40 = { add_trait = poet }
+					40 = { add_trait = druid }
+				}
+			}
+		}
+	}
+}
+
+# Child is touched by the gods (Child)
+character_event = {
+	id = ancrel.0194
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = druidic_training
+		NOT = { trait = lunatic }
+		age = 18
+	}
+	
+	mean_time_to_happen = {
+		months = 180
+		
+		modifier = {
+			factor = 0.75
+			trait = kind
+		}
+		modifier = {
+			factor = 0.75
+			trait = poet
+		}
+		modifier = {
+			factor = 0.75
+			trait = just
+		}
+	}
+	
+	immediate = {
+		father = { character_event = { id = ancrel.0195 } }
+		clr_character_flag = druidic_training
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Child is touched by the gods
+character_event = {
+	id = ancrel.0195
+	desc = EVTDESCancrel.0195
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.0195
+		FROM = {
+			add_trait = lunatic
+			custom_tooltip = { 
+				text = return_from_druidic_training
+				remove_trait = learning_druidic_arts
+				random_list = {
+					10 = { add_trait = scholar }
+					10 = { add_trait = mystic }
+					40 = { add_trait = poet }
+					40 = { add_trait = druid }
+				}
+			}
+		}
+	}
+}
+
+# Child returns home with strange child (Child)
+character_event = {
+	id = ancrel.0196
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = druidic_training
+		age = 18
+	}
+	
+	mean_time_to_happen = {
+		months = 1200
+		
+		modifier = {
+			factor = 0.75
+			trait = lustful
+		}
+	}
+	
+	immediate = {
+		father = { character_event = { id = ancrel.0197 } }
+		clr_character_flag = druidic_training
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Child returns home with strange child
+character_event = {
+	id = ancrel.0197
+	desc = EVTDESCancrel.0197
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.0197
+		create_character = {
+			random_traits = yes
+			
+			age = 1
+			religion = FROM
+			culture = FROM
+		}
+		new_character = {
+			if = {
+				limit = {
+					FROM = {
+						is_female = yes
+					}
+				}
+				set_mother = FROM
+			}
+			if = {
+				limit = {
+					FROM = {
+						is_female = no
+					}
+				}
+				set_father = FROM
+			}
+			set_character_flag = changeling_child
+		}
+		FROM = { 
+			custom_tooltip = { 
+				text = return_from_druidic_training
+				remove_trait = learning_druidic_arts
+				random_list = {
+					10 = { add_trait = scholar }
+					10 = { add_trait = mystic }
+					40 = { add_trait = poet }
+					40 = { add_trait = druid }
+				}
+			}
+		}
+	}
+}
+
+# Child returns home as a zealot (Child)
+character_event = {
+	id = ancrel.0198
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = druidic_training
+		NOT = { trait = zealous }
+		age = 18
+	}
+	
+	mean_time_to_happen = {
+		months = 160
+		
+		modifier = {
+			factor = 2.0
+			trait = cynical
+		}
+	}
+	
+	immediate = {
+		father = { character_event = { id = ancrel.0199 } }
+		clr_character_flag = druidic_training
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Child returns home as a zealot
+character_event = {
+	id = ancrel.0199
+	desc = EVTDESCancrel.0199
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.0199
+		FROM = {
+			add_trait = zealous
+			custom_tooltip = { 
+				text = return_from_druidic_training
+				remove_trait = learning_druidic_arts
+				random_list = {
+					10 = { add_trait = scholar }
+					10 = { add_trait = mystic }
+					40 = { add_trait = poet }
+					40 = { add_trait = druid }
+				}
+			}
+		}
+	}
+}
+
+# Child returns home with the patience of an oak tree (Child)
+character_event = {
+	id = ancrel.0200
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = druidic_training
+		age = 18
+	}
+	
+	mean_time_to_happen = {
+		months = 120
+		
+		modifier = {
+			factor = 0.75
+			trait = brave
+		}
+		modifier = {
+			factor = 0.75
+			trait = diligent
+		}
+		modifier = {
+			factor = 0.75
+			trait = quick
+		}
+		modifier = {
+			factor = 0.75
+			trait = genius
+		}
+		modifier = {
+			factor = 1.5
+			trait = slothful
+		}
+		modifier = {
+			factor = 1.5
+			trait = slow
+		}
+		modifier = {
+			factor = 1.5
+			trait = imbecile
+		}
+	}
+	
+	immediate = {
+		father = { character_event = { id = ancrel.0201 } }
+		clr_character_flag = druidic_training
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Child returns home with the patience of an oak tree
+character_event = {
+	id = ancrel.0201
+	desc = EVTDESCancrel.0201
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.0201
+		FROM = {
+			add_trait = patient
+			custom_tooltip = { 
+				text = return_from_druidic_training
+				remove_trait = learning_druidic_arts
+				random_list = {
+					10 = { add_trait = scholar }
+					10 = { add_trait = mystic }
+					40 = { add_trait = poet }
+					40 = { add_trait = druid }
+				}
+			}
+		}
+	}
+}
+
+# Child dies in training (Child)
+character_event = {
+	id = ancrel.0202
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = druidic_training
+		age = 18
+	}
+	
+	mean_time_to_happen = {
+		months = 200
+		
+		modifier = {
+			factor = 0.75
+			trait = brave
+		}
+		modifier = {
+			factor = 0.75
+			trait = wroth
+		}
+		modifier = {
+			factor = 0.75
+			trait = head1
+		}
+		modifier = {
+			factor = 0.75
+			trait = head2
+		}
+		modifier = {
+			factor = 1.25
+			trait = craven
+		}
+		modifier = {
+			factor = 0.75
+			trait = drunkard
+		}
+		modifier = {
+			factor = 0.75
+			trait = has_tuberculosis
+		}
+		modifier = {
+			factor = 0.75
+			trait = has_typhoid_fever
+		}
+		modifier = {
+			factor = 0.75
+			trait = has_typhus
+		}
+		modifier = {
+			factor = 0.75
+			trait = has_bubonic_plague
+		}
+		modifier = {
+			factor = 0.75
+			trait = has_measles
+		}		
+		modifier = {
+			factor = 0.75
+			trait = has_small_pox
+		}
+		modifier = {
+			factor = 0.75
+			trait = wounded
+		}
+		modifier = {
+			factor = 0.5
+			trait = infirm
+		}
+		modifier = {
+			factor = 0.5
+			trait = incapable
+		}
+	}
+	
+	immediate = {
+		father = { character_event = { id = ancrel.0203 } }
+		clr_character_flag = druidic_training
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Child dies in training
+character_event = {
+	id = ancrel.0203
+	desc = EVTDESCancrel.0203
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.0203
+		FROM = { death = { death_reason = death_battle } }
+	}
+}
+
+# Child returns with gifts (Child)
+character_event = {
+	id = ancrel.0204
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = druidic_training
+		age = 18
+	}
+	
+	mean_time_to_happen = {
+		months = 160
+		
+		modifier = {
+			factor = 0.75
+			trait = greedy
+		}
+		modifier = {
+			factor = 0.75
+			stewardship = 10
+		}
+	}
+	
+	immediate = {
+		father = { character_event = { id = ancrel.0205 } }
+		clr_character_flag = druidic_training
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Child returns with gifts
+character_event = {
+	id = ancrel.0205
+	desc = EVTDESCancrel.0205
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.0205
+		FROM = {
+			custom_tooltip = { 
+				text = return_from_druidic_training
+				remove_trait = learning_druidic_arts
+				random_list = {
+					10 = { add_trait = scholar }
+					10 = { add_trait = mystic }
+					40 = { add_trait = poet }
+					40 = { add_trait = druid }
+				}
+			}
+		}
+		wealth = 300
+	}
+}
+
+# Father dies, Player Child is heir
+character_event = {
+	id = ancrel.0206
+	desc = EVTDESCancrel.0206
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		ai = no
+		OR = {
+			has_character_flag = wants_druidic_training
+			has_character_flag = druidic_training
+		}
+		father = { is_alive = no }
+	}
+	
+	immediate = {
+		clr_character_flag = wants_druidic_training
+		clr_character_flag = druidic_training
+	}
+	
+	option = {
+		name = EVTOPTAancrel.0206
+		custom_tooltip = {
+			text = return_from_druidic_training_player
+			remove_trait = learning_druidic_arts
+			random_list = {
+				30 = { add_trait = scholar }
+				25 = { add_trait = mystic }
+				30 = { add_trait = poet }
+				10 = { add_trait = druid }
+			}
+		}
+		prestige = 100
+		piety = 100
+		wealth = 100
+	}
+}
+
+# Father dies, Child gets training traits
+character_event = {
+	id = ancrel.0207
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		ai = yes
+		OR = {
+			has_character_flag = wants_druidic_training
+			has_character_flag = druidic_training
+		}
+		father = { is_alive = no }
+	}
+	
+	immediate = {
+		remove_trait = learning_druidic_arts
+		random_list = {
+			25 = { add_trait = scholar }
+			25 = { add_trait = mystic }
+			25 = { add_trait = poet }
+			25 = { add_trait = druid }
+		}
+		clr_character_flag = wants_druidic_training
+		clr_character_flag = druidic_training
+	}
+	
+	option = {
+		name = OK
+	}
+}

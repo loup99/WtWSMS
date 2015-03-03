@@ -1,0 +1,158 @@
+decisions = {
+
+	recreate_roman_empire = {
+		is_high_prio = yes
+		potential = {
+			has_dlc = "Legacy of Rome"
+			is_adult = yes
+			prisoner = no
+			NOT = { trait = incapable }
+			NOT = { has_global_flag = rome_restored }
+			NOT = { e_byzantium = { owner = { always = yes } } }
+			NOT = { e_latin_empire = { owner = { always = yes } } }
+			NOT = {
+				has_landed_title = e_hre
+				religion = catholic
+			}
+			OR = {
+				religion_group = christian
+				religion = hellenic_pagan
+			}
+			OR = {
+				culture = roman
+				culture = italian
+				culture_group = italian_group # SWMH
+				has_landed_title = e_italy
+			}
+			OR = {
+				# Just so it doesn't appear for everyone
+				completely_controls = c_roma
+				completely_controls = c_capua
+				completely_controls = c_apulia
+				completely_controls = c_bologna
+			}
+		}
+		allow = {
+			prestige = 3000
+
+			# All of Roman Italia
+			completely_controls = d_latium
+			completely_controls = d_verona
+			completely_controls = d_susa
+			completely_controls = d_lombardia
+			completely_controls = d_genoa
+			completely_controls = d_modena
+			completely_controls = d_ferrara
+			completely_controls = d_toscana
+			completely_controls = d_pisa
+			completely_controls = d_ancona
+			completely_controls = d_spoleto
+			completely_controls = d_benevento
+			completely_controls = d_capua
+			completely_controls = d_apulia
+			completely_controls = d_salerno
+			completely_controls = d_calabria
+		}
+		effect = {
+			narrative_event = { id = ancrel.2224 tooltip = EVTTOOLTIPLoR.20 }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	restore_roman_empire_hre = {
+		is_high_prio = yes
+		potential = {
+			has_dlc = "Legacy of Rome"
+			is_adult = yes
+			prisoner = no
+			NOT = { trait = incapable }
+			NOT = { has_global_flag = rome_restored }
+			NOT = { has_landed_title = e_byzantium }
+			NOT = { has_landed_title = e_latin_empire }
+			has_landed_title = e_hre
+			religion = catholic
+			OR = {
+				completely_controls = c_roma
+				completely_controls = c_byzantion
+			}
+		}
+		allow = {
+			prestige = 3000
+			piety = 3000
+
+			# The two capitals
+			completely_controls = d_latium
+			completely_controls = d_thrace
+
+			# Key positions in Roman Italia
+			completely_controls = d_ferrara
+			completely_controls = d_genoa
+			completely_controls = d_capua
+			completely_controls = d_apulia
+
+			# Key positions outside Roman Italia
+			completely_controls = d_antioch
+			completely_controls = d_jerusalem
+			completely_controls = d_alexandria
+			completely_controls = d_athens
+			completely_controls = d_tunis
+			completely_controls = d_nikaea
+			completely_controls = c_abydos
+		}
+		effect = {
+			narrative_event = { id = ancrel.2222 tooltip = EVTTOOLTIPLoR.20 }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	catholic_mend_great_schism = {
+		is_high_prio = yes
+		potential = {
+			has_dlc = "Legacy of Rome"
+			age = 16
+			prisoner = no
+			NOT = { trait = incapable }
+			OR = {
+				has_landed_title = k_papal_state
+				has_landed_title = e_hre
+				has_landed_title = e_latin_empire
+				has_landed_title = e_byzantium
+				has_landed_title = e_roman_empire
+				AND = {
+					NOT = { e_hre = { owner = { religion = catholic } } }
+					NOT = { e_latin_empire = { owner = { religion = catholic } } }
+					NOT = { e_byzantium = { owner = { religion = catholic } } }
+					NOT = { e_roman_empire = { owner = { religion = catholic } } }
+					tier = emperor
+				}
+			}
+			religion = catholic
+			NOT = { has_global_flag = schism_mended }
+		}
+		allow = {
+			piety = 2000
+			religion_authority = 0.9
+			completely_controls = c_byzantion
+			b_hagiasophia = { holder_scope = { religion = catholic } }
+			completely_controls = c_antiocheia
+			b_antiocheia = { holder_scope = { religion = catholic } }
+			completely_controls = c_jerusalem
+			b_jerusalem = { holder_scope = { religion = catholic } }
+			completely_controls = c_alexandria
+			b_alexandria = { holder_scope = { religion = catholic } }
+			completely_controls = c_roma
+			b_roma = { holder_scope = { religion = catholic } }
+		}
+		effect = {
+			narrative_event = { id = ancrel.2210 tooltip = EVTTOOLTIPLoR.210}
+			set_global_flag = schism_mended
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}
