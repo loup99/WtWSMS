@@ -19,19 +19,20 @@ character_event = {
 	border = GFX_event_normal_frame_religion
 
 	min_age = 16
-	max_age = 22
 	capable_only = yes
 	prisoner = no
 
 	trigger = {
 		has_dlc = "The Old Gods"
 
-		NOT = { year = 1066 }
-
 		learning = 6
 		is_female = no
 		is_landed = no
-		religion_group = christian
+		NOT = {	
+			religion = hellenic_pagan
+			religion = titan_pagan
+			religion = promethean_pagan
+		}
 		OR = {
 			culture = roman
 			culture = italian
@@ -44,7 +45,8 @@ character_event = {
 
 	mean_time_to_happen = {
 		years = 6
-
+		
+		#Increase MTTH by 50% every 50 years
 		modifier = {
 			factor = 1.5
 			year = 916
@@ -54,10 +56,21 @@ character_event = {
 			year = 966
 		}
 		modifier = {
-			factor = 2
+			factor = 1.5
 			year = 1016
 		}
-
+		modifier = {
+			factor = 1.5
+			year = 1066
+		}
+		modifier = {
+			factor = 1.5
+			year = 1116
+		}
+		modifier = {
+			factor = 1.5
+			year = 1166
+		}
 		modifier = {
 			factor = 1.25
 			trait = content
@@ -73,6 +86,10 @@ character_event = {
 		modifier = {
 			factor = 0.8
 			learning = 12
+		}
+		modifier = {
+			factor = 0.8
+			has_focus = focus_scholarship
 		}
 		modifier = {
 			factor = 0.8
@@ -99,7 +116,7 @@ character_event = {
 	option = {
 		name = EVTOPTAancrel.2100
 		ai_chance = {
-			factor = 10
+			factor = 15
 			modifier = {
 				factor = 0.25
 				trait = zealous
@@ -131,6 +148,46 @@ character_event = {
 				factor = 0.8
 				religion_authority = 0.6
 			}
+			modifier = {
+				factor = 1.2
+				OR = {
+					religion_group = christian
+					religion_group = muslim
+				}
+			}
+			modifier = {
+				factor = 0.1
+				religion_group = jewish_group
+			}
+			modifier = { # Zeus who?
+				factor = 0.1
+				religion_group = indian_group
+			}
+			modifier = {
+				factor = 1.5
+				religion_group = pagan_group
+				NOT = { religion_authority = 0.35 }
+			}
+		}
+		if = {
+			limit = { religion_group = christian }
+			add_trait = sympathy_christendom
+		}
+		if = {
+			limit = { religion_group = muslim }
+			add_trait = sympathy_islam
+		}
+		if = {
+			limit = { religion_group = zoroastrian_group }
+			add_trait = sympathy_zoroastrianism
+		}
+		if = {
+			limit = { religion_group = indian_group }
+			add_trait = sympathy_indian
+		}
+		if = {
+			limit = { religion_group = jewish_group }
+			add_trait = sympathy_judaism
 		}
 		religion = hellenic_pagan
 		if = {
@@ -153,7 +210,7 @@ character_event = {
 
 	option = {
 		name = EVTOPTBancrel.2100
-		ai_chance = { factor = 90 }
+		ai_chance = { factor = 85 }
 		piety = 50
 	}
 }
@@ -233,6 +290,7 @@ character_event = {
 		}
 		custom_tooltip = {
 			text = EVTTOOLTIPAancrel.2102
+			give_nickname = acr_nick_the_apostate
 			hidden_tooltip = {
 				any_realm_character  = {
 					limit = {
@@ -385,10 +443,13 @@ character_event = {
 						has_law = centralization_2
 						has_law = centralization_3
 						has_law = centralization_4
-						has_law = revokation_2 # PB
 					}
 				}
 			}
+		}
+		if = {
+			limit = { religion_group = christian }
+			add_trait = sympathy_christendom
 		}
 		religion = FROM
 		if = {
@@ -423,5 +484,32 @@ character_event = {
 		ai_chance = { factor = 80 }
 		piety = 10
 		reverse_opinion = { modifier = opinion_rejected_hellenic_state_religion who = FROM }
+	}
+}
+
+# The Pontifex Maximus is restored!
+narrative_event = {
+	id = ancrel.2104
+	title = EVTNAMEancrel.2104
+	desc = EVTDESCancrel.2104
+	picture = GFX_evt_roman_temple
+	border = GFX_event_narrative_frame_religion
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.2104
+		trigger = {
+			religion = hellenic_pagan
+		}
+	}
+	
+	option = {
+		name = EVTOPTBancrel.2104
+		trigger = {
+			NOT = { religion = hellenic_pagan }
+		}
 	}
 }

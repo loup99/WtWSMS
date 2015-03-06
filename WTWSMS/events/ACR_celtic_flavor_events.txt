@@ -3,7 +3,10 @@
 # ANCIENT RELIGIONS
 # - Celtic Flavor Events
 #
-# Event ID ancrel.0150 - 0151, ancrel.1252 - 1253 and ancrel.0208 - 0210
+# Event IDs ancrel.0150 - 0151 
+#			ancrel.1252 - 1253
+#			ancrel.0208 - 0210
+#			ancrel.0256
 #
 ###################################
 
@@ -326,7 +329,6 @@ character_event = {
 	picture = GFX_evt_whispering_in_ear
 	border = GFX_event_normal_frame_religion
 
-	ai = no
 	min_age = 16
 	prisoner = no
 
@@ -336,7 +338,7 @@ character_event = {
 		is_ill = yes
 		OR = {
 			has_landed_title = c_innse_gall  
-			any_vassal = {has_landed_title = c_innse_gall }
+			any_vassal = { has_landed_title = c_innse_gall }
 		}
 		NOT = { religion_group = pagan_group }
 		culture_group = celtic
@@ -365,7 +367,7 @@ character_event = {
 		}
 		custom_tooltip = {
 			text = travel_island
-			character_event = { id = ancrel.0209 days=5}
+			character_event = { id = ancrel.0209 days = 5 }
 		}
 	}
 	option = {
@@ -396,7 +398,7 @@ character_event = {
 			factor = 50
 		}
 		hidden_tooltip = {
-			character_event = { id = ancrel.0210 days=2}
+			character_event = { id = ancrel.0210 days = 2 }
 		}
 	}
 	option = {
@@ -448,14 +450,18 @@ character_event = {
 #
 # - First Celtic Emperor
 #
-#######################################
+########################################
 
 # Y Mab Darogan
 narrative_event = {
 	id = ancrel.0256
-	title = "EVTNAMEancrel.0256"
-	desc = "EVTDESCancrel.0256"
+	title = EVTNAMEancrel.0256
+	desc = EVTDESCancrel.0256
 	picture = GFX_event_y_mab_darogan
+
+	major = yes
+	show_ROOT = yes
+	hide_from = yes
 	
 	only_rulers = yes
 
@@ -469,10 +475,7 @@ narrative_event = {
 		}
 		OR = {
 				culture = welsh
-				culture = breton		
-				culture = briton
-				culture = cumbric
-				culture = armorican
+				culture = breton
 		}
 		has_landed_title = e_britannia
 		primary_title = { 
@@ -487,12 +490,35 @@ narrative_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
-	
-	option = {
-		name = EVTOPTAancrel.0256 #Ok
-		give_nickname = nick_pendragon
+	immediate = {
+		give_nickname = acr_nick_pendragon
 		set_character_flag = first_brythonic_emperor
 		prestige = 200
 		piety = 100
+	}
+	option = {
+		trigger = {
+			OR = {
+				religion = celtic_pagan
+				religion = celtic_pagan_reformed
+			}
+		}
+		name = EVTOPTAancrel.0256 #Ok
+	}
+	option = {
+		trigger = {
+			OR = {
+				religion_group = christian
+				religion_group = muslim
+				religion_group = zoroastrian_group
+			}
+		}
+		name = EVTOPTBancrel.0256
+	}
+	option = {
+		trigger = {
+			religion_group = indian_group
+		}
+		name = EVTOPTCancrel.0256
 	}
 }

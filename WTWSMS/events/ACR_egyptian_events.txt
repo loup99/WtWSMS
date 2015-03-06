@@ -1,0 +1,640 @@
+###################################################
+#
+# ANCIENT RELIGIONS
+# - Egyptian events
+#
+# Event ID ancrel.4000 - ancrel.4008 Decision events
+# Event ID ancrel.4010 - ancrel.4019 Sed festival
+#
+###################################################
+
+namespace = ancrel
+
+# Luxor Restoration Part 1
+province_event = {
+	id = ancrel.4000
+	title = EVTNAME_ancrel_4000
+	desc = EVTDESC_ancrel_4000
+	picture = GFX_persepolis_ruin
+
+	is_triggered_only = yes
+	
+	immediate = {
+		795 = { set_province_flag = reb_luxor_1 }
+	}	
+
+	option = {
+		name = EVTOPTA_ancrel_4000 # Make it the greatest temple there ever was!
+	}
+}
+
+# Luxor Restoration Part 2 - Add Asyut bonus modifier ~8 years
+province_event = {
+	id = ancrel.4001
+	title = EVTNAME_ancrel_4001
+	desc = EVTDESC_ancrel_4001
+	picture = GFX_evt_temple_egyptian_pagan
+
+	trigger = {
+		has_global_flag = luxor_restoring
+		province_id = 795 # Asyut
+		NOT = { has_global_flag = luxor_restored }
+		had_province_flag = { flag = reb_luxor_1 days = 2555 random = 365 }
+		NOT = { has_province_flag = reb_luxor_2 }
+	}
+
+	immediate = {
+		set_province_flag = reb_luxor_2
+	}
+	
+	mean_time_to_happen = {
+		days = 7
+	}
+	
+	option = {
+		name = EVTOPTA_ancrel_4001 # Library
+		795 = {
+			add_province_modifier = { name = luxor_library duration = -1 }
+			}
+	}
+	option = {
+		name = EVTOPTB_ancrel_4001 # Promote Fanaticism
+		795 = {
+			add_province_modifier = { name = luxor_fanaticism duration = -1 }
+			}
+	}
+	option = {
+		name = EVTOPTC_ancrel_4001 # Promote Tax Collection
+		795 = {
+			add_province_modifier = { name = luxor_admin duration = -1 }
+			}
+	}
+}
+
+# Luxor Restoration Part 3 ~2 years
+
+province_event = {
+	id = ancrel.4002
+	title = EVTNAME_ancrel_4002
+	desc = EVTDESC_ancrel_4002
+	picture = GFX_evt_temple_egyptian_pagan
+	
+	trigger = {
+		has_global_flag = luxor_restoring
+		province_id = 795 # Asyut
+		NOT = { has_global_flag = luxor_restored }
+		has_province_flag = reb_luxor_1
+		had_province_flag = { flag = reb_luxor_2 days = 638 random = 92 }		
+	}
+
+	mean_time_to_happen = {
+		days = 7
+	}
+	
+	immediate = {
+		clr_global_flag = luxor_restoring
+		set_global_flag = luxor_restored
+		clr_province_flag = reb_luxor_1
+		clr_province_flag = reb_luxor_2
+	}
+
+	option = {
+		name = EVTOPTA_ancrel_4002
+		owner = {
+			795 = {
+				build_holding = {
+				   title = b_luxor
+				   type = temple
+				   holder = PREV
+				}
+			}
+		}
+		owner = {
+			prestige = 500
+			religion_authority = {
+				modifier = luxor_restored
+				years = 30
+			}
+		}
+		hidden_tooltip = {
+			owner = {
+				set_character_flag = event_ancrel4003
+				narrative_event = { id = ancrel.4003 days = 7 }
+			}
+		}
+	}
+}
+
+# News spread about Luxor
+narrative_event = {
+	id = ancrel.4003
+	title = EVTNAME_ancrel_4003
+	desc = EVTDESC_ancrel_4003
+	picture = GFX_evt_temple_egyptian_pagan
+	border = GFX_event_narrative_frame_religion
+	
+	major = yes
+	only_rulers = yes
+	is_triggered_only = yes
+	
+	option = {
+		trigger = {
+			OR = {
+				has_character_flag = event_ancrel4003
+				religion = egyptian_pagan
+				religion = aten_pagan
+			}
+		}
+		if = {
+			limit = { has_character_flag = event_ancrel4003 }
+			clr_character_flag = event_ancrel4003
+		}
+		name = OK
+	}
+	
+	option = {
+		trigger = {
+			NOT = { has_character_flag = event_ancrel4003 }
+		}
+		name = EVTOPTA_ancrel_4003
+	}
+}
+
+# Pharaoh wants to build a Pyramid
+character_event = {
+	id = ancrel.4004
+	desc = EVTDESC_ancrel_4004
+	picture = GFX_evt_boatcoast
+
+	is_triggered_only = yes
+	
+	immediate = {
+		capital_scope = { set_province_flag = pyramid_building_prov }
+	}	
+
+	option = {
+		name = EVTOPTA_ancrel_4004 # Make it the greatest pyramid there ever was!
+		wealth = -600
+	}
+}
+
+# The Pyramid is done!
+province_event = {
+	id = ancrel.4005
+	desc = EVTDESC_ancrel_4005
+	picture = GFX_evt_pyramid
+
+	trigger = {
+		had_province_flag = { flag = pyramid_building_prov days = 3650 random = 3650 }
+		owner = { 
+			NOT = { has_character_flag = pyramid_built}
+		}
+	}
+
+	immediate = {
+		clr_province_flag = pyramid_building_prov
+	}
+	
+	mean_time_to_happen = {
+		days = 7
+	}
+	
+	option = {
+		name = EVTOPTA_ancrel_4005 # My pyramid is done!
+
+		trigger = { owner = { has_character_flag = pyramid_building_char}}
+		owner = {
+			clr_character_flag = pyramid_building_char
+			set_character_flag = pyramid_built
+			prestige = 500
+		}
+	}
+	option = {
+		name = EVTOPTB_ancrel_4005 # My predecessor's pyramid is done
+
+		trigger = { 
+			owner = {
+				NOT = { 
+					has_character_flag = pyramid_building_char
+				}
+				OR = {
+					religion = egyptian_pagan
+					religion = aten_pagan
+				}
+			}
+		}
+		owner = {
+			prestige = 100
+		}
+	}
+	option = {
+		name = EVTOPTC_ancrel_4005 # Pagan Garbage!
+
+		trigger = { 
+			owner = {
+				NOT = {
+					has_character_flag = pyramid_building_char
+					OR = {
+						religion = egyptian_pagan
+						religion = aten_pagan
+					}	
+				}
+			}
+		}		
+	}	
+}
+
+# The Priesthood Restored
+narrative_event = {
+	id = ancrel.4006
+	title = EVTNAME_ancrel_4006
+	desc = EVTDESC_ancrel_4006
+	picture = GFX_evt_bishop_muslim
+	border = GFX_event_narrative_frame_religion
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_ancrel_4006
+		trigger = {
+			OR = {
+				religion = egyptian_pagan
+				religion = aten_pagan
+			}
+		}
+	}
+	option = {
+		name = EVTOPTB_ancrel_4006
+		trigger = {
+			NOT = {
+				religion = egyptian_pagan
+				religion = aten_pagan
+			}
+		}
+	}
+}
+
+# Anubis Guard founded
+narrative_event = {
+	id = ancrel.4007
+	title = EVTNAME_ancrel_4007
+	desc = EVTDESC_ancrel_4007
+	picture = GFX_evt_anubis
+	border = GFX_event_narrative_frame_religion
+	
+	major = yes
+	only_rulers = yes
+	is_triggered_only = yes
+	
+	option = {
+		trigger = {
+			has_character_flag = event_ancrel4007
+		}
+		clr_character_flag = event_ancrel4007
+		name = OK
+	}
+	
+	option = {
+		trigger = {
+			NOT = { has_character_flag = event_ancrel4007 }
+		}
+		name = EVTOPTA_ancrel_4007
+	}
+}
+
+# Horusian Guard Founded
+narrative_event = {
+	id = ancrel.4008
+	title = EVTNAME_ancrel_4008
+	desc = EVTDESC_ancrel_4008
+	picture = GFX_evt_horus
+	border = GFX_event_narrative_frame_religion
+	
+	major = yes
+	only_rulers = yes
+	is_triggered_only = yes
+	
+	option = {
+		trigger = {
+			has_character_flag = event_ancrel4008
+		}
+		clr_character_flag = event_ancrel4008
+		name = OK
+	}
+	
+	option = {
+		trigger = {
+			NOT = { has_character_flag = event_ancrel4008 }
+		}
+		name = EVTOPTA_ancrel_4008
+	}
+}
+
+#######################
+# Sed Festival events #
+#######################
+
+#Sed festival 1st day: the offerings
+character_event = {
+	id = ancrel.4010
+	desc = EVTDESC_ancrel_4010
+	picture = GFX_evt_temple_egyptian_pagan
+	
+	is_triggered_only = yes
+
+	option = {
+		name = EVTOPTA_ancrel_4010 # OK
+		hidden_tooltip = {
+			random_list = {
+				95 = {
+					character_event = { id = ancrel.4011 days = 1 }
+				}
+				5 = {
+					modifier = {
+						factor = 3
+						trait = drunkard
+					}
+					modifier = {
+						factor = 3
+						trait = gluttonous 
+					}
+					modifier = {
+						factor = 0.3
+						trait = zealous
+					}
+					modifier = {
+						factor = 0.3
+						trait = patient
+					}
+					character_event = { id = ancrel.4014 days = 1 }
+				}
+			}
+		}
+	}
+}
+
+#Sed festival 2nd day: the race
+character_event = {
+	id = ancrel.4011
+	desc = EVTDESC_ancrel_4011
+	picture = GFX_evt_temple_egyptian_pagan
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_ancrel_4011 # OK
+		hidden_tooltip = {
+			random_list = {
+				95 = {
+					character_event = { id = ancrel.4012 days = 1 }
+				}
+				5 = {
+					modifier = {
+						factor = 3
+						trait = gluttonous
+					}
+					modifier = {
+						factor = 2
+						NOT = { health = 2 }
+					}
+					modifier = {
+						factor = 5
+						NOT = { health = 1 }
+					}
+					modifier = {
+						factor = 10
+						NOT = { health = 0 }
+					}
+					character_event = { id = ancrel.4015 days = 1 }
+				}
+			}
+		}
+	}
+}
+
+#Sed festival last day: bow & arrow
+character_event = {
+	id = ancrel.4012
+	desc = EVTDESC_ancrel_4012
+	picture = GFX_evt_temple_egyptian_pagan
+	
+	is_triggered_only = yes
+
+	option = {
+		name = EVTOPTA_ancrel_4012 # OK
+		hidden_tooltip = {
+			random_list = {
+				95 = {
+					character_event = { id = ancrel.4013 days = 1 }
+				}
+				5 = {
+					modifier = {
+						factor = 10
+						NOT = { combat_rating = -5 }
+					}
+					modifier = {
+						factor = 10
+						NOT = { combat_rating = -10 }
+					}
+					modifier = {
+						factor = 2
+						trait = cruel
+					}
+					modifier = {
+						factor = 0.1
+						combat_rating = 5
+					}
+					modifier = {
+						factor = 0.1
+						trait = hunter
+					}
+					character_event = { id = ancrel.4016 days = 1 }
+				}
+			}
+		}
+	}
+}
+
+#Sed festival successful conclusion 
+character_event = {
+	id = ancrel.4013
+	desc = EVTDESC_ancrel_4013
+	picture = GFX_evt_temple_egyptian_pagan
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		clr_character_flag = holding_sed_festival
+	}	
+
+	option = {
+		name = EVTOPTA_ancrel_4013 # OK
+		
+		hidden_tooltip = {
+			# Calculate piety gain = 200 + nb_sed_festivals * 50
+			# Does not work as variables cannot be assigned to commands !?
+			# set_variable = { which = gain which = nb_sed_festivals }
+			# multiply_variable = { which = gain value = 50 } 
+			# change_variable = { which = gain value = 200 }
+			# piety = gain # variable
+		}
+		if = {
+			limit = {
+				is_variable_equal = { which = nb_sed_festivals value = 1 }
+			}
+			piety = 200
+		}
+		if = {
+			limit = {
+				is_variable_equal = { which = nb_sed_festivals value = 2 }
+			}
+			piety = 300
+		}
+		if = {
+			limit = {
+				is_variable_equal = { which = nb_sed_festivals value = 3 }
+			}
+			piety = 400
+		}
+		if = {
+			limit = {
+				is_variable_equal = { which = nb_sed_festivals value = 4 }
+			}
+			piety = 500
+		}
+		if = {
+			limit = {
+				is_variable_equal = { which = nb_sed_festivals value = 5 }
+			}
+			piety = 600
+		}
+		if = {
+			limit = {
+				is_variable_equal = { which = nb_sed_festivals value = 6 }
+			}
+			piety = 700
+		}
+		if = {
+			limit = {
+				is_variable_equal = { which = nb_sed_festivals value = 7 }
+			}
+			piety = 800
+		}
+		if = {
+			limit = {
+				is_variable_equal = { which = nb_sed_festivals value = 8 }
+			}
+			piety = 900
+		}
+		if = {
+			limit = {
+				check_variable = { which = nb_sed_festivals value = 9 }
+			}
+			piety = 1000
+		}
+		add_character_modifier = {
+			name = held_sed_festival
+			duration = 365
+		}
+	}
+}
+
+
+#Sed festival 1st day failure: fallen asleep
+character_event = {
+	id = ancrel.4014
+	desc = EVTDESC_ancrel_4014
+	picture = GFX_evt_temple_egyptian_pagan
+	
+	is_triggered_only = yes
+
+	option = {
+		name = EVTOPTA_ancrel_4014 # OK
+		hidden_tooltip = {
+			character_event = { id = ancrel.4017 days = 1 }
+		}
+	}
+}
+
+#Sed festival 2nd day failure: unable to finish the race
+character_event = {
+	id = ancrel.4015
+	desc = EVTDESC_ancrel_4015
+	picture = GFX_evt_temple_egyptian_pagan
+	
+	is_triggered_only = yes
+
+	option = {
+		name = EVTOPTA_ancrel_4015 # OK
+		hidden_tooltip = {
+			character_event = { id = ancrel.4017 days = 1 }
+		}
+	}
+}
+
+#Sed festival last day failure: shoot someone in the crowd
+character_event = {
+	id = ancrel.4016
+	desc = EVTDESC_ancrel_4016
+	picture = GFX_evt_temple_egyptian_pagan
+	
+	is_triggered_only = yes
+
+	option = {
+		name = EVTOPTA_ancrel_4016 # OK
+		hidden_tooltip = {
+			character_event = { id = ancrel.4017 days = 1 }
+		}
+	}
+}
+
+#Sed festival failed conclusion
+character_event = {
+	id = ancrel.4017
+	desc = EVTDESC_ancrel_4017
+	picture = GFX_evt_temple_egyptian_pagan
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		clr_character_flag = holding_sed_festival
+	}
+
+	option = {
+		name = EVTOPTA_ancrel_4017 # Depressed
+
+		add_trait = depressed
+		piety = -200
+		add_character_modifier = {
+			name = held_failed_sed_festival
+			duration = 365
+		}
+	}
+	
+	option = {
+		name = EVTOPTB_ancrel_4017 # Who cares ?
+		
+		add_trait = cynical
+		piety = -200
+		prestige = -200
+		add_character_modifier = {
+			name = held_failed_sed_festival
+			duration = 365
+		}
+	}
+	
+	option = {
+		name = EVTOPTC_ancrel_4017 # Punishment
+		
+		add_trait = arbitrary
+		add_trait = paranoid
+		prestige = -200
+		add_character_modifier = {
+			name = held_failed_sed_festival
+			duration = 365
+		}
+	}
+}
+

@@ -1,0 +1,246 @@
+namespace = ancrel
+
+#Lover Remarks of your Paris-like sexual prowess
+character_event = {
+	id = ancrel.3010
+	desc = EVTDESCancrel.3010
+	picture = GFX_evt_roman_temple
+	border = GFX_event_normal_frame_religion
+
+	capable_only = yes
+	prisoner = no
+
+	trigger = {
+		always = no #disabled for now	
+		has_dlc = "The Old Gods"
+		has_character_modifier = emulating_paris
+		religion = hellenic_pagan
+
+		has_lover = yes
+
+		NOT = { #can't be ugly, fat, or have bad genetic traits
+			trait = ugly
+			trait = inbred
+			trait = slow
+			trait = gluttonous
+
+			has_character_flag = personal_legend_5
+		}
+	}
+
+	mean_time_to_happen = {
+		years = 50		# ~40 years with all below modifiers (lustful, hedonist under the age of 30)
+
+		modifier = {
+			factor = 0.95
+			NOT = {
+				age = 40
+			}
+		}
+		modifier = {
+			factor = 0.95
+			NOT = {
+				age = 35
+			}
+		}
+		modifier = {
+			factor = 0.95
+			NOT = {
+				age = 30
+			}
+		}
+		modifier = {
+			factor = 0.90
+			trait = lustful
+		}
+		modifier = {
+			factor = 0.90
+			has_character_modifier = sweet_temptation
+			has_character_modifier = one_hedonist
+		}
+	}
+
+	option = {
+		name = EVTOPTAancrel.3010
+		set_character_flag = personal_legend_5
+		prestige = 10
+	}
+}
+
+#Your Odyssian cleverness becomes renowned after your 
+#involvement in a successfull assassination becomes known
+character_event = {
+	id = ancrel.3011
+	desc = EVTDESCancrel.3011
+	picture = GFX_evt_roman_temple
+	border = GFX_event_normal_frame_religion
+	is_triggered_only = yes
+	capable_only = yes	
+	
+	trigger = {
+		always = no #disabled for now
+		has_dlc = "The Old Gods"
+		has_character_modifier = emulating_odysseus
+		religion = hellenic_pagan
+		intrigue = 10
+		NOT = {
+			has_character_flag = personal_legend_5
+		}
+
+		# 50% chance of occuring on a successful but revealed plot
+		# where the plotter meets the above criteria
+	}
+	option = {
+		name = EVTOPTAancrel.3011
+		set_character_flag = personal_legend_5
+		prestige = 10
+	}
+}
+
+#Your Nestor-ian skills at diplomacy are becoming famous
+character_event = {
+	id = ancrel.3012
+	desc = EVTDESCancrel.3012
+	picture = GFX_evt_roman_temple
+	border = GFX_event_normal_frame_religion
+
+	capable_only = yes
+	
+	trigger = {
+		always = no #disabled for now
+		has_dlc = "The Old Gods"
+		has_character_modifier = emulating_nestor
+		religion = hellenic_pagan
+		diplomacy = 10
+		NOT = {
+			has_character_flag = personal_legend_5
+		}
+	}
+
+	mean_time_to_happen = {
+		years = 50	# ~27 years with all below modifiers (65+ year old grey eminence with 26+ Diplo)
+
+		modifier = {
+			factor = 0.95
+			age = 55
+		}
+		modifier = {
+			factor = 0.95
+			age = 60
+		}
+		modifier = {
+			factor = 0.95
+			age = 65
+		}
+		modifier = {
+			factor = 0.95
+			trait = grey_eminence
+		}
+		modifier = {
+			factor = 0.95
+			diplomacy = 12
+		}
+		modifier = {
+			factor = 0.95
+			diplomacy = 14
+		}
+		modifier = {
+			factor = 0.95
+			diplomacy = 16
+		}
+		modifier = {
+			factor = 0.95
+			diplomacy = 18
+		}
+		modifier = {
+			factor = 0.95
+			diplomacy = 20
+		}
+		modifier = {
+			factor = 0.95
+			diplomacy = 22
+		}
+		modifier = {
+			factor = 0.95
+			diplomacy = 24
+		}
+		modifier = {
+			factor = 0.95
+			diplomacy = 26
+		}
+	}
+
+	option = {
+		name = EVTOPTAancrel.3012
+		set_character_flag = personal_legend_5
+		prestige = 10
+	}
+}
+
+#Your Achilles-like valor is on display for all to see as you take an enemy holding
+#[on_siege_won_leader]
+character_event = {
+	id = ancrel.3013
+	desc = EVTDESCancrel.3013
+	picture = GFX_evt_roman_temple
+	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+	capable_only = yes
+	
+	trigger = {
+		always = no #disabled for now
+		has_dlc = "The Old Gods"
+		has_character_modifier = emulating_achilles
+		religion = hellenic_pagan
+
+		martial = 15
+#		Gotta get this clause working somehow...
+#		NOT = { # this is for takers of towns, not defenders!
+#			FROM = {
+#				get_holder_scope = ROOT
+#			}
+#		}
+		NOT = { 
+			has_character_flag = personal_legend_5
+		}
+	}
+
+	option = {
+		name = EVTOPTAancrel.3013
+		set_character_flag = personal_legend_5
+	}	
+}
+
+#Your Hector-ish bravery is plainly seen while defending your land against an enemy army
+#[on_siege_won_leader]
+character_event = {
+	id = ancrel.3014
+	desc = EVTDESCancrel.3013
+	picture = GFX_evt_roman_temple
+	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+	capable_only = yes
+
+	trigger = {
+		always = no #disabled for now
+		has_dlc = "The Old Gods"
+		has_character_modifier = emulating_hector
+		religion = hellenic_pagan
+
+		martial = 15
+#		This *may* not work, Validator thinks its wrong,
+#		but the on_actions file says that FROM is title scope
+#		completely_controls = FROM
+
+		NOT = { 
+			has_character_flag = personal_legend_5
+		}
+	}
+
+	option = {
+		name = EVTOPTAancrel.3013
+		set_character_flag = personal_legend_5
+	}
+}

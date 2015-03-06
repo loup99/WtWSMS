@@ -248,9 +248,9 @@ decisions = {
 				defender = { character = ROOT }
 				attacker = {
 					OR = {
-					is_reformed_religion = yes
-					NOT = { religion_group = pagan_group }
-						}
+						is_reformed_religion = yes
+						NOT = { religion_group = pagan_group }
+					}
 				}
 				OR = {
 					using_cb = crusade
@@ -282,12 +282,12 @@ decisions = {
 			any_war = {
 				limit = {
 					defender = { character = ROOT }
-				attacker = {
-					OR = {
-					is_reformed_religion = yes
-					NOT = { religion_group = pagan_group }
+					attacker = {
+						OR = {
+							is_reformed_religion = yes
+							NOT = { religion_group = pagan_group }
 						}
-				}
+					}
 					OR = {
 						using_cb = crusade
 						using_cb = religious
@@ -346,19 +346,19 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-						  tier = emperor
+				tier = emperor
 			}
 			modifier = {
 				factor = 0.1
 				NOT = {
 					any_war = {
 						defender = { character = ROOT }
-				attacker = {
-					OR = {
-					is_reformed_religion = yes
-					NOT = { religion_group = pagan_group }
+						attacker = {
+							OR = {
+								is_reformed_religion = yes
+								NOT = { religion_group = pagan_group }
+							}
 						}
-				}
 						OR = {
 							using_cb = crusade
 							using_cb = religious
@@ -379,12 +379,12 @@ decisions = {
 				factor = 2
 				any_war = {
 					defender = { character = ROOT }
-				attacker = {
-					OR = {
-					is_reformed_religion = yes
-					NOT = { religion_group = pagan_group }
+					attacker = {
+						OR = {
+							is_reformed_religion = yes
+							NOT = { religion_group = pagan_group }
 						}
-				}
+					}
 					OR = {
 						using_cb = crusade
 						using_cb = religious
@@ -897,16 +897,8 @@ decisions = {
 		potential = {
 			is_playable = yes
 			is_heretic = yes
-			OR = {
-				religion = norse_pagan
-				religion = finnish_pagan
-				religion = baltic_pagan
-				religion = tengri_pagan
-				religion = slavic_pagan
-				religion = aztec
-				religion = west_african_pagan
-				religion = east_african_pagan
-			}
+			religion_group = pagan_group
+			is_reformed_religion = no
 		}
 		allow = {
 			NOT = { trait = zealous }
@@ -914,38 +906,7 @@ decisions = {
 		}
 		effect = {
 			piety = -50
-			if = {
-				limit = { religion = norse_pagan }
-				religion = norse_pagan_reformed
-			}
-			if = {
-				limit = { religion = finnish_pagan }
-				religion = finnish_pagan_reformed
-			}
-			if = {
-				limit = { religion = baltic_pagan }
-				religion = baltic_pagan_reformed
-			}
-			if = {
-				limit = { religion = tengri_pagan }
-				religion = tengri_pagan_reformed
-			}
-			if = {
-				limit = { religion = slavic_pagan }
-				religion = slavic_pagan_reformed
-			}
-			if = {
-				limit = { religion = aztec }
-				religion = aztec_reformed
-			}
-			if = {
-				limit = { religion = west_african_pagan }
-				religion = west_african_pagan_reformed
-			}
-			if = {
-				limit = { religion = east_african_pagan }
-				religion = east_african_pagan_reformed
-			}
+			abandon_heresy = yes
 			
 			hidden_tooltip = {
 				any_courtier = {

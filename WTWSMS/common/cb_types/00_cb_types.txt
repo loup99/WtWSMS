@@ -1,3 +1,7 @@
+# Audax Validator "!" Ignore_1001
+# Audax Validator "!" Ignore_1002
+# Audax Validator "!" Ignore_1004
+# Audax Validator "!" Ignore_1006
 ## normal scopes(including posttitle scopes) ##
 # ROOT = receiver
 # FROM = giver
@@ -1530,7 +1534,10 @@ claim_all = {
 							has_landed_title = e_byzantium
 							has_landed_title = e_roman_empire
 						}
-						religion_group = christian
+						OR = {
+							religion_group = christian
+							religion = hellenic_pagan
+						}
 					}
 					character_event = { id = LoR.30 days = 12 }
 				}
@@ -1594,7 +1601,10 @@ claim_all = {
 						has_landed_title = e_byzantium
 						has_landed_title = e_roman_empire
 					}
-					religion_group = christian
+					OR = {
+						religion_group = christian
+						religion = hellenic_pagan
+					}
 				}
 				hidden_tooltip = { character_event = { id = LoR.30 days = 12 } }
 			}
@@ -2245,7 +2255,10 @@ invasion = {
 							has_landed_title = e_byzantium
 							has_landed_title = e_roman_empire
 						}
-						religion_group = christian
+						OR = {
+							religion_group = christian
+							religion = hellenic_pagan
+						}
 					}
 					character_event = { id = LoR.30 days = 12 }
 				}
@@ -2321,7 +2334,10 @@ invasion = {
 						has_landed_title = e_byzantium
 						has_landed_title = e_roman_empire
 					}
-					religion_group = christian
+					OR = {
+						religion_group = christian
+						religion = hellenic_pagan
+					}
 				}
 				hidden_tooltip = { character_event = { id = LoR.30 days = 12 } }
 			}
@@ -2567,7 +2583,10 @@ tribal_invasion = {
 						has_landed_title = e_byzantium
 						has_landed_title = e_roman_empire
 					}
-					religion_group = christian
+					OR = {
+						religion_group = christian
+						religion = hellenic_pagan
+					}
 				}
 				hidden_tooltip = { character_event = { id = LoR.30 days = 12 } }
 			}
@@ -3003,7 +3022,10 @@ crusade = {
 						has_landed_title = e_byzantium
 						has_landed_title = e_roman_empire
 					}
-					religion_group = christian
+					OR = {
+						religion_group = christian
+						religion = hellenic_pagan
+					}
 				}
 				hidden_tooltip = { character_event = { id = LoR.30 days = 12 } }
 			}
@@ -3066,7 +3088,10 @@ crusade = {
 						has_landed_title = e_byzantium
 						has_landed_title = e_roman_empire
 					}
-					religion_group = christian
+					OR = {
+						religion_group = christian
+						religion = hellenic_pagan
+					}
 				}
 				hidden_tooltip = { character_event = { id = LoR.30 days = 12 } }
 			}
@@ -5667,7 +5692,10 @@ muslim_invasion = {
 						has_landed_title = e_byzantium
 						has_landed_title = e_roman_empire
 					}
-					religion_group = christian
+					OR = {
+						religion_group = christian
+						religion = hellenic_pagan
+					}
 				}
 				hidden_tooltip = { character_event = { id = LoR.30 days = 12 } }
 			}
@@ -6618,7 +6646,10 @@ viking_invasion = {
 						has_landed_title = e_byzantium
 						has_landed_title = e_roman_empire
 					}
-					religion_group = christian
+					OR = {
+						religion_group = christian
+						religion = hellenic_pagan
+					}
 				}
 				hidden_tooltip = { character_event = { id = LoR.30 days = 12 } }
 			}
@@ -6665,7 +6696,10 @@ pagan_subjugation = {
 		ROOT = {
 			religion_group = pagan_group
 			is_reformed_religion = no
-			NOT = { religion = aztec }
+			NOT = { 
+				religion = aztec
+				religion = promethean_pagan 
+			}
 			NOT = { same_realm = FROM }
 			NOT = { is_liege_or_above = FROM }
 			has_horde_culture = no # Should use tribal invasion instead
@@ -6677,6 +6711,7 @@ pagan_subjugation = {
 				is_reformed_religion = ROOT
 			}
 			NOT = {
+				religion = promethean_pagan
 				any_war = {
 					AND = {
 						defender = { character = FROM }
@@ -6860,7 +6895,10 @@ pagan_subjugation = {
 						has_landed_title = e_byzantium
 						has_landed_title = e_roman_empire
 					}
-					religion_group = christian
+					OR = {
+						religion_group = christian
+						religion = hellenic_pagan
+					}
 				}
 				hidden_tooltip = { character_event = { id = LoR.30 days = 12 } }
 			}
@@ -7621,22 +7659,12 @@ pagan_holy_war = {
 	can_use = {
 		ROOT = {
 			OR = {
-				religion = norse_pagan_reformed
-				religion = tengri_pagan_reformed
-				religion = semitic_pagan_reformed
-				religion = baltic_pagan_reformed
-				religion = dravidian_pagan_reformed
-				religion = central_african_pagan_reformed
-				religion = east_african_pagan_reformed	
-				religion = germanic_pagan_reformed
-				religion = celtic_pagan_reformed
-				religion = mithraic_pagan
-				religion = slavic_pagan_reformed
-				religion = finnish_pagan_reformed
-				religion = aztec_reformed
+				AND = {
+					religion_group = pagan_group
+					is_reformed_religion = yes
+				}
 				religion = aztec
-				religion = west_african_pagan_reformed
-				religion = zun_pagan_reformed
+				religion = mithraic_pagan
 			}
 			NOT = { same_realm = FROM }
 			NOT = { religion = FROM }
@@ -7705,22 +7733,12 @@ pagan_holy_war = {
 	is_valid = {
 		ROOT = {
 			OR = {
-				religion = norse_pagan_reformed
-				religion = semitic_pagan_reformed
-				religion = dravidian_pagan_reformed
-				religion = central_african_pagan_reformed
-				religion = east_african_pagan_reformed	
-				religion = germanic_pagan_reformed
-				religion = celtic_pagan_reformed
-				religion = mithraic_pagan
-				religion = tengri_pagan_reformed
-				religion = baltic_pagan_reformed
-				religion = slavic_pagan_reformed
-				religion = finnish_pagan_reformed
-				religion = aztec_reformed
+				AND = {
+					religion_group = pagan_group
+					is_reformed_religion = yes
+				}
 				religion = aztec
-				religion = west_african_pagan_reformed
-				religion = zun_pagan_reformed
+				religion = mithraic_pagan
 			}
 			NOT = { same_realm = FROM }
 			NOT = { religion = FROM }
@@ -8251,6 +8269,7 @@ pagan_county_conquest = {
 	can_use = {
 		ROOT = {
 			religion_group = pagan_group
+			NOT = { religion = promethean_pagan }
 			NOT = { same_realm = FROM }
 		}
 		FROM = {
@@ -8293,12 +8312,32 @@ pagan_county_conquest = {
 				}
 				has_global_flag = viking_age_started
 			}
+			# must be a neighboring county, or within 1 sea province away
 			location = {
 				any_neighbor_province = {
-					owner = {
-						OR = {
-							character = ROOT
-							is_liege_or_above = ROOT
+					OR = {
+						AND = {
+							has_owner = yes
+							owner = {
+								OR = {
+									character = ROOT
+									is_liege_or_above = ROOT
+								}
+							}
+						}
+						AND = {
+							is_land = no
+							any_neighbor_province = {
+								AND = {
+									has_owner = yes
+									owner = {
+										OR = {
+											character = ROOT
+											is_liege_or_above = ROOT
+										}
+									}
+								}
+							}
 						}
 					}
 				}
@@ -10175,7 +10214,10 @@ manifest_destiny_invasion = {
 						has_landed_title = e_byzantium
 						has_landed_title = e_roman_empire
 					}
-					religion_group = christian
+					OR = {
+						religion_group = christian
+						religion = hellenic_pagan
+					}
 				}
 				hidden_tooltip = { character_event = { id = LoR.30 days = 12 } }
 			}

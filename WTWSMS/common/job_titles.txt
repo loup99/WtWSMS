@@ -24,26 +24,40 @@ job_chancellor = {
 				
 				OR = {
 					is_female = no
-					AND = {
-						religion = cathar
-						liege = { religion = cathar }
-					}
-					AND = {
-						religion = valentinianism
-						liege = { religion = valentinianism }
-					}
-					AND = {
-						religion = celtic_pagan
-						liege = { religion = celtic_pagan }
-					}
-					AND = {
-						religion = celtic_pagan_reformed
-						liege = { religion = celtic_pagan_reformed }
+					liege = {
+						OR = {
+							religion = cathar
+							religion = valentinianism
+							religion = celtic_pagan
+							religion = celtic_pagan_reformed
+							religion = promethean_pagan
+						}
+						religion = ROOT
 					}
 				}
 				is_adult = yes
 			}
 			has_character_flag = special_chancellor
+		}
+		
+		OR = {
+			liege = { 
+				NOT = { 
+					religion = celtic_pagan 
+					religion = celtic_pagan_reformed
+				}
+			}
+			AND = {
+				OR = { 
+					religion = celtic_pagan 
+					religion = celtic_pagan_reformed 
+				}
+				OR = { 
+					trait = druid
+					trait = bad_druid
+					trait = poet
+				}
+			}
 		}
 		
 		prisoner = no
@@ -78,33 +92,23 @@ job_marshal = {
 			AND = {
 				OR = {
 					is_female = no
-					AND = {
-						religion = cathar
-						liege = { religion = cathar }
-					}
-					AND = {
-						religion = celtic_pagan
-						liege = { religion = celtic_pagan }
-					}
-					AND = {
-						religion = valentinianism
-						liege = { religion = valentinianism }
-					}
-					AND = {
-						religion_group = zoroastrian_group
-						liege = { religion_group = zoroastrian_group }
-					}
-					AND = {
-						religion_group = pagan_group
+					liege = {
 						OR = {
-							independent = yes
-							martial = 20
+							religion = cathar
+							religion = valentinianism
+							religion = celtic_pagan
+							religion = celtic_pagan_reformed
+							religion = promethean_pagan
+							religion_group = zoroastrian_group
+							AND = {
+								religion_group = pagan_group
+								OR = {
+									independent = yes
+									martial = 20
+								}
+							}
 						}
-						liege = { religion_group = pagan_group }
-					}
-					AND = {
-						religion = celtic_pagan_reformed
-						liege = { religion = celtic_pagan_reformed }
+						religion = ROOT
 					}
 				}
 				OR = {
@@ -150,21 +154,15 @@ job_treasurer = {
 			AND = {
 				OR = {
 					is_female = no
-					AND = {
-						religion = cathar
-						liege = { religion = cathar }
-					}
-					AND = {
-						religion = valentinianism
-						liege = { religion = valentinianism }
-					}
-					AND = {
-						religion = celtic_pagan
-						liege = { religion = celtic_pagan }
-					}
-					AND = {
-						religion = celtic_pagan_reformed
-						liege = { religion = celtic_pagan_reformed }
+					liege = {
+						OR = {
+							religion = cathar
+							religion = valentinianism
+							religion = celtic_pagan
+							religion = celtic_pagan_reformed
+							religion = promethean_pagan
+						}
+						religion = ROOT
 					}
 				}
 				is_adult = yes
@@ -206,23 +204,18 @@ job_spymaster = {
 					is_female = no
 					liege = { 
 						OR = {
-							mother = { character = ROOT }
-							spouse = { character = ROOT }
+							mother = { character = FROM }
+							spouse = { character = FROM }
 						}
 					}
-					AND = {
-						religion_group = pagan_group
-						liege = {
+					
+					liege = {
+						OR = {
 							religion_group = pagan_group
+							religion = cathar
+							religion = valentinianism
 						}
-					}
-					AND = {
-						religion = cathar
-						liege = { religion = cathar }
-					}
-					AND = {
-						religion = valentinianism
-						liege = { religion = valentinianism }
+						religion = ROOT
 					}
 				}
 				is_adult = yes
@@ -308,6 +301,25 @@ job_spiritual = {
 			trait = martial_cleric
 			trait = scholarly_theologian
 			trait = mastermind_theologian
+		}
+		
+		OR = {
+			liege = { 
+				NOT = { 
+					religion = celtic_pagan 
+					religion = celtic_pagan_reformed
+				}
+			}
+			AND = {
+				OR = { 
+					religion = celtic_pagan 
+					religion = celtic_pagan_reformed 
+				}
+				OR = {
+					trait = druid
+					trait = bad_druid
+				}
+			}
 		}
 	}
 	gain_effect = {

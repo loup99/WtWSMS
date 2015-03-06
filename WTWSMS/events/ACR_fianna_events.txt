@@ -1,0 +1,1569 @@
+#######################################
+#
+# ANCIENT RELIGIONS
+# - The Fianna
+#
+# Event IDs ancrel.1150-1189 reserved
+# Event IDs ancrel.1254-1260 reserved
+# Event IDs ancrel.1333-1334 reserved
+#
+#######################################
+
+# Written by Superskierpat
+
+namespace = ancrel
+
+# The Fianna Founded (Gaelic King)
+narrative_event = {
+	id = ancrel.1150
+	title = EVTNAMEancrel.1150
+	desc = EVTDESCancrel.1150
+	picture = GFX_evt_celtic_warriors
+	border = GFX_event_narrative_frame_war
+	
+	is_triggered_only = yes
+	
+	hide_from = yes
+	
+	option = {
+		name = EVTOPTAancrel.1150
+		hidden_tooltip = {
+			any_playable_ruler = {
+				limit = {
+					ai = no
+					religion = celtic_pagan
+				}
+				narrative_event = { id = ancrel.1151 }
+			}
+		}
+	}
+}
+
+# The Fianna Founded (Gaelic)
+narrative_event = {
+	id = ancrel.1151
+	title = EVTNAMEancrel.1150
+	desc = EVTDESCancrel.1151
+	picture = GFX_evt_celtic_warriors
+	border = GFX_event_narrative_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.1151
+		custom_tooltip = {
+			text = fianna_organized
+		}
+	}
+}
+
+# Fianna Chief gets Fian trait
+character_event = {
+	id = ancrel.1155
+	hide_window = yes
+	
+	trigger = {
+		has_landed_title = d_fianna
+		NOT = { trait = fian }
+	}
+
+	immediate = {
+		add_trait = fian
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Son has served a few years
+character_event = {
+	id = ancrel.1158
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_character_flag = serving_fianna
+		clr_character_flag = wants_fianna
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Son wants to join the Fianna (Son)
+character_event = {
+	id = ancrel.1159
+	hide_window = yes
+	
+	ai = yes
+	min_age = 16
+	max_age = 40
+	only_men = yes
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		is_landed = no
+		in_command = no
+		has_global_flag = fianna_founded
+		OR = {
+			religion = celtic_pagan
+			religion = celtic_pagan_reformed
+		}
+		OR = {
+			culture = irish
+			culture = scottish
+		}
+		NOT = {
+			trait = fian 
+			has_character_flag = wants_fianna
+		}
+		father = {
+			is_alive = yes
+			OR = {
+				religion = celtic_pagan
+				religion = celtic_pagan_reformed
+			}
+			OR = {
+				culture = irish
+				culture = scottish
+			}
+			is_ruler = yes
+			is_liege_of = ROOT
+			prisoner = no
+			NOT = { trait = incapable }
+			ROOT = { host = { character = PREVPREV } }
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 240
+		
+		modifier = {
+			factor = 0.5
+			trait = ambitious
+		}
+		modifier = {
+			factor = 0.5
+			trait = brave
+		}
+		modifier = {
+			factor = 0.75
+			OR = {
+				trait = head1
+				trait = head2
+			}
+		}
+		modifier = {
+			factor = 0.75
+			trait = proud
+		}
+		modifier = {
+			factor = 0.75
+			trait = impaler
+		}
+		modifier = {
+			factor = 1.5
+			trait = slothful
+		}
+		modifier = {
+			factor = 1.5
+			trait = content
+		}
+		modifier = {
+			factor = 1.5
+			is_primary_heir = yes
+		}
+		modifier = {
+			factor = 2.0
+			trait = craven
+		}
+	}
+	
+	immediate = {
+		father = { character_event = { id = ancrel.1160 } }
+		set_character_flag = wants_fianna
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Son wants to join the fianna (Father)
+character_event = {
+	id = ancrel.1160
+	desc = EVTDESCancrel.1160
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.1160
+		FROM = {
+			opinion = {
+				modifier = opinion_very_disappointed
+				years = 1
+				who = ROOT
+			}
+		}
+		prestige = -100
+	}
+	option = {
+		name = EVTOPTBancrel.1160
+		d_fianna = {
+			holder_scope = {
+				FROM = {
+					move_character = PREV
+				}
+			}
+		}
+		hidden_tooltip = {
+			FROM = { 
+				character_event = { id = ancrel.1158 days = 1460 }
+			}
+		}
+		prestige = 100
+	}
+}
+
+# Son returns scarred but seasoned (Son)
+character_event = {
+	id = ancrel.1164
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = serving_fianna
+		NOT = { trait = scarred }
+	}
+	
+	mean_time_to_happen = {
+		months = 160
+		
+		modifier = {
+			factor = 0.75
+			trait = brave
+		}
+		modifier = {
+			factor = 1.25
+			trait = craven
+		}
+	}
+	
+	immediate = {
+		father = { character_event = { id = ancrel.1165 } }
+		clr_character_flag = serving_fianna
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Son returns scarred but seasoned
+character_event = {
+	id = ancrel.1165
+	desc = EVTDESCancrel.1165
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.1165
+		FROM = {
+			move_character = ROOT
+			add_trait = scarred
+			add_trait = fian
+			change_martial = 4
+		}
+	}
+}
+
+# Son returns maimed (Son)
+character_event = {
+	id = ancrel.1168
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = serving_fianna
+		NOT = {
+			trait = maimed
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 250
+	}
+	
+	immediate = {
+		add_trait = maimed
+		father = { character_event = { id = ancrel.1169 } }
+		clr_character_flag = serving_fianna
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Son returns maimed
+character_event = {
+	id = ancrel.1169
+	desc = EVTDESCancrel.1169
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.1169
+		FROM = {
+			move_character = ROOT
+			tooltip = { add_trait = maimed }
+			add_trait = fian
+		}
+	}
+}
+
+# Son returns as excellent strategist (Son)
+character_event = {
+	id = ancrel.1170
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = serving_fianna
+		NOT = { trait = brilliant_strategist }
+		OR = {
+			trait = misguided_warrior
+			trait = tough_soldier
+			trait = skilled_tactician
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 160
+		
+		modifier = {
+			factor = 0.5
+			trait = genius
+		}
+		modifier = {
+			factor = 0.75
+			trait = diligent
+		}
+		modifier = {
+			factor = 0.75
+			trait = quick
+		}
+		modifier = {
+			factor = 1.5
+			trait = slow
+		}
+		modifier = {
+			factor = 1.5
+			trait = imbecile
+		}
+	}
+
+	immediate = {
+		father = { character_event = { id = ancrel.1171 } }
+		clr_character_flag = serving_fianna
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Son returns as excellent strategist
+character_event = {
+	id = ancrel.1171
+	desc = EVTDESCancrel.1171
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.1171
+		if = {
+			limit = {
+				FROM = {
+					trait = skilled_tactician
+				}
+			}
+			FROM = {
+				hidden_tooltip = { remove_trait = skilled_tactician }
+				add_trait = brilliant_strategist
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					OR = {
+						trait = misguided_warrior
+						trait = tough_soldier
+					}	
+				}
+			}
+			FROM = {
+				hidden_tooltip = { 
+					remove_trait = misguided_warrior
+					remove_trait = tough_soldier
+				}
+				add_trait = skilled_tactician
+			}
+		}
+		FROM = {
+			change_martial = 2
+			add_trait = fian
+			move_character = ROOT
+		}
+	}
+}
+
+# Son returns with PTSD (Son)
+character_event = {
+	id = ancrel.1172
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = serving_fianna
+		NOT = { trait = depressed }
+	}
+	
+	mean_time_to_happen = {
+		months = 180
+		
+		modifier = {
+			factor = 0.75
+			trait = kind
+		}
+		modifier = {
+			factor = 0.75
+			trait = poet
+		}
+		modifier = {
+			factor = 0.75
+			trait = just
+		}
+	}
+	
+	immediate = {
+		father = { character_event = { id = ancrel.1173 } }
+		clr_character_flag = serving_fianna
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Son returns with PTSD
+character_event = {
+	id = ancrel.1173
+	desc = EVTDESCancrel.1173
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.1173
+		FROM = {
+			move_character = ROOT
+			add_trait = stressed
+			add_trait = depressed
+			add_trait = fian
+		}
+	}
+}
+
+# Son returns home with wife (Son)
+character_event = {
+	id = ancrel.1174
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = serving_fianna
+		is_married = no
+	}
+	
+	mean_time_to_happen = {
+		months = 180
+		
+		modifier = {
+			factor = 0.75
+			trait = lustful
+		}
+	}
+	
+	immediate = {
+		father = { character_event = { id = ancrel.1175 } }
+		clr_character_flag = serving_fianna
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Son returns home with wife
+character_event = {
+	id = ancrel.1175
+	desc = EVTDESCancrel.1175
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.1175
+		create_character = {
+			random_traits = yes
+			dynasty = NONE
+			female = yes
+			age = 26
+			religion = celtic_pagan
+			culture = FROM
+		}
+		new_character = {
+			add_spouse = FROM
+		}
+		FROM = { 
+			add_trait = fian
+			move_character = ROOT
+		}
+	}
+}
+
+# Son returns home as a zealot (Son)
+character_event = {
+	id = ancrel.1176
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = serving_fianna
+		NOT = { trait = zealous }
+	}
+	
+	mean_time_to_happen = {
+		months = 160
+		
+		modifier = {
+			factor = 2.0
+			trait = cynical
+		}
+	}
+	
+	immediate = {
+		father = { character_event = { id = ancrel.1177 } }
+		clr_character_flag = serving_fianna
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Son returns home as a zealot
+character_event = {
+	id = ancrel.1177
+	desc = EVTDESCancrel.1177
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.1177
+		FROM = {
+			move_character = ROOT
+			add_trait = zealous
+			add_trait = fian
+		}
+	}
+}
+
+# Son returns home as a seasoned warrior (Son)
+character_event = {
+	id = ancrel.1178
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = serving_fianna
+	}
+	
+	mean_time_to_happen = {
+		months = 120
+		
+		modifier = {
+			factor = 0.75
+			trait = brave
+		}
+		modifier = {
+			factor = 0.75
+			trait = strong
+		}
+		modifier = {
+			factor = 0.75
+			trait = quick
+		}
+		modifier = {
+			factor = 0.75
+			trait = genius
+		}
+		modifier = {
+			factor = 1.5
+			trait = slothful
+		}
+		modifier = {
+			factor = 1.5
+			trait = slow
+		}
+		modifier = {
+			factor = 1.5
+			trait = imbecile
+		}
+	}
+	
+	immediate = {
+		father = { character_event = { id = ancrel.1179 } }
+		clr_character_flag = serving_fianna
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Son returns home as a seasoned warrior
+character_event = {
+	id = ancrel.1179
+	desc = EVTDESCancrel.1179
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.1179
+		FROM = {
+			move_character = ROOT
+			add_trait = brave
+			add_trait = fian
+			change_martial = 2
+		}
+	}
+}
+
+# Son dies in battle (Son)
+character_event = {
+	id = ancrel.1180
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = serving_fianna
+	}
+	
+	mean_time_to_happen = {
+		months = 200
+		
+		modifier = {
+			factor = 0.75
+			trait = brave
+		}
+		modifier = {
+			factor = 0.75
+			trait = wroth
+		}
+		modifier = {
+			factor = 0.75
+			trait = head1
+		}
+		modifier = {
+			factor = 0.75
+			trait = head2
+		}
+		modifier = {
+			factor = 1.25
+			trait = craven
+		}
+		modifier = {
+			factor = 0.75
+			trait = drunkard
+		}
+		modifier = {
+			factor = 0.75
+			trait = has_tuberculosis
+		}
+		modifier = {
+			factor = 0.75
+			trait = has_typhoid_fever
+		}
+		modifier = {
+			factor = 0.75
+			trait = has_typhus
+		}
+		modifier = {
+			factor = 0.75
+			trait = has_bubonic_plague
+		}
+		modifier = {
+			factor = 0.75
+			trait = has_measles
+		}		
+		modifier = {
+			factor = 0.75
+			trait = has_small_pox
+		}
+		modifier = {
+			factor = 0.75
+			trait = wounded
+		}
+		modifier = {
+			factor = 0.5
+			trait = infirm
+		}
+		modifier = {
+			factor = 0.5
+			trait = incapable
+		}
+	}
+	
+	immediate = {
+		father = { character_event = { id = ancrel.1181 } }
+		clr_character_flag = serving_fianna
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Son dies in battle
+character_event = {
+	id = ancrel.1181
+	desc = EVTDESCancrel.1181
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.1181
+		FROM = { death = { death_reason = death_battle } }
+	}
+}
+
+# Son returns with loot (Son)
+character_event = {
+	id = ancrel.1182
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = serving_fianna
+	}
+	
+	mean_time_to_happen = {
+		months = 160
+		
+		modifier = {
+			factor = 0.75
+			trait = greedy
+		}
+		modifier = {
+			factor = 0.75
+			stewardship = 10
+		}
+	}
+	
+	immediate = {
+		father = { character_event = { id = ancrel.1183 } }
+		clr_character_flag = serving_fianna
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Son returns with loot
+character_event = {
+	id = ancrel.1183
+	desc = EVTDESCancrel.1183
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.1183
+		FROM = {
+			move_character = ROOT
+			add_trait = fian
+		}
+		wealth = 300
+	}
+}
+
+# Father dies, Player Son is heir
+character_event = {
+	id = ancrel.1184
+	desc = EVTDESCancrel.1184
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		ai = no
+		OR = {
+			has_character_flag = wants_fianna
+			has_character_flag = serving_fianna
+		}
+		father = { is_alive = no }
+	}
+	
+	immediate = {
+		clr_character_flag = wants_fianna
+		clr_character_flag = serving_fianna
+	}
+	
+	option = {
+		name = EVTOPTAancrel.1184
+		add_trait = fian
+		prestige = 200
+		wealth = 200
+	}
+}
+
+# Father dies, Son gets Fian trait
+character_event = {
+	id = ancrel.1185
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		ai = yes
+		OR = {
+			has_character_flag = wants_fianna
+			has_character_flag = serving_fianna
+		}
+		father = { is_alive = no }
+	}
+	
+	immediate = {
+		add_trait = fian
+		clr_character_flag = wants_fianna
+		clr_character_flag = serving_fianna
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Fianna Reforms
+character_event = {
+	id = ancrel.1186
+	hide_window = yes
+	
+	trigger = {
+		has_global_flag = celtic_pagan_reformation
+		NOT = { has_global_flag = fianna_reformed }
+		is_title_active = d_fianna
+	}
+	
+	mean_time_to_happen = {
+		days = 10
+	}
+	
+	immediate = {
+		d_fianna = {
+			religion = celtic_pagan_reformed # This Holy Order now changes religion
+			holder_scope = {
+				religion = celtic_pagan_reformed
+			}
+		}		
+		set_global_flag = fianna_reformed
+
+	}
+		
+	option = {
+		name = OK
+	}
+}
+
+# Ping event when vassalizing the Fianna
+character_event = {
+	id = ancrel.0116
+	desc = OK
+	picture = GFX_evt_crusaders
+	border = GFX_event_normal_frame_religion
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_defacto_liege = FROM
+		FROM = {
+			letter_event = {
+				id = ancrel.0117
+			}
+		}
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Notification event when vassalizing the Fianna
+letter_event = {
+	id = ancrel.0117
+	desc = EVTDESCancrel.0117
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EXCELLENT
+	}
+}
+
+#############################################
+#
+# Fianna event Series
+#
+# Event IDs ancrel.1254-1300 reserved
+# Event IDs ancrel.1333-1334 reserved
+#
+#############################################
+#Written by Patrick Marchand
+
+#Fian visiting
+character_event = {
+	id = ancrel.1254
+	desc = EVTDESCancrel.1254	
+	
+	is_triggered_only = yes
+	
+	only_playable = yes
+	prisoner = no
+	
+	picture = GFX_evt_emissary
+
+	trigger = {
+		war = no
+		in_command = no
+		OR = {
+			religion = celtic_pagan
+			religion = celtic_pagan_reformed
+		}
+		OR = {
+			culture = irish
+			culture = scottish
+		}
+		NOT = { has_character_flag = fian_band_visiting }
+		NOT = { has_character_flag = hates_fianna }
+		any_courtier = {
+			has_job_title = job_chancellor
+		}
+	}
+
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 1.5
+			trait = gregarious
+		}
+		modifier = {
+			factor = 2.0
+			prestige = 100
+		}
+		modifier = {
+			factor = 2.0
+			tier = count
+		}
+		modifier = {
+			factor = 0.5
+			tier = king
+		}
+		modifier = {
+			factor = 0.2
+			tier = emperor
+		}
+		modifier = {
+			factor = 0.8
+			trait = stressed
+		}
+		modifier = {
+			factor = 0.8
+			trait = depressed
+		}
+		modifier = {
+			factor = 0.75
+			trait = lunatic
+		}
+		modifier = {
+			factor = 0.75
+			trait = possessed
+		}
+		modifier = {
+			factor = 0.9
+			trait = ill
+		}
+		modifier = {
+			factor = 0.8
+			trait = pneumonic
+		}
+		modifier = {
+			factor = 0.8
+			trait = syphilitic
+		}
+		modifier = {
+			factor = 0.5
+			trait = leper
+		}
+		modifier = {
+			factor = 0.9
+			trait = wounded
+		}
+		modifier = {
+			factor = 0.8
+			trait = maimed
+		}
+		modifier = {
+			factor = 0.5
+			trait = infirm
+		}
+		modifier = {
+			factor = 0.4
+			trait = incapable
+		}
+		modifier = {
+			factor = 0.5
+			trait = drunkard
+		}
+		modifier = {
+			factor = 0.5
+			trait = has_tuberculosis
+		}
+		modifier = {
+			factor = 0.5
+			trait = has_typhoid_fever
+		}
+		modifier = {
+			factor = 0.5
+			trait = has_typhus
+		}
+		modifier = {
+			factor = 0.5
+			trait = has_bubonic_plague
+		}
+		modifier = {
+			factor = 0.5
+			trait = has_measles
+		}		
+		modifier = {
+			factor = 0.5
+			trait = has_small_pox
+		}
+				
+	}	
+	
+	option = {
+		name = EVTOPTAancrel.1254 #Welcome them with a lavish feast
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 2
+				trait = gregarious
+			}
+			modifier = {
+				factor = 2
+				trait = charitable
+			}
+			modifier = {
+				factor = 0
+				trait = greedy
+			}
+			modifier = {
+				factor = 0
+				trait = shy
+			}
+		}
+		set_character_flag = fian_band_visiting
+		prestige = 10
+		if = {
+			limit = {
+				not = { trait = gregarious }
+			}
+			add_trait = gregarious
+		}
+		if = {
+			limit = {
+				NOT = { trait = greedy }
+			}
+			scaled_wealth = -0.2
+		}
+		if = {
+			limit = {
+				trait = greedy
+			}
+			scaled_wealth = -0.4
+			remove_trait = greedy
+		}
+		
+	}
+	option = {
+		name = EVTOPTBancrel.1254 #Welcome them reluctantly
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 0
+				OR = {
+					trait = gregarious
+					trait = proud
+					trait = ambitious
+					trait = charitable
+				}
+			}
+			
+		}
+		prestige = 1
+		scaled_wealth = -0.05
+		set_character_flag = fian_band_visiting
+	}
+	option = {
+		name = EVTOPTCancrel.1254 #Refuse them Access
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { trait = greedy }
+			}
+		}
+		prestige = -5
+		any_courtier = {
+			opinion = {
+				modifier = tight_ruler
+				who = ROOT
+			}
+		}
+	}
+}
+	
+#Minor brawl fennid Injured
+character_event = {
+	id = ancrel.1255
+	desc = EVTDESCancrel.1255	
+	
+	only_playable = yes
+	prisoner = no
+	
+	picture = GFX_evt_joust
+	trigger = {
+	 	has_character_flag = fian_band_visiting
+		NOT = {	has_character_flag = fian_recruited }
+		NOT = {	has_character_flag = fian_woman_seduced	}
+	}
+
+	mean_time_to_happen = {
+		days = 20
+	}	
+	
+	immediate = {
+		clr_character_flag = fian_band_visiting
+		clr_character_flag = fian_recruited	
+		clr_character_flag = fian_woman_seduced
+	}
+	
+	option = {
+		name = EVTOPTAancrel.1255 	# pay for their expenses, and send them on their way
+		scaled_wealth = -0.05
+		piety = 5
+		
+	}
+	option = {
+		name = EVTOPTBancrel.1255 #let them stay at the castle while recovering.
+		prestige = -5
+		piety = 5
+		if = {
+			limit = { NOT = { personality_traits = 5 } }
+			add_trait = just
+		}
+	}
+}	
+
+#One fennid distinguishes himself
+character_event = {
+	id = ancrel.1256
+	desc = EVTDESCancrel.1256	
+	
+	only_playable = yes
+	prisoner = no
+	
+	picture = GFX_evt_joust
+	
+	trigger =  {
+	 	has_character_flag = fian_band_visiting
+		NOT = {	has_character_flag = fian_recruited }
+		NOT = {	has_character_flag = fian_woman_seduced	}
+	}
+	immediate = {
+		set_character_flag = fian_recruited	
+	}
+
+	mean_time_to_happen = {
+		days = 100
+		modifier = {
+			factor = 0.5
+			trait = gregarious
+		}
+	}	
+	
+	option = {
+		name = EVTOPTAancrel.1256  #take him in your service.
+		create_character = {
+			random_traits = no
+			dynasty = random
+			female = no
+			age = 16
+			trait = brave
+			trait = ambitious
+			trait = humble
+			trait = fian
+			health = 10
+			attributes = {
+				martial = 10
+			}
+		}	
+		scaled_wealth = -0.1
+	}
+	option = {
+		name = EVTOPTBancrel.1256 #give him lavish praise.
+		prestige = 5
+	}
+}	
+
+#Male courtier insulted by fennid
+character_event = {
+	id = ancrel.1257
+	desc = EVTDESCancrel.1257	
+	
+	
+	only_playable = yes
+	prisoner = no
+	
+	picture = GFX_evt_joust
+	trigger = {
+	 	has_character_flag = fian_band_visiting
+	 	any_courtier = {
+	 		age = 16
+	 		is_female = no
+	 		OR = {
+	 			trait = cruel
+	 			trait = proud
+	 			trait = wroth
+	 			trait = zealous
+	 			trait = envious
+	 			prestige = 100
+	 		}
+	 	}
+	}	
+
+	mean_time_to_happen = {
+		days = 30
+		modifier = {
+			factor = 0.9
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 5
+			has_character_flag = fian_recruited	
+		}
+		
+		modifier = {
+			factor = 5
+			has_character_flag = fian_woman_seduced	
+		}		
+		
+	}	
+	option = {
+		name = EVTOPTAancrel.1257  #Throw them out.
+		clr_character_flag = fian_band_visiting
+		clr_character_flag = fian_recruited	
+		clr_character_flag = fian_woman_seduced
+		piety = -10 
+	}
+	option = {
+		name = EVTOPTBancrel.1257 #Ignore the complaints
+	 	random_courtier = {
+	 		limit = {
+	 			age = 16
+	 			is_female = no
+	 			OR = {
+		 			trait = cruel
+		 			trait = proud
+		 			trait = wroth
+		 			trait = zealous
+		 			trait = envious
+		 			prestige = 100
+		 		}
+		 	}
+			opinion = {
+				modifier = ruler_not_respect_rank
+				who = ROOT
+				months = 60
+			}
+	 	}		
+	}
+	
+}	
+
+#A young woman has been seduced by a fennid
+character_event = {
+	id = ancrel.1258
+	desc = EVTDESCancrel.1258	
+	
+	only_playable = yes
+	prisoner = no
+	
+	picture = GFX_evt_lovers
+	
+	trigger = {
+		has_lover = no
+	 	has_character_flag = fian_band_visiting
+		NOT = {	has_character_flag = fian_recruited }
+		NOT = {	has_character_flag = fian_woman_seduced	}
+		any_courtier = {
+	 		age = 16
+	 		not = { age = 20 }
+	 		is_female = yes	
+	 		is_married = no
+	 		is_pregnant = no
+			fertility = 0.3
+	 	}	 	
+	}	
+	
+	immediate = {
+		set_character_flag = fian_woman_seduced
+	}
+
+	mean_time_to_happen = {
+		days = 20
+		
+		modifier = {
+			factor = 5
+			has_character_flag = fian_recruited	
+		}		
+	}	
+	option = {
+		name = EVTOPTAancrel.1258 #stay
+ 		
+ 		
+		random_courtier = {
+	 		limit = {
+	 			age = 16
+	 			not = { age = 20 }
+	 			is_female = yes	
+	 			is_married = no
+	 			is_pregnant = no
+				has_lover = no
+	 		}
+	 		add_trait = lustful
+	 		create_character = {
+				random_traits = yes
+				dynasty = random
+				trait  = fian
+				fertility = 0.6
+				female = no
+				age = 24
+	 		}
+			new_character = {
+	 			impregnate = PREV
+	 			add_lover = PREV
+				add_trait = lustful
+	 		}
+	 	}
+	 	piety = -10
+	}
+	option = {
+		name = EVTOPTBancrel.1258 #dungeon
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 100
+				OR = {
+					trait = cruel
+					trait = zealous
+				 }
+			}
+		}
+		random_courtier = {
+	 		limit = {
+	 			age = 16
+	 			not = { age = 20 }
+	 			is_female = yes	
+	 			is_married = no
+	 			is_pregnant = no
+	 		}
+	 		add_trait = lustful
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				fertility = 0.6
+				trait = fian
+				female = no
+				age = 24
+	 		}
+			new_character = {
+	 			impregnate = PREV
+	 			add_lover = PREV
+				add_trait = lustful
+				imprison = root
+	 		}
+	 	}		
+	}
+}
+
+#Fian leaving
+character_event = {
+	id = ancrel.1259
+	desc = EVTDESCancrel.1259	
+	
+	only_playable = yes
+	prisoner = no
+	
+	trigger = {
+	 	has_character_flag = fian_band_visiting
+	}	
+	immediate = {
+		clr_character_flag = fian_band_visiting
+		clr_character_flag = fian_woman_seduced
+		clr_character_flag = fian_recruited	
+	}
+	
+	picture = GFX_evt_feast
+
+	mean_time_to_happen = {
+		days = 40
+		modifier = {
+			factor = 0.1
+			has_character_flag = fian_recruited	
+		}		
+	}	
+	option = {
+		name = EVTOPTAancrel.1259 #give them a farewell feast
+		prestige = 10
+		scaled_wealth = -0.05
+
+	}
+	option = {
+		name = EVTOPTBancrel.1259 #let them leave quitely
+		prestige = -5
+	}
+}
+
+#Marshal has arrested a fennid
+character_event = {
+	id = ancrel.1260
+	desc = EVTDESCancrel.1260	
+	
+	is_triggered_only = yes
+	
+	only_playable = yes
+	prisoner = no
+	
+	picture = GFX_evt_melee
+	
+	trigger = {
+		war = no
+		in_command = no
+		religion = catholic
+		NOT = { has_character_flag = fian_band_visiting }
+		any_courtier = {
+			has_job_title = job_marshal
+		}
+	}
+	
+	option = {
+		name = EVTOPTAancrel.1260  #order him released
+		job_marshal = {
+			opinion = {
+				modifier = marshal_overruled
+				who = ROOT
+			}
+		}
+		piety = 5
+		clr_character_flag = hates_fianna
+	}
+	option = {
+		name = EVTOPTBancrel.1260 #it is not my concern
+		job_marshal = {
+			prestige = 10
+		}
+		prestige = -5
+		set_character_flag = hates_fianna
+	}
+}	
+	
+# Ping event when donating money to the fianna
+character_event = {
+	id = ancrel.1333
+	desc = OK
+	picture = GFX_evt_throne_room_norse_pagan
+	border = GFX_event_normal_frame_religion
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		wealth = 300
+		FROM = {
+			letter_event = {
+				id = ancrel.1334
+			}
+		}
+		opinion = {
+			who = FROM
+			modifier = opinion_generous_donation
+		}
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Notification event when donating money to the fianna
+letter_event = {
+	id = ancrel.1334
+	desc = EVTDESCancrel.1334
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EXCELLENT
+	}
+}
