@@ -325,7 +325,7 @@ d_islamic = {
 	foa = "CALIPH_FOA"
 	short_name = yes
 	
-	religion=sunni
+	religion=islamic
 	
 	# Controls a religion
 	controls_religion = islamic
@@ -4246,7 +4246,7 @@ e_byzantium = {
 					turkish = "Konya"
 				}
 				b_lisdra = {
-					holy_site = egyptian_pagan
+					holy_site = kemetic_pagan
 				}
 				b_gaspadale = {
 				}
@@ -5012,6 +5012,8 @@ e_byzantium = {
 		culture = greek
 
 		title = "COMES_ORIENTIS"
+
+		aramean = "Syria"
 
 		christian = 2500
 		jewish = 10000
@@ -6119,7 +6121,7 @@ e_byzantium = {
 				b_sais = {
 				}
 				b_fuwa = {
-					holy_site = egyptian_pagan
+					holy_site = kemetic_pagan
 				}
 				b_xois = {
 				}
@@ -6220,7 +6222,7 @@ e_byzantium = {
 				b_fustat = {
 				}
 				b_memphis = {
-					holy_site = egyptian_pagan
+					holy_site = kemetic_pagan
 				}
 				b_helwan = {
 				}
@@ -6437,7 +6439,7 @@ e_byzantium = {
 				}
 				
 				b_luxor = {
-					holy_site = egyptian_pagan
+					holy_site = kemetic_pagan
 				}
 				
 				b_meir = {
@@ -12368,16 +12370,18 @@ e_arabia = {
 		
 		capital = 728 #	Damascus
 
-				nabatean = Nabatea
-				aramean = Jordan
+		nabatean = Nabatea
+		aramean = Jordan
+                adnanite = Jordan
+                khalan = Jordan
 		bedouin_arabic = Jordan
 		maghreb_arabic = Jordan
 		levantine_arabic = Jordan
 		egyptian_arabic = Jordan
 		andalusian_arabic = Jordan
-				ashkenazi = Transjordan
-				sephardi = Transjordan
-				hebrew = Transjordan
+		ashkenazi = Transjordan
+		sephardi = Transjordan
+		hebrew = Transjordan
 		
 		muslim = 25 # Crusade target weight
 		zoroastrian_group = 150 # Crusade target weight
@@ -14252,6 +14256,7 @@ e_persia = {
 		
 		capital = 685 # Kurdistan
 
+		aramean = "Urartu"
 		bedouin_arabic = "Tabaristan"
 		greek = "Rashta"
 		
@@ -14743,7 +14748,7 @@ e_persia = {
 			}
 		}
 		d_khuzestan = {
-			color={ 95 134 28 }
+			color={ 54 68 19 }
 			color2={ 255 255 255 }
 			
 			capital = 648 # Khozistan
@@ -15862,7 +15867,7 @@ e_persia = {
 	}
 
 	k_asoristan = {
-		color={ 151 224 24 }
+		color={ 105 157 16 }
 		color2={ 255 255 255 }
 		
 		capital = 693 # Baghdad
@@ -16312,7 +16317,7 @@ e_persia = {
 			}
 		}
 		d_beth_garmai = {
-			color={ 118 148 40 }
+			color={ 86 108 30 }
 			color2={ 255 255 255 }
 			
 			capital = 696 # Samarra
@@ -22001,6 +22006,7 @@ e_britannia = {
 		
 		culture = saxon
 
+                english = England
 		welsh = Lloegr
 		pictish = Lloegyr
 		breton = Lloegyr
@@ -25116,7 +25122,7 @@ e_africa = {
 				b_semmus = {
 				}
 				b_ssdis = {
-					holy_site = egyptian_pagan
+					holy_site = kemetic_pagan
 				}
 			}
 			c_tesaa = {
@@ -25730,7 +25736,7 @@ e_africa = {
 		east_african_pagan_reformed = 150
 
 		d_aceddis = {
-			color={ 45 255 3 }
+			color={ 31 184 184 }
 			color2={ 255 255 255 }
 			
 			capital = 1489 # Tecsi Aceddis
@@ -27050,12 +27056,20 @@ e_italy = {
 		hidden_tooltip = {
 								OR = {
 								ai = no
+                                                                AND = {
 								NOT = { culture = ostrogothic }
+                                                                NOT = { culture = skirian }
+                                                                NOT = { culture = romano_gothic }
+                                                                      }                                                                
 								AND = {
-				higher_tier_than = KING
-								culture = ostrogothic
+				                                higher_tier_than = KING
+                                                                OR = {
+                                                                culture = ostrogothic
+                                                                culture = skirian
+								culture = romano_gothic
 									  }
 									 }
+                                                                        }
 		}
 	}
 
@@ -27426,12 +27440,20 @@ e_italy = {
 		hidden_tooltip = {
 								OR = {
 								ai = no
+                                                                AND = {
 								NOT = { culture = ostrogothic }
+                                                                NOT = { culture = skirian }
+                                                                NOT = { culture = romano_gothic }
+                                                                      }                                                                
 								AND = {
-				higher_tier_than = KING
-								culture = ostrogothic
+				                                higher_tier_than = KING
+                                                                OR = {
+                                                                culture = ostrogothic
+                                                                culture = skirian
+								culture = romano_gothic
 									  }
 									 }
+                                                                        }
 		}
 	}
 
@@ -27441,6 +27463,27 @@ e_italy = {
 			color2={ 255 255 255 }
 			
 			capital = 449 # Osterreich
+
+	allow = { #Keeps the Ostrogoths from changing from k_italy
+		hidden_tooltip = {
+								OR = {
+								ai = no
+                                                                AND = {
+								NOT = { culture = ostrogothic }
+                                                                NOT = { culture = skirian }
+                                                                NOT = { culture = romano_gothic }
+                                                                      }                                                                
+								AND = {
+				                                higher_tier_than = DUKE
+                                                                OR = {
+                                                                culture = ostrogothic
+                                                                culture = skirian
+								culture = romano_gothic
+									  }
+									 }
+                                                                        }
+		}
+	}
 
 			c_osterreich = {
 				color={ 48 48 48 }
@@ -27513,6 +27556,27 @@ e_italy = {
 			color2={ 255 255 255 }
 			
 			capital = 463 
+
+	allow = { #Keeps the Ostrogoths from changing from k_italy
+		hidden_tooltip = {
+								OR = {
+								ai = no
+                                                                AND = {
+								NOT = { culture = ostrogothic }
+                                                                NOT = { culture = skirian }
+                                                                NOT = { culture = romano_gothic }
+                                                                      }                                                                
+								AND = {
+				                                higher_tier_than = DUKE
+                                                                OR = {
+                                                                culture = ostrogothic
+                                                                culture = skirian
+								culture = romano_gothic
+									  }
+									 }
+                                                                        }
+		}
+	}
 
 			c_vas = {
 				color={ 191 76 76 }
@@ -29697,6 +29761,17 @@ e_north_africa = {
 			
 			capital = 811 # Tripolitania
 		
+			c_aneb = {
+				color={ 48 255 6 }
+				color2={ 255 255 255 }
+			
+				b_aneb = {
+				}
+				b_yahenna = {
+				}
+				b_ssafay = {
+				}
+			}
 			c_tripolitana = {
 				color={ 45 192 107 }
 				color2={ 255 255 255 }
@@ -29782,17 +29857,6 @@ e_north_africa = {
 				b_qqenmmud = {
 				}
 				b_tassaf = {
-				}
-			}
-			c_aneb = {
-				color={ 48 255 6 }
-				color2={ 255 255 255 }
-			
-				b_aneb = {
-				}
-				b_yahenna = {
-				}
-				b_ssafay = {
 				}
 			}
 			c_gabes = {
@@ -37437,287 +37501,6 @@ e_deccan = {
 			}
 		}
 	}
-	k_tamilakam = {
-		color={ 200 25 65 }
-		color2={ 255 255 255 }
-	
-		capital = 1115 # Cholamandalam
-		
-		d_chola_nadu = {
-			color={ 140 65 65 }
-			color2={ 255 255 255 }
-			
-			capital = 1115 # Cholamandalam
-			
-			c_cholamandalam = {
-				color={ 140 45 65 }
-				color2={ 255 255 255 }
-				
-				b_tanjavur = {
-				}
-				b_uraiyur = {
-				}
-				b_nagapattinam = {
-				}
-				b_kannanur = {
-				}
-				b_gangaikondacolapuram = {
-				}
-				b_srirangam = {
-				}
-				b_tiruccirapalli = {
-				}
-				b_kumbhakarna = {
-				}
-			}
-			c_tagadur = {
-				color={ 140 65 45 }
-				color2={ 255 255 255 }
-				
-				b_tagadur = {
-				}
-				b_tiruvannamalai = {
-				}
-				b_satyamangalam = {
-				}
-				b_jinji  = {
-				}
-				b_tirukkovalur = {
-				}
-				b_padaividu = {
-				}
-				b_siyyamangalam = {
-				}
-			}
-		}
-		d_pandya_nadu = {
-			color={ 180 80 130 }
-			color2={ 255 255 255 }
-			
-			capital = 1112 # Madurai
-			
-			c_madurai = {
-				color={ 160 80 130 }
-				color2={ 255 255 255 }
-				
-				b_madurai = {
-				}
-				b_srivilliputtur = {
-				}
-				b_ramesvaram = {
-				}
-				b_kilakarai = {
-				}
-				b_ramnadhapuram = {
-				}
-				b_tiruparankunram = {
-				}
-				b_anaimalai = {
-				}
-			}
-			c_tirunelveli = {
-				color={ 180 60 130 }
-				color2={ 255 255 255 }
-				
-				b_tirunelveli = {
-				}
-				b_kayattar = {
-				}
-				b_korkai = {
-				}
-				b_kayal = {
-				}
-				b_kalugumalai = {
-				}
-				b_tiruvalisvaram = {
-				}
-			}
-			c_kongu = {
-				color={ 180 80 150 }
-				color2={ 255 255 255 }
-				
-				b_karavur = {
-				}
-				b_erode = {
-				}
-				b_perur = {
-				}
-				b_dharapuri = {
-				}
-				b_hemambika = {
-				}
-				b_sendamangalam = {
-				}
-				b_tiruppur = {
-				}
-				b_namakkal = {
-				}
-				b_sankagiri = {
-				}
-			}
-			c_tenkasi = {
-				color={ 180 100 130 }
-				color2={ 255 255 255 }
-				
-				b_tenkasi = {
-				}
-				b_dindigul = {
-				}
-				b_sankaranayinarkovil = {
-				}
-				b_palayamcottai = {
-				}
-				b_tirumalapuram = {
-				}
-				b_aivarmalai = {
-				}
-			}
-		}
-		d_chera_nadu = {
-			color={ 140 75 75 }
-			color2={ 255 255 255 }
-			
-			capital = 1114 # Mahoyadapuram
-			
-			c_mahoyadapuram = {
-				color={ 160 75 75 }
-				color2={ 255 255 255 }
-				
-				b_mahoyadapuram = {
-				}
-				b_udagai = {
-				}
-				b_kaladi = {
-				}
-				b_kunjakari = {
-				}
-				b_tripunittura = {
-				}
-				b_kaviyur = {
-				}
-				b_kadungallur = {
-				}
-			}
-			c_venadu = {
-				color={ 140 55 75 }
-				color2={ 255 255 255 }
-				
-				b_vizhinjam = {
-				}
-				b_kollam = {
-				}
-				b_kanya_kumari = {
-					holy_site = dravidian_pagan
-					holy_site = dravidian_pagan_reformed
-				}
-				b_anantasayanam = {
-				}
-				b_kandalur = {
-				}
-				b_nagercoil = {
-				}
-			}
-			c_qalqut = {
-				color={ 140 75 95 }
-				color2={ 255 255 255 }
-				
-				tamil = Kallikkottai 
-				
-				b_calicut = {
-					tamil = Kallikkottai 
-				}
-				b_nediyiruppu = {
-				}
-				b_kannur = {
-				}
-				b_urakam = {
-				}
-				b_vatakara = {
-				}
-				b_parappanangadi = {
-				}
-				b_chaliyam = {
-				}
-			}
-			c_kanara = {
-				color={ 150 65 65 }
-				color2={ 255 255 255 }
-				
-				b_udayavara = {
-				}
-				b_udupi = {
-				}
-				b_mangalur = {
-				}
-				b_dharmasthala = {
-				}
-				b_kasargod = {
-				}
-				b_kadarika = {
-				}
-			}
-			c_maldives = {
-				color={ 120 75 75 }
-				color2={ 255 255 255 }
-				
-				b_mahal = {
-				}
-				b_fuvahmulah = {
-				}
-				b_isdhoo = {
-				}
-				b_salliballu = {
-				}
-				b_dhanbidhoo = {
-				}
-				b_mundoo = {
-				}
-				b_gan = {
-				}
-			}
-		}
-		d_tondai_nadu = {
-			color={ 200 120 120 }
-			color2={ 255 255 255 }
-			
-			capital = 1119 # Kanchipuram
-			
-			c_kanchipuram = {
-				color={ 180 120 120 }
-				color2={ 255 255 255 }
-				
-				b_kanchipuram = {
-				}
-				b_uttaramerur = {
-				}
-				b_mailapur = {
-				}
-				b_rajagiri = {
-				}
-				b_koodalur = {
-				}
-				b_takkaloma = {
-				}
-				b_alampuravi = {
-				}
-			}
-			c_potapi = {
-				color={ 200 120 140 }
-				color2={ 255 255 255 }
-				
-				b_potapi = {
-				}
-				b_kaveripattinam = {
-				}
-				b_tirupati = {
-				}
-				b_melpadi = {
-				}
-				b_virincipuram = {
-				}
-			}
-		}
-	}
 	k_andhra = {
 		color={ 110 0 20 }
 		color2={ 220 220 20 }
@@ -38051,6 +37834,308 @@ e_deccan = {
 			}
 		}
 	}
+}
+
+e_tamil = {
+	color={ 0 97 133 }
+	color2={ 255 255 255 }
+	
+	capital = 1115 # Cholamandalam
+	
+	culture = tamil
+	
+	# Creation/Usurp Trigger
+        allow = {
+		hidden_tooltip = {
+			OR = {
+				ai = no
+				culture = tamil
+			}
+		}
+         }
+
+	k_tamilakam = {
+		color={ 0 60 82 }
+		color2={ 255 255 255 }
+	
+		capital = 1115 # Cholamandalam
+		
+		d_chola_nadu = {
+			color={ 140 65 65 }
+			color2={ 255 255 255 }
+			
+			capital = 1115 # Cholamandalam
+			
+			c_cholamandalam = {
+				color={ 140 45 65 }
+				color2={ 255 255 255 }
+				
+				b_tanjavur = {
+				}
+				b_uraiyur = {
+				}
+				b_nagapattinam = {
+				}
+				b_kannanur = {
+				}
+				b_gangaikondacolapuram = {
+				}
+				b_srirangam = {
+				}
+				b_tiruccirapalli = {
+				}
+				b_kumbhakarna = {
+				}
+			}
+			c_tagadur = {
+				color={ 140 65 45 }
+				color2={ 255 255 255 }
+				
+				b_tagadur = {
+				}
+				b_tiruvannamalai = {
+				}
+				b_satyamangalam = {
+				}
+				b_jinji  = {
+				}
+				b_tirukkovalur = {
+				}
+				b_padaividu = {
+				}
+				b_siyyamangalam = {
+				}
+			}
+		}
+		d_pandya_nadu = {
+			color={ 180 80 130 }
+			color2={ 255 255 255 }
+			
+			capital = 1112 # Madurai
+			
+			c_madurai = {
+				color={ 160 80 130 }
+				color2={ 255 255 255 }
+				
+				b_madurai = {
+				}
+				b_srivilliputtur = {
+				}
+				b_ramesvaram = {
+				}
+				b_kilakarai = {
+				}
+				b_ramnadhapuram = {
+				}
+				b_tiruparankunram = {
+				}
+				b_anaimalai = {
+				}
+			}
+			c_tirunelveli = {
+				color={ 180 60 130 }
+				color2={ 255 255 255 }
+				
+				b_tirunelveli = {
+				}
+				b_kayattar = {
+				}
+				b_korkai = {
+				}
+				b_kayal = {
+				}
+				b_kalugumalai = {
+				}
+				b_tiruvalisvaram = {
+				}
+			}
+			c_kongu = {
+				color={ 180 80 150 }
+				color2={ 255 255 255 }
+				
+				b_karavur = {
+				}
+				b_erode = {
+				}
+				b_perur = {
+				}
+				b_dharapuri = {
+				}
+				b_hemambika = {
+				}
+				b_sendamangalam = {
+				}
+				b_tiruppur = {
+				}
+				b_namakkal = {
+				}
+				b_sankagiri = {
+				}
+			}
+			c_tenkasi = {
+				color={ 180 100 130 }
+				color2={ 255 255 255 }
+				
+				b_tenkasi = {
+				}
+				b_dindigul = {
+				}
+				b_sankaranayinarkovil = {
+				}
+				b_palayamcottai = {
+				}
+				b_tirumalapuram = {
+				}
+				b_aivarmalai = {
+				}
+			}
+		}
+		d_chera_nadu = {
+			color={ 140 75 75 }
+			color2={ 255 255 255 }
+			
+			capital = 1114 # Mahoyadapuram
+			
+			c_mahoyadapuram = {
+				color={ 160 75 75 }
+				color2={ 255 255 255 }
+				
+				b_mahoyadapuram = {
+				}
+				b_udagai = {
+				}
+				b_kaladi = {
+				}
+				b_kunjakari = {
+				}
+				b_tripunittura = {
+				}
+				b_kaviyur = {
+				}
+				b_kadungallur = {
+				}
+			}
+			c_venadu = {
+				color={ 140 55 75 }
+				color2={ 255 255 255 }
+				
+				b_vizhinjam = {
+				}
+				b_kollam = {
+				}
+				b_kanya_kumari = {
+					holy_site = dravidian_pagan
+					holy_site = dravidian_pagan_reformed
+				}
+				b_anantasayanam = {
+				}
+				b_kandalur = {
+				}
+				b_nagercoil = {
+				}
+			}
+			c_qalqut = {
+				color={ 140 75 95 }
+				color2={ 255 255 255 }
+				
+				tamil = Kallikkottai 
+				
+				b_calicut = {
+					tamil = Kallikkottai 
+				}
+				b_nediyiruppu = {
+				}
+				b_kannur = {
+				}
+				b_urakam = {
+				}
+				b_vatakara = {
+				}
+				b_parappanangadi = {
+				}
+				b_chaliyam = {
+				}
+			}
+			c_kanara = {
+				color={ 150 65 65 }
+				color2={ 255 255 255 }
+				
+				b_udayavara = {
+				}
+				b_udupi = {
+				}
+				b_mangalur = {
+				}
+				b_dharmasthala = {
+				}
+				b_kasargod = {
+				}
+				b_kadarika = {
+				}
+			}
+			c_maldives = {
+				color={ 120 75 75 }
+				color2={ 255 255 255 }
+				
+				b_mahal = {
+				}
+				b_fuvahmulah = {
+				}
+				b_isdhoo = {
+				}
+				b_salliballu = {
+				}
+				b_dhanbidhoo = {
+				}
+				b_mundoo = {
+				}
+				b_gan = {
+				}
+			}
+		}
+		d_tondai_nadu = {
+			color={ 200 120 120 }
+			color2={ 255 255 255 }
+			
+			capital = 1119 # Kanchipuram
+			
+			c_kanchipuram = {
+				color={ 180 120 120 }
+				color2={ 255 255 255 }
+				
+				b_kanchipuram = {
+				}
+				b_uttaramerur = {
+				}
+				b_mailapur = {
+				}
+				b_rajagiri = {
+				}
+				b_koodalur = {
+				}
+				b_takkaloma = {
+				}
+				b_alampuravi = {
+				}
+			}
+			c_potapi = {
+				color={ 200 120 140 }
+				color2={ 255 255 255 }
+				
+				b_potapi = {
+				}
+				b_kaveripattinam = {
+				}
+				b_tirupati = {
+				}
+				b_melpadi = {
+				}
+				b_virincipuram = {
+				}
+			}
+		}
+	}
+
 	k_lanka = {
 		color = { 221 187 80 }
 		color2={ 255 255 255 }
@@ -38167,6 +38252,7 @@ e_deccan = {
 			}
 		}
 	}
+		
 }
 
 
