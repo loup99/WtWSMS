@@ -1,6 +1,6 @@
 #####################################
 #
-# Romance Conversion Events (somebody needed to start it.)
+# Romance (and now MORE!) Conversion Events (somebody needed to start it.)
 #
 #####################################
 
@@ -504,8 +504,55 @@ province_event = {
 		trigger = {
 			owner = { culture = irish }
 		}
-		culture = irish
+		culture = scottish
 		owner = { culture = scottish }
 	}
 }
 
+#Province changes from Armorican to Breton
+province_event = {
+	id = CELT.1100
+	desc = EVTDESC_CELT_1100
+	picture = GFX_evt_stone_church #Placeholder
+	border = GFX_event_normal_frame_diplomacy
+
+	trigger = {
+		culture = armorican
+		duchy = { title = d_brittany }
+		OR = {
+			owner = { culture = briton }
+			owner = { culture = romano_british }
+			owner = { culture = breton }
+		}
+	}
+	mean_time_to_happen = {
+		months = 180 #Again placeholder
+	}
+
+	option = {
+		name = EVTOPTA_CELT_1100
+		trigger = {
+			NOT = {
+				owner = { culture = breton }
+			}
+		}
+		culture = breton
+		owner = { culture = breton }
+	}
+	option = { 
+		name = EVTOPTB_CELT_1100
+		trigger = {
+			owner = { culture = breton }
+		}
+		culture = breton
+	}
+	option = { 
+		name = EVTOPTC_CELT_1100
+		trigger = {
+			NOT = {
+				owner = { culture = breton }
+			}
+		}
+		culture = breton
+	}
+}
