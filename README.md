@@ -30,5 +30,5 @@ As we now use GitHub and is a relatively large team, some guidelines are needed.
 - Before making any new commit to master, please check your code (either by using the [Validator](http://forum.paradoxplaza.com/forum/showthread.php?597480-The-Validator-Find-errors-quickly-and-with-minimal-pain!/page75), or reading it through) in order to avoid any issues.
 - If you are doing any change to the mod (major or minor), please add a mention to it in [ChangeLog.txt](ChangeLog.txt), in order for us to easier make public releases and keep track of changes. 
 It is better to have a too full changelog rather than a one that is incomplete. 
-- Also, if you are about to make a commit, please check the issues and reference your commit to an appropriate one if existing, for example for any change to the legions use [#16](https://github.com/rickinator9/WTWSMS/issues/16) which stands for that legion. 
+- Also, if you are about to make a commit, please check the issues and reference your commit to an appropriate one if existing, for example for any change to the legions, use [#16](https://github.com/rickinator9/WTWSMS/issues/16) which stands for that issue concerning the legions. 
 This highly facilitates the usage of those issues as discussions and archives allowing us keeping track of different commits.
