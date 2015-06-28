@@ -1,6 +1,6 @@
 #When the World Stopped Making Sense
 
-A Dark Ages mod for CK2! 
+> A Dark Ages mod for CK2! 
 
 Allows you to play from 476 (Fall of Western Roman Empire) to 1453 (Fall of Eastern Roman Empire). 
 Bookmarks will feature the 476-700 period, with possible extensions. 
