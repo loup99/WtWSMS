@@ -1,11 +1,15 @@
 #When the World Stopped Making Sense
 
-> A Dark Ages mod for CK2! 
+> A Dark Ages mod for Crusader Kings 2 ! 
 
-Allows you to play from 476 (Fall of Western Roman Empire) to 1453 (Fall of Eastern Roman Empire). 
+Allows to play from 476 (Fall of the Western Roman Empire) to 1453 (Fall of the Eastern Roman Empire).
+
 Bookmarks will feature the 476-700 period, with possible extensions. 
 Some added bookmarks are Shattered Empire (480), The Gothic Wars (535) and Frankish steel (486). 
 Flavour, historical setup and accurate gameplay mechanics for the period are of course also featured.
+
+For more info, check the [WtWSMS wiki page](http://www.ckiiwiki.com/When_The_World_Stopped_Making_Sense).
+
 
 ### Players & Followers
 
