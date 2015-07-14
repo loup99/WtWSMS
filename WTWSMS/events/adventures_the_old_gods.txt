@@ -13,7 +13,7 @@ namespace = TOG
 # An ambitious landless claimant begins to plan an adventure for the title
 character_event = {
 	id = TOG.1200
-	desc = OK
+	desc = OK
 	picture = GFX_evt_crusaders
 	border = GFX_event_normal_frame_war
 	
@@ -30,17 +30,17 @@ character_event = {
 		
 		is_ruler = no
 		
-		year = 867
+#		year = 867
 		
 		any_claim = {
 			has_holder = yes
 			holder_scope = {
 				independent = yes # Only do this vs independent rulers
 				OR = {
-						# Don't target my liege unless I am ambitious
-						NOT = { is_vassal_or_below = ROOT }
-						ROOT = { trait = ambitious }
-					}
+					# Don't target my liege unless I am ambitious
+					NOT = { is_vassal_or_below = ROOT }
+					ROOT = { trait = ambitious }
+				}
 				OR = {
 					is_merchant_republic = no
 					NOT = {
@@ -174,7 +174,17 @@ character_event = {
 					days = 730
 				}
 			}
+			
+			if = {
+				limit = {
+					holder_scope = {
+						is_vassal_or_below = ROOT
+					}
+				}
+				ROOT = { banish = yes } # Can't prepare for the attack from within the realm
+			}
 		}
+		
 		if = {
 			limit = { trait = in_hiding	}
 			remove_trait = in_hiding
@@ -185,7 +195,9 @@ character_event = {
 			}
 			hidden_tooltip = { character_event = { id = CM.6400 } } # Notify plotters and family
 		}
+		
 		set_character_flag = do_not_disturb
+		
 		character_event = { id = TOG.1215 days = 730 }
 	}
 	
@@ -196,7 +208,7 @@ character_event = {
 
 character_event = {
 	id = TOG.1201
-	desc = EVTDESC_TOG_1201
+	desc = EVTDESC_TOG_1201
 	picture = GFX_evt_crusaders
 	border = GFX_event_normal_frame_war
 	
@@ -218,7 +230,7 @@ character_event = {
 # An ambitious landless claimant starts an adventure for the title
 character_event = {
 	id = TOG.1202
-	desc = OK
+	desc = OK
 	picture = GFX_evt_crusaders
 	border = GFX_event_normal_frame_war
 	hide_window = yes # Only fires for unplayable landless characters
@@ -234,6 +246,17 @@ character_event = {
 			has_holder = yes
 			holder_scope = {
 				independent = yes # Only do this vs independent rulers
+				NAND = {
+					government = nomadic_government
+					OR = {
+						clan_title = {
+							title = PREVPREV
+						}
+						primary_title = {
+							title = PREVPREV
+						}
+					}
+				}
 				reverse_has_opinion_modifier = {
 					who = ROOT
 					modifier = opinion_claimant_adventure_target
@@ -327,7 +350,7 @@ character_event = {
 											province = PREVPREVPREVPREV
 											home = PREVPREVPREVPREV
 											owner = THIS
-											leader = THIS
+											#leader = THIS
 											match_character = PREV
 											match_mult = 0.125
 											match_min = 300
@@ -396,7 +419,7 @@ character_event = {
 											province = PREVPREVPREVPREV
 											home = PREVPREVPREVPREV
 											owner = THIS
-											leader = THIS
+											#leader = THIS
 											match_character = PREV
 											match_mult = 0.1
 											match_min = 300
@@ -465,7 +488,7 @@ character_event = {
 											province = PREVPREVPREVPREV
 											home = PREVPREVPREVPREV
 											owner = THIS
-											leader = THIS
+											#leader = THIS
 											match_character = PREV
 											match_mult = 0.075
 											match_min = 300
@@ -596,6 +619,17 @@ character_event = {
 				has_holder = yes
 				holder_scope = {
 					independent = yes # Only do this vs independent rulers
+					NAND = {
+						government = nomadic_government
+						OR = {
+							clan_title = {
+								title = PREVPREV
+							}
+							primary_title = {
+								title = PREVPREV
+							}
+						}
+					}
 					reverse_has_opinion_modifier = {
 						who = ROOT
 						modifier = opinion_claimant_adventure_target
@@ -643,7 +677,7 @@ character_event = {
 
 character_event = {
 	id = TOG.1203
-	desc = EVTDESC_TOG_1203
+	desc = EVTDESC_TOG_1203
 	picture = GFX_evt_crusaders
 	border = GFX_event_normal_frame_war
 	
@@ -654,11 +688,14 @@ character_event = {
 	}
 	
 	immediate = {
-			any_liege = {
-				character_event = {
-					id = TOG.1204
-				}
+		FROM = {
+			add_trait = adventurer
+		}
+		any_liege = {
+			character_event = {
+				id = TOG.1204
 			}
+		}
 	}
 	
 	option = {
@@ -668,7 +705,7 @@ character_event = {
 
 character_event = {
 	id = TOG.1204
-	desc = EVTDESC_TOG_1204
+	desc = EVTDESC_TOG_1204
 	picture = GFX_evt_crusaders
 	border = GFX_event_normal_frame_war
 	
@@ -684,7 +721,7 @@ character_event = {
 # An ambitious character with no inheritance begins to plan an adventure for a foreign title
 character_event = {
 	id = TOG.1210
-	desc = OK
+	desc = OK
 	picture = GFX_evt_crusaders
 	border = GFX_event_normal_frame_war
 	
@@ -701,7 +738,7 @@ character_event = {
 		
 		is_ruler = no
 		
-		year = 867
+#		year = 867
 		
 		diplomacy = 7
 		martial = 9
@@ -784,6 +821,11 @@ character_event = {
 	
 	mean_time_to_happen = {
 		years = 100
+		modifier = {
+			factor = 4
+			has_dlc = "Horse Lords"
+			is_allowed_to_loot = yes
+		}
 		modifier = {
 			factor = 0.5
 			trait = ambitious
@@ -884,9 +926,7 @@ character_event = {
 						}
 					}
 					NOT = {
-						empire = {
-							title = e_scandinavia
-						}
+						region = world_europe_north
 					}
 					NOT = {
 						duchy = {
@@ -919,9 +959,7 @@ character_event = {
 						}
 					}
 					NOT = {
-						empire = {
-							title = e_scandinavia
-						}
+						region = world_europe_north
 					}
 					NOT = {
 						duchy = {
@@ -974,7 +1012,7 @@ character_event = {
 
 character_event = {
 	id = TOG.1211
-	desc = EVTDESC_TOG_1211
+	desc = EVTDESC_TOG_1211
 	picture = GFX_evt_crusaders
 	border = GFX_event_normal_frame_war
 	
@@ -997,7 +1035,7 @@ character_event = {
 # (Temporary title created and a war declared)
 character_event = {
 	id = TOG.1212
-	desc = OK
+	desc = OK
 	picture = GFX_evt_crusaders
 	border = GFX_event_normal_frame_war
 	
@@ -1039,9 +1077,7 @@ character_event = {
 					}
 				}
 				NOT = {
-					empire = {
-						title = e_scandinavia
-					}
+					region = world_europe_north
 				}
 				NOT = {
 					duchy = {
@@ -1091,9 +1127,7 @@ character_event = {
 								}
 							}
 							NOT = {
-								empire = {
-									title = e_scandinavia
-								}
+								region = world_europe_north
 							}
 							NOT = {
 								duchy = {
@@ -1123,9 +1157,7 @@ character_event = {
 								}
 							}
 							NOT = {
-								empire = {
-									title = e_scandinavia
-								}
+								region = world_europe_north
 							}
 							NOT = {
 								duchy = {
@@ -1151,7 +1183,7 @@ character_event = {
 								province = PREVPREVPREV
 								home = PREVPREVPREV
 								owner = THIS
-								leader = THIS
+								#leader = THIS
 								match_character = PREVPREV
 								match_mult = 0.125
 								match_min = 500
@@ -1238,7 +1270,7 @@ character_event = {
 
 character_event = {
 	id = TOG.1213
-	desc = EVTDESC_TOG_1213
+	desc = EVTDESC_TOG_1213
 	picture = GFX_evt_crusaders
 	border = GFX_event_normal_frame_war
 	
@@ -1249,6 +1281,9 @@ character_event = {
 	}
 	
 	immediate = {
+		FROM = {
+			add_trait = adventurer
+		}
 		any_liege = {
 			character_event = {
 				id = TOG.1214
@@ -1263,7 +1298,7 @@ character_event = {
 
 character_event = {
 	id = TOG.1214
-	desc = EVTDESC_TOG_1214
+	desc = EVTDESC_TOG_1214
 	picture = GFX_evt_crusaders
 	border = GFX_event_normal_frame_war
 	

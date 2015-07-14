@@ -10,7 +10,7 @@ namespace = SoA
 # Third Temple Construction Begun
 character_event = {
 	id = SoA.100
-	desc = EVTDESC_SoA_100
+	desc = EVTDESC_SoA_100
 	picture = GFX_evt_castle_construction
 	border = GFX_event_normal_frame_religion
 	
@@ -41,7 +41,7 @@ province_event = {
 narrative_event = {
 	id = SoA.101
 	title = EVTNAME_SoA_101
-	desc = EVTDESC_SoA_101
+	desc = EVTDESC_SoA_101
 	picture = GFX_evt_jerusalem_captured_jews
 	border = GFX_event_narrative_frame_religion
 	major = yes
@@ -69,7 +69,7 @@ narrative_event = {
 narrative_event = {
 	id = SoA.102
 	title = EVTNAME_SoA_102
-	desc = EVTDESC_SoA_102
+	desc = EVTDESC_SoA_102
 	picture = GFX_evt_jerusalem_captured_jews
 	border = GFX_event_narrative_frame_religion
 	
@@ -95,7 +95,7 @@ narrative_event = {
 # Jews Expelled
 character_event = {
 	id = SoA.105
-	desc = EVTDESC_SoA_105
+	desc = EVTDESC_SoA_105
 	picture = GFX_evt_jewish_market
 	border = GFX_event_normal_frame_religion
 	
@@ -125,7 +125,7 @@ character_event = {
 # Jews Welcomed Back
 character_event = {
 	id = SoA.106
-	desc = EVTDESC_SoA_106
+	desc = EVTDESC_SoA_106
 	picture = GFX_evt_jewish_market
 	border = GFX_event_normal_frame_religion
 	
@@ -145,10 +145,44 @@ character_event = {
 	}
 }
 
+# Jews Welcomed Back due to ruler now being Jewish!
+character_event = {
+	id = SoA.566
+	desc = EVTDESC_SoA_566
+	picture = GFX_evt_jewish_market
+	border = GFX_event_normal_frame_religion
+	
+	trigger = {
+		has_dlc = "Sons of Abraham"
+		independent = yes
+		religion_group = jewish_group
+		has_character_modifier = expelled_jewish
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = EVTOPTA_SoA_566
+		prestige = 50
+		remove_character_modifier = expelled_jewish
+		custom_tooltip = {
+			text = jews_are_welcome
+		}
+		hidden_tooltip = {
+			any_realm_lord = {
+				limit = { ai = no }
+				character_event = { id = SoA.108 }
+			}
+		}
+	}
+}
+
 # Jews Expelled (Notifier for Vassals)
 character_event = {
 	id = SoA.107
-	desc = EVTDESC_SoA_107
+	desc = EVTDESC_SoA_107
 	picture = GFX_evt_jewish_market
 	border = GFX_event_normal_frame_religion
 	
@@ -172,7 +206,7 @@ character_event = {
 # Jews Welcomed Back (Notifier for Vassals)
 character_event = {
 	id = SoA.108
-	desc = EVTDESC_SoA_108
+	desc = EVTDESC_SoA_108
 	picture = GFX_evt_jewish_market
 	border = GFX_event_normal_frame_religion
 	
@@ -188,7 +222,7 @@ character_event = {
 # Jewish Diplomat Appears at Court (Ashkenazi)
 character_event = {
 	id = SoA.200
-	desc = EVTDESC_SoA_200
+	desc = EVTDESC_SoA_200
 	picture = GFX_evt_emissary
 	border = GFX_event_normal_frame_religion
 	
@@ -209,11 +243,11 @@ character_event = {
 		}
 		NOT = { 
 			capital_scope = {
-				empire = { title = e_spain }
+				region = world_europe_west_iberia
 			}
-			has_character_modifier = expelled_jewish
-			trait = incapable
 		}
+		NOT = { has_character_modifier = expelled_jewish }
+		NOT = { trait = incapable }
 	}
 	
 	mean_time_to_happen = {
@@ -241,7 +275,7 @@ character_event = {
 # Jewish Administrator Appears at Court (Ashkenazi)
 character_event = {
 	id = SoA.201
-	desc = EVTDESC_SoA_201
+	desc = EVTDESC_SoA_201
 	picture = GFX_evt_emissary
 	border = GFX_event_normal_frame_religion
 	
@@ -262,11 +296,11 @@ character_event = {
 		}	
 		NOT = { 
 			capital_scope = {
-				empire = { title = e_spain }
+				region = world_europe_west_iberia
 			}
-			has_character_modifier = expelled_jewish
-			trait = incapable
 		}
+		NOT = { has_character_modifier = expelled_jewish }
+		NOT = { trait = incapable }
 	}
 	
 	mean_time_to_happen = {
@@ -294,7 +328,7 @@ character_event = {
 # Jewish Spy Appears at Court (Ashkenazi)
 character_event = {
 	id = SoA.202
-	desc = EVTDESC_SoA_202
+	desc = EVTDESC_SoA_202
 	picture = GFX_evt_emissary
 	border = GFX_event_normal_frame_religion
 	
@@ -315,11 +349,11 @@ character_event = {
 		}
 		NOT = { 
 			capital_scope = {
-				empire = { title = e_spain }
+				region = world_europe_west_iberia
 			}
-			has_character_modifier = expelled_jewish
-			trait = incapable
 		}
+		NOT = { has_character_modifier = expelled_jewish }
+		NOT = { trait = incapable }
 	}
 	
 	mean_time_to_happen = {
@@ -347,7 +381,7 @@ character_event = {
 # Jewish Diplomat Appears at Court (Sephardi)
 character_event = {
 	id = SoA.203
-	desc = EVTDESC_SoA_200
+	desc = EVTDESC_SoA_200
 	picture = GFX_evt_emissary
 	border = GFX_event_normal_frame_religion
 	
@@ -360,7 +394,7 @@ character_event = {
 		has_dlc = "Sons of Abraham"
 		independent = yes
 		capital_scope = {
-			empire = { title = e_spain }
+			region = world_europe_west_iberia
 		}
 		OR = {
 			religion_group = christian
@@ -399,7 +433,7 @@ character_event = {
 # Jewish Administrator Appears at Court (Sephardi)
 character_event = {
 	id = SoA.204
-	desc = EVTDESC_SoA_201
+	desc = EVTDESC_SoA_201
 	picture = GFX_evt_emissary
 	border = GFX_event_normal_frame_religion
 	
@@ -412,7 +446,7 @@ character_event = {
 		has_dlc = "Sons of Abraham"
 		independent = yes
 		capital_scope = {
-			empire = { title = e_spain }
+			region = world_europe_west_iberia
 		}
 		OR = {
 			religion_group = christian
@@ -451,7 +485,7 @@ character_event = {
 # Jewish Spy Appears at Court (Sephardi)
 character_event = {
 	id = SoA.205
-	desc = EVTDESC_SoA_202
+	desc = EVTDESC_SoA_202
 	picture = GFX_evt_emissary
 	border = GFX_event_normal_frame_religion
 	
@@ -464,7 +498,7 @@ character_event = {
 		has_dlc = "Sons of Abraham"
 		independent = yes
 		capital_scope = {
-			empire = { title = e_spain }
+			region = world_europe_west_iberia
 		}
 		OR = {
 			religion_group = christian
@@ -505,7 +539,7 @@ character_event = {
 # Loss of economic tech
 character_event = {
 	id = SoA.300
-	desc = EVTDESC_SoA_300
+	desc = EVTDESC_SoA_300
 	picture = GFX_evt_bad_news
 	border = GFX_event_normal_frame_religion
 	
@@ -526,7 +560,7 @@ character_event = {
 # Loss of cultural tech
 character_event = {
 	id = SoA.301
-	desc = EVTDESC_SoA_301
+	desc = EVTDESC_SoA_301
 	picture = GFX_evt_bad_news
 	border = GFX_event_normal_frame_religion
 	
@@ -547,7 +581,7 @@ character_event = {
 # Loss of military tech
 character_event = {
 	id = SoA.302
-	desc = EVTDESC_SoA_302
+	desc = EVTDESC_SoA_302
 	picture = GFX_evt_bad_news
 	border = GFX_event_normal_frame_religion
 	
@@ -570,7 +604,7 @@ character_event = {
 # Invitation Sent
 character_event = {
 	id = SoA.500
-	desc = EVTDESC_SoA_500
+	desc = EVTDESC_SoA_500
 	picture = GFX_evt_synagogue
 	border = GFX_event_normal_frame_religion
 	
@@ -599,7 +633,7 @@ character_event = {
 # Invitation Received
 character_event = {
 	id = SoA.501
-	desc = EVTDESC_SoA_501
+	desc = EVTDESC_SoA_501
 	picture = GFX_evt_synagogue
 	border = GFX_event_normal_frame_religion
 	
@@ -656,7 +690,7 @@ character_event = {
 # Invitation Refused
 character_event = {
 	id = SoA.502
-	desc = EVTDESC_SoA_502
+	desc = EVTDESC_SoA_502
 	picture = GFX_evt_synagogue
 	border = GFX_event_normal_frame_religion
 	
@@ -674,7 +708,7 @@ character_event = {
 # Passover Sedar Begins
 character_event = {
 	id = SoA.503
-	desc = EVTDESC_SoA_503
+	desc = EVTDESC_SoA_503
 	picture = GFX_evt_synagogue
 	border = GFX_event_normal_frame_religion
 	
@@ -690,7 +724,7 @@ character_event = {
 # Passover Sedar Ends (Host)
 character_event = {
 	id = SoA.504
-	desc = EVTDESC_SoA_504
+	desc = EVTDESC_SoA_504
 	picture = GFX_evt_synagogue
 	border = GFX_event_normal_frame_religion
 	
@@ -728,7 +762,7 @@ character_event = {
 # Passover Sedar Ends (Guest)
 character_event = {
 	id = SoA.505
-	desc = EVTDESC_SoA_505
+	desc = EVTDESC_SoA_505
 	picture = GFX_evt_synagogue
 	border = GFX_event_normal_frame_religion
 	
@@ -745,7 +779,7 @@ character_event = {
 narrative_event = {
 	id = SoA.550
 	title = EVTNAME_SoA_550
-	desc = EVTDESC_SoA_550
+	desc = EVTDESC_SoA_550
 	picture = GFX_evt_synagogue
 	border = GFX_event_narrative_frame_religion
 	
@@ -816,7 +850,7 @@ character_event = {
 # Chancellor
 character_event = {
 	id = SoA.561
-	desc = EVTDESC_SoA_561
+	desc = EVTDESC_SoA_561
 	picture = GFX_evt_jewish_market
 	border = GFX_event_normal_frame_religion
 	
@@ -866,7 +900,7 @@ character_event = {
 # Steward
 character_event = {
 	id = SoA.563
-	desc = EVTDESC_SoA_563
+	desc = EVTDESC_SoA_563
 	picture = GFX_evt_jewish_market
 	border = GFX_event_normal_frame_religion
 	
@@ -916,7 +950,7 @@ character_event = {
 # Spymaster
 character_event = {
 	id = SoA.565
-	desc = EVTDESC_SoA_565
+	desc = EVTDESC_SoA_565
 	picture = GFX_evt_jewish_market
 	border = GFX_event_normal_frame_religion
 	
