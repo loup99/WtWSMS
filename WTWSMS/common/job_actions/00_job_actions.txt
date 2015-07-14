@@ -14,6 +14,11 @@ action_improve_relations = {
 		any_province_lord = {
 			NOT = { character = FROM }
 			is_theocracy = no
+			FROM = {
+				job_chancellor = {
+					NOT = { character = PREVPREV } # Can't be sent to improve relations with himself...
+				}
+			}
 		}
 		is_within_diplo_range = FROM
 	}
@@ -21,12 +26,52 @@ action_improve_relations = {
 	events = { 910 911 }
 }
 
+action_clan_sentiment = {
+	attribute = diplomacy
+	
+	potential = {
+		FROM = {
+			is_nomadic = yes
+		}
+	}
+	
+	trigger = {
+		owner = {
+			is_nomadic = yes
+			NOT = { character = FROM }
+
+			FROM = {
+				job_chancellor = {
+					NOT = { character = PREVPREV } # Can't be sent to improve relations with himself...
+				}
+			}
+			
+			OR = {
+				vassal_of = FROM
+				same_liege = FROM
+				overlord_of = FROM
+			}
+		}
+	}
+	
+	events = { 20235 }
+}
+
 action_fabricate_claims = {
 	attribute = diplomacy
+	
+	potential = {
+		FROM = { is_nomadic = no }
+	}
 	
 	trigger = {
 		any_province_lord = {
 			NOT = { character = FROM }
+			FROM = {
+				job_chancellor = {
+					NOT = { character = PREVPREV } # Can't be sent to improve relations with himself...
+				}
+			}
 		}
 		is_within_diplo_range = FROM
 	}
@@ -55,6 +100,7 @@ action_squeeze_peasants = {
 	potential = {
 		FROM = {
 			is_tribal = no
+			is_nomadic = no
 		}
 	}
 
@@ -67,6 +113,39 @@ action_squeeze_peasants = {
 	local_tax_modifier = 0.025
 	
 	events = { 920 921 }
+}
+
+action_collect_tribute = {
+	attribute = stewardship
+
+	potential = {
+		FROM = {
+			is_nomadic = yes
+		}
+	}
+
+	trigger = {
+		num_of_settlements = 1
+		any_province_lord = {
+			NOT = { character = FROM }
+			
+			FROM = {
+				job_treasurer = {
+					NOT = { character = PREVPREV } # Can't be sent to himself...
+				}
+			}
+			
+			OR = {
+				vassal_of = FROM
+				pays_tribute_to = FROM
+			}
+			capital_scope = {
+				province = ROOT
+			}
+		}
+	}
+	
+	events = { 20225 }
 }
 
 action_settle_tribe = {
@@ -115,6 +194,7 @@ action_advance_eco_tech = {
 		any_province_lord = {
 			character = FROM
 		}
+		technology_can_spread = yes
 	}
 	
 	tech_growth_modifier_economy = 0.05
@@ -206,6 +286,7 @@ action_advance_mil_tech = {
 		any_province_lord = {
 			character = FROM
 		}
+		technology_can_spread = yes
 	}
 	
 	tech_growth_modifier_military = 0.05
@@ -235,6 +316,12 @@ action_organize_raid = {
 
 action_train_troops = {
 	attribute = martial
+	
+	potential = {
+		FROM = {
+			is_nomadic = no
+		}
+	}
 
 	trigger = {
 		any_province_lord = {
@@ -246,6 +333,26 @@ action_train_troops = {
 	levy_reinforce_rate = 0.05
 	
 	events = { 941 942 }
+}
+
+action_train_troops_nomadic = {
+	attribute = martial
+	
+	potential = {
+		FROM = {
+			is_nomadic = yes
+		}
+	}
+
+	trigger = {
+		FROM = {
+			is_capital = ROOT
+		}
+	}
+	
+	manpower_growth = 0.015
+	
+	events = { }
 }
 
 action_assist_arrest = {
@@ -271,6 +378,7 @@ action_inquisition = {
 	attribute = learning
 	
 	trigger = {
+		num_of_settlements = 1
 		OR = {
 			owner = {
 				FROM = { NOT = { religion_group = pagan_group } }
@@ -323,6 +431,11 @@ action_improve_rel_relations = {
 		any_province_lord = {
 			religion = FROM
 			is_theocracy = yes
+			FROM = {
+				job_spiritual = {
+					NOT = { character = PREVPREV } # Can't be sent to improve relations with himself...
+				}
+			}
 		}
 		is_within_diplo_range = FROM
 	}
@@ -346,6 +459,7 @@ action_advance_cul_tech = {
 				is_liege_or_above = FROM
 			}
 		}
+		technology_can_spread = yes
 	}
 	
 	tech_growth_modifier_culture = 0.05

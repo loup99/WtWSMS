@@ -315,7 +315,6 @@ christian = {
 		can_excommunicate = yes
 		can_grant_divorce = yes
 		can_grant_invasion_cb = invasion
-		can_grant_claim = yes
 		can_call_crusade = no
 		priests_can_inherit = no
 		
@@ -655,7 +654,6 @@ christian = {
 		can_retire_to_monastery = yes
 		feminist = yes
 		female_temple_holders = yes
-		can_hold_temples = yes
 		can_excommunicate = yes
 		can_grant_divorce = yes
 		can_grant_invasion_cb = invasion
@@ -835,7 +833,6 @@ christian = {
 		can_excommunicate = yes
 		can_grant_divorce = yes
 		can_grant_invasion_cb = invasion
-		can_grant_claim = yes
 		can_call_crusade = no
 		can_retire_to_monastery = yes
 		priests_can_inherit = no
@@ -972,7 +969,6 @@ christian = {
 		can_excommunicate = yes
 		can_grant_divorce = yes
 		can_grant_invasion_cb = invasion
-		can_grant_claim = yes
 		can_call_crusade = no
 		can_retire_to_monastery = yes
 		priests_can_inherit = no
@@ -1015,7 +1011,6 @@ christian = {
 		can_excommunicate = yes
 		can_grant_divorce = yes
 		can_grant_invasion_cb = invasion
-		can_grant_claim = yes
 		can_call_crusade = no
 		can_retire_to_monastery = yes
 		priests_can_inherit = no
@@ -1039,7 +1034,6 @@ christian = {
 		can_excommunicate = yes
 		can_grant_divorce = yes
 		can_grant_invasion_cb = invasion
-		can_grant_claim = yes
 		can_call_crusade = no
 		can_retire_to_monastery = yes
 		priests_can_inherit = no
@@ -1068,7 +1062,6 @@ christian = {
 		can_excommunicate = yes
 		can_grant_divorce = yes
 		can_grant_invasion_cb = invasion
-		can_grant_claim = yes
 		can_call_crusade = no
 		can_retire_to_monastery = yes
 		priests_can_inherit = no
@@ -1079,7 +1072,7 @@ christian = {
 	
 	nestorian = {
 		graphical_culture = westerngfx
-		
+
 		icon = 46
 		heresy_icon = 47
 		
@@ -1108,7 +1101,6 @@ christian = {
 		can_excommunicate = yes
 		can_grant_divorce = yes
 		can_grant_invasion_cb = invasion
-		can_grant_claim = yes
 		can_call_crusade = no
 		priests_can_inherit = no
 		
@@ -1164,6 +1156,7 @@ muslim = {
 	
 	ai_convert_same_group = 2 # always try to convert
 	ai_convert_other_group = 1 # try to convert if ai_zeal is high
+	ai_fabricate_claims = no
 	
 	# Names given only to Muslim characters (base names)
 	male_names = {
@@ -1192,12 +1185,14 @@ muslim = {
 		can_grant_claim = yes
 		can_call_crusade = yes
 		priests_can_marry = yes
-		can_hold_temples = yes
 		psc_marriage = no # Disallow uncle-nice and aunt-nephew marriages
 		max_wives = 4
 		matrilineal_marriages = no
 
 		landed_kin_prestige_bonus = yes
+		attacking_same_religion_piety_loss = yes
+		uses_decadence = yes
+		uses_jizya_tax = yes
 	}
 	
 	sunni = {
@@ -1222,15 +1217,16 @@ muslim = {
 			IBLIS SHAYTAN
 		}
 		
-		can_grant_claim = yes
 		can_call_crusade = yes
 		priests_can_marry = yes
-		can_hold_temples = yes
 		psc_marriage = no # Disallow uncle-nice and aunt-nephew marriages
 		max_wives = 4
 		matrilineal_marriages = no
-
+		
 		landed_kin_prestige_bonus = yes
+		attacking_same_religion_piety_loss = yes
+		uses_decadence = yes
+		uses_jizya_tax = yes
 	}
 	zikri = {
 		graphical_culture = muslimgfx
@@ -1244,12 +1240,14 @@ muslim = {
 		crusade_name = JIHAD
 
 		priests_can_marry = yes
-		can_hold_temples = yes
 		psc_marriage = no
 		max_wives = 4
 		matrilineal_marriages = no
-
+		
 		landed_kin_prestige_bonus = yes
+		attacking_same_religion_piety_loss = yes
+		uses_decadence = yes
+		uses_jizya_tax = yes
 	}
 	yazidi = {
 		graphical_culture = muslimgfx
@@ -1259,10 +1257,12 @@ muslim = {
 		
 		color = { 0.2 0.2 0.7 }
 		
-		crusade_name = GREAT_HOLY_WAR
+		crusade_name = JIHAD
 		scripture_name = THE_BOOK_OF_ILLUMINATION
 		priest_title = SHEIKH_PRIEST
+		
 		high_god_name = GOD_SHAYTAN
+		
 		god_names = {
 			GOD_THE_PEACOCK_ANGEL GOD_TAWUSE_MELEK GOD_SHAYTAN
 		}
@@ -1273,12 +1273,15 @@ muslim = {
 		
 		parent = sunni
 		priests_can_marry = yes
-		can_hold_temples = yes
 		can_excommunicate = yes
+		can_call_crusade = yes
 		max_wives = 4
 		matrilineal_marriages = no
-
+		
 		landed_kin_prestige_bonus = yes
+		attacking_same_religion_piety_loss = yes
+		uses_decadence = yes
+		uses_jizya_tax = yes
 	}
 	ibadi = {
 		graphical_culture = muslimgfx
@@ -1301,15 +1304,16 @@ muslim = {
 		}
 
 		color = { 0.3 0.6 0.3 }
-		can_grant_claim = yes
 		can_call_crusade = yes
 		priests_can_marry = yes
-		can_hold_temples = yes
 		psc_marriage = no # Disallow uncle-nice and aunt-nephew marriages
 		max_wives = 4
 		matrilineal_marriages = no
 		
 		landed_kin_prestige_bonus = yes
+		attacking_same_religion_piety_loss = yes
+		uses_decadence = yes
+		uses_jizya_tax = yes
 	}
 	kharijite = {
 		graphical_culture = muslimgfx
@@ -1321,10 +1325,8 @@ muslim = {
 
 		color = { 0.4 0.8 0.6 }
 		parent = ibadi
-		can_grant_claim = yes
 		can_call_crusade = yes
 		priests_can_marry = yes
-		can_hold_temples = yes
 		psc_marriage = no # Disallow uncle-nice and aunt-nephew marriages
 		max_wives = 4
 		matrilineal_marriages = no
@@ -1344,12 +1346,14 @@ muslim = {
 		crusade_name = JIHAD
 
 		priests_can_marry = yes
-		can_hold_temples = yes
 		psc_marriage = no
 		max_wives = 4
 		matrilineal_marriages = no
 
 		landed_kin_prestige_bonus = yes
+		attacking_same_religion_piety_loss = yes
+		uses_decadence = yes
+		uses_jizya_tax = yes
 	}
 	quranism = {
 		graphical_culture = muslimgfx
@@ -1363,12 +1367,14 @@ muslim = {
 		crusade_name = JIHAD
 
 		priests_can_marry = yes
-		can_hold_temples = yes
 		psc_marriage = no
 		max_wives = 4
 		matrilineal_marriages = no
 
 		landed_kin_prestige_bonus = yes
+		attacking_same_religion_piety_loss = yes
+		uses_decadence = yes
+		uses_jizya_tax = yes
 	}
 	qadariyya = {
 		graphical_culture = muslimgfx
@@ -1382,12 +1388,14 @@ muslim = {
 		crusade_name = JIHAD
 
 		priests_can_marry = yes
-		can_hold_temples = yes
 		psc_marriage = no
 		max_wives = 4
 		matrilineal_marriages = no
 
-		landed_kin_prestige_bonus = yes 
+		landed_kin_prestige_bonus = yes
+		attacking_same_religion_piety_loss = yes
+		uses_decadence = yes
+		uses_jizya_tax = yes
 	}
 	khawariji = {
 		graphical_culture = muslimgfx
@@ -1401,12 +1409,14 @@ muslim = {
 		crusade_name = JIHAD
 
 		priests_can_marry = yes
-		can_hold_temples = yes
 		psc_marriage = no
 		max_wives = 4
 		matrilineal_marriages = no
 
 		landed_kin_prestige_bonus = yes
+		attacking_same_religion_piety_loss = yes
+		uses_decadence = yes
+		uses_jizya_tax = yes
 	}
 	haruriyyah = {
 		graphical_culture = muslimgfx
@@ -1420,12 +1430,14 @@ muslim = {
 		crusade_name = JIHAD
 
 		priests_can_marry = yes
-		can_hold_temples = yes
 		psc_marriage = no
 		max_wives = 4
 		matrilineal_marriages = no
 
 		landed_kin_prestige_bonus = yes
+		attacking_same_religion_piety_loss = yes
+		uses_decadence = yes
+		uses_jizya_tax = yes
 	}
 	wahhabi = {
 		graphical_culture = muslimgfx
@@ -1439,12 +1451,14 @@ muslim = {
 		crusade_name = JIHAD
 
 		priests_can_marry = yes
-		can_hold_temples = yes
 		psc_marriage = no
 		max_wives = 4
 		matrilineal_marriages = no
 
 		landed_kin_prestige_bonus = yes
+		attacking_same_religion_piety_loss = yes
+		uses_decadence = yes
+		uses_jizya_tax = yes
 	}
 	mahdi = {
 		graphical_culture = muslimgfx
@@ -1458,12 +1472,14 @@ muslim = {
 		crusade_name = JIHAD
 
 		priests_can_marry = yes
-		can_hold_temples = yes
 		psc_marriage = no
 		max_wives = 4
 		matrilineal_marriages = no
 
 		landed_kin_prestige_bonus = yes
+		attacking_same_religion_piety_loss = yes
+		uses_decadence = yes
+		uses_jizya_tax = yes
 	}
 	salafi = {
 		graphical_culture = muslimgfx
@@ -1475,15 +1491,16 @@ muslim = {
 
 		color = { 0.9 0.6 0.3 }
 		parent = sunni
-		can_grant_claim = yes
 		can_call_crusade = yes
 		priests_can_marry = yes
-		can_hold_temples = yes
 		psc_marriage = no # Disallow uncle-nice and aunt-nephew marriages
 		max_wives = 4
 		matrilineal_marriages = no
 
 		landed_kin_prestige_bonus = yes
+		attacking_same_religion_piety_loss = yes
+		uses_decadence = yes
+		uses_jizya_tax = yes
 	}
 	shiite = {
 		graphical_culture = muslimgfx
@@ -1506,15 +1523,16 @@ muslim = {
 			IBLIS SHAYTAN
 		}
 		
-		can_grant_claim = yes
 		can_call_crusade = yes
 		priests_can_marry = yes
-		can_hold_temples = yes
 		psc_marriage = no
 		max_wives = 4
 		matrilineal_marriages = no
-
+		
 		landed_kin_prestige_bonus = yes
+		attacking_same_religion_piety_loss = yes
+		uses_decadence = yes
+		uses_jizya_tax = yes
 	}
 	druze = {
 		graphical_culture = muslimgfx
@@ -1528,12 +1546,14 @@ muslim = {
 		color = { 0.0 0.9 0.4 }
 		parent = shiite
 		priests_can_marry = yes
-		can_hold_temples = yes
 		psc_marriage = no
 		max_wives = 4
 		matrilineal_marriages = no
 		
 		landed_kin_prestige_bonus = yes
+		attacking_same_religion_piety_loss = yes
+		uses_decadence = yes
+		uses_jizya_tax = yes
 	}
 	hurufi = {
 		graphical_culture = muslimgfx
@@ -1547,14 +1567,14 @@ muslim = {
 		crusade_name = JIHAD
 
 		priests_can_marry = yes
-		can_hold_temples = yes
 		psc_marriage = no
+		can_call_crusade = yes
 		max_wives = 4
 		matrilineal_marriages = no
 
 		landed_kin_prestige_bonus = yes
-		}
-	twelver  = {
+	}
+	twelver = {
 		graphical_culture = muslimgfx
 
 		icon = 4
@@ -1566,7 +1586,6 @@ muslim = {
 		crusade_name = JIHAD
 
 		priests_can_marry = yes
-		can_hold_temples = yes
 		psc_marriage = no
 		max_wives = 4
 		matrilineal_marriages = no
@@ -1585,7 +1604,6 @@ muslim = {
 		crusade_name = JIHAD
 
 		priests_can_marry = yes
-		can_hold_temples = yes
 		psc_marriage = no
 		max_wives = 4
 		matrilineal_marriages = no
@@ -1604,7 +1622,6 @@ muslim = {
 		crusade_name = JIHAD
 
 		priests_can_marry = yes
-		can_hold_temples = yes
 		psc_marriage = no
 		max_wives = 4
 		matrilineal_marriages = no
@@ -1623,7 +1640,6 @@ muslim = {
 		crusade_name = JIHAD
 
 		priests_can_marry = yes
-		can_hold_temples = yes
 		psc_marriage = no
 		max_wives = 4
 		matrilineal_marriages = no
@@ -1672,7 +1688,8 @@ pagan_group = {
 	playable = yes
 	
 	ai_convert_same_group = 2 # always try to convert
-	ai_convert_other_group = 0 # never try to convert
+	ai_convert_other_group = 0	# never try to convert
+	ai_fabricate_claims = no
 	
 	# Names given only to Pagan characters (base names)
 	male_names = {
@@ -1809,6 +1826,7 @@ pagan_group = {
 		allow_rivermovement = yes
 		female_temple_holders = yes
 		allow_viking_invasion = yes
+		seafarer = yes
 		
 		short_reign_opinion_year_mult = 3 # The default is 2
 		
@@ -1860,6 +1878,7 @@ pagan_group = {
 		defensive_attrition = yes
 		peace_prestige_loss = yes # Lose Prestige while at peace
 		allow_viking_invasion = yes
+		seafarer = yes
 		raised_vassal_opinion_loss = no
 		max_consorts = 3
 		independence_war_score_bonus = 30 # Overrides define CONTESTED_TITLE_OCCUPIED_WARSCORE_BONUS_INDEP
@@ -1911,6 +1930,8 @@ pagan_group = {
 			knights_defensive = 0.8
 			archers_defensive = 0.8
 			horse_archers_defensive = 0.8
+			camel_cavalry_DEFENSIVE = 0.8
+			war_elephants_DEFENSIVE = 0.8
 			
 			garrison_size = 0.4
 			
@@ -2121,6 +2142,8 @@ pagan_group = {
 			knights_defensive = 0.4
 			archers_defensive = 0.4
 			horse_archers_defensive = 0.4
+			camel_cavalry_DEFENSIVE = 0.4
+			war_elephants_DEFENSIVE = 0.4
 			
 			garrison_size = 0.2
 			
@@ -2183,6 +2206,8 @@ pagan_group = {
 			knights_defensive = 0.6
 			archers_defensive = 0.6
 			horse_archers_defensive = 0.6
+			camel_cavalry_DEFENSIVE = 0.6
+			war_elephants_DEFENSIVE = 0.6
 			
 			garrison_size = 0.2
 			
@@ -2220,6 +2245,7 @@ pagan_group = {
 		
 		color = { 0.9 0.67 0.0 }
 		high_god_name = GOD_TENGRI
+		
 		god_names = {
 			GOD_TENGRI GOD_ERLIK_KHAN GOD_TUNG-AK
 		}
@@ -2252,7 +2278,9 @@ pagan_group = {
 		allow_in_ruler_designer = no
 	}		
 	
-	tengri_pagan = { #Mongols
+	
+	tengri_pagan = { # This tag is used in code to override Nomad religions for purposes of Coats of Arms, etc
+	
 		graphical_culture = mongolgfx
 
 		icon = 28
@@ -2418,6 +2446,8 @@ pagan_group = {
 			knights_defensive = 0.8
 			archers_defensive = 0.8
 			horse_archers_defensive = 0.8
+			camel_cavalry_DEFENSIVE = 0.8
+			war_elephants_DEFENSIVE = 0.8
 			
 			garrison_size = 0.4
 			
@@ -2464,6 +2494,8 @@ pagan_group = {
 			knights_defensive = 0.8
 			archers_defensive = 0.8
 			horse_archers_defensive = 0.8
+			camel_cavalry_DEFENSIVE = 0.8
+			war_elephants_DEFENSIVE = 0.8
 			
 			garrison_size = 0.4
 			
@@ -2546,6 +2578,8 @@ pagan_group = {
 			knights_defensive = 0.8
 			archers_defensive = 0.8
 			horse_archers_defensive = 0.8
+			camel_cavalry_DEFENSIVE = 0.8
+			war_elephants_DEFENSIVE = 0.8
 			
 			garrison_size = 0.4
 			
@@ -2599,6 +2633,8 @@ pagan_group = {
 			knights_defensive = 0.8
 			archers_defensive = 0.8
 			horse_archers_defensive = 0.8
+			camel_cavalry_DEFENSIVE = 0.8
+			war_elephants_DEFENSIVE = 0.8
 			
 			garrison_size = 0.4
 			
@@ -2656,6 +2692,8 @@ pagan_group = {
 			knights_defensive = 0.8
 			archers_defensive = 0.8
 			horse_archers_defensive = 0.8
+			camel_cavalry_DEFENSIVE = 0.8
+			war_elephants_DEFENSIVE = 0.8
 			
 			garrison_size = 0.4
 			
@@ -2705,6 +2743,8 @@ pagan_group = {
 			knights_defensive = 0.8
 			archers_defensive = 0.8
 			horse_archers_defensive = 0.8
+			camel_cavalry_DEFENSIVE = 0.8
+			war_elephants_DEFENSIVE = 0.8
 			
 			garrison_size = 0.4
 			
@@ -2764,6 +2804,8 @@ pagan_group = {
 			knights_defensive = 0.8
 			archers_defensive = 0.8
 			horse_archers_defensive = 0.8
+			camel_cavalry_DEFENSIVE = 0.8
+			war_elephants_DEFENSIVE = 0.8
 			
 			garrison_size = 0.4
 			
@@ -2818,6 +2860,8 @@ pagan_group = {
 			knights_defensive = 0.8
 			archers_defensive = 0.8
 			horse_archers_defensive = 0.8
+			camel_cavalry_DEFENSIVE = 0.8
+			war_elephants_DEFENSIVE = 0.8
 			
 			garrison_size = 0.4
 			
@@ -2831,6 +2875,7 @@ pagan_group = {
 		max_consorts = 3
 		independence_war_score_bonus = 30 # Overrides define CONTESTED_TITLE_OCCUPIED_WARSCORE_BONUS_INDEP
 		reformed = finnish_pagan_reformed
+		
 		short_reign_opinion_year_mult = 4 # The default is 2
 		
 		aggression = 0.2 # AI aggression factor
@@ -2886,10 +2931,8 @@ pagan_group = {
 	
 	aztec = {
 		graphical_culture = mesoamericangfx
-		
 		icon = 15
 		heresy_icon = 16
-		
 		color = { 0.8 0.2 0.2 }
 		
 		high_god_name = GOD_HUITZILOPOCHTLI
@@ -2965,6 +3008,8 @@ pagan_group = {
 			knights_defensive = 0.8
 			archers_defensive = 0.8
 			horse_archers_defensive = 0.8
+			camel_cavalry_DEFENSIVE = 0.8
+			war_elephants_DEFENSIVE = 0.8
 			
 			garrison_size = 0.4
 			
@@ -3018,6 +3063,8 @@ pagan_group = {
 			knights_defensive = 0.8
 			archers_defensive = 0.8
 			horse_archers_defensive = 0.8
+			camel_cavalry_DEFENSIVE = 0.8
+			war_elephants_DEFENSIVE = 0.8
 			
 			garrison_size = 0.4
 			
@@ -3082,6 +3129,8 @@ pagan_group = {
 			knights_defensive = 0.8
 			archers_defensive = 0.8
 			horse_archers_defensive = 0.8
+			camel_cavalry_defensive = 0.8
+			war_elephants_defensive = 0.8
 			
 			garrison_size = 0.4
 			
@@ -3136,6 +3185,8 @@ pagan_group = {
 			knights_defensive = 0.8
 			archers_defensive = 0.8
 			horse_archers_defensive = 0.8
+			camel_cavalry_DEFENSIVE = 0.8
+			war_elephants_DEFENSIVE = 0.8
 			
 			garrison_size = 0.4
 			
@@ -3195,6 +3246,8 @@ pagan_group = {
 			knights_defensive = 0.8
 			archers_defensive = 0.8
 			horse_archers_defensive = 0.8
+			camel_cavalry_DEFENSIVE = 0.8
+			war_elephants_DEFENSIVE = 0.8
 			
 			garrison_size = 0.4
 			
@@ -3245,6 +3298,8 @@ pagan_group = {
 			knights_defensive = 0.8
 			archers_defensive = 0.8
 			horse_archers_defensive = 0.8
+			camel_cavalry_DEFENSIVE = 0.8
+			war_elephants_DEFENSIVE = 0.8
 			
 			garrison_size = 0.4
 			
@@ -3548,6 +3603,8 @@ pagan_group = {
 			knights_defensive = 0.8
 			archers_defensive = 0.8
 			horse_archers_defensive = 0.8
+			camel_cavalry_DEFENSIVE = 0.8
+			war_elephants_DEFENSIVE = 0.8
 			
 			garrison_size = 0.4
 			
@@ -3601,6 +3658,8 @@ pagan_group = {
 			knights_defensive = 0.8
 			archers_defensive = 0.8
 			horse_archers_defensive = 0.8
+			camel_cavalry_DEFENSIVE = 0.8
+			war_elephants_DEFENSIVE = 0.8
 			
 			garrison_size = 0.4
 			
@@ -4076,13 +4135,16 @@ zoroastrian_group = {
 		max_consorts = 3 # Can take concubines
 		
 		divine_blood = yes # Sacred Xwedodah close-kin marriage mechanics
-		pc_marriage = yes
-		bs_marriage = yes
+		pc_marriage = yes # Parent/child marriage allowed
+		bs_marriage = yes # Brother/sister marriage allowed
 		
-		intermarry = nestorian
-
+		
 		religious_clothing_head = 5
 		religious_clothing_priest = 5
+		
+		intermarry = nestorian
+		intermarry = zun_pagan
+		intermarry = zun_pagan_reformed
 	}
 
 	zurvanist = {
@@ -4209,8 +4271,13 @@ zoroastrian_group = {
 		can_call_crusade = yes
 		can_grant_invasion_cb = invasion
 		
+		max_consorts = 3 # Can take concubines
+		
 		religious_clothing_head = 5
 		religious_clothing_priest = 5
+		
+		intermarry = zun_pagan
+		intermarry = zun_pagan_reformed
 	}
 	
 	manichean = {
@@ -4236,8 +4303,13 @@ zoroastrian_group = {
 		can_call_crusade = yes
 		can_grant_invasion_cb = invasion
 		
+		max_consorts = 3 # Can take concubines
+		
 		religious_clothing_head = 5
 		religious_clothing_priest = 5
+		
+		intermarry = zun_pagan
+		intermarry = zun_pagan_reformed
 	}
 }
 
@@ -4469,6 +4541,8 @@ indian_group = {
 		
 		intermarry = jain
 		intermarry = buddhist
+		intermarry = zun_pagan
+		intermarry = zun_pagan_reformed
 	}
 	ajivika = {
 		graphical_culture = hindugfx
@@ -4752,6 +4826,8 @@ indian_group = {
 		
 		intermarry = jain
 		intermarry = hindu
+		intermarry = zun_pagan
+		intermarry = zun_pagan_reformed
 	}
 	jain = {
 		graphical_culture = jaingfx
@@ -4791,5 +4867,7 @@ indian_group = {
 		
 		intermarry = buddhist
 		intermarry = hindu
+		intermarry = zun_pagan
+		intermarry = zun_pagan_reformed
 	}
 }

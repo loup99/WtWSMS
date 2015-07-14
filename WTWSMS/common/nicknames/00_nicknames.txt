@@ -468,6 +468,10 @@ nick_the_lame = {
 			NOT = { prestige = 500 }
 		}
 		modifier = {
+			factor = 100
+			has_character_flag = timur_himself
+		}
+		modifier = {
 			factor = 5 #OBJGETNICK
 			has_ambition = obj_get_nick
 		}
@@ -1269,8 +1273,10 @@ nick_the_devil = {
 		factor = 2
 		modifier = {
 			factor = 2
-			trait = kinslayer
-			trait = excommunicated
+			OR = {
+				trait = kinslayer
+				trait = excommunicated
+			}	
 		}
 		modifier = {
 			factor = 5 #OBJGETNICK
@@ -1478,6 +1484,39 @@ nick_the_black = {
 	}
 	chance = {
 		factor = 3
+	}
+}
+
+nick_the_wolf = {
+	allow = {
+		OR = {
+			has_character_modifier = wolf_blood
+			AND = {
+				culture_group = altaic
+				NOT = { culture = khitan }
+				OR = {
+					trait = brilliant_strategist
+					trait = quick
+					trait = genius
+				}
+			}
+			AND = {
+				trait = hunter
+				trait = impaler
+			}
+			AND = {
+				religion_group = christian
+				trait = gluttonous
+				trait = greedy
+			}
+		}
+	}
+	chance = {
+		factor = 3
+		modifier = {
+			factor = 2
+			culture_group = altaic
+		}
 	}
 }
 

@@ -9,14 +9,15 @@ title_censor = {
 	
 	is_unique = yes
 
-	allow = {
+	allowed_to_hold = {
 		is_adult = yes
 		is_female = no
-		FROM = {
-			is_feudal = yes
-			independent = yes
-			religion = hellenic_pagan
-		}
+		religion = hellenic_pagan
+	}
+	
+	allowed_to_grant = {
+		is_feudal = yes
+		independent = yes
 		religion = hellenic_pagan
 	}
 
@@ -39,13 +40,14 @@ title_aedile = {
 	
 	is_unique = yes
 
-	allow = {
+	allowed_to_hold = {
 		is_adult = yes
 		is_female = no
-		FROM = {
-			is_feudal = yes
-			religion = hellenic_pagan
-		}
+		religion = hellenic_pagan
+	}
+	
+	allowed_to_grant = {
+		is_feudal = yes
 		religion = hellenic_pagan
 	}
 
@@ -68,15 +70,16 @@ title_magister_equitum = {
 	
 	is_unique = yes
 	
-	allow = {
+	allowed_to_hold = {
 		is_adult = yes
 		is_female = no
-		FROM = {
-			is_feudal = yes
-			NOT = { has_landed_title = e_byzantium }
-			NOT = { has_landed_title = e_roman_empire }
-			religion = hellenic_pagan
-		}
+	}
+	
+	allowed_to_grant = {
+		is_feudal = yes
+		NOT = { has_landed_title = e_byzantium }
+		NOT = { has_landed_title = e_roman_empire }
+		religion = hellenic_pagan
 	}
 	
 	gain_effect = {
@@ -98,7 +101,7 @@ title_vestalis = {
 	monthly_prestige = 0.300
 	monthly_piety = 0.100
 
-	allow = {
+	allowed_to_hold = {
 		is_female = yes
 		is_landed = no
 		is_betrothed = no
@@ -118,7 +121,10 @@ title_vestalis = {
 				mother = { religion = hellenic_pagan }
 			}
 		}
-		FROM = { has_landed_title = d_hellenic_pagan }
+	}
+		
+	allowed_to_grant = {
+		has_landed_title = d_hellenic_pagan
 	}
 
 	gain_effect = {
@@ -144,7 +150,7 @@ title_vestalis_maxima = {
 	monthly_prestige = 0.500
 	monthly_piety = 0.200
 
-	allow = {
+	allowed_to_hold = {
 		is_adult = yes
 		is_female = yes
 		is_landed = no
@@ -155,7 +161,10 @@ title_vestalis_maxima = {
 			has_minor_title = title_vestalis
 			has_minor_title = title_vestalis_maxima
 		}
-		FROM = { has_landed_title = d_hellenic_pagan }
+	}
+	
+	allowed_to_grant = {
+		has_landed_title = d_hellenic_pagan
 	}
 
 	gain_effect = {
@@ -181,16 +190,19 @@ title_flamen_dialis = {
 	
 	is_unique = yes
 
-	allow = {
+	allowed_to_hold = {
 		is_adult = yes
 		is_female = no
-		FROM = { has_landed_title = d_hellenic_pagan }
 		OR = {
 			spouse = { religion = hellenic_pagan }
 			# We want to remove the title by event if his wife dies or converts
 			has_minor_title = title_flamen_dialis
 		}
 		religion = hellenic_pagan
+	}
+	
+	allowed_to_grant = {
+		has_landed_title = d_hellenic_pagan
 	}
 
 	gain_effect = {
@@ -216,7 +228,7 @@ title_flaminica_dialis = {
 	monthly_prestige = 0.005
 	monthly_piety = 0.005
 
-	allow = {
+	allowed_to_hold = {
 		spouse = { has_minor_title = title_flamen_dialis }
 	}
 
@@ -240,16 +252,19 @@ title_flamen_martialis = {
 	
 	is_unique = yes
 
-	allow = {
+	allowed_to_hold = {
 		is_adult = yes
 		is_female = no
-		FROM = { has_landed_title = d_hellenic_pagan }
 		OR = {
 			spouse = { religion = hellenic_pagan }
 			# We want to remove the title by event if his wife dies or converts
 			has_minor_title = title_flamen_martialis
 		}
 		religion = hellenic_pagan
+	}
+	
+	allowed_to_grant = {
+		has_landed_title = d_hellenic_pagan
 	}
 
 	gain_effect = {
@@ -275,7 +290,7 @@ title_flaminica_martialis = {
 	monthly_prestige = 0.005
 	monthly_piety = 0.005
 
-	allow = {
+	allowed_to_hold = {
 		spouse = { has_minor_title = title_flamen_martialis }
 	}
 
@@ -299,20 +314,22 @@ title_flamen_quirinalis = {
 	
 	is_unique = yes
 
-	allow = {
+	allowed_to_hold = {
 		is_adult = yes
 		is_female = no
 		OR = {
 			is_theocracy = yes
 			is_ruler = no
 		}
-		FROM = { has_landed_title = d_hellenic_pagan }
 		OR = {
 			spouse = { religion = hellenic_pagan }
 			# We want to remove the title by event if his wife dies or converts
 			has_minor_title = title_flamen_quirinalis
 		}
 		religion = hellenic_pagan
+	}
+	allowed_to_grant = {
+		has_landed_title = d_hellenic_pagan
 	}
 
 	gain_effect = {
@@ -338,7 +355,7 @@ title_flaminica_quirinalis = {
 	monthly_prestige = 0.005
 	monthly_piety = 0.005
 
-	allow = {
+	allowed_to_hold = {
 		spouse = { has_minor_title = title_flamen_martialis }
 	}
 

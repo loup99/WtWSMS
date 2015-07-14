@@ -7,22 +7,23 @@ title_kanikleios = {
 	monthly_salary = 0.01
 	monthly_prestige = 0.005
 	
-	allow = {
+	allowed_to_hold = {
 		is_adult = yes
 		is_female = no
-		FROM = {
-			is_feudal = yes
-			OR = {
-				has_landed_title = e_byzantium
-				has_landed_title = e_roman_empire
-			}
-			NOT = { religion_group = muslim }
-		}
 		NOT = { has_minor_title = title_despot }
 		NOT = { has_minor_title = title_sebastokrator }
 		NOT = { has_minor_title = title_caesar }
 		NOT = { has_minor_title = title_kouropalates }
 		NOT = { has_minor_title = title_protospatharios }
+	}
+	
+	allowed_to_grant = {
+		is_feudal = yes
+		OR = {
+			has_landed_title = e_byzantium
+			has_landed_title = e_roman_empire
+		}
+		NOT = { religion_group = muslim }
 	}
 	
 	gain_effect = {
@@ -41,22 +42,22 @@ title_protospatharios = {
 	monthly_salary = 0.005
 	monthly_prestige = 0.002
 	
-	allow = {
+	allowed_to_hold = {
 		is_adult = yes
 		is_female = no
-		FROM = {
-			is_feudal = yes
-			OR = {
-				has_landed_title = e_byzantium
-				has_landed_title = e_roman_empire
-			}
-			NOT = { religion_group = muslim }
-		}
 		NOT = { has_minor_title = title_despot }
 		NOT = { has_minor_title = title_sebastokrator }
 		NOT = { has_minor_title = title_caesar }
 		NOT = { has_minor_title = title_kouropalates }
 		NOT = { has_minor_title = title_kanikleios }
+	}
+	allowed_to_grant = {
+		is_feudal = yes
+		OR = {
+			has_landed_title = e_byzantium
+			has_landed_title = e_roman_empire
+		}
+		NOT = { religion_group = muslim }
 	}
 	
 	gain_effect = {
@@ -76,15 +77,8 @@ title_court_musician = { #Moved from muslim titles - now available to non-muslim
 	monthly_salary = 0.02
 	monthly_prestige = 0.004
 	
-	allow = {
+	allowed_to_hold = {
 		is_adult = yes
-		FROM = {
-			is_feudal = yes
-			NOT = { culture_group = west_african }
-			NOT = { culture_group = central_african }
-			NOT = { religion = west_african_pagan }
-			NOT = { religion = west_african_pagan_reformed }
-		}
 		OR = {
 			is_female = no
 			religion_group = muslim
@@ -121,6 +115,13 @@ title_court_musician = { #Moved from muslim titles - now available to non-muslim
 		NOT = { has_minor_title = title_protospatharios }
 		NOT = { has_minor_title = title_anthypatos }
 	}
+	allowed_to_grant = {
+		is_feudal = yes
+		NOT = { culture_group = west_african }
+		NOT = { culture_group = central_african }
+		NOT = { religion = west_african_pagan }
+		NOT = { religion = west_african_pagan_reformed }
+	}
 	
 	gain_effect = {
 	}
@@ -138,22 +139,22 @@ title_lique_mekwas = {
 	monthly_salary = 0.01
 	monthly_prestige = 0.008
 	
-	allow = {
+	allowed_to_hold = {
 		is_adult = yes
 		is_female = no
-		FROM = {
-			is_feudal = yes
-			primary_title = {
-				OR = {
-					tier = king
-					tier = emperor
-				}
-			}
-			culture_group = east_african
-			NOT = { religion_group = muslim }
-		}
 		NOT = { trait = imbecile }
 		NOT = { trait = slow }
+	}
+	allowed_to_grant = {
+		is_feudal = yes
+		primary_title = {
+			OR = {
+				tier = king
+				tier = emperor
+			}
+		}
+		culture_group = east_african
+		NOT = { religion_group = muslim }
 	}
 
 	gain_effect = {
@@ -173,22 +174,22 @@ title_belen_tigui = {
 	monthly_salary = 0.01
 	monthly_prestige = 0.005
 	
-	allow = {
+	allowed_to_hold = {
 		is_adult = yes
 		is_female = no
-		FROM = {
-			is_feudal = yes
-			primary_title = {
-				OR = {
-					tier = king
-					tier = emperor
-				}
-			}
-			culture_group = west_african
-			NOT = { culture = maghreb_arabic }
-		}
 		NOT = { trait = imbecile }
 		NOT = { trait = slow }
+	}
+	allowed_to_grant = {
+		is_feudal = yes
+		primary_title = {
+			OR = {
+				tier = king
+				tier = emperor
+			}
+		}
+		culture_group = west_african
+		NOT = { culture = maghreb_arabic }
 	}
 
 	gain_effect = {
@@ -208,16 +209,16 @@ title_nagid = {
 	monthly_salary = 0.01
 	monthly_prestige = 0.01
 	
-	allow = {
+	allowed_to_hold = {
 		is_adult = yes
 		is_female = no
 		religion_group = jewish_group
-		FROM = {
-			primary_title = { higher_tier_than = COUNT }
-			religion_group = muslim
-		}
 		NOT = { trait = imbecile }
 		NOT = { trait = slow }
+	}
+	allowed_to_grant = {
+		primary_title = { higher_tier_than = COUNT }
+		religion_group = muslim
 	}
 	
 	gain_effect = {
@@ -237,7 +238,7 @@ title_marcher_lord = {
 	monthly_salary = 0.01
 	monthly_prestige = 0.01
 	
-	allow = {
+	allowed_to_hold = {
 		is_adult = yes
 		is_female = no
 		is_feudal = yes
@@ -256,16 +257,16 @@ title_marcher_lord = {
 			tier = count
 			tier = duke
 		}
-		FROM = {
-			is_feudal = yes
-			OR = {
-				culture = norman
-				culture = english
-			}
-			OR = {
-				has_landed_title = k_england
-				has_landed_title = e_britannia
-			}
+	}
+	allowed_to_grant = {
+		is_feudal = yes
+		OR = {
+			culture = norman
+			culture = english
+		}
+		OR = {
+			has_landed_title = k_england
+			has_landed_title = e_britannia
 		}
 	}
 	
@@ -286,16 +287,16 @@ title_amir_al_umara = {
 	monthly_salary = 0.01
 	monthly_prestige = 0.005
 	
-	allow = {
+	allowed_to_hold = {
 		is_adult = yes
 		is_female = no
-		FROM = {
-			OR = {
-				culture = sicilian
-				culture = norman
-			}
-			has_landed_title = k_sicily			
+	}
+	allowed_to_grant = {
+		OR = {
+			culture = sicilian
+			culture = norman
 		}
+		has_landed_title = k_sicily			
 	}
 	
 	gain_effect = {
@@ -316,21 +317,21 @@ title_court_griot = { #Court Griot
 	monthly_salary = 0.02
 	monthly_prestige = 0.01
 	
-	allow = {
+	allowed_to_hold = {
 		is_adult = yes
 		is_ruler = no
-		FROM = {
-			is_feudal = yes
-			OR = {
-				culture_group = west_african
-				culture_group = central_african
-				religion = west_african_pagan
-				religion = west_african_pagan_reformed
-			}
-			NOT = { has_global_flag = VIET_wafrican_features_off }
-		}
 		is_female = no
 		trait = griot
+	}
+	allowed_to_grant = {
+		is_feudal = yes
+		OR = {
+			culture_group = west_african
+			culture_group = central_african
+			religion = west_african_pagan
+			religion = west_african_pagan_reformed
+		}
+		NOT = { has_global_flag = VIET_wafrican_features_off }
 	}
 	
 	gain_effect = {
@@ -351,21 +352,21 @@ title_farima_soura = {
 	monthly_salary = 0.05
 	monthly_prestige = 0.05
 	
-	allow = {
+	allowed_to_hold = {
 		is_adult = yes
 		is_female = no
 		NOT = { trait = griot }
-		FROM = {
-			higher_tier_than = DUKE
-			is_feudal = yes
-			OR = {
-				culture_group = west_african
-				religion = west_african_pagan
-				religion = west_african_pagan_reformed
-			}
-		}
 		martial = 8
 		NOT = { has_minor_title = title_sankar_zouma }
+	}
+	allowed_to_grant = {
+		higher_tier_than = DUKE
+		is_feudal = yes
+		OR = {
+			culture_group = west_african
+			religion = west_african_pagan
+			religion = west_african_pagan_reformed
+		}
 	}
 	
 	gain_effect = {
@@ -385,21 +386,21 @@ title_sankar_zouma = {
 	monthly_salary = 0.05
 	monthly_prestige = 0.05
 	
-	allow = {
+	allowed_to_hold = {
 		is_adult = yes
 		is_female = no
 		NOT = { trait = griot }
-		FROM = {
-			higher_tier_than = DUKE
-			is_feudal = yes
-			OR = {
-				culture_group = west_african
-				religion = west_african_pagan
-				religion = west_african_pagan_reformed
-			}
-		}
 		martial = 8
 		NOT = { has_minor_title = title_farima_soura }
+	}
+	allowed_to_grant = {
+		higher_tier_than = DUKE
+		is_feudal = yes
+		OR = {
+			culture_group = west_african
+			religion = west_african_pagan
+			religion = west_african_pagan_reformed
+		}
 	}
 	
 	gain_effect = {
@@ -420,24 +421,24 @@ title_saintly_monk = {
 	
 	monthly_prestige = 0.02
 	
-	allow = {
+	allowed_to_hold = {
 		age = 16
 		religion = buddhist
 		AND = {
 			is_theocracy = yes
 			is_ruler = yes
 		}
-		FROM = {
-			religion = buddhist
+	}
+	allowed_to_grant = {
+		religion = buddhist
+		OR = {
+			is_feudal = yes
+			is_merchant_republic = yes
+		}
+		primary_title = {
 			OR = {
-				is_feudal = yes
-				is_merchant_republic = yes
-			}
-			primary_title = {
-				OR = {
-					tier = king
-					tier = emperor
-				}
+				tier = king
+				tier = emperor
 			}
 		}
 	}
@@ -460,7 +461,7 @@ title_knight_of_the_round_table = {
 	
 	monthly_prestige = 0.01
 	
-	allow = {
+	allowed_to_hold = {
 		age = 16
 		OR = {
 			is_female = no
@@ -470,13 +471,13 @@ title_knight_of_the_round_table = {
 			}
 			has_character_flag = special_marshal
 		}
-		FROM = {
-			has_landed_title = k_britain
-			has_global_flag = VIET_knights_of_the_round_table_refounded
-		}
 		martial = 8
 	}
-	
+	allowed_to_grant = {
+		has_landed_title = k_britain
+		has_global_flag = VIET_knights_of_the_round_table_refounded
+	}
+
 	gain_effect = {
 	}
 	lose_effect = {
