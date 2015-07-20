@@ -4652,6 +4652,18 @@ overthrow_ruler_no_calls = {
 	attacker_ai_defeat_worth = {
 		factor = 100
 	}
+	
+	on_defender_leader_death = {
+		hidden_tooltip = {
+			any_attacker = {
+				letter_event = {
+					id = 251
+				}
+			}
+		}
+		
+		end_war = invalid
+	}
 
 	defender_ai_victory_worth = {
 		factor = -1 # always accept
@@ -6073,7 +6085,10 @@ muslim_invasion = {
 						has_landed_title = e_byzantium
 						has_landed_title = e_roman_empire
 					}
-					religion_group = christian
+					OR = {
+						religion_group = christian
+						religion = hellenic_pagan
+					}
 				}
 				hidden_tooltip = { character_event = { id = LoR.30 days = 12 } }
 			}
@@ -6487,7 +6502,6 @@ imperial_reconquest = {
 	is_valid = {
 		ROOT = {
 			independent = yes
-			religion_group = christian
 			NOT = { same_realm = FROM }
 		}
 	}
@@ -7192,9 +7206,9 @@ pagan_subjugation = {
 	can_use = {
 		ROOT = {
 			religion_group = pagan_group
-			is_reformed_religion = no
-			NOT = { 
-				religion = promethean_pagan 
+			OR = {
+				is_reformed_religion = no
+				religion = hellenic_pagan
 			}
 			NOT = { same_realm = FROM }
 			NOT = { is_liege_or_above = FROM }
@@ -7254,6 +7268,7 @@ pagan_subjugation = {
 			OR = {
 				is_reformed_religion = no
 				is_reformed_religion = ROOT
+				religion = hellenic_pagan
 			}
 			NOT = {
 				religion = promethean_pagan
@@ -8479,7 +8494,10 @@ caliphal_subjugation = {
 						has_landed_title = e_byzantium
 						has_landed_title = e_roman_empire
 					}
-					religion_group = christian
+					OR = {
+						religion_group = christian
+						religion = hellenic
+					}
 				}
 				hidden_tooltip = { character_event = { id = LoR.30 days = 12 } }
 			}
@@ -10678,10 +10696,7 @@ manifest_destiny_invasion = {
 						has_landed_title = e_byzantium
 						has_landed_title = e_roman_empire
 					}
-					OR = {
-						religion_group = christian
-						religion = hellenic_pagan
-					}
+					religion_group = christian
 				}
 				hidden_tooltip = { character_event = { id = LoR.30 days = 12 } }
 			}

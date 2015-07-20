@@ -1,0 +1,100 @@
+# Roman
+rapid_advance_tactic = {
+	days = 2
+	sprite = 2 # index of icon
+	group = charge
+
+	trigger = {
+		phase = skirmish
+		days = 5 # duration of combat >= 5 days
+		leader = { culture = roman }
+		heavy_infantry = 0.45
+		light_cavalry  = 0.05
+	}
+
+	mean_time_to_happen = {
+		days = 10 # this has nothing to do with days, it just represents relative chance of selecting this tactic, higher is better
+		modifier = {
+			# No need to hurry if you have archers
+			factor = 0.5
+			troops = {
+				who = archers
+				value = 0.2
+			}
+		}
+		modifier = {
+			# No need to hurry if you have archers
+			factor = 0.2
+			flank_has_leader = yes
+			leader = {
+				martial = 8
+				NOT = { trait = aggressive_leader }
+				NOT = { trait = wroth }
+			}
+			troops = {
+				who = archers
+				value = 0.2
+			}
+		}
+		modifier = {
+			# Easier to do if you have scouts and skirmishers
+			factor = 2
+			flank_has_leader = yes
+			leader = {
+				martial = 12
+			}
+			light_troops = {
+				who = light_cavalry
+				value = 0.3
+			}
+			light_troops = {
+				who = light_infantry
+				value = 0.3
+			}
+		}
+		modifier = {
+			# Easier to do if you have scouts and skirmishers
+			factor = 2
+			flank_has_leader = yes
+			leader = {
+				martial = 8
+			}
+			light_troops = {
+				who = light_cavalry
+				value = 0.5
+			}
+			light_troops = {
+				who = light_infantry
+				value = 0.2
+			}
+		}
+		modifier = {
+			factor = 3
+			flank_has_leader = yes
+			leader = {
+				martial = 12
+			}
+			heavy_troops = {
+				who = heavy_infantry
+				value = 0.6
+			}
+		}
+		modifier = {
+			factor = 3
+			flank_has_leader = yes
+			leader = {
+				martial = 8
+			}
+			heavy_troops = {
+				who = heavy_infantry
+				value = 0.8
+			}
+		}
+	}
+
+	change_phase_to = melee
+
+	light_cavalry_offensive  = 1.2
+	light_infantry_offensive = 1.2
+	heavy_infantry_offensive = 2
+}
