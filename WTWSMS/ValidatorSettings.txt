@@ -23,6 +23,12 @@ AddFlag = TraceFlags
 AddFlag = ContextValidator.IgnoreOneItemInOrClauseWarning
 # Ignores the warning when there is only one item in an AND clause
 AddFlag = ContextValidator.IgnoreOneItemInAndClauseWarning
+# Ignores the warning when there is only one item in an NAND clause
+#AddFlag = ContextValidator.IgnoreOneItemInNandClauseWarning
+# Add a warning when there are multiple clauses in a NOT clause. Use NAND instead.
+#AddFlag = ContextValidator.WarnOnMultiNotClause
+# Add a warning when there is an OR or AND clause inside a NOT clause. Use NAND or NOR instead.
+#AddFlag = ContextValidator.WarnOnOrAndInNot
 # Ignores the warning when we are already in an AND clause.
 AddFlag = ContextValidator.IgnoreAlreadyInAndClauseWarning
 # Ignores the warning "Having a factor of 1 is useless."
@@ -60,7 +66,7 @@ AddFlag = ContextValidator.IgnoreAlreadyInAndClauseWarning
 ###########################################
 
 # Disables check that all keys are found in the localization file. This assumes that you use keys everywhere. If not you'll get lots of false positives.
-# AddFlag = NoCheckKey
+#AddFlag = NoCheckKey
 # Don't check for the existence of a "_adj" entry for titles
 AddFlag = NoTitleAdjCheckKey
 # If localization keys appear in both vanilla and in a mod, don't report an error.
@@ -93,6 +99,8 @@ AddFlag = CharacterHistory.NoTwinCheck
 AddFlag = CharacterHistory.NoBastardCheck
 # Don't enforce characters needing a death date
 AddFlag = CharacterHistory.NoDeathDateNeeded
+# Don't do disconnected dynasty checks
+#AddFlag = CharacterHistory.NoDisconnectedDynastyChecks
 
 # These flags disable the corresponding checks for history, but only if the solution
 # would make the birth date before year 1. What this means is say character X is married
@@ -119,6 +127,15 @@ AddFlag = Events.NoChecksForTriggerOnlyButNeverCalled
 # Disables warnings about possible ID collisions.
 # Reason for warnings: Could you add a warning if a non-namespace event ID is greater than 999999, or a namespace event ID is greater than 99999? These have the potential of causing an ID collision between non-namespace and namespace IDs, or between namespaces, because of the way event ID blocks are assigned to namespaces (100000 ID blocks, starting at 1000000.) 
 #AddFlag = Event.NoCheckIdCollision
+# Disable checking for leading zeros in event IDs. It is good to have a uniform ID for each event.
+#AddFlag = Events.NoCheckLeadingZeroInId
+
+###########################################
+# DECISIONS
+###########################################
+
+# Disable check for unique decision names across files. There will still be a check for unique names in a single file.
+#AddFlag = Decisions.NoUniqueIdCheck
 
 ###########################################
 # PROVINCE HISTORY
