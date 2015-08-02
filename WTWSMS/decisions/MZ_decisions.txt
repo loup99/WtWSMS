@@ -62,6 +62,7 @@ decisions = {
 			is_female = no
 			prisoner = no
 			religion_group = zoroastrian_group
+			not = { religion = manichean }
 			OR = {
 				NOT = { has_character_flag = made_sacrifice_1 }
 				had_character_flag = { flag = made_sacrifice_1 days = 1825 }
@@ -116,6 +117,7 @@ decisions = {
 			is_female = no
 			prisoner = no
 			religion_group = zoroastrian_group
+			not = { religion = manichean }
 			OR = {
 				NOT = { has_character_flag = made_sacrifice_1 }
 				had_character_flag = { flag = made_sacrifice_1 days = 1825 }
@@ -170,6 +172,7 @@ decisions = {
 			is_female = no
 			prisoner = no
 			religion_group = zoroastrian_group
+			not = { religion = manichean }
 			OR = {
 				NOT = { has_character_flag = made_sacrifice_1 }
 				had_character_flag = { flag = made_sacrifice_1 days = 1825 }
@@ -265,6 +268,109 @@ decisions = {
 			}
 		}
 	}
+
+	rebuild_nahrawan_canal = {
+		is_high_prio = yes
+		potential = {
+			is_ruler = yes
+			age = 16
+			religion_group = zoroastrian_group
+			NOT = { has_global_flag = rebuild_nahrawan_canal_set }
+		}
+		allow = {
+			wealth = 1000
+			completely_controls = e_persia
+			OR = {
+				has_landed_title = k_persia
+				has_landed_title = e_persia
+				}
+			war = no
+			prisoner = no		
+		}
+		effect = {
+			set_global_flag = rebuild_nahrawan_canal_set 
+
+			690 = {
+				add_province_modifier = { name = "nahrawan_canal" duration = -1 }
+			}
+			693 = {
+				add_province_modifier = { name = "nahrawan_canal" duration = -1 }
+			}
+			695 = {
+				add_province_modifier = { name = "nahrawan_canal" duration = -1 }
+			}
+			696 = {
+				add_province_modifier = { name = "nahrawan_canal" duration = -1 }
+			}			
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0
+				NOT = {
+					scaled_wealth = 5.0
+				}
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					learning = 8
+				}
+			}
+		}
+	}
+
+	rebuild_ctesiphon_library  = {
+		is_high_prio = yes
+		potential = {
+			is_ruler = yes
+			age = 16
+			religion_group = zoroastrian_group
+			NOT = { has_global_flag = ctesiphon_library }
+		}
+		allow = {
+			wealth = 1000
+			completely_controls = e_persia
+			OR = {
+				has_landed_title = k_persia
+				has_landed_title = e_persia
+				}
+			war = no
+			prisoner = no		
+		}
+		effect = {
+			set_global_flag = ctesiphon_library 
+			wealth = -1000
+			693 = {
+				add_province_modifier = { name = "ctesiphon_library" duration = -1 }
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0
+				NOT = {
+					scaled_wealth = 5.0
+				}
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					learning = 8
+				}
+			}
+		}
+	}
+
+
 #####Cleansing ritual
 	undergo_cleansing_ritual = {
 		potential = {
