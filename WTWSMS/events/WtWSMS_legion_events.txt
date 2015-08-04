@@ -72,12 +72,14 @@ narrative_event = {
 		}
 		
 		FROM = {
-			set_defacto_liege = THIS # Count tier mercenary companies cannot be destroyed/de-activated, so make it independent without ability to hire it
+			# set_defacto_liege = THIS # Count tier mercenary companies cannot be destroyed/de-activated, so make it independent without ability to hire it
 			primary_title = { # Legions have primary = yes flag
 				activate_title = { title = THIS status = no }
-				destroy_landed_title = THIS
 				unsafe_destroy_landed_title = THIS
 			}
+			# Kill the commander, to actually destroy the title.
+			# Seems to be a bug with count tier titles that don't dissolve automatically.
+			death = { death_reason = death_execution killer = ROOT }
 		}
 		
 		if = {
