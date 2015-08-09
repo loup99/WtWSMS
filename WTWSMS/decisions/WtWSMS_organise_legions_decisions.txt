@@ -1,79 +1,106 @@
+# Legions can be re-orgnanized by Roman culture kings.
+# They are vassalized to the decision taker, but belong dejure to the governor of the duchy (set via title history).
+# cf https://en.wikipedia.org/wiki/List_of_Roman_legions
+# In case their liege is no longer Roman, or the duchy is no longer under control, they will dissolve via event.
+
 decisions = {
-	organize_dalmatian_legions = {
+	organize_legio_i_dalmatia = {
 		is_high_prio = yes
 		potential = {
-			OR = {
-				has_landed_title = e_byzantium
-				has_landed_title = e_wre
-				has_landed_title = k_soissons
-			}
+			has_romance_culture_trigger = yes
 			is_female = no
 			prisoner = no
 			age = 16
-			completely_controls = k_dalmatia
-			NOT = { has_global_flag = dalmatian_legions_founded }
+			has_landed_title = k_dalmatia
+			NOT = { is_title_active = c_legio_i_dalmatia }
 		}
 		allow = {
 			wealth = 2000
+			completely_controls = k_dalmatia
 		}
 		effect = {
-			set_global_flag = dalmatian_legions_founded
-			prestige = 300
-			wealth = -6000
+			wealth = -2000
 			activate_title = { title = c_legio_i_dalmatia status = yes }
 			hidden_tooltip = {
-				create_character = {
-					random_traits = yes
-					culture = roman
-					dynasty = NONE
-					female = no
-					age = 34
-					trait = skilled_tactician
-				}
+				create_legion_commander_effect = yes
 				new_character = {
 					c_legio_i_dalmatia = {
 						grant_title = PREV
 					}
 					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
 				}
 			}
-
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_ii_dalmatia = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = k_dalmatia
+			NOT = { is_title_active = c_legio_ii_dalmatia }
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = k_dalmatia
+		}
+		effect = {
+			wealth = -2000
 			activate_title = { title = c_legio_ii_dalmatia status = yes }
 			hidden_tooltip = {
-				create_character = {
-					random_traits = yes
-					culture = roman
-					dynasty = NONE
-					female = no
-					age = 34
-					trait = skilled_tactician
-				}
+				create_legion_commander_effect = yes
 				new_character = {
 					c_legio_ii_dalmatia = {
 						grant_title = PREV
 					}
 					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
 				}
 			}
-
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_iii_dalmatia = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = k_dalmatia
+			NOT = { is_title_active = c_legio_iii_dalmatia }
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = k_dalmatia
+		}
+		effect = {
+			wealth = -2000
 			activate_title = { title = c_legio_iii_dalmatia status = yes }
 			hidden_tooltip = {
-				create_character = {
-					random_traits = yes
-					culture = roman
-					dynasty = NONE
-					female = no
-					age = 34
-					trait = skilled_tactician
-				}
+				create_legion_commander_effect = yes
 				new_character = {
 					c_legio_iii_dalmatia = {
 						grant_title = PREV
 					}
 					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
 				}
 			}
 		}
+		
 		ai_will_do = {
 			factor = 1
 		}
@@ -82,39 +109,28 @@ decisions = {
 	organize_legio_i_annonaria = {
 		is_high_prio = yes
 		potential = {
-			OR = {
-				has_landed_title = e_byzantium
-				has_landed_title = e_wre
-				has_landed_title = k_soissons
-			}
+			has_romance_culture_trigger = yes
 			is_female = no
 			prisoner = no
 			age = 16
-			completely_controls = k_annonaria
-			NOT = { has_global_flag = legio_i_annonaria_founded }
+			has_landed_title = k_annonaria
+			NOT = { is_title_active = c_legio_i_annonaria }
 		}
 		allow = {
 			wealth = 2000
+			completely_controls = k_annonaria
 		}
 		effect = {
-			set_global_flag = legio_i_annonaria_founded
-			prestige = 300
 			wealth = -2000
 			activate_title = { title = c_legio_i_annonaria status = yes }
 			hidden_tooltip = {
-				create_character = {
-					random_traits = yes
-					culture = roman
-					dynasty = NONE
-					female = no
-					age = 34
-					trait = skilled_tactician
-				}
+				create_legion_commander_effect = yes
 				new_character = {
 					c_legio_i_annonaria = {
 						grant_title = PREV
 					}
 					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
 				}
 			}
 		}
@@ -126,39 +142,28 @@ decisions = {
 	organize_legio_i_suburbicaria = {
 		is_high_prio = yes
 		potential = {
-			OR = {
-				has_landed_title = e_byzantium
-				has_landed_title = e_wre
-				has_landed_title = k_soissons
-			}
+			has_romance_culture_trigger = yes
 			is_female = no
 			prisoner = no
 			age = 16
-			completely_controls = k_italia
+			has_landed_title = k_italia
 			NOT = { has_global_flag = legio_i_suburbicaria_founded }
 		}
 		allow = {
 			wealth = 2000
+			completely_controls = k_italia
 		}
 		effect = {
-			set_global_flag = legio_i_suburbicaria_founded
-			prestige = 300
 			wealth = -2000
 			activate_title = { title = c_legio_i_suburbicaria status = yes }
 			hidden_tooltip = {
-				create_character = {
-					random_traits = yes
-					culture = roman
-					dynasty = NONE
-					female = no
-					age = 34
-					trait = skilled_tactician
-				}
+				create_legion_commander_effect = yes
 				new_character = {
 					c_legio_i_suburbicaria = {
 						grant_title = PREV
 					}
 					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
 				}
 			}
 		}
@@ -170,39 +175,28 @@ decisions = {
 	organize_legio_i_raetia_noricum = {
 		is_high_prio = yes
 		potential = {
-			OR = {
-				has_landed_title = e_byzantium
-				has_landed_title = e_wre
-				has_landed_title = k_soissons
-			}
+			has_romance_culture_trigger = yes
 			is_female = no
 			prisoner = no
 			age = 16
-			completely_controls = k_raetia_noricum
-			NOT = { has_global_flag = legio_i_raetia_noricum_founded }
+			has_landed_title = k_raetia_noricum
+			NOT = { is_title_active = c_legio_i_raetia_noricum }
 		}
 		allow = {
 			wealth = 2000
+			completely_controls = k_raetia_noricum
 		}
 		effect = {
-			set_global_flag = legio_i_raetia_noricum_founded
-			prestige = 300
 			wealth = -2000
 			activate_title = { title = c_legio_i_raetia_noricum status = yes }
 			hidden_tooltip = {
-				create_character = {
-					random_traits = yes
-					culture = roman
-					dynasty = NONE
-					female = no
-					age = 34
-					trait = skilled_tactician
-				}
+				create_legion_commander_effect = yes
 				new_character = {
 					c_legio_i_raetia_noricum = {
 						grant_title = PREV
 					}
 					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
 				}
 			}
 		}
@@ -214,39 +208,29 @@ decisions = {
 	organize_legio_i_sicilia = {
 		is_high_prio = yes
 		potential = {
-			OR = {
-				has_landed_title = e_byzantium
-				has_landed_title = e_wre
-				has_landed_title = k_soissons
-			}
+			has_romance_culture_trigger = yes
 			is_female = no
 			prisoner = no
 			age = 16
-			completely_controls = d_sicily
-			NOT = { has_global_flag = legio_i_sicilia_founded }
+			has_landed_title = k_italia
+			NOT = { is_title_active = c_legio_i_sicilia }
 		}
 		allow = {
 			wealth = 2000
+			completely_controls = d_sicily
 		}
 		effect = {
-			set_global_flag = legio_i_sicilia_founded
-			prestige = 300
 			wealth = -2000
 			activate_title = { title = c_legio_i_sicilia status = yes }
 			hidden_tooltip = {
-				create_character = {
-					random_traits = yes
-					culture = roman
-					dynasty = NONE
-					female = no
-					age = 34
-					trait = skilled_tactician
-				}
+				create_legion_commander_effect = yes
 				new_character = {
 					c_legio_i_sicilia = {
 						grant_title = PREV
+						de_jure_liege = d_sicily
 					}
 					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
 				}
 			}
 		}
@@ -258,39 +242,28 @@ decisions = {
 	organize_legio_i_tarraconensis = {
 		is_high_prio = yes
 		potential = {
-			OR = {
-				has_landed_title = e_byzantium
-				has_landed_title = e_wre
-				has_landed_title = k_soissons
-			}
+			has_romance_culture_trigger = yes
 			is_female = no
 			prisoner = no
 			age = 16
-			completely_controls = k_tarraconensis
-			NOT = { has_global_flag = legio_i_tarraconensis_founded }
+			has_landed_title = k_tarraconensis
+			NOT = { is_title_active = c_legio_i_tarraconensis }
 		}
 		allow = {
 			wealth = 2000
+			completely_controls = k_tarraconensis
 		}
 		effect = {
-			set_global_flag = legio_i_tarraconensis_founded
-			prestige = 300
 			wealth = -2000
 			activate_title = { title = c_legio_i_tarraconensis status = yes }
 			hidden_tooltip = {
-				create_character = {
-					random_traits = yes
-					culture = roman
-					dynasty = NONE
-					female = no
-					age = 34
-					trait = skilled_tactician
-				}
+				create_legion_commander_effect = yes
 				new_character = {
 					c_legio_i_tarraconensis = {
 						grant_title = PREV
 					}
 					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
 				}
 			}
 		}
@@ -302,39 +275,28 @@ decisions = {
 	organize_legio_ii_tarraconensis = {
 		is_high_prio = yes
 		potential = {
-			OR = {
-				has_landed_title = e_byzantium
-				has_landed_title = e_wre
-				has_landed_title = k_soissons
-			}
+			has_romance_culture_trigger = yes
 			is_female = no
 			prisoner = no
 			age = 16
-			completely_controls = k_tarraconensis
-			NOT = { has_global_flag = legio_ii_tarraconensis_founded }
+			has_landed_title = k_tarraconensis
+			NOT = { is_title_active = c_legio_ii_tarraconensis }
 		}
 		allow = {
 			wealth = 2000
+			completely_controls = k_tarraconensis
 		}
 		effect = {
-			set_global_flag = legio_ii_tarraconensis_founded
-			prestige = 300
 			wealth = -2000
 			activate_title = { title = c_legio_ii_tarraconensis status = yes }
 			hidden_tooltip = {
-				create_character = {
-					random_traits = yes
-					culture = roman
-					dynasty = NONE
-					female = no
-					age = 34
-					trait = skilled_tactician
-				}
+				create_legion_commander_effect = yes
 				new_character = {
 					c_legio_ii_tarraconensis = {
 						grant_title = PREV
 					}
 					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
 				}
 			}
 		}
@@ -346,39 +308,28 @@ decisions = {
 	organize_legio_i_gallaecia = {
 		is_high_prio = yes
 		potential = {
-			OR = {
-				has_landed_title = e_byzantium
-				has_landed_title = e_wre
-				has_landed_title = k_soissons
-			}
+			has_romance_culture_trigger = yes
 			is_female = no
 			prisoner = no
 			age = 16
-			completely_controls = k_gallaecia
-			NOT = { has_global_flag = legio_i_gallaecia_founded }
+			has_landed_title = k_gallaecia
+			NOT = { is_title_active = c_legio_i_gallaecia }
 		}
 		allow = {
 			wealth = 2000
+			completely_controls = k_gallaecia
 		}
 		effect = {
-			set_global_flag = legio_i_gallaecia_founded
-			prestige = 300
 			wealth = -2000
 			activate_title = { title = c_legio_i_gallaecia status = yes }
 			hidden_tooltip = {
-				create_character = {
-					random_traits = yes
-					culture = roman
-					dynasty = NONE
-					female = no
-					age = 34
-					trait = skilled_tactician
-				}
+				create_legion_commander_effect = yes
 				new_character = {
 					c_legio_i_gallaecia = {
 						grant_title = PREV
 					}
 					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
 				}
 			}
 		}
@@ -390,39 +341,28 @@ decisions = {
 	organize_legio_i_cartaginensis = {
 		is_high_prio = yes
 		potential = {
-			OR = {
-				has_landed_title = e_byzantium
-				has_landed_title = e_wre
-				has_landed_title = k_soissons
-			}
+			has_romance_culture_trigger = yes
 			is_female = no
 			prisoner = no
 			age = 16
-			completely_controls = k_cartaginensis
-			NOT = { has_global_flag = legio_i_cartaginensis_founded }
+			has_landed_title = k_cartaginensis
+			NOT = { is_title_active = c_legio_i_cartaginensis }
 		}
 		allow = {
 			wealth = 2000
+			completely_controls = k_cartaginensis
 		}
 		effect = {
-			set_global_flag = legio_i_cartaginensis_founded
-			prestige = 300
 			wealth = -2000
 			activate_title = { title = c_legio_i_cartaginensis status = yes }
 			hidden_tooltip = {
-				create_character = {
-					random_traits = yes
-					culture = roman
-					dynasty = NONE
-					female = no
-					age = 34
-					trait = skilled_tactician
-				}
+				create_legion_commander_effect = yes
 				new_character = {
 					c_legio_i_cartaginensis = {
 						grant_title = PREV
 					}
 					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
 				}
 			}
 		}
@@ -434,39 +374,28 @@ decisions = {
 	organize_legio_i_lusitania = {
 		is_high_prio = yes
 		potential = {
-			OR = {
-				has_landed_title = e_byzantium
-				has_landed_title = e_wre
-				has_landed_title = k_soissons
-			}
+			has_romance_culture_trigger = yes
 			is_female = no
 			prisoner = no
 			age = 16
-			completely_controls = k_lusitania
-			NOT = { has_global_flag = legio_i_lusitania_founded }
+			has_landed_title = k_lusitania
+			NOT = { is_title_active = c_legio_i_lusitania }
 		}
 		allow = {
 			wealth = 2000
+			completely_controls = k_lusitania
 		}
 		effect = {
-			set_global_flag = legio_i_lusitania_founded
-			prestige = 300
 			wealth = -2000
 			activate_title = { title = c_legio_i_lusitania status = yes }
 			hidden_tooltip = {
-				create_character = {
-					random_traits = yes
-					culture = roman
-					dynasty = NONE
-					female = no
-					age = 34
-					trait = skilled_tactician
-				}
+				create_legion_commander_effect = yes
 				new_character = {
 					c_legio_i_lusitania = {
 						grant_title = PREV
 					}
 					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
 				}
 			}
 		}
@@ -478,39 +407,28 @@ decisions = {
 	organize_legio_i_septem_provincae = {
 		is_high_prio = yes
 		potential = {
-			OR = {
-				has_landed_title = e_byzantium
-				has_landed_title = e_wre
-				has_landed_title = k_soissons
-			}
+			has_romance_culture_trigger = yes
 			is_female = no
 			prisoner = no
 			age = 16
-			completely_controls = k_septem_provincae
-			NOT = { has_global_flag = legio_i_septem_provincae_founded }
+			has_landed_title = k_septem_provincae
+			NOT = { is_title_active = c_legio_i_septem_provincae }
 		}
 		allow = {
 			wealth = 2000
+			completely_controls = k_septem_provincae
 		}
 		effect = {
-			set_global_flag = legio_i_septem_provincae_founded
-			prestige = 300
 			wealth = -2000
 			activate_title = { title = c_legio_i_septem_provincae status = yes }
 			hidden_tooltip = {
-				create_character = {
-					random_traits = yes
-					culture = roman
-					dynasty = NONE
-					female = no
-					age = 34
-					trait = skilled_tactician
-				}
+				create_legion_commander_effect = yes
 				new_character = {
 					c_legio_i_septem_provincae = {
 						grant_title = PREV
 					}
 					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
 				}
 			}
 		}
@@ -522,39 +440,28 @@ decisions = {
 	organize_legio_i_lugdunensis = {
 		is_high_prio = yes
 		potential = {
-			OR = {
-				has_landed_title = e_byzantium
-				has_landed_title = e_wre
-				has_landed_title = k_soissons
-			}
+			has_romance_culture_trigger = yes
 			is_female = no
 			prisoner = no
 			age = 16
-			completely_controls = k_lugdunensis
-			NOT = { has_global_flag = legio_i_lugdunensis_founded }
+			has_landed_title = k_lugdunensis
+			NOT = { is_title_active = c_legio_i_lugdunensis }
 		}
 		allow = {
 			wealth = 2000
+			completely_controls = k_lugdunensis
 		}
 		effect = {
-			set_global_flag = legio_i_lugdunensis_founded
-			prestige = 300
 			wealth = -2000
 			activate_title = { title = c_legio_i_lugdunensis status = yes }
 			hidden_tooltip = {
-				create_character = {
-					random_traits = yes
-					culture = roman
-					dynasty = NONE
-					female = no
-					age = 34
-					trait = skilled_tactician
-				}
+				create_legion_commander_effect = yes
 				new_character = {
 					c_legio_i_lugdunensis = {
 						grant_title = PREV
 					}
 					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
 				}
 			}
 		}
@@ -566,39 +473,28 @@ decisions = {
 	organize_legio_i_belgica = {
 		is_high_prio = yes
 		potential = {
-			OR = {
-				has_landed_title = e_byzantium
-				has_landed_title = e_wre
-				has_landed_title = k_soissons
-			}
+			has_romance_culture_trigger = yes
 			is_female = no
 			prisoner = no
 			age = 16
-			completely_controls = k_belgica
-			NOT = { has_global_flag = legio_i_belgica_founded }
+			has_landed_title = k_belgica
+			NOT = { is_title_active = c_legio_i_belgica }
 		}
 		allow = {
 			wealth = 2000
+			completely_controls = k_belgica
 		}
 		effect = {
-			set_global_flag = legio_i_belgica_founded
-			prestige = 300
 			wealth = -2000
 			activate_title = { title = c_legio_i_belgica status = yes }
 			hidden_tooltip = {
-				create_character = {
-					random_traits = yes
-					culture = roman
-					dynasty = NONE
-					female = no
-					age = 34
-					trait = skilled_tactician
-				}
+				create_legion_commander_effect = yes
 				new_character = {
 					c_legio_i_belgica = {
 						grant_title = PREV
 					}
 					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
 				}
 			}
 		}
@@ -610,39 +506,28 @@ decisions = {
 	organize_legio_i_germania_inferior = {
 		is_high_prio = yes
 		potential = {
-			OR = {
-				has_landed_title = e_byzantium
-				has_landed_title = e_wre
-				has_landed_title = k_soissons
-			}
+			has_romance_culture_trigger = yes
 			is_female = no
 			prisoner = no
 			age = 16
-			completely_controls = k_germania_inferior
-			NOT = { has_global_flag = legio_i_germania_inferior_founded }
+			has_landed_title = k_germania_inferior
+			NOT = { is_title_active = c_legio_i_germania_inferior }
 		}
 		allow = {
 			wealth = 2000
+			completely_controls = k_germania_inferior
 		}
 		effect = {
-			set_global_flag = legio_i_germania_inferior_founded
-			prestige = 300
 			wealth = -2000
 			activate_title = { title = c_legio_i_germania_inferior status = yes }
 			hidden_tooltip = {
-				create_character = {
-					random_traits = yes
-					culture = roman
-					dynasty = NONE
-					female = no
-					age = 34
-					trait = skilled_tactician
-				}
+				create_legion_commander_effect = yes
 				new_character = {
 					c_legio_i_germania_inferior = {
 						grant_title = PREV
 					}
 					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
 				}
 			}
 		}
@@ -651,60 +536,64 @@ decisions = {
 		}
 	}
 
-	organize_african_legions = {
+	organize_legio_i_africa = {
 		is_high_prio = yes
 		potential = {
-			OR = {
-				has_landed_title = e_byzantium
-				has_landed_title = e_wre
-				has_landed_title = k_soissons
-			}
+			has_romance_culture_trigger = yes
 			is_female = no
 			prisoner = no
 			age = 16
-			completely_controls = k_africa
-			NOT = { has_global_flag = african_legions_founded }
+			has_landed_title = k_africa
+			NOT = { is_title_active = c_legio_i_africa }	
 		}
 		allow = {
 			wealth = 2000
+			completely_controls = k_africa
 		}
 		effect = {
-			set_global_flag = african_legions_founded
-			prestige = 300
-			wealth = -6000
+			wealth = -2000
 			activate_title = { title = c_legio_i_africa status = yes }
 			hidden_tooltip = {
-				create_character = {
-					random_traits = yes
-					culture = roman
-					dynasty = NONE
-					female = no
-					age = 34
-					trait = skilled_tactician
-				}
+				create_legion_commander_effect = yes
 				new_character = {
 					c_legio_i_africa = {
 						grant_title = PREV
 					}
 					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
 				}
 			}
-
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_ii_africa = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = k_africa
+			NOT = { is_title_active = c_legio_ii_africa }	
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = k_africa
+		}
+		effect = {
+			wealth = -2000
 			activate_title = { title = c_legio_ii_africa status = yes }
 			hidden_tooltip = {
-				create_character = {
-					random_traits = yes
-					culture = roman
-					dynasty = NONE
-					female = no
-					age = 34
-					trait = skilled_tactician
-				}
+				create_legion_commander_effect = yes
 				new_character = {
 					c_legio_ii_africa = {
 						grant_title = PREV
 					}
 					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
 				}
 			}
 		}
@@ -716,39 +605,28 @@ decisions = {
 	organize_legio_i_mauretania = {
 		is_high_prio = yes
 		potential = {
-			OR = {
-				has_landed_title = e_byzantium
-				has_landed_title = e_wre
-				has_landed_title = k_soissons
-			}
+			has_romance_culture_trigger = yes
 			is_female = no
 			prisoner = no
 			age = 16
-			completely_controls = k_mauretania
-			NOT = { has_global_flag = legio_i_mauretania_founded }
+			has_landed_title = k_mauretania
+			NOT = { is_title_active = c_legio_i_mauretania }
 		}
 		allow = {
 			wealth = 2000
+			completely_controls = k_mauretania
 		}
 		effect = {
-			set_global_flag = legio_i_mauretania_founded
-			prestige = 300
 			wealth = -2000
 			activate_title = { title = c_legio_i_mauretania status = yes }
 			hidden_tooltip = {
-				create_character = {
-					random_traits = yes
-					culture = roman
-					dynasty = NONE
-					female = no
-					age = 34
-					trait = skilled_tactician
-				}
+				create_legion_commander_effect = yes
 				new_character = {
 					c_legio_i_mauretania = {
 						grant_title = PREV
 					}
 					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
 				}
 			}
 		}
@@ -760,39 +638,28 @@ decisions = {
 	organize_legio_i_dacia = {
 		is_high_prio = yes
 		potential = {
-			OR = {
-				has_landed_title = e_byzantium
-				has_landed_title = e_wre
-				has_landed_title = k_soissons
-			}
+			has_romance_culture_trigger = yes
 			is_female = no
 			prisoner = no
 			age = 16
-			completely_controls = k_dacia
-			NOT = { has_global_flag = legio_i_dacia_founded }
+			has_landed_title = k_dacia
+			NOT = { is_title_active = c_legio_i_dacia }
 		}
 		allow = {
 			wealth = 2000
+			completely_controls = k_dacia
 		}
 		effect = {
-			set_global_flag = legio_i_dacia_founded
-			prestige = 300
 			wealth = -2000
 			activate_title = { title = c_legio_i_dacia status = yes }
 			hidden_tooltip = {
-				create_character = {
-					random_traits = yes
-					culture = roman
-					dynasty = NONE
-					female = no
-					age = 34
-					trait = skilled_tactician
-				}
+				create_legion_commander_effect = yes
 				new_character = {
 					c_legio_i_dacia = {
 						grant_title = PREV
 					}
 					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
 				}
 			}
 		}
@@ -804,39 +671,886 @@ decisions = {
 	organize_legio_i_mesopotamia = {
 		is_high_prio = yes
 		potential = {
-			OR = {
-				has_landed_title = e_byzantium
-				has_landed_title = e_wre
-				has_landed_title = k_soissons
-			}
+			has_romance_culture_trigger = yes
 			is_female = no
 			prisoner = no
 			age = 16
-			completely_controls = d_osrhoene
-			NOT = { has_global_flag = legio_i_mesopotamia_founded }
+			has_landed_title = k_oriens
+			NOT = { is_title_active = c_legio_i_mesopotamia }
 		}
 		allow = {
 			wealth = 2000
+			completely_controls = d_osrhoene
 		}
 		effect = {
-			set_global_flag = legio_i_mesopotamia_founded
-			prestige = 300
 			wealth = -2000
 			activate_title = { title = c_legio_i_mesopotamia status = yes }
 			hidden_tooltip = {
-				create_character = {
-					random_traits = yes
-					culture = roman
-					dynasty = NONE
-					female = no
-					age = 34
-					trait = skilled_tactician
-				}
+				create_legion_commander_effect = yes
 				new_character = {
 					c_legio_i_mesopotamia = {
 						grant_title = PREV
 					}
 					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_i_flavia_constantia_gallicana = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = k_soissons
+			NOT = { is_title_active = c_legio_i_flavia_constantia_gallicana }
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = k_soissons
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = c_legio_i_flavia_constantia_gallicana status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					c_legio_i_flavia_constantia_gallicana = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_ii_britannica = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = k_soissons
+			NOT = { is_title_active = c_legio_ii_britannica }
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = k_soissons
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = c_legio_ii_britannica status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					c_legio_ii_britannica = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_xii_fulminata = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = k_pontus
+			NOT = { is_title_active = c_legio_xii_fulminata }
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = d_coloneia
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = c_legio_xii_fulminata status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					c_legio_xii_fulminata = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_i_flavia_constantia = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = e_byzantium
+			NOT = { is_title_active = c_legio_i_flavia_constantia }
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = e_byzantium
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = c_legio_i_flavia_constantia status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					c_legio_i_flavia_constantia = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_ii_flavia_constantia = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = k_egypt
+			NOT = { is_title_active = c_legio_ii_flavia_constantia }
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = d_thebais
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = c_legio_ii_flavia_constantia status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					c_legio_ii_flavia_constantia = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_i_isaura_sagittaria = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = e_byzantium
+			NOT = { is_title_active = c_legio_i_isaura_sagittaria }
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = d_isauria
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = c_legio_i_isaura_sagittaria status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					c_legio_i_isaura_sagittaria = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_ii_herculia = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = e_byzantium
+			NOT = { is_title_active = c_legio_ii_herculia }
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = d_scythia_minor
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = c_legio_ii_herculia status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					c_legio_ii_herculia = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_ii_isaura = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = e_byzantium
+			NOT = { is_title_active = c_legio_ii_isaura }
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = d_isauria
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = c_legio_ii_isaura status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					c_legio_ii_isaura = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_iii_diocletiana = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = k_egypt
+			NOT = { is_title_active = c_legio_iii_diocletiana }
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = d_alexandria
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = c_legio_iii_diocletiana status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					c_legio_iii_diocletiana = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_iv_parthica = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = k_oriens
+			NOT = { is_title_active = c_legio_iv_parthica }
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = d_osrhoene
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = c_legio_iv_parthica status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					c_legio_iv_parthica = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_iv_italica = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = e_byzantium
+			NOT = { is_title_active = c_legio_iv_italica }
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = e_byzantium
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = c_legio_iv_italica status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					c_legio_iv_italica = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_ii_iulia_alpina = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = k_macedonia
+			NOT = { is_title_active = c_legio_ii_iulia_alpina }
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = k_macedonia
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = c_legio_ii_iulia_alpina status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					c_legio_ii_iulia_alpina = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_iii_herculea = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = k_macedonia
+			NOT = { is_title_active = c_legio_iii_herculea }
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = k_macedonia
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = c_legio_iii_herculea status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					c_legio_iii_herculea = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_iv_martia = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = k_oriens
+			NOT = { is_title_active = c_legio_iv_martia }
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = d_palestinia_salutaris
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = c_legio_iv_martia status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					c_legio_iv_martia = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_ii_felix_valentis_thebaeorum = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = k_macedonia
+			NOT = { is_title_active = c_legio_ii_felix_valentis_thebaeorum }
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = k_macedonia
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = c_legio_ii_felix_valentis_thebaeorum status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					c_legio_ii_felix_valentis_thebaeorum = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_i_flavia_theodosiana = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = e_byzantium
+			NOT = { is_title_active = c_legio_i_flavia_theodosiana }
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = e_byzantium
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = c_legio_i_flavia_theodosiana status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					c_legio_i_flavia_theodosiana = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_i_maximiana_thaebanorum = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = k_egypt
+			NOT = { is_title_active = c_legio_i_maximiana_thaebanorum }
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = d_thebais
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = c_legio_i_maximiana_thaebanorum status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					c_legio_i_maximiana_thaebanorum = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_xv_apollinaris = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = k_pontus
+			NOT = { is_title_active = c_legio_xv_apollinaris }
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = d_pontus_polemoniacus
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = c_legio_xv_apollinaris status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					c_legio_xv_apollinaris = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_i_illyricorum = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = k_oriens
+			NOT = { is_title_active = c_legio_i_illyricorum }
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = d_syria_salutaris
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = c_legio_i_illyricorum status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					c_legio_i_illyricorum = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_xiii_gemina = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = k_egypt
+			NOT = { is_title_active = c_legio_xiii_gemina }
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = d_arcadia
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = c_legio_xiii_gemina status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					c_legio_xiii_gemina = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_i_pontica = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = k_pontus
+			NOT = { is_title_active = c_legio_i_pontica }
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = d_pontus_polemoniacus
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = c_legio_i_pontica status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					c_legio_i_pontica = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_iii_cyrenaica = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = k_egypt
+			NOT = { is_title_active = c_legio_iii_cyrenaica }
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = d_cyrenaica
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = c_legio_iii_cyrenaica status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					c_legio_iii_cyrenaica = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_i_armeniaca = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = e_byzantium
+			NOT = { is_title_active = c_legio_i_armeniaca }
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = e_byzantium
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = c_legio_i_armeniaca status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					c_legio_i_armeniaca = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_ii_traiana_fortis = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = k_egypt
+			NOT = { is_title_active = c_legio_ii_traiana_fortis }
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = d_alexandria
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = c_legio_ii_traiana_fortis status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					c_legio_ii_traiana_fortis = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_iv_scythia = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = k_oriens
+			NOT = { is_title_active = c_legio_iv_scythia }
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = d_syria_salutaris
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = c_legio_iv_scythia status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					c_legio_iv_scythia = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	organize_legio_i_iovia = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			is_female = no
+			prisoner = no
+			age = 16
+			has_landed_title = e_byzantium
+			NOT = { is_title_active = c_legio_i_iovia }
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = d_scythia_minor
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = c_legio_i_iovia status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					c_legio_i_iovia = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
 				}
 			}
 		}

@@ -1,6 +1,8 @@
 ######################################
 #
 # Legion Events
+# LEG.1 - LEG.9 Technical events
+# LEG.10 - LEG.99 Legion disband events
 #
 ######################################
 # By Joemit
@@ -8,89 +10,225 @@
 
 namespace = LEG
 
-# You have dalmatian legions without dalmatia
-
-narrative_event = {
+# Ping to set legion commander as FROM
+character_event = {
 	id = LEG.1
-	desc = EVTDESCLEG.1
-
-	picture = GFX_evt_emissary_byzantine
-
-	trigger = {
-		OR = {
-			has_landed_title = e_byzantium
-			has_landed_title = e_wre
-		}
-	has_global_flag = dalmatian_legions_founded
-	NOT = { completely_controls = k_dalmatia }
-	}
-
-	mean_time_to_happen = {
-		days = 1
-	}
-
+	
+	hide_window = yes
+	is_triggered_only = yes
+	
 	option = {
-		name = EVTOPTALEG.1
-		clr_global_flag = dalmatian_legions_founded
-		c_legio_i_dalmatia = {
-			destroy_landed_title = THIS
+		name = OK
+		
+		liege = {
+			narrative_event = { id = LEG.2 }
 		}
-		c_legio_ii_dalmatia = {
-			destroy_landed_title = THIS
-		}
-		c_legio_iii_dalmatia = {
-			destroy_landed_title = THIS
-		}
-		prestige = -300
 	}
 }
 
-# Annonarian legions without annonaria
-
+# Legion created 
+# FROM is the legion commander
+# ROOT is the decision taker and liege
 narrative_event = {
 	id = LEG.2
-	desc = EVTDESCLEG.1
-
-	picture = GFX_evt_emissary_byzantine
-
-	trigger = {
-		OR = {
-			has_landed_title = e_byzantium
-			has_landed_title = e_wre
-		}
-	has_global_flag = legio_i_annonaria_founded
-	NOT = { completely_controls = k_annonaria }
-	}
-
-	mean_time_to_happen = {
-		days = 1
-	}
-
+	title = EVTNAMELEG.2
+	desc = EVTDESCLEG.2
+	picture = GFX_evt_battle_roman
+		
+	is_triggered_only = yes
+	show_from = yes
+	
 	option = {
 		name = EVTOPTALEG.2
-		clr_global_flag = legio_i_annonaria_founded
-		c_legio_i_annonaria = {
-			destroy_landed_title = THIS
-		}
-		prestige = -100
+		
+		prestige = 100
 	}
 }
 
-# suburbicarian legions without suburbicaria
-
+# Notify the owner that the legion is disbanding
+# FROM is the legion commander
+# ROOT is the liege
 narrative_event = {
 	id = LEG.3
-	desc = EVTDESCLEG.1
+	title = EVTNAMELEG.3
+	desc = EVTDESCLEG.3
+	picture = GFX_evt_battle_roman
+		
+	is_triggered_only = yes
+	show_from = yes
+	
+	option = {
+		name= {
+			text = EVTOPTALEG.3
+			trigger = {
+				has_romance_culture_trigger = yes
+			}
+		}
+		name= {
+			text = EVTOPTBLEG.3
+			trigger = {
+				NOT = { has_romance_culture_trigger = yes }
+			}
+		}
+		
+		FROM = {
+			# set_defacto_liege = THIS # Count tier mercenary companies cannot be destroyed/de-activated, so make it independent without ability to hire it
+			primary_title = { # Legions have primary = yes flag
+				activate_title = { title = THIS status = no }
+				unsafe_destroy_landed_title = THIS
+			}
+			# Kill the commander, to actually destroy the title.
+			# Seems to be a bug with count tier titles that don't dissolve automatically.
+			death = { death_reason = death_execution killer = ROOT }
+		}
+		
+		if = {
+			limit = {
+				has_romance_culture_trigger = yes
+			}
+			prestige = -100
+		}
+	}
+	
+}
 
-	picture = GFX_evt_emissary_byzantine
+# Dalmatian legions without Dalmatia
+character_event = {
+	id = LEG.10
+	
+	hide_window = yes
+	only_rulers = yes
 
 	trigger = {
-		OR = {
-			has_landed_title = e_byzantium
-			has_landed_title = e_wre
+		has_landed_title = c_legio_i_dalmatia
+		k_dalmatia = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
 		}
-	has_global_flag = legio_i_suburbicaria_founded
-	NOT = { completely_controls = k_italia }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+character_event = {
+	id = LEG.11
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_ii_dalmatia
+		k_dalmatia = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+character_event = {
+	id = LEG.12
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_iii_dalmatia
+		k_dalmatia = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+
+# Annonarian legions without Annonaria
+character_event = {
+	id = LEG.13
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_i_annonaria
+		k_annonaria = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+
+# Suburbicarian legions without Suburbicaria
+character_event = {
+	id = LEG.14
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_i_suburbicaria
+		k_italia = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
 	}
 
 	mean_time_to_happen = {
@@ -98,30 +236,30 @@ narrative_event = {
 	}
 
 	option = {
-		name = EVTOPTALEG.3
-		clr_global_flag = legio_i_suburbicaria_founded
-		c_legio_i_suburbicaria = {
-			destroy_landed_title = THIS
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
 		}
-		prestige = -100
 	}
 }
 
 # raetia_noricumn legions without raetia_noricum
-
-narrative_event = {
-	id = LEG.4
-	desc = EVTDESCLEG.1
-
-	picture = GFX_evt_emissary_byzantine
+character_event = {
+	id = LEG.15
+	
+	hide_window = yes
+	only_rulers = yes
 
 	trigger = {
-		OR = {
-			has_landed_title = e_byzantium
-			has_landed_title = e_wre
+		has_landed_title = c_legio_i_raetia_noricum
+		k_raetia_noricum = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
 		}
-	has_global_flag = legio_i_raetia_noricum_founded
-	NOT = { completely_controls = k_raetia_noricum }
 	}
 
 	mean_time_to_happen = {
@@ -129,30 +267,30 @@ narrative_event = {
 	}
 
 	option = {
-		name = EVTOPTALEG.4
-		clr_global_flag = legio_i_raetia_noricum_founded
-		c_legio_i_raetia_noricum = {
-			destroy_landed_title = THIS
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
 		}
-		prestige = -100
 	}
 }
 
 # sicilian legions without sicilia
-
-narrative_event = {
-	id = LEG.5
-	desc = EVTDESCLEG.1
-
-	picture = GFX_evt_emissary_byzantine
+character_event = {
+	id = LEG.16
+	
+	hide_window = yes
+	only_rulers = yes
 
 	trigger = {
-		OR = {
-			has_landed_title = e_byzantium
-			has_landed_title = e_wre
+		has_landed_title = c_legio_i_sicilia
+		d_sicily = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
 		}
-	has_global_flag = legio_i_sicilia_founded
-	NOT = { completely_controls = d_sicily }
 	}
 
 	mean_time_to_happen = {
@@ -160,30 +298,30 @@ narrative_event = {
 	}
 
 	option = {
-		name = EVTOPTALEG.5
-		clr_global_flag = legio_i_sicilia_founded
-		c_legio_i_sicilia = {
-			destroy_landed_title = THIS
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
 		}
-		prestige = -100
 	}
 }
 
 # tarraconensisan (or whatever) legions without tarraconensis
-
-narrative_event = {
-	id = LEG.6
-	desc = EVTDESCLEG.1
-
-	picture = GFX_evt_emissary_byzantine
+character_event = {
+	id = LEG.17
+	
+	hide_window = yes
+	only_rulers = yes
 
 	trigger = {
-		OR = {
-			has_landed_title = e_byzantium
-			has_landed_title = e_wre
+		has_landed_title = c_legio_i_tarraconensis
+		k_tarraconensis = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
 		}
-	has_global_flag = legio_i_tarraconensis_founded
-	NOT = { completely_controls = k_tarraconensis }
 	}
 
 	mean_time_to_happen = {
@@ -191,28 +329,28 @@ narrative_event = {
 	}
 
 	option = {
-		name = EVTOPTALEG.6
-		clr_global_flag = legio_i_tarraconensis_founded
-		c_legio_i_tarraconensis = {
-			destroy_landed_title = THIS
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
 		}
-		prestige = -100
 	}
 }
-
-narrative_event = {
-	id = LEG.15
-	desc = EVTDESCLEG.1
-
-	picture = GFX_evt_emissary_byzantine
+character_event = {
+	id = LEG.18
+	
+	hide_window = yes
+	only_rulers = yes
 
 	trigger = {
-		OR = {
-			has_landed_title = e_byzantium
-			has_landed_title = e_wre
+		has_landed_title = c_legio_ii_tarraconensis
+		k_tarraconensis = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
 		}
-	has_global_flag = legio_ii_tarraconensis_founded
-	NOT = { completely_controls = k_tarraconensis }
 	}
 
 	mean_time_to_happen = {
@@ -220,30 +358,30 @@ narrative_event = {
 	}
 
 	option = {
-		name = EVTOPTALEG.15
-		clr_global_flag = legio_ii_tarraconensis_founded
-		c_legio_ii_tarraconensis = {
-			destroy_landed_title = THIS
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
 		}
-		prestige = -100
 	}
 }
 
 # gallaecian legions without gallaecia
-
-narrative_event = {
-	id = LEG.7
-	desc = EVTDESCLEG.1
-
-	picture = GFX_evt_emissary_byzantine
+character_event = {
+	id = LEG.19
+	
+	hide_window = yes
+	only_rulers = yes
 
 	trigger = {
-		OR = {
-			has_landed_title = e_byzantium
-			has_landed_title = e_wre
+		has_landed_title = c_legio_i_gallaecia
+		k_gallaecia = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
 		}
-	has_global_flag = legio_i_gallaecia_founded
-	NOT = { completely_controls = k_gallaecia }
 	}
 
 	mean_time_to_happen = {
@@ -251,30 +389,30 @@ narrative_event = {
 	}
 
 	option = {
-		name = EVTOPTALEG.7
-		clr_global_flag = legio_i_gallaecia_founded
-		c_legio_i_gallaecia = {
-			destroy_landed_title = THIS
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
 		}
-		prestige = -100
 	}
 }
 
 # cartaginensisan legions without cartaginensis
-
-narrative_event = {
-	id = LEG.8
-	desc = EVTDESCLEG.1
-
-	picture = GFX_evt_emissary_byzantine
+character_event = {
+	id = LEG.20
+	
+	hide_window = yes
+	only_rulers = yes
 
 	trigger = {
-		OR = {
-			has_landed_title = e_byzantium
-			has_landed_title = e_wre
+		has_landed_title = c_legio_i_cartaginensis
+		k_cartaginensis = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
 		}
-	has_global_flag = legio_i_cartaginensis_founded
-	NOT = { completely_controls = k_cartaginensis }
 	}
 
 	mean_time_to_happen = {
@@ -282,30 +420,30 @@ narrative_event = {
 	}
 
 	option = {
-		name = EVTOPTALEG.8
-		clr_global_flag = legio_i_cartaginensis_founded
-		c_legio_i_cartaginensis = {
-			destroy_landed_title = THIS
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
 		}
-		prestige = -100
 	}
 }
 
 # lusitanian legions without lusitania
-
-narrative_event = {
-	id = LEG.9
-	desc = EVTDESCLEG.1
-
-	picture = GFX_evt_emissary_byzantine
+character_event = {
+	id = LEG.21
+	
+	hide_window = yes
+	only_rulers = yes
 
 	trigger = {
-		OR = {
-			has_landed_title = e_byzantium
-			has_landed_title = e_wre
+		has_landed_title = c_legio_i_lusitania
+		k_lusitania = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
 		}
-	has_global_flag = legio_i_lusitania_founded
-	NOT = { completely_controls = k_lusitania }
 	}
 
 	mean_time_to_happen = {
@@ -313,30 +451,30 @@ narrative_event = {
 	}
 
 	option = {
-		name = EVTOPTALEG.9
-		clr_global_flag = legio_i_lusitania_founded
-		c_legio_i_lusitania = {
-			destroy_landed_title = THIS
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
 		}
-		prestige = -100
 	}
 }
 
 # septem_provincaen legions without septem_provincae
-
-narrative_event = {
-	id = LEG.10
-	desc = EVTDESCLEG.1
-
-	picture = GFX_evt_emissary_byzantine
+character_event = {
+	id = LEG.22
+	
+	hide_window = yes
+	only_rulers = yes
 
 	trigger = {
-		OR = {
-			has_landed_title = e_byzantium
-			has_landed_title = e_wre
+		has_landed_title = c_legio_i_septem_provincae
+		k_septem_provincae = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
 		}
-	has_global_flag = legio_i_septem_provincae_founded
-	NOT = { completely_controls = k_septem_provincae }
 	}
 
 	mean_time_to_happen = {
@@ -344,30 +482,30 @@ narrative_event = {
 	}
 
 	option = {
-		name = EVTOPTALEG.10
-		clr_global_flag = legio_i_septem_provincae_founded
-		c_legio_i_septem_provincae = {
-			destroy_landed_title = THIS
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
 		}
-		prestige = -100
 	}
 }
 
 # lugdunensisan legions without lugdunensis
-
-narrative_event = {
-	id = LEG.11
-	desc = EVTDESCLEG.1
-
-	picture = GFX_evt_emissary_byzantine
+character_event = {
+	id = LEG.23
+	
+	hide_window = yes
+	only_rulers = yes
 
 	trigger = {
-		OR = {
-			has_landed_title = e_byzantium
-			has_landed_title = e_wre
+		has_landed_title = c_legio_i_lugdunensis
+		k_lugdunensis = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
 		}
-	has_global_flag = legio_i_lugdunensis_founded
-	NOT = { completely_controls = k_lugdunensis }
 	}
 
 	mean_time_to_happen = {
@@ -375,30 +513,30 @@ narrative_event = {
 	}
 
 	option = {
-		name = EVTOPTALEG.11
-		clr_global_flag = legio_i_lugdunensis_founded
-		c_legio_i_lugdunensis = {
-			destroy_landed_title = THIS
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
 		}
-		prestige = -100
 	}
 }
 
 # belgican legions without belgica
-
-narrative_event = {
-	id = LEG.12
-	desc = EVTDESCLEG.1
-
-	picture = GFX_evt_emissary_byzantine
+character_event = {
+	id = LEG.24
+	
+	hide_window = yes
+	only_rulers = yes
 
 	trigger = {
-		OR = {
-			has_landed_title = e_byzantium
-			has_landed_title = e_wre
+		has_landed_title = c_legio_i_belgica
+		k_belgica = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
 		}
-	has_global_flag = legio_i_belgica_founded
-	NOT = { completely_controls = k_belgica }
 	}
 
 	mean_time_to_happen = {
@@ -406,30 +544,30 @@ narrative_event = {
 	}
 
 	option = {
-		name = EVTOPTALEG.12
-		clr_global_flag = legio_i_belgica_founded
-		c_legio_i_belgica = {
-			destroy_landed_title = THIS
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
 		}
-		prestige = -100
 	}
 }
 
 # germania_inferiorn legions without germania_inferior
-
-narrative_event = {
-	id = LEG.13
-	desc = EVTDESCLEG.1
-
-	picture = GFX_evt_emissary_byzantine
+character_event = {
+	id = LEG.25
+	
+	hide_window = yes
+	only_rulers = yes
 
 	trigger = {
-		OR = {
-			has_landed_title = e_byzantium
-			has_landed_title = e_wre
+		has_landed_title = c_legio_i_germania_inferior
+		k_germania_inferior = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
 		}
-	has_global_flag = legio_i_germania_inferior_founded
-	NOT = { completely_controls = k_germania_inferior }
 	}
 
 	mean_time_to_happen = {
@@ -437,30 +575,30 @@ narrative_event = {
 	}
 
 	option = {
-		name = EVTOPTALEG.13
-		clr_global_flag = legio_i_germania_inferior_founded
-		c_legio_i_germania_inferior = {
-			destroy_landed_title = THIS
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
 		}
-		prestige = -100
 	}
 }
 
 # african legions without africa
-
-narrative_event = {
-	id = LEG.14
-	desc = EVTDESCLEG.1
-
-	picture = GFX_evt_emissary_byzantine
+character_event = {
+	id = LEG.26
+	
+	hide_window = yes
+	only_rulers = yes
 
 	trigger = {
-		OR = {
-			has_landed_title = e_byzantium
-			has_landed_title = e_wre
+		has_landed_title = c_legio_i_africa
+		k_africa = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
 		}
-	has_global_flag = african_legions_founded
-	NOT = { completely_controls = k_africa }
 	}
 
 	mean_time_to_happen = {
@@ -468,33 +606,59 @@ narrative_event = {
 	}
 
 	option = {
-		name = EVTOPTALEG.14
-		clr_global_flag = african_legions_founded
-		c_legio_i_africa = {
-			destroy_landed_title = THIS
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
 		}
-		c_legio_ii_africa = {
-			destroy_landed_title = THIS
+	}
+}
+character_event = {
+	id = LEG.27
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_ii_africa
+		k_africa = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
 		}
-		prestige = -200
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
 	}
 }
 
 # mauretanian legions without mauretania
-
-narrative_event = {
-	id = LEG.16
-	desc = EVTDESCLEG.1
-
-	picture = GFX_evt_emissary_byzantine
+character_event = {
+	id = LEG.28
+	
+	hide_window = yes
+	only_rulers = yes
 
 	trigger = {
-		OR = {
-			has_landed_title = e_byzantium
-			has_landed_title = e_wre
+		has_landed_title = c_legio_i_mauretania
+		k_mauretania = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
 		}
-	has_global_flag = legio_i_mauretania_founded
-	NOT = { completely_controls = k_mauretania }
 	}
 
 	mean_time_to_happen = {
@@ -502,30 +666,30 @@ narrative_event = {
 	}
 
 	option = {
-		name = EVTOPTALEG.16
-		clr_global_flag = legio_i_mauretania_founded
-		c_legio_i_mauretania = {
-			destroy_landed_title = THIS
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
 		}
-		prestige = -100
 	}
 }
 
 # dacian legions without dacia
-
-narrative_event = {
-	id = LEG.17
-	desc = EVTDESCLEG.1
-
-	picture = GFX_evt_emissary_byzantine
+character_event = {
+	id = LEG.29
+	
+	hide_window = yes
+	only_rulers = yes
 
 	trigger = {
-		OR = {
-			has_landed_title = e_byzantium
-			has_landed_title = e_wre
+		has_landed_title = c_legio_i_dacia
+		k_dacia = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
 		}
-	has_global_flag = legio_i_dacia_founded
-	NOT = { completely_controls = k_dacia }
 	}
 
 	mean_time_to_happen = {
@@ -533,30 +697,30 @@ narrative_event = {
 	}
 
 	option = {
-		name = EVTOPTALEG.17
-		clr_global_flag = legio_i_dacia_founded
-		c_legio_i_dacia = {
-			destroy_landed_title = THIS
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
 		}
-		prestige = -100
 	}
 }
 
-# mesopotamian legions without mesopotamia
-
-narrative_event = {
-	id = LEG.18
-	desc = EVTDESCLEG.1
-
-	picture = GFX_evt_emissary_byzantine
+# mesopotamian legion without mesopotamia
+character_event = {
+	id = LEG.30
+	
+	hide_window = yes
+	only_rulers = yes
 
 	trigger = {
-		OR = {
-			has_landed_title = e_byzantium
-			has_landed_title = e_wre
+		has_landed_title = c_legio_i_mesopotamia
+		d_osrhoene = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
 		}
-		has_global_flag = legio_i_mesopotamia_founded
-		NOT = { completely_controls = d_osrhoene }
 	}
 
 	mean_time_to_happen = {
@@ -564,11 +728,819 @@ narrative_event = {
 	}
 
 	option = {
-		name = EVTOPTALEG.18
-		clr_global_flag = legio_i_mesopotamia_founded
-		c_legio_i_mesopotamia = {
-			destroy_landed_title = THIS
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
 		}
-		prestige = -100
+	}
+}
+
+character_event = {
+	id = LEG.31
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_i_flavia_constantia_gallicana
+		k_soissons = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+
+character_event = {
+	id = LEG.32
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_ii_britannica
+		k_soissons = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+
+character_event = {
+	id = LEG.33
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_xii_fulminata
+		k_pontus = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+
+character_event = {
+	id = LEG.34
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_i_flavia_constantia
+		e_byzantium = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+
+character_event = {
+	id = LEG.35
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_ii_flavia_constantia
+		d_thebais = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+
+character_event = {
+	id = LEG.36
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_i_isaura_sagittaria
+		e_byzantium = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+
+character_event = {
+	id = LEG.37
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_ii_herculia
+		e_byzantium = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+
+character_event = {
+	id = LEG.38
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_ii_isaura
+		e_byzantium = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+
+character_event = {
+	id = LEG.39
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_iii_diocletiana
+		k_egypt = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+
+character_event = {
+	id = LEG.40
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_iv_parthica
+		d_osrhoene = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+
+character_event = {
+	id = LEG.41
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_iv_italica
+		e_byzantium = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+
+character_event = {
+	id = LEG.42
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_ii_iulia_alpina
+		k_macedonia = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+
+character_event = {
+	id = LEG.43
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_iii_herculea
+		k_macedonia = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+
+character_event = {
+	id = LEG.44
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_iv_martia
+		d_palestinia_salutaris = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+
+character_event = {
+	id = LEG.45
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_ii_felix_valentis_thebaeorum
+		k_macedonia = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+
+character_event = {
+	id = LEG.46
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_i_flavia_theodosiana
+		e_byzantium = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+
+character_event = {
+	id = LEG.47
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_i_flavia_theodosiana
+		e_byzantium = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+
+character_event = {
+	id = LEG.48
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_i_maximiana_thaebanorum
+		k_egypt = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+
+character_event = {
+	id = LEG.49
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_xv_apollinaris
+		k_pontus = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+
+character_event = {
+	id = LEG.50
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_i_illyricorum
+		d_syria_salutaris = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+
+character_event = {
+	id = LEG.51
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_xiii_gemina
+		k_egypt = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+
+character_event = {
+	id = LEG.52
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_i_pontica
+		k_pontus = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+
+character_event = {
+	id = LEG.53
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_iii_cyrenaica
+		d_cyrenaica = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+
+character_event = {
+	id = LEG.54
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_i_armeniaca
+		e_byzantium = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+
+character_event = {
+	id = LEG.55
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_ii_traiana_fortis
+		k_egypt = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+
+character_event = {
+	id = LEG.56
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_iv_scythia
+		d_syria_salutaris = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
+	}
+}
+
+character_event = {
+	id = LEG.57
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = c_legio_i_iovia
+		e_byzantium = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					has_romance_culture_trigger = no
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = LEG.3 }
+		}
 	}
 }
