@@ -819,22 +819,59 @@ decisions = {
 		is_high_prio = yes
 		
 		potential = {
+			tier = KING
 			has_landed_title = k_asturias
-			has_landed_title = k_leon
+			k_leon = { has_holder = no }
 		}
+
 		allow = {
 			war = no
-			capital_scope = {
-				province_id = 190 # Leon
-			}
+			NOT = { trait = incapable }
+			primary_title = { title = k_asturias }
 			completely_controls = d_leon
 			completely_controls = d_asturias
 		}
 		effect = {
-			narrative_event = { id = 62920 tooltip = EVTTOOLTIP62920 }
+			activate_title = { title = k_leon status = yes }
+			k_asturias = {
+				k_leon = {
+					grant_title = ROOT
+					hidden_tooltip = { make_primary_title = yes }
+					copy_title_laws = PREV
+					copy_title_history = PREV
+				}
+				hidden_tooltip = {
+					any_direct_de_jure_vassal_title = {
+						de_jure_liege = k_leon
+					}
+					destroy_landed_title = THIS
+				}
+			}
+			if = {
+				limit = {
+					has_landed_title = c_leon
+					NOT = { capital_scope = { province_id = 190 } }
+
+				}
+				c_leon = { ROOT = { capital = PREV } }
+			}
 			if = {
 				limit = { has_nickname = no }
 				give_nickname = nick_the_great
+			}
+			activate_title = { title = k_asturias status = no }
+			
+			hidden_tooltip = {
+				character_event = { id = 62920 }
+				any_playable_ruler = {
+					limit = {
+						ai = no
+						capital_scope = {
+							region = world_europe_west_iberia
+						}
+					}
+					character_event = { id = 62921 }
+				}
 			}
 		}
 		ai_will_do = {
@@ -847,6 +884,7 @@ decisions = {
 		potential = {
 			has_landed_title = d_castilla
 			independent = yes
+			NOT = { tier = KING }
 			k_castille = {
 				has_holder = no
 			}
@@ -854,23 +892,52 @@ decisions = {
 		}
 		allow = {
 			war = no
-			capital_scope = {
-				province_id = 199 # Burgos
-			}
+			NOT = { trait = incapable }
 			completely_controls = d_castilla
-			OR = {
-				completely_controls = d_toledo
-				prestige = 500
-			}
-			NOT = { is_female = yes	}
-			NOT = { tier = king }
+			prestige = 1000
+			wealth = 100
 		}
 		effect = {
-			narrative_event = { id = 62922 tooltip = EVTTOOLTIP62922 }
+			wealth = -100
+			prestige = 500
+			activate_title = { title = k_castille status = yes }
+			k_castille = {
+				grant_title = ROOT
+				copy_title_laws = d_castilla
+			}
+			d_castilla = {
+				de_jure_liege = k_castille
+			}
+			if = {
+				limit = { completely_controls = d_toledo }
+				d_toledo = {
+					de_jure_liege = k_castille
+				}
+			}
 			if = {
 				limit = { has_nickname = no }
 				give_nickname = nick_the_great
 			}
+			hidden_tooltip = {
+				any_playable_ruler = {
+					limit = {
+						ai = no
+						capital_scope = {
+							region = world_europe_west_iberia
+						}
+					}
+					character_event = { id = 62923 }
+				}
+			}
+			if = {
+				limit = {
+					has_landed_title = c_burgos
+					NOT = { capital_scope = { province_id = 199 } }
+
+				}
+				c_burgos = { ROOT = { capital = PREV } }
+			}
+			hidden_tooltip = { character_event = { id = 62922 } }
 		}
 		ai_will_do = {
 			factor = 1
@@ -882,6 +949,7 @@ decisions = {
 		potential = {
 			has_landed_title = d_porto
 			independent = yes
+			NOT = { tier = KING }
 			k_portugal = {
 				has_holder = no
 			}
@@ -889,23 +957,51 @@ decisions = {
 		}
 		allow = {
 			war = no
-			capital_scope = {
-				province_id = 158 # Porto
-			}
+			NOT = { trait = incapable }
 			completely_controls = d_porto
-			OR = {
-				completely_controls = d_beja
-				prestige = 500
-			}
-			NOT = { is_female = yes	}
-			NOT = { tier = king }
+			prestige = 1000
+			wealth = 100
 		}
 		effect = {
-			narrative_event = { id = 62924 tooltip = EVTTOOLTIP62924 }
+			wealth = -100
+			prestige = 500
+			k_portugal = {
+				grant_title = ROOT
+				copy_title_laws = d_porto
+			}
+			d_porto = {
+				de_jure_liege = k_portugal
+			}
+			if = {
+				limit = { completely_controls = d_beja }
+				d_beja = {
+					de_jure_liege = k_portugal
+				}
+			}
+			if = {
+				limit = {
+					has_landed_title = c_porto
+					NOT = { capital_scope = { province_id = 158 } }
+
+				}
+				c_porto = { ROOT = { capital = PREV } }
+			}
 			if = {
 				limit = { has_nickname = no }
 				give_nickname = nick_the_great
 			}
+			hidden_tooltip = {
+				any_playable_ruler = {
+					limit = {
+						ai = no
+						capital_scope = {
+							region = world_europe_west_iberia
+						}
+					}
+					character_event = { id = 62925 }
+				}
+			}
+			hidden_tooltip = { character_event = { id = 62924 } }
 		}
 		ai_will_do = {
 			factor = 1
@@ -917,21 +1013,47 @@ decisions = {
 		potential = {
 			has_landed_title = d_aragon
 			independent = yes
+			NOT = { tier = KING }
 			k_aragon = {
 				has_holder = no
 			}
 			year = 1000
-			NOT = { culture = basque }
-			religion = catholic
 		}
 		allow = {
 			war = no
-			NOT = { is_female = yes	}
-			NOT = { tier = king }
+			NOT = { trait = incapable }
+			completely_controls = d_aragon
+			prestige = 1000
+			wealth = 100
 		}
 		effect = {
-			narrative_event = { id = 62926 tooltip = EVTTOOLTIP62926 }
-			
+			wealth = -100
+			prestige = 500
+			k_aragon = {
+				grant_title = ROOT
+				copy_title_laws = d_aragon
+			}
+			d_aragon = {
+				de_jure_liege = k_aragon
+			}
+			if = {
+				limit = { completely_controls = d_barcelona }
+				d_barcelona = {
+					de_jure_liege = k_aragon
+				}
+			}
+			hidden_tooltip = {
+				any_playable_ruler = {
+					limit = {
+						ai = no
+						capital_scope = {
+							region = world_europe_west_iberia
+						}
+					}
+					character_event = { id = 62927 }
+				}
+			}
+			hidden_tooltip = { character_event = { id = 62926 } }
 		}
 		ai_will_do = {
 			factor = 1
@@ -1104,7 +1226,19 @@ decisions = {
 			has_character_modifier = expelled_jewish
 		}
 		effect = {
+			scaled_wealth = -2.5
+			prestige = 50
 			remove_character_modifier = expelled_jewish
+			if = {
+				limit = {
+					NOT = { trait = zealous }
+					NOT = { trait = sympathy_judaism }
+				}
+				random = {
+					chance = 50
+					add_trait = sympathy_judaism
+				}
+			}
 			custom_tooltip = {
 				text = jews_are_welcome
 			}
@@ -1165,9 +1299,19 @@ decisions = {
 			NOT = { trait = incapable }
 		}
 		effect = {
+			prestige = -100
+			scaled_wealth = 5
+			banish_religion = jewish
 			if = {
 				limit = { trait = sympathy_judaism }
 				remove_trait = sympathy_judaism
+			}
+			if = {
+				limit = {
+					NOT = { trait = arbitrary }
+					has_character_modifier = borrowed_from_jews
+				}
+				add_trait = arbitrary
 			}
 			if = {
 				limit = { has_character_modifier = borrowed_from_jews }
@@ -1189,6 +1333,10 @@ decisions = {
 					hidden = yes
 				}
 			}
+			any_friend = {
+				limit = { religion_group = jewish_group }
+				remove_friend = ROOT
+			}
 		}
 		ai_will_do = {
 			factor = 1
@@ -1201,6 +1349,12 @@ decisions = {
 				any_courtier = {
 					religion_group = jewish_group
 					reverse_opinion = { who = ROOT value = 20 }
+				}
+			}
+			modifier = {
+				factor = 0
+				any_friend = {
+					religion_group = jewish_group
 				}
 			}
 			modifier = {
@@ -1220,12 +1374,17 @@ decisions = {
 				trait = kind
 			}
 			modifier = {
+				factor = 0
+				trait = just
+				has_character_modifier = borrowed_from_jews
+			}
+			modifier = {
 				factor = 1.2
 				trait = zealous
 				trait = arbitrary
 			}
 			modifier = {
-				factor = 1.2
+				factor = 2
 				has_character_modifier = borrowed_from_jews
 				trait = greedy
 			}
@@ -2464,8 +2623,8 @@ decisions = {
 							OR = {
 								is_republic = yes
 								is_tribal = yes
-								is_patrician = no
 							}
+							is_patrician = no
 							prisoner = no
 							NOT = { trait = incapable }
 							is_adult = yes

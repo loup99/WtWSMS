@@ -340,8 +340,8 @@ other_claim = {
 			if = {
 				limit = {
 					OR = {
-						tag = k_papal_state
-						tag = d_fraticelli
+						title = k_papal_state
+						title = d_fraticelli
 					}
 				}
 				FROM = {
@@ -7191,10 +7191,10 @@ pagan_subjugation = {
 				any_war = {
 					AND = {
 						defender = { character = PREVPREV }
-						using_cb = pagan_subjugation
 						OR = {
+							using_cb = pagan_subjugation
 							using_cb = nomad_subjugation
-						}	
+						}
 					}
 				}
 			}
@@ -12058,8 +12058,21 @@ cb_liberate_nomad_duchy = {
 		factor = 100
 	}
 	
-	ai_will_do = { 
+	ai_will_do = {
 		factor = 1
+		modifier = {
+			factor = 0.1
+			NOT = {
+				any_direct_de_jure_vassal_title = {
+					any_direct_de_jure_vassal_title = {
+						OR = {
+							holding_type = castle
+							holding_type = city
+						}
+					}
+				}
+			}
+		}
 	}
 }
 
@@ -12105,15 +12118,16 @@ cb_minor_clan_revolt = {
 	}
 
 	on_success_title = {
+		usurp_title_plus_barony_if_unlanded = { target = ROOT type = revolt }
+	
 		ROOT = {
-			set_government_type = feudal_government
-		
 			primary_title = {
 				set_title_nomad = { title = THIS status = no }
 			}
+			
+			set_government_type = feudal_government
 		}
 	
-		usurp_title_plus_barony_if_unlanded = { target = ROOT type = revolt }
 		ROOT = {		
 			set_government_type = nomadic_government
 			set_defacto_liege = FROM
@@ -12179,6 +12193,10 @@ cb_minor_clan_revolt = {
 			}
 		}
 	}
+	
+	on_attacker_leader_death = {
+		end_war = invalid
+	}
 
 	attacker_ai_victory_worth = {
 		factor = -1 # always accept
@@ -12205,6 +12223,20 @@ nomad_subjugation = {
 	truce_days = 365
 	is_permanent = yes
 	can_ask_to_join_war = yes
+	
+	can_use_gui = {
+	#higher_tier_than between ROOT and FROM would be better but its tooltip doesn't say anything about comparing character tiers
+		OR = {
+			ROOT = {
+				higher_tier_than = king
+				}
+			NOT = {
+				FROM = {
+					tier = emperor
+					}
+			}
+		}
+	}
 	
 	can_use = {
 		ROOT = {
@@ -12287,6 +12319,7 @@ nomad_subjugation = {
 				any_demesne_title = {
 					limit = {
 						higher_tier_than = ROOT
+						NOT = { controls_religion = yes }
 					}
 					ROOT = { grant_title = { target = PREV type = invasion } }
 					add_pressed_claim = PREV
@@ -12305,9 +12338,37 @@ nomad_subjugation = {
 				any_demesne_title = {
 					limit = {
 						tier = ROOT
+						NOT = { controls_religion = yes }
 					}
 					ROOT = { grant_title = { target = PREV type = invasion } }
 					add_pressed_claim = PREV
+				}
+
+				if = {
+					limit = {
+						any_demesne_title = {
+							NOT = { controls_religion = yes }
+						}
+					}
+					set_defacto_liege = ROOT
+				}
+				if = {
+					limit = {
+						any_demesne_title = {
+							controls_religion = yes
+						}
+					}
+					any_vassal = {
+						set_defacto_liege = ROOT
+					}
+					any_demesne_title = {
+						limit = {
+							NOT = { controls_religion = yes }
+						}
+						ROOT = {
+							grant_title = { target = PREV type = invasion }
+						}
+					}
 				}
 			}
 		}

@@ -33,6 +33,7 @@
 		modifier = {
 			factor = 0
 			prisoner = no
+			NOT = { death_reason = death_dungeon }
 		}
 	}
 
@@ -56,12 +57,23 @@
 		factor = 100
 		modifier = {
 			factor = 0
+			is_alive = yes
 			NOT = { trait = incapable }
 			NOT = { trait = infirm }
 		}
 		modifier = {
+			factor = 0.001
+			OR = {
+				death_reason = death_sacrificed
+				death_reason = death_battle
+				death_reason = death_execution
+				death_reason = death_dungeon
+			}
+		}
+		modifier = {
 			factor = 0.02
 			trait = infirm
+			is_alive = yes
 		}
 	}
 	
@@ -83,8 +95,17 @@
 		factor = 100
 		modifier = {
 			factor = 0
-			in_command = no
-			NOT = { has_job_title  = job_marshal }
+			OR = {
+				AND = {
+					is_alive = yes
+					in_command = no
+					NOT = { has_job_title  = job_marshal }
+				}
+				AND = {
+					is_alive = no
+					NOT = { death_reason = death_battle }
+				}
+			}
 		}
 		modifier = {
 			factor = 0.02
@@ -99,6 +120,10 @@
 			NOT = { religion_group = pagan_group }
 		}
 		modifier = {
+			factor = 100
+			is_alive = no
+		}
+		modifier = {
 			factor = 2
 			is_priest = yes
 		}
@@ -110,10 +135,14 @@
 			factor = 0
 			NOT = { trait = cruel }
 			NOT = { trait = impaler }
+			NOT = { death_reason = death_execution }
 		}
 		modifier = {
 			factor = 20
-			trait = impaler
+			OR = {
+				trait = impaler
+				death_reason = death_execution
+			}
 		}
 	}
 	
@@ -252,6 +281,11 @@
 		modifier = {
 			factor = 0
 			NOT = { religion_group = pagan_group }
+			NOT = { death_reason = death_sacrificed }
+		}
+		modifier = {
+			factor = 1000
+			death_reason = death_sacrificed
 		}
 		modifier = {
 			factor = 10
