@@ -197,13 +197,28 @@ unification = {
 	is_permanent = yes
 	can_ask_to_join_war = yes
 	check_de_jure_tier = EMPEROR
+	
+	can_use = {
+		FROM = {
+			independent = yes
+			higher_tier_than = DUKE
+		}
+	}
 
 	can_use_title = {
 		has_holder = no
 		ROOT = { has_claim = PREV }
 		FROM = {
+			any_realm_title = {
+				de_jure_liege_or_above = PREVPREV
+			}
+		}
+	}
+	
+	is_valid = {
+		FROM = {
 			independent = yes
-			higher_tier_than = KING	
+			higher_tier_than = DUKE
 		}
 	}
 
@@ -213,20 +228,21 @@ unification = {
 			has_claim = PREV
 		}
 		FROM = {
-			independent = yes
-			higher_tier_than = KING	
+			any_realm_title = {
+				de_jure_liege_or_above = PREVPREV
+			}
 		}
 	}
 
 	on_success = {
 		hidden_tooltip = {
-			FROM = { # Julis Nepos becomes independant following Odoacers war
+			FROM = { # Julis Nepos becomes independent following Odoacers war
 				any_vassal = { 
 					limit = { character = 175110 } 
 					set_defacto_liege = THIS
 				}
 			}
-			ROOT = { # Without this Theodoric doesnt get Italy if he wins
+			ROOT = { # Without this Theodoric doesn't get Italy if he wins
 				if = {
 					limit = {
 						has_character_flag = give_italy_if_win 
@@ -268,7 +284,7 @@ unification = {
 	
 	on_success_title = {
 
-	 custom_tooltip = {
+		custom_tooltip = {
 			text = other_invasion_succ_tip
 			hidden_tooltip = {
 				ROOT = {
@@ -278,13 +294,13 @@ unification = {
 						is_crusade = yes
 						type = invasion
 					}
-                                        gain_settlements_under_title = {
+					gain_settlements_under_title = {
 						title = PREV
 						enemy = FROM
 					}
 				}
-				}
 			}
+		}
 	}
 
 	on_fail = {
