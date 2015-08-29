@@ -1,3 +1,10 @@
+###############################
+# Disease events
+#
+# ds.1 -> ds.9 Quarantine events
+# ds.10 -> ds.29 Justinian plague
+###############################
+
 namespace = ds
 
 # Jews Expelled
@@ -68,7 +75,7 @@ character_event = {
 		name = EVTOPTA_ds_3
 		trigger = {
 			NOT = { has_character_modifier = borrowed_from_jews }
-			}
+		}
 			
 	}
 }
@@ -150,5 +157,197 @@ character_event = {
 	option = {
 		name = EVTOPTA_ds_7
 		prestige = 50
+	}
+}
+
+###############################
+# Justinian Plague
+#
+# Written by Romulien
+###############################
+
+# Arrival of the plague
+
+# Plague arrives in the realm
+# Note: there is no way to check a province for a specific epidemic, so use traits.
+character_event = {
+	id = ds.10
+	hide_window = yes
+	
+	only_rulers = yes
+	only_independent = yes
+
+	trigger = {
+		primary_title = {
+			NOT = { has_title_flag = flag_justinian_plague_arrived_in_realm }
+		}
+		any_realm_character = {
+			trait = has_bubonic_plague
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		primary_title = {
+			set_title_flag = flag_justinian_plague_arrived_in_realm
+		}
+	}
+	
+	option = {
+		name = OK
+
+		if = {
+			limit = {
+				primary_title = {
+					is_titular = no
+				}
+				NOT = { has_global_flag = flag_justinian_plague_arrived }
+			}
+			any_playable_ruler = {
+				limit = { 
+					ai = no
+					NOT = { character = ROOT }
+				}
+				narrative_event = { id = ds.11 days = 30 }
+			}
+			set_global_flag = flag_justinian_plague_arrived
+		}
+		
+		narrative_event = { id = ds.12 }
+		any_realm_character = {
+			limit = { 
+				ai = no
+			}
+			narrative_event = { id = ds.12 }
+		}
+	}
+}
+
+# Notify players of the arrival of the plague in the world
+# FROM is the independent liege of the initial outbreak
+narrative_event = {
+	id = ds.11
+	desc = ds.11.desc
+	title = EVTTITLE_bubonic_plague
+	
+	picture = GFX_evt_plague_doctor
+	border = GFX_event_narrative_frame_religion
+
+	is_triggered_only = yes
+	
+	option = {
+		name = ds.11.a
+		trigger = {
+			NOT = { trait = zealous }
+		}
+	}
+	
+	option = {
+		name = ds.11.b
+		tooltip_info = zealous
+		trigger = {
+			trait = zealous
+		}
+	}
+}
+
+# Notify rulers that plague arrived in the realm
+# FROM is the top liege
+narrative_event = {
+	id = ds.12
+	desc = ds.12.desc
+	title = EVTTITLE_bubonic_plague
+	
+	picture = GFX_evt_plague_doctor
+	border = GFX_event_narrative_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ds.12.a
+		
+		random = {
+			chance = 10
+			modifier = {
+				factor = 3
+				trait = zealous
+			}
+			add_trait = depressed
+		}
+	}
+}
+
+
+
+# Religious head gets the plague
+character_event = {
+	id = ds.13
+	desc = ds.13.desc
+	
+	picture = GFX_evt_plague_doctor
+	border = GFX_event_narrative_frame_religion
+	
+	only_rulers = yes
+	
+	trigger = {
+		controls_religion = yes
+		trait = has_bubonic_plague
+		NOT = { intrigue = 12 } # Unsuccessful at concealing it
+		NOT = { has_character_flag = flag_affected_by_pestilence }
+	}
+		
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_character_flag = flag_affected_by_pestilence
+	}
+	
+	option = {
+		name = ds.13.a
+		religion_authority = { modifier = affected_by_pestilence }
+		
+		any_playable_ruler = {
+			limit = {
+				ai = no
+				OR = {
+					NOT = { character = ROOT }
+					religion = ROOT
+					is_heresy_of = ROOT
+				}
+			}
+			narrative_event = { id = ds.14 }
+		}
+	}
+}
+
+# Notify the player
+# FROM is the religious head
+narrative_event = {
+	id = ds.14
+	desc = ds.14.desc
+	title = EVTTITLE_bubonic_plague
+	
+	picture = GFX_evt_plague_doctor
+	border = GFX_event_narrative_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ds.14.a
+		trigger = {
+			religion = FROM
+		}
+	}
+	
+	option = {
+		name = ds.14.b
+		trigger = {
+			is_heresy_of = FROM
+		}
 	}
 }
