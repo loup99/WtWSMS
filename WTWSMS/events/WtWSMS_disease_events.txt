@@ -179,7 +179,10 @@ character_event = {
 
 	trigger = {
 		primary_title = {
-			NOT = { has_title_flag = flag_justinian_plague_arrived_in_realm }
+			OR = {
+				NOT = { has_title_flag = flag_justinian_plague_arrived_in_realm } # Initial outbreak
+				had_title_flag = { flag = flag_justinian_plague_arrived_in_realm days = 365 } # Recurrence of the plague
+			}	
 		}
 		any_realm_character = {
 			trait = has_bubonic_plague
@@ -192,19 +195,38 @@ character_event = {
 	
 	immediate = {
 		primary_title = {
+			clr_title_flag = flag_justinian_plague_arrived_in_realm # Reset the counter
 			set_title_flag = flag_justinian_plague_arrived_in_realm
 		}
 	}
 	
 	option = {
 		name = OK
+		
+		if = {
+			limit = {
+				had_global_flag = { flag = flag_justinian_plague_arrived days = 3650 } # Recurrence of the plague
+				primary_title = {
+					is_titular = no # Let the notification fire for a landed title
+				}
+			}
+			any_playable_ruler = {
+				limit = { 
+					ai = no
+					NOT = { character = ROOT }
+				}
+				narrative_event = { id = ds.15 days = 30 }
+			}
+			clr_global_flag = flag_justinian_plague_arrived # Reset counter
+			set_global_flag = flag_justinian_plague_arrived
+		}
 
 		if = {
 			limit = {
+				NOT = { has_global_flag = flag_justinian_plague_arrived } # Initial outbreak
 				primary_title = {
-					is_titular = no
+					is_titular = no # Let the notification fire for a landed title
 				}
-				NOT = { has_global_flag = flag_justinian_plague_arrived }
 			}
 			any_playable_ruler = {
 				limit = { 
@@ -213,6 +235,8 @@ character_event = {
 				}
 				narrative_event = { id = ds.11 days = 30 }
 			}
+			# Note: global flag is also set via e_byzantium title history
+			# With a start date 542-600, the initial outbreak will just be considered a recurrence of the plague.
 			set_global_flag = flag_justinian_plague_arrived
 		}
 		
@@ -232,11 +256,18 @@ narrative_event = {
 	id = ds.11
 	desc = ds.11.desc
 	title = EVTTITLE_bubonic_plague
-	
+
 	picture = GFX_evt_plague_doctor
 	border = GFX_event_narrative_frame_religion
 
 	is_triggered_only = yes
+	
+	immediate = {
+		primary_title = {
+			clr_title_flag = flag_justinian_plague_arrived_in_realm # Reset the counter
+			set_title_flag = flag_justinian_plague_arrived_in_realm
+		}
+	}
 	
 	option = {
 		name = ds.11.a
@@ -348,6 +379,34 @@ narrative_event = {
 		name = ds.14.b
 		trigger = {
 			is_heresy_of = FROM
+		}
+	}
+}
+
+# Notify players of the recurrence of the plague in the world
+# FROM is the independent liege of the initial outbreak
+narrative_event = {
+	id = ds.15
+	desc = ds.15.desc
+	title = EVTTITLE_bubonic_plague
+
+	picture = GFX_evt_plague_doctor
+	border = GFX_event_narrative_frame_religion
+
+	is_triggered_only = yes
+	
+	option = {
+		name = ds.11.a
+		trigger = {
+			NOT = { trait = zealous }
+		}
+	}
+	
+	option = {
+		name = ds.11.b
+		tooltip_info = zealous
+		trigger = {
+			trait = zealous
 		}
 	}
 }
