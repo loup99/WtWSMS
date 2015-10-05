@@ -11,6 +11,7 @@ feudal_governments = {
 		}
 		accepts_liege_governments = { # Gets the wrong religion modifier instead
 			muslim_government
+			bureaucratic_government
 		}
 		free_revoke_on_governments_religion = { # Tribal vassals of other religions can have their titles revoked for free
 			tribal_government
@@ -26,6 +27,9 @@ feudal_governments = {
 				}
 			}
 			NOT = {	religion_group = muslim	}
+			NOT = {
+                bureaucratic_government_trigger = yes
+			}
 			is_patrician = no
 		}
 		
@@ -53,6 +57,7 @@ feudal_governments = {
 		}
 		accepts_liege_governments = { # Gets the wrong religion modifier instead
 			feudal_government
+			bureaucratic_government
 		}
 		free_revoke_on_tiers = {
 			duke
@@ -69,6 +74,9 @@ feudal_governments = {
 					primary_title = {
 						is_landless_type_title = no
 					}
+				}
+				NOT = {
+					bureaucratic_government_trigger = yes 
 				}
 			}
 			religion_group = muslim
@@ -93,4 +101,61 @@ feudal_governments = {
 		}
 	}
 	
+	bureaucratic_government = {
+		preferred_holdings = { CASTLE }
+		allowed_holdings = {		
+			CASTLE 
+			FORT
+			CITY
+		}
+		
+		allowed_holdings_culture = { # Will not get the wrong government type penalty for tribes of the same religion
+			TRIBAL
+		}
+
+		accepts_liege_governments = {	
+			feudal_government
+			republic_government
+			merchant_republic_government
+			theocracy_government
+		}
+		
+		potential = {
+			NAND = {
+				controls_religion = yes
+				NOT = { religion_group = muslim }
+				NOT = { religion = norse_pagan_reformed }
+			}
+			
+			NOT = {
+			religion_group = muslim
+			}
+			
+            is_theocracy = no
+            bureaucratic_government_trigger = yes
+			higher_tier_than = king
+            has_dlc = "Charlemagne"
+		}	
+		
+		color = { 153 0 36 }
+		
+		barons_need_dynasty = no
+		
+		ignore_in_vassal_limit_calculation = {
+			tribal_government
+		}
+		
+		can_build_tribal = no
+		
+		allow_title_revokation = yes
+		free_retract_vassalage = yes
+		
+		character_modifier	= {
+			land_morale = 0.5
+			land_organisation = 0.5
+			retinuesize_perc = 5
+			retinue_maintenence_cost = -0.5
+			demesne_size = 10
+		}
+	}	
 }
