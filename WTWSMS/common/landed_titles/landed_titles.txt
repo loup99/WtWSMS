@@ -25,6 +25,8 @@ e_pirates = {
 
 # SPECIAL TITLES
 
+# SPECIAL TITLES
+
 k_papal_state = {
 	color={ 255 249 198 }
 	color2={ 220 220 0 }
@@ -54,10 +56,6 @@ k_papal_state = {
 		Alexander Anastasius Benedictus Caelestinus Callistus Clemens Eugenius Leo
 		Gregorius Hadrianus Honorius Innocentius Ioannes Lucius Marinus Martinus
 		Nicolaus Sergius Silvester Stephanus Urbanus Victor
-		Lucius Callixtus Julius Pelagius Adeodatus Theodore Marinus Agapetus Damasus Paschal
-		Gelasius Marcellus "John Paul" Anacletus Evaristus Telesphorus Hyginus Anicetus Mark Hilarius 
-		Simplicius Symmachus Hormisdas Silverius Vigilius Sabinian Severinus Vitalian Donus Agatho
-		Conon Sisinnius Constantine Zachary Valentine Formosus Romanus Lando
 	}
 }
 
@@ -108,11 +106,8 @@ d_papal_state = {
 	
 	# Always exists
 	landless = yes
-		
-	# Controls a religion
-	controls_religion = nicene
 	
-	religion = nicene
+	religion = catholic
 	
 	# Cannot be held as a secondary title
 	primary = yes
@@ -145,7 +140,10 @@ d_orthodox = {
 	# Always exists
 	landless = yes
 	
-	religion = nicene
+	Controls a religion
+	controls_religion = orthodox
+	
+	religion = orthodox
 	
 	# Cannot be held as a secondary title
 	primary = yes
@@ -2907,7 +2905,7 @@ e_roman_empire = {
 }
 
 e_byzantium = {
-	color={ 170 20 190 }
+	color={ 163 10 145 }
 	color2={ 255 255 20 }
 	
 	capital = 496 # Byzantion
@@ -10137,6 +10135,15 @@ e_dacia = {
 		slavic_pagan_reformed = 500
 		baltic_pagan_reformed = 500
 		germanic_pagan_reformed = 500
+		
+		allow = {
+			hidden_tooltip = {
+				OR = {
+					ai = no
+					culture_group = proto_carpathian
+				}
+			}
+		}
 
 		d_sarmizegetusa_regia = {
 			color={ 154 205 50 }
@@ -10997,7 +11004,6 @@ e_tartaria = {
 			}
 		}
 	}
-	
 	k_mongolia = {
 		color = { 100 100 250 }
 		
@@ -11096,6 +11102,7 @@ e_tartaria = {
 				color = { 130 136 220 }
 
 				holy_site = tengri_pagan
+				holy_site = confucianism
 				holy_site = tengri_pagan_reformed
 				
 				b_otuken = {}
@@ -11585,6 +11592,7 @@ e_tartaria = {
 				b_loulan = {
 				}
 				b_kroran = {
+					holy_site = confucianism
 				}
 				b_kara_koshun = {
 				}
@@ -11664,6 +11672,7 @@ e_tartaria = {
 			}
 		}
 	}
+	
 	k_magyar = {
 		color={ 184 134 71 }
 		# tribe = yes
@@ -14950,7 +14959,7 @@ e_armenia = {
 
 
 e_persia = {
-	color={ 195 190 135 }
+	color={ 131 204 20 }
 	color2={ 255 255 255 }
 	
 	capital = 693 # Baghdad
@@ -14960,8 +14969,12 @@ e_persia = {
 	zun_pagan_reformed = 500 # Crusade target weight
 
 	persian = "Eranshahr"
+	xianbei = "Red Rouran" 
+	armenian = "Partyevestani" 
 	indo_parthian = "Parthian Empire"
 	greek = "Syrian Empire"
+	helleno_aramaic = "Syrian Empire"
+	isaurian = "Syrian Empire"
 	parthian = "Parthian Empire"
 	
 	allow = {
@@ -14982,6 +14995,9 @@ e_persia = {
 		capital = 685 # Kurdistan
 
 		aramean = "Urartu"
+		helleno_aramaic = "Urashtu"
+		assyrian = "Mat Urartu" 
+		armenian = "Van"
 		bedouin_arabic = "Tabaristan"
 		greek = "Rashta"
 		
@@ -14992,27 +15008,44 @@ e_persia = {
 			color2={ 255 255 255 }
 			
 			capital = 685 # Kurdistan
+			
+			armenian = "Nor Shirakan"
+			persian = "Modshirakan"
+			aramean = "Haday'ab"
+			assyrian = "Haday'ab"
 
 			c_nisibin = {
 				color={ 133 170 52 }
 				color2={ 255 255 255 }
 
-				aramean = "Nisibis"
+				aramean = "Nashibina"
 				persian = "Nusaybin"
 				kurdish= "Nisêbîn"
+				assyrian = "Nashibina"
+				greek = "Antiochia Mygdonia"
+				isaurian = "Antiochia Mygdonia"
+				helleno_aramaic = "Antiochia Mygdonia"
+				armenian = "Mtsbin"
 				
 				b_nusaybin = {
-					aramean = "Nisibis"
+					aramean = "Nashibina"
 					persian = "Nusaybin"
 					kurdish= "Nisêbîn"
+					assyrian = "Nashibina"
+					greek = "Antiochia Mygdonia"
+					isaurian = "Antiochia Mygdonia"
+					helleno_aramaic = "Antiochia Mygdonia"
+					armenian = "Mtsbin"
 				}
 				b_savur = {
 					kurdish = "Stewr"
 					aramean = "Savr"
+					assyrian = "Savr"
 				}
 				b_dairodmorhannanyo = {
 					kurdish = "Dêra Zehferanê"
 					aramean = "Dairo d-Kurkmo"
+					assyrian = "Dairo d-Kurkmo"
 					bedouin_arabic = "Dairu 'l-Za'faran"
 				}
 				b_kerburan = {
@@ -15032,6 +15065,13 @@ e_persia = {
 	
 				kurdish = "Mûsil"
 				aramean = "Nînwe"
+				assyrian = "Nînwe"
+				greek = "Mosoúli"
+				isaurian = "Mosoúli"
+				persian = "Mépsila" 
+				parthian = "Mépsila" 
+				helleno_aramaic = "Mosoúli"
+				armenian = "Musul"
 				turkish = "Musul"
 				bedouin_arabic = "al-Mawsil"
 				levantine_arabic = "el-Mosul"
@@ -15041,6 +15081,13 @@ e_persia = {
 				b_mosul = {
 					kurdish = "Mûsil"
 					aramean = "Nînwe"
+					assyrian = "Nînwe"
+					greek = "Mosoúli"
+					isaurian = "Mosoúli"
+					persian = "Mépsila" 
+					parthian = "Mépsila" 
+					helleno_aramaic = "Mosoúli"
+					armenian = "Musul"
 					turkish = "Musul"
 					bedouin_arabic = "al-Mawsil"
 					levantine_arabic = "el-Mosul"
@@ -15070,8 +15117,15 @@ e_persia = {
 				color={ 21 180 70 }
 				color2={ 255 255 255 }
 		
-				aramean = "Corduene"
-				persian = "Corduene"
+				aramean = "Beth Nuhadra"
+				assyrian = "Naarda"
+				persian = "Dahuk"
+				parthian = "Dahuk"
+				armenian = "Corduene"
+				corduenian = "Corduene"
+				greek = "Corduene" 
+				isaurian = "Corduene"
+				helleno_aramaic = "Corduene"
 				
 				b_duhok = {
 					kurdish = "Dihok"
@@ -15100,20 +15154,32 @@ e_persia = {
 			
 			capital = 666 # Gilan
 
+			persian = "Adarbaygan"
+			parthian = "Aturpatakan"
+			assyrian = "Matiene"
+			aramean = "Matiene"
+			
 			c_oromieh = {
 				color={ 86 143 61 }
 				color2={ 255 255 255 }
 
 				kurdish = "Wirmê"
 				greek = "Urmia"
-				aramean = "Beth Urm"
-				
+				persian = "Urmiye"
+				isaurian = "Urmia"
+				helleno_aramaic = "Urmia"
+				aramean = "Beth Urmuya"
+				assyrian = "Mia"
 				holy_site = zoroastrian # The Great Fire of Adur Gushnasp
 				
 				b_oroumieh = {
 					kurdish = "Wirmê"
 					greek = "Urmia"
-					aramean = "Beth Urm"
+					persian = "Urmiye"
+					isaurian = "Urmia"
+					helleno_aramaic = "Urmia"
+					aramean = "Beth Urmuya"
+					assyrian = "Mia"
 				}
 				b_khoy = {
 					armenian = "Her"
@@ -15139,12 +15205,24 @@ e_persia = {
 
 				bedouin_arabic = "Ostan-e Gilan"
 				persian = "Daylam"
+				parthian = "Daylam"
 				aramean = "Delam"
+				assyrian = "Delam"
+				greek = "Gelaeia"
+				helleno_aramaic = "Gelaeia"
+				isaurian = "Gelaeia"
+				roman = "Guilan"
 				
 				b_gilan = {
 					bedouin_arabic = "Ostan-e Gilan"
-					persian = "Daylam"
-					aramean = "Delam"
+				persian = "Daylam"
+				parthian = "Daylam"
+				aramean = "Delam"
+				assyrian = "Delam"
+				greek = "Gelaeia"
+				helleno_aramaic = "Gelaeia"
+				isaurian = "Gelaeia"
+				roman = "Guilan"
 				}
 				b_rasht = {
 					aramean = "Resht"
@@ -15168,7 +15246,11 @@ e_persia = {
 				color2={ 255 255 255 }
 
 				persian = "T'awres"
- 	
+				greek = "Tauris"
+				isaurian = "Tauris"
+				helleno_aramaic = "Tauris"
+				aramean = "Tarui"
+				assyrian  = "Tarui"
 				
 				b_babak = {
 					aramean = "Beth Dalas"
@@ -15195,7 +15277,22 @@ e_persia = {
 				color={ 72 178 109 }
 				color2={ 255 255 255 }
 				
+				persian = "Qeydar"
+				parthian = "Paighambar"
+				assyrian = "Keydar"
+				aramean = "Keydar"
+				greek = "Kidar"
+				isaurian = "Kidar"
+				helleno_aramaic = "Kidar"
+				
 				b_dailam = {
+					persian = "Qeydar"
+				parthian = "Paighambar"
+				assyrian = "Keydar"
+				aramean = "Keydar"
+				greek = "Kidar"
+				isaurian = "Kidar"
+				helleno_aramaic = "Kidar"
 				}
 				b_soltaniyeh = {
 				}
@@ -15224,7 +15321,7 @@ e_persia = {
 
 		persian = "Eran"
 		parthian = "Yr'n"
-		
+		xianbei = "Pyers" 
 		
 		muslim = 400 # Crusade target weight
 		christian = 25 
@@ -15988,6 +16085,11 @@ e_persia = {
 		capital	= 626 # Khiva
 		culture = persian
 		
+		bactrian = "Bakhlo"
+		khwarezmian = "Bakhlo"
+		persian = "Bakhtar"
+		parthian = "Bakhtar" 
+		
 		tengri_pagan_reformed = 50
 		zoroastrian_group = 700 # Crusade target weight
 		
@@ -16615,6 +16717,8 @@ e_persia = {
 		culture = aramean
 
 		aramean = "Babylon"
+		assyrian = "Assyria"
+		helleno_aramaic = "Babylon"
 
 		d_asoristan = {
 			color={ 118 148 40 }
@@ -17235,6 +17339,16 @@ e_gaul = {
 		german = Westenland
 		jute = Sehtþord
 		dane = Vestjordr
+		
+		allow = {
+			hidden_tooltip = {
+				OR = {
+					ai = no
+					culture_group = latin
+					culture_group = continental_celtic 
+				}
+			}
+		}
 
 		d_noviodunum = {
 			color={ 34 139 34 }
@@ -18019,6 +18133,15 @@ e_gaul = {
 			german = Siebenländer
 			jute = Ssynþorðe
 			dane = Svynjorder
+			
+		allow = {
+			hidden_tooltip = {
+				OR = {
+					ai = no
+					culture_group = vasconian
+				}
+			}
+		}
 		
 		catholic = 5000 # Crusade target weight
 		germanic_pagan_reformed = 150
@@ -20327,10 +20450,7 @@ e_spain = {
 		# Creation/usurpation trigger
 		allow = {
 			hidden_tooltip = {
-				OR = {
 					ai = no
-					religion_group = christian
-				}
 			}
 		}
 
@@ -20768,10 +20888,7 @@ e_spain = {
 		# Creation/usurpation trigger
 		allow = {
 			hidden_tooltip = {
-				OR = {
 					ai = no
-					religion_group = christian
-				}
 			}
 		}
 
@@ -21924,6 +22041,13 @@ e_spain = {
 		catholic = 5000 # Crusade target weight
 		central_african_pagan_reformed = 150
 		muslim = 50
+		
+		# Creation/usurpation trigger
+		allow = {
+			hidden_tooltip = {
+					ai = no
+			}
+		}
 		
 		d_citerior = {
 			color = { 248 202 18 }
@@ -28850,6 +28974,7 @@ e_italy = {
                                                                 AND = {
 								NOT = { culture = ostrogothic }
                                                                 NOT = { culture = skirian }
+																NOT = { culture = heruli }
                                                                 NOT = { culture = romano_gothic }
                                                                       }                                                                
 								AND = {

@@ -1,0 +1,36 @@
+namespace = WtWSMSconv
+
+#ROOT is the demander, FROM is the vassal
+character_event = {
+	id = WtWSMSconv.1
+	
+	is_triggered_only = yes
+	hide_window = yes
+	
+	immediate = {
+		FROM = {
+			character_event = { id = WtWSMSconv.2 }
+		}
+	}
+}
+
+#ROOT is the vassal, FROM is the demander
+character_event = {
+	id = WtWSMSconv.2
+	
+	is_triggered_only = yes
+	hide_window = yes
+	
+	immediate = {
+		# Fires for the vassal and each of his courtiers and vassals.
+		# Note: needs to fire for vassals/courtier before character
+		# FROMFROM is the demander. FROM is the vassal. ROOT is the character.
+		any_courtier = {
+			character_event = { id = 39700 }
+		}
+		any_vassal = {
+			character_event = { id = 39700 }
+		}
+		character_event = { id = 39700 }
+	}
+}
