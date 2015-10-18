@@ -725,3 +725,240 @@ character_event = {
 		add_trait = wroth
 	}
 }
+# EREmperor chooses official language of the Empire.
+namespace = byz_flavour
+character_event = {
+	id = byz_flavour.2
+	desc = EVTDESCbyz_flavour.2
+	picture = GFX_evt_roman_emperor_salute
+	capable_only = yes
+	trigger = {
+		year = 550
+		NOT = { year = 570 }
+		has_landed_title = e_byzantium
+	}
+	option = { # Emperor keeps status quo and chooses Latin.
+		name = EVTOPTAbyz_flavour.2
+		ai_chance = {
+			factor = 85
+			modifier = {
+				factor = 1.5
+				OR = {
+					trait = roman_nostalgia
+					trait = proud
+					trait = zealous
+				}
+				factor = 0.9
+				e_byzantium = {
+					holder_scope = {
+						limit = { culture = greek }
+					}
+				}
+				factor = 0.6
+				OR = {
+					trait = humble
+					trait = scholar
+				}
+			}
+		}
+		e_byzantium = {
+			any_realm_title = {
+				add_province_modifier = {
+					name = latin_official_language # Will have to be defined.
+					duration = 3650
+				}
+			}
+		}
+		e_byzantium = {
+			any_realm_lord = {
+				has_romance_culture_trigger = yes
+				opinion = {
+					modifier = opinion_delighted
+					who = ROOT
+					years = 3
+				}
+			}
+		}
+		e_byzantium = {
+			any_realm_lord = {
+				limit = { culture = greek }
+				opinion = {
+					modifier = opinion_enraged
+					who = ROOT
+					years = 4
+				}
+			}
+		}
+	}
+	option = { # Emperor decides that Greek shall be the official language of the ERE.
+		name = EVTOPTBbyz_flavour.2
+		ai_chance = {
+			modifier = {
+				factor = 15
+				OR = {
+					trait = humble
+					trait = scholar
+				}
+				factor = 0.9
+				e_byzantium = {
+					holder_scope = {
+						has_romance_culture_trigger = yes
+					}
+				}
+				factor = 0.6
+				OR = {
+					trait = roman_nostalgia
+					trait = proud
+					trait = zealous
+				}
+			}
+		}
+		e_byzantium = {
+			any_realm_title = {
+				add_province_modifier = {
+					name = greek_official_language # Will have to be defined.
+					duration = 3650
+				}
+			}
+		}
+		e_byzantium = {
+			any_realm_lord = {
+				limit = { culture = greek }
+				opinion = {
+					modifier = opinion_delighted
+					who = ROOT
+					years = 3
+				}
+			}
+		}
+		e_byzantium = {
+			any_realm_lord = {
+				has_romance_culture_trigger = yes
+				opinion = {
+					modifier = opinion_enraged
+					who = ROOT
+					years = 4
+				}
+			}
+		}
+	}
+}
+# EREmperor chooses official language of the Empire on a later date.
+namespace = byz_flavour
+character_event = {
+	id = byz_flavour.3
+	desc = EVTDESCbyz_flavour.3
+	picture = GFX_evt_roman_emperor_salute
+	capable_only = yes
+	trigger = {
+		year = 575
+		NOT = { year = 611 }
+		has_landed_title = e_byzantium
+	}
+	option = { # Emperor keeps status quo and chooses Latin.
+		name = EVTOPTAbyz_flavour.3
+		ai_chance = {
+			factor = 55
+			modifier = {
+				factor = 1.5
+				OR = {
+					trait = roman_nostalgia
+					trait = proud
+					trait = zealous
+				}
+				factor = 0.9
+				e_byzantium = {
+					holder_scope = {
+						limit = { culture = greek }
+					}
+				}
+				factor = 0.6
+				OR = {
+					trait = humble
+					trait = scholar
+				}
+			}
+		}
+		e_byzantium = {
+			any_realm_title = {
+				add_province_modifier = {
+					name = latin_official_language # Will have to be defined.
+					duration = 3650
+				}
+			}
+		}
+		e_byzantium = {
+			any_realm_lord = {
+				has_romance_culture_trigger = yes
+				opinion = {
+					modifier = opinion_delighted
+					who = ROOT
+					years = 3
+				}
+			}
+		}
+		e_byzantium = {
+			any_realm_lord = {
+				limit = { culture = greek }
+				opinion = {
+					modifier = opinion_enraged
+					who = ROOT
+					years = 4
+				}
+			}
+		}
+	}
+	option = { # Emperor decides that Greek shall be the official language of the ERE.
+		name = EVTOPTBbyz_flavour.3
+		ai_chance = {
+			factor = 45
+			modifier = {
+				factor = 1.5
+				OR = {
+					trait = humble
+					trait = scholar
+				}
+				factor = 0.9
+				e_byzantium = {
+					holder_scope = {
+						has_romance_culture_trigger = yes
+					}
+				}
+				factor = 0.6
+				OR = {
+					trait = roman_nostalgia
+					trait = proud
+					trait = zealous
+				}
+			}
+		}
+		e_byzantium = {
+			any_realm_title = {
+				add_province_modifier = {
+					name = greek_official_language # Will have to be defined.
+					duration = 3650
+				}
+			}
+		}
+		e_byzantium = {
+			any_realm_lord = {
+				limit = { culture = greek }
+				opinion = {
+					modifier = opinion_delighted
+					who = ROOT
+					years = 3
+				}
+			}
+		}
+		e_byzantium = {
+			any_realm_lord = {
+				has_romance_culture_trigger = yes
+				opinion = {
+					modifier = opinion_enraged
+					who = ROOT
+					years = 4
+				}
+			}
+		}
+	}
+}
