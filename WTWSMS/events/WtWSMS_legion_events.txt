@@ -38,6 +38,15 @@ narrative_event = {
 	is_triggered_only = yes
 	show_from = yes
 	
+	immediate = {
+		# Workaround for grant_title in decision giving a strong claim...
+		FROM = {
+			primary_title = {
+				remove_claim = ROOT
+			}
+		}
+	}
+	
 	option = {
 		name = EVTOPTALEG.2
 		
@@ -72,14 +81,24 @@ narrative_event = {
 		}
 		
 		FROM = {
-			# set_defacto_liege = THIS # Count tier mercenary companies cannot be destroyed/de-activated, so make it independent without ability to hire it
-			primary_title = { # Legions have primary = yes flag
+			# any_demesne_title mercenary = yes doesn't work
+			any_mercenary_band = {
+				limit = {
+					holder_scope = {
+						character = FROM
+					}
+				}
+
 				activate_title = { title = THIS status = no }
 				unsafe_destroy_landed_title = THIS
+				
+				# Workaround a bug with count tier titles that don't dissolve automatically.
+				# Attempting to grant the title will effectively destroy it.
+				create_legion_commander_effect = yes
+				new_character = {
+					grant_title = PREV
+				}
 			}
-			# Kill the commander, to actually destroy the title.
-			# Seems to be a bug with count tier titles that don't dissolve automatically.
-			death = { death_reason = death_execution killer = ROOT }
 		}
 		
 		if = {

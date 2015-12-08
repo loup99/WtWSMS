@@ -1,0 +1,58 @@
+namespace = imperial_legacy_event
+
+#Give nickname "Augustus" to Western Roman Emperors.
+character_event = {
+	id = imperial_legacy_event.01
+	hide_window = yes
+	
+	only_independent = yes
+	only_rulers = yes
+	
+	trigger = {
+        AND = {
+			has_landed_title = e_wre
+			has_romance_culture_trigger = yes
+			has_nickname = no
+        }
+	}
+		
+    mean_time_to_happen = {
+	    days = 1
+	}
+	
+	immediate = {
+	give_nickname = nick_caesar_augustus
+	}
+		
+	option = {
+	name = OK
+	}
+}
+
+#Remove nickname "Augustus" from deposed Western Roman Emperors.
+character_event = {
+	id = imperial_legacy_event.02
+	hide_window = yes
+	
+	trigger = {
+	    AND = {
+			has_nickname = nick_caesar_augustus
+			NOT = {
+				has_landed_title = e_wre
+			}
+		}	
+	}
+		
+    mean_time_to_happen = {
+	    days = 1
+	}
+	
+	immediate = {
+		remove_nickname = nick_caesar_augustus
+	}
+		
+	option = {
+	name = OK
+	}
+}
+
