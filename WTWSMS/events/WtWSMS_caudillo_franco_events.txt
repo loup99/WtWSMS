@@ -1,4 +1,5 @@
 namespace = gothic_war
+namespace = byz_flavour
 
 # Resurgence of Ostrogoths under Totila
 character_event = {
@@ -632,7 +633,6 @@ character_event = {
 	}
 }
 # Western Roman Emperor asks for titular "Roman Emperor" title.
-#namespace = byz_flavour
 #character_event = {
 	#id = byz_flavour.1
 	#desc = EVTDESCbyz_flavour.1
@@ -726,17 +726,25 @@ character_event = {
 	#}
 #}
 # EREmperor chooses official language of the Empire.
-namespace = byz_flavour
 character_event = {
 	id = byz_flavour.2
 	desc = EVTDESCbyz_flavour.2
 	picture = GFX_evt_roman_emperor_salute
+	
 	capable_only = yes
+	only_rulers = yes
+	only_independent = yes
+	
 	trigger = {
 		year = 550
 		NOT = { year = 570 }
 		has_landed_title = e_byzantium
 	}
+	
+	mean_time_to_happen = {
+		years = 1
+	}
+	
 	option = { # Emperor keeps status quo and chooses Latin.
 		name = EVTOPTAbyz_flavour.2
 		ai_chance = {
@@ -748,12 +756,16 @@ character_event = {
 					trait = proud
 					trait = zealous
 				}
+			}
+			modifier = {
 				factor = 0.9
 				e_byzantium = {
 					holder_scope = {
-						limit = { culture = greek }
+						culture = greek
 					}
 				}
+			}
+			modifier = {
 				factor = 0.6
 				OR = {
 					trait = humble
@@ -762,7 +774,7 @@ character_event = {
 			}
 		}
 		e_byzantium = {
-			any_realm_title = {
+			any_realm_province = {
 				add_province_modifier = {
 					name = latin_official_language # Will have to be defined.
 					duration = 3650
@@ -793,18 +805,23 @@ character_event = {
 	option = { # Emperor decides that Greek shall be the official language of the ERE.
 		name = EVTOPTBbyz_flavour.2
 		ai_chance = {
+			factor = 45
 			modifier = {
-				factor = 15
+				factor = 1.5
 				OR = {
 					trait = humble
 					trait = scholar
 				}
+			}
+			modifier = {
 				factor = 0.9
 				e_byzantium = {
 					holder_scope = {
 						has_romance_culture_trigger = yes
 					}
 				}
+			}
+			modifier = {
 				factor = 0.6
 				OR = {
 					trait = roman_nostalgia
@@ -814,7 +831,7 @@ character_event = {
 			}
 		}
 		e_byzantium = {
-			any_realm_title = {
+			any_realm_province = {
 				add_province_modifier = {
 					name = greek_official_language # Will have to be defined.
 					duration = 3650
@@ -844,17 +861,25 @@ character_event = {
 	}
 }
 # EREmperor chooses official language of the Empire on a later date.
-namespace = byz_flavour
 character_event = {
 	id = byz_flavour.3
 	desc = EVTDESCbyz_flavour.3
 	picture = GFX_evt_roman_emperor_salute
+	
 	capable_only = yes
+	only_rulers = yes
+	only_independent = yes
+	
 	trigger = {
 		year = 575
 		NOT = { year = 611 }
 		has_landed_title = e_byzantium
 	}
+	
+	mean_time_to_happen = {
+		years = 1
+	}
+	
 	option = { # Emperor keeps status quo and chooses Latin.
 		name = EVTOPTAbyz_flavour.3
 		ai_chance = {
@@ -866,12 +891,16 @@ character_event = {
 					trait = proud
 					trait = zealous
 				}
+			}
+			modifier = {
 				factor = 0.9
 				e_byzantium = {
 					holder_scope = {
-						limit = { culture = greek }
+						culture = greek
 					}
 				}
+			}
+			modifier = {
 				factor = 0.6
 				OR = {
 					trait = humble
@@ -880,7 +909,7 @@ character_event = {
 			}
 		}
 		e_byzantium = {
-			any_realm_title = {
+			any_realm_province = {
 				add_province_modifier = {
 					name = latin_official_language_2 # Will have to be defined.
 					duration = 3650
@@ -918,12 +947,16 @@ character_event = {
 					trait = humble
 					trait = scholar
 				}
+			}
+			modifier = {
 				factor = 0.9
 				e_byzantium = {
 					holder_scope = {
 						has_romance_culture_trigger = yes
 					}
 				}
+			}
+			modifier = {
 				factor = 0.6
 				OR = {
 					trait = roman_nostalgia
@@ -933,7 +966,7 @@ character_event = {
 			}
 		}
 		e_byzantium = {
-			any_realm_title = {
+			any_realm_province = {
 				add_province_modifier = {
 					name = greek_official_language_2 # Will have to be defined.
 					duration = 3650
