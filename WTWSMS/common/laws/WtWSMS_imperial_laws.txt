@@ -1,23 +1,21 @@
 laws = {
 
-# STABILITY
-
-	stability_0 = {
+	# STABILITY
+	
+	stability_0 = { # Very low stability
 		group = stability
-		default = yes
+		
+		feudal_opinion = -20
+		city_opinion = -20
+		temple_opinion = -20
 		
 		allow = {
-		    OR = {
-		    has_law = stability_1
-			}
+		    always = no
 		}
 		
 		potential = {
 			holder_scope = {
-			        OR = {
-			        has_landed_title = e_wre
-			        has_landed_title = e_byzantium
-					}
+				government = bureaucratic_government
 			}
 		}
 		
@@ -35,29 +33,32 @@ laws = {
 				revoke_law = stability_0
 				revoke_law = stability_1
 				revoke_law = stability_2
-				revoke_law = crown_authority_0
-				revoke_law = crown_authority_1
-				revoke_law = crown_authority_2
-				revoke_law = crown_authority_3
-				revoke_law = crown_authority_4
-				revoke_law = feudal_administration
-				revoke_law = imperial_administration
-				revoke_law = vice_royalty_2
-				revoke_law = vice_royalty_1
-				revoke_law = vice_royalty_0
 			}
 			
-			set_the_kings_peace = yes
-			set_the_kings_full_peace = yes
+			set_the_kings_peace = no
+			set_the_kings_full_peace = no
 			
-			set_allow_vice_royalties = duke
-			set_allow_free_vice_royalty_revokation = yes
+			if = {
+				limit = { 
+					NOT = { has_dlc = "Charlemagne" } 
+				}
+				set_allow_free_duchy_revokation = yes
+			}
+			if = {
+				limit = { 
+					has_dlc = "Charlemagne" 
+				}
+				set_allow_vice_royalties = duke
+				set_allow_free_vice_royalty_revokation = yes
+			}
 			
 			set_protected_inheritance = yes
 		}
+        global_tax_modifier = -0.50
+		
 	}
-	
-	stability_1 = {
+
+	stability_1 = { # Low stability
 		group = stability
 		
 		feudal_opinion = -10
@@ -65,15 +66,12 @@ laws = {
 		temple_opinion = -10
 		
 		allow = {
-		    has_law = stability_2
+		    has_law = stability_0
 		}
 		
 		potential = {
 			holder_scope = {
-			        OR = {
-			        has_landed_title = e_wre
-			        has_landed_title = e_byzantium
-					}
+				government = bureaucratic_government
 			}
 		}
 		
@@ -91,23 +89,24 @@ laws = {
 				revoke_law = stability_0
 				revoke_law = stability_1
 				revoke_law = stability_2
-				revoke_law = crown_authority_0
-				revoke_law = crown_authority_1
-				revoke_law = crown_authority_2
-				revoke_law = crown_authority_3
-				revoke_law = crown_authority_4
-				revoke_law = feudal_administration
-				revoke_law = imperial_administration
-				revoke_law = vice_royalty_2
-				revoke_law = vice_royalty_1
-				revoke_law = vice_royalty_0
 			}
 			
 			set_the_kings_peace = yes
 			set_the_kings_full_peace = no
 			
-			set_allow_vice_royalties = duke
-			set_allow_free_vice_royalty_revokation = yes
+			if = {
+				limit = { 
+					NOT = { has_dlc = "Charlemagne" } 
+				}
+				set_allow_free_duchy_revokation = yes
+			}
+			if = {
+				limit = { 
+					has_dlc = "Charlemagne" 
+				}
+				set_allow_vice_royalties = duke
+				set_allow_free_vice_royalty_revokation = yes
+			}
 			
 			set_protected_inheritance = yes
 		}
@@ -115,28 +114,21 @@ laws = {
         global_tax_modifier = -0.25
 	}
 
-	stability_2 = {
+	stability_2 = { # Normal
 		group = stability
-		
-		feudal_opinion = -20
-		city_opinion = -20
-		temple_opinion = -20
-		
+		default = yes
 		
 		allow = {
-		    always = no
-		}
-		
-		
-		potential = {
-			holder_scope = {
-			    OR = {
-			    has_landed_title = e_wre
-			    has_landed_title = e_byzantium
-			    }
+			OR = {
+				has_law = stability_1
 			}
 		}
 		
+		potential = {
+			holder_scope = {
+				government = bureaucratic_government
+			}
+		}
 		
 		revoke_allowed = {
 			always = no
@@ -152,38 +144,37 @@ laws = {
 				revoke_law = stability_0
 				revoke_law = stability_1
 				revoke_law = stability_2
-				revoke_law = crown_authority_0
-				revoke_law = crown_authority_1
-				revoke_law = crown_authority_2
-				revoke_law = crown_authority_3
-				revoke_law = crown_authority_4
-				revoke_law = feudal_administration
-				revoke_law = imperial_administration
-				revoke_law = vice_royalty_2
-				revoke_law = vice_royalty_1
-				revoke_law = vice_royalty_0
 			}
 			
-			set_the_kings_peace = no
-			set_the_kings_full_peace = no
+			set_the_kings_peace = yes
+			set_the_kings_full_peace = yes
 			
-			set_allow_vice_royalties = duke
-			set_allow_free_vice_royalty_revokation = yes
+			if = {
+				limit = { 
+					NOT = { has_dlc = "Charlemagne" } 
+				}
+				set_allow_free_duchy_revokation = yes
+			}
+			if = {
+				limit = { 
+					has_dlc = "Charlemagne" 
+				}
+				set_allow_vice_royalties = duke
+				set_allow_free_vice_royalty_revokation = yes
+			}
 			
 			set_protected_inheritance = yes
 		}
-        global_tax_modifier = -0.50
-		
 	}
 	
-# BUREAUCRACY	
+	# BUREAUCRACY	
 	
 	aristocracy_plutocracy_0 = {
 		group = aristocracy_plutocracy
 		feudal_opinion = -10
 		
-       allow = {
-		has_law = aristocracy_plutocracy_1
+		allow = {
+			has_law = aristocracy_plutocracy_1
 		}
 		
 		potential = {
@@ -191,11 +182,8 @@ laws = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
 			}
-			holder_scope = { 
-			    OR = {
-				has_landed_title = e_wre
-				has_landed_title = e_byzantium
-				}
+			holder_scope = {
+				government = bureaucratic_government
 			}
 		}
 		revoke_allowed = {
@@ -214,26 +202,6 @@ laws = {
 				revoke_law = aristocracy_plutocracy_2
 				revoke_law = aristocracy_plutocracy_3
 				revoke_law = aristocracy_plutocracy_4
-				
-				revoke_law = feudal_contract_0
-				revoke_law = feudal_contract_1
-				revoke_law = feudal_contract_2
-				revoke_law = feudal_contract_3
-				revoke_law = feudal_tax_0
-				revoke_law = feudal_tax_1
-				revoke_law = feudal_tax_2
-				revoke_law = feudal_tax_3
-				revoke_law = city_contract_0
-				revoke_law = city_contract_1
-				revoke_law = city_contract_2
-				revoke_law = city_contract_3
-				revoke_law = city_tax_0
-				revoke_law = city_tax_1
-				revoke_law = city_tax_2
-				revoke_law = city_tax_3
-
-
-
 			}
 		}
 				
@@ -245,7 +213,7 @@ laws = {
 		group = aristocracy_plutocracy
 		feudal_opinion = -5
 
-       allow = {
+		allow = {
 			OR = {
 				has_law = aristocracy_plutocracy_0
 				has_law = aristocracy_plutocracy_2
@@ -257,11 +225,8 @@ laws = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
 			}
-			holder_scope = { 
-			    OR = {
-				has_landed_title = e_wre
-				has_landed_title = e_byzantium
-				}
+			holder_scope = {
+				government = bureaucratic_government
 			}
 		}
 		revoke_allowed = {
@@ -279,23 +244,6 @@ laws = {
 				revoke_law = aristocracy_plutocracy_2
 				revoke_law = aristocracy_plutocracy_3
 				revoke_law = aristocracy_plutocracy_4
-
-				revoke_law = feudal_contract_0
-				revoke_law = feudal_contract_1
-				revoke_law = feudal_contract_2
-				revoke_law = feudal_contract_3
-				revoke_law = feudal_tax_0
-				revoke_law = feudal_tax_1
-				revoke_law = feudal_tax_2
-				revoke_law = feudal_tax_3
-				revoke_law = city_contract_0
-				revoke_law = city_contract_1
-				revoke_law = city_contract_2
-				revoke_law = city_contract_3
-				revoke_law = city_tax_0
-				revoke_law = city_tax_1
-				revoke_law = city_tax_2
-				revoke_law = city_tax_3
 			}
 		}
 		castle_vassal_max_levy = -0.5
@@ -306,7 +254,7 @@ laws = {
 		group = aristocracy_plutocracy
 		default = yes
 		
-       allow = {
+		allow = {
 			OR = {
 				has_law = aristocracy_plutocracy_1
 				has_law = aristocracy_plutocracy_3
@@ -318,11 +266,8 @@ laws = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
 			}
-			holder_scope = { 
-			    OR = {
-				has_landed_title = e_wre
-				has_landed_title = e_byzantium
-				}
+			holder_scope = {
+				government = bureaucratic_government
 			}
 		}
 		revoke_allowed = {
@@ -341,23 +286,6 @@ laws = {
 				revoke_law = aristocracy_plutocracy_2
 				revoke_law = aristocracy_plutocracy_3
 				revoke_law = aristocracy_plutocracy_4
-
-				revoke_law = feudal_contract_0
-				revoke_law = feudal_contract_1
-				revoke_law = feudal_contract_2
-				revoke_law = feudal_contract_3
-				revoke_law = feudal_tax_0
-				revoke_law = feudal_tax_1
-				revoke_law = feudal_tax_2
-				revoke_law = feudal_tax_3
-				revoke_law = city_contract_0
-				revoke_law = city_contract_1
-				revoke_law = city_contract_2
-				revoke_law = city_contract_3
-				revoke_law = city_tax_0
-				revoke_law = city_tax_1
-				revoke_law = city_tax_2
-				revoke_law = city_tax_3
 			}
 		}
 		castle_vassal_max_levy = -0.5
@@ -368,7 +296,7 @@ laws = {
 		group = aristocracy_plutocracy
 		feudal_opinion = -5
 		
-       allow = {
+		allow = {
 			OR = {
 				has_law = aristocracy_plutocracy_2
 				has_law = aristocracy_plutocracy_4
@@ -380,11 +308,8 @@ laws = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
 			}
-			holder_scope = { 
-			    OR = {
-				has_landed_title = e_wre
-				has_landed_title = e_byzantium
-				}
+			holder_scope = {
+				government = bureaucratic_government
 			}
 		}
 		revoke_allowed = {
@@ -397,28 +322,13 @@ laws = {
 			factor = 0
 		}
 		effect = {
+			hidden_tooltip = {
 				revoke_law = aristocracy_plutocracy_0
 				revoke_law = aristocracy_plutocracy_1
 				revoke_law = aristocracy_plutocracy_2
 				revoke_law = aristocracy_plutocracy_3
 				revoke_law = aristocracy_plutocracy_4
-
-				revoke_law = feudal_contract_0
-				revoke_law = feudal_contract_1
-				revoke_law = feudal_contract_2
-				revoke_law = feudal_contract_3
-				revoke_law = feudal_tax_0
-				revoke_law = feudal_tax_1
-				revoke_law = feudal_tax_2
-				revoke_law = feudal_tax_3
-				revoke_law = city_contract_0
-				revoke_law = city_contract_1
-				revoke_law = city_contract_2
-				revoke_law = city_contract_3
-				revoke_law = city_tax_0
-				revoke_law = city_tax_1
-				revoke_law = city_tax_2
-				revoke_law = city_tax_3
+			}
 		}
 		castle_vassal_max_levy = -0.25
 	}
@@ -427,7 +337,7 @@ laws = {
 		group = aristocracy_plutocracy
 		feudal_opinion = -10
 		
-       allow = {
+		allow = {
 			has_law = aristocracy_plutocracy_3
 		}
 		
@@ -436,11 +346,8 @@ laws = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
 			}
-			holder_scope = { 
-			    OR = {
-				has_landed_title = e_wre
-				has_landed_title = e_byzantium
-				}
+			holder_scope = {
+				government = bureaucratic_government
 			}
 		}
 		revoke_allowed = {
@@ -453,29 +360,13 @@ laws = {
 			factor = 0
 		}
 		effect = {
+			hidden_tooltip = {
 				revoke_law = aristocracy_plutocracy_0
 				revoke_law = aristocracy_plutocracy_1
 				revoke_law = aristocracy_plutocracy_2
 				revoke_law = aristocracy_plutocracy_3
 				revoke_law = aristocracy_plutocracy_4
-				
-				revoke_law = feudal_contract_0
-				revoke_law = feudal_contract_1
-				revoke_law = feudal_contract_2
-				revoke_law = feudal_contract_3
-				revoke_law = feudal_tax_0
-				revoke_law = feudal_tax_1
-				revoke_law = feudal_tax_2
-				revoke_law = feudal_tax_3
-				revoke_law = city_contract_0
-				revoke_law = city_contract_1
-				revoke_law = city_contract_2
-				revoke_law = city_contract_3
-				revoke_law = city_tax_0
-				revoke_law = city_tax_1
-				revoke_law = city_tax_2
-				revoke_law = city_tax_3
+			}
 		}
-	}
-	
+	}	
 }
