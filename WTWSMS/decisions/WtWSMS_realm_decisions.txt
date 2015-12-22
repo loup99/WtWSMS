@@ -300,7 +300,7 @@ decisions = {
 			age = 16
 			prisoner = no
 			NOT = { trait = incapable }
-			NOT = { has_character_flag = sole_roman_empire }
+			NOT = { has_weak_pressed_claim = e_roman_empire }
 			has_romance_culture_trigger = yes
 		}
 		allow = {
@@ -309,7 +309,7 @@ decisions = {
 		}
 		effect = {
 			wealth = -300
-			set_character_flag = sole_roman_empire
+			add_weak_pressed_claim = e_roman_empire
 			hidden_tooltip = {
 				narrative_event = { id = fall_roman_empire.1 }
 			}
@@ -321,8 +321,13 @@ decisions = {
 	unite_roman_empires = {
 		is_high_prio = yes
 		potential = {
-			has_landed_title = e_wre
-			has_landed_title = e_byzantium
+			has_dlc = "Legacy of Rome"
+			is_title_active = e_wre
+			is_title_active = e_byzantium
+			OR = {
+				has_landed_title = e_wre
+				has_landed_title = e_byzantium
+			}
 			OR = {
 				religion_group = christian
 				religion_group = pagan_group
@@ -335,6 +340,8 @@ decisions = {
 		}
 		allow = {
 			prestige = 3000
+			has_landed_title = e_wre
+			has_landed_title = e_byzantium
 		}
 		effect = {
 			set_global_flag = rome_restored
