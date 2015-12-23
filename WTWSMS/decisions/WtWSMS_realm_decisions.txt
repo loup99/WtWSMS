@@ -248,6 +248,7 @@ decisions = {
 		potential = {
 			has_landed_title = k_masmuda
 			age = 16
+			prisoner = no
 			demesne_size = 1
 			NOT = { has_character_flag = abolished_confederacy }
 		}
@@ -273,6 +274,79 @@ decisions = {
 				factor = 1.0
 				trait = cruel
 			}
+		}
+	}
+	sole_roman_empire = {
+		is_high_prio = yes
+		potential = {
+			OR = {
+				has_landed_title = e_wre
+				has_landed_title = e_byzantium
+			}
+			OR = {
+				religion_group = christian
+				religion_group = pagan_group
+			}
+			age = 16
+			prisoner = no
+			NOT = { trait = incapable }
+			NOT = { has_claim = e_roman_empire }
+			has_romance_culture_trigger = yes
+		}
+		allow = {
+			prestige = 1500
+			wealth = 300
+			OR = {
+				NOT = {
+					is_title_active = e_byzantium
+				}
+				NOT = {
+					is_title_active = e_wre
+				}
+			}
+		}
+		effect = {
+			wealth = -300
+			add_weak_pressed_claim = e_roman_empire
+			hidden_tooltip = {
+				narrative_event = { id = fall_roman_empire.1 }
+			}
+		}
+		ai_will_do = { 
+			factor = 1 
+		}
+	}
+	unite_roman_empires = {
+		is_high_prio = yes
+		potential = {
+			has_dlc = "Legacy of Rome"
+			is_title_active = e_wre
+			is_title_active = e_byzantium
+			OR = {
+				has_landed_title = e_wre
+				has_landed_title = e_byzantium
+			}
+			OR = {
+				religion_group = christian
+				religion_group = pagan_group
+			}
+			age = 16
+			prisoner = no
+			NOT = { trait = incapable }
+			NOT = { has_global_flag = rome_restored }
+			has_romance_culture_trigger = yes
+		}
+		allow = {
+			prestige = 3000
+			has_landed_title = e_wre
+			has_landed_title = e_byzantium
+		}
+		effect = {
+			set_global_flag = rome_restored
+			narrative_event = { id = ancrel.2220 tooltip = EVTTOOLTIPLoR.20 }
+		}
+		ai_will_do = { 
+			factor = 1 
 		}
 	}
 }
