@@ -1,0 +1,59 @@
+feudal_governments = {
+	bureaucratic_government = {
+		preferred_holdings = { CASTLE }
+		allowed_holdings = {		
+			CASTLE 
+			FORT
+			CITY
+		}
+		
+		allowed_holdings_culture = { # Will not get the wrong government type penalty for tribes of the same religion
+			TRIBAL
+		}
+
+		accepts_liege_governments = {	
+			feudal_government
+			republic_government
+			merchant_republic_government
+			theocracy_government
+		}
+		
+		potential = {
+			NAND = {
+				controls_religion = yes
+				NOT = { religion_group = muslim }
+				NOT = {
+					primary_title = {
+						is_landless_type_title = no
+					}
+				}
+			}			
+			NOT = { religion_group = muslim }
+			
+			is_theocracy = no
+			bureaucratic_government_trigger = yes
+		}	
+		
+		color = { 153 0 36 }
+		
+		barons_need_dynasty = no
+		
+		ignore_in_vassal_limit_calculation = {
+			tribal_government
+		}
+		
+		can_build_tribal = no
+		
+		allow_title_revokation = yes
+		free_retract_vassalage = yes
+		can_grant_kingdoms_and_empires_to_other_government = yes
+		
+		character_modifier	= {
+			land_morale = 0.5
+			land_organisation = 0.5
+			retinuesize_perc = 5
+			retinue_maintenence_cost = -0.5
+			demesne_size = 10
+		}
+	}
+}
