@@ -8,7 +8,7 @@
 
 namespace = ancrel
 
-# The Restoration of Rome (Byzantium / Latin Empire)
+# The Restoration of Rome (Byzantium / Western Roman Empire / Latin Empire)
 narrative_event = {
 	id = ancrel.2220
 	title = EVTNAMELoR.20
@@ -21,14 +21,44 @@ narrative_event = {
 	option = {
 		name = EVTOPTALoR.20
 		set_global_flag = rome_restored
+		primary_title = {
+			save_event_target_as = target_primary_title
+		}
 		e_roman_empire = {
 			grant_title = ROOT
 			make_primary_title = yes
 			if = {
-				limit = { ROOT = { has_landed_title = e_byzantium } }
+				limit = { 
+					ROOT = { 
+						has_landed_title = e_byzantium 
+						has_landed_title = e_wre
+					} 
+				}
+				event_target:target_primary_title = {
+					e_roman_empire = {
+						copy_title_laws = PREV
+						copy_title_history = PREV
+					}
+				}
+				set_global_flag = rome_reunited
+			}
+			if = {
+				limit = { 
+					ROOT = { has_landed_title = e_byzantium } 
+					NOT = { ROOT = { has_landed_title = e_wre } }
+				}
 				copy_title_laws = e_byzantium
 				copy_title_history = e_byzantium
 				set_global_flag = rome_restored_by_byzantium
+			}
+			if = {
+				limit = {
+					ROOT = { has_landed_title = e_wre }
+					NOT = { ROOT = { has_landed_title = e_byzantium } }
+				}
+				copy_title_laws = e_wre
+				copy_title_history = e_wre
+				set_global_flag = rome_restored_by_western_roman_empire
 			}
 			if = {
 				limit = {
@@ -51,6 +81,16 @@ narrative_event = {
 					}
 					destroy_landed_title = THIS
 					activate_title = { title = e_byzantium status = no }
+				}
+			}
+			e_wre = {
+				if = {
+					limit = { ROOT = { has_landed_title = PREV } }
+					any_direct_de_jure_vassal_title = {
+						de_jure_liege = e_roman_empire
+					}
+					destroy_landed_title = THIS
+					activate_title = { title = e_wre status = no }
 				}
 			}
 			e_latin_empire = {
@@ -89,7 +129,7 @@ narrative_event = {
 	}
 }
 
-# Informed about Restoration of Rome (Byzantium / Latin Empire)
+# Informed about Restoration of Rome (Byzantium / Western Roman Empire / Latin Empire)
 narrative_event = {
 	id = ancrel.2221
 	title = EVTNAMELoR.21
@@ -104,6 +144,7 @@ narrative_event = {
 		trigger = {
 			NOT = { has_landed_title = e_hre }
 			NOT = { has_landed_title = e_byzantium }
+			NOT = { has_landed_title = e_wre }
 			NOT = { has_landed_title = e_latin_empire }
 		}
 	}
@@ -113,6 +154,7 @@ narrative_event = {
 			OR = {
 				has_landed_title = e_hre
 				has_landed_title = e_byzantium
+				has_landed_title = e_wre
 				has_landed_title = e_latin_empire
 			}
 		}
@@ -191,6 +233,7 @@ narrative_event = {
 		trigger = {
 			NOT = { has_landed_title = e_hre }
 			NOT = { has_landed_title = e_byzantium }
+			NOT = { has_landed_title = e_wre }
 			NOT = { has_landed_title = e_latin_empire }
 		}
 	}
@@ -200,6 +243,7 @@ narrative_event = {
 			OR = {
 				has_landed_title = e_hre
 				has_landed_title = e_byzantium
+				has_landed_title = e_wre
 				has_landed_title = e_latin_empire
 			}
 		}
@@ -234,6 +278,10 @@ narrative_event = {
 			e_byzantium = {
 				destroy_landed_title = THIS
 				activate_title = { title = e_byzantium status = no }
+			}
+			e_wre = {
+				destroy_landed_title = THIS
+				activate_title = { title = e_wre status = no }
 			}
 			e_latin_empire = {
 				destroy_landed_title = THIS
@@ -280,6 +328,7 @@ narrative_event = {
 		trigger = {
 			NOT = { has_landed_title = e_hre }
 			NOT = { has_landed_title = e_byzantium }
+			NOT = { has_landed_title = e_wre }
 			NOT = { has_landed_title = e_latin_empire }
 		}
 	}
@@ -289,6 +338,7 @@ narrative_event = {
 			OR = {
 				has_landed_title = e_hre
 				has_landed_title = e_byzantium
+				has_landed_title = e_wre
 				has_landed_title = e_latin_empire
 			}
 		}

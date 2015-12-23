@@ -1,0 +1,69 @@
+#########################
+#
+#	Assyrian pagan flavor
+# 
+#	Written by Zusk
+#
+########################
+
+namespace = zusk_event
+
+# Servant of Assur Trait Gained
+character_event = {
+	id = zusk_event.17
+	hide_window = yes
+	
+	trigger = {
+		has_landed_title = e_assyria
+                religion = assyrian_pagan
+		NOT = { trait = servant_of_assur }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = EVTOPTALoR.45
+		add_trait = servant_of_assur
+	}
+}
+
+# Servant of Assur Trait Lost
+character_event = {
+	id = zusk_event.18
+	hide_window = yes
+	
+	trigger = {
+		trait = servant_of_assur
+                OR = {
+		NOT = { has_landed_title = e_assyria }
+                NOT = { religion = assyrian_pagan }
+                     }
+		is_alive = yes
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = EVTOPTALoR.46
+		remove_trait = servant_of_assur
+	}
+}
+
+narrative_event = {
+	id = zusk_event.19
+	title = zusk_event.19.name
+	desc = zusk_event.19.desc
+
+	picture = GFX_evt_assyria
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ZUSK19OP
+	}
+}
