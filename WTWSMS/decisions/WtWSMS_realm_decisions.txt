@@ -280,18 +280,8 @@ decisions = {
 		is_high_prio = yes
 		potential = {
 			OR = {
-				AND = {
-					has_landed_title = e_wre
-					NOT = {
-						is_title_active = e_byzantium
-					}
-				}
-				AND = {
-					has_landed_title = e_byzantium
-					NOT = {
-						is_title_active = e_wre
-					}
-				}
+				has_landed_title = e_wre
+				has_landed_title = e_byzantium
 			}
 			OR = {
 				religion_group = christian
@@ -300,12 +290,20 @@ decisions = {
 			age = 16
 			prisoner = no
 			NOT = { trait = incapable }
-			NOT = { has_weak_pressed_claim = e_roman_empire }
+			NOT = { has_claim = e_roman_empire }
 			has_romance_culture_trigger = yes
 		}
 		allow = {
 			prestige = 1500
 			wealth = 300
+			OR = {
+				NOT = {
+					is_title_active = e_byzantium
+				}
+				NOT = {
+					is_title_active = e_wre
+				}
+			}
 		}
 		effect = {
 			wealth = -300
