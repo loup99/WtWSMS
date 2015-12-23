@@ -21,6 +21,9 @@ narrative_event = {
 	option = {
 		name = EVTOPTALoR.20
 		set_global_flag = rome_restored
+		primary_title = {
+			save_event_target_as = target_primary_title
+		}
 		e_roman_empire = {
 			grant_title = ROOT
 			make_primary_title = yes
@@ -31,8 +34,12 @@ narrative_event = {
 						has_landed_title = e_wre
 					} 
 				}
-				copy_title_laws = primary_title 
-				copy_title_history = primary_title 
+				event_target:target_primary_title = {
+					e_roman_empire = {
+						copy_title_laws = PREV
+						copy_title_history = PREV
+					}
+				}
 				set_global_flag = rome_reunited
 			}
 			if = {
@@ -76,23 +83,6 @@ narrative_event = {
 					activate_title = { title = e_byzantium status = no }
 				}
 			}
-			e_byzantium = {
-				if = {
-					limit = { 
-						ROOT = { 
-							has_landed_title = e_byzantium 
-							has_landed_title = e_wre
-						}
-					}
-					any_direct_de_jure_vassal_title = {
-						de_jure_liege = e_roman_empire
-					}
-					destroy_landed_title = e_byzantium
-					destroy_landed_title = e_wre
-					activate_title = { title = e_byzantium status = no }
-					activate_title = { title = e_wre status = no }
-				}
-			}
 			e_wre = {
 				if = {
 					limit = { ROOT = { has_landed_title = PREV } }
@@ -101,23 +91,6 @@ narrative_event = {
 					}
 					destroy_landed_title = THIS
 					activate_title = { title = e_wre status = no }
-				}
-			}
-			e_wre = {
-				if = {
-					limit = { 
-						ROOT = { 
-							has_landed_title = e_wre 
-							has_landed_title = e_byzantium
-						}
-					}
-					any_direct_de_jure_vassal_title = {
-						de_jure_liege = e_roman_empire
-					}
-					destroy_landed_title = e_wre
-					destroy_landed_title = e_byzantium
-					activate_title = { title = e_wre status = no }
-					activate_title = { title = e_byzantium status = no }
 				}
 			}
 			e_latin_empire = {
