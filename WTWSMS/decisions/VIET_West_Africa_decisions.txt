@@ -2,24 +2,22 @@ decisions = {
 
 	invite_griot_to_court = { #Invite a Griot to court
 		potential = {
-			NOT = { has_global_flag = VIET_wafrican_features_off }
+			is_ruler = yes
 			OR = {
 				culture_group = west_african
 				culture_group = central_african
 				religion = west_african_pagan
-				religion = west_african_pagan_reformed
+				religion = west_african_pagan_reformed			
 			}
 		}
 		allow = {
-			NOT = { has_character_modifier = new_griot_in_court }
-			NOT = { has_character_flag = inviting_griot_over }
 			primary_title = { higher_tier_than = BARON }
-			NOT = {
+			NOR = {
+				has_character_modifier = new_griot_in_court
+				has_character_flag = inviting_griot_over
 				any_vassal = {
 					has_minor_title = title_court_griot
 				}
-			}
-			NOT = {
 				any_courtier = {
 					has_minor_title = title_court_griot
 				}
@@ -41,7 +39,8 @@ decisions = {
 		ai_will_do = {
 			factor = 1
 			modifier = {
-				factor = 0.3 #Decrease chance AI will do this
+				factor = 0.1 # Slow it down
+				always = yes
 			}
 			modifier = {
 				factor = 0
@@ -101,13 +100,7 @@ decisions = {
 	assign_griot = { # For the AI, because they are dumb enough not to hand out minor titles
 		potential = {
 			ai = yes
-			NOT = { has_global_flag = VIET_wafrican_features_off }
-			OR = {
-				culture_group = west_african
-				culture_group = central_african
-				religion = west_african_pagan
-				religion = west_african_pagan_reformed
-			}
+			religion_group = serer_group
 			NOT = { 
 				any_courtier = {
 					has_minor_title = title_court_griot
@@ -136,20 +129,22 @@ decisions = {
 		ai_will_do = {
 			factor = 1
 			modifier = {
-				factor = 0.75 #Decrease chance AI will do this - they'll still do it eventually anyways, this will just prevent them from doing it immediately
+				factor = 0.1 # Slow it down
+				always = yes
 			}
 		}
 	}
 	
 	receive_iron_woman = { # Receive an Iron Woman, a special ceremony staff/spear (historically and presently, used mostly by the Bambara Peoples, a Mande subgroup)
 		potential = {
+			is_ruler = yes
 			OR = {
 				culture_group = west_african
+				culture_group = central_african
 				religion = west_african_pagan
-				religion = west_african_pagan_reformed
+				religion = west_african_pagan_reformed			
 			}
 			NOT = { has_character_flag = received_iron_woman }
-			NOT = { has_global_flag = VIET_wafrican_features_off }
 		}
 		allow = {
 			primary_title = { higher_tier_than = BARON }
@@ -171,29 +166,28 @@ decisions = {
 			piety = -30
 
 			set_character_flag = iron_woman_ongoing
+			character_event = {
+				id = wafrica.10
+				days = 10
+				random = 7
+			}
 			
 		}
 		ai_will_do = {
 			factor = 1
 			modifier = {
-				factor = 0.5 #Decrease chance AI will do this
-			}
-			modifier = {
-				factor = 0
-				any_vassal = {
-					has_minor_title = title_court_griot
-				}
-				any_courtier = {
-					has_minor_title = title_court_griot
-				}
+				factor = 0.005 # Slow it down
+				always = yes
 			}
 			modifier = {
 				factor = 0.05
-				any_vassal = {
-					trait = griot
-				}
-				any_courtier = {
-					trait = griot
+				OR = {
+					any_vassal = {
+						trait = griot
+					}
+					any_courtier = {
+						trait = griot
+					}
 				}
 			}
 			modifier = {
@@ -233,6 +227,7 @@ decisions = {
 	
 	host_griot_performance = { # Start Griot performance event chain
 		potential = {
+			is_ruler = yes
 			OR = {
 				culture_group = west_african
 				culture_group = central_african
@@ -241,7 +236,6 @@ decisions = {
 			}
 			NOT = { has_character_modifier = griot_performance_timer }
 			NOT = { has_character_modifier = held_griot_performance }
-			NOT = { has_global_flag = VIET_wafrican_features_off }
 			NOT = { has_character_flag = hosting_griot_performance }
 		}
 		allow = {
@@ -272,7 +266,8 @@ decisions = {
 		ai_will_do = {
 			factor = 1
 			modifier = {
-				factor = 0.7 #Decrease chance AI will do this
+				factor = 0.005 # Slow it down
+				always = yes
 			}
 			modifier = {
 				factor = 2

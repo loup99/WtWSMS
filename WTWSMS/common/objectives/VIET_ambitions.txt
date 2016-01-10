@@ -1,19 +1,854 @@
-# Add this ambition to avoid validation issues, as it is referenced from nicknames
-obj_get_nick = {
+obj_live_to_old_age = {
 	type = character
 	
 	allow = {
-		always = no
+		age = 40
+		NOT = { age = 60 }
+		NOT = { has_character_modifier = old_age }
 	}
 	chance = {
-		factor = 1
+		factor = 100
+		
+		modifier = {
+			factor = 0.25
+			trait = content
+		}
+		modifier = {
+			factor = 0.25
+			age = 40
+		}
+		modifier = {
+			factor = 0.5
+			age = 44
+		}
+		modifier = {
+			factor = 1.5
+			trait = strong
+		}
+		modifier = {
+			factor = 1.5
+			age = 48
+		}
+		modifier = {
+			factor = 2.0
+			trait = ambitious
+		}
+		modifier = {
+			factor = 2.0
+			age = 50
+		}
+		modifier = {
+			factor = 2.5
+			age = 52
+		}
+		modifier = {
+			factor = 3.0
+			age = 55
+		}
 	}
 	success = {
+		OR = {
+			age = 60
+			has_character_modifier = old_age
+		}
 	}
 	abort = {
+		trait = incapable
 	}
 	abort_effect = {
 	}
 	effect = {
+		prestige = 50
+	}
+}
+
+obj_gain_virtue = {
+	type = character
+	
+	allow = {
+		age = 16
+		NOT = { trait = kind }
+		NOT = { trait = chaste }
+		NOT = { trait = charitable }
+		NOT = { trait = patient }
+		NOT = { trait = temperate }
+		NOT = { trait = humble }
+		NOT = { trait = diligent }
+	}
+	chance = {
+		factor = 100
+
+		modifier = {
+			factor = 0.5
+			trait = cruel
+		}		
+		modifier = {
+			factor = 0.75
+			trait = content
+		}
+		modifier = {
+			factor = 0.75
+			trait = cynical
+		}
+		modifier = {
+			factor = 1.5
+			trait = ambitious
+		}
+		modifier = {
+			factor = 1.5
+			trait = just
+		}
+		modifier = {
+			factor = 1.5
+			trait = mujahid
+		}
+		modifier = {
+			factor = 1.5
+			trait = crusader
+		}
+		modifier = {
+			factor = 1.5
+			trait = faqih
+		}
+		modifier = {
+			factor = 1.5
+			trait = hafiz
+		}
+		modifier = {
+			factor = 2.5
+			trait = zealous
+		}
+		modifier = {
+			factor = 2.5
+			trait = hajjaj
+		}
+	}
+	success = {
+		OR = {
+			trait = kind
+			trait = charitable
+			trait = chaste
+			trait = humble
+			trait = diligent
+			trait = temperate
+			trait = patient
+		}
+	}
+	abort = {
+		trait = incapable
+	}
+	abort_effect = {
+	}
+	effect = {
+		piety = 10
+		prestige = 10
+	}
+}
+
+obj_find_hobby = {
+	type = character
+	
+	allow = {
+		age = 20
+		NOT = {
+			lifestyle_traits = 1
+		}
+	}
+	chance = {
+		factor = 100
+
+		modifier = {
+			factor = 0.5
+			trait = slothful
+		}		
+		modifier = {
+			factor = 0.75
+			trait = content
+		}
+		modifier = {
+			factor = 1.25
+			trait = envious
+		}
+		modifier = {
+			factor = 1.25
+			trait = brave
+		}
+		modifier = {
+			factor = 1.5
+			trait = shy
+		}
+		modifier = {
+			factor = 1.5
+			trait = gregarious
+		}
+	}
+	success = {
+		lifestyle_traits = 1
+	}
+	abort = {
+		trait = incapable
+	}
+	abort_effect = {
+	}
+	effect = {
+		prestige = 10
+	}
+}
+
+obj_find_love = {
+	type = character
+	
+	allow = {
+		age = 16
+		NOT = {
+				trait = celibate
+			}
+		has_lover = no
+	}
+	chance = {
+		factor = 100
+
+		modifier = {
+			factor = 0.75
+			trait = slothful
+		}		
+		modifier = {
+			factor = 0.75
+			trait = content
+		}
+		modifier = {
+			factor = 1.5
+			trait = poet
+		}
+		modifier = {
+			factor = 1.5
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.75
+			trait = chaste
+		}
+		modifier = {
+			factor = 1.5
+			trait = lustful
+		}
+		modifier = {
+			factor = 0.75
+			trait = paranoid
+		}
+		modifier = {
+			factor = 1.25
+			trait = trusting
+		}
+	}
+	success = {
+		any_lover = {
+			count = 1
+		}
+	}
+	abort = {
+		trait = incapable
+		trait = celibate
+	}
+	abort_effect = {
+	}
+	effect = {
+		piety = 10
+		prestige = 10
+	}
+}
+
+obj_wage_holy_war = {
+	type = character
+	
+	allow = {
+		age = 16
+		NOT = { trait = cynical }
+		NOT = { has_character_flag = successful_holy_war_ambition }
+		OR = {
+			religion = catholic
+			religion_group = muslim
+		}
+		is_ruler = yes
+	}
+	chance = {
+		factor = 100
+
+		modifier = {
+			factor = 0.5
+			trait = slothful
+		}		
+		modifier = {
+			factor = 0.5
+			trait = content
+		}
+		modifier = {
+			factor = 0.5
+			trait = patient
+		}
+		modifier = {
+			factor = 0.5
+			trait = charitable
+		}
+		modifier = {
+			factor = 0.5
+			trait = craven
+		}
+		modifier = {
+			factor = 4
+			trait = zealous
+		}
+		modifier = {
+			factor = 3
+			trait = brave
+		}
+		modifier = {
+			factor = 3
+			trait = wroth
+		}
+		modifier = {
+			factor = 2
+			trait = greedy
+		}
+		modifier = {
+			factor = 2
+			trait = ambitious
+		}
+		modifier = {
+			factor = 2
+			trait = diligent
+		}
+	}
+	success = {
+		OR = {
+			OR = {
+				any_war = {
+					using_cb = religious
+				}
+				any_liege = {
+					any_war = {
+						using_cb = religious
+					}
+				}
+			}
+			OR = {
+				custom_tooltip = {
+				text = WAGING_CRUSADE
+					hidden_tooltip = {
+						any_war = {
+							crusade_trigger = yes
+						}
+					}
+				}
+				any_liege = {
+					custom_tooltip = {
+					text = WAGING_CRUSADE
+						hidden_tooltip = {
+							any_war = {
+								crusade_trigger = yes
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	abort = {
+		trait = incapable
+	}
+	abort_effect = {
+	}
+	effect = {
+		piety = 40
+		set_character_flag = successful_holy_war_ambition
+	}
+}
+
+obj_have_a_grandchild = {
+	type = character
+	
+	allow = {
+		num_of_children = 1
+		any_child = {
+			is_adult = yes
+		}
+		NOT = {
+			any_child = {
+				num_of_children = 1
+			}
+		}
+		NOT = { has_character_flag = got_grandchild_ambition }
+	}
+	chance = {
+		factor = 100
+
+		modifier = {
+			factor = 0.5
+			trait = slothful
+		}		
+		modifier = {
+			factor = 2
+			trait = diligent
+		}
+		modifier = {
+			factor = 0.5
+			trait = content
+		}		
+		modifier = {
+			factor = 2
+			trait = ambitious
+		}
+		modifier = {
+			factor = 0.5
+			trait = cruel
+		}		
+		modifier = {
+			factor = 2
+			trait = kind
+		}
+		modifier = {
+			factor = 2
+			num_of_children = 3
+			NOT = {
+				any_child = {
+					is_adult = no
+				}
+			}
+		}
+	}
+	success = {
+		any_child = {
+			num_of_children = 1
+		}
+	}
+	abort = {
+		trait = incapable
+	}
+	abort_effect = {
+	}
+	effect = {
+		prestige = 10
+		piety = 10
+		set_character_flag = got_grandchild_ambition
+	}
+}
+
+obj_have_no_worries = {
+	type = character
+	
+	allow = {
+		OR = {
+			trait = stressed
+			trait = depressed
+		}
+	}
+	chance = {
+		factor = 100
+
+		modifier = {
+			factor = 0.5
+			trait = slothful
+		}		
+		modifier = {
+			factor = 2
+			trait = diligent
+		}
+		modifier = {
+			factor = 0.5
+			trait = content
+		}		
+		modifier = {
+			factor = 2
+			trait = ambitious
+		}
+		modifier = {
+			factor = 0.5
+			trait = trusting
+		}		
+		modifier = {
+			factor = 2
+			trait = paranoid
+		}
+		modifier = {
+			factor = 0.5
+			trait = envious
+		}		
+		modifier = {
+			factor = 2
+			trait = kind
+		}
+		modifier = {
+			factor = 0.5
+			trait = cynical
+		}		
+		modifier = {
+			factor = 2
+			trait = zealous
+		}
+	}
+	success = {
+		NOR = {
+			trait = stressed
+			trait = depressed
+		}
+	}
+	abort = {
+		trait = incapable
+	}
+	abort_effect = {
+	}
+	effect = {
+		piety = 15
+	}
+}
+
+#Gain honest trait for Zoroastrians
+obj_follow_truth = {
+	type = character
+	
+	allow = {
+		religion_group = zoroastrian_group
+		NOT = { trait = honest }
+		is_adult = yes
+		NOT = { trait = incapable }
+	}
+	chance = {
+		factor = 100
+
+		modifier = {
+			factor = 0.5
+			trait = slothful
+		}		
+		modifier = {
+			factor = 2
+			trait = diligent
+		}
+		modifier = {
+			factor = 0.5
+			trait = content
+		}		
+		modifier = {
+			factor = 2
+			trait = ambitious
+		}
+		modifier = {
+			factor = 0.5
+			trait = proud
+		}		
+		modifier = {
+			factor = 2
+			trait = humble
+		}
+		modifier = {
+			factor = 0.5
+			trait = envious
+		}		
+		modifier = {
+			factor = 2
+			trait = kind
+		}
+		modifier = {
+			factor = 0.5
+			trait = cynical
+		}		
+		modifier = {
+			factor = 2
+			trait = zealous
+		}
+	}
+	success = {
+		trait = honest
+	}
+	abort = {
+
+	}
+	abort_effect = {
+	
+	}
+	effect = {
+		piety = 20
+	}
+}
+
+#Convert A Province - from Project Balance
+obj_convert_a_province = {
+	type = character
+	
+	creation_effect = {
+		change_stewardship = -2
+	}
+	allow = {
+		any_realm_province = {
+			NOT = { religion = ROOT }
+		}
+		is_adult = yes
+		is_ruler = yes
+		NOT = { trait = incapable }
+		NOT = { trait = cynical }
+		piety = 0
+		OR = {
+			ai = no
+			any_demesne_province = {
+				NOT = { religion = ROOT }
+			}
+		}
+	}
+	chance = {
+		factor = 100
+		
+		modifier = {
+			factor = 1.25
+			trait = patient
+		}
+		modifier = {
+			factor = 1.25
+			trait = diligent
+		}
+		modifier = {
+			factor = 0.01
+			trait = content
+		}
+		modifier = {
+			factor = 10
+			trait = zealous
+		}
+		modifier = {
+			factor = 2.0
+			trait = crusader
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { learning = 5 }
+		}
+		modifier = {
+			factor = 1.5
+			learning = 10
+		}
+		modifier = {
+			factor = 0.01
+			religion_group = jewish_group
+		}
+		modifier = {
+			factor = 0.1
+			religion_group = pagan_group
+		}
+	}
+	success = {
+		has_character_flag = converted_a_province
+	}
+	abort = {
+		NOT = {
+			any_realm_province = {
+				NOT = { religion = ROOT }
+			}
+		}
+	}
+	abort_effect = {
+		change_stewardship = 2
+	}
+	effect = {
+		clr_character_flag = converted_a_province
+		piety = 50
+		change_stewardship = 2
+		if = {
+			limit = { NOT = { has_character_flag = converted_province_ambition_done } }
+			change_learning = 1
+		}
+		set_character_flag = converted_province_ambition_done
+		letter_event = { id = pb_various.4 }
+	}
+}
+
+#Become notorious raider
+obj_become_notorious_raider = {
+	type = character
+	
+	allow = {
+		OR = {
+			religion = finnish_pagan
+			religion = finnish_pagan_reformed
+			religion = tengri_pagan
+			religion = tengri_pagan_reformed
+			religion = baltic_pagan
+			religion = baltic_pagan_reformed
+			religion = slavic_pagan
+			religion = slavic_pagan_reformed
+			religion = west_african_pagan
+			religion = west_african_pagan_reformed
+			religion = east_african_pagan
+			religion = east_african_pagan_reformed
+			religion = aztec
+			religion = aztec_reformed
+			religion = hellenic_pagan	
+		}
+		is_adult = yes
+		is_ruler = yes
+		is_female = no
+		NOT = { trait = incapable }
+		NOT = { trait = raider }
+		NOT = { trait = viking }
+		higher_tier_than = baron
+	}
+	chance = {
+		factor = 100
+		
+		modifier = {
+			factor = 2
+			trait = wroth
+		}		
+		modifier = {
+			factor = 0.5
+			trait = patient
+		}		
+		modifier = {
+			factor = 2
+			trait = greedy
+		}		
+		modifier = {
+			factor = 0.5
+			trait = slothful
+		}		
+		modifier = {
+			factor = 2
+			trait = ambitious
+		}		
+		modifier = {
+			factor = 0.5
+			trait = content
+		}		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}		
+		modifier = {
+			factor = 0.5
+			trait = kind
+		}		
+		modifier = {
+			factor = 2
+			trait = brave
+		}		
+		modifier = {
+			factor = 0.5
+			trait = craven
+		}		
+		modifier = {
+			factor = 0.5
+			wealth = 150
+		}			
+		modifier = {
+			factor = 0.3
+			wealth = 400
+		}		
+		modifier = {
+			factor = 0.5
+			OR = {
+				tier = king
+				tier = emperor
+			}
+		}
+	}
+	success = {
+		OR = {
+			trait = raider
+			trait = viking
+		}
+	}
+	abort = {
+		OR = {
+			trait = incapable
+			NOR = {
+			religion = finnish_pagan
+			religion = finnish_pagan_reformed
+			religion = tengri_pagan
+			religion = tengri_pagan_reformed
+			religion = baltic_pagan
+			religion = baltic_pagan_reformed
+			religion = slavic_pagan
+			religion = slavic_pagan_reformed
+			religion = west_african_pagan
+			religion = west_african_pagan_reformed
+			religion = east_african_pagan
+			religion = east_african_pagan_reformed
+			religion = aztec
+			religion = aztec_reformed
+			religion = hellenic_pagan	
+			}
+		}
+	}
+	abort_effect = {
+		
+	}
+	effect = {
+		prestige = 10
+	}
+}
+
+#Go traveling
+obj_go_traveling = {
+	type = character
+	
+	allow = {
+		is_adult = yes
+		is_ruler = yes
+		higher_tier_than = baron
+		NOT = { has_character_flag = go_traveling_ambition_fulfilled }
+		NOT = { trait = traveling }
+		NOT = { trait = on_hajj }
+		NOT = { trait = on_pilgrimage }
+	}
+	chance = {
+		factor = 50
+		
+		modifier = {
+			factor = 2
+			trait = diligent
+		}		
+		modifier = {
+			factor = 0.5
+			trait = slothful
+		}			
+		modifier = {
+			factor = 2
+			trait = ambitious
+		}		
+		modifier = {
+			factor = 0.5
+			trait = content
+		}	
+		modifier = {
+			factor = 2
+			trait = brave
+		}		
+		modifier = {
+			factor = 0.5
+			trait = craven
+		}		
+		modifier = {
+			factor = 1.5
+			prestige = 150
+		}			
+		modifier = {
+			factor = 2
+			prestige = 400
+		}
+	}
+	success = {
+		OR = {
+			trait = traveling
+			trait = on_hajj
+			trait = on_pilgrimage
+		}
+	}
+	abort = {
+		trait = incapable
+	}
+	abort_effect = {
+		clr_character_flag = go_traveling_ambition_fulfilled
+		
+	}
+	effect = {
+		prestige = 10
+		set_character_flag = go_traveling_ambition_fulfilled
 	}
 }

@@ -6,14 +6,15 @@ title_kanikleios = {
 	
 	monthly_salary = 0.01
 	monthly_prestige = 0.005
-	
 	is_unique = yes
 	
 	allowed_to_hold = {
 		is_adult = yes
 		is_female = no
+		NOT = {
+			trait = incapable
+		}
 	}
-	
 	allowed_to_grant = {
 		is_feudal = yes
 		OR = {
@@ -38,18 +39,21 @@ title_protospatharios = {
 	
 	monthly_salary = 0.005
 	monthly_prestige = 0.002
-	
 	is_unique = yes
 	
 	allowed_to_hold = {
 		is_adult = yes
 		is_female = no
+		NOT = {
+			trait = incapable
+		}
 	}
 	allowed_to_grant = {
-		is_feudal = yes
 		OR = {
 			has_landed_title = e_byzantium
 			has_landed_title = e_roman_empire
+			is_feudal = yes
+			is_tribal = yes
 		}
 		NOT = { religion_group = muslim }
 	}
@@ -70,18 +74,11 @@ title_court_musician = { #Moved from muslim titles - now available to non-muslim
 	
 	monthly_salary = 0.02
 	monthly_prestige = 0.004
-	
 	is_unique = yes
 	
 	allowed_to_hold = {
 		is_adult = yes
-		OR = {
-			is_female = no
-			religion_group = muslim
-			culture_group = latin
-			culture_group = iberian
-			culture_group = celtic
-		}
+		is_female = no
 		OR = {
 			trait = poet
 			trait = melodious_voice
@@ -91,6 +88,9 @@ title_court_musician = { #Moved from muslim titles - now available to non-muslim
 				learning = 8
 			}
 		}
+		NOT = {
+			trait = incapable
+		}
 	}
 	allowed_to_grant = {
 		is_feudal = yes
@@ -98,6 +98,35 @@ title_court_musician = { #Moved from muslim titles - now available to non-muslim
 		NOT = { culture_group = central_african }
 		NOT = { religion = west_african_pagan }
 		NOT = { religion = west_african_pagan_reformed }
+		}
+		OR = {
+			any_courtier = {
+				is_adult = yes
+				is_female = no
+				OR = {
+					trait = poet
+					trait = melodious_voice
+					trait = powerful_voice
+					AND = {
+						diplomacy = 11
+						learning = 8
+					}
+				}
+			}
+			any_vassal = {
+				is_adult = yes
+				is_female = no
+				OR = {
+					trait = poet
+					trait = melodious_voice
+					trait = powerful_voice
+					AND = {
+						diplomacy = 11
+						learning = 8
+					}
+				}
+			}
+		}
 	}
 	
 	gain_effect = {
@@ -119,11 +148,17 @@ title_lique_mekwas = {
 	allowed_to_hold = {
 		is_adult = yes
 		is_female = no
-		NOT = { trait = imbecile }
-		NOT = { trait = slow }
+		NOR = {
+			trait = imbecile
+			trait = slow
+			trait = incapable
+		}
 	}
 	allowed_to_grant = {
-		is_feudal = yes
+		OR = {
+			is_feudal = yes
+			is_tribal = yes
+		}
 		primary_title = {
 			OR = {
 				tier = king
@@ -154,11 +189,17 @@ title_belen_tigui = {
 	allowed_to_hold = {
 		is_adult = yes
 		is_female = no
-		NOT = { trait = imbecile }
-		NOT = { trait = slow }
+		NOR = {
+			trait = imbecile
+			trait = slow
+			trait = incapable
+		}
 	}
 	allowed_to_grant = {
-		is_feudal = yes
+		OR = {
+			is_feudal = yes
+			is_tribal = yes
+		}
 		primary_title = {
 			OR = {
 				tier = king
@@ -190,8 +231,11 @@ title_nagid = {
 		is_adult = yes
 		is_female = no
 		religion_group = jewish_group
-		NOT = { trait = imbecile }
-		NOT = { trait = slow }
+		NOR = {
+			trait = imbecile
+			trait = slow
+			trait = incapable
+		}
 	}
 	allowed_to_grant = {
 		primary_title = { higher_tier_than = COUNT }
@@ -239,7 +283,7 @@ title_marcher_lord = {
 		is_feudal = yes
 		OR = {
 			culture = norman
-			culture = english
+			culture = saxon
 		}
 		OR = {
 			has_landed_title = k_england
@@ -267,10 +311,12 @@ title_amir_al_umara = {
 	allowed_to_hold = {
 		is_adult = yes
 		is_female = no
+		NOT = {
+			trait = incapable
+		}
 	}
 	allowed_to_grant = {
 		OR = {
-			culture = sicilian
 			culture = norman
 		}
 		has_landed_title = k_sicily			
@@ -299,16 +345,23 @@ title_court_griot = { #Court Griot
 		is_ruler = no
 		is_female = no
 		trait = griot
+		NOT = {
+			trait = incapable
+		}
 	}
 	allowed_to_grant = {
-		is_feudal = yes
 		OR = {
 			culture_group = west_african
 			culture_group = central_african
 			religion = west_african_pagan
 			religion = west_african_pagan_reformed
+			any_courtier = {
+				trait = griot
+			}
+			any_vassal = {
+				trait = griot
+			}
 		}
-		NOT = { has_global_flag = VIET_wafrican_features_off }
 	}
 	
 	gain_effect = {
@@ -328,21 +381,26 @@ title_farima_soura = {
 	
 	monthly_salary = 0.05
 	monthly_prestige = 0.05
+	is_unique = yes
 	
 	allowed_to_hold = {
 		is_adult = yes
 		is_female = no
 		NOT = { trait = griot }
 		martial = 8
-		NOT = { has_minor_title = title_sankar_zouma }
+		NOT = {
+			trait = incapable
+		}
 	}
 	allowed_to_grant = {
 		higher_tier_than = DUKE
-		is_feudal = yes
 		OR = {
 			culture_group = west_african
 			religion = west_african_pagan
 			religion = west_african_pagan_reformed
+			is_feudal = yes
+			is_tribal = yes
+		}
 		}
 	}
 	
@@ -362,13 +420,16 @@ title_sankar_zouma = {
 	
 	monthly_salary = 0.05
 	monthly_prestige = 0.05
+	is_unique = yes
 	
 	allowed_to_hold = {
 		is_adult = yes
 		is_female = no
-		NOT = { trait = griot }
+		NOR = {
+			trait = griot
+			trait = incapable
+		}
 		martial = 8
-		NOT = { has_minor_title = title_farima_soura }
 	}
 	allowed_to_grant = {
 		higher_tier_than = DUKE
@@ -440,21 +501,16 @@ title_knight_of_the_round_table = {
 	
 	allowed_to_hold = {
 		age = 16
-		OR = {
-			is_female = no
-			AND = {
-				religion = cathar
-				liege = { religion = cathar }
-			}
-			has_character_flag = special_marshal
-		}
 		martial = 8
+		NOT = {
+			trait = incapable
+		}
 	}
 	allowed_to_grant = {
-		has_landed_title = k_britain
+		has_landed_title = e_britannia
 		has_global_flag = VIET_knights_of_the_round_table_refounded
 	}
-
+	
 	gain_effect = {
 	}
 	lose_effect = {
