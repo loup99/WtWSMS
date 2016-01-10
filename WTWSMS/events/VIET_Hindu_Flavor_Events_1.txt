@@ -1,0 +1,313 @@
+###################################
+#
+# Hindv Courtier Flavor Events
+#
+# Set 1: VIETnam.141-VIETnam.143
+#
+# Fired from on actions
+#
+###################################
+
+
+# Vegetarian Hindu
+character_event = {
+	id = VIETnam.141
+	desc = "EVTDESC1000109314"
+	picture = GFX_evt_indian_market
+	
+	is_triggered_only = yes
+	only_rulers = yes
+	
+	trigger = {
+		is_adult = yes
+		NOR = {
+			trait = incapable
+			trait = vegetarian
+			religion_group = indian_group
+		}
+		any_courtier = {
+			religion_group = indian_group
+			trait = vegetarian
+			OR = {
+				culture_group = indoaryan
+				culture_group = dravidian
+			}
+			is_female = no
+			is_ruler = no		
+		}	
+	}
+	
+	immediate = {
+		random_courtier = {
+			limit = {
+				religion_group = indian_group
+				trait = vegetarian
+				OR = {
+					culture_group = indoaryan
+					culture_group = dravidian
+				}
+				is_female = no
+				is_ruler = no		
+			}
+			save_event_target_as = target_courtier
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		modifier = {
+			factor = 2
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 2
+			trait = hedonist
+		}
+		modifier = {
+			factor = 0.5
+			trait = temperate
+		}
+		modifier = {
+			factor = 2
+			trait = charitable
+		}
+		modifier = {
+			factor = 0.5
+			trait = envious
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA1000109314"  # Eat meat
+		event_target:target_courtier = {
+			opinion = {
+				modifier = opinion_angry
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB1000109314"  # Respect customs
+		event_target:target_courtier = {
+			opinion = {
+				modifier = opinion_defended_me
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+}
+
+
+# Hindu merchant and low caste workers
+character_event = {
+	id = VIETnam.142
+	desc = "EVTDESC1000109315"
+	picture = GFX_evt_indian_market
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		is_ruler = yes
+		is_adult = yes
+		NOR = {
+			trait = incapable
+			religion_group = indian_group
+		}
+		OR = {
+			is_republic = yes
+			is_patrician = yes
+		}
+		any_courtier = {
+			religion_group = indian_group
+			OR = {
+				culture_group = indoaryan
+				culture_group = dravidian
+			}
+			is_female = no
+			is_ruler = no		
+		}	
+	}
+	
+	immediate = {
+		random_courtier = {
+			limit = {
+				religion_group = indian_group
+				OR = {
+					culture_group = indoaryan
+					culture_group = dravidian
+				}
+				is_female = no
+				is_ruler = no		
+			}	
+			save_event_target_as = target_courtier
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		modifier = {
+			factor = 2
+			trait = genius
+		}
+		modifier = {
+			factor = 2
+			trait = quick
+		}
+		modifier = {
+			factor = 0.5
+			trait = humble
+		}
+		modifier = {
+			factor = 2
+			trait = cynical
+		}
+		modifier = {
+			factor = 2
+			trait = proud
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA1000109315"  # Bad person
+		event_target:target_courtier = {
+			opinion = {
+				modifier = opinion_disgruntled
+				who = ROOT
+				years = 1
+			}
+			reverse_opinion = {
+				modifier = opinion_disapprove
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB1000109315"  # Respect customs
+		event_target:target_courtier = {
+			opinion = {
+				modifier = opinion_glad
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+}
+
+
+# Spicy curry
+character_event = {
+	id = VIETnam.143
+	desc = "EVTDESC1000109316"
+	picture = GFX_evt_indian_market
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		is_ruler = yes
+		is_adult = yes
+		NOR = {
+			trait = incapable 
+			culture_group = indoaryan
+			culture_group = dravidian
+			religion_group = indian_group
+		}
+		OR = {
+			is_republic = yes
+			is_patrician = yes
+		}
+		any_courtier = {
+			OR = {
+				culture_group = indoaryan
+				culture_group = dravidian
+			}
+			is_female = no
+			is_ruler = no		
+		}	
+	}
+	
+	weight_multiplier = {
+		days = 1
+		
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		modifier = {
+			factor = 2
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 0.5
+			trait = envious
+		}
+		modifier = {
+			factor = 2
+			trait = humble
+		}
+		modifier = {
+			factor = 2
+			trait = charitable
+		}
+		modifier = {
+			factor = 0.5
+			trait = proud
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA1000109316"  # Spicy!
+		piety = 3
+	}
+	
+	option = {
+		name = "EVTOPTB1000109316"  # Try to like
+		random_list = {
+			50 = { }
+			50 = {
+				add_character_modifier = {
+					name = best_meal_in_ages
+					duration = 365
+				}			
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTC1000109316"  # Eat it all
+		tooltip_info = gluttonous
+		trigger = { 
+			trait = gluttonous
+		}
+		add_character_modifier = {
+			name = best_meal_in_ages
+			duration = 365
+		}			
+	}
+}

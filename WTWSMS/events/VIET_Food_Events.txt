@@ -1,0 +1,575 @@
+###################################
+#
+# Food Events:
+# Events pertaining to culture/religion/region-specific cuisine and eating culture
+#
+# ID# VIETnam.191 - VIETnam.195
+#
+# Fired from on actions
+#
+###################################
+
+# Lazy Byzantine Cook
+character_event = {
+	id = VIETnam.191
+	desc = "EVTDESC1000109364"
+	picture = GFX_evt_VIET_food
+	
+	is_triggered_only = yes
+	
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		war = no
+		in_command = no
+		capital_scope = {
+			OR = {
+				region = world_europe_south_east
+				region = world_asia_minor
+			}
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		
+		modifier = {
+			factor = 0.5
+			trait = temperate
+		}
+		modifier = {
+			factor = 2
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 0.5
+			trait = content
+		}
+		modifier = {
+			factor = 2
+			trait = ambitious
+		}
+		modifier = {
+			factor = 0.5
+			trait = slothful
+		}
+		modifier = {
+			factor = 2
+			trait = diligent
+		}
+		modifier = {
+			factor = 0.5
+			trait = patient
+		}
+		modifier = {
+			factor = 2
+			trait = wroth
+		}
+		modifier = {
+			factor = 0.5
+			trait = trusting
+		}
+		modifier = {
+			factor = 2
+			trait = paranoid
+		}
+	}
+	
+	option = { #Don't be lazy
+		name = "EVTOPTA1000109364"
+		trigger = {
+			NOT = { trait = slothful }
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = diligent
+			}
+			modifier = {
+				factor = 0.5
+				trait = content
+			}
+			modifier = {
+				factor = 2
+				trait = proud
+			}
+			modifier = {
+				factor = 0.5
+				trait = humble
+			}
+			modifier = {
+				factor = 2
+				trait = gregarious
+			}
+			modifier = {
+				factor = 0.5
+				trait = shy
+			}
+		}
+		prestige = 1
+		add_character_modifier = {
+			name = advice_giver
+			duration = 90
+		}
+	}
+	
+	option = { #It's fine
+		name = "EVTOPTB1000109364"
+		trigger = {
+#			AND = {
+				NOT = { trait = diligent }
+				NOT = { trait = content }
+#			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				trait = content
+			}
+			modifier = {
+				factor = 0.1
+				trait = ambitious
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = content }
+			}
+			random_list = {
+				80 = { }
+				20 = { add_trait = content }
+			}
+		}
+	}
+	
+	option = { #Different varieties
+		name = "EVTOPTC1000109364"
+		if = {
+			limit = {
+				NOT = { trait = gluttonous }
+				NOT = { trait = temperate }
+			}
+			random_list = {
+				80 = { }
+				20 = { add_trait = gluttonous }
+			}
+		}
+		if = {
+			limit = {
+				trait = temperate
+			}
+			random_list = {
+				40 = { }
+				40 = { remove_trait = temperate }
+				20 = { add_trait = gluttonous }
+			}
+		}
+	}
+}
+
+
+# Forks are terrible!
+character_event = {
+	id = VIETnam.192
+	desc = "EVTDESC1000109365"
+	picture = GFX_evt_VIET_food
+	
+	is_triggered_only = yes
+	
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		war = no
+		in_command = no
+		OR = {
+			culture = tocharian
+			culture = aghbanian
+			culture = frankish
+			culture = norman
+			culture = occitan
+			culture = dacian
+			culture = romanian
+			culture = catalan
+			culture = basque
+			culture = lusitanian
+			culture = brython
+			culture = scottish
+			culture = irish
+			culture = pictish
+			culture = welsh
+			culture = breton
+			culture = sarmatobrython
+			culture = german
+			culture = burgundian
+			culture = vandal
+			culture = visigothic
+			culture = ostrogothic
+			culture = lombard
+			culture = suevic
+			culture = bavarian
+			culture_group = west_germanic
+			culture_group = south_slavic
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		modifier = {
+			factor = 2
+			trait = ambitious
+		}
+		modifier = {
+			factor = 0.5
+			trait = content
+		}
+		modifier = {
+			factor = 2
+			is_patrician = yes
+		}
+		modifier = {
+			factor = 0.5
+			trait = humble
+		}
+	}
+	
+	option = { #Mark of pride
+		name = "EVTOPTA1000109365"
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = proud
+			}
+			modifier = {
+				factor = 0.5
+				trait = trusting
+			}
+			modifier = {
+				factor = 2
+				trait = humble
+			}
+			modifier = {
+				factor = 0.5
+				trait = shy
+			}
+		}
+		piety = 5
+		if = {
+			limit = {
+				NOT = { trait = humble }
+			}
+			random_list = {
+				80 = { }
+				20 = { add_trait = humble }
+			}
+		}
+		if = {
+			limit = {
+				trait = content
+			}
+			random_list = {
+				80 = { }
+				20 = { remove_trait = content }
+			}
+		}
+	}
+	
+	option = { #Respect customs
+		name = "EVTOPTB1000109365"
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = patient
+			}
+			modifier = {
+				factor = 0.5
+				trait = humble
+			}
+			modifier = {
+				factor = 2
+				trait = scholar
+			}
+			modifier = {
+				factor = 0.5
+				trait = proud
+			}
+		}
+		prestige = 5
+	}
+}
+
+
+# Sour kefir
+character_event = {
+	id = VIETnam.193
+	desc = "EVTDESC1000109366"
+	picture = GFX_evt_VIET_food
+	
+	is_triggered_only = yes
+	
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		war = no
+		in_command = no
+		OR = {
+			culture = armenian
+			culture = georgian
+			culture = aghbanian
+			culture = kurdish
+			culture = persian
+			culture = avar
+			culture = alan
+			culture_group = east_slavic
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		
+		modifier = {
+			factor = 2
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 0.5
+			trait = temperate
+		}
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		modifier = {
+			factor = 2
+			OR = {
+				culture = armenian
+				culture = aghbanian
+				culture = georgian
+			}
+		}
+		modifier = {
+			factor = 0.5
+			OR = { 
+				tier = king
+				tier = emperor
+			}
+		}
+	}
+	
+	option = { #My stomach hurts!
+		name = "EVTOPTA1000109366"
+		trigger = {
+			NOT = { trait = paranoid }
+		}
+		ai_chance = {
+			factor = 1
+		}
+		random_list = {
+			80 = { }
+			20 = { add_trait = ill }
+		}
+	}
+	
+	option = { #Killer
+		name = "EVTOPTB1000109366"
+		tooltip_info = paranoid
+		trigger = {
+			trait = paranoid
+		}
+		random_list = {
+			80 = { }
+			20 = { add_trait = ill }
+		}
+	}
+}
+
+
+
+# N. African mint tea ceremony
+character_event = {
+	id = VIETnam.194
+	desc = "EVTDESC1000109367"
+	picture = GFX_evt_VIET_food
+	
+	is_triggered_only = yes
+	
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		war = no
+		in_command = no
+		is_ruler = yes
+		OR = {
+			culture_group = berberic
+			culture = maghreb_arabic
+			culture = andalusian_arabic
+			culture = egyptian_arabic
+		}
+		any_vassal = {
+			is_adult = yes
+			OR = {
+				culture_group = berberic
+				culture = maghreb_arabic
+				culture = andalusian_arabic
+				culture = egyptian_arabic
+			}
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		
+		modifier = {
+			factor = 2
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 0.5
+			trait = temperate
+		}
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		modifier = {
+			factor = 2
+			trait = humble
+		}
+		modifier = {
+			factor = 0.5
+			trait = proud
+		}
+		modifier = {
+			factor = 2
+			trait = charitable
+		}
+		modifier = {
+			factor = 0.5
+			trait = greedy
+		}
+	}
+	
+	option = { #Heha
+		name = "EVTOPTA1000109367"
+		prestige = 1
+		random_vassal = {
+			limit = {
+				is_adult = yes
+				OR = {
+					culture_group = berberic
+					culture = maghreb_arabic
+					culture = andalusian_arabic
+					culture = egyptian_arabic
+				}	
+			}
+			opinion = {
+				who = ROOT
+				modifier = opinion_pleased
+				years = 2
+			}
+		}
+	}
+}
+
+
+# Mongol pit stop
+character_event = {
+	id = VIETnam.195
+	desc = "EVTDESC1000109368"
+	picture = GFX_evt_VIET_food
+	
+	is_triggered_only = yes
+	
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		war = no
+		in_command = no
+		culture_group = altaic
+	}
+	
+	weight_multiplier = {
+		days = 1
+		
+		modifier = {
+			factor = 3
+			culture = xiongnu
+		}
+		modifier = {
+			factor = 2
+			trait = diligent
+		}
+		modifier = {
+			factor = 0.5
+			trait = slothful
+		}
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		modifier = {
+			factor = 2
+			trait = ambitious
+		}
+		modifier = {
+			factor = 0.5
+			trait = content
+		}
+	}
+	
+	option = { #Horse meat
+		name = "EVTOPTA1000109368"
+		add_character_modifier = {
+			name = best_meal_in_ages
+			duration = 30
+		}
+	}
+	option = { #Mutton
+		name = "EVTOPTB1000109368"
+		add_character_modifier = {
+			name = best_meal_in_ages
+			duration = 30
+		}
+	}
+	option = { #Goat testicles
+		name = "EVTOPTC1000109368"
+		add_character_modifier = {
+			name = best_meal_in_ages
+			duration = 30
+		}
+	}
+}
