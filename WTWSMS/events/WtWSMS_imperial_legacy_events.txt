@@ -2,7 +2,7 @@ namespace = imperial_legacy_event
 
 #Give nickname "Augustus" to Western Roman Emperors.
 character_event = {
-	id = imperial_legacy_event.01
+	id = imperial_legacy_event.1
 	hide_window = yes
 	
 	only_independent = yes
@@ -31,7 +31,7 @@ character_event = {
 
 #Remove nickname "Augustus" from deposed Western Roman Emperors.
 character_event = {
-	id = imperial_legacy_event.02
+	id = imperial_legacy_event.2
 	hide_window = yes
 	
 	trigger = {
@@ -56,3 +56,187 @@ character_event = {
 	}
 }
 
+# Roman agnomen for military achievements (vanquished opponent culture)
+# Fired via on_major_battle_won_leader
+# ROOT is winning army leader
+# FROM is opponent army leader
+character_event = {
+	id = imperial_legacy_event.3
+	desc = imperial_legacy_event.3.desc
+	
+	is_triggered_only = yes
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_nickname = no
+		has_romance_culture_trigger = yes
+		any_war = { war_score = 50 } # Winning the war
+		
+		FROM = {
+			OR = {
+				culture = vandalic
+				culture = gothic
+				culture = sarmatian
+				culture = parthian
+				culture = isaurian
+				culture = alamannian
+				culture = old_frankish
+				culture = persian
+				culture = gallic
+				culture = armenian
+				culture = alan
+				culture = macedonian
+				culture = thracian
+				culture = pontic
+			}
+		}
+	}
+	
+	option = {
+		name = imperial_legacy_event.3.a
+
+		# Culture of vanquished opponent
+		FROM = {
+			trigger_switch = {
+				on_trigger = culture
+				vandalic 		= { ROOT = { give_nickname = nick_vandalicus } }
+				gothic 			= { ROOT = { give_nickname = nick_gothicus } }
+				sarmatian 		= { ROOT = { give_nickname = nick_sarmaticus } }
+				parthian 		= { ROOT = { give_nickname = nick_parthicus } }
+				isaurian 		= { ROOT = { give_nickname = nick_isauricus } }
+				alamannian		= { ROOT = { give_nickname = nick_alamannicus } }
+				antae			= { ROOT = { give_nickname = nick_anticus } }
+				old_frankish	= { ROOT = { give_nickname = nick_francicus } }
+				briton			= { ROOT = { give_nickname = nick_britannicus } }
+				persian			= { ROOT = { give_nickname = nick_persicus } }
+				gallic			= { ROOT = { give_nickname = nick_gallicus } }
+				dacian			= { ROOT = { give_nickname = nick_dacicus } }
+				armenian		= { ROOT = { give_nickname = nick_armeniacus } }
+				alan			= { ROOT = { give_nickname = nick_alanicus } }
+				macedonian		= { ROOT = { give_nickname = nick_macedonicus } }
+				thracian		= { ROOT = { give_nickname = nick_thracus } }
+				pontic 			= { ROOT = { give_nickname = nick_ponticus } } 
+			}
+		}
+	}
+}
+
+# Roman agnomen for military achievements (region of major battle)
+# on_major_battle_won_leader
+# ROOT is winning army leader
+# FROM is opponent army leader
+character_event = {
+	id = imperial_legacy_event.4
+	desc = imperial_legacy_event.4.desc
+	
+	is_triggered_only = yes
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_nickname = no
+		has_romance_culture_trigger = yes
+		any_war = { war_score = 50 } # Winning the war
+		
+		# Covered by imperial_legacy_event.3
+		FROM = {
+			NOR = {
+				culture = vandalic
+				culture = gothic
+				culture = sarmatian
+				culture = parthian
+				culture = isaurian
+				culture = alamannian
+				culture = old_frankish
+				culture = persian
+				culture = gallic
+				culture = armenian
+				culture = alan
+				culture = macedonian
+				culture = thracian
+				culture = pontic
+			}
+		}
+
+		location = {
+			OR = {
+				region = custom_diocese_aegyptus
+				region = custom_diocese_africa
+				region = custom_diocese_armenia
+				region = custom_diocese_asiana
+				region = custom_diocese_hispaniae
+				region = custom_diocese_britannia
+				region = custom_diocese_italia_annonaria
+				region = custom_diocese_italia_suburbicaria
+				region = custom_diocese_gallia
+				region = custom_diocese_sevenprovinces
+				region = custom_diocese_oriens
+				region = custom_diocese_thrace
+				region = custom_diocese_pontica
+			}
+		}
+	}
+	
+	option = {
+		name = imperial_legacy_event.4.a
+
+		# Default to the region of major battle
+		location = {
+			if = {
+				limit = { region = custom_diocese_aegyptus }
+				ROOT = { give_nickname = nick_aegyptus }
+			}
+			if = {
+				limit = { region = custom_diocese_africa  }
+				ROOT = { give_nickname = nick_africanus }
+			}
+			if = {
+				limit = { region = custom_diocese_armenia }
+				ROOT = { give_nickname = nick_armeniacus }
+			}
+			if = {
+				limit = { region = custom_diocese_asiana }
+				ROOT = { give_nickname = nick_asiaticus }
+			}
+			if = {
+				limit = { region = custom_diocese_hispaniae }
+				ROOT = { give_nickname = nick_hispanicus }
+			}
+			if = {
+				limit = { region = custom_diocese_britannia  }
+				ROOT = { give_nickname = nick_britannicus }
+			}
+			if = {
+				limit = { 
+					OR = {
+						region = custom_diocese_italia_annonaria
+						region = custom_diocese_italia_suburbicaria
+					}
+				}
+				ROOT = { give_nickname = nick_italicus }
+			}
+			if = {
+				limit = { 
+					OR = {
+						region = custom_diocese_gallia
+						region = custom_diocese_sevenprovinces
+					}
+				 }
+				ROOT = { give_nickname = nick_gallicus }
+			}
+			if = {
+				limit = { region = custom_diocese_oriens }
+				ROOT = { give_nickname = nick_arabicus }
+			}
+			if = {
+				limit = { region = custom_diocese_thrace }
+				ROOT = { give_nickname = nick_thracus }
+			}
+			if = {
+				limit = { region = custom_diocese_pontica  }
+				ROOT = { give_nickname = nick_ponticus }
+			}
+		}
+	}
+}
