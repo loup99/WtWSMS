@@ -1,19 +1,22 @@
 decisions = {
 
 	survey_realm = {
-		# is_high_prio = yes # Spams the important decision alert for no good reason
+		is_high_prio = yes
 		potential = {
 			is_ruler = yes
-			OR = {
-				demesne_size = 2
-				higher_tier_than = count
+			is_landed = yes
+			ai = no
+			higher_tier_than = count
+			NOR = {
+				has_character_flag = do_not_disturb
+				trait = in_hiding
 			}
+			is_adult = yes
+			prisoner = no
+			war = no
 		}
 		allow = {
-			is_adult = yes
 			scaled_wealth = 0.3
-			war = no
-			prisoner = no
 			wealth = 50
 			custom_tooltip = {
 				text = surveyed_realm_recently_text
@@ -21,22 +24,12 @@ decisions = {
 					NOT = {	has_character_flag = surveyed_realm }
 				}
 			}
-			NOT = { trait = on_hajj }
-			NOT = {	has_character_flag = preparing_hajj }
-			NOT = {	has_character_flag = ramadan }
-			NOT = {	has_character_flag = activated_hajj }			
-			NOT = { trait = traveling }
-			NOT = { has_character_modifier = holding_large_feast }
-			NOT = { has_character_modifier = holding_summer_fair }
-			NOT = {	has_character_flag = holding_grand_hunt }
-			#NOT = { has_character_flag = epic_tournament }		
-			NOT = { has_character_flag = performing_sacrifice }
-			
 		}
 		effect = {
 			scaled_wealth = -0.3
 			set_character_flag = surveyed_realm
 			set_character_flag = begin_survey_realm
+			set_character_flag = do_not_disturb
 		}
 		revoke_allowed = {
 			always = no
@@ -44,7 +37,7 @@ decisions = {
 		ai_will_do = {
 			factor = 1
 			modifier = {
-				factor = 0.7 #Reduce the chance AI will do
+				factor = 0.005 # Slow it down
 			}
 			modifier = {
 				factor = 0

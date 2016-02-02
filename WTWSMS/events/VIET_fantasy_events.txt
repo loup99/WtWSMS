@@ -1,0 +1,674 @@
+###############################################
+#
+# FANTASY EVENTS
+#
+# Events where it's either magic or stupid medieval people
+#
+# please don't spoil these on the forums
+# they're supposed to be uberawesome, that's why
+#
+#
+# Events:
+# 
+# fantasia.0-Fantasia.7 Mermaid
+# fantasia.8-Fantasia.12 Merlin
+#
+###############################################
+
+namespace = fantasia
+
+###############################################
+#Mermaid (based on Cornish legends)
+###############################################
+
+
+
+# Mermaid
+character_event = {
+	id = fantasia.0
+	desc = fantasia.0.desc
+	picture = GFX_evt_maiden
+
+	is_triggered_only = yes
+
+	min_age = 16
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+	only_men = yes
+	
+	ai = no
+
+	trigger = { 
+		war = no 
+		in_command = no 
+		is_abroad = no
+		OR = {
+			culture_group = celtic
+			culture_group = west_germanic
+			culture_group = central_germanic
+			culture_group = latin
+			culture_group = north_germanic
+		}
+		any_courtier = {
+			is_ruler = no
+			is_female = no
+			is_adult = yes
+			NOT = { age = 30 }
+			ai = yes
+			OR = {
+				trait = melodious_voice
+				trait = calm_voice
+				trait = fair
+				trait = gregarious
+				trait = kind
+				trait = tall
+			}
+			NOT = { trait = incapable }
+			NOT = { trait = ugly }
+			NOT = { trait = cruel }
+		}
+		NOT = { has_global_flag = cornish_mermaid }
+	}
+
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		modifier = {
+			factor = 2
+			trait = zealous
+		}
+		modifier = {
+			factor = 0.5
+			trait = cynical
+		}
+		modifier = {
+			factor = 2
+			trait = perceptive 
+		}
+		modifier = {
+			factor = 0.5
+			trait = absentminded
+		}
+		modifier = {
+			factor = 0.8
+			NOT = {
+				culture = romanobrython
+			}
+		}
+		modifier = {
+			factor = 0.5
+			NOT = {
+				culture_group = celtic
+			}
+		}
+		modifier = {
+			factor = 2
+			trait = patient
+		}
+		modifier = {
+			factor = 0.5
+			trait = wroth
+		}
+		modifier = {
+			factor = 2
+			trait = humble
+		}
+		modifier = {
+			factor = 0.5
+			trait = proud
+		}
+		modifier = {
+			factor = 2
+			trait = slothful
+		}
+		modifier = {
+			factor = 0.5
+			trait = diligent
+		}
+	}
+
+	option = {#ok...
+		name = fantasia.0.a
+		random_courtier = {
+			limit = {
+				is_ruler = no
+				is_female = no
+				is_adult = yes
+				ai = yes
+				NOT = { age = 30 }
+				OR = {
+					trait = melodious_voice
+					trait = calm_voice
+					trait = fair
+					trait = gregarious
+					trait = kind
+					trait = tall
+				}
+				NOT = { trait = incapable }
+				NOT = { trait = ugly }
+				NOT = { trait = cruel }
+			}
+			character_event = { id = fantasia.1 tooltip = fantasia.1.tooltip days = 20 }
+		}
+	}
+}
+
+
+
+# Mermaid
+character_event = {
+	id = fantasia.1
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	immediate = {
+		FROM = { narrative_event = { id = fantasia.2 } }
+		death = {
+			death_reason = death_accident
+		}
+	}
+}
+
+
+
+
+# where dat bozo
+narrative_event = {
+	id = fantasia.2
+	title = fantasia.2.title
+	desc = fantasia.2.desc
+	picture = GFX_evt_courtiers_talking
+
+	is_triggered_only = yes
+
+	option = {
+		name = fantasia.2.a
+		narrative_event = { id = fantasia.3 tooltip = fantasia.3.tooltip days = 8 random = 10 }
+	}
+
+}
+
+
+
+
+
+# lol u a mermaid
+narrative_event = {
+	id = fantasia.3
+	title = fantasia.3.title
+	desc = fantasia.3.desc
+	picture = GFX_evt_ocean_blue
+
+	is_triggered_only = yes
+
+	option = {
+		name = fantasia.3.a
+		narrative_event = { id = fantasia.4 tooltip = fantasia.4.tooltip days = 3 }
+	}
+
+}
+
+
+
+
+
+# SING FOR MOI O MUSE
+narrative_event = {
+	id = fantasia.4
+	title = fantasia.4.title
+	desc = fantasia.4.desc
+	picture = GFX_evt_ocean_blue
+
+	is_triggered_only = yes
+
+	option = { #feeling sleepy
+		name = fantasia.4.a
+		narrative_event = { id = fantasia.5 tooltip = fantasia.5.tooltip days = 3 }
+	}
+
+
+	option = { #ok
+		name = fantasia.4.b
+		narrative_event = { id = fantasia.6 tooltip = fantasia.6.tooltip days = 3 }
+	}
+
+}
+
+
+
+
+
+
+
+# dudez u saw dat mermaid
+narrative_event = {
+	id = fantasia.5
+	title = fantasia.5.title
+	desc = fantasia.5.desc
+	picture = GFX_evt_ocean_blue
+
+	is_triggered_only = yes
+
+	option = { #u all crazy
+		name = fantasia.5.a
+		piety = 5
+	}
+
+}
+
+
+
+# under the sea it's always better
+narrative_event = {
+	id = fantasia.6
+	title = fantasia.6.title
+	desc = fantasia.6.desc
+	picture = GFX_evt_lovers
+
+	is_triggered_only = yes
+
+	option = { #siren
+		name = fantasia.6.a
+		custom_tooltip = { text = VIET_mermaid_death_lol }
+		hidden_tooltip = {
+			death = {
+				death_reason = death_accident
+			}
+			capital_scope = {
+				add_province_modifier = {
+					name = VIET_mermaid_dummy
+					hidden = yes
+					duration = -1
+				}
+			}
+		}
+		set_global_flag = cornish_mermaid
+		
+	}
+
+
+	option = { #ok
+		name = fantasia.6.b
+		narrative_event = { id = fantasia.5 tooltip = fantasia.5.tooltip2 days = 3 }
+	}
+
+}
+
+
+
+
+# mermaid province event
+province_event = {
+	id = fantasia.7
+#	title = fantasia.7.title
+	desc = fantasia.7.desc
+	picture = GFX_evt_ocean_blue
+
+	trigger = {
+		has_province_modifier = VIET_mermaid_dummy
+	}
+
+	mean_time_to_happen = {
+		months = 3000
+	}
+
+	option = { #feeling sleepy
+		name = fantasia.7.a
+		hidden_tooltip = {
+			remove_province_modifier = VIET_mermaid_dummy
+		}
+		add_province_modifier = {
+			name = VIET_mermaid_legend
+			duration = -1
+		}
+	}
+}
+
+
+
+###############################################
+#Merlin
+###############################################
+
+
+
+# Merlin
+character_event = {
+	id = fantasia.8
+	desc = fantasia.8.desc
+	picture = GFX_evt_holy_light
+
+	is_triggered_only = yes
+
+	min_age = 16
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+	only_men = yes
+	
+	ai = no
+
+	trigger = { 
+		war = no 
+		in_command = no 
+		is_abroad = no
+		OR = {
+			religion_group = christian
+			religion_group = celtic_group
+		}
+		OR = {
+			culture = breton
+			culture = sarmatobrython
+			culture = welsh
+			culture = brython
+			culture = norsegael
+		}
+		NOT = { has_global_flag = merlin_freed }
+		capital_scope = {
+			empire = { title = e_britannia }
+			OR = {
+			culture = breton
+			culture = sarmatobrython
+			culture = welsh
+			culture = brython
+			culture = norsegael
+			}			
+		}
+		OR = {
+			trait = kind
+			trait = charitable
+			trait = zealous
+			trait = gregarious
+			trait = diligent
+			trait = ambitious
+			trait = just
+		}
+		NOT = { trait = cruel }
+		NOT = { trait = greedy }
+		NOT = { trait = envious }
+	}
+
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		modifier = {
+			factor = 2
+			trait = zealous
+		}
+		modifier = {
+			factor = 0.5
+			trait = cynical
+		}
+		modifier = {
+			factor = 2
+			trait = perceptive 
+		}
+		modifier = {
+			factor = 0.5
+			trait = absentminded
+		}
+		modifier = {
+			factor = 2
+			trait = patient
+		}
+		modifier = {
+			factor = 0.5
+			trait = wroth
+		}
+		modifier = {
+			factor = 2
+			trait = humble
+		}
+		modifier = {
+			factor = 0.5
+			trait = proud
+		}
+		modifier = {
+			factor = 2
+			trait = mystic
+		}
+		modifier = {
+			factor = 0.5
+			trait = hedonist
+		}
+		modifier = {
+			factor = 2
+			trait = poet
+		}
+		modifier = {
+			factor = 0.5
+			trait = scholar
+		}
+		modifier = {
+			factor = 2
+			trait = like_king_arthur
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { has_global_flag = VIET_britain_restored }
+		}
+	}
+
+	option = {# I'll do it
+		name = fantasia.8.a
+		character_event = { id = fantasia.10 tooltip = fantasia.10.tooltip days = 5 random = 5 }
+		set_global_flag = merlin_freed
+	}
+	option = {# EVIL
+		name = fantasia.8.b
+		trigger = {
+		NOT = { 
+			OR = {		
+			religion_group = norsegerman_group
+			religion_group = slavic_group
+			religion_group = baltic_group
+			religion_group = celtic_group		
+			}
+		}
+		}
+		if = {
+			limit = {
+				NOT = { trait = zealous }
+				NOT = { trait = cynical }
+			}
+			random = {
+				chance = 5
+				add_trait = zealous
+			}
+		}
+		custom_tooltip = { text = merlin_visions_evil }
+		hidden_tooltip = {
+			random_list = {
+				60 = { character_event = { id = fantasia.9 days = 10 random = 10 } }
+				40 = { }
+			}
+		}
+	}
+	option = {# EVIL
+		name = fantasia.8.c
+		trigger = {
+		NOT = { 
+			OR = {		
+			religion_group = norsegerman_group
+			religion_group = slavic_group
+			religion_group = baltic_group
+			religion_group = celtic_group		
+			}
+		}
+		}
+		if = {
+			limit = {
+				NOT = { trait = zealous }
+				NOT = { trait = cynical }
+			}
+			random = {
+				chance = 5
+				add_trait = zealous
+			}
+		}
+		custom_tooltip = { text = merlin_visions_evil_pagan }
+		hidden_tooltip = {
+			random_list = {
+				60 = { character_event = { id = fantasia.9 days = 10 random = 10 } }
+				40 = { }
+			}
+		}
+	}
+	option = {# stupid
+		name = fantasia.8.d
+		if = {
+			limit = {
+				NOT = { trait = zealous }
+			}
+			random = {
+				chance = 5
+				add_trait = cynical
+			}
+		}
+		custom_tooltip = { text = merlin_visions_cynical }
+		hidden_tooltip = {
+			random_list = {
+				25 = { character_event = { id = fantasia.9 days = 10 random = 10 } }
+				75 = { }
+			}
+		}
+	}
+}
+
+# Merlin again
+character_event = {
+	id = fantasia.9
+	desc = fantasia.9.desc
+	picture = GFX_evt_nightmare
+
+	is_triggered_only = yes
+
+	option = {# I'll do it
+		name = fantasia.9.a
+		character_event = { id = fantasia.10 tooltip = fantasia.10.tooltip days = 5 random = 5 }
+		set_global_flag = merlin_freed
+	}
+	option = {# EVIL
+		name = fantasia.9.b
+		trigger = {
+			NOT = { religion_group = pagan_group }
+		}
+		if = {
+			limit = {
+				NOT = { trait = zealous }
+				NOT = { trait = cynical }
+			}
+			random = {
+				chance = 5
+				add_trait = zealous
+			}
+		}
+		custom_tooltip = { text = merlin_visions_evil_2 }
+	}
+	option = {# stupid
+		name = fantasia.9.c
+		if = {
+			limit = {
+				NOT = { trait = zealous }
+				NOT = { trait = cynical }
+			}
+			random = {
+				chance = 5
+				add_trait = cynical
+			}
+		}
+		custom_tooltip = { text = merlin_visions_cynical_2 }
+	}
+}
+
+# Into the woods
+character_event = {
+	id = fantasia.10
+	desc = fantasia.10.desc
+	picture = GFX_evt_castle_construction
+
+	is_triggered_only = yes
+
+	option = {# I'll do it
+		name = fantasia.10.a
+		character_event = { id = fantasia.11 tooltip = fantasia.11.tooltip days = 3 random = 3 }
+	}
+}
+
+# Meeting Merlin
+character_event = {
+	id = fantasia.11
+	desc = fantasia.11.desc
+	picture = GFX_evt_skyrim_forest
+
+	is_triggered_only = yes
+
+	option = {# I'll do it
+		name = fantasia.11.a
+		narrative_event = { id = fantasia.12 tooltip = fantasia.12.tooltip days = 2 random = 2 }
+	}
+}
+
+# The Once and Future King
+narrative_event = {
+	id = fantasia.12
+	title = fantasia.12.title
+	desc = fantasia.12.desc
+	picture = GFX_evt_skyrim_forest
+
+	is_triggered_only = yes
+
+	option = {# ok
+		name = fantasia.12.a
+		trigger = {
+			NOT = { has_character_flag = VIET_the_second_arthur }
+			NOT = { has_global_flag = VIET_britain_restored }
+		}
+		add_character_modifier = {
+			name = VIET_merlins_blessing
+			duration = -1
+		}
+		custom_tooltip = { text = where_is_merlin }
+	}
+	option = {# ok
+		name = fantasia.12.b
+		trigger = {
+			has_character_flag = VIET_the_second_arthur
+			has_global_flag = VIET_britain_restored
+		}
+		add_character_modifier = {
+			name = VIET_merlins_blessing
+			duration = -1
+		}
+		custom_tooltip = { text = where_is_merlin }
+	}
+	option = {# ok
+		name = fantasia.12.c
+		trigger = {
+			NOT = { has_character_flag = VIET_the_second_arthur }
+			has_global_flag = VIET_britain_restored
+		}
+		add_character_modifier = {
+			name = VIET_merlins_blessing
+			duration = -1
+		}
+		custom_tooltip = { text = where_is_merlin }
+	}
+}
+

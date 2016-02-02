@@ -1,0 +1,405 @@
+###################################
+#
+# OCCULTUS
+# - Putting the Dark back in Dark Ages
+#
+###################################
+
+# Written by Zaldax
+
+namespace = OCC
+
+### "Dance of the Dead" Series
+
+# Go Wandering in the Woods
+narrative_event = {
+	id = OCC.1
+	title = EVTNAMEOCC.1
+	desc = EVTDESC_OCC_1
+	picture = GFX_evt_feast #TBD
+
+
+	is_triggered_only = yes
+	
+	min_age = 16
+	prisoner = no
+	only_rulers = yes
+	only_capable = yes
+	
+	trigger = {
+		OR = {
+			culture_group = north_germanic
+			culture_group = central_germanic
+			culture_group = west_germanic
+		}
+		NOT = { has_character_flag = begin_the_dance_of_death }
+	}
+	
+	immediate = {
+		set_character_flag = begin_the_dance_of_death
+	}
+	
+	weight_multiplier = { #Should be most likely to occur for Brave and Deceitful characters, almost impossible to occur for content(?) characters. Craven and Paranoid rulers will only get one choice in the actual event.
+		days = 1
+		modifier = { #Change modifier
+			factor = 1.5
+			trait = deceitful #event chain should be most likely to fire for mystics
+		}
+		modifier = { #Change modifier
+			factor = 1.2
+			trait = brave #event chain should be likely to fire for brave characters
+		}
+		modifier = { #Change modifier
+			factor = 1.2
+			trait = content
+		}
+		modifier = { #Change modifier
+			factor = 1.2
+			trait = cynical  #Event chain more likely to fire for cynical characters
+		}
+		#Add more modifiers?
+		
+	}
+	
+	option = {
+		name = EVTOPTAOCC.1
+		trigger = {
+			NOR = {
+				trait = craven
+				trait = paranoid
+			}
+		}
+		narrative_event = { id = OCC.3 days = 14 tooltip = EVTTOOLTIPOCC_1 }
+	}
+	option = {
+		name = EVTOPTBOCC.1
+		tooltip_info = slothful
+		trigger = {
+			trait = slothful
+			NOR = { 
+				trait = craven
+				trait = paranoid
+				trait = depressed
+			}
+		}
+		random_list = { #Change effects?.
+		80 = {
+		if = {
+			limit = {
+				trait = brave
+			}
+			remove_trait = brave
+		}
+			}
+		20 = {
+		if = {
+			limit = {
+				NOT = { trait = honest } #something to do with being wise; wandering alone in the woods at night is a very bad idea...
+			}
+			add_trait = honest
+			prestige = -20
+		}
+			}
+		}
+	}
+	option = {
+		name = EVTOPTCOCC.1
+		trigger = { 
+			OR = { 
+				trait = paranoid
+				trait = craven
+			}
+		}
+		random_list = { #Change effects.
+			80 = {
+				prestige = -20
+			}
+			20 = {
+				if = {
+					limit = {
+						NOT = { trait = honest } #something to do with being wise; wandering alone in the woods at night is a very bad idea...
+					}
+					add_trait = honest
+				}
+			}
+		}
+	}
+	option = {
+		name = EVTOPTDOCC.1
+		tooltip_info = drunkard
+		trigger = { trait = drunkard }
+		prestige = -50
+	}
+	option = {
+		name = EVTOPTEOCC.1
+		tooltip_info = depressed
+		trigger = { trait = depressed }
+		narrative_event = { id = OCC.3 days = 14 tooltip = EVTTOOLTIPOCC_1 }
+	}
+	option = {
+		name = EVTOPTFOCC.1
+		prestige = -50
+	}
+}
+
+#Get lost while travelling (Not VIET trait, but could be modified to work with said trait)
+narrative_event = {
+	id = OCC.2
+	title = EVTNAMEOCC.1
+	desc = EVTDESC_OCC_2
+	picture = GFX_evt_bandits #TBD
+
+
+	is_triggered_only = yes
+	
+	min_age = 16
+	prisoner = no
+	only_rulers = yes
+	only_capable = yes
+	
+	trigger = {
+		OR = {
+			culture_group = north_germanic
+			culture_group = central_germanic
+			culture_group = west_germanic
+		}
+		NOT = { has_character_flag = begin_the_dance_of_death }
+		location = {
+			ROOT = {
+				capital_scope = {
+					NOT = {
+						province_id = PREVPREV
+					}
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_character_flag = begin_the_dance_of_death
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = { #Change modifier
+			factor = 1.2
+			trait = brave
+		}
+		modifier = { #Change modifier
+			factor = 1.2
+			trait = trusting  #Careless?
+		}
+		modifier = { #Change modifier
+			factor = 1.2
+			trait = cynical  #Event chain more likely to fire for cynical characters
+		}
+		modifier = { #Change modifier
+			factor = 1.5
+			trait = hunter # Tracking prey when suddenly...
+		}
+	}
+	
+	option = {
+		name = EVTOPTAOCC.2
+		trigger = {
+			NOR = {
+				trait = craven
+				trait = paranoid
+				trait = depressed
+			}
+		}
+		narrative_event = { id = OCC.3 days = 14 tooltip = EVTTOOLTIPOCC_2 }
+	}
+	option = {
+		name = EVTOPTBOCC.2
+		tooltip_info = slothful
+		trigger = {
+			trait = slothful
+			NOR = { 
+				trait = craven
+				trait = paranoid
+			}
+		}
+		random_list = { #Change effects?.
+			80 = {
+				if = {
+					limit = {
+						trait = brave
+					}
+					remove_trait = brave
+				}
+			}
+			20 = {
+				if = {
+					limit = {
+						NOT = { trait = honest } #something to do with being wise; wandering alone in the woods at night is a very bad idea...
+					}
+					add_trait = honest
+					prestige = -20
+				}
+			}
+		}
+	}
+	option = {
+		name = EVTOPTCOCC.2
+		trigger = { 
+			OR = { 
+				trait = paranoid
+				trait = craven
+					}
+				}
+		random_list = { #Change effects.
+			80 = {
+				prestige = -20
+			}
+			20 = {
+				if = {
+					limit = {
+						NOT = { trait = honest } #something to do with being wise; wandering alone in the woods at night is a very bad idea...
+							}
+					add_trait = honest
+				}
+			}
+		}
+	}
+	option = {
+		name = EVTOPTDOCC.2
+		tooltip_info = depressed
+		trigger = { trait = depressed }
+		narrative_event = { id = OCC.3 days = 14 tooltip = EVTTOOLTIPOCC_2 }
+	}
+	option = {
+		name = EVTOPTEOCC.2
+		prestige = -50
+	}
+}
+
+# A Pleasant Midnight Stroll
+narrative_event = {
+	id = OCC.3
+	title = EVTNAMEOCC.3
+	desc = EVTDESC_OCC_3
+	picture = GFX_evt_comet 
+	
+	hide_from = yes
+	is_triggered_only = yes
+	
+	option = {
+		trigger = { NOT = { trait = depressed } }
+		name = EVTOPTAOCC.3
+		narrative_event = { id = OCC.4 days = 7 tooltip = EVTTOOLTIP_OCC_3 }
+	}
+	option = {
+		trigger = { trait = depressed }
+		name = EVTOPTBOCC.3
+		remove_trait = depressed
+		narrative_event = { id = OCC.4 days = 7 tooltip = EVTTOOLTIP_OCC_3 }
+	}
+}
+
+# Might need [Root.GetFirstName] [Root.GetOnlyDynastyName] for localisation at some point, ignore this line.
+
+# Something rushed me from the trees
+narrative_event = {
+	id = OCC.4
+	title = EVTOPTAOCC.4
+	desc = EVTDESC_OCC_4
+	picture = GFX_evt_lunatic #TBD based on wording
+	
+	hide_from = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAOCC.4
+		narrative_event = { id = OCC.8 days = 1 tooltip = EVTTOOLTIP_OCC_4 }
+	}
+}
+#Dance of Death Part 1
+narrative_event = {
+	id = OCC.8
+	title = EVTNAMEOCC.8
+	desc = EVTDESC_OCC_8
+	picture = GFX_evt_shadowy_cabal #TBD based on wording
+	
+	hide_from = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAOCC.8
+		narrative_event = { id = OCC.5 days = 1 tooltip = EVTTOOLTIP_OCC_8 }
+	}
+}
+
+
+#The Dance of Death -- Part 2
+narrative_event = {
+	id = OCC.5
+	title = EVTOPTAOCC.5
+	desc = EVTDESC_OCC_5
+	picture = GFX_evt_burning_house_muslim #TBD
+	
+	hide_from = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAOCC.5
+		narrative_event = { id = OCC.6 days = 1 tooltip = EVTTOOLTIP_OCC_5 }
+	}
+}
+
+#The Dance of Death -- Part 3
+narrative_event = {
+	id = OCC.6
+	title = EVTNAMEOCC.6
+	desc = EVTDESC_OCC_6
+	picture = GFX_evt_burning_house_muslim #TBD
+	
+	hide_from = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAOCC.6
+		piety = 100
+		death = { death_reason = death_murder_unknown } #Death suspicious accident? (I wish mysterious circumstances was an actual cause of death)
+	}
+	option = {
+		name = EVTOPTB_OCC_6
+		narrative_event = { id = OCC.7 days = 1 tooltip = EVTTOOLTIP_OCC_7 }
+	}
+	option = {
+		name = EVTOPTCOCC.6
+		tooltip_info = mystic
+		trigger = { trait = mystic }
+		add_trait = possessed
+		narrative_event = { id = OCC.7 days = 1 tooltip = EVTTOOLTIP_OCC_7 }
+	}
+}
+
+# Waking up
+narrative_event = {
+	id = OCC.7
+	title = EVTNAMEOCC.7
+	desc = EVTDESC_OCC_7
+	picture = GFX_evt_recovery
+	
+	hide_from = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_OCC_7
+		prestige = 100
+		if = {
+			limit = { lifestyle_traits = 1 }
+			change_learning = 2
+		}		
+		if = {
+			limit = { NOT = { lifestyle_traits = 1 } }
+			add_trait = mystic
+			change_learning = 1
+		}
+	}
+	option = {
+		name = EVTNAMEOCC.7
+		add_character_modifier = { name = "danced_with_the_dead" duration = 3635 }
+	}	
+}

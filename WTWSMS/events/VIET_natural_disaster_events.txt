@@ -1,0 +1,453 @@
+#####################################################
+#
+# NATURAL DISASTER EVENTS
+#
+# Not fired from on actions
+#
+# Reserved ID Spaces:
+# 0-19 Meteor
+# 20-39 Volcano
+#
+#####################################################
+
+namespace = VIETdisaster
+
+########################################################################################
+# Meteor Strike - EXTREMELY rare (rarest event), should only happen once, if at all
+########################################################################################
+
+# Set-up event
+character_event = {
+	id = VIETdisaster.0
+	desc = VIETdisaster.0.desc
+	picture = "GFX_evt_apocalypto"
+	
+	only_rulers = yes
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		NOR = { 
+			any_demesne_province = {
+				has_province_modifier = meteor_impact_center 
+			}
+			has_global_flag = VIET_no_natural_disasters
+			tier = baron
+		}
+		has_global_flag = VIET_meteor_apocalypse_woohoo
+	}
+	
+	mean_time_to_happen = {
+		months = 10000000
+		modifier = {
+			factor = 200
+			has_global_flag = meteor_struck
+		}	
+	}
+	
+	immediate = {
+		set_global_flag = meteor_struck
+	}
+	
+	option = {
+		name = VIETdisaster.0.a
+		custom_tooltip = { text = hit_by_a_meteor }
+		hidden_tooltip = {
+			narrative_event = { id = VIETdisaster.1 }
+			location = {
+				province_event = { id = VIETdisaster.2 days = 1 }
+				any_province_character = { character_event = { id = VIETdisaster.5 days = 1 } }
+			}
+			character_event = { id = VIETdisaster.5 days = 1 }
+		}
+	}
+}
+
+#omfg
+narrative_event = {
+	id = VIETdisaster.1
+	title = VIETdisaster.1.title
+	desc = VIETdisaster.1.desc
+	picture = "GFX_evt_apocalypto"
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETdisaster.1.a
+	}
+}
+
+#omfg
+province_event = {
+	id = VIETdisaster.2
+	desc = VIETdisaster.2.desc
+	picture = "GFX_evt_apocalypto"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETdisaster.2.a
+		add_province_modifier = {
+			name = meteor_impact_center
+			duration = 7300
+		}
+		custom_tooltip = { text = killed_by_meteors }
+		hidden_tooltip = {
+			any_neighbor_province  = {
+				province_event = { id = VIETdisaster.3 }
+			}
+		}
+	}
+}
+
+#spreads
+province_event = {
+	id = VIETdisaster.3
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = {
+				NOR = {
+					has_province_modifier = meteor_impact_center
+					has_province_modifier = meteor_impact_distant
+				}
+			}
+			add_province_modifier = {
+				name = meteor_impact_distant
+				duration = 3650
+			}
+		}
+		any_province_character = { character_event = { id = VIETdisaster.6 days = 1 } }
+		any_neighbor_province  = {
+			province_event = { id = VIETdisaster.4 }
+		}
+	}
+}
+
+#spreads to outside province
+province_event = {
+	id = VIETdisaster.4
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = {
+				NOR = {
+					has_province_modifier = meteor_impact_center
+					has_province_modifier = meteor_impact_distant
+				}
+			}
+			add_province_modifier = {
+				name = meteor_impact_distant
+				duration = 1825
+			}
+		}
+	}
+}
+
+#Determine whether character at impact site lives, is wounded, maimed, or dies
+character_event = {
+	id = VIETdisaster.5
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		random_list = {
+			5 = { character_event = { id = VIETdisaster.13 } } #Nothing
+			20 = { character_event = { id = VIETdisaster.7 } } #wounded
+			15 = { character_event = { id = VIETdisaster.8 } } #maimed
+			60 = { character_event = { id = VIETdisaster.9 } } #dies	
+		}
+	}
+}
+
+#Determine whether character near impact site lives, is wounded, maimed, or dies
+character_event = {
+	id = VIETdisaster.6
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		random_list = {
+			20 = { character_event = { id = VIETdisaster.14 } } #Nothing
+			30 = { character_event = { id = VIETdisaster.10 } } #wounded
+			20 = { character_event = { id = VIETdisaster.11 } } #maimed
+			30 = { character_event = { id = VIETdisaster.12 } } #dies	
+		}
+	}
+}
+
+#Wounded
+character_event = {
+	id = VIETdisaster.7
+	desc = VIETdisaster.7.desc
+	picture = "GFX_evt_apocalypto"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETdisaster.7.a
+		add_trait = wounded
+		custom_tooltip = { text = VIET_meteor_survivor }
+	}
+}
+
+#Maimed
+character_event = {
+	id = VIETdisaster.8
+	desc = VIETdisaster.8.desc
+	picture = "GFX_evt_apocalypto"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETdisaster.8.a
+		add_trait = maimed
+		custom_tooltip = { text = VIET_meteor_survivor }
+	}
+}
+
+#Dies!
+character_event = {
+	id = VIETdisaster.9
+	desc = VIETdisaster.9.desc
+	picture = "GFX_evt_apocalypto"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETdisaster.9.a
+		death = {
+			death_reason = death_accident
+		}
+		custom_tooltip = { text = VIET_not_meteor_survivor }
+	}
+}
+
+#Wounded
+character_event = {
+	id = VIETdisaster.10
+	desc = VIETdisaster.10.desc
+	picture = "GFX_evt_apocalypto"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETdisaster.10.a
+		add_trait = wounded
+	}
+}
+
+#Maimed
+character_event = {
+	id = VIETdisaster.11
+	desc = VIETdisaster.11.desc
+	picture = "GFX_evt_apocalypto"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETdisaster.11.a
+		add_trait = wounded
+	}
+}
+
+#Dies!
+character_event = {
+	id = VIETdisaster.12
+	desc = VIETdisaster.12.desc
+	picture = "GFX_evt_apocalypto"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETdisaster.12.a
+		death = {
+			death_reason = death_accident
+		}
+	}
+}
+
+#Nothing
+character_event = {
+	id = VIETdisaster.13
+	desc = VIETdisaster.13.desc
+	picture = "GFX_evt_apocalypto"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETdisaster.13.a
+	}
+}
+
+#Nothing
+character_event = {
+	id = VIETdisaster.14
+	desc = VIETdisaster.14.desc
+	picture = "GFX_evt_apocalypto"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETdisaster.14.a
+	}
+}
+
+
+########################################################################################
+# Volcano - rare, and tends to happen in certain locations
+########################################################################################
+
+# Set-up event
+province_event = {
+	id = VIETdisaster.20
+	desc = VIETdisaster.20.desc
+	picture = "GFX_evt_volcanic_eruption"
+	border = GFX_event_normal_frame_economy
+	
+	trigger = {
+		NOT = { has_global_flag = VIET_no_natural_disasters }
+		region = custom_volcanic
+	}
+	
+	mean_time_to_happen = {
+		months = 100000
+		modifier = {
+			factor = 100
+			has_global_flag = volcano_erupted
+		}
+		modifier = { #Most likely suspects
+			factor = 50
+			NOT = {
+				region = custom_active_volcanic
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_flag = volcano_erupted
+	}
+	
+	option = {
+		name = VIETdisaster.20.a
+		save_event_target_as = VIET_volcano_victim
+		add_province_modifier = {
+			name = VIET_center_volcanic_eruption
+			duration = 3650
+		}
+		custom_tooltip = { text = VIET_got_volcanic_eruption }
+		hidden_tooltip = {
+			owner = {
+				narrative_event = { id = VIETdisaster.21 }
+			}
+			any_province_character = {
+				random_list = {
+					10 = { character_event = { id = VIETdisaster.25 } }
+					40 = { character_event = { id = VIETdisaster.23 } }
+					50 = { character_event = { id = VIETdisaster.24 } }
+				}
+			}
+			any_neighbor_province = {
+				limit = {
+					NOT = { has_province_modifier = VIET_center_volcanic_eruption }
+				}
+				random_list = {
+					70 = { province_event = { id = VIETdisaster.22 days = 1 } }
+					30 = { }
+				}
+			}
+		}
+	}
+	
+}
+
+#omfg
+narrative_event = {
+	id = VIETdisaster.21
+	title = VIETdisaster.21.title
+	desc = VIETdisaster.21.desc
+	picture = "GFX_evt_volcanic_eruption"
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETdisaster.21.a
+	}	
+}
+
+#Smoke spreads
+province_event = {
+	id = VIETdisaster.22
+	desc = VIETdisaster.22.desc
+	picture = "GFX_evt_volcanic_eruption"
+	
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = VIETdisaster.22.a
+		add_province_modifier = {
+			name = VIET_near_volcanic_eruption
+			duration = 1825
+		}
+	}
+}
+
+#wound
+character_event = {
+	id = VIETdisaster.23
+	desc = VIETdisaster.23.desc
+	picture = "GFX_evt_volcanic_eruption"
+	
+	is_triggered_only = yes
+	
+	option = { #run for it
+		name = VIETdisaster.23.a
+		random_list = {
+			25 = { add_trait = maimed }
+			75 = { add_trait = wounded }
+		}
+	}
+		
+}
+
+#escape!
+character_event = {
+	id = VIETdisaster.24
+	desc = VIETdisaster.24.desc
+	picture = "GFX_evt_volcanic_eruption"
+	
+	is_triggered_only = yes
+	
+	option = { #run for it
+		name = VIETdisaster.24.a
+	}
+}
+
+#death!
+character_event = {
+	id = VIETdisaster.25
+	desc = VIETdisaster.25.desc
+	picture = "GFX_evt_volcanic_eruption"
+	
+	is_triggered_only = yes
+	
+	option = { #run for it
+		name = VIETdisaster.25.a
+		death = {
+			death_reason = death_accident
+		}
+	}
+}
