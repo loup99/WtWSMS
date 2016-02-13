@@ -1,0 +1,49 @@
+# Character has a religion allowing women to hold councillor positions, equal succession laws, etc.
+is_feminist_religion_trigger = {
+	OR = {
+		religion = celtic_pagan_reformed
+		religion = celtic_pagan
+		religion = promethean_pagan
+		religion = messalian
+		religion = cathar
+		religion = valentinianism
+
+		primary_title = { has_law = status_of_women_4 }
+	}
+}
+
+is_attracted_to_prev = {
+	is_valid_attraction = PREV
+	OR = {
+		AND = {
+			is_female = no
+			OR = {
+				AND = {
+					trait = homosexual
+					PREV = { is_female = no }
+				}
+				PREV = { is_female = yes }
+			}
+		}
+		AND = {
+			is_female = yes
+			OR = {
+				AND = {
+					trait = homosexual
+					PREV = { is_female = yes }
+				}
+				PREV = { is_female = no }
+			}
+		}
+	}
+
+	opinion = { who = PREV value = 30 }
+}
+
+is_neoplatonist = {
+	OR = {
+		trait = stoic
+		trait = skeptic
+		trait = epicurean
+	}
+}

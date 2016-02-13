@@ -343,18 +343,20 @@ character_event = {
 
 	trigger = {
 		has_dlc = "The Old Gods"
-		is_ruler = yes
 		is_ill = yes
-		OR = {
-			has_landed_title = c_innse_gall  
-			any_vassal = { has_landed_title = c_innse_gall }
-		}
+		
+		completely_controls = c_innse_gall
+		
 		NOT = { religion_group = pagan_group }
 		culture_group = celtic
 	}
 
 	mean_time_to_happen = {
-		months = 40
+		months = 12 # Short as minor illness go away fast, and severe illness are deadly.
+		modifier = {
+			factor = 0.5
+			has_landed_title = c_innse_gall
+		}
 		modifier = {
 			factor = 2.0
 			trait = cynical
@@ -376,7 +378,9 @@ character_event = {
 		}
 		custom_tooltip = {
 			text = travel_island
-			character_event = { id = ancrel.0209 days = 5 }
+			hidden_tooltip = {
+				character_event = { id = ancrel.0209 days = 5 }
+			}
 		}
 	}
 	option = {
@@ -396,9 +400,6 @@ character_event = {
 	desc = EVTDESCancrel.0209
 	picture = GFX_evt_merchant_ship_at_sea_republic
 
-	min_age = 16
-	prisoner = no
-
 	is_triggered_only = yes
 
 	option = {	 #Accept the healing/conversion
@@ -407,7 +408,7 @@ character_event = {
 			factor = 50
 		}
 		hidden_tooltip = {
-			character_event = { id = ancrel.0210 days = 2 }
+			character_event = { id = ancrel.0210 days = 10 }
 		}
 	}
 	option = {
@@ -425,32 +426,43 @@ character_event = {
 	}
 }
 
-#Accept their faith
+# Accept their faith
 character_event = {
 	id = ancrel.0210
 	desc = EVTDESCancrel.0210
 	picture = GFX_evt_Pagan_dolmen
 
-	min_age = 16
-	prisoner = no
-
 	is_triggered_only = yes
 
 	option = { #Character healed/converted
 		name = EVTOPTAancrel.0210
+		
+		if = {
+			limit = { religion_group = christian }
+			add_trait = sympathy_christendom
+		}
+		if = {
+			limit = { religion_group = muslim }
+			add_trait = sympathy_islam
+		}
+		if = {
+			limit = { religion_group = zoroastrian_group }
+			add_trait = sympathy_zoroastrianism
+		}
+		if = {
+			limit = { religion_group = indian_group }
+			add_trait = sympathy_indian
+		}
+		if = {
+			limit = { religion_group = jewish_group }
+			add_trait = sympathy_judaism
+		}
+		
 		religion = celtic_pagan
+		
 		custom_tooltip = {
 			text = MIRACLE_STKILDA
-			if = { limit = { trait = ill } remove_trait = ill }
-			if = { limit = { trait = pneumonic } remove_trait = pneumonic }
-			if = { limit = { trait = syphilitic } remove_trait = syphilitic }
-			if = { limit = { trait = leper } remove_trait = leper }
-			if = { limit = { trait = has_tuberculosis} remove_trait = has_tuberculosis }
-			if = { limit = { trait = has_typhoid_fever } remove_trait = has_typhoid_fever }
-			if = { limit = { trait = has_typhus } remove_trait = has_typhus }
-			if = { limit = { trait = has_bubonic_plague } remove_trait = has_bubonic_plague }
-			if = { limit = { trait = has_measles } remove_trait = has_measles }
-			if = { limit = { trait = has_small_pox } remove_trait = has_small_pox }
+			cure_illness = yes
 		}
 	}
 }
@@ -500,7 +512,7 @@ narrative_event = {
 		days = 1
 	}
 	immediate = {
-		give_nickname = acr_nick_pendragon
+		give_nickname = nick_pendragon
 		set_character_flag = first_brythonic_emperor
 		prestige = 200
 		piety = 100

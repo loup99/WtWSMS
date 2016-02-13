@@ -4,7 +4,6 @@
 # - Rebirth of Druidism
 #
 # Event ID ancrel.0000 - ancrel.0009 reserved
-#          ancrel.0280
 #
 #######################################
 
@@ -150,7 +149,12 @@ character_event = {
 	option = {
 		name = EVTOPTAancrel.0002
 		ai_chance = { factor = 50 }
-		hidden_tooltip = { remove_character_modifier = celtic_ways }
+		hidden_tooltip = { 
+			remove_character_modifier = celtic_ways
+			any_vassal = {
+				character_event = { id = ancrel.0300 days = 2 }
+			}
+		}
 		if = {
 			limit = {
 				religion_group = christian
@@ -195,6 +199,14 @@ character_event = {
 				factor = 0
 				trait = zealous
 			}
+			modifier = {
+				factor = 1.2
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.5
+				opinion = { who = FROM value = 60 }
+			}
 		}
 		custom_tooltip = {
 			text = adopt_celtic_rites
@@ -210,9 +222,10 @@ character_event = {
 				duration = -1
 			}
 			hidden_tooltip = {
-				IF = {
+				if = {
 					limit = { is_ruler = yes }
-					top_liege = { character_event = { id = ancrel.0004 days = 5 } }
+					liege = { character_event = { id = ancrel.0004 days = 5 } }
+					any_vassal = { character_event = { id = ancrel.0003 days = 2 } }
 				}
 			}
 		}
@@ -225,6 +238,18 @@ character_event = {
 			modifier = {
 				factor = 2
 				trait = zealous
+			}
+			modifier = {
+				factor = 1.2
+				NOT = {
+					opinion = { who = FROM value = -30}
+				}
+			}
+			modifier = {
+				factor = 1.5
+				NOT = {
+					opinion = { who = FROM value = -60}
+				}
 			}
 		}
 		random_vassal = {
@@ -240,7 +265,7 @@ character_event = {
 		}
 		set_character_flag = refuse_celtic_ways
 		hidden_tooltip = {
-			IF = {
+			if = {
 				limit = { is_ruler = yes }
 				top_liege = { character_event = { id = ancrel.0005 days = 5 } }
 			}
@@ -269,6 +294,95 @@ character_event = {
 	
 	option = {
 		name = EVTOPTAancrel.0005
+	}
+}
+
+# Vassal hears of liege's conversion
+character_event = {
+	id = ancrel.0300
+	desc = ancrel.0300.desc
+	picture = GFX_evt_Pagan_dolmen
+	
+	prisoner = no
+	capable_only = yes
+	
+	is_triggered_only = yes
+	
+	option = { # convert to paganism as well
+		name = ancrel.0300.a
+		ai_chance = {
+			factor = 33
+			modifier = {
+				factor = 2
+				has_character_modifier = celtic_ways
+			}
+			modifier = {
+				factor = 1.2
+				trait = proud
+			}
+			modifier = {
+				factor = 0
+				trait = zealous
+				NOT = {
+					has_character_modifier = celtic_ways
+				}
+			}
+		}
+		hidden_tooltip = { 
+			remove_character_modifier = celtic_ways
+			any_vassal = {
+				character_event = { id = ancrel.0300 days = 2 }
+			}
+			if = {
+				limit = { is_ruler = yes }
+				liege = { character_event = { id = ancrel.0301 days = 2 } }
+			}
+		}
+		if = {
+			limit = {
+				religion_group = christian
+			}
+			add_trait = sympathy_christendom
+		}
+		religion = celtic_pagan
+		piety = 50
+	}
+	option = { # reject their heathen ways
+		name = ancrel.0300.b
+		piety = 50
+		ai_chance = {
+			factor = 66
+		}
+		hidden_tooltip = {
+			if = {
+				limit = { is_ruler = yes }
+				liege = { character_event = { id = ancrel.0302 days = 2 } }
+			}
+		}
+	}
+}
+# Vassal converted to Celtic Paganism
+character_event = {
+	id = ancrel.0301
+	desc = ancrel.0301.desc
+	picture = GFX_evt_Pagan_dolmen
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ancrel.0301.a
+	}
+}
+# Vassal refuses to convert to Celtic Paganism
+character_event = {
+	id = ancrel.0302
+	desc = ancrel.0302.desc
+	picture = GFX_evt_Ruler_listening_to_supplicant
+
+	is_triggered_only = yes
+	
+	option = {
+		name = ancrel.0302.a
 	}
 }
 
@@ -368,222 +482,79 @@ character_event = {
 #[on_reform_religion]
 narrative_event = {
 	id = ancrel.0009
-	title = EVTNAME670
-	desc = EVTDESC670
-	picture = GFX_evt_heretic
-	border = GFX_event_narrative_frame_religion	
-	
+	hide_window = yes
+
 	is_triggered_only = yes
-	major = yes
-	show_ROOT = yes
-	hide_new = yes
 	
-	only_rulers = yes
-	
+	trigger = {
+		religion = celtic_pagan_reformed
+	}
+
 	immediate = {
-		if = {
-			limit = { ai = no }
-			set_character_flag = achievement_new_ways
-		}
-		any_courtier = {
-			limit = {
-				is_heresy_of = ROOT
-				employer = { character = ROOT }
-			}
-			religion = ROOT
-		}
-		any_dynasty_member = {
-			limit = {
-				is_heresy_of = ROOT
-				is_playable = no
-			}
-			religion = ROOT
-		}
-		any_vassal = {
-			limit = {
-				is_playable = no
-				is_heresy_of = ROOT
-			}
-			religion = ROOT
-		}
-		capital_scope = {
-			if = {
-				limit = { is_heresy_of = ROOT }
-				religion = ROOT
-			}
-		}
-		if = {
-			limit = { religion = celtic_pagan_reformed }
-			set_global_flag = celtic_pagan_reformation
-			
-			# Make sure the Arch-druid owns a holy site (without hardcoding them...)
-			# Prefer reformer culture and culture_group, due to papal suitability bonus to religious head culture
-			# Also granting title to another character kicks off the cardinal seat nominations (vanilla bug)
+		set_global_flag = celtic_pagan_reformation
+		
+		# Make sure the Arch-druid owns a holy site (without hardcoding them...)
+		# Prefer reformer culture and culture_group, due to papal suitability bonus to religious head culture
+		# Also granting title to another character kicks off the cardinal seat nominations (vanilla bug)
 
-			# Find a new holy_site holder of reformer's culture
-			random_realm_title = {
-				limit = {
-					is_holy_site = ROOT
-					is_theocracy = yes
-					holder_scope = {
-						NOT = { character = ROOT }
-						religion = celtic_pagan_reformed
-						controls_religion = no
-						culture = ROOT
-					}
-				}
+		# Find a new holy_site holder of reformer's culture
+		random_realm_title = {
+			limit = {
+				is_holy_site = ROOT
+				is_theocracy = yes
 				holder_scope = {
-					d_celtic_pagan_reformed = {
-						usurp_title_only = PREV
-					}
+					NOT = { character = ROOT }
+					religion = celtic_pagan_reformed
+					controls_religion = no
+					culture = ROOT
 				}
-				break = yes
 			}
-			
-			# Find a new holy_site holder of reformer's culture group
-			random_realm_title = {
-				limit = {
-					is_holy_site = ROOT
-					is_theocracy = yes
-					holder_scope = {
-						NOT = { character = ROOT }
-						religion = celtic_pagan_reformed
-						controls_religion = no
-						culture_group = ROOT
-					}
+			holder_scope = {
+				d_celtic_pagan_reformed = {
+					usurp_title_only = PREV
 				}
-				holder_scope = {
-					d_celtic_pagan_reformed = {
-						usurp_title_only = PREV
-					}
-				}
-				break = yes
 			}
-			
-			# Fallback - any culture will do
-			# Note: there should always be one eligible character, otherwise it's a game over even before on_reform fires.
-			random_realm_title = {
-				limit = {
-					is_holy_site = ROOT
-					is_theocracy = yes
-					holder_scope = {
-						NOT = { character = ROOT }
-						religion = celtic_pagan_reformed
-						controls_religion = no
-					}
-				}
-				holder_scope = {
-					d_celtic_pagan_reformed = {
-						usurp_title_only = PREV
-					}
-				}
-				break = yes
-			}
-		}
-	}
-
-	option = {
-		name = EVTOPTA670 # The Reformer
-		trigger = { religion = ROOT }
-		if = {
-			limit = { ai = no }
-			chronicle = {
-				entry = CHRONICLE_PLAYER_REFORMED_RELIGION
-				portrait = [Root.GetID]
-			}
-		}
-	}
-	option = {
-		name = EVTOPTB670 # Rulers of the old Faith - Accept
-		trigger = {
-			is_heresy_of = ROOT # The old religion has become a heresy of the Reformed one
-		}
-		if = {
-			limit = { ai = no }
-			chronicle = {
-				entry = CHRONICLE_OTHER_REFORMED_PLAYERS_RELIGION
-				portrait = [Root.GetID]
-			}
-		}
-		ai_chance = {
-			factor = 50
-			modifier = {
-				factor = 5
-				any_liege = { religion = ROOT }
-			}
-			modifier = {
-				factor = 2
-				same_realm = ROOT
-			}
-			modifier = {
-				factor = 5
-				trait = cynical
-			}
-			modifier = {
-				factor = 10
-				dynasty = ROOT
-			}
-			modifier = {
-				factor = 0.1
-				trait = zealous
-			}
-			modifier = {
-				factor = 0.5
-				trait = content
-			}
+			break = yes
 		}
 		
-		religion = ROOT
+		# Find a new holy_site holder of reformer's culture group
+		random_realm_title = {
+			limit = {
+				is_holy_site = ROOT
+				is_theocracy = yes
+				holder_scope = {
+					NOT = { character = ROOT }
+					religion = celtic_pagan_reformed
+					controls_religion = no
+					culture_group = ROOT
+				}
+			}
+			holder_scope = {
+				d_celtic_pagan_reformed = {
+					usurp_title_only = PREV
+				}
+			}
+			break = yes
+		}
 		
-		hidden_tooltip = {
-			any_courtier = {
-				limit = {
-					is_heresy_of = ROOT
-					employer = { character = PREV }
-				}
-				religion = ROOT
-			}
-			any_vassal = {
-				limit = {
-					is_playable = no
-					is_heresy_of = ROOT
-				}
-				religion = ROOT
-			}
-			capital_scope = {
-				if = {
-					limit = { is_heresy_of = ROOT }
-					religion = ROOT
+		# Fallback - any culture will do
+		# Note: there should always be one eligible character, otherwise it's a game over even before on_reform fires.
+		random_realm_title = {
+			limit = {
+				is_holy_site = ROOT
+				is_theocracy = yes
+				holder_scope = {
+					NOT = { character = ROOT }
+					religion = celtic_pagan_reformed
+					controls_religion = no
 				}
 			}
-		}
-	}
-	option = {
-		name = EVTOPTC670 # Rulers of the old Faith - Decline
-		trigger = {
-			is_heresy_of = ROOT # The old religion has become a heresy of the Reformed one
-		}
-		if = {
-			limit = { ai = no }
-			chronicle = {
-				entry = CHRONICLE_OTHER_REFORMED_PLAYERS_RELIGION
-				portrait = [Root.GetID]
+			holder_scope = {
+				d_celtic_pagan_reformed = {
+					usurp_title_only = PREV
+				}
 			}
-		}
-		ai_chance = {
-			factor = 50
-			modifier = {
-				factor = 0
-				has_landed_title = d_jomsvikings
-			}
-		}
-		tooltip = { religion = THIS }
-	}
-	option = {
-		name = EVTOPTD670 # Other playable rulers
-		trigger = {
-			NOT = { religion = ROOT }
-			NOT = { is_heresy_of = ROOT }
+			break = yes
 		}
 	}
 }

@@ -445,16 +445,8 @@ succession_laws = {
 				}
 				OR = {
 					culture = mongol
-					AND = {
-						NOT = { religion = norse_pagan }
-						NOT = { religion = tengri_pagan }
-						NOT = { religion = baltic_pagan }
-						NOT = { religion = finnish_pagan }
-						NOT = { religion = aztec }
-						NOT = { religion = pagan }
-						NOT = { religion = slavic_pagan }
-						NOT = { religion = west_african_pagan }
-					}
+					
+					is_reformed_religion = no
 				}
 				
 				NOT = { religion_group = muslim }
@@ -750,17 +742,20 @@ gender_laws = {
 						NOT = { religion = aztec_reformed }
 						has_horde_culture = no
 						OR = {
-							is_tribal = no
-							religion = celtic_pagan
-							religion = celtic_pagan_reformed
+							AND = {
+								is_tribal = no
+								is_nomadic = no
+							}
+							is_feminist_religion_trigger = yes
 						}
-						is_nomadic = no
 						is_merchant_republic = no
 						is_patrician = no
 					}
 					AND = {
 						has_dlc = "Zeus"
 						OR = {
+							is_feminist_religion_trigger = true
+							culture = basque
 							ROOT = { holder_scope = { primary_title = { has_law = status_of_women_3 } } }
 							ROOT = { holder_scope = { primary_title = { has_law = status_of_women_4 } } }
 						}
@@ -832,15 +827,22 @@ gender_laws = {
 			holder_scope = {
 				OR = {
 					AND = {
+						NOT = { has_dlc = "Zeus" }
+						OR = {
+							is_feminist_religion_trigger = yes
+							OR = {
+								culture = basque
+								culture = old_frisian
+								culture = tuareg
+							}
+						}
+					}
+					AND = {
 						NOT = { religion_group = muslim }
 						NOT = { religion = aztec }
 						NOT = { religion = aztec_reformed }
 						has_horde_culture = no
-						OR = {
-							is_tribal = no
-							religion = celtic_pagan
-							religion = celtic_pagan_reformed
-						}
+						is_tribal = no
 						is_nomadic = no
 						is_merchant_republic = no
 						is_patrician = no
@@ -849,6 +851,13 @@ gender_laws = {
 						has_dlc = "Zeus"
 						OR = {
 							ROOT = { holder_scope = { primary_title = { has_law = status_of_women_4 } } }
+							AND = {
+								primary_title = { has_law = status_of_women_2 }
+								OR = {
+									is_feminist_religion_trigger = yes
+									culture = basque
+								}
+							}
 						}
 						OR = {
 							is_patrician = no
@@ -885,14 +894,12 @@ gender_laws = {
 			OR = {
 				holder_scope = {
 					OR = {
-						culture = basque
-						culture = old_frisian
-						culture = tuareg
-						religion = cathar
-						religion = messalian
-						religion = celtic_pagan_reformed
-						religion = promethean_pagan
-						religion = valentinianism
+						is_feminist_religion_trigger = yes
+						OR = {
+							culture = basque
+							culture = old_frisian
+							culture = tuareg
+						}
 					}
 				}
 				ROOT = { holder_scope = { primary_title = { has_law = status_of_women_4 } } }

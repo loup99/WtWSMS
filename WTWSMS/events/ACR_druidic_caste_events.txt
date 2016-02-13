@@ -293,7 +293,7 @@ character_event = {
 	}
 }
 
-# Character chooses type of druid Druid
+# Character chooses type of Druid
 character_event = {
 	id = ancrel.0155
 	desc = EVTDESCancrel.0155
@@ -346,10 +346,6 @@ character_event = {
 	
 	immediate = {
 		add_trait = druid	
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -416,10 +412,6 @@ character_event = {
 		FROM = {
 			character_event = { id = ancrel.0159 }
 		}
-	}
-
-	option = {
-		name = OK
 	}
 }
 
@@ -541,9 +533,92 @@ character_event = {
 		remove_trait = learning_druidic_arts
 		remove_trait = celtic_knight
 	}
+}
+
+# Bard's troupe arrives
+character_event = {
+	id = ancrel.0161
+	desc = ancrel.0161.desc
+	picture = GFX_evt_carriage
+	
+	capable_only = yes
+	only_playable = yes
+	prisoner = no
+	
+	trigger = {
+		is_adult = yes
+		in_command = no
+		OR = {
+			religion = celtic_pagan
+			religion = celtic_pagan_reformed
+		}
+		location = {
+			county = {
+				region = world_europe_west
+			}
+		}
+		NOT = { trait = in_hiding }
+	}
+	
+	mean_time_to_happen = {
+		months = 1560
+		modifier = {
+			factor = 0.5
+			any_courtier = {
+				has_minor_title = title_court_bard
+			}
+		}
+	}
 	
 	option = {
-		name = OK
+		name = ancrel.0161.a
+		character_event = { id = ancrel.0162 days = 3 tooltip = ancrel.0161.a.tt }
+	}
+	option = {
+		name = ancrel.0161.b
+		custom_tooltip = { text = ancrel.0161.b.tt }
+	}
+}
+
+# Spends the Night
+character_event = {
+	id = ancrel.0162
+	desc = ancrel.0162.desc
+	picture = GFX_evt_feast
+	
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ancrel.0162.a
+		scaled_wealth = 0.2
+		custom_tooltip = { 
+			text = bard_offer
+			hidden_tooltip = {
+				create_random_diplomat = {
+					random_traits = no
+					age = 22
+					religion = ROOT
+					culture = ROOT
+					trait = poet
+					trait = diligent
+					trait = gregarious
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 5
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = ancrel.0162.b
+		custom_tooltip = { text = bard_declined }
 	}
 }
 
@@ -605,40 +680,67 @@ character_event = {
 }
 
 ##### Coming of age ceremony - child's event
+# [on_yearly_childhood_pulse]
 character_event = {
 	id = ancrel.0184
-	title = EVTNAMEancrel.0184
-	desc = EVTDESCancrel.0184
-	picture = GFX_evt_son_bully
+	hide_window = yes
 	
-	min_age = 13
-	max_age = 16
+	is_triggered_only = yes
+	prisoner = no
 
 	trigger = {
-		OR = {		
+		age = 14
+		OR = {
 			religion = celtic_pagan
 			religion = celtic_pagan_reformed
+		}	
+		OR = {
+			father_even_if_dead = { is_alive = yes }
+			mother_even_if_dead = { is_alive = yes }
 		}
-		father = { is_alive = yes }
-		NOT = {
-			has_character_flag = had_coming_of_age_celtic
+		NOR = {
+			trait = incapable
+			has_character_flag = ancrel_training
 		}
 	}
 	
-	mean_time_to_happen = {
-		months = 6
-	}
-	
-	option = {
-		name = EVTOPTAancrel.0184
-		set_character_flag = had_coming_of_age_celtic
-		hidden_tooltip = {
-			father = {
-				character_event = {
-					id = ancrel.0183
-					days = 3
+	immediate = {
+		set_character_flag = ancrel_training
+		if = {
+			limit = {
+				father = {
+					is_alive = yes
+					any_child = {
+						character = ROOT
+						mother_even_if_dead = {
+							OR = {
+								is_alive = no
+								NOT = { higher_real_tier_than = PREVPREV }
+							}
+						}
+					}
 				}
 			}
+			father = { character_event = { id = ancrel.0183 days = 3 } }
+			break = yes
+		}
+		if = {
+			limit = {
+				mother = {
+					is_alive = yes
+					any_child = {
+						character = ROOT
+						father_even_if_dead = {
+							OR = {
+								is_alive = no
+								NOT = { higher_real_tier_than = PREVPREV }
+							}
+						}
+					}
+				}
+			}
+			mother = { character_event = { id = ancrel.0183 days = 3 } }
+			break = yes
 		}
 	}
 }
@@ -646,17 +748,22 @@ character_event = {
 # Training about to begin
 narrative_event = {
 	id = ancrel.0185
-	title = EVTNAMEancrel.0185
-	desc = EVTDESCancrel.0185
-	picture = GFX_evt_buddhist_pagoda
+	title = ancrel.0185.title
+	desc = ancrel.0185.desc
+	picture = GFX_evt_priests_in_forest
 	
 	is_triggered_only = yes
 
 	option = { # Training starts
-		name = EVTOPTAancrel.0185
+		name = ancrel.0185.a
 		add_trait = learning_druidic_arts
 		set_character_flag = druidic_training
 		clr_character_flag = wants_druidic_training
+		opinion = {
+			who = FROM
+			modifier = sent_druidic_training
+			years = 100
+		}
 	}
 }
 
@@ -758,10 +865,6 @@ character_event = {
 		father = { character_event = { id = ancrel.0187 } }
 		set_character_flag = wants_druidic_training
 	}
-	
-	option = {
-		name = OK
-	}
 }
 
 # Child wants to become a druid (Father)
@@ -788,7 +891,6 @@ character_event = {
 		name = EVTOPTBancrel.0187
 		hidden_tooltip = {
 			FROM = { 
-				character_event = { id = ancrel.0118 days = 1460 }
 				narrative_event = { id = ancrel.0185 days = 3 }
 			}
 		}
@@ -824,10 +926,6 @@ character_event = {
 	immediate = {
 		father = { character_event = { id = ancrel.0189 } }
 		clr_character_flag = druidic_training
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -880,10 +978,6 @@ character_event = {
 		add_trait = maimed
 		father = { character_event = { id = ancrel.0191 } }
 		clr_character_flag = druidic_training
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -959,10 +1053,6 @@ character_event = {
 	immediate = {
 		father = { character_event = { id = ancrel.0193 } }
 		clr_character_flag = druidic_training
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -1053,10 +1143,6 @@ character_event = {
 		father = { character_event = { id = ancrel.0195 } }
 		clr_character_flag = druidic_training
 	}
-	
-	option = {
-		name = OK
-	}
 }
 
 # Child is touched by the gods
@@ -1109,10 +1195,6 @@ character_event = {
 	immediate = {
 		father = { character_event = { id = ancrel.0197 } }
 		clr_character_flag = druidic_training
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -1193,10 +1275,6 @@ character_event = {
 		father = { character_event = { id = ancrel.0199 } }
 		clr_character_flag = druidic_training
 	}
-	
-	option = {
-		name = OK
-	}
 }
 
 # Child returns home as a zealot
@@ -1273,10 +1351,6 @@ character_event = {
 	immediate = {
 		father = { character_event = { id = ancrel.0201 } }
 		clr_character_flag = druidic_training
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -1387,10 +1461,6 @@ character_event = {
 		father = { character_event = { id = ancrel.0203 } }
 		clr_character_flag = druidic_training
 	}
-	
-	option = {
-		name = OK
-	}
 }
 
 # Child dies in training
@@ -1435,10 +1505,6 @@ character_event = {
 	immediate = {
 		father = { character_event = { id = ancrel.0205 } }
 		clr_character_flag = druidic_training
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -1542,9 +1608,5 @@ character_event = {
 		}
 		clr_character_flag = wants_druidic_training
 		clr_character_flag = druidic_training
-	}
-	
-	option = {
-		name = OK
 	}
 }

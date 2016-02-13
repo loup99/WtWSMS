@@ -59,10 +59,7 @@ decisions = {
 			is_playable = yes	
 			independent = yes
 			higher_tier_than = duke
-			OR = {
-				religion = egyptian_pagan
-				religion = aten_pagan
-			}
+			religion = egyptian_pagan
 			NOT = { has_global_flag = luxor_restored }
 			NOT = { has_global_flag = luxor_restoring }
 		}	
@@ -210,6 +207,56 @@ decisions = {
 		}
 	}
 
+	restore_priesthood_aten_pagan = {
+		is_high_prio = yes
+		
+		potential = {
+			has_dlc = "The Old Gods"
+			is_playable = yes
+			higher_tier_than = duke # Tease the decision for kings
+			religion = aten_pagan
+			NOT = { has_global_flag = aten_priesthood_founded }
+			has_regent = no		
+		}
+		allow = {
+			higher_tier_than = king
+			realm_learning = 25
+			piety = 500
+			wealth = 500
+			war = no
+			religion_authority = 0.6	
+			b_meir = { 
+				has_holder = yes 
+				holder_scope = { top_liege = { character = ROOT } }
+			}
+		}
+		effect = {
+			set_global_flag = aten_priesthood_founded
+			wealth = -500
+			piety = -250
+			prestige = 250
+			activate_title = { title = k_aten_pagan status = yes }
+			hidden_tooltip = {
+				k_aten_pagan = {
+					grant_title = ROOT
+				}
+				narrative_event = { id = ancrel.5004 }
+				if = {
+					limit = { ROOT = { ai = no } }
+					ROOT = {
+						chronicle = {
+							entry = CHRONICLE_ATEN_PRIESTHOOD
+							portrait = [Root.GetID]
+						}
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}	
+	}
+
 	organize_anubis = {
 		is_high_prio = yes
 		
@@ -217,12 +264,8 @@ decisions = {
 			is_playable = yes
 			higher_tier_than = duke
 			has_regent = no
-			OR = {
-				religion = egyptian_pagan
-				religion = aten_pagan
-			}
+			religion = egyptian_pagan
 			NOT = { has_global_flag = anubis_founded }
-			NOT = { has_global_flag = horus_founded }
 		}
 		allow = {
 			prestige = 300
@@ -279,10 +322,7 @@ decisions = {
 			is_playable = yes
 			higher_tier_than = duke # Tease the decision for kings
 			has_regent = no
-			OR = {
-				religion = egyptian_pagan
-				religion = aten_pagan
-			}
+			religion = egyptian_pagan
 			NOT = { has_global_flag = horus_founded }
 			has_global_flag = anubis_founded
 		}
@@ -323,6 +363,119 @@ decisions = {
 						ROOT = {
 							chronicle = {
 								entry = CHRONICLE_HORUS_GUARD
+								portrait = [Prev.GetID]
+							}
+						}
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	# </ck2+>
+	
+	restore_akhetaten = {
+		is_high_prio = yes
+		potential = {
+			is_playable = yes	
+			independent = yes
+			higher_tier_than = duke
+			religion = aten_pagan
+			NOT = { has_global_flag = akhetaten_restored }
+			NOT = { has_global_flag = akhetaten_restoring }
+		}	
+		allow = {
+			wealth = 1000
+			795 = {
+				owner = {
+					character = ROOT
+				}
+			}
+			war = no
+			has_regent = no	
+		}
+		effect = {
+			set_global_flag = akhetaten_restoring
+			wealth = -1000
+			795 = {
+				province_event = { id = ancrel.5000 }
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0
+				NOT = {
+					wealth = 1500
+				}
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					learning = 8
+				}
+			}
+		}
+	}
+
+	organize_burning_blades = {
+		is_high_prio = yes
+		
+		potential = {
+			is_playable = yes
+			higher_tier_than = duke # Tease the decision for kings
+			has_regent = no
+			religion = aten_pagan
+			NOT = { has_global_flag = burning_blades_founded }
+		}
+		allow = {
+			k_aten_pagan = {
+				holder = ROOT
+			}
+			higher_tier_than = king
+			prestige = 300
+			wealth = 300
+		}
+		effect = {
+			set_global_flag = burning_blades_founded
+			prestige = -300
+			wealth = -300
+			activate_title = { title = d_burning_blades status = yes }
+			hidden_tooltip = {
+				set_character_flag = event_ancrel_5005
+				narrative_event = { id = ancrel.5005 }
+				create_character = {
+					random_traits = yes
+					religion = aten_pagan
+					culture = ROOT
+					dynasty = NONE
+					age = 34
+					attributes = {
+						martial = 7
+						diplomacy = 5
+						intrigue = 2
+						learning = 2
+						stewardship = 2
+					}
+				}
+				new_character = {
+					add_trait = zealous
+					d_burning_blades = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					if = {
+						limit = { ROOT = { ai = no } }
+						ROOT = {
+							chronicle = {
+								entry = CHRONICLE_BURNING_BLADES
 								portrait = [Prev.GetID]
 							}
 						}

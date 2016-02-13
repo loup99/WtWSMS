@@ -1,7 +1,19 @@
 ###################################
 #
 # Ancient Religions
+# - Titan Flavor Events
+#
+# ancrel.3600-3699 Titan Thysia
+# ancrel.3700-3749 Holy Orders
+#
+###################################
+
+
+###################################
+#
+# Ancient Religions
 # - Titan Thysia Events
+# ancrel.3600 - ancrel.3699 reserved
 #
 ###################################
 
@@ -1604,10 +1616,6 @@ character_event = {
 			character_event = { id = ancrel.3640 days = 5 }
 		}
 	}
-	
-	option = {
-		name = OK
-	}
 }
 
 # Prisoner 3 (Liege invisible)
@@ -1651,10 +1659,6 @@ character_event = {
 			character_event = { id = ancrel.3640 days = 5 }
 		}
 	}
-	
-	option = {
-		name = OK
-	}
 }
 
 # Prisoner 4 (Liege invisible)
@@ -1697,10 +1701,6 @@ character_event = {
 			}
 			character_event = { id = ancrel.3640 days = 5 }
 		}
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -2002,10 +2002,6 @@ character_event = {
 				set_character_flag = feast_gluttonous
 			}
 		}
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -2458,10 +2454,6 @@ character_event = {
 			}		
 		}
 	}
-	
-	option = {
-		name = OK
-	}
 }
 
 # Friendship Formed (Guest 2)
@@ -2567,10 +2559,6 @@ character_event = {
 				set_character_flag = feast_homosexual
 			}		
 		}
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -2687,10 +2675,6 @@ character_event = {
 				add_lover = FROM
 			}		
 		}
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -3246,5 +3230,59 @@ character_event = {
 		clr_character_flag = feast_drunkard
 		clr_character_flag = feast_friendship
 		clr_character_flag = do_not_disturb
+	}
+}
+
+###################################
+#
+# Ancient Religions
+# - Titan Holy Order Events
+# ancrel.3700 - ancrel.3749 reserved
+#
+###################################
+
+# The Sickles are formed, and now everyone knows it!
+narrative_event = {
+	id = ancrel.3700
+	title = ancrel.3700.title
+	desc = ancrel.3700.desc
+	picture = GFX_evt_war_planning
+	border = GFX_event_narrative_frame_religion
+
+	is_triggered_only = yes
+	major = yes
+	
+	only_rulers = yes
+	
+	option = {
+		trigger = {
+			has_character_flag = acr_founded_sickles
+		}
+
+		chronicle = { 
+			entry = CHRONICLE_SICKLES
+			portrait = [From.GetID]
+		}
+
+		name = ancrel.3700.a
+	}
+
+	option = {
+		trigger = {
+			religion = titan_pagan
+			NOT = { has_character_flag = acr_founded_sickles }
+		}
+
+		name = ancrel.3700.b
+	}
+
+	option = {
+		trigger = {
+			NOT = {
+				religion = titan_pagan
+			}
+		}
+
+		name = ancrel.3700.c
 	}
 }

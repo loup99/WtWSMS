@@ -320,7 +320,6 @@ character_event = {
 #AI allowed to use the decision
 character_event = {
 	id = GoPagan.120
-	
 	hide_window = yes
 	
 	min_age = 16
@@ -505,7 +504,7 @@ character_event = {
 # Event Ids: ancrel.9001 - 9100 reserved
 ##############################################
 
-# Ask the player if they want to "paganify" the world
+# the pope pagans up the world
 character_event = {
 	id = ancrel.9001
 	desc = ancrel.9001.desc
@@ -518,6 +517,7 @@ character_event = {
 
 	immediate = {
 		set_global_flag = acr_paganify
+		character_event = { id = ancrel.9014 days = 1 }
 	}
 
 	option = {
@@ -542,12 +542,27 @@ character_event = {
 					limit = {
 						NOT = { religion_group = pagan_group }					
 						OR = {
-							culture_group = byzantine
+							culture = greek
 							culture = italian
 						}
 
 					}
 					character_event = { id = ancrel.9003 }
+				}
+				if = { # Promethean
+					limit = {
+						OR = {
+							culture = armenian
+							culture = georgian
+						}
+					}
+					character_event = { id = ancrel.9011 }
+				}
+				if = { # Titan
+					limit = {
+						culture = alan
+					}
+					character_event = { id = ancrel.9012 }
 				}
 				if = { # Kemetic
 					limit = {
@@ -556,10 +571,15 @@ character_event = {
 							culture = bedouin_arabic
 							culture = levantine_arabic
 							culture = egyptian_arabic
-							culture_group = east_african
 						}
 					}
 					character_event = { id = ancrel.9004 }
+				}
+				if = { # Atenic
+					limit = {
+						culture_group = east_african
+					}
+					character_event = { id = ancrel.9013 }
 				}
 				if = { # West African
 					limit = {
@@ -610,6 +630,12 @@ character_event = {
 					}
 					character_event = { id = ancrel.9009 }
 				}
+				if = { # Religious heads (not the pope)
+					limit = {
+						controls_religion = yes
+					}
+					character_event = { id = ancrel.9014 }
+				}
 			}
 		}
 	}
@@ -644,6 +670,16 @@ character_event = {
 	option = {
 		name = OK
 		religion = hellenic_pagan
+		if = {
+			limit = {
+				d_galilee = {
+					holder_scope = {
+						character = ROOT
+					}
+				}
+			}
+			remove_trait = eunuch
+		}
 		any_demesne_title = {
 			limit = { tier = count }
 			location = { religion = hellenic_pagan }
@@ -746,7 +782,7 @@ character_event = {
 	id = ancrel.9009
 	desc = ancrel.9009.desc
 	picture = "GFX_evt_mongols"
-	border = "GFX_event_narrative_frame_war"
+	border = "GFX_event_normal_frame_war"
 
 	is_triggered_only = yes
 	hide_from = yes
@@ -763,19 +799,94 @@ character_event = {
 
 #[on_startup] maintenance event
 character_event = {
-		id = ancrel.9010
-		hide_window = yes
-		is_triggered_only = yes
-		ai = no
-		trigger = {
-			NOT = { has_global_flag = ancrel }
-		}
+	id = ancrel.9010
+	hide_window = yes
 
-		immediate = {
-			set_global_flag = ancrel
-		}
+	is_triggered_only = yes
 
-		option = {
-			name = OK
+	ai = no
+	
+	trigger = {
+		NOT = { has_global_flag = ancrel }
+	}
+
+	immediate = {
+		set_global_flag = ancrel
+	}
+}
+
+# Promethean
+character_event = {
+	id = ancrel.9011
+	desc = ancrel.9011.desc
+	picture = GFX_evt_roman_temple
+	hide_from = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = OK
+		religion = promethean_pagan
+		any_demesne_title = {
+			limit = { tier = count }
+			location = { religion = promethean_pagan }
 		}
+	}
+}
+
+# Titan
+character_event = {
+	id = ancrel.9012
+	desc = ancrel.9012.desc
+	picture = GFX_evt_cathedral_norse_pagan
+	hide_from = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = OK
+		religion = titan_pagan
+		any_demesne_title = {
+			limit = { tier = count }
+			location = { religion = promethean_pagan }
+		}
+	}
+}
+
+# Atenism
+character_event = {
+	id = ancrel.9013
+	desc = ancrel.9013.desc
+	picture = GFX_evt_pyramid
+	hide_from = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = OK
+		religion = aten_pagan
+		any_demesne_title = {
+			limit = { tier = count }
+			location = { religion = aten_pagan }
+		}
+	}
+}
+
+# free a religious head's vassals count and above
+character_event = {
+	id = ancrel.9014
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	immediate = {
+		any_vassal = {
+			limit = {
+				primary_title = {
+					higher_tier_than = BARON
+				}
+			}
+			set_defacto_liege = THIS
+		}
+	}
 }

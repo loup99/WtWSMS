@@ -14,11 +14,7 @@ decisions = {
 				culture = scottish
 			}
 			independent = yes
-			OR = {
-				tier = duke
-				tier = king
-				tier = emperor 
-			}
+			primary_title = { higher_tier_than = COUNT }
 			location = {
 				owner = { character = ROOT }
 			}
@@ -44,7 +40,7 @@ decisions = {
 			clr_character_flag = tailteann_has_ended
 			wealth = -200
 			prestige = 100
-			character_event = { id = ancrel.1193 tooltip = "tailteann_invite" }
+			character_event = { id = ancrel.1193 tooltip = tailteann_invite }
 			hidden_tooltip = {
 				character_event = { id = ancrel.1191 days = 60 } # Aonach starts
 				clr_character_flag = tailteann_has_ended
@@ -71,6 +67,7 @@ decisions = {
 			}
 		}
 	}
+	
 	hold_divination = {
 		is_high_prio = yes
 		potential = {
@@ -137,6 +134,7 @@ decisions = {
 	}
 
 	reinstate_celtic_rites = {
+		is_high_prio = yes
 		potential = {
 			has_dlc = "The Old Gods"
 			is_ruler = yes
@@ -159,7 +157,7 @@ decisions = {
 			scaled_wealth = 0.10
 			prisoner = no
 			learning = 8
-			NOT = {trait = zealous}
+			NOT = { trait = zealous }
 			any_courtier = {
 				religion = celtic_pagan
 				prisoner = no
@@ -174,6 +172,11 @@ decisions = {
 				hidden_tooltip = {
 					character_event = { id = ancrel.0001 }
 				}
+			}
+
+			chronicle = {
+				entry = CHRONICLE_CELTIC_RITES
+				portrait = [Root.GetID]
 			}
 		}
 		ai_will_do = {
@@ -216,6 +219,7 @@ decisions = {
 		}
 		effect = {
 			set_global_flag = gwydion_founded
+			set_character_flag = acr_founded_gwydion
 			prestige = -300
 			wealth = -300
 			activate_title = { title = d_gwydion status = yes }
@@ -369,6 +373,11 @@ decisions = {
 					}
 				}
 			}
+
+			chronicle = {
+				entry = CHRONICLE_FIANNA
+				portrait = [Root.GetID]
+			}
 		}
 		ai_will_do = {
 			factor = 1
@@ -416,6 +425,11 @@ decisions = {
 						}
 					}
 				}
+			}
+
+			chronicle = {
+				entry = CHRONICLE_FIANNA_VASSALIZED
+				portrait = [Root.GetID]
 			}
 		}
 		
@@ -505,11 +519,6 @@ decisions = {
 			NOT = { has_character_modifier = new_druid_in_court }
 			NOT = { has_character_flag = inviting_druid_over }
 			primary_title = { higher_tier_than = BARON }
-			NOT = {
-				any_courtier = {
-					has_minor_title = title_court_druid
-				}
-			}
 		}
 		allow = {
 			scaled_wealth = 0.5
@@ -571,7 +580,159 @@ decisions = {
 				trait = slow
 			}	
 		}
-	}	
+	}
+
+	invite_bard_to_court = {
+		potential = {
+			OR = {
+				religion = celtic_pagan
+				religion = celtic_pagan_reformed
+			}
+			primary_title = { higher_tier_than = BARON }
+		}
+		allow = {
+			scaled_wealth = 0.5
+		}
+		effect = {
+			scaled_wealth = -0.5
+			
+			random_list = {
+				35 = {
+					create_character = {
+						random_traits = yes
+						dynasty = random
+						trait = naive_appeaser
+						trait = poet
+						attributes = {
+							diplomacy = 3
+							martial = 3
+							stewardship = 3
+							intrigue = 3
+							learning = 3
+						}
+					}	
+				}
+				30 = {
+					create_character = {
+						random_traits = yes
+						dynasty = random
+						trait = poet
+						trait = underhanded_rogue
+						attributes = {
+							diplomacy = 5
+							martial = 5
+							stewardship = 5
+							intrigue = 5
+							learning = 5
+						}
+					}		
+				}
+				20 = {
+					create_character = {
+						random_traits = yes
+						dynasty = random
+						trait = poet
+						trait = charismatic_negotiator
+						attributes = {
+							diplomacy = 8
+							martial = 8
+							stewardship = 8
+							intrigue = 8
+							learning = 8
+						}
+					}		
+				}
+				12 = {
+					create_character = {
+						random_traits = yes
+						dynasty = random
+						trait = poet
+						trait = grey_eminence
+						attributes = {
+							diplomacy = 10
+							martial = 10
+							stewardship = 10
+							intrigue = 10
+							learning = 10
+						}
+					}		
+				}
+				3 = {
+					create_character = {
+						random_traits = yes
+						dynasty = random
+						trait = poet
+						trait = grey_eminence
+						attributes = {
+							diplomacy = 13
+							martial = 13
+							stewardship = 13
+							intrigue = 13
+							learning = 13
+						}
+					}		
+				}
+			}
+			new_character = {
+				opinion = {
+					modifier = opinion_patron
+					who = ROOT
+					years = 5
+				}
+			}		
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.3 #Decrease chance AI will do this
+			}
+			modifier = {
+				factor = 0.1
+				any_courtier = {
+					trait = poet
+				}
+			}
+			modifier = {
+				factor = 0
+				any_courtier = {
+					has_minor_title = title_court_bard
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = diligent
+			}	
+			modifier = {
+				factor = 0.5
+				trait = slothful
+			}	
+			modifier = {
+				factor = 2
+				trait = ambitious
+			}	
+			modifier = {
+				factor = 0.5
+				trait = imbecile
+			}		
+			modifier = {
+				factor = 2
+				trait = zealous
+			}	
+			modifier = {
+				factor = 0.5
+				trait = cynical
+			}			
+			modifier = {
+				factor = 2
+				primary_title = { higher_tier_than = DUKE }
+			}	
+			modifier = {
+				factor = 0.5
+				trait = slow
+			}	
+		}
+	}
+
 	assign_druid = { # For the AI, because they are dumb enough not to hand out minor titles
 		potential = {
 			ai = yes
@@ -611,6 +772,7 @@ decisions = {
 			}
 		}
 	}
+
 	assign_bard = { # For the AI, because they are dumb enough not to hand out minor titles
 		potential = {
 			ai = yes

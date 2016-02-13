@@ -34,15 +34,9 @@ can_be_mercenary_leader_potential_trigger = {
 	OR = {
 		is_female = no
 		AND = {
-			religion = cathar
+			is_feminist_religion_trigger = yes
 			FROM = {
-				religion = cathar
-			}
-		}
-		AND = {
-			religion = messalian
-			FROM = {
-				religion = messalian
+				is_feminist_religion_trigger = yes
 			}
 		}
 		FROM = {
@@ -113,16 +107,9 @@ can_be_chancellor_trigger = {
 			OR = {
 				is_female = no
 				trait = horse # So we can have female glitterhoofs! :D
-				liege = {
-					OR = {
-						religion = cathar
-						religion = messalian
-						religion = valentinianism
-						religion = celtic_pagan
-						religion = celtic_pagan_reformed
-						religion = promethean_pagan
-					}
-					religion = ROOT
+				AND = {
+					is_feminist_religion_trigger = yes
+					liege = { religion = PREV }
 				}
 				AND = {
 					liege = {
@@ -185,14 +172,12 @@ can_be_marshal_trigger = {
 			OR = {
 				is_female = no
 				trait = horse # So we can have female glitterhoofs! :D
-				liege = {
+				AND = {
+					is_feminist_religion_trigger = yes
+					liege = { religion = PREV }
+				}
+				AND = {
 					OR = {
-						religion = cathar
-						religion = messalian
-						religion = valentinianism
-						religion = celtic_pagan
-						religion = celtic_pagan_reformed
-						religion = promethean_pagan
 						religion_group = zoroastrian_group
 						AND = {
 							religion_group = pagan_group
@@ -201,15 +186,13 @@ can_be_marshal_trigger = {
 								martial = 20
 							}
 						}
-					}
-					religion = ROOT
+					}	
+					liege = { religion = PREV }
 				}
 				AND = {
 					liege = {
 						primary_title = {
-							OR = {
-								has_law = status_of_women_3
-							}
+							has_law = status_of_women_3
 						}
 					}
 					OR = {
@@ -248,16 +231,9 @@ can_be_treasurer_trigger = {
 			OR = {
 				is_female = no
 				trait = horse # So we can have female glitterhoofs! :D
-				liege = {
-					OR = {
-						religion = cathar
-						religion = messalian
-						religion = valentinianism
-						religion = celtic_pagan
-						religion = celtic_pagan_reformed
-						religion = promethean_pagan
-					}
-					religion = ROOT
+				AND = {
+					is_feminist_religion_trigger = yes
+					liege = { religion = PREV }
 				}
 				AND = {
 					liege = {
@@ -306,14 +282,13 @@ can_be_spymaster_trigger = {
 						any_spouse = { character = ROOT }
 					}
 				}
-				liege = {
-					OR = {
-						religion_group = pagan_group
-						religion = cathar
-						religion = messalian
-						religion = valentinianism
-					}
-					religion = ROOT
+				AND = {
+					religion_group = pagan_group
+					liege = { religion_group = PREV }
+				}
+				AND = {
+					is_feminist_religion_trigger = yes
+					liege = { religion = PREV }
 				}
 				AND = {
 					liege = {
