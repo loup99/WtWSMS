@@ -8,32 +8,31 @@ title_commander = {
 	realm_in_name = yes
 	
 	monthly_salary = 0.05
-	monthly_prestige = 0.005
+	monthly_prestige = 0.50
 	
 	allowed_to_hold = {
+		liege = { character = FROM }
 		OR = {
 			AND = {
 				OR = {
 					is_female = no
-					liege = {
-						OR = {
-							religion = cathar
-							religion = messalian
-							religion = valentinianism
-							religion = celtic_pagan
-							religion = celtic_pagan_reformed
-							religion = promethean_pagan
-							religion_group = zoroastrian_group
-							AND = {
-								religion_group = pagan_group
-								OR = {
-									independent = yes
-									martial = 20
-								}
-							}
-						}
-						religion = ROOT
+					AND = {
+						is_feminist_religion_trigger = yes
+						liege = { religion = PREV }
 					}
+					AND = {
+						religion_group = pagan_group
+						OR = {
+							independent = yes
+							martial = 20
+						}
+						liege = { religion = PREV }
+					}
+					liege = {	
+						primary_title = {
+							has_law = status_of_women_4
+						}
+					}	
 				}
 				OR = {
 					NOT = { religion = hindu }

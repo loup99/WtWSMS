@@ -46,25 +46,7 @@ decisions = {
 			prestige = 100
 			character_event = { id = 70033 tooltip = "tournament_invite" }
 			hidden_tooltip = {
-				character_event = { id = 70001 days = 60 } # Tournament start
 				clr_character_flag = tournament_has_ended
-				any_realm_character = {
-					limit = {
-						OR = {
-							is_feudal = yes
-							is_tribal = yes
-							is_nomadic = yes
-						}
-						NOT = { has_job_title = job_spiritual }
-						age = 16
-						NOT = { age = 50 }
-						NOT = { trait = incapable }
-						prisoner = no	
-						is_female = no
-					}
-					clr_character_flag = tournament_has_ended
-					character_event = { id = 70000 }
-				}
 			}
 		}
 		ai_will_do = {
@@ -148,35 +130,47 @@ decisions = {
 		is_high_prio = yes
 		potential = {
 			ai = no
-			NOT = { has_character_flag = requested_de_jure_title }
+			has_ambition = obj_gain_any_title
 			liege = {
 				NOT = { character = ROOT }
 			}
 			is_adult = yes
 			prisoner = no
-			is_playable = yes
-			tier = count
 			NOT = { trait = incapable }
 		}
 		allow = {
+			prestige = 60
 			liege = {
-				opinion = {
-					who = ROOT
-					value = 25
-				}
-			}
-			liege = {
+				NOT = { has_opinion_modifier = { who = ROOT modifier = requested_land } }
+				demesne_size = 3
 				any_demesne_title = {
-					tier = duke
-					has_de_jure_pretension = ROOT
 					can_be_given_away = yes
 					lower_tier_than = PREV
+					NOT = { location = { is_capital = yes } }
 				}
 			}
 		}
 		effect = {
-			set_character_flag = requested_de_jure_title
-			liege = { letter_event = { id = 63041 days = 4 tooltip = "EVTTOOLTIP63041" } } # "vassal_request_events.txt"
+			prestige = -60
+			liege = {
+				opinion = {
+					who = ROOT
+					years = 2
+					modifier = requested_land
+				}
+				random_demesne_title = {
+					limit = {
+						can_be_given_away = yes
+						lower_tier_than = PREV
+						NOT = { location = { is_capital = yes } }
+					}
+					save_event_target_as = vassal_wanted_title
+				}
+			}
+			custom_tooltip = {
+				text = demand_liege_title_tooltip
+				hidden_tooltip = { liege = { letter_event = { id = 63041 days = 4 } } } # "vassal_request_events.txt"
+			}
 		}
 		ai_will_do = {
 			factor = 0 # The AI is limited to the similar event 63040
@@ -258,34 +252,6 @@ decisions = {
 			prestige = 100
 			decadence = -5
 			character_event = { id = 88283 tooltip = "furusiyya_invite" }
-			hidden_tooltip = {
-				character_event = { id = 88251 days = 60 } # Tournament start
-				clr_character_flag = tournament_has_ended_furusiyya
-				any_realm_character = {
-					limit = {
-						OR = {
-							is_feudal = yes
-							is_tribal = yes
-							is_nomadic = yes
-						}
-						NOT = { has_job_title = job_spiritual }
-						age = 16
-						NOT = { age = 50 }
-						NOT = { trait = incapable }
-						prisoner = no	
-						is_female = no
-					}
-					clr_character_flag = tournament_has_ended_furusiyya
-					character_event = { id = 88250 }
-				}
-				any_dynasty_member = {
-					limit = { 
-						ai = no
-						NOT = { character = ROOT }
-					}
-					character_event = { id = 88300 }
-				}
-			}
 		}
 		ai_will_do = {
 			factor = 1
@@ -437,10 +403,8 @@ decisions = {
 			NOT = { has_landed_title = c_byzantion }
 			has_landed_title = e_byzantium
 			any_realm_lord = { 
-				AND = {
-					ai = yes
-					has_landed_title = c_byzantion 
-				}
+				ai = yes
+				has_landed_title = c_byzantion 
 			}
 		}
 		allow = {
@@ -471,16 +435,12 @@ decisions = {
 				NOT = { province_id = 333 }
 			}
 			any_realm_lord = { 
-				AND = {
-					ai = yes
-					has_landed_title = c_roma 
-				}
+				ai = yes
+				has_landed_title = c_roma 
 			}
 			any_realm_lord = { 
-				AND = {
-					ai = yes
-					has_landed_title = b_tivoli
-				}
+				ai = yes
+				has_landed_title = b_tivoli
 			}
 		}
 		allow = {
@@ -1223,7 +1183,7 @@ decisions = {
 			has_character_modifier = expelled_jewish
 		}
 		effect = {
-			scaled_wealth = -2.5
+			scaled_wealth = -1
 			prestige = 50
 			remove_character_modifier = expelled_jewish
 			if = {
@@ -1297,7 +1257,7 @@ decisions = {
 		}
 		effect = {
 			prestige = -100
-			scaled_wealth = 5
+			scaled_wealth = 2
 			banish_religion = jewish
 			if = {
 				limit = { trait = sympathy_judaism }
@@ -1765,10 +1725,15 @@ decisions = {
 					} 
 				}
 			}
-			religion_head = {
-				opinion = { who = ROOT value = 100 }
+			OR = {
+				ai = yes
+				AND = {
+					religion_head = {
+						opinion = { who = ROOT value = 100 }
+					}
+					scaled_wealth = 2
+				}
 			}
-			scaled_wealth = 2
 		}
 		effect = {
 			set_global_flag = charlemagne_hre
@@ -2289,15 +2254,13 @@ decisions = {
 				}
 			}
 			primary_title = { has_law = tribal_organization_4 }
-			capital_scope = {
-				capital_holding = {
-					OR = {
-						AND = {
-							holding_type = tribal
-							has_building = tb_hillfort_4
-						}
-						holding_type = castle
+			capital_holding = {
+				OR = {
+					AND = {
+						holding_type = tribal
+						has_building = tb_hillfort_4
 					}
+					holding_type = castle
 				}
 			}
 		}
@@ -2427,6 +2390,18 @@ decisions = {
 				OR = {
 					is_feudal = yes
 					is_republic = yes
+					AND = {
+						is_theocracy = yes
+						custom_tooltip = {
+							text = TT_NOT_UNREFORMED_PAGAN
+							hidden_tooltip = {
+								OR = {
+									NOT = { religion_group = pagan_group }
+									is_reformed_religion = yes
+								}
+							}
+						}
+					}
 				}
 			}
 		}
@@ -2587,14 +2562,14 @@ decisions = {
 			primary_title = { has_law = tribal_organization_4 }
 			capital_scope = {
 				port = yes
-				capital_holding = {
-					OR = {
-						AND = {
-							holding_type = tribal
-							has_building = tb_market_town_4
-						}
-						holding_type = city
+			}
+			capital_holding = {
+				OR = {
+					AND = {
+						holding_type = tribal
+						has_building = tb_market_town_4
 					}
+					holding_type = city
 				}
 			}
 		}

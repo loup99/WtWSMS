@@ -11,64 +11,24 @@
 
 job_chancellor = {
 	is_chancellor = yes
+	is_voter = yes
 	attribute = diplomacy
 	dignity = 0.33
-	opinion_effect = 15
+	opinion_effect = 10
 	
 	monthly_salary = 0.1
 	monthly_prestige = 0.015
 	
 	allow = {
-		OR = {
-			AND = {
-				
-				OR = {
-					is_female = no
-					liege = {
-						OR = {
-							religion = cathar
-							religion = messalian
-							religion = valentinianism
-							religion = celtic_pagan
-							religion = celtic_pagan_reformed
-							religion = promethean_pagan
-						}
-						religion = ROOT
-					}
-				}
-				is_adult = yes
-			}
-			has_character_flag = special_chancellor
-		}
-		
-		OR = {
-			liege = { 
-				NOT = { 
-					religion = celtic_pagan 
-					religion = celtic_pagan_reformed
-				}
-			}
-			AND = {
-				OR = { 
-					religion = celtic_pagan 
-					religion = celtic_pagan_reformed 
-				}
-				OR = { 
-					trait = druid
-					trait = bad_druid
-					trait = poet
-				}
-			}
-		}
-		
-		prisoner = no
-		NOT = { trait = incapable }
-		NOT = { trait = in_hiding }
+		can_be_chancellor_trigger = yes
 	}
 	gain_effect = {
 	}
 	lose_effect = {
 		opinion = { who = FROM modifier = opinion_fired_from_council }
+		opinion = { who = FROM modifier = opinion_recently_fired }
+	}
+	retire_effect = {
 	}
 	
 	action = action_improve_relations
@@ -81,57 +41,25 @@ job_chancellor = {
 
 job_marshal = {
 	is_marshal = yes
+	is_voter = yes
 	attribute = martial
 	dignity = 0.33
-	opinion_effect = 15
+	opinion_effect = 10
 	
 	monthly_salary = 0.1
 	monthly_prestige = 0.015
 	
 	allow = {
-		OR = {
-			AND = {
-				OR = {
-					is_female = no
-					liege = {
-						OR = {
-							religion = cathar
-							religion = messalian
-							religion = valentinianism
-							religion = celtic_pagan
-							religion = celtic_pagan_reformed
-							religion = promethean_pagan
-							religion_group = zoroastrian_group
-							AND = {
-								religion_group = pagan_group
-								OR = {
-									independent = yes
-									martial = 20
-								}
-							}
-						}
-						religion = ROOT
-					}
-				}
-				OR = {
-					NOT = { religion = hindu }
-					trait = kshatriya
-				}
-				is_adult = yes
-			}
-			has_character_flag = special_marshal
-		}
-		
-		prisoner = no
-		NOT = { trait = incapable }
-		NOT = { trait = in_hiding }
-		NOT = { has_character_flag = guru }
+		can_be_marshal_trigger = yes
 	}
 	
 	gain_effect = {
 	}
 	lose_effect = {
 		opinion = { who = FROM modifier = opinion_fired_from_council }
+		opinion = { who = FROM modifier = opinion_recently_fired }
+	}
+	retire_effect = {
 	}
 	
 	action = action_assist_arrest
@@ -145,43 +73,24 @@ job_marshal = {
 
 job_treasurer = {
 	is_treasurer = yes
+	is_voter = yes
 	attribute = stewardship
 	dignity = 0.2
-	opinion_effect = 15
+	opinion_effect = 10
 	
 	monthly_salary = 0.1
 	monthly_prestige = 0.015
 	
 	allow = {
-		OR = {
-			AND = {
-				OR = {
-					is_female = no
-					liege = {
-						OR = {
-							religion = cathar
-							religion = messalian
-							religion = valentinianism
-							religion = celtic_pagan
-							religion = celtic_pagan_reformed
-							religion = promethean_pagan
-						}
-						religion = ROOT
-					}
-				}
-				is_adult = yes
-			}
-			has_character_flag = special_treasurer
-		}
-		prisoner = no
-		NOT = { trait = incapable }
-		NOT = { trait = in_hiding }
-		NOT = { has_character_flag = guru }
+		can_be_treasurer_trigger = yes
 	}
 	gain_effect = {
 	}
 	lose_effect = {
 		opinion = { who = FROM modifier = opinion_fired_from_council }
+		opinion = { who = FROM modifier = opinion_recently_fired }
+	}
+	retire_effect = {
 	}
 	
 	action = action_squeeze_peasants
@@ -196,48 +105,23 @@ job_treasurer = {
 
 job_spymaster = {
 	is_spymaster = yes
+	is_voter = yes
 	attribute = intrigue
 	dignity = 0.1
-	opinion_effect = 15
+	opinion_effect = 10
 	
 	monthly_salary = 0.1
 	
 	allow = {
-		OR = {
-			AND = {
-				OR = {
-					is_female = no
-					liege = { 
-						OR = {
-							mother = { character = ROOT }
-							spouse = { character = ROOT }
-						}
-					}
-					
-					liege = {
-						OR = {
-							religion_group = pagan_group
-							religion = cathar
-							religion = messalian
-							religion = valentinianism
-						}
-						religion = ROOT
-					}
-				}
-				is_adult = yes
-			}
-			has_character_flag = special_spymaster
-		}
-		
-		prisoner = no
-		NOT = { trait = incapable }
-		NOT = { trait = in_hiding }
-		NOT = { has_character_flag = guru }
+		can_be_spymaster_trigger = yes
 	}
 	gain_effect = {
 	}
 	lose_effect = {
 		opinion = { who = FROM modifier = opinion_fired_from_council }
+		opinion = { who = FROM modifier = opinion_recently_fired }
+	}
+	retire_effect = {
 	}
 	
 	action = action_uncover_plots
@@ -249,93 +133,25 @@ job_spymaster = {
 
 job_spiritual = {
 	is_spiritual = yes
+	is_voter = yes
 	attribute = learning
 	dignity = 0.15
-	opinion_effect = 15
+	opinion_effect = 10
 	
 	monthly_salary = 0.1
 	monthly_piety = 0.015
 	
 	allow = {
-		prisoner = no
-		NOT = { trait = incapable }
-		NOT = { trait = in_hiding }
-		liege = {
-			religion = ROOT
-		}
-		OR = {
-			AND = {
-				is_adult = yes
-				OR = {
-					is_female = no
-					religion_allows_female_temple_holders = yes
-				}
-				OR = {
-					NOT = { religion = hindu }
-					trait = brahmin
-				}
-			}
-			has_character_flag = special_spiritual
-		}
+		can_be_spiritual_trigger = yes
 		
-		OR = {
-			is_theocracy = yes
-			AND = {
-				liege = { is_tribal = yes }
-				is_ruler = no
-			}
-			liege = { religion_group = muslim }
-			AND = {
-				clan = yes
-				liege = {
-					is_nomadic = yes
-				}
-			}
-			AND = {
-				has_autocephaly = no
-				is_ruler = no
-			}
-			AND = {
-				has_autocephaly = yes
-				is_ruler = no
-				NOT = {
-					any_vassal = { is_theocracy = yes }
-				}
-			}
-		}
-		
-		OR = {
-			NOT = { religion_group = muslim }
-			NOT = { liege = { religion_group = muslim } }
-			trait = detached_priest
-			trait = martial_cleric
-			trait = scholarly_theologian
-			trait = mastermind_theologian
-		}
-		
-		OR = {
-			liege = { 
-				NOT = { 
-					religion = celtic_pagan 
-					religion = celtic_pagan_reformed
-				}
-			}
-			AND = {
-				OR = { 
-					religion = celtic_pagan 
-					religion = celtic_pagan_reformed 
-				}
-				OR = {
-					trait = druid
-					trait = bad_druid
-				}
-			}
-		}
 	}
 	gain_effect = {
 	}
 	lose_effect = {
 		opinion = { who = FROM modifier = opinion_fired_from_council }
+		opinion = { who = FROM modifier = opinion_recently_fired }
+	}
+	retire_effect = {
 	}
 	dismiss_trigger = {
 		FROM = {

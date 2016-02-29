@@ -1,0 +1,259 @@
+###################################
+#
+# Old Age Events (for old characters)
+#
+# Set 1: VIETnam.138-VIETnam.140
+#
+# Fired from on actions
+#
+###################################
+
+# Baby kicking in stomach
+character_event = {
+	id = VIETnam.138
+	desc = "EVTDESC1000109311"
+	picture = GFX_evt_pregnancy
+	
+	is_triggered_only = yes
+	
+	min_age = 16
+
+	trigger = {
+		trait = pregnant
+		is_female = yes
+	}
+	
+	weight_multiplier = {
+		days = 1
+		
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 2
+			trait = wroth
+		}
+		modifier = {
+			factor = 2
+			trait = proud
+		}
+		modifier = {
+			factor = 0.5
+			trait = humble
+		}
+		modifier = {
+			factor = 0.5
+			trait = patient
+		}
+		modifier = {
+			factor = 0.5
+			trait = content
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+	}
+	
+	option = { #Cute
+		name = "EVTOPTA1000109311"
+		trigger = {
+			NOT = { trait = weak }
+		}
+		piety = 1
+	}
+	
+	option = { #It hurts
+		name = "EVTOPTB1000109311"
+		trigger = {
+			trait = weak
+		}
+		piety = 1
+	}
+	
+	option = { #stop it
+		name = "EVTOPTC1000109311"
+		tooltip_info = wroth
+		trigger = {
+			trait = wroth
+		}
+		prestige = 1
+	}
+}
+
+
+# Character feels sick from pregnancy
+character_event = {
+	id = VIETnam.139
+	desc = "EVTDESC1000109312"
+	picture = GFX_evt_pregnancy
+	
+	is_triggered_only = yes
+	
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+
+	trigger = {
+		trait = pregnant
+		is_female = yes
+		NOT = { trait = ill }
+		NOT = { trait = pneumonic }
+		NOT = { trait = has_tuberculosis }
+		NOT = { trait = has_typhoid_fever }
+		NOT = { trait = has_typhus }
+		NOT = { trait = has_bubonic_plague }
+		NOT = { trait = has_measles }
+		NOT = { trait = has_small_pox }
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 0.8 #slightly reduce chance of occuring
+		}
+		modifier = {
+			factor = 2
+			trait = weak
+		}
+		modifier = {
+			factor = 2
+			NOT = { health = 4 }
+		}
+		modifier = {
+			factor = 0.5
+			health = 6
+		}
+		modifier = {
+			factor = 0.5
+			trait = strong
+		}
+	}
+	
+	option = { #High
+		name = "EVTOPTA1000109312"
+		trigger = {
+			health = 6
+		}
+		random_list = {
+			85 = { }
+			15 = { character_event = { id = 6060 days = 2 tooltip = "EVTTOOLTIP1000109312" } }
+		}
+	}
+	
+	option = { #Medium
+		name = "EVTOPTA1000109312"
+		trigger = {
+			NOT = { health = 6 }
+			health = 3
+		}
+		random_list = {
+			70 = { }
+			30 = { character_event = { id = 6060 days = 2 tooltip = "EVTTOOLTIP1000109312" } }
+		}
+	}
+	
+	option = { #Low
+		name = "EVTOPTA1000109312"
+		trigger = {
+			health = 6
+		}
+		random_list = {
+			60 = { }
+			40 = { character_event = { id = 6060 days = 2 tooltip = "EVTTOOLTIP1000109312" } }
+		}
+	}
+}
+
+
+# Character's child asks whether sibling will be boy or girl
+character_event = {
+	id = VIETnam.140
+	desc = "EVTDESC1000109313"
+	picture = GFX_evt_pregnancy
+	
+	is_triggered_only = yes
+	
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+
+	trigger = {
+		trait = pregnant
+		is_female = yes
+		num_of_children = 1
+		any_child = {
+			is_adult = no
+			age = 2
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		modifier = {
+			factor = 2
+			trait = brave
+		}
+		modifier = {
+			factor = 0.5
+			trait = craven
+		}
+		modifier = {
+			factor = 2
+			trait = deceitful
+		}
+		modifier = {
+			factor = 0.5
+			trait = honest
+		}
+		modifier = {
+			factor = 2
+			trait = patient
+		}
+		modifier = {
+			factor = 0.5
+			trait = wroth
+		}
+	}
+	
+	option = { #It's gonna be a boy
+		name = "EVTOPTA1000109313"
+		prestige = 5
+		random_child = {
+			limit = {
+				is_adult = no
+				age = 2
+			}
+			opinion = {
+				modifier = opinion_happy
+				who = ROOT
+				years = 1
+			}		
+		}
+	}
+	
+	option = { #It's gonna be a girl
+		name = "EVTOPTB1000109313"
+		piety = 5
+		random_child = {
+			limit = {
+				is_adult = no
+				age = 2
+			}
+			opinion = {
+				modifier = opinion_happy
+				who = ROOT
+				years = 1
+			}		
+		}
+	}
+}

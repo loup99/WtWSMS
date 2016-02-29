@@ -19,18 +19,21 @@ namespace = ancrel
 #
 #############################################
 
+# [on_province_convert]
 province_event = {
 	id = ancrel.0280
-	desc = OK
-	picture = GFX_evt_celtic_warriors
-	border = GFX_event_normal_frame_religion
-	
-	is_triggered_only = yes
 	hide_window = yes
+
+	is_triggered_only = yes
 	
 	trigger = {
-		religion = celtic_pagan
-
+		OR = {
+			AND = {
+				religion = celtic_pagan
+				NOT = { has_global_flag = celtic_pagan_reformation }
+			}
+			religion = celtic_pagan_reformed
+		}
 		NOT = { has_global_flag = wolftails_founded }
 	}
 	
@@ -40,7 +43,7 @@ province_event = {
 		hidden_tooltip = {
 			create_character = {
 				random_traits = yes
-				religion = celtic_pagan
+				religion = ROOT
 				culture = welsh
 				dynasty = random
 				female = no
@@ -59,7 +62,7 @@ province_event = {
 				create_character = {
 					random_traits = yes
 					dynasty = random
-					religion = celtic_pagan
+					religion = ROOT
 					culture = welsh
 					female = no
 					age = 16
@@ -67,7 +70,7 @@ province_event = {
 				create_character = {
 					random_traits = yes
 					dynasty = random
-					religion = celtic_pagan
+					religion = ROOT
 					culture = welsh
 					female = no
 					age = 18
@@ -75,7 +78,7 @@ province_event = {
 				create_character = {
 					random_traits = yes
 					dynasty = random
-					religion = celtic_pagan
+					religion = ROOT
 					culture = welsh
 					female = no
 					age = 18
@@ -83,7 +86,7 @@ province_event = {
 				create_character = {
 					random_traits = yes
 					dynasty = random
-					religion = celtic_pagan
+					religion = ROOT
 					culture = welsh
 					female = no
 					age = 20
@@ -91,7 +94,7 @@ province_event = {
 				create_character = {
 					random_traits = yes
 					dynasty = random
-					religion = celtic_pagan
+					religion = ROOT
 					culture = welsh
 					female = no
 					age = 25
@@ -99,7 +102,7 @@ province_event = {
 				create_character = {
 					random_traits = yes
 					dynasty = random
-					religion = celtic_pagan
+					religion = ROOT
 					culture = welsh
 					female = no
 					age = 26
@@ -107,7 +110,7 @@ province_event = {
 				create_character = {
 					random_traits = yes
 					dynasty = random
-					religion = celtic_pagan
+					religion = ROOT
 					culture = welsh
 					female = no
 					age = 28
@@ -115,7 +118,7 @@ province_event = {
 				create_character = {
 					random_traits = yes
 					dynasty = random
-					religion = celtic_pagan
+					religion = ROOT
 					culture = welsh
 					female = yes
 					age = 16
@@ -123,17 +126,13 @@ province_event = {
 				create_character = {
 					random_traits = yes
 					dynasty = random
-					religion = celtic_pagan
+					religion = ROOT
 					culture = welsh
 					female = yes
 					age = 17
 				}	
 			}
 		}
-	}
-			
-	option = {
-		name = OK
 	}
 }
 
@@ -168,6 +167,7 @@ narrative_event = {
 	mean_time_to_happen = {
 		days = 10
 	}
+
 	immediate = {
 		d_wolftails = {
 			religion = celtic_pagan_reformed
@@ -176,8 +176,5 @@ narrative_event = {
 			}
 		}
 		set_global_flag = wolftails_reformed
-	}
-	option = {
-		name = OK
 	}
 }

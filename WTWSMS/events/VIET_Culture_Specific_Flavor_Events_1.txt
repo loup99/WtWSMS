@@ -1,6 +1,5 @@
 # Audax Validator "!" Ignore_NEXT
 ######################################################################
-#
 # Culture Specific Flavor Events
 # (Will only fire for specific Cultures or Culture Groups)
 #
@@ -29,9 +28,9 @@ character_event = {
 	picture = GFX_evt_small_town_east_african
 	
 	is_triggered_only = yes
+	only_rulers = yes
 	
 	trigger = {
-		is_ruler = yes
 		is_adult = yes
 		culture = ethiopian
 	}
@@ -89,8 +88,9 @@ character_event = {
 	
 	is_triggered_only = yes
 	
+	only_rulers = yes
+	
 	trigger = {
-		is_ruler = yes
 		is_adult = yes
 		OR = {
 			culture_group = east_african
@@ -252,9 +252,9 @@ character_event = {
 	picture = GFX_evt_travel_west_african
 	
 	is_triggered_only = yes
+	only_rulers = yes
 	
 	trigger = {
-		is_ruler = yes
 		is_adult = yes
 		OR = {
 			is_female = no
@@ -466,9 +466,9 @@ character_event = {
 	picture = GFX_evt_african_savanna
 	
 	is_triggered_only = yes
+	only_rulers = yes
 	
 	trigger = {
-		is_ruler = yes
 		is_adult = yes
 		any_vassal = {
 			culture_group = east_african
@@ -480,7 +480,7 @@ character_event = {
 				trait = gluttonous
 				trait = envious
 			}
-			NOT = {
+			NOR = {
 				trait = charitable
 				trait = just
 				trait = kind
@@ -562,8 +562,10 @@ character_event = {
 		}
 		if = {
 			limit = {
-				NOT = { trait = arbitrary }
-				NOT = { trait = just }
+				NOR = {
+					trait = arbitrary
+					trait = just
+				}
 			}
 			random_list = {
 				70 = { }
@@ -582,7 +584,7 @@ character_event = {
 					trait = gluttonous
 					trait = envious
 				}
-				NOT = {
+				NOR = {
 					trait = charitable
 					trait = just
 					trait = kind
@@ -628,7 +630,7 @@ character_event = {
 					trait = gluttonous
 					trait = envious
 				}
-				NOT = {
+				NOR = {
 					trait = charitable
 					trait = just
 					trait = kind
@@ -699,7 +701,7 @@ character_event = {
 					trait = gluttonous
 					trait = envious
 				}
-				NOT = {
+				NOR = {
 					trait = charitable
 					trait = just
 					trait = kind
@@ -740,17 +742,19 @@ character_event = {
 	picture = GFX_evt_african_savanna
 	
 	is_triggered_only = yes
+	only_rulers = yes
 	
 	trigger = {
-		is_ruler = yes
 		is_adult = yes
 		OR = {
 			culture_group = east_african
 			culture_group = west_african
 		}
-		NOT = { trait = depressed }
-		NOT = { trait = stressed }
-		NOT = { has_character_flag = african_witch_doctor }
+		NOR = {
+			trait = depressed
+			trait = stressed
+			has_character_flag = african_witch_doctor
+		}
 	}
 	
 	immediate = {
@@ -930,9 +934,9 @@ character_event = {
 	picture = GFX_evt_sultan
 	
 	is_triggered_only = yes
+	only_rulers = yes
 	
 	trigger = {
-		is_ruler = yes
 		is_adult = yes
 		war = no
 		in_command = no
@@ -1007,9 +1011,9 @@ character_event = {
 	picture = GFX_evt_feast
 	
 	is_triggered_only = yes
+	only_rulers = yes
 	
 	trigger = {
-		is_ruler = yes
 		is_adult = yes
 		war = no
 		in_command = no
@@ -1122,7 +1126,14 @@ character_event = {
 			}
 			random_list = {
 				60 = { }
-				40 = { remove_trait = charitable }
+				40 = {
+					remove_trait = charitable
+					hidden_tooltip = {
+						character_event = {
+							id = 38321 # Notify lose charitable
+						}
+					}
+				}
 			}			
 		}
 	}
@@ -1136,9 +1147,9 @@ character_event = {
 	picture = GFX_evt_large_army
 	
 	is_triggered_only = yes
+	only_rulers = yes
 	
 	trigger = {
-		is_ruler = yes
 		is_adult = yes
 		OR = {
 			culture = turkish
@@ -1318,7 +1329,7 @@ character_event = {
 	option = {
 		name = "EVTOPTC1000109382"  #Off with their heads
 		trigger = {
-			NOT = {
+			NOR = {
 				trait = kind
 				trait = just
 				trait = charitable
@@ -1387,12 +1398,12 @@ character_event = {
 	
 	is_triggered_only = yes
 	
+	only_rulers = yes
 	min_age = 16
 	capable_only = yes
 	prisoner = no
 	
 	trigger = {
-		is_ruler = yes
 		war = no
 		in_command = no
 		culture = turkish
@@ -1633,9 +1644,9 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	only_rulers = yes
 	
 	trigger = {
-		is_ruler = yes
 		war = no
 		in_command = no
 		culture = turkish
@@ -1645,6 +1656,18 @@ character_event = {
 			NOT = { trait = incapable }
 			trait = zealous
 			religion_group = muslim
+		}
+	}
+	
+	immediate = {
+		random_courtier = {
+			limit = {
+				is_adult = yes
+				NOT = { trait = incapable }
+				trait = zealous
+				religion_group = muslim
+			}
+			save_event_target_as = target_courtier
 		}
 	}
 	
@@ -1699,13 +1722,7 @@ character_event = {
 			}
 		}
 		piety = 3
-		random_courtier = {
-			limit = {
-				is_adult = yes
-				NOT = { trait = incapable }
-				trait = zealous
-				religion_group = muslim
-			}
+		event_target:target_courtier = {
 			opinion = {
 				modifier = opinion_pleased
 				who = ROOT
@@ -1736,13 +1753,7 @@ character_event = {
 		}
 		piety = 10
 		prestige = -5
-		random_courtier = {
-			limit = {
-				is_adult = yes
-				NOT = { trait = incapable }
-				trait = zealous
-				religion_group = muslim
-			}
+		event_target:target_courtier = {
 			opinion = {
 				modifier = opinion_happy
 				who = ROOT
@@ -1781,13 +1792,7 @@ character_event = {
 			}
 		}
 		prestige = 3
-		random_courtier = {
-			limit = {
-				is_adult = yes
-				NOT = { trait = incapable }
-				trait = zealous
-				religion_group = muslim
-			}
+		event_target:target_courtier = {
 			opinion = {
 				modifier = opinion_insulted
 				who = ROOT
@@ -1831,13 +1836,7 @@ character_event = {
 		}
 		prestige = 1
 		piety = 1
-		random_courtier = {
-			limit = {
-				is_adult = yes
-				NOT = { trait = incapable }
-				trait = zealous
-				religion_group = muslim
-			}
+		event_target:target_courtier = {
 			opinion = {
 				modifier = opinion_unconvinced
 				who = ROOT
@@ -1868,9 +1867,9 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	only_rulers = yes
 	
 	trigger = {
-		is_ruler = yes
 		war = no
 		in_command = no
 		culture = turkish
@@ -2071,6 +2070,7 @@ character_event = {
 	border = GFX_event_normal_frame_war
 	
 	is_triggered_only = yes
+	only_rulers = yes
 
 	trigger = {
 		NOT = { trait = maimed }
@@ -2135,10 +2135,10 @@ character_event = {
 	picture = GFX_evt_dogon_village
 	
 	is_triggered_only = yes
+	only_rulers = yes
 	
 	trigger = {
 		NOT = { has_character_flag = VIET_ton_member }
-		is_ruler = yes
 		is_adult = yes
 		war = no
 		in_command = no
@@ -2450,6 +2450,7 @@ character_event = {
 	
 	is_triggered_only = yes
 	
+	only_rulers = yes
 	min_age = 16
 	capable_only = yes
 	prisoner = no
@@ -2457,7 +2458,6 @@ character_event = {
 	trigger = {
 		war = no
 		in_command = no
-		is_ruler = yes
 		is_adult = yes
 		OR = {
 			culture_group = west_african
@@ -2752,6 +2752,7 @@ character_event = {
 	
 	is_triggered_only = yes
 	
+	only_rulers = yes
 	min_age = 16
 	capable_only = yes
 	prisoner = no
@@ -2759,7 +2760,6 @@ character_event = {
 	trigger = {
 		war = no
 		in_command = no
-		is_ruler = yes
 		is_adult = yes
 		OR = {
 			culture_group = west_african
@@ -2859,6 +2859,7 @@ character_event = {
 	
 	is_triggered_only = yes
 	
+	only_rulers = yes
 	min_age = 16
 	capable_only = yes
 	prisoner = no
@@ -2866,7 +2867,6 @@ character_event = {
 	trigger = {
 		war = no
 		in_command = no
-		is_ruler = yes
 		is_adult = yes
 		OR = {
 			culture_group = west_african
@@ -3054,6 +3054,7 @@ character_event = {
 	
 	is_triggered_only = yes
 	
+	only_rulers = yes
 	min_age = 16
 	capable_only = yes
 	prisoner = no
@@ -3061,7 +3062,6 @@ character_event = {
 	trigger = {
 		war = no
 		in_command = no
-		is_ruler = yes
 		is_adult = yes
 		OR = {
 			culture_group = west_african
@@ -3197,6 +3197,7 @@ character_event = {
 	
 	is_triggered_only = yes
 	
+	only_rulers = yes
 	min_age = 16
 	capable_only = yes
 	prisoner = no
@@ -3204,7 +3205,6 @@ character_event = {
 	trigger = {
 		war = no
 		in_command = no
-		is_ruler = yes
 		is_adult = yes
 		OR = {
 			culture_group = west_african
@@ -3221,6 +3221,23 @@ character_event = {
 				trait = ambitious
 				trait = hedonist
 			}
+		}
+	}
+	
+	immediate = {
+		random_courtier = {
+			limit = {
+				is_adult = yes
+				NOT = { trait = incapable }
+				OR = {
+					trait = gregarious
+					trait = proud
+					trait = diligent
+					trait = ambitious
+					trait = hedonist
+				}
+			}
+			save_event_target_as = target_courtier
 		}
 	}
 	
@@ -3303,8 +3320,10 @@ character_event = {
 	option = {
 		name = "EVTOPTA1000109420"  # Alright, game on
 		trigger = {
-			NOT = { trait = genius }		
-			NOT = { trait = quick }		
+			NOR = {
+				trait = genius
+				trait = quick
+			}		
 		}
 		random_list = {
 			50 = { character_event = { id = VIETnam.250 days = 3 tooltip = EVTTOOLTIP1000109423 } } #Victory
@@ -3324,18 +3343,7 @@ character_event = {
 	option = {
 		name = "EVTOPTA1000109423"  # ok
 		piety = 5
-		random_courtier = {
-			limit = {
-				is_adult = yes
-				NOT = { trait = incapable }
-				OR = {
-					trait = gregarious
-					trait = proud
-					trait = diligent
-					trait = ambitious
-					trait = hedonist
-				}
-			}
+		event_target:target_courtier = {
 			opinion = {
 				modifier = opinion_played_a_good_game
 				who = ROOT
@@ -3362,18 +3370,7 @@ character_event = {
 	option = {
 		name = "EVTOPTA1000109424"  # ok
 		prestige = 5
-		random_courtier = {
-			limit = {
-				is_adult = yes
-				NOT = { trait = incapable }
-				OR = {
-					trait = gregarious
-					trait = proud
-					trait = diligent
-					trait = ambitious
-					trait = hedonist
-				}
-			}
+		event_target:target_courtier = {
 			opinion = {
 				modifier = opinion_played_a_good_game
 				who = ROOT
@@ -3402,6 +3399,7 @@ character_event = {
 	
 	is_triggered_only = yes
 	
+	only_rulers = yes
 	min_age = 16
 	capable_only = yes
 	prisoner = no
@@ -3409,7 +3407,6 @@ character_event = {
 	trigger = {
 		war = no
 		in_command = no
-		is_ruler = yes
 		is_adult = yes
 		OR = {
 			culture_group = celtic
@@ -3420,6 +3417,16 @@ character_event = {
 		any_vassal = {
 			is_priest = yes
 			culture_group = celtic
+		}
+	}
+	
+	immediate = {
+		random_vassal = {
+			limit = {
+				is_priest = yes
+				culture_group = celtic
+			}
+			save_event_target_as = target_priest
 		}
 	}
 	
@@ -3529,11 +3536,7 @@ character_event = {
 			}
 		}
 
-		random_vassal = {
-			limit = {
-				is_priest = yes
-				culture_group = celtic
-			}
+		event_target:target_priest = {
 			opinion = {
 				modifier = opinion_happy
 				who = ROOT
@@ -3552,6 +3555,7 @@ character_event = {
 	
 	is_triggered_only = yes
 	
+	only_rulers = yes
 	min_age = 16
 	capable_only = yes
 	prisoner = no
@@ -3559,8 +3563,6 @@ character_event = {
 	trigger = {
 		war = no
 		in_command = no
-		is_ruler = yes
-		is_adult = yes
 		culture_group = celtic
 	}
 	
@@ -3740,6 +3742,7 @@ character_event = {
 	
 	is_triggered_only = yes
 	
+	only_rulers = yes
 	min_age = 16
 	capable_only = yes
 	prisoner = no
@@ -3747,8 +3750,6 @@ character_event = {
 	trigger = {
 		war = no
 		in_command = no
-		is_ruler = yes
-		is_adult = yes
 		culture_group = celtic
 	}
 	
@@ -3832,6 +3833,8 @@ character_event = {
 	
 	is_triggered_only = yes
 	
+	only_rulers = yes
+	only_men = yes
 	min_age = 16
 	capable_only = yes
 	prisoner = no
@@ -3839,9 +3842,6 @@ character_event = {
 	trigger = {
 		war = no
 		in_command = no
-		is_ruler = yes
-		is_adult = yes
-		is_female = no
 		OR = {
 			culture = irish
 			culture = scottish
@@ -3859,6 +3859,24 @@ character_event = {
 				culture = pictish
 			}
 			NOT = { trait = incapable }
+		}
+	}
+	
+	immediate = {
+		random_courtier = {
+			limit = {
+				is_adult = yes
+				is_female = no
+				in_command = no
+				OR = {
+					culture = irish
+					culture = scottish
+					culture = norsegael
+					culture = pictish
+				}
+				NOT = { trait = incapable }
+			}
+			save_event_target_as = target_courtier
 		}
 	}
 	
@@ -3951,19 +3969,7 @@ character_event = {
 	
 	option = {
 		name = "EVTOPTA1000109429"  #ok
-		random_courtier = {
-			limit = {
-				is_adult = yes
-				is_female = no
-				in_command = no
-				OR = {
-					culture = irish
-					culture = scottish
-					culture = norsegael
-					culture = pictish
-				}
-				NOT = { trait = incapable }
-			}
+		event_target:target_courtier = {
 			opinion = {
 				modifier = opinion_played_a_good_game
 				who = ROOT
@@ -3989,19 +3995,7 @@ character_event = {
 	option = {
 		name = "EVTOPTA1000109430"  #ok
 		prestige = 5
-		random_courtier = {
-			limit = {
-				is_adult = yes
-				is_female = no
-				in_command = no
-				OR = {
-					culture = irish
-					culture = scottish
-					culture = norsegael
-					culture = pictish
-				}
-				NOT = { trait = incapable }
-			}
+		event_target:target_courtier = {
 			opinion = {
 				modifier = opinion_played_a_good_game
 				who = ROOT
@@ -4034,7 +4028,7 @@ character_event = {
 			50 = {
 				create_random_soldier = {
 					random_traits = yes
-					dynasty = random
+					dynasty = culture
 					female = no
 					attributes = {
 						martial = 4
@@ -4056,7 +4050,7 @@ character_event = {
 			30 = {
 				create_random_soldier = {
 					random_traits = yes
-					dynasty = random
+					dynasty = culture
 					female = no
 					attributes = {
 						martial = 7
@@ -4078,7 +4072,7 @@ character_event = {
 			20 = {
 				create_random_soldier = {
 					random_traits = yes
-					dynasty = random
+					dynasty = culture
 					female = no
 					attributes = {
 						martial = 10
@@ -4114,12 +4108,12 @@ character_event = {
 	
 	is_triggered_only = yes
 	
+	only_rulers = yes
 	min_age = 16
 	capable_only = yes
 	prisoner = no
 	
 	trigger = {
-		is_ruler = yes
 		war = no
 		in_command = no
 		OR = {
@@ -4222,12 +4216,12 @@ character_event = {
 	
 	is_triggered_only = yes
 	
+	only_rulers = yes
 	min_age = 16
 	capable_only = yes
 	prisoner = no
 	
 	trigger = {
-		is_ruler = yes
 		war = no
 		in_command = no
 		OR = {
@@ -4346,12 +4340,12 @@ character_event = {
 	
 	is_triggered_only = yes
 	
+	only_rulers = yes
 	min_age = 16
 	capable_only = yes
 	prisoner = no
 	
 	trigger = {
-		is_ruler = yes
 		war = no
 		in_command = no
 		OR = {
@@ -4442,12 +4436,12 @@ character_event = {
 	
 	is_triggered_only = yes
 	
+	only_rulers = yes
 	min_age = 16
 	capable_only = yes
 	prisoner = no
 	
 	trigger = {
-		is_ruler = yes
 		war = no
 		in_command = no
 		OR = {
@@ -4537,12 +4531,12 @@ character_event = {
 	
 	is_triggered_only = yes
 	
+	only_rulers = yes
 	min_age = 16
 	capable_only = yes
 	prisoner = no
 	
 	trigger = {
-		is_ruler = yes
 		war = no
 		in_command = no
 		OR = {
@@ -4626,12 +4620,12 @@ character_event = {
 	
 	is_triggered_only = yes
 	
+	only_rulers = yes
 	min_age = 16
 	capable_only = yes
 	prisoner = no
 	
 	trigger = {
-		is_ruler = yes
 		war = no
 		in_command = no
 		OR = {
@@ -4734,12 +4728,12 @@ character_event = {
 	
 	is_triggered_only = yes
 	
+	only_rulers = yes
 	min_age = 16
 	capable_only = yes
 	prisoner = no
 	
 	trigger = {
-		is_ruler = yes
 		war = no
 		in_command = no
 		OR = {
@@ -4748,10 +4742,10 @@ character_event = {
 		}
 		OR = {
 			any_vassal = {
-				trait = sacred_reindeer
+				trait = shaman
 			}
 			any_courtier = {
-				trait = sacred_reindeer
+				trait = shaman
 			}
 		}
 	}
@@ -4908,12 +4902,12 @@ character_event = {
 	
 	is_triggered_only = yes
 	
+	only_rulers = yes
 	min_age = 16
 	capable_only = yes
 	prisoner = no
 	
 	trigger = {
-		is_ruler = yes
 		war = no
 		in_command = no
 		OR = {
@@ -4922,10 +4916,10 @@ character_event = {
 		}
 		OR = {
 			any_vassal = {
-				trait = sacred_reindeer
+				trait = shaman
 			}
 			any_courtier = {
-				trait = sacred_reindeer
+				trait = shaman
 			}
 		}
 	}
@@ -5140,12 +5134,12 @@ character_event = {
 	
 	is_triggered_only = yes
 	
+	only_rulers = yes
 	min_age = 16
 	capable_only = yes
 	prisoner = no
 	
 	trigger = {
-		is_ruler = yes
 		war = no
 		in_command = no
 		OR = {
@@ -5154,10 +5148,10 @@ character_event = {
 		}
 		OR = {
 			any_vassal = {
-				trait = sacred_reindeer
+				trait = shaman
 			}
 			any_courtier = {
-				trait = sacred_reindeer
+				trait = shaman
 			}
 		}
 	}

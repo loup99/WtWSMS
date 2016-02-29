@@ -1,5 +1,50 @@
 # Demesne type (de facto) laws (set for the PRIMARY title in a demesne but affects the whole demesne)
 
+law_groups = {
+	centralization = {
+		law_type = realm
+	}
+	tribal_organization = {
+		law_type = realm
+	}
+	vice_royalty = {
+		law_type = realm
+	}
+	administration = {
+		law_type = realm
+	}
+	feudal_contract = {
+		law_type = realm
+	}
+	feudal_tax = {
+		law_type = realm
+	}
+	iqta_contract = {
+		law_type = realm
+	}
+	iqta_tax = {
+		law_type = realm
+	}
+	city_contract = {
+		law_type = realm
+	}
+	city_tax = {
+		law_type = realm
+	}
+	temple_contract = {
+		law_type = realm
+	}
+	temple_tax = {
+		law_type = realm
+	}
+	tribal_contract = {
+		law_type = realm
+	}
+	tribal_tax = {
+		law_type = realm
+	}
+}
+
 laws = {
 
 	# CENTRALIZATION LAWS
@@ -308,9 +353,7 @@ laws = {
 		allow = {
 			has_law = centralization_3
 			OR = {
-				OR = {
-					has_law = tribal_organization_4
-				}
+				has_law = tribal_organization_4
 				holder_scope = {
 					is_tribal = no
 				}
@@ -434,39 +477,26 @@ laws = {
 			factor = 0
 		}
 		effect = {
+			if = { 
+				limit = { NOT = { has_dlc = "Zeus" } }
+				set_allow_title_revokation = no
+				set_allow_free_infidel_revokation = no
+				set_tribal_vassal_levy_control = no
+				set_tribal_vassal_tax_income = no
+			}
 			hidden_tooltip = {
-				revoke_law = tribal_organization_0
-				revoke_law = tribal_organization_1
-				revoke_law = tribal_organization_2
-				revoke_law = tribal_organization_3
-				revoke_law = tribal_organization_4
-				revoke_law = tribal_contract_0
-				revoke_law = tribal_contract_1
-				revoke_law = tribal_contract_2
-				revoke_law = tribal_contract_3
-				revoke_law = tribal_tax_0
-				revoke_law = tribal_tax_1
-				revoke_law = tribal_tax_2
-				revoke_law = tribal_tax_3
 				if = {
-					limit = {
-						OR = {
-							has_law = centralization_1
-							has_law = centralization_2
-							has_law = centralization_3
-							has_law = centralization_4
-						}
-					}
-					add_law = centralization_0
+					limit = { has_dlc = "Zeus" }
+					revoke_law = law_voting_power_1
+					revoke_law = war_voting_power_1
+					disable_council_voting_on_issue = laws
+					disable_council_voting_on_issue = enforce_peace
+					disable_council_voting_on_issue = declare_war_interaction
 				}
 			}
-			set_allow_title_revokation = no
-			set_allow_free_infidel_revokation = no
 			if = {
 				limit = { 
-					OR = {
-						has_law = tribal_organization_1
-					}
+					has_law = tribal_organization_1
 				}
 				custom_tooltip = {
 					text = disables_centralization_1
@@ -474,9 +504,7 @@ laws = {
 			}
 			if = {
 				limit = { 
-					OR = {
-						has_law = tribal_organization_2
-					}
+					has_law = tribal_organization_2
 				}
 				custom_tooltip = {
 					text = disables_centralization_2
@@ -484,9 +512,7 @@ laws = {
 			}
 			if = {
 				limit = { 
-					OR = {
-						has_law = tribal_organization_3
-					}
+					has_law = tribal_organization_3
 				}
 				custom_tooltip = {
 					text = disables_centralization_3
@@ -500,25 +526,45 @@ laws = {
 			}
 			if = {
 				limit = { 
-					OR = {
-						has_law = tribal_organization_4
-					}
+					has_law = tribal_organization_4
 				}
 				custom_tooltip = {
 					text = disables_centralization_4
 				}
 			}
-			set_tribal_vassal_levy_control = no
-			set_tribal_vassal_tax_income = no
 			if = {
 				limit = { 
-					OR = {
-						has_law = tribal_organization_4
-					}
+					has_law = tribal_organization_4
 				}
 				custom_tooltip = {
 					text = disallows_change_government
 				}
+			}
+			hidden_tooltip = {
+				if = {
+					limit = {
+						OR = {
+							has_law = centralization_1
+							has_law = centralization_2
+							has_law = centralization_3
+							has_law = centralization_4
+						}
+					}
+					add_law = centralization_0
+				}
+				revoke_law = tribal_organization_0
+				revoke_law = tribal_organization_1
+				revoke_law = tribal_organization_2
+				revoke_law = tribal_organization_3
+				revoke_law = tribal_organization_4
+				revoke_law = tribal_contract_0
+				revoke_law = tribal_contract_1
+				revoke_law = tribal_contract_2
+				revoke_law = tribal_contract_3
+				revoke_law = tribal_tax_0
+				revoke_law = tribal_tax_1
+				revoke_law = tribal_tax_2
+				revoke_law = tribal_tax_3
 			}
 		}
 	}
@@ -616,37 +662,16 @@ laws = {
 			}
 		}
 		effect = {
-			hidden_tooltip = {
-				revoke_law = tribal_organization_0
-				revoke_law = tribal_organization_1
-				revoke_law = tribal_organization_2
-				revoke_law = tribal_organization_3
-				revoke_law = tribal_organization_4
-				revoke_law = tribal_contract_0
-				revoke_law = tribal_contract_1
-				revoke_law = tribal_contract_2
-				revoke_law = tribal_contract_3
-				revoke_law = tribal_tax_0
-				revoke_law = tribal_tax_1
-				revoke_law = tribal_tax_2
-				revoke_law = tribal_tax_3
-				if = {
-					limit = {
-						OR = {
-							has_law = centralization_2
-							has_law = centralization_3
-							has_law = centralization_4
-						}
-					}
-					add_law = centralization_1
-				}
+			if = {
+				limit = { NOT = { has_dlc = "Zeus" } }
+				set_allow_title_revokation = yes
+				set_allow_free_infidel_revokation = no
+				set_tribal_vassal_levy_control = no
+				set_tribal_vassal_tax_income = no
 			}
-			set_allow_title_revokation = yes
 			if = {
 				limit = { 
-					OR = {
-						has_law = tribal_organization_0
-					}
+					has_law = tribal_organization_0
 				}
 				custom_tooltip = {
 					text = enables_centralization_1
@@ -654,9 +679,7 @@ laws = {
 			}
 			if = {
 				limit = { 
-					OR = {
-						has_law = tribal_organization_2
-					}
+					has_law = tribal_organization_2
 				}
 				custom_tooltip = {
 					text = disables_centralization_2
@@ -664,9 +687,7 @@ laws = {
 			}
 			if = {
 				limit = { 
-					OR = {
-						has_law = tribal_organization_3
-					}
+					has_law = tribal_organization_3
 				}
 				custom_tooltip = {
 					text = disables_centralization_3
@@ -680,26 +701,58 @@ laws = {
 			}
 			if = {
 				limit = { 
-					OR = {
-						has_law = tribal_organization_4
-					}
+					has_law = tribal_organization_4
 				}
 				custom_tooltip = {
 					text = disables_centralization_4
 				}
 			}
-			set_allow_free_infidel_revokation = no
-			set_tribal_vassal_levy_control = no
-			set_tribal_vassal_tax_income = no
 			if = {
 				limit = { 
-					OR = {
-						has_law = tribal_organization_4
-					}
+					has_law = tribal_organization_4
 				}
 				custom_tooltip = {
 					text = disallows_change_government
 				}
+			}
+			if = {
+				limit = { has_dlc = "Zeus" }
+				add_law = law_voting_power_1
+				add_law = war_voting_power_1
+			}
+			hidden_tooltip = {
+				if = {
+					limit = {
+						OR = {
+							has_law = centralization_2
+							has_law = centralization_3
+							has_law = centralization_4
+						}
+					}
+					add_law = centralization_1
+				}
+				if = { 
+					limit = { has_dlc = "Zeus" } 
+					hidden_tooltip = {
+						revoke_law = revoke_title_voting_power_1
+						revoke_law = grant_title_voting_power_1
+						disable_council_voting_on_issue = revoke_title_interaction
+						disable_council_voting_on_issue = grant_landed_title_interaction
+					}
+				}
+				revoke_law = tribal_organization_0
+				revoke_law = tribal_organization_1
+				revoke_law = tribal_organization_2
+				revoke_law = tribal_organization_3
+				revoke_law = tribal_organization_4
+				revoke_law = tribal_contract_0
+				revoke_law = tribal_contract_1
+				revoke_law = tribal_contract_2
+				revoke_law = tribal_contract_3
+				revoke_law = tribal_tax_0
+				revoke_law = tribal_tax_1
+				revoke_law = tribal_tax_2
+				revoke_law = tribal_tax_3
 			}
 		}
 	}
@@ -797,32 +850,13 @@ laws = {
 			}
 		}
 		effect = {
-			hidden_tooltip = {
-				revoke_law = tribal_organization_0
-				revoke_law = tribal_organization_1
-				revoke_law = tribal_organization_2
-				revoke_law = tribal_organization_3
-				revoke_law = tribal_organization_4
-				revoke_law = tribal_contract_0
-				revoke_law = tribal_contract_1
-				revoke_law = tribal_contract_2
-				revoke_law = tribal_contract_3
-				revoke_law = tribal_tax_0
-				revoke_law = tribal_tax_1
-				revoke_law = tribal_tax_2
-				revoke_law = tribal_tax_3
-				if = {
-					limit = {
-						OR = {
-							has_law = centralization_3
-							has_law = centralization_4
-						}
-					}
-					add_law = centralization_2
-				}
+			if = {
+				limit = { NOT = { has_dlc = "Zeus" } }
+				set_allow_title_revokation = yes
+				set_allow_free_infidel_revokation = yes
+				set_tribal_vassal_levy_control = no
+				set_tribal_vassal_tax_income = no
 			}
-			set_allow_title_revokation = yes
-			set_allow_free_infidel_revokation = yes
 			if = {
 				limit = { 
 					OR = {
@@ -836,9 +870,7 @@ laws = {
 			}
 			if = {
 				limit = { 
-					OR = {
-						has_law = tribal_organization_3
-					}
+					has_law = tribal_organization_3
 				}
 				custom_tooltip = {
 					text = disables_centralization_3
@@ -852,25 +884,59 @@ laws = {
 			}
 			if = {
 				limit = { 
-					OR = {
-						has_law = tribal_organization_4
-					}
+					has_law = tribal_organization_4
 				}
 				custom_tooltip = {
 					text = disables_centralization_4
 				}
 			}
-			set_tribal_vassal_levy_control = no
-			set_tribal_vassal_tax_income = no
 			if = {
 				limit = { 
-					OR = {
-						has_law = tribal_organization_4
-					}
+					has_law = tribal_organization_4
 				}
 				custom_tooltip = {
 					text = disallows_change_government
 				}
+			}
+			if = {
+				limit = { has_dlc = "Zeus" }
+				add_law = revoke_title_voting_power_1
+				add_law = grant_title_voting_power_1
+			}
+			hidden_tooltip = {
+				if = {
+					limit = {
+						OR = {
+							has_law = centralization_3
+							has_law = centralization_4
+						}
+					}
+					add_law = centralization_2
+				}
+				if = {
+					limit = { has_dlc = "Zeus" }
+					hidden_tooltip = {
+						revoke_law = imprison_voting_power_1
+						revoke_law = banish_voting_power_1
+						revoke_law = execution_voting_power_1
+						disable_council_voting_on_issue = imprison_character_interaction
+						disable_council_voting_on_issue = exile_imprisoned_interaction
+						disable_council_voting_on_issue = execute_imprisoned_interaction
+					}
+				}
+				revoke_law = tribal_organization_0
+				revoke_law = tribal_organization_1
+				revoke_law = tribal_organization_2
+				revoke_law = tribal_organization_3
+				revoke_law = tribal_organization_4
+				revoke_law = tribal_contract_0
+				revoke_law = tribal_contract_1
+				revoke_law = tribal_contract_2
+				revoke_law = tribal_contract_3
+				revoke_law = tribal_tax_0
+				revoke_law = tribal_tax_1
+				revoke_law = tribal_tax_2
+				revoke_law = tribal_tax_3
 			}
 		}
 	}
@@ -968,25 +1034,25 @@ laws = {
 			}
 		}
 		effect = {
-			hidden_tooltip = {
-				revoke_law = tribal_organization_0
-				revoke_law = tribal_organization_1
-				revoke_law = tribal_organization_2
-				revoke_law = tribal_organization_3
-				revoke_law = tribal_organization_4
-				if = {
-					limit = {
-						OR = {
-							has_law = centralization_4
-						}
-					}
-					add_law = centralization_3
+			if = {
+				limit = { NOT = { has_dlc = "Zeus" } }
+				set_allow_title_revokation = yes
+				set_allow_free_infidel_revokation = yes
+				set_tribal_vassal_levy_control = yes
+				set_tribal_vassal_tax_income = yes
+			}
+			if = {
+				limit = { has_dlc = "Zeus" }
+				add_law = imprison_voting_power_1
+				add_law = banish_voting_power_1
+				add_law = execution_voting_power_1
+				hidden_tooltip = {
+					add_law = law_voting_power_1
+					add_law = war_voting_power_1
+					add_law = revoke_title_voting_power_1
+					add_law = grant_title_voting_power_1
 				}
 			}
-			set_allow_title_revokation = yes
-			set_allow_free_infidel_revokation = yes
-			set_tribal_vassal_levy_control = yes
-			set_tribal_vassal_tax_income = yes
 			if = {
 				limit = { 
 					OR = {
@@ -995,15 +1061,18 @@ laws = {
 						has_law = tribal_organization_2
 					}
 				}
-				custom_tooltip = {
-					text = enables_tribal_levy_laws
-				}
-				custom_tooltip = {
-					text = enables_tribal_tax_laws
-				}
-				hidden_tooltip = {
-					add_law = tribal_contract_0
-					add_law = tribal_tax_0
+				if = {
+					limit = { NOT = { has_dlc = "Zeus" } }
+					custom_tooltip = {
+						text = enables_tribal_levy_laws
+					}
+					custom_tooltip = {
+						text = enables_tribal_tax_laws
+					}
+					hidden_tooltip = {
+						add_law = tribal_contract_0
+						add_law = tribal_tax_0
+					}
 				}
 				custom_tooltip = {
 					text = enables_centralization_3
@@ -1011,9 +1080,7 @@ laws = {
 			}
 			if = {
 				limit = { 
-					OR = {
-						has_law = tribal_organization_4
-					}
+					has_law = tribal_organization_4
 				}
 				custom_tooltip = {
 					text = disables_centralization_4
@@ -1021,13 +1088,24 @@ laws = {
 			}
 			if = {
 				limit = { 
-					OR = {
-						has_law = tribal_organization_4
-					}
+					has_law = tribal_organization_4
 				}
 				custom_tooltip = {
 					text = disallows_change_government
 				}
+			}
+			hidden_tooltip = {
+				if = {
+					limit = {
+						has_law = centralization_4
+					}
+					add_law = centralization_3
+				}
+				revoke_law = tribal_organization_0
+				revoke_law = tribal_organization_1
+				revoke_law = tribal_organization_2
+				revoke_law = tribal_organization_3
+				revoke_law = tribal_organization_4
 			}
 		}
 	}
@@ -1099,17 +1177,13 @@ laws = {
 			}
 		}
 		effect = {
-			hidden_tooltip = {
-				revoke_law = tribal_organization_0
-				revoke_law = tribal_organization_1
-				revoke_law = tribal_organization_2
-				revoke_law = tribal_organization_3
-				revoke_law = tribal_organization_4
+			if = {
+				limit = { NOT = { has_dlc = "Zeus" } }
+				set_allow_title_revokation = yes
+				set_allow_free_infidel_revokation = yes
+				set_tribal_vassal_levy_control = yes
+				set_tribal_vassal_tax_income = yes
 			}
-			set_allow_title_revokation = yes
-			set_allow_free_infidel_revokation = yes
-			set_tribal_vassal_levy_control = yes
-			set_tribal_vassal_tax_income = yes
 			if = {
 				limit = { 
 					OR = {
@@ -1130,6 +1204,7 @@ laws = {
 						has_law = tribal_organization_1
 						has_law = tribal_organization_2
 					}
+					NOT = { has_dlc = "Zeus" }
 				}
 				custom_tooltip = {
 					text = enables_tribal_levy_laws
@@ -1154,6 +1229,13 @@ laws = {
 				custom_tooltip = {
 					text = allows_change_government
 				}
+			}
+			hidden_tooltip = {
+				revoke_law = tribal_organization_0
+				revoke_law = tribal_organization_1
+				revoke_law = tribal_organization_2
+				revoke_law = tribal_organization_3
+				revoke_law = tribal_organization_4
 			}
 		}
 	}
@@ -1216,10 +1298,8 @@ laws = {
 			}
 			modifier = {
 				factor = 0
-				AND = {
-					has_law = vice_royalty_0
-					over_vassal_limit = -5
-				}
+				has_law = vice_royalty_0
+				over_vassal_limit = -5
 			}
 		}
 		ai_will_revoke = {
@@ -1256,17 +1336,13 @@ laws = {
 			factor = 3
 			modifier = {
 				factor = 0
-				AND = {
-					has_law = vice_royalty_0
-					over_vassal_limit = -10
-				}
+				has_law = vice_royalty_0
+				over_vassal_limit = -10
 			}
 			modifier = {
 				factor = 0
-				AND = {
-					has_law = vice_royalty_1
-					over_vassal_limit = -5
-				}
+				has_law = vice_royalty_1
+				over_vassal_limit = -5
 			}
 		}
 		ai_will_revoke = {
@@ -1290,7 +1366,11 @@ laws = {
 	feudal_administration = {
 		group = administration
 		
+		allow = {
+		}
+		
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			higher_tier_than = king
 			holder_scope = {
 				independent = yes
@@ -1309,9 +1389,6 @@ laws = {
 		}
 		
 		effect = {
-			hidden_tooltip = {
-				revoke_law = imperial_administration
-			}
 			if = {
 				limit = { 
 					NOT = { has_dlc = "Charlemagne" } 
@@ -1324,6 +1401,9 @@ laws = {
 				}
 				set_allow_free_vice_royalty_revokation = no
 			}
+			hidden_tooltip = {
+				revoke_law = imperial_administration
+			}
 		}
 	}
 	
@@ -1335,6 +1415,7 @@ laws = {
 		}
 		
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			higher_tier_than = king
 			holder_scope = {
 				independent = yes
@@ -1353,9 +1434,6 @@ laws = {
 		}
 		
 		effect = {
-			hidden_tooltip = {
-				revoke_law = feudal_administration
-			}
 			if = {
 				limit = { 
 					NOT = { has_dlc = "Charlemagne" } 
@@ -1368,6 +1446,9 @@ laws = {
 				}
 				add_law = vice_royalty_2
 				set_allow_free_vice_royalty_revokation = yes
+			}
+			hidden_tooltip = {
+				revoke_law = feudal_administration
 			}
 		}
 		
@@ -1384,6 +1465,7 @@ laws = {
 		feudal_opinion = 10
 		
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -1416,6 +1498,7 @@ laws = {
 		feudal_opinion = 5
 		
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -1448,6 +1531,7 @@ laws = {
 		default = yes
 		
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -1480,6 +1564,7 @@ laws = {
 		feudal_opinion = -5
 		
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -1512,6 +1597,7 @@ laws = {
 		default = yes
 		
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -1543,6 +1629,7 @@ laws = {
 		feudal_opinion = -10
 		
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -1575,6 +1662,7 @@ laws = {
 		group = feudal_tax
 		feudal_opinion = -20
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -1605,6 +1693,7 @@ laws = {
 		group = feudal_tax
 		feudal_opinion = -30
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -1644,6 +1733,7 @@ laws = {
 		feudal_opinion = 10
 		
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -1676,6 +1766,7 @@ laws = {
 		feudal_opinion = 5
 		
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -1708,6 +1799,7 @@ laws = {
 		default = yes
 		
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -1740,6 +1832,7 @@ laws = {
 		feudal_opinion = -5
 		
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -1771,6 +1864,7 @@ laws = {
 		feudal_opinion = 10
 		
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -1803,6 +1897,7 @@ laws = {
 		feudal_opinion = -0
 		
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -1834,6 +1929,7 @@ laws = {
 		group = iqta_tax
 		feudal_opinion = -10
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -1864,6 +1960,7 @@ laws = {
 		group = iqta_tax
 		feudal_opinion = -20
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -1898,6 +1995,7 @@ laws = {
 		group = city_contract
 		city_opinion = 10
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -1929,6 +2027,7 @@ laws = {
 		city_opinion = 0
 		default = yes
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -1959,6 +2058,7 @@ laws = {
 		group = city_contract
 		city_opinion = -10
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -1988,6 +2088,7 @@ laws = {
 		group = city_contract
 		city_opinion = -20
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -2022,6 +2123,7 @@ laws = {
 		group = city_tax
 		city_opinion = 10
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -2054,6 +2156,7 @@ laws = {
 		default = yes
 		
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -2084,6 +2187,7 @@ laws = {
 		group = city_tax
 		city_opinion = -10
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -2114,6 +2218,7 @@ laws = {
 		city_opinion = -20
 		
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -2147,6 +2252,7 @@ laws = {
 		group = temple_contract
 		temple_opinion = 10
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -2180,6 +2286,7 @@ laws = {
 		default = yes
 		
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -2209,6 +2316,7 @@ laws = {
 		group = temple_contract
 		temple_opinion = -10
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -2238,6 +2346,7 @@ laws = {
 		group = temple_contract
 		temple_opinion = -20
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -2272,6 +2381,7 @@ laws = {
 		group = temple_tax
 		temple_opinion = 20
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -2305,6 +2415,7 @@ laws = {
 		default = yes
 		
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -2334,6 +2445,7 @@ laws = {
 		group = temple_tax
 		temple_opinion = -10
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -2363,6 +2475,7 @@ laws = {
 		group = temple_tax
 		temple_opinion = -20
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -2396,6 +2509,7 @@ laws = {
 		tribal_opinion = 0
 		
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -2438,6 +2552,7 @@ laws = {
 		default = yes
 		
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -2477,6 +2592,7 @@ laws = {
 		tribal_opinion = -20
 		
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -2516,6 +2632,7 @@ laws = {
 		tribal_opinion = -30
 		
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -2541,10 +2658,10 @@ laws = {
 		}
 		effect = {
 			hidden_tooltip = {
+				revoke_law = tribal_contract_0
 				revoke_law = tribal_contract_1
 				revoke_law = tribal_contract_2
 				revoke_law = tribal_contract_3
-				revoke_law = tribal_contract_4
 			}
 		}
 		tribal_vassal_max_levy = -0.2
@@ -2561,6 +2678,7 @@ laws = {
 		default = yes
 		
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -2602,6 +2720,7 @@ laws = {
 		tribal_opinion = -10
 		
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -2641,6 +2760,7 @@ laws = {
 		tribal_opinion = -20
 		
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -2680,6 +2800,7 @@ laws = {
 		tribal_opinion = -30
 		
 		potential = {
+			NOT = { has_dlc = "Zeus" }
 			OR = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
@@ -2713,5 +2834,4 @@ laws = {
 		}
 		tribal_vassal_tax_modifier = 0.3
 	}
-
 }

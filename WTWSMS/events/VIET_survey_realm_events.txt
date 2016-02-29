@@ -1,4 +1,3 @@
-# Audax Validator "!" Ignore_NEXT
 ###################################
 #
 # Survey Realm Events
@@ -28,7 +27,11 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA1000109048"	
+		name = "EVTOPTA1000109048"
+		remove_trait = traveling
+		set_character_flag = survey_aborted
+		clr_character_flag = do_not_disturb
+		clr_character_flag = maiq_the_liar
 	}
 }
 
@@ -95,11 +98,16 @@ character_event = {
 			factor = 1.5
 			trait = paranoid
 		}
+		modifier = {
+			factor = 0.5
+			has_character_flag = survey_aborted
+		}
 	}
 	
 	option = {
 		name = "EVTOPTA1000109049"
 		clr_character_flag = surveyed_realm
+		clr_character_flag = survey_aborted
 	}
 }
 
@@ -135,6 +143,7 @@ character_event = {
 	id = VIETnam.36
 	desc = "EVTDESC1000109051"
 	picture = GFX_evt_travel
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
@@ -205,8 +214,13 @@ character_event = {
 	id = VIETnam.37
 	desc = "EVTDESC1000109052"
 	picture = GFX_evt_travel
+	hide_from = yes
 	
 	is_triggered_only = yes
+	
+	trigger = {
+		trait = traveling
+	}
 	
 	immediate = {
 		hidden_tooltip = {
@@ -278,8 +292,13 @@ character_event = {
 	id = VIETnam.38
 	desc = "EVTDESC1000109053"
 	picture = GFX_evt_travel
+	hide_from = yes
 	
 	is_triggered_only = yes
+	
+	trigger = {
+		trait = traveling
+	}
 	
 	immediate = {
 		hidden_tooltip = {
@@ -351,15 +370,365 @@ character_event = {
 	id = VIETnam.39
 	desc = "EVTDESC1000109054"
 	picture = GFX_evt_coming_home
+	hide_from = yes
 	
 	is_triggered_only = yes
+	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = {
 		name = "EVTOPTA1000109054"
 		prestige = 25
 		remove_trait = traveling
 		clr_character_flag = maiq_the_liar
+		clr_character_flag = do_not_disturb
 	}
+}
+
+##########################################################################
+# Qi Ma the Liar
+##########################################################################
+
+#Qi Ma the Liar
+character_event = {
+	id = VIETnam.40
+	desc = "EVTDESC1000109055"
+	picture = GFX_evt_small_town
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = traveling
+	}
+	
+	option = { #Listen to what Qi Ma has to say
+		name = "EVTOPTA1000109055"
+		prestige = -5
+		hidden_tooltip = {
+			random_list = {
+				20 = {  character_event = { id = VIETnam.41 } }
+				20 = {  character_event = { id = VIETnam.42 } }
+				20 = {  character_event = { id = VIETnam.43 } }
+				20 = {  character_event = { id = VIETnam.44 } }
+				20 = {  character_event = { id = VIETnam.45 } }
+				10 = {
+					character_event = {
+						id = qimatheliar.1
+					}
+				}
+				10 = {
+					character_event = {
+						id = qimatheliar.2
+					}
+				}
+				10 = {
+					character_event = {
+						id = qimatheliar.3
+					}
+				}
+				5 = {
+					character_event = {
+						id = qimatheliar.4
+					}
+				}
+				5 = {
+					character_event = {
+						id = qimatheliar.5
+					}
+				}
+			}
+		}
+	}
+	option = { #Ignore Qi Ma
+		name = "EVTOPTB1000109055"
+		piety = 5
+	}
+}
+
+
+#Qi Ma 1 - Firstborn sons
+character_event = {
+	id = VIETnam.41
+	desc = "EVTDESC1000109056"
+	picture = GFX_evt_child_bully
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = traveling
+	}
+	
+	option = {
+		name = "EVTOPTA1000109056"
+		random_list = {
+			70 = { }
+			30 = { change_intrigue = 1 }
+		}
+	}
+}
+
+#Qi Ma 2 - So many flavor events
+character_event = {
+	id = VIETnam.42
+	desc = "EVTDESC1000109057"
+	picture = GFX_evt_coming_home
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = traveling
+	}
+	
+	option = {
+		name = "EVTOPTA1000109057"
+		random_list = {
+			70 = { }
+			30 = { change_stewardship = 1 }
+		}
+		set_character_flag = maiq_deja_vu
+	}
+	option = {
+		name = "EVTOPTB1000109057"
+		trigger = {
+			has_character_flag = maiq_deja_vu
+		}
+		random_list = {
+			70 = { }
+			30 = { change_stewardship = 1 }
+		}
+	}	
+}
+
+#Qi Ma 3 - Portrait DLCs
+character_event = {
+	id = VIETnam.43
+	desc = "EVTDESC1000109058"
+	picture = GFX_evt_shadow
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = traveling
+	}
+	
+	option = {
+		name = "EVTOPTA1000109058"
+		random_list = {
+			70 = { }
+			30 = { change_diplomacy = 1 }
+		}
+	}
+	option = {
+		name = "EVTOPTB1000109058"
+		random_list = {
+			70 = { }
+			30 = { change_diplomacy = 1 }
+		}
+	}
+}
+
+#Qi Ma 4 - 	Byzantines always play Tzykanion
+character_event = {
+	id = VIETnam.44
+	desc = "EVTDESC1000109059"
+	picture = GFX_evt_feast
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = traveling
+	}
+	
+	option = {
+		name = "EVTOPTA1000109059"
+		trigger = {
+			e_byzantium = {
+				has_holder = yes
+			}		
+		}
+		random_list = {
+			70 = { }
+			30 = { change_martial = 1 }
+		}
+	}
+	option = {
+		name = "EVTOPTB1000109059"
+		trigger = {
+			culture = greek
+			OR = {
+				liege = { has_landed_title = e_byzantium }
+				has_landed_title = e_byzantium
+			}
+		}
+		random_list = {
+			70 = { }
+			30 = { change_martial = 1 }
+		}
+	}
+	option = {
+		name = "EVTOPTC1000109059"
+		trigger = {
+			e_byzantium = {
+				has_holder = no
+			}
+		}
+		random_list = {
+			70 = { }
+			30 = { change_martial = 1 }
+		}
+	}
+}
+
+#Qi Ma 5 - Catholic Church is Open-minded
+character_event = {
+	id = VIETnam.45
+	desc = "EVTDESC1000109060"
+	picture = GFX_evt_pope
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = traveling
+	}
+	
+	option = {
+		name = "EVTOPTA1000109060"
+		random_list = {
+			70 = { }
+			30 = { change_learning = 1 }
+		}
+	}
+}
+
+#Qi Ma 6 - Norse beards
+character_event = {
+	id = qimatheliar.1
+	desc = qimatheliar.1.desc
+	picture = GFX_evt_vikings_arriving_oldgods
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = traveling
+	}
+	
+	option = {
+		name = qimatheliar.1.a
+		random_list = {
+			70 = { }
+			30 = { change_diplomacy = 1 }
+		}
+	}
+}
+
+#Qi Ma 7 - Attritionless Mongols
+character_event = {
+	id = qimatheliar.2
+	desc = qimatheliar.2.desc
+	picture = GFX_evt_mongols_pillage_oldgods
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = traveling
+	}
+	
+	option = {
+		name = qimatheliar.2.a
+		random_list = {
+			70 = { }
+			30 = { change_martial = 1 }
+		}
+	}
+}
+
+#Qi Ma 8 - De jure empires
+character_event = {
+	id = qimatheliar.3
+	desc = qimatheliar.3.desc
+	picture = GFX_evt_rome_restored_byzantine
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = traveling
+	}
+	
+	option = {
+		name = qimatheliar.3.a
+		random_list = {
+			70 = { }
+			30 = { change_stewardship = 1 }
+		}
+	}
+}
+
+#Qi Ma 9 - Lol Decadence
+character_event = {
+	id = qimatheliar.4
+	desc = qimatheliar.4.desc
+	picture = GFX_evt_moorish_decor
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = traveling
+	}
+	
+	option = {
+		name = qimatheliar.4.a
+		trigger = {
+			NOT = { religion_group = muslim }
+		}
+		random_list = {
+			70 = { }
+			30 = { change_intrigue = 1 }
+		}
+	}	
+	option = {
+		name = qimatheliar.4.b
+		trigger = {
+			religion_group = muslim
+		}
+		random_list = {
+			70 = { }
+			30 = { change_intrigue = 1 }
+		}
+	}
+}
+
+#Qi Ma 10 - Qi Ma's ancestry
+character_event = {
+	id = qimatheliar.5
+	desc = qimatheliar.5.desc
+	picture = GFX_evt_death_eastern_group
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = traveling
+	}
+	
+	option = {
+		name = qimatheliar.5.a
+		random_list = {
+			70 = { }
+			30 = { change_learning = 1 }
+		}
+	}	
 }
 
 
@@ -372,8 +741,13 @@ character_event = {
 	id = VIETnam.55
 	desc = "EVTDESC1000109071"
 	picture = GFX_evt_battle
+	hide_from = yes
 	
 	is_triggered_only = yes
+	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #Fighto
 		name = "EVTOPTA1000109071"
@@ -431,8 +805,13 @@ character_event = {
 	id = VIETnam.56
 	desc = "EVTDESC1000109072"
 	picture = GFX_evt_pale_rider
+	hide_from = yes
 	
 	is_triggered_only = yes
+	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #Steal - Dead anyways
 		name = "EVTOPTA1000109072"
@@ -479,8 +858,22 @@ character_event = {
 			1 = { wealth = 20 }
 		}
 		random_list = {
-			30 = { add_trait = greedy }
-			10 = { add_trait = arbitrary }
+			30 = {
+				add_trait = greedy
+				hidden_tooltip = {
+					character_event = {
+						id = 38252 #Notify Greedy
+					}
+				}
+			}
+			10 = {
+				add_trait = arbitrary
+				hidden_tooltip = {
+					character_event = {
+						id = 38266 #Notify Arbitrary
+					}
+				}
+			}
 			60 = { }
 		}
 	}
@@ -520,8 +913,22 @@ character_event = {
 		wealth = -1
 		piety = 10
 		random_list = {
-			20 = { add_trait = just }
-			10 = { add_trait = kind }
+			20 = {
+				add_trait = just
+				hidden_tooltip = {
+					character_event = {
+						id = 38267 #Notify Just
+					}
+				}
+			}
+			10 = {
+				add_trait = kind
+				hidden_tooltip = {
+					character_event = {
+						id = 38268 #Notify Kind
+					}
+				}
+			}
 			70 = { }
 		}
 	}	
@@ -532,8 +939,13 @@ character_event = {
 	id = VIETnam.46
 	desc = "EVTDESC1000109061"
 	picture = GFX_evt_bandits
+	hide_from = yes
 	
 	is_triggered_only = yes
+	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #Release the bandits
 		name = "EVTOPTA1000109061"
@@ -574,8 +986,22 @@ character_event = {
 		}
 		prestige = 5
 		random_list = {
-			15 = { add_trait = kind }
-			15 = { add_trait = trusting }
+			15 = {
+				add_trait = kind
+				hidden_tooltip = {
+					character_event = {
+						id = 38268 #Notify Kind
+					}
+				}
+			}
+			15 = {
+				add_trait = trusting
+				hidden_tooltip = {
+					character_event = {
+						id = 38250 #Notify Trusting
+					}
+				}
+			}
 			70 = { }
 		}
 		add_character_modifier = {
@@ -654,8 +1080,22 @@ character_event = {
 		}
 		prestige = 5
 		random_list = {
-			20 = { add_trait = wroth }
-			10 = { add_trait = cruel }
+			20 = {
+				add_trait = wroth
+				hidden_tooltip = {
+					character_event = {
+						id = 38254 #Notify Wroth
+					}
+				}
+			}
+			10 = {
+				add_trait = cruel
+				hidden_tooltip = {
+					character_event = {
+						id = 38259 #Notify Cruel
+					}
+				}
+			}
 			70 = { }
 		}
 	}
@@ -666,6 +1106,7 @@ character_event = {
 	id = VIETnam.47
 	desc = "EVTDESC1000109062"
 	picture = GFX_evt_bloody_man
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
@@ -690,9 +1131,13 @@ character_event = {
 	id = VIETnam.57
 	desc = "EVTDESC1000109075"
 	picture = GFX_evt_pale_rider
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #Find treasure
 		name = "EVTOPTA1000109075"
@@ -714,8 +1159,22 @@ character_event = {
 		piety = 20
 		prestige = 10
 		random_list = {
-			25 = { add_trait = humble }
-			25 = { add_trait = just }
+			25 = {
+				add_trait = humble
+				hidden_tooltip = {
+					character_event = {
+						id = 38260 #Notify Humble
+					}
+				}
+			}
+			25 = {
+				add_trait = just
+				hidden_tooltip = {
+					character_event = {
+						id = 38267 #Notify Just
+					}
+				}
+			}
 			50 = { }
 		}
 	}	
@@ -731,9 +1190,13 @@ character_event = {
 	id = VIETnam.48
 	desc = "EVTDESC1000109063"
 	picture = GFX_evt_castle_construction
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #How Unfortunate
 		name = "EVTOPTA1000109063"
@@ -768,9 +1231,13 @@ character_event = {
 	id = VIETnam.49
 	desc = "EVTDESC1000109064"
 	picture = GFX_evt_brothel
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #whorehouse
 		name = "EVTOPTA1000109064"
@@ -791,8 +1258,22 @@ character_event = {
 		prestige = 5
 		random_list = {
 			80 = { }
-			17 = { add_trait = gregarious }
-			3 = { add_trait = drunkard }
+			17 = {
+				add_trait = gregarious
+				hidden_tooltip = {
+					character_event = {
+						id = 38265 # Notify Gregarious
+					}
+				}
+			}
+			3 = {
+				add_trait = drunkard
+				hidden_tooltip = {
+					character_event = {
+						id = 38286 # Notify Drunkard
+					}
+				}
+			}
 		}
 	}
 	
@@ -832,6 +1313,7 @@ character_event = {
 	id = VIETnam.50
 	desc = "EVTDESC1000109065"
 	picture = GFX_evt_coming_home
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
@@ -867,6 +1349,7 @@ character_event = {
 	id = VIETnam.51
 	desc = "EVTDESC1000109066"
 	picture = GFX_evt_village_at_night
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
@@ -884,23 +1367,39 @@ character_event = {
 		name = "EVTOPTB1000109066"
 		random_list = {
 			70 = { }
-			20 = { add_trait = proud }
-			10 = { add_trait = paranoid }
+			20 = {
+				add_trait = proud
+				hidden_tooltip = {
+					character_event = {
+						id = 38261 #Notify Proud
+					}
+				}
+			}
+			10 = {
+				add_trait = paranoid
+				hidden_tooltip = {
+					character_event = {
+						id = 38275 #Notify Paranoid
+					}
+				}
+			}
 		}
 	}
 		
 }
-
-
 
 # Villagers offer present to character
 character_event = {
 	id = VIETnam.52
 	desc = "EVTDESC1000109067"
 	picture = GFX_evt_small_town
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #Refuse it
 		name = "EVTOPTA1000109067"
@@ -931,9 +1430,30 @@ character_event = {
 		wealth = 5
 		random_list = {
 			65 = { }
-			25 = { add_trait = greedy }
-			5 = { add_trait = cruel }
-			5 = { add_trait = arbitrary }
+			25 = {
+				add_trait = greedy
+				hidden_tooltip = {
+					character_event = {
+						id = 38252 #Notify Greedy
+					}
+				}
+			}
+			5 = {
+				add_trait = cruel
+				hidden_tooltip = {
+					character_event = {
+						id = 38259 #Notify Cruel
+					}
+				}
+			}
+			5 = {
+				add_trait = arbitrary
+				hidden_tooltip = {
+					character_event = {
+						id = 38266 #Notify Arbitrary
+					}
+				}
+			}
 		}
 		add_character_modifier = {
 			name = the_greedy
@@ -968,9 +1488,13 @@ character_event = {
 	id = VIETnam.53
 	desc = "EVTDESC1000109068"
 	picture = GFX_evt_knight_kneeling
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #Pray
 		name = "EVTOPTA1000109068"
@@ -1012,8 +1536,22 @@ character_event = {
 		piety = 15
 		random_list = {
 			70 = { }
-			15 = { add_trait = zealous }
-			15 = { add_trait = charitable }
+			15 = {
+				add_trait = zealous
+				hidden_tooltip = {
+					character_event = {
+						id = 38269 #Notify Zealous
+					}
+				}
+			}
+			15 = {
+				add_trait = charitable
+				hidden_tooltip = {
+					character_event = {
+						id = 38273 #Notify Charitable
+					}
+				}
+			}
 		}
 		random_vassal = {
 			limit = {
@@ -1057,15 +1595,26 @@ character_event = {
 	id = VIETnam.54
 	desc = "EVTDESC1000109069"
 	picture = GFX_evt_baklava
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #Lie
 		name = "EVTOPTA1000109069"
 		random_list = {
 			80 = { }
-			20 = { add_trait = deceitful }
+			20 = {
+				add_trait = deceitful
+				hidden_tooltip = {
+					character_event = {
+						id = 38255 #Notify Deceitful
+					}
+				}
+			}
 		}
 		random_vassal = {
 			limit = {
@@ -1083,8 +1632,22 @@ character_event = {
 		name = "EVTOPTB1000109069"
 		random_list = {
 			60 = { }
-			20 = { add_trait = cynical }
-			20 = { add_trait = honest }
+			20 = {
+				add_trait = cynical
+				hidden_tooltip = {
+					character_event = {
+						id = 38258 #Notify Cynical
+					}
+				}
+			}
+			20 = {
+				add_trait = honest
+				hidden_tooltip = {
+					character_event = {
+						id = 38262 #Notify Honest
+					}
+				}
+			}
 		}
 		random_vassal = {
 			limit = {
@@ -1121,7 +1684,14 @@ character_event = {
 		piety = 5
 		random_list = {
 			70 = { }
-			30 = { add_trait = content }
+			30 = {
+				add_trait = content
+				hidden_tooltip = {
+					character_event = {
+						id = 38279 #Notify Content
+					}
+				}
+			}
 		}
 		random_vassal = {
 			limit = {
@@ -1142,9 +1712,13 @@ character_event = {
 	id = VIETnam.58
 	desc = "EVTDESC1000109080"
 	picture = GFX_evt_child_play
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #Ignore her
 		name = "EVTOPTA1000109080"
@@ -1155,8 +1729,22 @@ character_event = {
 		}
 		random_list = {
 			70 = { }
-			10 = { add_trait = arbitrary }
-			30 = { add_trait = cruel }
+			10 = {
+				add_trait = arbitrary
+				hidden_tooltip = {
+					character_event = {
+						id = 38266 #Notify Arbitrary
+					}
+				}
+			}
+			30 = {
+				add_trait = cruel
+				hidden_tooltip = {
+					character_event = {
+						id = 38259 #Notify Cruel
+					}
+				}
+			}
 		}
 	}
 	
@@ -1214,9 +1802,13 @@ character_event = {
 	id = VIETnam.59
 	desc = "EVTDESC1000109081"
 	picture = GFX_evt_market
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #Only doing my duty
 		name = "EVTOPTA1000109081"
@@ -1242,9 +1834,30 @@ character_event = {
 		prestige = 10
 		random_list = {
 			70 = { }
-			10 = { add_trait = content }
-			10 = { add_trait = charitable }
-			10 = { add_trait = humble }
+			10 = {
+				add_trait = content
+				hidden_tooltip = {
+					character_event = {
+						id = 38279 #Notify Content
+					}
+				}
+			}
+			10 = {
+				add_trait = charitable
+				hidden_tooltip = {
+					character_event = {
+						id = 38273 #Notify Charitable
+					}
+				}
+			}
+			10 = {
+				add_trait = humble
+				hidden_tooltip = {
+					character_event = {
+						id = 38260 #Notify Humble
+					}
+				}
+			}
 		}
 	}
 	
@@ -1254,8 +1867,22 @@ character_event = {
 		wealth = 5
 		random_list = {
 			60 = { }
-			20 = { add_trait = charitable }
-			20 = { add_trait = proud }
+			20 = {
+				add_trait = charitable
+				hidden_tooltip = {
+					character_event = {
+						id = 38273 #Notify Charitable
+					}
+				}
+			}
+			20 = {
+				add_trait = proud
+				hidden_tooltip = {
+					character_event = {
+						id = 38261 #Notify Proud
+					}
+				}
+			}
 		}
 	}
 	
@@ -1279,9 +1906,13 @@ character_event = {
 	id = VIETnam.60
 	desc = "EVTDESC1000109082"
 	picture = GFX_evt_castle_construction
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #Impressive
 		name = "EVTOPTA1000109082"
@@ -1290,6 +1921,7 @@ character_event = {
 			limit = {
 				age = 20
 				is_priest = no
+				prisoner = no
 			}
 			opinion = {
 				modifier = opinion_flattered
@@ -1402,9 +2034,13 @@ character_event = {
 	id = VIETnam.61
 	desc = "EVTDESC1000109083"
 	picture = GFX_evt_melee
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #Arrest them
 		name = "EVTOPTA1000109083"
@@ -1413,7 +2049,11 @@ character_event = {
 			90 = {}
 			10 = {
 				add_trait = wounded
-				hidden_tooltip = { character_event = { id = 38280 } }
+				hidden_tooltip = {
+					character_event = {
+						id = 38280 #Notify Wounded
+					}
+				}
 			}
 		}
 	}
@@ -1424,9 +2064,13 @@ character_event = {
 	id = VIETnam.62
 	desc = "EVTDESC1000109084"
 	picture = GFX_evt_small_town
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #Arrow to the knee
 		name = "EVTOPTA1000109084"
@@ -1446,9 +2090,13 @@ character_event = {
 	id = VIETnam.63
 	desc = "EVTDESC1000109085"
 	picture = GFX_evt_village_at_night
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #Horrible creatures
 		name = "EVTOPTA1000109085"
@@ -1468,9 +2116,13 @@ character_event = {
 	id = VIETnam.64
 	desc = "EVTDESC1000109086"
 	picture = GFX_evt_village_at_night
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #Ignore Glarthir
 		name = "EVTOPTA1000109086"
@@ -1489,9 +2141,13 @@ character_event = {
 	id = VIETnam.65
 	desc = "EVTDESC1000109087"
 	picture = GFX_evt_lunatic
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #Arrest Glarthir
 		name = "EVTOPTA1000109087"
@@ -1501,8 +2157,22 @@ character_event = {
 		name = "EVTOPTB1000109087"
 		random_list = {
 			70 = { }
-			20 = { add_trait = arbitrary }
-			10 = { add_trait = slothful }
+			20 = {
+				add_trait = arbitrary
+				hidden_tooltip = {
+					character_event = {
+						id = 38266 #Notify Arbitrary
+					}
+				}
+			}
+			10 = {
+				add_trait = slothful
+				hidden_tooltip = {
+					character_event = {
+						id = 38251 #Notify Slothful
+					}
+				}
+			}
 		}
 	}
 }
@@ -1518,9 +2188,13 @@ character_event = {
 	id = VIETnam.66
 	desc = "EVTDESC1000109088"
 	picture = GFX_evt_baklava
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #Buy some
 		name = "EVTOPTA1000109088"
@@ -1582,9 +2256,13 @@ character_event = {
 	id = VIETnam.67
 	desc = "EVTDESC1000109089"
 	picture = GFX_evt_tuscan_country
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #Stop harassing her
 		name = "EVTOPTA1000109089"
@@ -1639,9 +2317,13 @@ character_event = {
 	id = VIETnam.68
 	desc = "EVTDESC1000109090"
 	picture = GFX_evt_tuscan_country
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #Ignore him
 		name = "EVTOPTA1000109090"
@@ -1666,9 +2348,13 @@ character_event = {
 	id = VIETnam.69
 	desc = "EVTDESC1000109091"
 	picture = GFX_evt_tuscan_country
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #Thank you
 		name = "EVTOPTA1000109091"
@@ -1686,9 +2372,13 @@ character_event = {
 	id = VIETnam.70
 	desc = "EVTDESC1000109092"
 	picture = GFX_evt_autumn_harvest
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #Piety option
 		name = "EVTOPTA1000109092"
@@ -1712,9 +2402,13 @@ character_event = {
 	id = VIETsurvey.1
 	desc = VIETsurvey.1.desc
 	picture = GFX_evt_skyrim_forest
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #Amazing
 		name = VIETsurvey.1.a
@@ -1827,9 +2521,13 @@ character_event = {
 	id = VIETsurvey.2
 	desc = VIETsurvey.2.desc
 	picture = GFX_evt_brothel
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #Bring him to me!
 		name = VIETsurvey.2.a
@@ -1955,9 +2653,30 @@ character_event = {
 		}
 		random_list = {
 			70 = { }
-			10 = { add_trait = cruel }
-			10 = { add_trait = arbitrary }
-			10 = { add_trait = wroth }
+			10 = {
+				add_trait = cruel
+				hidden_tooltip = {
+					character_event = {
+						id = 38259 #Notify Cruel
+					}
+				}
+			}
+			10 = {
+				add_trait = arbitrary
+				hidden_tooltip = {
+					character_event = {
+						id = 38266 #Notify Arbitrary
+					}
+				}
+			}
+			10 = {
+				add_trait = wroth
+				hidden_tooltip = {
+					character_event = {
+						id = 38254 #Notify Wroth
+					}
+				}
+			}
 		}
 	}	
 	
@@ -1988,9 +2707,30 @@ character_event = {
 		}
 		random_list = {
 			75 = { }
-			8 = { add_trait = patient }
-			8 = { add_trait = just }
-			9 = { add_trait = humble }
+			8 = {
+				add_trait = patient
+				hidden_tooltip = {
+					character_event = {
+						id = 38264 #Notify Patient
+					}
+				}
+			}
+			8 = {
+				add_trait = just
+				hidden_tooltip = {
+					character_event = {
+						id = 38267 #Notify Just
+					}
+				}
+			}
+			9 = {
+				add_trait = humble
+				hidden_tooltip = {
+					character_event = {
+						id = 38260 #Notify Humble
+					}
+				}
+			}
 		}
 	}
 }
@@ -2000,9 +2740,13 @@ character_event = {
 	id = VIETsurvey.3
 	desc = VIETsurvey.3.desc
 	picture = GFX_evt_wafrica_gold
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #Yes
 		name = VIETsurvey.3.a
@@ -2024,7 +2768,14 @@ character_event = {
 			}
 			random_list = {
 				70 = { }
-				30 = { add_trait = just }
+				30 = {
+					add_trait = just
+					hidden_tooltip = {
+						character_event = {
+							id = 38267 #Notify Just
+						}
+					}
+				}
 			}
 		}
 	}	
@@ -2047,7 +2798,14 @@ character_event = {
 			}
 			random_list = {
 				70 = { }
-				30 = { add_trait = arbitrary }
+				30 = {
+					add_trait = arbitrary
+					hidden_tooltip = {
+						character_event = {
+							id = 38266 #Notify Arbitrary
+						}
+					}
+				}
 			}
 		}
 	}
@@ -2058,9 +2816,13 @@ character_event = {
 	id = VIETsurvey.4
 	desc = VIETsurvey.4.desc
 	picture = GFX_evt_council
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #okay
 		name = VIETsurvey.4.a
@@ -2095,9 +2857,13 @@ character_event = {
 	id = VIETsurvey.5
 	desc = VIETsurvey.5.desc
 	picture = GFX_evt_coming_home
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #whatever
 		name = VIETsurvey.5.a
@@ -2127,7 +2893,14 @@ character_event = {
 			}
 			random_list = {
 				80 = { }
-				20 = { add_trait = humble }
+				20 = {
+					add_trait = humble
+					hidden_tooltip = {
+						character_event = {
+							id = 38260 #Notify Humble
+						}
+					}
+				}
 			}
 		}
 	}	
@@ -2166,7 +2939,14 @@ character_event = {
 			}
 			random_list = {
 				80 = { }
-				20 = { add_trait = wroth }
+				20 = {
+					add_trait = wroth
+					hidden_tooltip = {
+						character_event = {
+							id = 38254 #Notify Wroth
+						}
+					}
+				}
 			}
 		}
 	}
@@ -2177,9 +2957,13 @@ character_event = {
 	id = VIETsurvey.6
 	desc = VIETsurvey.6.desc
 	picture = GFX_evt_bandits
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #whatever
 		name = VIETsurvey.6.a
@@ -2203,9 +2987,13 @@ character_event = {
 	id = VIETsurvey.7
 	desc = VIETsurvey.7.desc
 	picture = GFX_evt_tuscan_country
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #ok
 		name = VIETsurvey.7.a
@@ -2247,9 +3035,13 @@ character_event = {
 	id = VIETsurvey.8
 	desc = VIETsurvey.8.desc
 	picture = GFX_evt_tuscan_country
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #ok
 		name = VIETsurvey.8.a
@@ -2385,9 +3177,13 @@ character_event = {
 	id = VIETsurvey.9
 	desc = VIETsurvey.9.desc
 	picture = GFX_evt_wafrica_gold
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #ok
 		name = VIETsurvey.9.a
@@ -2418,9 +3214,13 @@ character_event = {
 	id = VIETsurvey.10
 	desc = VIETsurvey.10.desc
 	picture = GFX_evt_small_town
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #ok
 		name = VIETsurvey.10.a
@@ -2471,7 +3271,14 @@ character_event = {
 			}
 			random_list = {
 				67 = { }
-				33 = { add_trait = charitable }
+				33 = {
+					add_trait = charitable
+					hidden_tooltip = {
+						character_event = {
+							id = 38273 #Notify Charitable
+						}
+					}
+				}
 			}
 		}
 		add_character_modifier = {
@@ -2486,9 +3293,13 @@ character_event = {
 	id = VIETsurvey.11
 	desc = VIETsurvey.11.desc
 	picture = GFX_evt_small_town
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #ok
 		name = VIETsurvey.11.a
@@ -2593,9 +3404,13 @@ character_event = {
 	id = VIETsurvey.12
 	desc = VIETsurvey.12.desc
 	picture = GFX_evt_market
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #Keep the money
 		name = VIETsurvey.12.a
@@ -2635,7 +3450,14 @@ character_event = {
 			}
 			random_list = {
 				85 = { }
-				15 = { add_trait = kind }
+				15 = {
+					add_trait = kind
+					hidden_tooltip = {
+						character_event = {
+							id = 38268 #Notify Kind
+						}
+					}
+				}
 			}
 		}
 	}	
@@ -2675,9 +3497,13 @@ character_event = {
 	id = VIETsurvey.13
 	desc = VIETsurvey.13.desc
 	picture = GFX_evt_small_town
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #Send for some soldiers
 		name = VIETsurvey.13.a
@@ -2769,9 +3595,13 @@ character_event = {
 	id = VIETsurvey.14
 	desc = VIETsurvey.14.desc
 	picture = GFX_evt_apocalypto
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #ok
 		name = VIETsurvey.14.a
@@ -2805,9 +3635,13 @@ character_event = {
 	id = VIETsurvey.15
 	desc = VIETsurvey.15.desc
 	picture = GFX_evt_small_town
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #Your village needs you more than me
 		name = VIETsurvey.15.a
@@ -2911,9 +3745,13 @@ character_event = {
 	id = VIETsurvey.16
 	desc = VIETsurvey.16.desc
 	picture = GFX_evt_maiden
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #ok
 		name = VIETsurvey.16.a
@@ -2956,6 +3794,13 @@ character_event = {
 	}	
 	option = { #Heheheh
 		name = VIETsurvey.16.b
+		trigger = {
+			is_female = no
+			NOR = {
+				trait = eunuch
+				trait = celibate
+			}
+		}
 		ai_chance = {
 			factor = 1
 			modifier = {
@@ -3000,7 +3845,14 @@ character_event = {
 			}
 			random_list = {
 				60 = { }
-				40 = { add_trait = lustful }
+				40 = {
+					add_trait = lustful
+					hidden_tooltip = {
+						character_event = {
+							id = 38272 #Notify Lustful
+						}
+					}
+				}
 			}
 		}
 		hidden_tooltip = {
@@ -3043,9 +3895,13 @@ character_event = {
 	id = VIETsurvey.17
 	desc = VIETsurvey.17.desc
 	picture = GFX_evt_maiden
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		trait = traveling
+	}
 	
 	option = { #You're right
 		name = VIETsurvey.17.a
@@ -3125,7 +3981,14 @@ character_event = {
 			}
 			random_list = {
 				70 = { }
-				30 = { add_trait = cruel }
+				30 = {
+					add_trait = cruel
+					hidden_tooltip = {
+						character_event = {
+							id = 38259 #Notify Cruel
+						}
+					}
+				}
 			}
 		}
 	}

@@ -14,45 +14,39 @@ namespace = ancrel
 # The Sons of Gwydion Founded (Brythonic King)
 narrative_event = {
 	id = ancrel.0110
-	title = EVTNAMEancrel.0110
-	desc = EVTDESCancrel.0110
+	title = ancrel.0110.title
+	desc = ancrel.0110.desc
 	picture = GFX_evt_celtic_warriors
 	border = GFX_event_narrative_frame_war
 	
-	is_triggered_only = yes
-	
+	is_triggered_only = yes	
 	hide_from = yes
+	major = yes
 	
 	option = {
-		name = EVTOPTAancrel.0110
-		hidden_tooltip = {
-			any_playable_ruler = {
-				limit = {
-					ai = no
-					OR = {
-						religion = celtic_pagan
-						religion = celtic_pagan_reformed
-					}
-				}
-				narrative_event = { id = ancrel.0111 }
-			}
+		name = ancrel.0110.a
+		trigger = {
+			has_character_flag = acr_founded_gwydion
+		}
+		chronicle = {
+			entry = CHRONICLE_GWYDION
+			portrait = [Root.GetID]
 		}
 	}
-}
 
-# The sons of Gwydion Founded (Druidic)
-narrative_event = {
-	id = ancrel.0111
-	title = EVTNAMEancrel.0110
-	desc = EVTDESCancrel.0111
-	picture = GFX_evt_celtic_warriors
-	border = GFX_event_narrative_frame_war
-	
-	is_triggered_only = yes
-	
 	option = {
-		name = EVTOPTAancrel.0111
-		custom_tooltip = { text = gwydion_organized }
+		name = ancrel.0110.b
+		trigger = {
+			NOT = { has_character_flag = acr_founded_gwydion }
+			religion = celtic_pagan_reformed
+		}
+	}
+
+	option = {
+		name = ancrel.0110.c
+		trigger = {
+			NOT = { religion = celtic_pagan_reformed }
+		}
 	}
 }
 
@@ -75,10 +69,6 @@ character_event = {
 	immediate = {
 		add_trait = wolf
 	}
-	
-	option = {
-		name = OK
-	}
 }
 
 character_event = {
@@ -90,10 +80,6 @@ character_event = {
 	immediate = {
 		set_character_flag = serving_gwydion
 		clr_character_flag = wants_gwydion
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -181,10 +167,6 @@ character_event = {
 		father = { character_event = { id = ancrel.0120 } }
 		set_character_flag = wants_gwydion
 	}
-	
-	option = {
-		name = OK
-	}
 }
 
 # Son wants to join the sons of Gwydion (Father)
@@ -253,10 +235,6 @@ character_event = {
 		father = { character_event = { id = ancrel.0125 } }
 		clr_character_flag = serving_gwydion
 	}
-	
-	option = {
-		name = OK
-	}
 }
 
 # Son returns scarred but seasoned
@@ -300,10 +278,6 @@ character_event = {
 		add_trait = maimed
 		father = { character_event = { id = ancrel.0129 } }
 		clr_character_flag = serving_gwydion
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -370,10 +344,6 @@ character_event = {
 	immediate = {
 		father = { character_event = { id = ancrel.0131 } }
 		clr_character_flag = serving_gwydion
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -456,10 +426,6 @@ character_event = {
 		father = { character_event = { id = ancrel.0133 } }
 		clr_character_flag = serving_gwydion
 	}
-	
-	option = {
-		name = OK
-	}
 }
 
 # Son returns with PTSD
@@ -505,10 +471,6 @@ character_event = {
 	immediate = {
 		father = { character_event = { id = ancrel.0135 } }
 		clr_character_flag = serving_gwydion
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -564,10 +526,6 @@ character_event = {
 	immediate = {
 		father = { character_event = { id = ancrel.0137 } }
 		clr_character_flag = serving_gwydion
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -636,10 +594,6 @@ character_event = {
 	immediate = {
 		father = { character_event = { id = ancrel.0139 } }
 		clr_character_flag = serving_gwydion
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -742,10 +696,6 @@ character_event = {
 		father = { character_event = { id = ancrel.0141 } }
 		clr_character_flag = serving_gwydion
 	}
-	
-	option = {
-		name = OK
-	}
 }
 
 # Son dies in battle
@@ -789,10 +739,6 @@ character_event = {
 	immediate = {
 		father = { character_event = { id = ancrel.0143 } }
 		clr_character_flag = serving_gwydion
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -872,9 +818,5 @@ character_event = {
 		add_trait = wolf
 		clr_character_flag = wants_gwydion
 		clr_character_flag = serving_gwydion
-	}
-	
-	option = {
-		name = OK
 	}
 }
