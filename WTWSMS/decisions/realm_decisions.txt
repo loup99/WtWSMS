@@ -141,11 +141,12 @@ decisions = {
 		allow = {
 			prestige = 60
 			liege = {
+				has_regent = no
 				NOT = { has_opinion_modifier = { who = ROOT modifier = requested_land } }
 				demesne_size = 3
 				any_demesne_title = {
 					can_be_given_away = yes
-					lower_tier_than = PREV
+					tier = COUNT
 					NOT = { location = { is_capital = yes } }
 				}
 			}
@@ -161,7 +162,7 @@ decisions = {
 				random_demesne_title = {
 					limit = {
 						can_be_given_away = yes
-						lower_tier_than = PREV
+						tier = COUNT
 						NOT = { location = { is_capital = yes } }
 					}
 					save_event_target_as = vassal_wanted_title
@@ -243,8 +244,13 @@ decisions = {
 			age = 16
 			prestige = 500
 			wealth = 200
+			custom_tooltip = {
+				text = is_not_busy_trigger_tooltip
+				hidden_tooltip = { NOT = { has_character_flag = do_not_disturb } }
+			}
 		}
 		effect = {
+			set_character_flag = do_not_disturb
 			set_character_flag = epic_tournament_furusiyya
 			clr_character_flag = tournament_has_ended_furusiyya
 			hidden_tooltip = { character_event = { id = 88999 days = 300 } } # Safety catch flag clearing
@@ -1958,6 +1964,13 @@ decisions = {
 				AND = {
 					trait = ambitious
 					prestige = 5000
+				}
+				AND = {
+					realm_size = 70
+					any_demesne_title = {
+						count = 4
+						tier = DUKE
+					}
 				}
 				prestige = 15000
 			}
