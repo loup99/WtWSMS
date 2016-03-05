@@ -243,7 +243,8 @@ character_event = {
 	}
 }
 
-# Last Roman Empire
+####  Realm decisions
+
 narrative_event = {
 	id = imperial_legacy.10
 	title = imperial_legacy.10.name
@@ -259,6 +260,43 @@ narrative_event = {
 		prestige = 2000 
 		custom_tooltip = { 
 			text = imperial_legacy.10.a.tooltip
+		}
+	}
+}
+
+#  Restoration of the Western Roman Empire
+narrative_event = {
+	id = imperial_legacy.11
+	title = imperial_legacy.11.name
+	desc = imperial_legacy.11.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = imperial_legacy.11.a
+		
+		e_wre = {
+			grant_title = ROOT
+			hidden_tooltip = { make_primary_title = yes }
+		}
+		prestige = 2000
+		
+		e_byzantium = {
+			holder_scope = {
+				if = {
+					limit = {
+						has_weak_claim  = e_roman_empire
+					}
+					# Remove any claim gained by "Sole Roman Empire" decision
+					remove_claim = e_roman_empire
+				}
+			}
+		}
+		
+		custom_tooltip = { 
+			text = imperial_legacy.11.a.tooltip
 		}
 	}
 }
