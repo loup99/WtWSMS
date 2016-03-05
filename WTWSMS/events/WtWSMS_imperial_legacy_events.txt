@@ -1,8 +1,8 @@
-namespace = imperial_legacy_event
+namespace = imperial_legacy
 
 #Give nickname "Augustus" to Western Roman Emperors.
 character_event = {
-	id = imperial_legacy_event.1
+	id = imperial_legacy.1
 	hide_window = yes
 	
 	only_independent = yes
@@ -31,7 +31,7 @@ character_event = {
 
 #Remove nickname "Augustus" from deposed Western Roman Emperors.
 character_event = {
-	id = imperial_legacy_event.2
+	id = imperial_legacy.2
 	hide_window = yes
 	
 	trigger = {
@@ -61,8 +61,8 @@ character_event = {
 # ROOT is winning army leader
 # FROM is opponent army leader
 character_event = {
-	id = imperial_legacy_event.3
-	desc = imperial_legacy_event.3.desc
+	id = imperial_legacy.3
+	desc = imperial_legacy.3.desc
 	picture = GFX_evt_roman_emperor_salute
 	
 	is_triggered_only = yes
@@ -95,7 +95,7 @@ character_event = {
 	}
 	
 	option = {
-		name = imperial_legacy_event.3.a
+		name = imperial_legacy.3.a
 
 		# Culture of vanquished opponent
 		FROM = {
@@ -128,8 +128,8 @@ character_event = {
 # ROOT is winning army leader
 # FROM is opponent army leader
 character_event = {
-	id = imperial_legacy_event.4
-	desc = imperial_legacy_event.4.desc
+	id = imperial_legacy.4
+	desc = imperial_legacy.4.desc
 	picture = GFX_evt_roman_emperor_salute
 	
 	is_triggered_only = yes
@@ -141,7 +141,7 @@ character_event = {
 		has_romance_culture_trigger = yes
 		any_war = { war_score = 50 } # Winning the war
 		
-		# Covered by imperial_legacy_event.3
+		# Covered by imperial_legacy.3
 		FROM = {
 			NOR = {
 				culture = vandalic
@@ -181,7 +181,7 @@ character_event = {
 	}
 	
 	option = {
-		name = imperial_legacy_event.4.a
+		name = imperial_legacy.4.a
 
 		# Default to the region of major battle
 		location = {
@@ -239,6 +239,65 @@ character_event = {
 				limit = { region = custom_diocese_pontica  }
 				ROOT = { give_nickname = nick_ponticus }
 			}
+		}
+	}
+}
+
+####  Realm decisions
+
+#  Last Roman Empire
+narrative_event = {
+	id = imperial_legacy.10
+	title = imperial_legacy.10.name
+	desc = imperial_legacy.10.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = imperial_legacy.10.a
+		
+		prestige = 2000 
+		custom_tooltip = { 
+			text = imperial_legacy.10.a.tooltip
+		}
+	}
+}
+
+#  Restoration of the Western Roman Empire
+narrative_event = {
+	id = imperial_legacy.11
+	title = imperial_legacy.11.name
+	desc = imperial_legacy.11.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = imperial_legacy.11.a
+		
+		e_wre = {
+			grant_title = ROOT
+			hidden_tooltip = { make_primary_title = yes }
+		}
+		prestige = 2000
+		
+		e_byzantium = {
+			holder_scope = {
+				if = {
+					limit = {
+						has_weak_claim  = e_roman_empire
+					}
+					# Remove any claim gained by "Sole Roman Empire" decision
+					remove_claim = e_roman_empire
+				}
+			}
+		}
+		
+		custom_tooltip = { 
+			text = imperial_legacy.11.a.tooltip
 		}
 	}
 }
