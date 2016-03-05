@@ -22,6 +22,7 @@ character_event = {
             add_claim = e_italy
             set_character_flag = give_italy_if_win
 			spawn_unit = {
+				earmark = theodoric_italy_invasion
 				province = 460 # Varazdin
 				owner = ROOT
 				leader = ROOT
@@ -3122,5 +3123,131 @@ character_event = {
 				}
 			}
 		}
+	}
+}
+
+namespace = historical_wtwsms
+
+# Zeno has won the war for the Empire
+character_event = {
+	id = historical_wtwsms.1
+	title = historical_wtwsms.1.name
+	desc = historical_wtwsms.1.desc
+	picture = GFX_evt_victory_arch_byzantine
+	
+	trigger = { 
+		start_date = 476.2.2
+		ROOT = { 
+			has_landed_title = e_byzantium
+		}
+		d_europa = { 
+			holder_scope = { 
+				ROOT = { has_truce = PREV}
+			}
+		}
+		NOT = { has_global_flag = zeno_tarasis_ere }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = OK # To expand, maybe banquet event with Odoacer?
+		
+		set_global_flag = zeno_tarasis_ere
+		
+		prestige = 100 
+		change_infamy = { # To avoid huge coalitrion
+			value = - 100
+			localisation = CHANGE_INFAMY_EFFECT
+		}
+		d_europa = { 
+			holder_scope = {
+				imprison = ROOT
+			}
+		}
+		hidden_tooltip = {
+			any_playable_ruler = {
+				narrative_event = { id = historical_wtwsms.2 }
+				limit = {
+					NOT = { has_landed_title = e_byzantium }
+                }         
+			}
+		}
+	}
+}
+
+narrative_event = {
+	id = historical_wtwsms.2
+	title = historical_wtwsms.2.name
+	desc = historical_wtwsms.2.desc
+	picture = GFX_evt_victory_arch_byzantine
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = { # To expand/look into options with WRE
+		name = OK 
+	}
+}
+
+# Theodoric wins Invasion of Italy
+character_event = {
+	id = historical_wtwsms.3
+	title = historical_wtwsms.3.name
+	desc = historical_wtwsms.3.desc
+	picture = GFX_evt_heretic
+	
+	trigger = {
+		start_date = 476.2.2
+		ROOT = { 
+			has_landed_title = d_ostrogoths
+		}
+		k_italy = { 
+			any_previous_holder = { 
+				ROOT = { has_truce = PREV}
+			}
+		}
+		NOT = { has_global_flag = theodoric_won_italy_invasion }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		
+		set_global_flag = theodoric_won_italy_invasion
+		
+		disband_event_forces = theodoric_italy_invasion	
+		prestige = 100 
+		change_infamy = { # To avoid huge coalitrion
+			value = - 100 
+			localisation = CHANGE_INFAMY_EFFECT
+		}
+		hidden_tooltip = {
+			any_playable_ruler = {
+				narrative_event = { id = historical_wtwsms.4 }
+				limit = {
+					NOT = { has_landed_title = d_ostrogoths }
+                }         
+			}
+		}
+	}
+}
+
+narrative_event = {
+	id = historical_wtwsms.4
+	title = historical_wtwsms.4.name
+	desc = historical_wtwsms.4.desc
+	picture = GFX_evt_heretic
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = { # To expand/look into options with ERE
+		name = OK
 	}
 }
