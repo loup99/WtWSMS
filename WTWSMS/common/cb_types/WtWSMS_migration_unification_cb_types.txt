@@ -118,6 +118,20 @@ migration = {
 			prestige = 200
 			occupy_minors_of_occupied_settlements = FROM 
 			gain_all_occupied_titles = { who = FROM type = invasion }
+			
+			# In case of nomadic provinces, create tribal settlements
+			any_realm_province = {
+				limit = {
+					NOT = {
+						any_province_holding = {
+							NOT = { holding_type = nomad }
+						}
+					}
+				}
+				build_holding = { type = tribal }
+			}
+			
+			# Give away old provinces
 			character_event = { id = zusk_event.14 }
 		}
 		log = "Migratory Invasion from [Root.GetTitledName] to [From.GetTitledName] succeeded."
@@ -128,7 +142,7 @@ migration = {
 			prestige = -50
 			
 			# Does not give away provinces but cleans up the migration_give_away flag used in the event
-        	character_event = { id = zusk_event.15 }
+			character_event = { id = zusk_event.15 }
 		}
 		FROM = {
 			prestige = 50
@@ -144,8 +158,8 @@ migration = {
 				value = 8.0
 			}
 
-        	# Does not give away provinces but cleans up the migration_give_away flag used in the event
-       		character_event = { id = zusk_event.15 }
+			# Does not give away provinces but cleans up the migration_give_away flag used in the event
+			character_event = { id = zusk_event.15 }
 		}
 		FROM = {
 			prestige = 200
@@ -265,7 +279,7 @@ unification = {
 				}
 			}
 		}
-                    
+		
 		ROOT = {
 			prestige = 200
 		}
