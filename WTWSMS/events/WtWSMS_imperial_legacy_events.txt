@@ -245,6 +245,7 @@ character_event = {
 
 ####  Realm decisions
 
+#  Restoration of the Roman Empire
 narrative_event = {
 	id = imperial_legacy.10
 	title = imperial_legacy.10.name
@@ -285,6 +286,65 @@ narrative_event = {
 		
 		e_byzantium = {
 			holder_scope = {
+				narrative_event = { id = imperial_legacy.13 }		
+			}
+		}
+		
+		if = {
+			limit = {
+				NOT = { has_global_flag = great_schism }
+				ROOT = { religion = nicene }
+			}
+			d_papal_state = {
+				holder_scope = {
+					narrative_event = { id = imperial_legacy.16 }		
+				}
+			}
+		}
+		
+		if = {
+			limit = {
+				has_global_flag = great_schism 
+				ROOT = { religion = catholic }
+			}
+			ROOT = { narrative_event = { id = imperial_legacy.19 } }
+		}
+					
+		custom_tooltip = { 
+			text = imperial_legacy.11.a.tooltip
+		}
+	}
+}
+
+#  ERE answer to restoration of WRE
+narrative_event = {
+	id = imperial_legacy.13
+	title = imperial_legacy.13.name
+	desc = imperial_legacy.13.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = imperial_legacy.13.a # Recognise the new ruler
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = -10
+				trait = ambitious
+			}
+			modifier = {
+				factor = -10
+				opinion_diff = { 
+					first = FROM
+					second = ROOT 
+					value = 100  
+				}	
+			}
+		}
+		hidden_tooltip = {  
+			ROOT = {
 				if = {
 					limit = {
 						has_weak_claim  = e_roman_empire
@@ -294,10 +354,299 @@ narrative_event = {
 				}
 			}
 		}
-		
+		set_global_flag = ere_recognised_wre
 		custom_tooltip = { 
-			text = imperial_legacy.11.a.tooltip
+			text = imperial_legacy.13.a.tooltip
 		}
+		e_wre = {
+			holder_scope = {
+				narrative_event = { id = imperial_legacy.14 }		
+			}
+		}
+	}
+	
+	option = {
+		name = imperial_legacy.13.b # Refuse to recognise the new ruler
+		ai_chance = {
+			factor = 0
+			modifier = {
+				factor = 10
+				has_weak_claim  = e_roman_empire
+				trait = ambitious
+			}
+		}
+		modifier = {
+				factor = 10
+				opinion_diff = { 
+					first = FROM
+					second = ROOT 
+					value = 100  
+				}
+				has_weak_claim  = e_roman_empire
+		}
+		set_global_flag = ere_not_recognised_wre 
+		custom_tooltip = { 
+			text = imperial_legacy.13.b.tooltip
+		}
+		e_wre = {
+			holder_scope = {
+				narrative_event = { id = imperial_legacy.15 }		
+			}
+		}
+	}
+}
+
+#  ERE recognises WRE
+narrative_event = {
+	id = imperial_legacy.14
+	title = imperial_legacy.14.name
+	desc = imperial_legacy.14.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = imperial_legacy.14.a
+		
+		prestige = 100
+	}
+}
+
+#  ERE does not recognise WRE
+narrative_event = {
+	id = imperial_legacy.15
+	title = imperial_legacy.15.name
+	desc = imperial_legacy.15.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = imperial_legacy.15.a
+		
+		prestige = -100
+	}
+}
+
+# Pope (patriarch) answer to restoration of WRE
+narrative_event = {
+	id = imperial_legacy.16
+	title = imperial_legacy.16.name
+	desc = imperial_legacy.16.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = OK # Recognise the new ruler (Pope not playable, so no text)
+		
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = -10
+				opinion_diff = { 
+					first = FROM
+					second = ROOT 
+					value = 100  
+				}	
+			}
+		}
+		if = {
+			limit = {
+				has_global_flag = great_schism
+			}
+			hidden_tooltip = {
+				any_playable_ruler = {
+					narrative_event = { id = HRE.4 } # Fires schism
+				} 
+			}
+		
+		}
+		e_wre = {
+			holder_scope = {
+				narrative_event = { id = imperial_legacy.17 }		
+			}
+		}
+
+	}
+	option = {
+		name = OK # Refuse to recognise the new ruler (Pope not playable, so no text)
+		
+		ai_chance = {
+			factor = 0
+			modifier = {
+				factor = 10
+				opinion_diff = { 
+					first = FROM
+					second = ROOT 
+					value = 100  
+				}	
+			}
+		}
+		
+		e_wre = {
+			holder_scope = {
+				narrative_event = { id = imperial_legacy.18 }		
+			}
+		}
+	}
+
+}
+
+#  Pope (patriarch) recognises WRE
+narrative_event = {
+	id = imperial_legacy.17
+	title = imperial_legacy.17.name
+	desc = imperial_legacy.17.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = imperial_legacy.17.a
+		
+		piety = 100
+	}
+}
+
+#  Pope (patriarch) does not recognise WRE
+narrative_event = {
+	id = imperial_legacy.18
+	title = imperial_legacy.18.name
+	desc = imperial_legacy.18.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = imperial_legacy.18.a
+		
+		piety = -100
+	}
+}
+
+#  WRE ruler chooses how to act with Pope (head) after restoration
+narrative_event = {
+	id = imperial_legacy.19
+	title = imperial_legacy.19.name
+	desc = imperial_legacy.19.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = { 
+		name = imperial_legacy.19.a # Give Rome to Pope (he will vassalise and recognise)
+		
+		k_papal_state = {
+			holder_scope = {
+				narrative_event = { id = imperial_legacy.20 }
+				if = {
+					limit = {
+						NOT = { has_landed_title = b_roma }
+					}
+					ROOT = { 
+						b_roma = {
+							grant_title = PREV
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = imperial_legacy.19.b # Do not give Roma (he will get angry and excommunicate)
+		
+		k_papal_state = {
+			holder_scope = {
+				narrative_event = { id = imperial_legacy.23 }
+			}
+		}
+	}
+
+}
+
+# Pope (head) gets Roma from WRE
+narrative_event = {
+	id = imperial_legacy.20
+	title = imperial_legacy.20.name
+	desc = imperial_legacy.20.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = OK # Recognise the new ruler (Pope not playable, so no text)
+		
+		e_wre = {
+			holder_scope = {
+				narrative_event = { id = imperial_legacy.21 }		
+			}
+		}
+
+	}
+}
+
+# Pope (head) does not get Roma from WRE
+narrative_event = {
+	id = imperial_legacy.23
+	title = imperial_legacy.23.name
+	desc = imperial_legacy.23.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = OK #  # Refuse to recognise the new ruler (Pope not playable, so no text)
+		
+		e_wre = {
+			holder_scope = {
+				narrative_event = { id = imperial_legacy.22 }		
+			}
+		}
+
+	}
+}
+
+#  Pope (head) recognises WRE
+narrative_event = {
+	id = imperial_legacy.21
+	title = imperial_legacy.21.name
+	desc = imperial_legacy.21.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = imperial_legacy.21.a
+		
+		piety = 100
+	}
+}
+
+#  Pope (head) does not recognise WRE
+narrative_event = {
+	id = imperial_legacy.22
+	title = imperial_legacy.22.name
+	desc = imperial_legacy.23.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = imperial_legacy.22.a
+		
+		piety = -100
 	}
 }
 
