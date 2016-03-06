@@ -281,7 +281,7 @@ narrative_event = {
 			grant_title = ROOT
 			hidden_tooltip = { make_primary_title = yes }
 		}
-		prestige = 2000
+		prestige = 1000
 		
 		e_byzantium = {
 			holder_scope = {
@@ -297,6 +297,43 @@ narrative_event = {
 		
 		custom_tooltip = { 
 			text = imperial_legacy.11.a.tooltip
+		}
+	}
+}
+
+#  Restoration of the Eastern Roman Empire
+narrative_event = {
+	id = imperial_legacy.12
+	title = imperial_legacy.12.name
+	desc = imperial_legacy.12.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = imperial_legacy.12.a
+		
+		e_byzantium = {
+			grant_title = ROOT
+			hidden_tooltip = { make_primary_title = yes }
+		}
+		prestige = 1000
+		
+		e_wre = {
+			holder_scope = {
+				if = {
+					limit = {
+						has_weak_claim  = e_roman_empire
+					}
+					# Remove any claim gained by "Sole Roman Empire" decision
+					remove_claim = e_roman_empire
+				}
+			}
+		}
+		
+		custom_tooltip = { 
+			text = imperial_legacy.12.a.tooltip
 		}
 	}
 }
