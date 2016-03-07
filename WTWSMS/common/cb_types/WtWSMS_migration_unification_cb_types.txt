@@ -256,10 +256,22 @@ unification = {
 
 	on_success = {
 		hidden_tooltip = {
-			FROM = { # Julis Nepos becomes independent following Odoacers war
-				any_vassal = { 
-					limit = { character = 175110 } 
-					set_defacto_liege = THIS
+			# Julius Nepos becomes independent following Odoacers war
+			if = {
+				limit = {
+					ROOT = {
+						character = 55 # Odoacer
+					}
+				}
+				FROM = { 
+					any_vassal = { 
+						limit = { 
+							character = 175110 # Julius Nepos
+							has_landed_title = k_dalmatia
+						} 
+						set_defacto_liege = THIS # Grant independence immediately, to prevent title usurpation
+						character_event = { id = zusk_event.26 days = 1 } # Delay granting e_wre, so that below titular titles aren't transferred
+					}
 				}
 			}
 			ROOT = { # Without this Theodoric doesn't get Italy if he wins
