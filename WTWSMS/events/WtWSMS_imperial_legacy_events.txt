@@ -327,7 +327,7 @@ narrative_event = {
 	is_triggered_only = yes
 	
 	option = {
-		name = imperial_legacy.13.a # Recognise the new ruler
+		name = imperial_legacy.13.a # Recognise the new ruler, should do unless ambitious or hates WRE ruler and has picked picked "Sole Roman Empire" decision
 		ai_chance = {
 			factor = 10
 			modifier = {
@@ -366,7 +366,7 @@ narrative_event = {
 	}
 	
 	option = {
-		name = imperial_legacy.13.b # Refuse to recognise the new ruler
+		name = imperial_legacy.13.b # Refuse to recognise the new ruler, shouldn't do unless ambitious or hates WRE ruler and in both cases need to have picked "Sole Roman Empire" decision
 		ai_chance = {
 			factor = 0
 			modifier = {
@@ -374,8 +374,7 @@ narrative_event = {
 				has_weak_claim  = e_roman_empire
 				trait = ambitious
 			}
-		}
-		modifier = {
+			modifier = {
 				factor = 10
 				opinion_diff = { 
 					first = FROM
@@ -383,6 +382,7 @@ narrative_event = {
 					value = 100  
 				}
 				has_weak_claim  = e_roman_empire
+			}
 		}
 		set_global_flag = ere_not_recognised_wre 
 		custom_tooltip = { 
@@ -430,7 +430,7 @@ narrative_event = {
 	}
 }
 
-# Pope (patriarch) answer to restoration of WRE
+# Pope without schism answer to restoration of WRE
 narrative_event = {
 	id = imperial_legacy.16
 	title = imperial_legacy.16.name
@@ -441,7 +441,7 @@ narrative_event = {
 	is_triggered_only = yes
 	
 	option = {
-		name = OK # Recognise the new ruler (Pope not playable, so no text)
+		name = OK # Recognise the new ruler, should do unless hates WRE ruler 
 		
 		ai_chance = {
 			factor = 10
@@ -456,7 +456,7 @@ narrative_event = {
 		}
 		if = {
 			limit = {
-				has_global_flag = great_schism
+				has_global_flag = ere_recognised_wre
 			}
 			hidden_tooltip = {
 				any_playable_ruler = {
@@ -465,15 +465,18 @@ narrative_event = {
 			}
 		
 		}
+		
 		e_wre = {
 			holder_scope = {
 				narrative_event = { id = imperial_legacy.17 }		
 			}
 		}
+		
+		set_global_flag = pope_patriarch_recognised_wre
 
 	}
 	option = {
-		name = OK # Refuse to recognise the new ruler (Pope not playable, so no text)
+		name = OK # Refuse to recognise the new ruler, shouldn't do unless hates WRE ruler 
 		
 		ai_chance = {
 			factor = 0
@@ -492,11 +495,13 @@ narrative_event = {
 				narrative_event = { id = imperial_legacy.18 }		
 			}
 		}
+		
+		set_global_flag = pope_patriarch_not_recognised_wre
 	}
 
 }
 
-#  Pope (patriarch) recognises WRE
+#  Pope without schism recognises WRE
 narrative_event = {
 	id = imperial_legacy.17
 	title = imperial_legacy.17.name
@@ -513,7 +518,7 @@ narrative_event = {
 	}
 }
 
-#  Pope (patriarch) does not recognise WRE
+#  Pope without schism does not recognise WRE
 narrative_event = {
 	id = imperial_legacy.18
 	title = imperial_legacy.18.name
@@ -530,7 +535,7 @@ narrative_event = {
 	}
 }
 
-#  WRE ruler chooses how to act with Pope (head) after restoration
+#  WRE ruler chooses how to act with Pope with schism after restoration
 narrative_event = {
 	id = imperial_legacy.19
 	title = imperial_legacy.19.name
@@ -541,7 +546,15 @@ narrative_event = {
 	is_triggered_only = yes
 	
 	option = { 
-		name = imperial_legacy.19.a # Give Rome to Pope (he will vassalise and recognise)
+		name = imperial_legacy.19.a # Give Rome to Pope - Makes the Pope satisfied, he recognises the new WRE ruler, vassalises and more hostile towards East, but might ask for more later
+		
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 10
+				trait = zealous
+			}
+		}
 		
 		k_papal_state = {
 			holder_scope = {
@@ -561,7 +574,19 @@ narrative_event = {
 	}
 	
 	option = {
-		name = imperial_legacy.19.b # Do not give Roma (he will get angry and excommunicate)
+		name = imperial_legacy.19.b # Do not give Rome to the Pope - Makes the Pope irritated, does not recognise the new WRE ruler and excommunicates him
+		
+		ai_chance = {
+			factor = 0
+			modifier = {
+				factor = 10
+				opinion_diff = { 
+					first = FROM
+					second = ROOT 
+					value = 100  
+				}	
+			}
+		}
 		
 		k_papal_state = {
 			holder_scope = {
@@ -572,7 +597,7 @@ narrative_event = {
 
 }
 
-# Pope (head) gets Roma from WRE
+# Pope with schism gets Roma from WRE
 narrative_event = {
 	id = imperial_legacy.20
 	title = imperial_legacy.20.name
@@ -583,7 +608,7 @@ narrative_event = {
 	is_triggered_only = yes
 	
 	option = {
-		name = OK # Recognise the new ruler (Pope not playable, so no text)
+		name = OK # Recognise the new WRE ruler 
 		
 		e_wre = {
 			holder_scope = {
@@ -594,7 +619,7 @@ narrative_event = {
 	}
 }
 
-# Pope (head) does not get Roma from WRE
+# Pope with schism does not get Roma from WRE
 narrative_event = {
 	id = imperial_legacy.23
 	title = imperial_legacy.23.name
@@ -605,7 +630,11 @@ narrative_event = {
 	is_triggered_only = yes
 	
 	option = {
-		name = OK #  # Refuse to recognise the new ruler (Pope not playable, so no text)
+		name = OK #  # Refuse to recognise the new WRE ruler 
+		
+		FROM = {
+			excommunicate = yes
+		}
 		
 		e_wre = {
 			holder_scope = {
@@ -616,7 +645,7 @@ narrative_event = {
 	}
 }
 
-#  Pope (head) recognises WRE
+#  Pope with schism recognises WRE
 narrative_event = {
 	id = imperial_legacy.21
 	title = imperial_legacy.21.name
@@ -633,7 +662,7 @@ narrative_event = {
 	}
 }
 
-#  Pope (head) does not recognise WRE
+#  Pope with schism does not recognise WRE
 narrative_event = {
 	id = imperial_legacy.22
 	title = imperial_legacy.22.name
