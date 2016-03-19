@@ -258,27 +258,52 @@ character_event = {
 	picture = GFX_evt_icon
 	
 	trigger = {
-		year = 950
+		year = 950 #Why this year? Temporary anyway.
 		religion = nicene 
 		controls_religion = yes
+		has_landed_title = k_nicene
 		NOT = { has_global_flag = great_schism }
 	}
 	
 	option = {
 		name = EVTOPTAHRE.4
 
-		set_parent_religion = { religion = arian parent = catholic }
-		set_parent_religion = { religion = valentinianism parent = catholic }
-		set_parent_religion = { religion = donatism parent = catholic }
-		set_parent_religion = { religion = docetic parent = orthodox }
-		set_parent_religion = { religion = ebionites parent = orthodox }
-		set_parent_religion = { religion = marcionism parent = orthodox }
-		set_parent_religion = { religion = binitarian parent = orthodox }
-		set_global_flag = great_schism
-		hidden_tooltip = {
-			narrative_event = { id = HRE.5 }
+		if = {
+			limit = { religion = catholic }
+			set_parent_religion = { religion = arian parent = catholic }
 		}
-	}
+		if = {
+			limit = { religion = catholic }
+			set_parent_religion = { religion = valentinianism parent = catholic }
+		}
+		if = {
+			limit = { religion = catholic }
+			set_parent_religion = { religion = donatism parent = catholic }
+		}
+		if = {
+			limit = { religion = orthodox }
+			set_parent_religion = { religion = docetic parent = orthodox }
+		}
+		if = {
+			limit = { religion = orthodox }
+			set_parent_religion = { religion = ebionites parent = orthodox }
+		}
+		if = {
+			limit = { religion = orthodox }
+			set_parent_religion = { religion = marcionism parent = orthodox }
+		}
+		if = {
+			limit = { religion = orthodox }
+			set_parent_religion = { religion = binitarian parent = orthodox }
+		}
+		set_global_flag = great_schism
+			any_playable_ruler = {
+				limit = {
+					religion = nicene
+					controls_religion = no
+				}
+				narrative_event = { id = HRE.5 }	
+			}
 	option = {
 		name = EVTOPTBHRE.3
 	}
@@ -516,8 +541,8 @@ narrative_event = {
 		name = OK
 		activate_title = { title = k_orthodox status = yes }
 		activate_title = { title = k_papal_state status = yes }
-			}
-		}
+	}
+}
 
 narrative_event = {
 	id = HRE.7
