@@ -118,6 +118,20 @@ migration = {
 			prestige = 200
 			occupy_minors_of_occupied_settlements = FROM 
 			gain_all_occupied_titles = { who = FROM type = invasion }
+			
+			# In case of nomadic provinces, create tribal settlements
+			any_realm_province = {
+				limit = {
+					NOT = {
+						any_province_holding = {
+							NOT = { holding_type = nomad }
+						}
+					}
+				}
+				build_holding = { type = tribal }
+			}
+			
+			# Give away old provinces
 			character_event = { id = zusk_event.14 }
 		}
 		log = "Migratory Invasion from [Root.GetTitledName] to [From.GetTitledName] succeeded."
@@ -128,7 +142,7 @@ migration = {
 			prestige = -50
 			
 			# Does not give away provinces but cleans up the migration_give_away flag used in the event
-        	character_event = { id = zusk_event.15 }
+			character_event = { id = zusk_event.15 }
 		}
 		FROM = {
 			prestige = 50
@@ -144,8 +158,8 @@ migration = {
 				value = 8.0
 			}
 
-        	# Does not give away provinces but cleans up the migration_give_away flag used in the event
-       		character_event = { id = zusk_event.15 }
+			# Does not give away provinces but cleans up the migration_give_away flag used in the event
+			character_event = { id = zusk_event.15 }
 		}
 		FROM = {
 			prestige = 200
@@ -242,10 +256,22 @@ unification = {
 
 	on_success = {
 		hidden_tooltip = {
-			FROM = { # Julis Nepos becomes independent following Odoacers war
-				any_vassal = { 
-					limit = { character = 175110 } 
-					set_defacto_liege = THIS
+			# Julius Nepos becomes independent following Odoacers war
+			if = {
+				limit = {
+					ROOT = {
+						character = 55 # Odoacer
+					}
+				}
+				FROM = { 
+					any_vassal = { 
+						limit = { 
+							character = 175110 # Julius Nepos
+							has_landed_title = k_dalmatia
+						} 
+						set_defacto_liege = THIS # Grant independence immediately, to prevent title usurpation
+						character_event = { id = zusk_event.26 days = 1 } # Delay granting e_wre, so that below titular titles aren't transferred
+					}
 				}
 			}
 			ROOT = { # Without this Theodoric doesn't get Italy if he wins
@@ -265,7 +291,7 @@ unification = {
 				}
 			}
 		}
-                    
+		
 		ROOT = {
 			prestige = 200
 		}
