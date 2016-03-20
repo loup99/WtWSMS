@@ -57,6 +57,7 @@ RequestExecutionLevel user
 ;Languages - needs to be after page declarations
 !insertmacro MUI_LANGUAGE English ;First language is the default if a better match is not found
 !insertmacro MUI_LANGUAGE French
+!insertmacro MUI_LANGUAGE Spanish
 
 ; Display Language selection dialog
 Function .onInit
@@ -104,7 +105,7 @@ SectionEnd
 
 ; English
 LangString MUI_WELCOMEPAGE_TITLE ${LANG_ENGLISH} "When the World Stopped Making Sense...$\r$\n \
-A Dark Ages mod for CK2 !"
+A Dark Ages mod for CK2!"
 LangString MUI_WELCOMEPAGE_TEXT ${LANG_ENGLISH} "This installer will:$\r$\n \
 1) Remove any previously installed version of the mod$\r$\n \
 2) Clean the mod gfx cache$\r$\n \
@@ -130,8 +131,26 @@ LangString MUI_DIRECTORYPAGE_TEXT_DESTINATION ${LANG_FRENCH} "Merci de sélectio
 LangString MUI_FINISHPAGE_TITLE ${LANG_FRENCH} "WtWSMS a été installé"
 LangString MUI_FINISHPAGE_TEXT ${LANG_FRENCH} "Pour jouer:$\r$\n \ 
 - Lancez CK2.$\r$\n \
-- Sélectionnez le mod 'When the World Stopped Making Sense' dans la section Mod.$\r$\n \
+- Sélectionnez le mod 'When the World Stopped Making Sense' dans l'onglet mod.$\r$\n \
 - Sélectionnez UNIQUEMENT les sous-mods graphiques pour WTWSMS pour lesquels vous possédez les DLCs requis.$\r$\n \
 - Profitez !$\r$\n"
-LangString MUI_FINISHPAGE_SHOWREADME_TEXT ${LANG_FRENCH} "Ouvrir le Changelog (en anglais)"
+LangString MUI_FINISHPAGE_SHOWREADME_TEXT ${LANG_FRENCH} "Ouvrir le notes de changements (en anglais)"
 LangString MUI_FINISHPAGE_LINK ${LANG_FRENCH} "Accéder au forum WtWSMS"
+
+; Spanish
+LangString MUI_WELCOMEPAGE_TITLE ${LANG_SPANISH} "Cuando el Mundo ha Terminado Tener Sentido...$\r$\n \
+Un mod para CK2 sobre la Edad Obscura !"
+LangString MUI_WELCOMEPAGE_TEXT ${LANG_SPANISH} "Està instalador va:$\r$\n \
+1) Sacar toda vieja versión del mod anteriormente instalada$\r$\n \
+2) Limpiar el cache de gfx del mod$\r$\n \
+3) Instalar el mod en el repertorio de mods$\r$\n"
+LangString MUI_DIRECTORYPAGE_TEXT_DESTINATION ${LANG_SPANISH} "Merci de sélectionner votre répertoire de mods CK2"
+LangString MUI_FINISHPAGE_TITLE ${LANG_SPANISH} "WtWSMS ha instalado"
+LangString MUI_FINISHPAGE_TEXT ${LANG_SPANISH} "Para jugar:$\r$\n \ 
+- Lanza CK2.$\r$\n \
+- Selecciona el mod 'When the World Stopped Making Sense' en la sección mod.$\r$\n \
+- Selecciona SOLAMENTE los sub-mods gráficos para WTWSMS para cual tenéis los DLCs obligatorios.$\r$\n \
+- ¡Diviértete!$\r$\n"
+LangString MUI_FINISHPAGE_SHOWREADME_TEXT ${LANG_SPANISH} "Abrir el Changelog (en inglès)"
+LangString MUI_FINISHPAGE_LINK ${LANG_SPANISH} "Acceder al forum WtWSMS"
+
