@@ -556,7 +556,26 @@ narrative_event = {
 	option = {
 		name = imperial_legacy.17.a
 		
+		ai_chance = {
+			factor = 10
+		}
+		
 		piety = -100
+	}
+	
+	option = {
+		name = imperial_legacy.17.b
+		
+		ai_chance = {
+			factor = 0
+		}
+		
+		piety = -100
+		
+		war = { 
+			target = FROM 
+			casus_belli = overthrow_ruler 
+		}	
 	}
 }
 
@@ -607,7 +626,7 @@ narrative_event = {
 	}
 	
 	option = {
-		name = imperial_legacy.18.b # Do not give Rome to the Pope - Makes the Pope irritated, does not recognise the new WRE ruler and excommunicates him
+		name = imperial_legacy.18.b # Do not give Rome to the Pope - Makes the Pope irritated, does not recognise the new WRE ruler and excommunicates him #add more flavour making Rome into capital
 		
 		ai_chance = {
 			factor = 0
@@ -624,7 +643,7 @@ narrative_event = {
 				}	
 			}
 		}
-		
+				
 		k_papal_state = {
 			holder_scope = {
 				narrative_event = { id = imperial_legacy.20 }
@@ -652,6 +671,14 @@ narrative_event = {
 				narrative_event = { id = imperial_legacy.21 }		
 			}
 		}
+		
+		any_playable_ruler = {
+			limit = {
+				religion = ROOT
+			}
+
+			narrative_event = { id = imperial_legacy.23 }		
+		}
 
 	}
 }
@@ -675,7 +702,7 @@ narrative_event = {
 		
 		e_wre = {
 			holder_scope = {
-				narrative_event = { id = imperial_legacy.22 }		
+				narrative_event = { id = imperial_legacy.24 }		
 			}
 		}
 
@@ -699,6 +726,21 @@ narrative_event = {
 	}
 }
 
+#  INFO - Catholic Pope recognises WRE
+narrative_event = {
+	id = imperial_legacy.23
+	title = imperial_legacy.23.name
+	desc = imperial_legacy.23.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = imperial_legacy.23.a
+	}
+}
+
 #  Catholic Pope does not recognise WRE
 narrative_event = {
 	id = imperial_legacy.22
@@ -714,7 +756,23 @@ narrative_event = {
 		
 		piety = -100
 	}
+}	
+	
+#  INFO - Catholic Pope does not recognise WRE
+narrative_event = {
+	id = imperial_legacy.24
+	title = imperial_legacy.24.name
+	desc = imperial_legacy.24.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = imperial_legacy.24.a
+	}
 }
+
 
 #  Restoration of the Eastern Roman Empire
 narrative_event = {
