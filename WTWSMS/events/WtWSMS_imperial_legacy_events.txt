@@ -265,6 +265,7 @@ narrative_event = {
 	}
 }
 
+
 #  Restoration of the Western Roman Empire
 narrative_event = {
 	id = imperial_legacy.11
@@ -473,7 +474,7 @@ narrative_event = {
 		}
 		if = {
 			limit = {
-				has_global_flag = ere_recognised_wre
+				has_global_flag = ere_not_recognised_wre
 			}
 			hidden_tooltip = {
 				any_playable_ruler = {
@@ -676,7 +677,6 @@ narrative_event = {
 			limit = {
 				religion = ROOT
 			}
-
 			narrative_event = { id = imperial_legacy.23 }		
 		}
 
@@ -702,8 +702,15 @@ narrative_event = {
 		
 		e_wre = {
 			holder_scope = {
-				narrative_event = { id = imperial_legacy.24 }		
+				narrative_event = { id = imperial_legacy.22 }		
 			}
+		}
+		
+		any_playable_ruler = {
+			limit = {
+				religion = ROOT
+			}
+			narrative_event = { id = imperial_legacy.24 }		
 		}
 
 	}
@@ -745,7 +752,7 @@ narrative_event = {
 narrative_event = {
 	id = imperial_legacy.22
 	title = imperial_legacy.22.name
-	desc = imperial_legacy.23.desc
+	desc = imperial_legacy.22.desc
 	picture = GFX_evt_fall_of_rome
 	border = GFX_event_narrative_frame_diplomacy
 	
@@ -776,6 +783,267 @@ narrative_event = {
 
 #  Restoration of the Eastern Roman Empire
 narrative_event = {
+	id = imperial_legacy.25
+	title = imperial_legacy.25.name
+	desc = imperial_legacy.25.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = imperial_legacy.25.a
+		
+		e_byzantium = {
+			grant_title = ROOT
+			hidden_tooltip = { make_primary_title = yes }
+		}
+		prestige = 1000
+		
+		e_wre = {
+			holder_scope = {
+				narrative_event = { id = imperial_legacy.26 }		
+			}
+		}
+		
+		if = {
+			limit = {
+				NOT = { has_global_flag = great_schism }
+				ROOT = { religion = nicene }
+			}
+			d_orthodox = {
+				holder_scope = {
+					narrative_event = { id = imperial_legacy.29 }		
+				}
+			}
+		}
+		
+		if = {
+			limit = {
+				has_global_flag = great_schism 
+				ROOT = { religion = orthodox }
+			}
+			ROOT = { narrative_event = { id = imperial_legacy.32 } }
+		}
+		
+		custom_tooltip = { 
+			text = imperial_legacy.25.a.tooltip
+		}
+	}
+}
+
+#  WRE answer to restoration of ERE
+narrative_event = {
+	id = imperial_legacy.26
+	title = imperial_legacy.26.name
+	desc = imperial_legacy.26.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = imperial_legacy.26.a # Recognise the new ruler, should do unless ambitious or hates WRE ruler and has picked picked "Sole Roman Empire" decision
+		ai_chance = {
+			factor = 10
+			additive_modifier = {
+				factor = -10
+				trait = ambitious
+			}
+			additive_modifier = {
+				factor = -5
+				trait = proud
+			}
+			additive_modifier = {
+				factor = -10
+				opinion_diff = { 
+					first = FROM
+					second = ROOT 
+					value = 50
+				}	
+			}
+		}
+		hidden_tooltip = {  
+			ROOT = {
+				if = {
+					limit = {
+						has_weak_claim  = e_roman_empire
+					}
+					# Remove any claim gained by "Sole Roman Empire" decision
+					remove_claim = e_roman_empire
+				}
+			}
+		}
+		set_global_flag = wre_recognised_ere
+		custom_tooltip = { 
+			text = imperial_legacy.26.a.tooltip
+		}
+		e_byzantium = {
+			holder_scope = {
+				narrative_event = { id = imperial_legacy.27 }		
+			}
+		}
+	}
+	
+	option = {
+		name = imperial_legacy.26.b # Refuse to recognise the new ruler, shouldn't do unless ambitious, proud or hates ERE ruler and in all cases need to have picked "Sole Roman Empire" decision
+		ai_chance = {
+			factor = 0
+			additive_modifier = {
+				factor = 10
+				has_weak_claim  = e_roman_empire
+				trait = ambitious
+			}
+			additive_modifier = {
+				factor = 5
+				has_weak_claim  = e_roman_empire
+				trait = proud
+			}
+			additive_modifier = {
+				factor = 10
+				opinion_diff = { 
+					first = FROM
+					second = ROOT 
+					value = 50
+				}
+				has_weak_claim  = e_roman_empire
+			}
+		}
+		set_global_flag = wre_not_recognised_ere 
+		custom_tooltip = { 
+			text = imperial_legacy.26.b.tooltip
+		}
+		e_byzantium = {
+			holder_scope = {
+				narrative_event = { id = imperial_legacy.28 }		
+			}
+		}
+	}
+}
+
+#  WRE recognises ERE
+narrative_event = {
+	id = imperial_legacy.27
+	title = imperial_legacy.27.name
+	desc = imperial_legacy.27.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = imperial_legacy.27.a
+		
+		prestige = 100
+	}
+}
+
+#  WRE does not recognise ERE
+narrative_event = {
+	id = imperial_legacy.28
+	title = imperial_legacy.28.name
+	desc = imperial_legacy.28.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = imperial_legacy.28.a
+		
+		prestige = -100
+	}
+}
+
+# Nicene Patriarch answer to restoration of ERE
+narrative_event = {
+	id = imperial_legacy.29
+	title = imperial_legacy.29.name
+	desc = imperial_legacy.29.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = OK # Recognise the new ruler, should do unless hates ERE ruler 
+		
+		ai_chance = {
+			factor = 10
+			additive_modifier = {
+				factor = -10
+				trait = ambitious
+			}
+			additive_modifier = {
+				factor = -5
+				trait = proud
+			}
+			additive_modifier = {
+				factor = -10
+				opinion_diff = { 
+					first = FROM
+					second = ROOT 
+					value = 50  
+				}	
+			}
+		}
+		if = {
+			limit = {
+				has_global_flag = wre_not_recognised_ere
+			}
+			hidden_tooltip = {
+				any_playable_ruler = {
+					character_event = { id = HRE.4 } # Fires schism
+				} 
+			}
+		
+		}
+		
+		e_byzantium = {
+			holder_scope = {
+				narrative_event = { id = imperial_legacy.30 }		
+			}
+		}
+		
+		set_global_flag = nicene_patriarch_recognised_ere
+
+	}
+	option = {
+		name = OK # Refuse to recognise the new ruler, shouldn't do unless hates ERE ruler 
+		
+		ai_chance = {
+			factor = 0
+			additive_modifier = {
+				factor = 10
+				opinion_diff = { 
+					first = FROM
+					second = ROOT 
+					value = 50  
+				}	
+			}
+			additive_modifier = {
+				factor = 10
+				trait = ambitious
+			}
+			additive_modifier = {
+				factor = 5
+				trait = proud
+			}
+		}
+		
+		e_byzantium = {
+			holder_scope = {
+				narrative_event = { id = imperial_legacy.31 }		
+			}
+		}
+		
+		set_global_flag = nicene_patriarch_not_recognised_ere
+	}
+
+}
+
+#  Nicene Patriarch recognises ERE
+narrative_event = {
 	id = imperial_legacy.30
 	title = imperial_legacy.30.name
 	desc = imperial_legacy.30.desc
@@ -787,26 +1055,243 @@ narrative_event = {
 	option = {
 		name = imperial_legacy.30.a
 		
-		e_byzantium = {
-			grant_title = ROOT
-			hidden_tooltip = { make_primary_title = yes }
-		}
-		prestige = 1000
+		piety = 100
+	}
+}
+
+#  Nicene Patriarch does not recognise ERE
+narrative_event = {
+	id = imperial_legacy.31
+	title = imperial_legacy.31.name
+	desc = imperial_legacy.31.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = imperial_legacy.31.a
 		
-		e_wre = {
-			holder_scope = {
-				if = {
-					limit = {
-						has_weak_claim  = e_roman_empire
-					}
-					# Remove any claim gained by "Sole Roman Empire" decision
-					remove_claim = e_roman_empire
-				}
+		ai_chance = {
+			factor = 10
+		}
+		
+		piety = -100
+	}
+	
+	option = {
+		name = imperial_legacy.31.b
+		
+		ai_chance = {
+			factor = 0
+		}
+		
+		piety = -100
+		
+		war = { 
+			target = FROM 
+			casus_belli = overthrow_ruler 
+		}	
+	}
+}
+
+#  ERE ruler chooses how to act with Orthodox Patriarch after restoration
+narrative_event = {
+	id = imperial_legacy.32
+	title = imperial_legacy.32.name
+	desc = imperial_legacy.32.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = { 
+		name = imperial_legacy.32.a # Give Hagia Sophia to Pope - Makes the Patriarch satisfied, he recognises the new ERE ruler, vassalises and more hostile towards West, but might ask for more later
+		
+		ai_chance = {
+			factor = 10
+			additive_modifier = {
+				factor = 10
+				trait = zealous
+			}
+			additive_modifier = {
+				factor = -10
+				opinion_diff = { 
+					first = FROM
+					second = ROOT 
+					value = 50
+				}	
 			}
 		}
 		
-		custom_tooltip = { 
-			text = imperial_legacy.30.a.tooltip
+		k_orthodox = {
+			holder_scope = {
+				narrative_event = { id = imperial_legacy.33 }
+				if = {
+					limit = {
+						NOT = { has_landed_title = b_hagiasophia }
+					}
+					ROOT = { 
+						b_hagiasophia = {
+							grant_title = PREV
+						}
+					}
+				}
+			}
 		}
 	}
+	
+	option = {
+		name = imperial_legacy.32.b # Do not give Hagia Sophia to the Patriarch - Makes the Patriarch irritated, does not recognise the new ERE ruler and excommunicates him #add more flavour making Rome into capital
+		
+		ai_chance = {
+			factor = 0
+			additive_modifier = {
+				factor = -10
+				trait = zealous
+			}
+			additive_modifier = {
+				factor = 10
+				opinion_diff = { 
+					first = FROM
+					second = ROOT 
+					value = 50
+				}	
+			}
+		}
+				
+		k_orthodox = {
+			holder_scope = {
+				narrative_event = { id = imperial_legacy.34 }
+			}
+		}
+	}
+
 }
+
+# Orthodox Patriarch gets Hagia Sophia from ERE
+narrative_event = {
+	id = imperial_legacy.33
+	title = imperial_legacy.33.name
+	desc = imperial_legacy.33.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = OK # Recognise the new ERE ruler 
+		
+		e_byzantium = {
+			holder_scope = {
+				narrative_event = { id = imperial_legacy.35 }		
+			}
+		}
+		
+		any_playable_ruler = {
+			limit = {
+				religion = ROOT
+			}
+			narrative_event = { id = imperial_legacy.37 }		
+		}
+
+	}
+}
+
+# Orthodox Patriarch does not get Hagia Sophia from ERE
+narrative_event = {
+	id = imperial_legacy.34
+	title = imperial_legacy.34.name
+	desc = imperial_legacy.34.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = OK # Refuse to recognise the new ERE ruler 
+		
+		FROM = {
+			excommunicate = yes
+		}
+		
+		e_byzantium = {
+			holder_scope = {
+				narrative_event = { id = imperial_legacy.36 }		
+			}
+		}
+		
+		any_playable_ruler = {
+			limit = {
+				religion = ROOT
+			}
+			narrative_event = { id = imperial_legacy.38 }		
+		}
+
+	}
+}
+
+#  Orthodox Patriarch recognises ERE
+narrative_event = {
+	id = imperial_legacy.35
+	title = imperial_legacy.35.name
+	desc = imperial_legacy.35.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = imperial_legacy.35.a
+		
+		piety = 100
+	}
+}
+
+#  INFO - Orthodox Patriarch recognises ERE
+narrative_event = {
+	id = imperial_legacy.37
+	title = imperial_legacy.37.name
+	desc = imperial_legacy.37.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = imperial_legacy.37.a
+	}
+}
+
+#  Orthodox Patriarch does not recognise ERE
+narrative_event = {
+	id = imperial_legacy.36
+	title = imperial_legacy.36.name
+	desc = imperial_legacy.36.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = imperial_legacy.36.a
+		
+		piety = -100
+	}
+}	
+	
+#  INFO - Orthodox Patriarch does not recognise ERE
+narrative_event = {
+	id = imperial_legacy.38
+	title = imperial_legacy.38.name
+	desc = imperial_legacy.38.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = imperial_legacy.38.a
+	}
+}
+
