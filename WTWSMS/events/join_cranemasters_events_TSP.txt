@@ -1,0 +1,77 @@
+character_event = {
+	id = join_cranemaster
+	desc = join_cranemaster_DESC
+	picture = GFX_evt_throne_room_altaic
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = join_cranemaster_YES
+		ai_chance = {
+			factor = 100
+		}
+		
+		piety = 250
+		
+		FROM = {
+			character_event = {
+				id = cranegoYES
+			}
+		}
+	}
+	
+	option = {
+		name = join_cranemaster_NO
+		
+		piety = -100
+		
+		FROM = {
+			character_event = {
+				id = cranegoNO
+			}
+		}
+	}
+}
+
+
+character_event = {
+	id = cranegoYES
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		d_cranemasters = {
+			holder_scope = {
+				ROOT = {
+					
+					hidden_tooltip = {
+						clear_wealth = PREV
+					}
+					move_character = PREV
+					if = {
+						limit = { trait = in_hiding	}
+						remove_trait = in_hiding
+						clr_character_flag = do_not_disturb
+						hidden_tooltip = { character_event = { id = CM.6400 } } # Notify plotters and family
+					}
+				}
+			}
+		}
+	}
+}
+
+character_event = {
+	id = cranegoNO
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		opinion = {
+			who = FROM
+			modifier = opinion_refused_request_holy_order
+		}
+	}
+}
