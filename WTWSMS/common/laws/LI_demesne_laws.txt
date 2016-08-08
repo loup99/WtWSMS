@@ -1,0 +1,551 @@
+law_groups = {
+	religious_tolerance = {
+		law_type = realm
+	}
+}
+
+laws = {
+	### RELIGIOUS TOLERANCE ###
+	## Also, at the conversion job action, intolerants have higher chance to convert and tolerants lower ##
+	tolerance_0 = {		#Tolerant
+		show_as_title = yes
+		group = religious_tolerance
+		
+		city_opinion = 10
+		temple_opinion = -10
+		
+		potential = {
+			temporary = no
+			holder_scope = {
+				is_landed = yes
+			}
+		}
+		
+		allow = {
+			has_law = tolerance_1
+			holder_scope = {
+				OR = {
+					independent = yes
+					liege = {
+						NAND = {
+							religion = PREV
+							primary_title = {
+								has_law = tolerance_2
+							}
+						}
+					}
+				}
+				OR = {
+					trait = cynical
+				}
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0.1
+				always = yes
+			}
+			modifier = {
+				factor = 2
+				holder_scope = {
+					trait = hedonist
+				}
+				has_law = tolerance_1
+			}
+			modifier = {
+				factor = 2
+				holder_scope = {
+					trait = kind
+				}
+				has_law = tolerance_1
+			}
+			modifier = {
+				factor = 2
+				holder_scope = {
+					trait = charitable
+				}
+				has_law = tolerance_1
+			}
+			modifier = {
+				factor = 0
+				holder_scope = {
+					OR = {
+						trait = cruel
+						trait = paranoid
+						trait = ruthless
+					}
+				}
+			}
+			modifier = {		#Communitarian religions are less likely to choose this
+				factor = 0.25
+				holder_scope = {
+					sectarian_light_trigger = yes
+				}
+			}
+			modifier = {		#Sectarian religions are very unlikely to choose this
+				factor = 0.05
+				holder_scope = {
+					sectarian_heavy_trigger = yes
+				}
+			}
+			modifier = {
+				factor = 0.05
+				holder_scope = {
+					trait = zealous
+				}
+			}
+			modifier = {
+				factor = 10
+				holder_scope = {
+					trait = cynical
+				}
+			}
+		}
+		ai_will_revoke = {
+			factor = 0
+		}
+			
+		pass_effect = {
+			holder_scope = {
+				IF = {
+					limit = { NOT = { trait = tolerant_ruler } }
+					character_event = { id = relf.1 }
+				}
+				set_character_flag = passed_tolerant_law
+				any_vassal = {
+					limit = {
+						religion = PREV
+						OR = {
+							sectarian_light_trigger = yes
+							sectarian_heavy_trigger = yes
+							trait = zealous
+						}
+					}
+					opinion = {
+						who = PREV
+						modifier = opinion_crazy_tolerant
+						years = 5
+					}
+				}
+				any_vassal = {
+					limit = {
+						OR = {
+							NOR = {
+								religion = PREV
+								sectarian_light_trigger = yes
+								sectarian_heavy_trigger = yes
+							}
+							trait = cynical
+						}
+					}
+					opinion = {
+						who = PREV
+						modifier = opinion_wise_tolerant
+						years = 5
+					}
+				} 
+				if = {
+					limit = {
+						sectarian_light_trigger = yes
+					}
+					religion_authority = {
+						modifier = doubted_faith
+						years = 5
+					}
+				}
+				if = {
+					limit = {
+						sectarian_heavy_trigger = yes
+					}
+					religion_authority = {
+						modifier = blasphemy
+						years = 10
+					}
+				}
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = tolerance_0
+				revoke_law = tolerance_1
+				revoke_law = tolerance_2
+				set_allow_free_infidel_revokation = no
+			}
+#			RELIGION_FLEX = 0.25
+		}
+	}
+	tolerance_1 = {
+		show_as_title = yes
+		group = religious_tolerance
+		default = yes
+		
+		potential = {
+			temporary = no
+			holder_scope = {
+				is_landed = yes
+			} 
+		}
+		
+		allow = {
+			OR = {
+				has_law = tolerance_0
+				has_law = tolerance_2
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0.1
+				always = yes
+			}
+			modifier = {
+				factor = 3
+				holder_scope = {
+					trait = cruel
+				}
+				has_law = tolerance_0
+			}
+			modifier = {
+				factor = 4
+				holder_scope = {
+					sectarian_light_trigger = yes
+				}
+				has_law = tolerance_0
+			}
+			modifier = {
+				factor = 20
+				holder_scope = {
+					sectarian_heavy_trigger = yes
+				}
+				has_law = tolerance_0
+			}
+			modifier = {
+				factor = 0.2
+				holder_scope = {
+					sectarian_heavy_trigger = yes
+				}
+				has_law = tolerance_2
+			}
+			modifier = {
+				factor = 0.1
+				holder_scope = {
+					trait = zealous
+				}
+				has_law = tolerance_2
+			}
+			modifier = {
+				factor = 5
+				holder_scope = {
+					trait = cynical
+				}
+				has_law = tolerance_2
+			}
+			modifier = {
+				factor = 10
+				holder_scope = {
+					trait = zealous
+				}
+				has_law = tolerance_0
+			}
+			modifier = {
+				factor = 0.2
+				holder_scope = {
+					trait = cynical
+				}
+				has_law = tolerance_0
+			}
+#			modifier = {
+#				factor = 2
+#				holder_scope = {
+#					trait = tyrant
+#				}
+#				has_law = tolerance_0
+#			}
+			modifier = {
+				factor = 1.5
+				holder_scope = {
+					trait = ruthless
+				}
+				has_law = tolerance_0
+			}
+			modifier = {
+				factor = 1.25
+				holder_scope = {
+					trait = paranoid
+				}
+				has_law = tolerance_0
+			}
+			modifier = {
+				factor = 10
+				holder_scope = {
+					trait = kind
+				}
+				has_law = tolerance_2
+			}
+			modifier = {
+				factor = 10
+				holder_scope = {
+					trait = charitable
+				}
+				has_law = tolerance_2
+			}
+			modifier = {
+				factor = 10
+				holder_scope = {
+					trait = liberator
+				}
+				has_law = tolerance_2
+			}
+			modifier = {
+				factor = 0
+				holder_scope = {
+					trait = content
+				}
+			}
+		}
+		ai_will_revoke = {
+			factor = 0
+		}
+		pass_effect = {
+			holder_scope = {
+				if = {
+					limit = { trait = tolerant_ruler }
+					character_event = { id = relf.2 }
+				}
+				any_vassal = {
+					limit = {
+						has_opinion_modifier = {
+							who = liege
+							modifier = opinion_wise_tolerant
+						}
+					}
+					remove_opinion = {
+						who = liege
+						modifier = opinion_wise_tolerant
+					}
+				}
+				any_vassal = {
+					limit = {
+						has_opinion_modifier = {
+							who = liege
+							modifier = opinion_crazy_tolerant
+						}
+					}
+					remove_opinion = {
+						who = liege
+						modifier = opinion_crazy_tolerant
+					}
+				}
+				any_vassal = {
+					limit = {
+						has_opinion_modifier = {
+							who = liege
+							modifier = opinion_only_true_faith
+						}
+					}
+					remove_opinion = {
+						who = liege
+						modifier = opinion_only_true_faith
+					}
+				}
+				any_vassal = {
+					limit = {
+						has_opinion_modifier = {
+							who = liege
+							modifier = opinion_fanatic_oppressor
+						}
+					}
+					remove_opinion = {
+						who = liege
+						modifier = opinion_fanatic_oppressor
+					}
+				}
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = tolerance_0
+				revoke_law = tolerance_1
+				revoke_law = tolerance_2
+			}
+			set_allow_free_infidel_revokation = no
+		}
+	}
+	tolerance_2 = { 	#Intolerant
+		show_as_title = yes
+		group = religious_tolerance
+		
+		city_opinion = -10
+		temple_opinion = 10
+		
+		potential = {
+			temporary = no
+			holder_scope = { NOT = { is_landed = no } } 
+		}
+		
+		allow = {
+			has_law = tolerance_1
+			crownlaw_title = {
+				has_holder = yes
+				OR = {
+					has_law = centralization_2
+					has_law = centralization_3
+					has_law = centralization_4
+				}
+			}
+			holder_scope = {
+				OR = {
+					independent = yes
+					liege = {
+						OR = {
+							religion = PREV
+							primary_title = {
+								NOT = {
+									has_law = tolerance_0
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0.1
+				always = yes
+			}
+			modifier = {
+				holder_scope = {
+					trait = charitable
+				}
+				factor = 0
+			}
+			modifier = {
+				holder_scope = {
+					trait = kind
+				}
+				factor = 0
+			}
+			modifier = {
+				holder_scope = {
+					trait = liberator
+				}
+				factor = 0
+			}
+			modifier = {
+				holder_scope = {
+					trait = hedonist
+				}
+				factor = 0.5
+			}
+			modifier = {
+				factor = 2
+				holder_scope = {
+					trait = cruel
+				}
+			}
+			modifier = {
+				factor = 1.75
+				holder_scope = {
+					trait = paranoid
+				}
+			}
+			modifier = {
+				factor = 1.5
+				holder_scope = {
+					trait = ruthless
+				}
+			}
+			modifier = {
+				factor = 1.25
+				holder_scope = {
+					trait = cynical
+				}
+			}
+			modifier = {
+				factor = 20
+				holder_scope = {
+					sectarian_heavy_trigger = yes
+				}
+			}
+			modifier = {
+				factor = 4
+				holder_scope = {
+					sectarian_light_trigger = yes
+				}
+			}
+			modifier = {
+				factor = 10
+				holder_scope = {
+					trait = zealous
+				}
+			}
+		}
+		ai_will_revoke = {
+			factor = 0
+		}
+		
+		pass_effect = {
+			holder_scope = {
+				IF = {
+					limit = { trait = tolerant_ruler }
+					character_event = { id = relf.2 }
+				}
+				any_vassal = {
+					limit = {
+						religion = PREV
+						NOR = {
+							trait = tolerant_ruler
+							trait = cynical
+						}
+					}
+					opinion = {
+						who = PREV
+						modifier = opinion_only_true_faith
+						years = 10
+					}
+				}
+				any_vassal = {
+					limit = {
+						OR = {
+							NOT = {
+								religion = PREV
+							}
+							trait = cynical
+							trait = tolerant_ruler
+						}
+					}
+					opinion = {
+						who = PREV
+						modifier = opinion_fanatic_oppressor
+						years = 10
+					}
+				}
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = tolerance_0
+				revoke_law = tolerance_1
+				revoke_law = tolerance_2
+			}
+#			religion_flex = -0.25
+			set_allow_free_infidel_revokation = yes
+		}
+	}
+	
+}
