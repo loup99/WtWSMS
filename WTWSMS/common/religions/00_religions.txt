@@ -349,6 +349,12 @@ christian = {
 			SATAN LUCIFER THE_DEVIL
 		}
 		
+		character_modifier = {
+			ai_zeal = 3
+			prestige = 0.1
+			diplomacy = 1
+		}
+
 		can_excommunicate = yes
 		can_grant_divorce = yes
 		can_grant_invasion_cb = invasion
@@ -514,6 +520,7 @@ christian = {
 		
 		can_retire_to_monastery = yes
 		female_temple_holders = yes
+		has_heir_designation = yes
 		
 		religious_clothing_head = 1
 		religious_clothing_priest = 5
@@ -1408,26 +1415,58 @@ muslim = {
 		uses_decadence = yes
 		uses_jizya_tax = yes
 	}
-	wahhabi = {
+	wahhabi = {  #this is the extremist sect practiced by ISIL, Al-Qaeda, and Saudi Arabia to this day, as such, it is extremely violent, as it remains totally unchanged from its inception in the seventh and eighth centuries
+
 		graphical_culture = muslimgfx
+
+		ai_convert_same_religion = 2
+		ai_convert_same_religion = 2
+
+		ai_peaceful = no
 
 		icon = 3
 		heresy_icon = 8
 		
-		color = { 0.4 0.9 0.3 }
+		color = { 0.01 0.01 0.01 }
 		parent = sunni
 		
 		crusade_name = JIHAD
 
+		aggression = 8
 		priests_can_marry = yes
 		psc_marriage = no
-		max_wives = 4
+		max_wives = 6
 		matrilineal_marriages = no
-
-		landed_kin_prestige_bonus = yes
-		attacking_same_religion_piety_loss = yes
+		peace_prestige_loss = yes
+		hostile_within_group = yes
+		can_grant_invasion_cb = invasion 
+		can_hold_temples = no
+		allow_looting = yes
+		landed_kin_prestige_bonus = no
+		attacking_same_religion_piety_loss = no
 		uses_decadence = yes
 		uses_jizya_tax = yes
+		defensive_attrition = yes	
+
+		character_modifier = {
+			fertility = 0.1
+			combat_rating = 3 #Wahabbis and their splinter sects are some of the fiercest fighters on earth, even beating back the USA
+			ai_rationality = -10
+			martial = 6
+			ai_zeal = 20 #Wahabbis are unusually zealous in RL
+			ai_ambition = 5 #Wahhabbis see war as glorious and seek to do it whenever possible
+			piety = 0.5 #This one is obvious
+			infidel_opinion = -25
+			land_morale = 0.5 #Wahabbis see themselves as martyrs for Allah and see war as glorious
+			tech_growth_modifier = -0.05
+			supply_limit = 0.1
+			religion_flex = -5
+		}
+
+		religious_clothing_head = 5 #They actually wear black, but there is no black model that looks like number five
+		religious_clothing_priest = 5
+		
+
 	}
 	mahdi = {
 		graphical_culture = muslimgfx
@@ -1644,8 +1683,8 @@ muslim = {
 		
 		aggression = 5 # AI aggression factor
 
-		religious_clothing_head = 2
-		religious_clothing_priest = 2
+		religious_clothing_head = 5
+		religious_clothing_priest = 5
 
 		landed_kin_prestige_bonus = yes
 		}
@@ -4706,6 +4745,7 @@ indian_group = {
 		intermarry = buddhist
 		intermarry = zun_pagan
 		intermarry = zun_pagan_reformed
+		intermarry = hepthal_religion
 	}
 	ajivika = {
 		graphical_culture = hindugfx
@@ -4809,13 +4849,12 @@ indian_group = {
 			THE_VINAYAKAS
 		}
 		
+		autocephalacy = no
 		can_grant_divorce = yes
 		priests_can_inherit = yes
 		priests_can_marry = yes
 		allow_looting = yes
 		max_consorts = 3
-		can_have_antipopes = yes
-		investitutre = yes
 		can_grant_invasion_cb = yes
 		can_grant_claim = yes
 		can_retire_to_monastery = yes		
