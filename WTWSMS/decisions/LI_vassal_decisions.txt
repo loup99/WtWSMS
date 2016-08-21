@@ -1,0 +1,76 @@
+
+# Targetted decisions are possible vs _all_ other characters and shown are in the Diplomacy View, not the Intrigue View. The taker is in the FROM scope.
+#
+# filter = [self/court/home_court/vassals/sub_realm/realm/dynasty/all] ('self' MUST be set for decisions targetting only the taker, the other filter types can be set to lessen CPU load)
+# ai_target_filter = [self/court/home_court/vassals/sub_realm/realm/dynasty/all] (which characters for which the AI evaluates the decision.)
+#	court: all characters in the AI's host court, including prisoners, and characters currently away (wards, prisoners, etc)
+#	home_court: all characters in the AI's home court, including prisoners, and characters currently away (wards, prisoners, etc)
+#	vassals: direct vassal rulers of the AI's employer
+#	sub_realm: all characters below the AI's employer
+#	realm: all characters in the same top realm as the AI
+#	dynasty: all members of the same dynasty
+#	rivals: your rivals plus any character you have an opinion modifier with 'crime = yes' set (the same set of characters the 'is_foe' trigger evaluates)
+#	all: all living characters (Avoid if possible. VERY CPU-HEAVY!)
+#	
+
+
+targetted_decisions = {
+	demand_religious_conversion = {
+		filter = sub_realm
+		ai_target_filter = sub_realm
+		
+		from_potential = {
+			is_ruler = yes
+			has_regent = no
+			proselyte_religion_trigger = yes	#Only proselyte religions may do this
+		}
+		potential = {
+			NOR = {
+				character = FROM
+				religion = FROM
+				trait = incapable
+			}
+			is_adult = yes
+			liege = {
+				character = FROM
+			}
+			OR = {
+				prisoner = no
+				host = {
+					character = FROM
+				}
+			}
+		}
+		allow = {
+			OR = {
+				has_opinion_modifier = {	#Can not try to convert if recently failed to convert
+					who = FROM
+					modifier = tried_to_convert_me
+				}
+				AND = {
+					prisoner = yes
+					host = {
+						character = FROM
+					}
+				}
+			}
+		}
+		effect = {
+			letter_event = {
+				id = demand_conversion.1
+				days = 3
+				random = 7
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.001	#slow it down
+			}
+		}
+	}
+	
+}

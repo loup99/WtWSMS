@@ -1,0 +1,812 @@
+decisions = {
+	
+	convert_to_liege_religion = {
+		potential = {
+			ai = no
+			is_playable = yes
+			liege = {
+				NOR = {
+					character = ROOT
+					religion = ROOT
+				}
+				religion_group = ROOT
+			}
+			controls_religion = no
+		}
+		allow = {
+			NOT = { trait = zealous }
+		}
+		effect = {
+			prestige = -500
+			piety = 250
+			if = {
+				limit = { higher_tier_than = BARON }
+				religion_authority = {
+					modifier = ruler_converted_from
+				}
+			}
+			liege = {
+				reverse_religion = ROOT
+			}
+			if = {
+				limit = { higher_tier_than = BARON }
+				hidden_tooltip = {
+					religion_authority = {
+						modifier = ruler_converted_to
+					}
+				}
+			}
+			if = {
+				limit = { liege = { trait = shaivist_hindu } }
+				add_trait = shaivist_hindu
+			}
+			if = {
+				limit = { liege = { trait = vaishnavist_hindu } }
+				add_trait = vaishnavist_hindu
+			}
+			if = {
+				limit = { liege = { trait = shaktist_hindu } }
+				add_trait = shaktist_hindu
+			}
+			if = {
+				limit = { liege = { trait = smartist_hindu } }
+				add_trait = smartist_hindu
+			}
+			if = {
+				limit = { liege = { trait = mahayana_buddhist } }
+				add_trait = mahayana_buddhist
+			}
+			if = {
+				limit = { liege = { trait = vajrayana_buddhist } }
+				add_trait = vajrayana_buddhist
+			}
+			if = {
+				limit = { liege = { trait = theravada_buddhist } }
+				add_trait = theravada_buddhist
+			}
+			if = {
+				limit = { liege = { trait = digambara_jain } }
+				add_trait = digambara_jain
+			}
+			if = {
+				limit = { liege = { trait = svetambara_jain } }
+				add_trait = svetambara_jain
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	convert_to_liege_culture = {
+		potential = {
+			is_playable = yes
+			liege = {
+				NOR = {
+					character = ROOT
+					culture = ROOT
+				}
+			}
+		}
+		allow = {
+			prestige = 200
+		}
+		effect = {
+			prestige = -200
+			liege = {
+				reverse_culture = ROOT
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	convert_to_local_culture = {
+		potential = {
+			is_playable = yes
+			is_nomadic = no
+			capital_scope = {
+				NOT = { culture = ROOT }
+			}
+			OR = {
+				independent = yes
+				liege = {
+					NOT = { culture = ROOT }
+				}
+			}
+			holy_order = no
+			mercenary = no
+			has_dlc = "Rajas of India"
+		}
+		allow = {
+			prestige = 500
+		}
+		effect = {
+			prestige = -500
+			capital_scope = {
+				reverse_culture = ROOT
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.01
+			}
+			modifier = {
+				factor = 0
+				primary_title = {
+					is_conquered = yes
+					conquest_culture = ROOT
+				}
+			}
+			modifier = {
+				factor = 0
+				any_vassal = {
+					culture = ROOT
+					OR = {
+						tier = duke
+						tier = king
+						AND = {
+							tier = count
+							ROOT = { tier = duke }
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				capital_scope = {
+					OR = {
+						AND = {
+							culture = norse
+							NOT = {	has_global_flag = norse_culture_flipping }
+							ROOT = {
+								OR = {
+									culture = swedish 
+									culture = norwegian
+									culture = danish
+									culture = norman
+								}
+							}
+						}
+						AND = {
+							culture = saxon
+							ROOT = {
+								OR = {
+									culture = norman 
+									culture = english
+								}
+							}
+						}
+						AND = {
+							culture = norman
+							ROOT = {
+								OR = {
+									culture = english 
+									culture = saxon
+								}
+							}
+						}
+						AND = {
+							culture_group = east_slavic
+							ROOT = {
+								culture = russian
+							}
+						}
+						AND = {
+							culture = pictish
+							ROOT = {
+								culture = scottish
+							}
+						}
+						AND = {
+							culture = lombard
+							ROOT = {
+								culture = italian
+							}
+						}
+						AND = {
+							culture = old_frankish
+							ROOT = {
+								culture = frankish
+							}
+						}
+						AND = {
+							culture = frisian
+							ROOT = {
+								culture = dutch
+							}
+						}
+						AND = {
+							culture = old_saxon
+							ROOT = {
+								culture = german
+							}
+						}
+						AND = {
+							culture = visigothic
+							ROOT = {
+								OR = {
+									culture_group = iberian
+									culture = andalusian_arabic
+									culture = occitan
+									religion_group = muslim
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	convert_to_local_religion = {
+		potential = {
+			ai = no
+			is_playable = yes
+			is_nomadic = no
+			capital_scope = {
+				NOT = { religion = ROOT }
+			}
+			OR = {
+				independent = yes
+				liege = {
+					NOT = { religion = ROOT }
+				}
+			}
+			
+			# The Indian religions can convert to each other anyway
+			OR = {
+				NOT = { religion_group = indian_group }
+				capital_scope = {
+					NOT = { religion_group = indian_group }
+				}
+			}
+			
+			controls_religion = no
+			holy_order = no
+			
+			has_dlc = "Rajas of India"
+			
+			NOT = {
+				AND = {
+					has_dlc = "Charlemagne"
+					has_landed_title = e_byzantium  # May instead renounce iconoclasm
+					has_landed_title = c_byzantion
+					religion = iconoclast
+					capital_scope = { religion = orthodox }
+				}
+			}
+		}
+		allow = {
+			OR = {
+				AND = {
+					prestige = 500
+					capital_scope = {
+						religion_group = ROOT
+					}
+				}
+				AND = {
+					prestige = 1000
+					capital_scope = {
+						NOT = { religion_group = ROOT }
+					}
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					capital_scope = {
+						NOT = { religion_group = ROOT }
+					}
+				}
+				prestige = -1000
+			}
+			if = {
+				limit = {
+					capital_scope = {
+						religion_group = ROOT
+					}
+				}
+				prestige = -500
+			}
+			piety = 250
+			religion_authority = {
+				modifier = ruler_converted_from
+			}
+			capital_scope = {
+				reverse_religion = ROOT
+			}
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	convert_to_parent_religion = {
+		potential = {
+			ai = no
+			is_playable = yes
+			independent = yes
+			controls_religion = no
+			is_heretic = yes
+			NOT = {
+				AND = {
+					has_dlc = "Charlemagne"
+					has_landed_title = e_byzantium  # May instead renounce iconoclasm
+					has_landed_title = c_byzantion
+					religion = iconoclast
+					is_heresy_of = orthodox
+				}
+			}
+		}
+		allow = {
+			NOT = { trait = zealous }
+		}
+		effect = {
+			prestige = -500
+			piety = 250
+			if = {
+				limit = { higher_tier_than = BARON }
+				religion_authority = {
+					modifier = ruler_converted_from
+				}
+			}
+			
+			abandon_heresy = yes
+			
+			if = {
+				limit = { higher_tier_than = BARON }
+				hidden_tooltip = {
+					religion_authority = {
+						modifier = ruler_converted_to
+					}
+				}
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	convert_indian_branch = {
+		potential = {
+			has_dlc = "Rajas of India"
+			ai = no
+			is_playable = yes
+			is_adult = yes
+			is_theocracy = no
+			OR = {
+				religion = hindu
+				religion = jain
+			}
+		}
+		allow = {
+			NOT = { trait = zealous }
+			prestige = 50
+			custom_tooltip = {
+				text = indian_has_not_converted
+				NOT = { has_character_flag = india_branch_converted }
+			}
+		}
+		effect = {
+			set_character_flag = india_branch_converted
+			prestige = -50
+			piety = 25
+			if = {
+				limit = { religion = hindu }
+				character_event = { id = RoI.115 } # Choose branch
+			}
+			# if = {
+				# limit = { 
+					# OR = {
+						# religion_group = bud_group
+						# religion = indoh_bud
+						# religion = tengri_bud
+						# religion = tengri_bud_reformed 
+					# }
+				# }
+				# character_event = { id = RoI.116 } # Choose branch
+			# }
+			if = {
+				limit = { religion = jain }
+				character_event = { id = RoI.117 } # Confirm conversion
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	# convert_to_reformed = { # Can't use due to heresies being able to reform before reformed religion becomes available. Maybe Paradox has made a fix in 2.0? -FG
+		# potential = {
+			# is_playable = yes
+			# is_heretic = yes
+			# OR = { #unreformed religions
+			# }
+		# }
+		# allow = {
+			# NOT = { trait = zealous }
+			# piety = 50
+		# }
+		# effect = {
+			# piety = -50
+			# if = {
+				# limit = { religion = norse_pagan }
+				# religion = norse_pagan_reformed
+			# }
+			# if = {
+				# limit = { religion = finnish_pagan }
+				# religion = finnish_pagan_reformed
+			# }
+			# if = {
+				# limit = { religion = baltic_pagan }
+				# religion = baltic_pagan_reformed
+			# }
+			# if = {
+				# limit = { religion = tengri_pagan }
+				# religion = tengri_pagan_reformed
+			# }
+			# if = {
+				# limit = { religion = slavic_pagan }
+				# religion = slavic_pagan_reformed
+			# }
+			# if = {
+				# limit = { religion = aztec }
+				# religion = aztec_reformed
+			# }
+			# if = {
+				# limit = { religion = west_african_pagan }
+				# religion = west_african_pagan_reformed
+			# }
+			
+			# hidden_tooltip = {
+				# any_courtier = {
+					# limit = {
+						# is_heresy_of = ROOT
+						# employer = { character = ROOT }
+					# }
+					# religion = ROOT
+				# }
+				# any_vassal = {
+					# limit = {
+						# is_playable = no
+						# is_heresy_of = ROOT
+					# }
+					# religion = ROOT
+				# }
+				# capital_scope = {
+					# if = {
+						# limit = { is_heresy_of = ROOT }
+						# religion = ROOT
+					# }
+				# }
+			# }
+		# }
+		# revoke_allowed = {
+			# always = no
+		# }
+		# ai_will_do = {
+			# factor = 1 # On average ca 1 year before taken
+			# modifier = {
+				# factor = 0.025 # Generally quite a slow process - ca 40 years
+			# }
+			# modifier = {
+				# factor = 0.5
+				# trait = slow
+			# }
+			# modifier = {
+				# factor = 0.1
+				# trait = imbecile
+			# }
+			# modifier = {
+				# factor = 0.5
+				# trait = content
+			# }
+			# modifier = {
+				# factor = 2.0
+				# trait = quick
+			# }
+			# modifier = {
+				# factor = 4.0
+				# trait = genius
+			# }
+			# modifier = {
+				# factor = 5.0
+				# trait = cynical # It's the future..
+			# }
+			# modifier = {
+				# factor = 2.0
+				# trait = ambitious
+			# }
+			# modifier = {
+				# factor = 0
+				# independent = no
+				# any_liege = {
+					# religion = ROOT
+				# }
+			# }
+		# }
+	# }
+}
+
+targetted_decisions = {	
+# commenting that Convert to Attacker's Religion decision out, for both thematic (I think it's one of the main means that causes a realm to convert right now) and technical (I can't get it to restrict to CB's correctly) reasons.
+# If in the future it manages to work as intended, it should probably be restricted to Proselyte religions as well	
+	convert_to_attacker_religion = {
+		is_high_prio = yes
+		filter = all
+		ai_target_filter = all
+		
+		from_potential = {
+			war = yes
+			is_playable = yes
+			controls_religion = no
+			custom_tooltip = {
+				text = not_bastion_tooltip
+				hidden_tooltip = {
+					bastion_of_faith_religion_trigger = no
+				}
+			}
+		}
+		potential = {
+			any_war = {
+				defender = { character = FROM }
+				attacker = {
+					character = ROOT
+					NOT = { religion = ROOT }
+					custom_tooltip = {
+						text = proselyte_religion_tooltip
+						hidden_tooltip = {
+							proselyte_religion_trigger = yes
+						}
+					}
+				}
+				OR = {
+					holy_war_trigger = yes
+					crusade_trigger = yes
+					#using_cb = sacred_war
+				}
+			}
+		}
+		
+		allow = {
+			FROM = {
+				NOT = { trait = zealous }
+				prestige = 500
+			}
+		}
+		
+		effect = {
+			FROM = {
+				prestige = -500
+				piety = 100
+				religion_authority = {
+					modifier = ruler_converted_from
+				}
+			}
+			hidden_tooltip = {
+				ROOT = {
+					letter_event = { id = 62800 }
+				}
+			}
+			hidden_tooltip = {
+				FROM = {
+					any_courtier = {
+						limit = {
+							religion = FROM
+							employer = { character = FROM }
+						}
+						religion = ROOT
+					}
+					any_vassal = {
+						limit = {
+							is_playable = no
+							religion = FROM
+						}
+						religion = ROOT
+					}
+					capital_scope = {
+						if = {
+							limit = { religion = FROM }
+							religion = ROOT
+						}
+					}
+					religion = ROOT 
+				}
+			}
+			
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			
+			#piety = 100
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					any_war = {
+						defender = { character = ROOT }
+						OR = {
+							crusade_trigger = yes
+							holy_war_trigger = yes
+							#using_cb = sacred_war
+						}
+						war_score = 50
+						thirdparty_title_scope = {
+							ROOT = {
+								primary_title = {
+									title = PREVPREV
+								}
+							}
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				any_war = {
+					defender = { character = ROOT }
+					OR = {
+						crusade_trigger = yes
+						holy_war_trigger = yes
+						#using_cb = sacred_war
+					}
+					war_score = 75
+					thirdparty_title_scope = {
+						ROOT = {
+							primary_title = {
+								title = PREVPREV
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	### Spousal/Concubine conversion decisions done by SirKulinski
+	convert_to_spouse_religion = {
+		filter = spouse
+		ai_target_filter = spouse
+	
+		from_potential = {
+			ai = no
+			is_playable = yes
+			custom_tooltip = {
+				text = traditional_religion_tooltip
+				hidden_tooltip = {
+					traditional_religion_trigger = yes
+				}
+			}
+			controls_religion = no
+			NOT = { trait = zealous }
+		}
+		potential = {
+			custom_tooltip = {
+				text = proselyte_religion_tooltip
+				hidden_tooltip = {
+					proselyte_religion_trigger = yes
+				}
+			}
+			any_spouse = {
+				character = FROM
+			}
+		}
+		
+		effect = {
+			FROM = {
+				prestige = -500
+				religion_authority = {
+					modifier = ruler_converted_from
+				}
+				
+				religion = ROOT
+				
+				hidden_tooltip = {
+					religion_authority = {
+						modifier = ruler_converted_to
+					}
+				}
+				piety = 200
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	convert_to_consort_religion = {
+		filter = home_court
+		ai_target_filter = home_court
+	
+		from_potential = {
+			ai = no
+			is_playable = yes
+			custom_tooltip = {
+				text = traditional_religion_tooltip
+				hidden_tooltip = {
+					traditional_religion_trigger = yes
+				}
+			}
+			controls_religion = no
+			NOT = { trait = zealous }
+		}
+		potential = {
+			custom_tooltip = {
+				text = proselyte_religion_tooltip
+				hidden_tooltip = {
+					proselyte_religion_trigger = yes
+				}
+			}
+			consort = {
+				character = FROM
+			}
+		}
+		
+		effect = {
+			FROM = {
+				prestige = -500
+				religion_authority = {
+					modifier = ruler_converted_from
+				}
+				
+				religion = ROOT
+				
+				hidden_tooltip = {
+					religion_authority = {
+						modifier = ruler_converted_to
+					}
+				}
+				piety = 200
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}
