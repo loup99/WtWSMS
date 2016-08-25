@@ -349,6 +349,12 @@ christian = {
 			SATAN LUCIFER THE_DEVIL
 		}
 		
+		character_modifier = {
+			ai_zeal = 3
+			prestige = 0.1
+			diplomacy = 1
+		}
+
 		can_excommunicate = yes
 		can_grant_divorce = yes
 		can_grant_invasion_cb = invasion
@@ -364,6 +370,8 @@ christian = {
 
 		intermarry = celtic_pagan
 		intermarry = celtic_pagan_reformed
+		intermarry = germanic_pagan
+		intermarry = germanic_pagan_reformed
 	}
 	pelagianism = {
 		graphical_culture = westerngfx
@@ -514,6 +522,7 @@ christian = {
 		
 		can_retire_to_monastery = yes
 		female_temple_holders = yes
+		has_heir_designation = yes
 		
 		religious_clothing_head = 1
 		religious_clothing_priest = 5
@@ -1371,26 +1380,43 @@ muslim = {
 		uses_decadence = yes
 		uses_jizya_tax = yes
 	}
-	wahhabi = {
+	wahhabi = {  #this is the extremist sect practiced by ISIL, Al-Qaeda, and Saudi Arabia to this day, as such, it is extremely violent, as it remains totally unchanged from its inception in the seventh and eighth centuries
+
 		graphical_culture = muslimgfx
+
+		ai_convert_same_religion = 2
+		ai_convert_same_religion = 2
+
+		ai_peaceful = no
 
 		icon = 3
 		heresy_icon = 8
 		
-		color = { 0.4 0.9 0.3 }
+		color = { 0.01 0.01 0.01 }
 		parent = sunni
 		
 		crusade_name = JIHAD
 
+		aggression = 8
 		priests_can_marry = yes
 		psc_marriage = no
-		max_wives = 4
+		max_wives = 6
 		matrilineal_marriages = no
-
-		landed_kin_prestige_bonus = yes
-		attacking_same_religion_piety_loss = yes
+		peace_prestige_loss = yes
+		hostile_within_group = yes
+		can_grant_invasion_cb = invasion 
+		can_hold_temples = no
+		allow_looting = yes
+		landed_kin_prestige_bonus = no
+		attacking_same_religion_piety_loss = no
 		uses_decadence = yes
 		uses_jizya_tax = yes
+		defensive_attrition = yes
+
+		religious_clothing_head = 5 #They actually wear black, but there is no black model that looks like number five
+		religious_clothing_priest = 5
+		
+
 	}
 	mahdi = {
 		graphical_culture = muslimgfx
@@ -1607,8 +1633,8 @@ muslim = {
 		
 		aggression = 5 # AI aggression factor
 
-		religious_clothing_head = 2
-		religious_clothing_priest = 2
+		religious_clothing_head = 5
+		religious_clothing_priest = 5
 
 		landed_kin_prestige_bonus = yes
 		}
@@ -2028,6 +2054,8 @@ pagan_group = {
 		religious_clothing_priest = 3
 		
 		intermarry = norse_pagan
+		intermarry = norse_pagan_reformed
+		intermarry = insular
 	}		
 	germanic_pagan = {
 		graphical_culture = norsegfx
@@ -2082,6 +2110,7 @@ pagan_group = {
 		intermarry = nicene
 		intermarry = norse_pagan
 		intermarry = germanic_pagan_reformed
+		intermarry = insular
 	}
 	west_pagan = {
 		graphical_culture = norsegfx
@@ -2201,6 +2230,7 @@ pagan_group = {
 		
 		intermarry = celtic_pagan
 		intermarry = norse_pagan
+		intermarry = insular
 		
 		allow_in_ruler_designer = no
 	}
@@ -2270,6 +2300,8 @@ pagan_group = {
 		
 		religious_clothing_head = 3
 		religious_clothing_priest = 3
+
+		intermarry = insular
 	}
 	tengri_pagan_reformed = { # Mongols
 		graphical_culture = mongolgfx
@@ -2316,6 +2348,7 @@ pagan_group = {
 		allow_in_ruler_designer = no
 
 		intermarry = hepthal_religion
+		intermarry = buddhist
 	}		
 	
 	
@@ -2366,10 +2399,11 @@ pagan_group = {
 		religious_clothing_priest = 4
 
 		intermarry = hepthal_religion
+		intermarry = buddhist
 	}
 
-	scythian_pagan_reformed = { # Mongols
-		graphical_culture = mongolgfx
+	scythian_pagan_reformed = { #Reformed Iranian steppe paganism
+		graphical_culture = persiangfx
 		
 		secondary_event_pictures = tengri_pagan
 
@@ -3480,11 +3514,11 @@ pagan_group = {
 		ai_convert_other_group = 2 # always try to convert
 
 		color = { 1.0 0.55 0.0 }
-		crusade_name = GREAT_HOLY_WAR
+		crusade_name = SUN_WAR
 		scripture_name = THE_LEGENDS
 		priest_title = SHAMAN
 		
-		high_god_name = GOD_AMUN
+		high_god_name = THE_SUN
 		god_names = {
 			GOD_AMUN GOD_GURZIL GOD_THE_SUN
 		}
@@ -3519,11 +3553,11 @@ pagan_group = {
 		icon = 73
 		heresy_icon = 75
 		color = { 0.90 0.45 0.56 }
-		crusade_name = GREAT_HOLY_WAR
+		crusade_name = SUN_WAR
 		scripture_name = THE_LEGENDS
 		priest_title = SHAMAN
 		
-		high_god_name = GOD_AMUN
+		high_god_name = THE_SUN
 		god_names = {
 			GOD_AMUN GOD_GURZIL GOD_THE_SUN
 		}
@@ -3561,7 +3595,7 @@ pagan_group = {
 		heresy_icon = 141
 		
 		color = { 0.90 0.45 0.56 }
-		crusade_name = GREAT_HOLY_WAR
+		crusade_name = SUN_WAR
 		scripture_name = THE_LEGENDS
 		priest_title = PRIEST
 		
@@ -3600,7 +3634,7 @@ pagan_group = {
 		heresy_icon = 141
 		
 		color = { 0.90 0.45 0.56 }
-		crusade_name = GREAT_HOLY_WAR
+		crusade_name = SUN_WAR
 		scripture_name = THE_LEGENDS
 		priest_title = PRIEST
 		
@@ -3820,7 +3854,7 @@ pagan_group = {
 			key = "OFF_RELIGION"
 		}
 		
-		crusade_name = GREAT_HOLY_WAR
+		crusade_name = SUN_WAR
 		scripture_name = THE_LEGENDS
 		priest_title = PRIEST
 
@@ -3863,7 +3897,7 @@ pagan_group = {
 			key = "OFF_RELIGION"
 		}
 
-		crusade_name = GREAT_HOLY_WAR
+		crusade_name = SUN_WAR
 		scripture_name = THE_LEGENDS
 		priest_title = PRIEST
 
@@ -3934,7 +3968,7 @@ pagan_group = {
 			GOD_KRONOS GOD_OCEANUS GOD_TETHYS GOD_HYPERION GOD_THEIA GOD_RHEA GOD_ATLAS GOD_KOIOS GOD_PHOEBE GOD_MNEMOSYNE GOD_THEMIS GOD_KRIOS GOD_IAPETUS
 		}
 		evil_god_names = {
-			GOD_JUNO GOD_VESTA GOD_MINERVA GOD_CERES GOD_DIANA GOD_VENUS GOD_MARS GOD_MERCURY GOD_JUPITER GOD_NEPTUNE GOD_VULCAN GOD_APOLLO GOD_PROMETHEUS GOD_EPIMETHEUS	
+			GOD_JUNO GOD_VESTA GOD_MINERVA GOD_CERES GOD_DIANA GOD_VENUS GOD_MARS GOD_MERCURY GOD_JUPITER GOD_NEPTUNE GOD_VULCAN GOD_APOLLO GOD_PROMETHEUS GOD_EPIMETHEUS GOD_OLYMPIANS
 		}
 
 		can_call_crusade = no
@@ -3977,7 +4011,7 @@ pagan_group = {
 			GOD_PROMETHEUS GOD_EPIMETHEUS
 		}
 		evil_god_names = {
-			GOD_OLYMPIANS
+			GOD_OLYMPIANS IGNORANCE
 		}
 
 		can_call_crusade = no
@@ -4081,7 +4115,7 @@ pagan_group = {
 			GOD_THE_ONE GOD_NOUS GOD_THE_WORLD_SOUL GOD_THE_DEMIURGE GOD_THE_HYPERCOSMIC_GODS 
 		}
 		evil_god_names = {
-			EVIL
+			IGNORANCE THE_DARK_SPIRITS
 		}
 		
 		crusade_name = GREAT_HOLY_WAR
@@ -4669,6 +4703,7 @@ indian_group = {
 		intermarry = buddhist
 		intermarry = zun_pagan
 		intermarry = zun_pagan_reformed
+		intermarry = hepthal_religion
 	}
 	ajivika = {
 		graphical_culture = hindugfx
@@ -4752,6 +4787,9 @@ indian_group = {
 		intermarry = buddhist
 	}
 	mimamsa = {
+		ai_convert_same_group = 2
+		ai_convert_other_group = 2
+
 		graphical_culture = hindugfx
 		secondary_event_pictures = sunni
 
@@ -4769,11 +4807,16 @@ indian_group = {
 			THE_VINAYAKAS
 		}
 		
+		autocephalacy = no
 		can_grant_divorce = yes
 		priests_can_inherit = yes
 		priests_can_marry = yes
 		allow_looting = yes
 		max_consorts = 3
+		can_grant_invasion_cb = yes
+		can_grant_claim = yes
+		can_retire_to_monastery = yes		
+
 		
 		unit_modifier = {
 			land_morale = 0.3
@@ -4957,6 +5000,8 @@ indian_group = {
 		intermarry = root_west_pagan
 		intermarry = root_west_pagan_reformed
 		intermarry = sanamahi
+		intermarry = tengri_pagan
+		intermarry = tengri_pagan_reformed
 	}
 	jain = {
 		graphical_culture = jaingfx
@@ -5014,7 +5059,7 @@ chinese_group = {
 
 	confucianism = {
 		graphical_culture = buddhistgfx
-		secondary_event_pictures = sunni
+		secondary_event_pictures = tengri_pagan
 		
 		icon = 5
 		heresy_icon = 63
@@ -5052,8 +5097,7 @@ chinese_group = {
 	
 	taoism = {
 		graphical_culture = buddhistgfx
-		
-		secondary_event_pictures = sunni
+		secondary_event_pictures = jain
 		
 		icon = 5
 		heresy_icon = 63
