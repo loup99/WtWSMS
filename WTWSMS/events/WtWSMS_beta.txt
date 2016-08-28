@@ -2,6 +2,7 @@
 #
 #    Beta Warning Event
 #    Written by Zusk
+# 
 ########################
 
 namespace = beta
@@ -23,5 +24,31 @@ character_event = {
 	option = {
 		name = beta.1.a
 		set_global_flag = beta_okay
+	}
+}
+#Sassanid Government
+character_event = {
+	id = beta.2
+	desc = "You have the Sassanid government"
+
+	is_triggered_only = yes
+	major = no
+	ai = yes
+
+	trigger = {
+	NOT = { has_global_flag = sassanid_government }
+		IF = { 
+			top_liege = e_persia
+			NOT = { government = sassanid_government }
+			OR = { culture = persian culture = parthian } 
+		}
+	}
+	
+	immediate = { 
+		set_government_type = sassanid_government
+	}
+	option = {
+		name = "OK"
+		set_global_flag = sassanid_government
 	}
 }

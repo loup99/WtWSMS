@@ -1,0 +1,345 @@
+decisions = {
+
+	form_avar_khaganate = {
+		is_high_prio = yes
+		potential = {
+			NOT = { tier = EMPEROR }
+			culture = avar
+			e_avar = {
+				has_holder = no
+			}
+		}
+		allow = {
+			realm_size = 70
+		}
+		effect = {
+			e_avar = {
+				activate_title = { title = THIS status = yes } # Otherwise grant_title doesn't work
+				grant_title = ROOT
+			}
+		}
+			
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	form_frankish_kingdom = {
+		is_high_prio = yes
+		potential = {
+			culture = old_frankish
+			NOT = { has_global_flag = frankish_kingdom }
+			k_franks = {
+				has_holder = no
+			}
+		}
+		allow = {
+			custom_tooltip = { 
+				text = controls_hainaut_verdun
+				hidden_tooltip = {
+					94 = { # Hainaut
+						owner = {
+							OR = {
+								is_liege_or_above = ROOT
+								character = ROOT
+							}
+						}
+					}
+					129 = { # Verdun
+						owner = {
+							OR = {
+								is_liege_or_above = ROOT
+								character = ROOT
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			set_global_flag = frankish_kingdom
+			primary_title = {
+				k_franks = {
+					activate_title = { title = THIS status = yes } # Otherwise grant_title doesn't work
+					grant_title = ROOT
+					copy_title_laws = PREV
+					make_primary_title = yes # Automatic for AI, but more friendly/visible for the player
+				}
+			}
+			add_claim = e_gaul #Encourages a united Frankish kingdom to expand through Gaul instead of Germania
+			hidden_tooltip = {
+				any_child = {
+					limit = {
+						is_female = no
+					}
+					add_claim = e_gaul
+				}
+			}
+		}
+			
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	form_assyrian_empire = {
+		is_high_prio = yes
+		potential = {
+			religion = assyrian_pagan
+			NOT = { has_global_flag = assyria_reborn }
+			e_assyria = {
+				has_holder = no
+			}
+		}
+		allow = {
+			war = no
+			completely_controls = c_sinjar
+			completely_controls = k_asoristan
+			independent = yes
+			piety = 500
+		}
+		effect = {
+			set_global_flag = assyria_reborn
+			primary_title = {
+				e_assyria = {
+					activate_title = { title = THIS status = yes } # Otherwise grant_title doesn't work
+					grant_title = PREVPREV
+					copy_title_laws = PREV
+				}
+			}
+			any_playable_ruler = {
+				limit = {
+					NOT = { has_landed_title = e_assyria }
+					ai = no
+				}
+				narrative_event = { id = zusk_event.19 }
+			}
+		}
+			
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	form_cuman_khaganate = {
+		is_high_prio = yes
+		potential = {
+			NOT = { tier = EMPEROR }
+			culture = cuman
+			e_cuman = {
+				has_holder = no
+			}
+		}
+		allow = {
+			realm_size = 70
+		}
+		effect = {	 
+			primary_title = {
+				e_cuman = {
+					activate_title = { title = THIS status = yes } # Otherwise grant_title doesn't work
+					grant_title = PREVPREV
+					copy_title_laws = PREV
+				}
+			}
+		}
+			
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	form_bolghar_khaganate = {
+		is_high_prio = yes
+		potential = {
+			NOT = { tier = EMPEROR }
+			culture = bolghar
+			e_bolghar = {
+				has_holder = no
+			}
+		}
+		allow = {
+			realm_size = 70
+		}
+		effect = {
+			primary_title = {
+				e_bolghar = {
+					activate_title = { title = THIS status = yes } # Otherwise grant_title doesn't work
+					grant_title = PREVPREV
+					copy_title_laws = PREV
+				}
+			}
+		}
+			
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	form_karluk_khaganate = {
+		is_high_prio = yes
+		potential = {
+			NOT = { tier = EMPEROR }
+			culture = karluk
+			e_karluk = {
+				has_holder = no
+			}
+		}
+		allow = {
+			realm_size = 70
+		}
+		effect = {
+		  primary_title = {
+			  e_karluk = {
+				  activate_title = { title = THIS status = yes } # Otherwise grant_title doesn't work
+				  grant_title = PREVPREV
+				  copy_title_laws = PREV
+					}
+						}
+			}
+			
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	form_khazar_khaganate = {
+		is_high_prio = yes
+		potential = {
+			NOT = { tier = EMPEROR }
+			culture = khazar
+			e_khazar = {
+				has_holder = no
+			}
+		}
+		allow = {
+			realm_size = 70
+		}
+		effect = {
+		  primary_title = {
+			  e_khazar = {
+				  activate_title = { title = THIS status = yes } # Otherwise grant_title doesn't work
+				  grant_title = PREVPREV
+				  copy_title_laws = PREV
+					}
+						}
+			}
+			
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+		}
+
+	  }
+ 
+	form_kirghiz_khaganate = {
+		is_high_prio = yes
+		potential = {
+			NOT = { tier = EMPEROR }
+			culture = kirghiz
+			e_kirghiz = {
+				has_holder = no
+			}
+		}
+		allow = {
+			realm_size = 70
+		}
+		effect = {
+		  primary_title = {
+			  e_kirghiz = {
+				  activate_title = { title = THIS status = yes } # Otherwise grant_title doesn't work
+				  grant_title = PREVPREV
+				  copy_title_laws = PREV
+					}
+						}
+			}
+			
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+		}
+
+	}
+	form_pecheneg_khaganate = {
+		is_high_prio = yes
+		potential = {
+			NOT = { tier = EMPEROR }
+			culture = pecheneg
+			e_pecheneg = {
+				has_holder = no
+			}
+		}
+		allow = {
+			realm_size = 70
+		}
+		effect = {
+		  primary_title = {
+			  e_pecheneg = {
+				  activate_title = { title = THIS status = yes } # Otherwise grant_title doesn't work
+				  grant_title = PREVPREV
+				  copy_title_laws = PREV
+					}
+						}
+			}
+			
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	form_turkestan = {
+		is_high_prio = yes
+		potential = {
+			NOT = { tier = EMPEROR }
+			culture = turkish
+			religion_group = pagan_group
+			e_turkestan = {
+				has_holder = no
+			}
+		}
+		allow = {
+			realm_size = 70
+		}
+		effect = {
+			primary_title = {
+				e_turkestan = {
+					activate_title = { title = THIS status = yes } # Otherwise grant_title doesn't work
+					grant_title = PREVPREV
+					copy_title_laws = PREV
+				}
+			}
+		}
+			
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}
+

@@ -1,0 +1,622 @@
+# Audax Validator "!" Ignore_1006
+namespace = friendfavors
+
+# Events for friends of liege asking for help - by JGCrusader
+
+# friend asks for help with getting married (AI only)
+character_event = {
+	id = friendfavors.0
+	desc = friendfavors.0.desc
+	picture = GFX_evt_marriage
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "OK"  # send request
+		liege = {
+			character_event = { id = friendfavors.1 }
+		}
+	}
+}
+
+# liege responds to request for help with getting married
+character_event = {
+	id = friendfavors.1
+	desc = friendfavors.1.desc
+	picture = GFX_evt_marriage
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "friendfavors.1.a"  # I have a courtier 
+		trigger = {
+			FROM = {
+				is_married = no
+			}
+			any_courtier = {
+				OR = {
+					is_female = no
+					NOT = { age = 45 }
+				}
+				NOT = { is_close_relative = ROOT }
+				can_marry = FROM
+			}
+		}
+		ai_chance = { factor = 50 }
+		random_courtier = {
+			limit = {
+				OR = {
+					is_female = no
+					NOT = { age = 45 }
+				}
+				NOT = { is_close_relative = ROOT }
+				can_marry = FROM
+			}
+			add_spouse = FROM
+		}
+		FROM = {
+			opinion = {
+				modifier = opinion_helpful_friend
+				who = ROOT
+				years = 10
+			}
+		}
+	}
+	
+	option = {
+		name = "friendfavors.1.b"  # I'll find one
+		trigger = {
+			NOT = { intrigue = 10 }
+			FROM = { is_female = no }
+		}
+		ai_chance = { factor = 25 }
+		scaled_wealth = -0.1
+		create_character = {
+			female = yes
+			random_traits = yes
+			dynasty = random
+		}
+		new_character = {
+			add_spouse = FROM
+		}
+		FROM = {
+			opinion = {
+				modifier = opinion_helpful_friend
+				who = ROOT
+				years = 10
+			}
+		}
+	}
+	
+	option = {
+		name = "friendfavors.1.c"  # I'll find an attractive one
+		trigger = {
+			intrigue = 10
+			FROM = { is_female = no }
+		}
+		ai_chance = { factor = 50 }
+		scaled_wealth = -0.075
+		create_character = {
+			female = yes
+			random_traits = yes
+			dynasty = random
+		}
+		new_character = {
+			add_trait = fair
+			add_spouse = FROM
+		}
+		FROM = {
+			opinion = {
+				modifier = opinion_helpful_friend
+				who = ROOT
+				years = 10
+			}
+		}
+	}
+	
+	option = {
+		name = "friendfavors.1.d"  # Sorry, can't help
+		ai_chance = { factor = 0 }
+		FROM = {
+			opinion = {
+				modifier = opinion_unhelpful_friend
+				who = ROOT
+				years = 15
+			}
+		}
+	}
+}
+
+# friend asks for help with being priest (AI only)
+character_event = {
+	id = friendfavors.2
+	desc = friendfavors.2.desc
+	picture = GFX_evt_courtiers_talking
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "OK"  # send request
+		liege = {
+			character_event = { id = friendfavors.3 }
+		}
+	}
+}
+
+# liege responds to help request for being priest
+character_event = {
+	id = friendfavors.3
+	desc = friendfavors.3.desc
+	picture = GFX_evt_courtiers_talking
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "friendfavors.3.a"  # It would annoy the pope, but...
+		trigger = {
+			primary_title = { has_law = investiture_law_0 }
+		}
+		ai_chance = { factor = 10 }
+		random_vassal = {
+			limit = {
+				is_priest = yes
+				trait = incapable
+			}
+			abdicate_to = FROM
+		}
+		FROM = {
+			opinion = {
+				modifier = opinion_helpful_friend
+				who = ROOT
+				years = 10
+			}
+		}
+		
+		rightful_religious_head_scope = {
+			opinion = {
+				modifier = opinion_abuse_power
+				who = ROOT
+				years = 10
+			}
+		}
+	}
+	
+	option = {
+		name = "friendfavors.3.b"  # I have that authority
+		trigger = {
+			primary_title = { has_law = investiture_law_1 }
+		}
+		ai_chance = { factor = 100 }
+		random_vassal = {
+			limit = {
+				is_priest = yes
+				trait = incapable
+			}
+			abdicate_to = FROM
+		}
+		FROM = {
+			opinion = {
+				modifier = opinion_helpful_friend
+				who = ROOT
+				years = 10
+			}
+		}
+	}
+	
+	option = {
+		name = "friendfavors.3.c"  # Sorry, can't help
+		ai_chance = { 
+			factor = 90
+			modifier = {
+				primary_title = { has_law = investiture_law_1 }
+				factor = 0
+			}
+		}
+		FROM = {
+			opinion = {
+				modifier = opinion_unhelpful_friend
+				who = ROOT
+				years = 15
+			}
+		}
+	}
+}
+
+# friend asks to mentor liege's child
+character_event = {
+	id = friendfavors.4
+	desc = friendfavors.4.desc
+	picture = GFX_evt_courtiers_talking
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "OK"
+		liege = {
+			letter_event = { id = friendfavors.5 days = 5 random = 5 tooltip = friend_wardship_request_tooltip }
+		}
+	}
+}
+	
+
+# liege responds to mentor liege's child request
+letter_event = {
+	id = friendfavors.5
+	desc = friendfavors.5.desc
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "friendfavors.5.a"  # OK
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0
+				FROM = {
+					OR = {
+						trait = tough_soldier
+						trait = flamboyant_schemer
+						trait = underhanded_rogue
+						trait = thrifty_clerk
+						trait = martial_cleric
+					}
+				}
+			}
+		}
+		random_child = {
+			limit = {
+				age = 6
+				NOT = { age = 16 }
+			}
+			guardian = {
+				opinion = {
+					modifier = opinion_disgruntled 
+					who = ROOT
+					years = 10
+				}
+			}
+			set_guardian = FROM
+		}
+		FROM = {
+			opinion = {
+				modifier = opinion_helpful_friend
+				who = ROOT
+				years = 10
+			}
+		}
+		hidden_tooltip = {
+			FROM = {
+				letter_event = { id = friendfavors.6 }
+			}
+		}
+	}
+	
+	option = {
+		name = "friendfavors.5.b"  # Sorry, no
+		ai_chance = { factor = 75 }
+		FROM = {
+			opinion = {
+				modifier = opinion_unhelpful_friend
+				who = ROOT
+				years = 15
+			}
+		}
+		hidden_tooltip = {
+			FROM = {
+				letter_event = { id = friendfavors.7 }
+			}
+		}
+	}
+}
+
+# liege says OK to wardship request
+letter_event = {
+	id = friendfavors.6
+	desc = friendfavors.6.desc
+	picture = GFX_evt_courtiers_talking
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EXCELLENT" 
+	}
+}
+
+# liege says no to wardship request
+letter_event = {
+	id = friendfavors.7
+	desc = friendfavors.7.desc
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "OK"
+	}
+}
+# friend asks for help with amassing wealth
+character_event = {
+	id = friendfavors.8
+	desc = friendfavors.8.desc
+	picture = GFX_evt_market
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "OK"
+		liege = {
+			character_event = { id = friendfavors.9 days = 5 random = 10 tooltip = friend_money_request_tooltip }
+		}
+	}
+}
+
+# liege responds to help request for amassing wealth
+character_event = {
+	id = friendfavors.9
+	desc = friendfavors.9.desc
+	picture = GFX_evt_market
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "friendfavors.9.a"  # half yr income
+		trigger = {
+			NOT = { trait = charitable }
+		}
+		transfer_scaled_wealth = {
+			to = FROM
+			value = 0.5
+		}
+		hidden_tooltip = {
+			FROM = {
+				letter_event = { id = friendfavors.11 }
+			}
+		}
+	}
+	
+	option = {
+		name = "friendfavors.9.b"  # 1 yr income
+		transfer_scaled_wealth = {
+			to = FROM
+			value = 1.0
+		}
+		FROM = {
+			opinion = {
+				modifier = charitable_pos
+				who = ROOT
+				years = 5
+			}
+			hidden_tooltip = {
+				letter_event = { id = friendfavors.11 }
+			}
+		}
+	}
+	
+	option = {
+		name = "friendfavors.9.c"  # 2 yr income
+		trigger = {
+			scaled_wealth = 2.0
+			trait = charitable
+		}
+		tooltip_info = charitable
+		transfer_scaled_wealth = {
+			to = FROM
+			value = 2.0
+		}
+		FROM = {
+			opinion = {
+				modifier = opinion_helpful_friend
+				who = ROOT
+				years = 10
+			}
+			hidden_tooltip = {
+				letter_event = { id = friendfavors.11 }
+			}
+		}
+	}
+	
+	option = {
+		name = "friendfavors.9.d"  # Sorry, can't help
+		FROM = {
+			opinion = {
+				modifier = opinion_unhelpful_friend
+				who = ROOT
+				years = 15
+			}
+			hidden_tooltip = {
+				letter_event = { id = friendfavors.10 }
+			}
+		}
+	}
+	
+	option = {
+		name = "friendfavors.9.e"  # Talk him out of it
+		trigger = {
+			diplomacy = 7
+			FROM = {
+				NOT = { wealth = 300 }
+				NOT = { yearly_income = 20 }
+			}
+		}
+		tooltip_info = diplomacy
+		tooltip = {
+			FROM = {
+				cancel_ambition = yes
+			}
+		}
+		hidden_tooltip = {
+			FROM = {
+				letter_event = { id = friendfavors.12 }
+			}
+		}
+	}
+}
+
+# he gave me nothing
+letter_event = {
+	id = friendfavors.10
+	desc = friendfavors.10.desc
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "SO_BE_IT"
+	}
+}
+
+# He gave some money
+letter_event = {
+	id = friendfavors.11
+	desc = friendfavors.11.desc
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EXCELLENT"
+	}
+}
+
+# He talked me out of my ambition
+letter_event = {
+	id = friendfavors.12
+	desc = friendfavors.12.desc
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "OK"
+		cancel_ambition = obj_amass_wealth
+	}
+}
+
+# friend asks liege to stop war against him
+character_event = {
+	id = friendfavors.13
+	desc = friendfavors.13.desc
+	picture = GFX_evt_courier
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "OK"  # send request
+		liege = {
+			character_event = { id = friendfavors.14 days = 5 random = 5 tooltip = friend_peace_request_tooltip }
+		}
+	}
+}
+
+# liege responds to request to stop inter-realm war
+character_event = {
+	id = friendfavors.14
+	desc = friendfavors.14.desc
+	picture = GFX_evt_large_army
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "friendfavors.14.a"  # stop war
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				trait = just
+			}
+		}
+		FROM = {
+			letter_event = { id = friendfavors.15 tooltip = friend_given_peace_tooltip }
+			opinion = {
+				modifier = opinion_helpful_friend
+				who = FROM
+				years = 10
+			}
+			any_war = {
+				limit = {
+					any_defender = {character=ROOT}
+				}
+				any_attacker={letter_event = { id = friendfavors.16 tooltip = attacker_forced_peace_tooltip }}
+			}
+			
+			any_war = {
+				limit = {
+					defender = {
+						character = FROM
+					}
+					attacker = {
+						same_realm = FROM
+					}
+				}
+				end_war = invalid
+			}
+		}
+		any_vassal = {
+			limit = {
+				NOT = { has_opinion_modifier = { who = ROOT modifier = opinion_friend } }
+				 higher_tier_than = BARON
+			}
+			opinion = {
+				modifier = opinion_abuse_power 
+				who = ROOT
+				years = 5
+			}
+		}
+	}
+	
+	option = {
+		name = "friendfavors.14.b"  # don't stop war
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				trait = arbitrary
+			}
+		}
+		FROM = {
+			letter_event = { id = friendfavors.17 tooltip = friend_given_war_tooltip }
+			opinion = {
+				modifier = opinion_unhelpful_friend
+				who = ROOT
+				years = 15
+			}
+		}
+	}
+}
+
+# friend gets response - peace
+letter_event = {
+	id = friendfavors.15
+	desc = friendfavors.15.desc
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EXCELLENT"
+	}
+}
+
+# aggressor is forced to make peace and isn't happy
+letter_event = {
+	id = friendfavors.16
+	desc = friendfavors.16.desc
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "friendfavors.16.a"
+		opinion = {
+			modifier = opinion_stopped_my_war
+			who = FROM
+			years = 10
+		}
+	}
+}
+
+# friend gets response - no help
+letter_event = {
+	id = friendfavors.17
+	desc = friendfavors.17.desc
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "SO_BE_IT"
+	}
+}

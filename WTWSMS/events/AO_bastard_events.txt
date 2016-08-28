@@ -1,0 +1,201 @@
+# Audax Validator "!" Ignore_1006
+namespace = bastardevents
+
+# Events for the See Bastard Son Legitimized Ambition
+# 0 - Event chain start
+# 1 - Father is asked to legit, trigger'd via decision
+# 2 - Bastard son responds to no
+# 3 - Bastard son responds to yes
+
+#Mother asks bastard's Father to Legitimize bastard via son
+character_event = {
+	id = bastardevents.0
+	desc = bastardevents.0.desc
+	picture = GFX_evt_emissary
+	
+	is_triggered_only = yes
+
+	option = {
+		name = "bastardevents.0.a"
+		father = {
+			character_event = {
+				id = bastardevents.1
+			}
+		}
+	}
+}
+
+
+# Father Decides
+character_event = {
+	id = bastardevents.1
+	desc = bastardevents.1.desc
+	picture = GFX_evt_emissary
+	
+	is_triggered_only = yes
+
+	option = {
+		name = bastardevents.1.a    # No
+		FROM = {
+			hidden_tooltip = {
+				character_event = {
+					id = bastardevents.2
+				}
+			}
+			
+			mother = {
+				opinion = {
+					modifier = opinion_refused_legit_request
+					who = ROOT
+					years = 10
+				}
+				hidden_tooltip = {
+					character_event = { id = bastardevents.4 }
+				}
+			}
+			
+		}
+	}
+	option = {
+		name = bastardevents.1.b  # Yes
+		FROM = {
+			hidden_tooltip = {
+				character_event = {
+					id = bastardevents.3
+				}
+			}
+			remove_trait = bastard
+			add_trait = legit_bastard
+		}
+		
+		spouse = {
+			opinion = {
+				modifier = legitimized_bastard
+				who = ROOT
+				years = 10
+			}
+		}
+		
+	}
+}
+
+# Son refused
+character_event = {
+	id = bastardevents.2
+	desc = bastardevents.2.desc
+	picture = GFX_evt_emissary
+	
+	is_triggered_only = yes
+
+	option = {
+		name = "bastardevents.2.a"  # There are other ways...
+		opinion = {
+				modifier = opinion_refused_legit_request
+				who = FROM
+				years = 10
+			}
+			
+		if = {
+			limit = {
+				trait = content
+			}
+			remove_trait = content
+		}
+		
+		random_list = {
+			40 = {
+				add_trait = ambitious
+			}
+			50 = {
+				add_trait = deceitful
+			}
+			10 = {
+				change_intrigue = 1
+			}
+		}
+			
+	}
+	
+	option = {
+		name = "bastardevents.2.b"   # Maybe he'll change his mind if I'm better
+		if = {
+			limit = {
+				trait = slothful
+			}
+			remove_trait = slothful
+		}
+		
+		random_list = {
+			40 = {
+				add_trait = diligent
+			}
+			50 = {
+				add_trait = brave
+			}
+			10 = {
+				change_martial = 1
+			}
+		}
+	}
+	
+	option = {
+		name = "bastardevents.2.c"  # It's fine I don't want it anyway
+		add_trait = content
+		piety = 10
+	}
+}
+
+# Bastard and mother is pleased
+character_event = {
+	id = bastardevents.3
+	desc = bastardevents.3.desc
+	picture = GFX_evt_emissary
+	
+	is_triggered_only = yes
+
+	option = {
+		name = "bastardevents.3.a"
+		opinion = {
+				modifier = legitimized_child
+				who = FROM
+				years = 10
+			}
+		mother = {
+			opinion = {
+				modifier = legitimized_child
+				who = FROM
+				years = 10
+			}
+			hidden_tooltip = {
+				character_event = { id = bastardevents.5 }
+			}
+		}
+	}
+}
+
+# Mother learns of Refusal
+character_event = {
+	id = bastardevents.4
+	desc = bastardevents.4.desc
+	picture = GFX_evt_emissary
+	
+	is_triggered_only = yes
+
+	option = {
+		name = "bastardevents.4.a"
+	}
+}
+
+# Mother learns of Yes answer
+character_event = {
+	id = bastardevents.5
+	desc = bastardevents.5.desc
+	picture = GFX_evt_emissary
+	
+	is_triggered_only = yes
+
+	option = {
+		name = "bastardevents.5.a"
+		
+	}
+}

@@ -1,0 +1,246 @@
+# Audax Validator "!" Ignore_1006
+namespace = uncoverevents
+
+# Events for the "uncover plot" objective
+# 0 - first part of event chain, character decides to investigate
+# 1 - Plotter is worried
+# 2 - character decides reveal or not
+# 3 - plotter alerted to exposure
+# 4 - target grateful
+
+# The snooper suspects something
+character_event = {
+	id = uncoverevents.0
+	desc = uncoverevents.0.desc
+	picture = "GFX_evt_shadowy_cabal"
+
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		has_ambition = obj_uncover_plot
+		in_command = no
+		location = {
+			any_province_character = {
+				NOT = { is_liege_of = ROOT }
+				NOT = { character = ROOT }
+				OR = {
+					has_plot = plot_gain_vassal_title
+					has_plot = plot_kill_character
+					has_plot = plot_kill_spouse
+					has_plot = plot_weaken_fellow_vassal
+					has_plot = plot_gain_liege_title
+					has_plot = plot_gain_fellow_vassal_title
+					has_plot = plot_seduce_liege
+					has_plot = plot_seduce_for_men
+					has_plot = plot_fabricate_evidence_betrayal
+					has_plot = plot_fabricate_evidence_betrayal_same_realm
+					has_plot = plot_fabricate_evidence_treason
+					has_plot = plot_fabricate_evidence_treason_vassal
+					has_plot = plot_kidnapping
+					
+				}
+				NOT = { has_character_flag = event7040 }    # Paradox event uses this to mark a plot as already exposed
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 120
+		
+		modifier = {
+			factor = 0.95
+			intrigue = 10
+		}
+		
+		modifier = {
+			factor = 0.95
+			intrigue = 12
+		}
+		
+		modifier = {
+			factor = 0.95
+			intrigue = 14
+		}
+		
+		modifier = {
+			factor = 0.95
+			intrigue = 16
+		}
+		
+	}
+
+	option = {
+		name = uncoverevents.0.a # Will investigate
+		
+		ai_chance = {
+			factor = 100
+		}
+		
+		location = {
+			random_province_character = {
+				limit = {
+					NOT = { is_liege_of = ROOT }
+					NOT = { character = ROOT }
+					OR = {
+						has_plot = plot_gain_vassal_title
+						has_plot = plot_kill_character
+						has_plot = plot_kill_spouse
+						has_plot = plot_weaken_fellow_vassal
+						has_plot = plot_gain_liege_title
+						has_plot = plot_gain_fellow_vassal_title
+						has_plot = plot_seduce_liege
+						has_plot = plot_seduce_for_men
+						has_plot = plot_fabricate_evidence_betrayal
+						has_plot = plot_fabricate_evidence_betrayal_same_realm
+						has_plot = plot_fabricate_evidence_treason
+						has_plot = plot_fabricate_evidence_treason_vassal
+						has_plot = plot_kidnapping
+					}
+					NOT = { has_character_flag = event7040 }
+				}
+					
+				hidden_tooltip = {
+					character_event = { id = uncoverevents.1 days = 7 }
+				}
+			}
+		}
+		
+	}
+}
+
+
+# The plotter gets paranoid
+# Victim is informed of person who exposed the plot
+character_event = {
+	id = uncoverevents.1
+	desc = uncoverevents.1.desc
+	picture = "GFX_evt_spymaster"
+	
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = uncoverevents.1.a # oh no...
+		hidden_tooltip = {
+			FROM = { 
+				character_event = { id = uncoverevents.2 days = 1 }
+			}
+		}
+	}
+}
+
+# The snooper reveals the plot, or doesn't
+character_event = {
+	id = uncoverevents.2
+	desc = uncoverevents.2.desc
+	picture = "GFX_evt_recieve_letter"
+	
+	is_triggered_only = yes
+
+	option = {
+		name = uncoverevents.2.a # Will reveal
+		
+		ai_chance = {
+			factor = 80
+			modifier = {
+				factor = 0
+				opinion = { who = FROM value = 40 } 
+			}
+		}
+			
+		FROM = {			
+			opinion = {
+				who = ROOT
+				modifier = revealed_plot
+				months = 120
+			}
+			
+			set_character_flag = event7040  # Marked a plotter as having his plot revealed
+			
+			character_event = { id = uncoverevents.3 days = 1 tooltip = uncovered_tooltip }
+			plot_target_char = {
+				character_event = { id = uncoverevents.4 days = 1 tooltip = tipped_off_tooltip }
+			}
+		}
+		
+		add_trait = counterspy  # Completes ambition 
+	}
+	
+	option = {
+		name = uncoverevents.2.b # Will not reveal
+		
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 0
+				NOT = { opinion = { who = FROM value = -40 } }
+			}
+		}
+		
+	}
+}
+
+# Plot revealed by snoop
+character_event = {
+	id = uncoverevents.3
+	desc = uncoverevents.3.desc
+	picture = "GFX_evt_spymaster"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "CURSES"
+		if = {
+			limit = {
+				plot_target_char = {
+					any_courtier = {
+						has_job_title = job_spymaster
+					}
+				}
+			}
+			reveal_plot_w_message = yes
+		}
+		if = {
+			limit = {
+				plot_target_char = {
+					NOT = {
+						any_courtier = {
+							has_job_title = job_spymaster
+						}
+					}
+				}
+			}
+			reveal_plot = yes
+		}
+		plot_target_char = {
+			opinion = {
+				modifier = scheming_bastard
+				who = ROOT
+				months = 120
+			}
+		}
+	}
+}
+
+# Victim is informed of person who exposed the plot
+character_event = {
+	id = uncoverevents.4
+	desc = uncoverevents.4.desc
+	picture = "GFX_evt_whispers"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = uncoverevents.4.a
+		
+		opinion = {
+			who = FROM
+			modifier = opinion_uncovered_plot
+			months = 60
+		}
+		
+	}
+}
