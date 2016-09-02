@@ -174,4 +174,43 @@ targetted_decisions = {
 		}
 	}
 
+	mastimani_human_sacrifice = {
+		filter = court
+		ai_target_filter = court
+	
+		from_potential = {
+			OR = {
+				religion =  mastimani
+			}
+		}
+	
+		potential = {
+			prisoner = yes
+			host = { character = FROM }
+		}
+		allow = {
+			prisoner = yes
+		}
+		effect = {
+			any_liege = {
+				character_event = { id = HAIL_SATURN2 }
+			}
+			hidden_tooltip = {
+				FROM = {
+					character_event = { id = HAIL_SATURN1 }
+				}
+			}
+			death = {
+				death_reason = death_sacrificed
+				killer = FROM
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
 }
