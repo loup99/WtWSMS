@@ -1,0 +1,440 @@
+namespace = relf
+
+#tolerant kingdom trait gained
+character_event = {
+	id = relf.1
+	desc = EVTDESCrelf0001
+	picture = "GFX_evt_church_council"
+	
+	is_triggered_only = yes
+
+	trigger = {
+		NOT = { trait = tolerant_ruler }
+		primary_title = { has_law = tolerance_0 }
+		
+	}
+
+	option = {
+		name = EVTOPTArelf.1
+		trigger = { trait = zealous }
+		tooltip_info = zealous
+		hidden_tooltip = { decadence = -2 }
+		crownlaw_title = {
+			if = {
+				limit = {
+					OR = {
+						has_holder = no
+						has_law = centralization_2 
+						has_law = centralization_3
+						has_law = centralization_4
+					}
+				}
+				add_law = tolerance_2 
+			} 
+			if = {
+				limit = {
+					has_holder = yes
+					OR = {
+						has_law = centralization_0 
+						has_law = centralization_1
+					}
+				}
+				add_law = tolerance_1 
+			} 
+		}
+		ai_chance = {
+			factor = 65			 
+			modifier = {
+				factor = 2
+				religion_group = christian
+			}
+			modifier = {
+				factor = 2
+				religion_group = muslim
+			}
+		}
+	}
+	option = {
+		name = EVTOPTBrelf.1
+		if = {
+			limit = {
+				trait = zealous
+			}
+			remove_trait = zealous
+		}
+		hidden_tooltip = {
+			decadence = 5
+		}
+		add_trait = tolerant_ruler
+		
+		#all independent ruler of the same faith may hate you if they are zealous or if they belong to the universalist religions and are not cynical
+		#your religious head will always hate you unless it is already cynical or has sympathies
+
+		hidden_tooltip = {
+			any_independent_ruler = {
+				limit = {
+					NOT = {
+						ROOT = {
+							rightful_religious_head_scope = {
+								character = PREVPREV
+							}
+						}
+					}
+					religion_group = ROOT
+					OR = {
+						AND = {
+							OR = {
+								religion_group = christian
+								religion_group = muslim
+							}
+							NOR = {
+								trait = cynical
+								trait = tolerant_ruler
+								trait = excommunicated
+							}
+						}
+						trait = zealous
+					}
+				}
+				opinion = {
+					who = ROOT
+					modifier = opinion_blasphemous_ruler
+					years = 25
+				}
+			 } #closesanyruler
+
+			rightful_religious_head_scope = {
+				if = {
+					limit = {
+						religion = ROOT
+						NOR = {
+							trait = cynical
+							trait = tolerant_ruler
+							character = ROOT
+						}
+					}
+					opinion = {
+						who = ROOT
+						modifier = opinion_blasphemous_apostate
+						years = 25
+					}
+				}
+			}
+		} #closes hiddentooltip
+		ai_chance = {
+			factor = 35
+			modifier = {
+				factor = 0.25
+				controls_religion = yes
+			}
+			modifier = {
+				factor = 2
+				religion = hellenic
+			}
+			modifier = {
+				factor = 2
+				religion_group = zoroastrian_group
+			}
+			modifier = {
+				factor = 2
+				religion_group = indian_group
+			}
+			modifier = {
+				factor = 1.5
+				liege = {
+					trait = tolerant_ruler
+				}
+				opinion = {
+					who = liege
+					value = 50
+				} #vassal kings and viceroys follow the good example
+			}
+			modifier = {
+				factor = 1.75
+				trait = kind
+			}
+			modifier = {
+				factor = 1.25
+				trait = content
+			}
+			modifier = {
+				factor = 1.25
+				trait = charitable
+			}
+#			modifier = {
+#				factor = 1.25
+#				capital_scope = { kingdom = { title = k_sicily } }
+#			}
+#			modifier = {
+#				factor = 1.75
+#				capital_scope = { empire = { title = e_mali } }
+#			}
+#			modifier = {
+#				factor = 2
+#				capital_scope = { kingdom = { title = k_egypt } }
+#			}
+#			modifier = {
+#				factor = 1.75
+#				capital_scope = { empire = { title = e_persia } }
+#			}
+#			modifier = {
+#				factor = 2
+#				capital_scope = { empire = { title = e_spain } }
+#			}
+#			modifier = {
+#				factor = 0.75
+#				capital_scope = { empire = { title = e_france } }
+#			}
+#			modifier = {
+#				factor = 0.5
+#				capital_scope = { empire = { title = e_hre } } #less likely to become tolerant just because of slavs & norse provinces
+#			}
+		}
+	}
+}
+
+# Tolerant Trait Lost
+character_event = {
+	id = relf.2
+	desc = EVTDESCrelf0002
+	picture = "GFX_evt_church_council"
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = tolerant_ruler
+		primary_title = {
+			NOT = {
+				has_law = tolerance_0
+			}
+		}
+	}
+	
+	option = {
+		name = EVTOPTArelf.2
+		remove_trait = tolerant_ruler
+		hidden_tooltip = {
+			decadence = -2
+		}
+		primary_title = {
+			add_law = tolerance_1
+		}
+	}
+}
+
+# Zealous Tolerant mix-up
+character_event = {
+	id = relf.3
+	desc = EVTDESCrelf0003
+	picture = "GFX_evt_church_council"
+	
+	only_rulers = yes
+	
+	trigger = {
+		trait = tolerant_ruler
+		trait = zealous
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = EVTOPTArelf.3
+		remove_trait = zealous
+		hidden_tooltip = { decadence = 5 }
+		hidden_tooltip = {
+			any_independent_ruler = {
+				limit = {
+					religion_group = ROOT
+					NOT = {
+						ROOT = {
+							rightful_religious_head_scope = {
+								character = PREVPREV
+							}
+						}
+					}
+					OR = {
+						AND = {
+							OR = {
+								religion_group = christian
+								religion_group = muslim
+							}
+							NOR = {
+								trait = cynical
+								trait = tolerant_ruler
+								trait = excommunicated
+							}
+						}
+						trait = zealous
+					}
+				}
+				opinion = {
+					who = ROOT
+					modifier = opinion_blasphemous_ruler
+					years = 25
+				}
+			} #closesanyruler
+
+			rightful_religious_head_scope = {
+				if = {
+					limit = {
+						religion = ROOT
+						NOR = {
+							trait = cynical
+							trait = tolerant_ruler
+							character = ROOT
+						}
+					}
+					opinion = {
+						who = ROOT
+						modifier = opinion_blasphemous_apostate
+						years = 25
+					}
+					if = {
+						limit = {
+							k_papal_state = {
+								holder_scope = {
+									character = PREVPREV
+								}
+							}
+						}
+						character_event = {
+							id = relf.4
+							days = 150
+						}
+					}
+				}
+			} #closesrelhead
+		} #closes hiddentooltip
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 0.25
+				controls_religion = yes
+			}
+			modifier = {
+				factor = 1.5
+				liege = {
+					trait = tolerant_ruler
+				}
+				opinion = {
+					who = liege
+					value = 50
+				} #vassal kings and viceroys follow the good example
+			}
+			modifier = {
+				factor = 1.75
+				trait = kind
+			}
+			modifier = {
+				factor = 1.25
+				trait = content
+			}
+			modifier = {
+				factor = 1.25
+				trait = charitable
+			}
+#			modifier = {
+#				factor = 1.25
+#				capital_scope = { kingdom = { title = k_sicily } }
+#			}
+#			modifier = {
+#				factor = 1.75
+#				capital_scope = { empire = { title = e_mali } }
+#			}
+#			modifier = {
+#				factor = 2
+#				capital_scope = { kingdom = { title = k_egypt } }
+#			}
+#			modifier = {
+#				factor = 1.75
+#				capital_scope = { empire = { title = e_persia } }
+#			}
+#			modifier = {
+#				factor = 2
+#				capital_scope = { empire = { title = e_spain } }
+#			}
+#			modifier = {
+#				factor = 0.75
+#				capital_scope = { empire = { title = e_france } }
+#			}
+#			modifier = {
+#				factor = 0.5
+#				capital_scope = { empire = { title = e_hre } } #less likely to become tolerant just because of slavs & norse provinces
+#			}
+		}
+	}
+	option = {
+		name = EVTOPTBrelf.3
+		crownlaw_title = {
+			if = {
+				limit = {
+					OR = {
+						has_holder = no
+						has_law = centralization_2 
+						has_law = centralization_3
+						has_law = centralization_4
+					}
+				}
+				add_law = tolerance_2 
+			} 
+			if = {
+				limit = {
+					has_holder = yes
+					OR = {
+						has_law = centralization_0 
+						has_law = centralization_1
+					}
+				}
+				add_law = tolerance_1 
+			} 
+		}
+		remove_trait = tolerant_ruler
+		hidden_tooltip = { decadence = -2 }
+		ai_chance = { factor = 70 
+			modifier = {
+				factor = 0
+				has_character_flag = passed_tolerant_law 	#to stop flip-flopping AI
+			}
+			modifier = {
+				factor = 2
+				religion_group = christian
+			}
+			modifier = {
+				factor = 2
+				religion_group = muslim
+			}
+			modifier = {
+				factor = 0.5
+				religion = hellenic
+			}
+			modifier = {
+				factor = 0.5
+				religion_group = zoroastrian_group
+			}
+			modifier = {
+				factor = 0.5
+				religion_group = indian_group
+			}
+			modifier = {
+				factor = 0.1
+				liege = {
+					trait = tolerant_ruler
+				}
+				opinion = {
+					who = liege
+					value = 50
+				} #vassal kings and viceroys follow the good example
+			}
+			modifier = {
+				factor = 1.25
+				trait = wroth
+			}
+			modifier = {
+				factor = 1.75
+				trait = proud
+			}
+		}
+	}
+}
