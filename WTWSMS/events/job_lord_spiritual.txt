@@ -35,10 +35,34 @@ character_event = {
 	prisoner = no
 	
 	trigger = {
+		NOT = {
+			trait = tolerant_ruler
+		}
+		liege = {
+			NOT = {
+				trait = tolerant_ruler
+			}
+		}
+		top_liege = {
+			OR = {
+				NOT = {
+					trait = tolerant_ruler
+				}
+				NOT = {
+					religion_group = ROOT
+				}
+			}
+		}
 		has_job_action = action_inquisition
-		NOT = { location = { religion = ROOT } }
+		NOT = {
+			location = {
+				religion = ROOT
+			}
+		}
 		location = {
-			owner = { same_realm = ROOT }
+			owner = {
+				same_realm = ROOT
+			}
 		}
 	}
 	
@@ -263,6 +287,20 @@ character_event = {
 	prisoner = no
 	
 	trigger = {
+		NOT = {
+			trait = tolerant_ruler
+		}
+		liege = {
+			NOT = {
+				trait = tolerant_ruler
+			}
+		}
+		top_liege = {
+			NAND = {
+				trait = tolerant_ruler
+				religion_group = ROOT
+			}
+		}
 		has_job_action = action_inquisition
 		location = {
 			any_province_character = {
@@ -424,6 +462,7 @@ character_event = {
 letter_event = {
 	id = 20010
 	desc = "EVTDESC20010"
+#	picture = GFX_evt_heretic
 	border = GFX_event_letter_frame_religion
 	
 	is_triggered_only = yes
@@ -512,6 +551,20 @@ character_event = {
 	
 	trigger = {
 		has_job_action = action_inquisition
+		NOT = {
+			trait = tolerant_ruler
+		}
+		liege = {
+			NOT = {
+				trait = tolerant_ruler
+			}
+		}
+		top_liege = {
+			NAND = {
+				trait = tolerant_ruler
+				religion_group = ROOT
+			}
+		}
 		location = {
 			NOT = { religion = ROOT }
 			owner = { same_realm = ROOT }
@@ -709,6 +762,19 @@ character_event = {
 	prisoner = no
 	
 	trigger = {
+		NOR = {
+			trait = tolerant_ruler
+			liege = {
+				trait = tolerant_ruler
+			}
+			religion_group = indian_group
+		}
+		top_liege = {
+			NAND = {
+				trait = tolerant_ruler
+				religion_group = ROOT
+			}
+		}
 		has_job_action = action_inquisition
 		trait = zealous
 		location = {
@@ -1207,6 +1273,20 @@ character_event = {
 	
 	trigger = {
 		has_job_action = action_inquisition
+		NOT = {
+			trait = tolerant_ruler
+		}
+		liege = {
+			NOT = {
+				trait = tolerant_ruler
+			}
+		}
+		top_liege = {
+			NAND = {
+				trait = tolerant_ruler
+				religion_group = ROOT
+			}
+		}
 		NOT = { has_character_flag = preacher_arrives }
 		location = {
 			owner = {
@@ -1250,6 +1330,12 @@ character_event = {
 	trigger = {
 		has_job_action = action_inquisition
 		has_character_flag = preacher_arrives
+		NOR = {
+			trait = tolerant_ruler
+			liege = {
+				trait = tolerant_ruler
+			}
+		}
 		location = {
 			owner = {
 				is_adult = yes
@@ -1262,7 +1348,7 @@ character_event = {
 				}
 				is_reformed_religion = no
 				controls_religion = no
-				# at_location = ROOT
+#				at_location = ROOT
 			}
 		}
 	}
@@ -1401,6 +1487,18 @@ character_event = {
 	trigger = {
 		has_job_action = action_inquisition
 		has_character_flag = preacher_arrives
+		NOR = {
+			trait = tolerant_ruler
+			liege = {
+				trait = tolerant_ruler
+			}
+		}
+		top_liege = {
+			NAND = {
+				trait = tolerant_ruler
+				religion_group = ROOT
+			}
+		}
 		location = {
 			owner = {
 				NOR = {
