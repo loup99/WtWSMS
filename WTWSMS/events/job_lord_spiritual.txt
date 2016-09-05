@@ -35,24 +35,39 @@ character_event = {
 	prisoner = no
 	
 	trigger = {
+		NOT = {
+			trait = tolerant_ruler
+		}
+		liege = {
+			NOT = {
+				trait = tolerant_ruler
+			}
+		}
+		top_liege = {
+			OR = {
+				NOT = {
+					trait = tolerant_ruler
+				}
+				NOT = {
+					religion_group = ROOT
+				}
+			}
+		}
 		has_job_action = action_inquisition
-		NOT = { location = { religion = ROOT } }
+		NOT = {
+			location = {
+				religion = ROOT
+			}
+		}
 		location = {
-			owner = { same_realm = ROOT }
+			owner = {
+				same_realm = ROOT
+			}
 		}
 	}
 	
 	mean_time_to_happen = {
-		months = 960
-		
-		modifier = {
-			factor = 2.0
-			liege = {
-				tier = count
-				ai = yes
-			}
-		}
-		
+		months = 1920
 		modifier = {
 			factor = 0.75
 			location = { culture_group = ROOT }
@@ -133,80 +148,44 @@ character_event = {
 			factor = 0.75
 			religion_authority = 0.9
 		}
-		
-		# Hindus and Buddhists have a hard time converting other Indian religions
-		modifier = {
-			factor = 3.0
-			OR = {
-				religion = hindu
-				religion = buddhist
-			}
+
+		modifier = { # Conversion bonus
+			factor = 0.5
+			proselyte_religion_trigger = yes
+		}
+		modifier = { # Resistance bonus
+			factor = 1.5
 			location = {
-				religion_group = indian_group
+				bastion_of_faith_religion_trigger = yes
 			}
 		}
-		# Jains have a hard time converting ALL non-pagans
-		modifier = {
-			factor = 3.0
-			religion = jain
+		modifier = { # Resistance malus
+			factor = 0.25
 			location = {
-				NOT = { religion_group = pagan_group }
-			}
-		}
-		# Arians have a hard time converting ALL non-pagans
-		modifier = {
-			factor = 4.0
-			religion = arian
-			location = {
-				NOT = { religion_group = pagan_group }
-			}
-		}
-		# Zoroastrians have a hard time converting Nestorians
-		modifier = {
-			factor = 3.0
-			religion = zoroastrian
-			location = {
-				religion = nestorian
-			}
-		}
-		# Chalcedonians have a hard time converting Monophysites 
-		modifier = {
-			factor = 3.0
-			religion = nicene
-			location = {
-				religion = monophysite
-			}
-		}
-		# Chalcedonians have a hard time converting Monophysites 
-		modifier = {
-			factor = 3.0
-			religion = nicene
-			location = {
-				religion = monophysite
-			}
-		}
-		# Chalcedonians have a hard time converting Monophysites 
-		modifier = {
-			factor = 3.0
-			religion = nicene
-			location = {
-				religion = monophysite
+				ancestral_religion_trigger = yes
 			}
 		}
 		modifier = {
-			factor = 3.0
-			religion_group = pagan_group
-			is_reformed_religion = no
-			location = {
-				OR = {
-					NOT = { religion_group = pagan_group }
-					is_reformed_religion = yes
+			factor = 1.8  
+			liege = { 
+				primary_title = {
+					has_law = tolerance_0
+				}
+			}
+		}
+		modifier = {
+			factor = 0.3   
+			liege = { 
+				primary_title = {
+					has_law = tolerance_2
 				}
 			}
 		}
 		modifier = {
 			factor = 1.5
-			location = { is_heresy_of = ROOT }
+			location = {
+				is_heresy_of = ROOT
+			}
 		}
 		modifier = {
 			factor = 0.75
@@ -225,9 +204,9 @@ character_event = {
 	option = {
 		name = "EVTOPTA900"
 		piety = 10
-		location = { religion = ROOT }
-		hidden_tooltip = {
-			location = {
+		location = {
+			religion = ROOT
+			hidden_tooltip = {
 				if = {
 					limit = { has_province_modifier = heretic_stronghold }
 					remove_province_modifier = heretic_stronghold
@@ -307,13 +286,30 @@ character_event = {
 	prisoner = no
 	
 	trigger = {
+		NOT = {
+			trait = tolerant_ruler
+		}
+		proselyte_religion_trigger = yes
+		liege = {
+			NOT = {
+				trait = tolerant_ruler
+			}
+		}
+		top_liege = {
+			NAND = {
+				trait = tolerant_ruler
+				religion_group = ROOT
+			}
+		}
 		has_job_action = action_inquisition
 		location = {
 			any_province_character = {
 				is_adult = yes
-				NOT = { character = ROOT }
-				NOT = { is_liege_of = ROOT }
-				NOT = { religion = ROOT }
+				NOR = {
+					character = ROOT
+					is_liege_of = ROOT
+					religion = ROOT
+				}
 				OR = {
 					is_ruler = no
 					primary_title = {
@@ -380,8 +376,57 @@ character_event = {
 		}
 		modifier = {
 			factor = 3.0
-			religion_group = pagan_group
 			is_reformed_religion = no
+		}
+		modifier = { # Conversion bonus
+			factor = 0.5
+			proselyte_religion_trigger = yes
+		}
+		modifier = { # Resistance bonus
+			factor = 1.5
+			location = {
+				bastion_of_faith_religion_trigger = yes
+			}
+		}
+		modifier = { # Resistance malus
+			factor = 0.25
+			location = {
+				ancestral_religion_trigger = yes
+			}
+		}
+		modifier = {
+			factor = 0.75
+			proselyte_religion_trigger = yes
+		}
+		modifier = {
+			factor = 2.0
+			location = {
+				any_province_character = {
+					NOR = {
+						character = ROOT
+						is_liege_of = ROOT
+						religion = ROOT
+					}
+					same_realm = ROOT
+					bastion_of_faith_religion_trigger = yes
+				}
+			}
+		}
+		modifier = {
+			factor = 1.8  
+			liege = { 
+				primary_title = {
+					has_law = tolerance_0
+				}
+			}
+		}
+		modifier = {
+			factor = 0.3   
+			liege = { 
+				primary_title = {
+					has_law = tolerance_2
+				}
+			}
 		}
 	}
 	
@@ -392,9 +437,11 @@ character_event = {
 			random_province_character = {
 				limit = {
 					is_adult = yes
-					NOT = { character = ROOT }
-					NOT = { is_liege_of = ROOT }
-					NOT = { religion = ROOT }
+					NOR = {
+						character = ROOT
+						is_liege_of = ROOT
+						religion = ROOT
+					}
 					OR = {
 						is_ruler = no
 						primary_title = {
@@ -415,6 +462,7 @@ character_event = {
 letter_event = {
 	id = 20010
 	desc = "EVTDESC20010"
+#	picture = GFX_evt_heretic
 	border = GFX_event_letter_frame_religion
 	
 	is_triggered_only = yes
@@ -503,6 +551,20 @@ character_event = {
 	
 	trigger = {
 		has_job_action = action_inquisition
+		NOT = {
+			trait = tolerant_ruler
+		}
+		liege = {
+			NOT = {
+				trait = tolerant_ruler
+			}
+		}
+		top_liege = {
+			NAND = {
+				trait = tolerant_ruler
+				religion_group = ROOT
+			}
+		}
 		location = {
 			NOT = { religion = ROOT }
 			owner = { same_realm = ROOT }
@@ -511,14 +573,6 @@ character_event = {
 	
 	mean_time_to_happen = {
 		months = 120
-		
-		modifier = {
-			factor = 2.0
-			liege = {
-				tier = count
-				ai = yes
-			}
-		}
 	
 		modifier = {
 			factor = 0.75
@@ -557,7 +611,7 @@ character_event = {
 			NOT = { religion_authority = 0.4 }
 		}
 		modifier = {
-			factor =0.75
+			factor = 0.75
 			NOT = { religion_authority = 0.2 }
 		}
 		modifier = {
@@ -567,6 +621,16 @@ character_event = {
 		modifier = {
 			factor = 2.0
 			religion_authority = 0.8
+		}
+		modifier = { # Proselyte
+			factor = 1.5
+			proselyte_religion_trigger = yes
+		}
+		modifier = { # BOTF
+			factor = 0.5
+			location = {
+					bastion_of_faith_religion_trigger = yes
+			}
 		}
 	}
 	
@@ -620,10 +684,8 @@ character_event = {
 	option = {
 		name = "EVTOPTA20021"
 		trigger = {
-			NOT = {
+			NOR = {
 				religion_group = muslim
-			}
-			NOT = {
 				trait = wroth
 			}
 		}
@@ -645,11 +707,9 @@ character_event = {
 		name = "EVTOPTC20021"
 		trigger = {
 			religion_group = muslim
-			NOT = {
-				AND = {
-					trait = wroth
-					NOT = { trait = humble }
-				}
+			NAND = {
+				trait = wroth
+				NOT = { trait = humble }
 			}
 		}
 		add_trait = wounded
@@ -699,22 +759,35 @@ character_event = {
 	prisoner = no
 	
 	trigger = {
+		NOR = {
+			trait = tolerant_ruler
+			liege = {
+				trait = tolerant_ruler
+			}
+			religion_group = indian_group
+		}
+		top_liege = {
+			NAND = {
+				trait = tolerant_ruler
+				religion_group = ROOT
+			}
+		}
 		has_job_action = action_inquisition
-		NOT = { religion_group = pagan_group }
-		NOT = { religion_group = indian_group }
 		trait = zealous
 		location = {
 			any_province_lord = {
 				trait = cynical
-				NOT = { is_liege_of = ROOT }
-				NOT = { has_character_flag = no_heretic }
-				NOT = { has_character_flag = branded_heretic }
-				NOT = { character = ROOT }
+				NOR = {
+					is_liege_of = ROOT
+					has_character_flag = no_heretic
+					has_character_flag = branded_heretic
+					character = ROOT
+					piety = 100
+				}
 				age = 20
 				same_realm = ROOT
 				religion_group = ROOT
 				can_change_religion = yes
-				NOT = { piety = 100 }
 			}
 		}
 	}
@@ -777,15 +850,17 @@ character_event = {
 			random_province_lord = {
 				limit = {
 					trait = cynical
-					NOT = { is_liege_of = ROOT }
-					NOT = { has_character_flag = no_heretic }
-					NOT = { has_character_flag = branded_heretic }
-					NOT = { character = ROOT }
+					NOR = {
+						is_liege_of = ROOT
+						has_character_flag = no_heretic
+						has_character_flag = branded_heretic
+						character = ROOT
+						piety = 100
+					}
 					age = 20
 					same_realm = ROOT
 					religion_group = ROOT
 					can_change_religion = yes
-					NOT = { piety = 100 }
 				}
 				save_event_target_as = suspected_heretic
 			}
@@ -794,11 +869,8 @@ character_event = {
 	
 	option = {
 		name = "EVTOPTA903"
-		ai_chance = { factor = 75 }
-		location = {
-			event_target:suspected_heretic = {
-				character_event = { id = 20030 days = 7 tooltip = "EVTTOOLTIP20030" }
-			}
+		event_target:suspected_heretic = {
+			character_event = { id = 20030 days = 7 tooltip = "EVTTOOLTIP20030" }
 		}
 	}
 }
@@ -995,8 +1067,10 @@ character_event = {
 	trigger = {
 		has_job_action = action_inquisition
 		location = {
-			NOT = { religion = ROOT }
-			NOT = { has_province_modifier = religious_tension }
+			NOR = {
+				religion = ROOT
+				has_province_modifier = religious_tension
+			}
 		}
 	}
 	
@@ -1044,12 +1118,59 @@ character_event = {
 			NOT = { religion_authority = 0.2 }
 		}
 		modifier = {
-			factor = 2.0
+			factor = 1.10
+			learning = 16
+		}
+		modifier = {
+			factor = 1.02
+			learning = 17
+		}
+		modifier = {
+			factor = 1.02
+			learning = 18
+		}
+		modifier = {
+			factor = 1.05
+			learning = 19
+		}
+		modifier = {
+			factor = 1.05
+			learning = 20
+		}
+		modifier = {
+			factor = 1.05
+			learning = 21
+		}
+		modifier = {
+			factor = 1.05
+			learning = 22
+		}
+		modifier = {
+			factor = 1.05
+			learning = 23
+		}
+		modifier = {
+			factor = 1.03
+			learning = 24
+		}
+		modifier = {
+			factor = 1.01
+			learning = 25
+		}
+		modifier = {
+			factor = 1.1
 			religion_authority = 0.6
 		}
 		modifier = {
 			factor = 2.0
 			religion_authority = 0.8
+		}
+		
+		modifier = { # Higher probability for Bastion of the Faith mentality
+			factor = 0.5
+			location = {
+				bastion_of_faith_religion_trigger = yes
+			}
 		}
 	}
 
@@ -1117,8 +1238,10 @@ letter_event = {
 				# Province barons
 				any_province_lord = {
 					limit = {
-						NOT = { character = ROOT }
-						NOT = { character = FROM }
+						NOR = {
+							character = ROOT
+							character = FROM
+						}
 					}
 					opinion = {
 						who = ROOT
@@ -1144,14 +1267,29 @@ character_event = {
 	
 	trigger = {
 		has_job_action = action_inquisition
+		NOT = {
+			trait = tolerant_ruler
+		}
+		liege = {
+			NOT = {
+				trait = tolerant_ruler
+			}
+		}
+		top_liege = {
+			NAND = {
+				trait = tolerant_ruler
+				religion_group = ROOT
+			}
+		}
 		NOT = { has_character_flag = preacher_arrives }
 		location = {
 			owner = {
-				NOT = { character = ROOT }
-				NOT = { is_liege_of = ROOT }
-				NOT = { religion = ROOT }
-				religion_group = pagan_group
-				NOT = { same_realm = ROOT }
+				NOR = {
+					character = ROOT
+					is_liege_of = ROOT
+					religion = ROOT
+					same_realm = ROOT
+				}
 				controls_religion = no
 			}
 		}
@@ -1186,18 +1324,25 @@ character_event = {
 	trigger = {
 		has_job_action = action_inquisition
 		has_character_flag = preacher_arrives
+		NOR = {
+			trait = tolerant_ruler
+			liege = {
+				trait = tolerant_ruler
+			}
+		}
 		location = {
 			owner = {
 				is_adult = yes
-				NOT = { trait = incapable }
-				NOT = { character = ROOT }
-				NOT = { is_liege_of = ROOT }
-				NOT = { religion = ROOT }
-				religion_group = pagan_group
+				NOR = {
+					trait = incapable
+					character = ROOT
+					is_liege_of = ROOT
+					religion = ROOT
+					same_realm = ROOT
+				}
 				is_reformed_religion = no
-				NOT = { same_realm = ROOT }
 				controls_religion = no
-				# at_location = ROOT
+#				at_location = ROOT
 			}
 		}
 	}
@@ -1252,6 +1397,25 @@ character_event = {
 		modifier = {
 			factor = 0.75
 			religion_authority = 0.8
+		}
+		
+		modifier = {
+			factor = 0.75
+			proselyte_religion_trigger = yes
+		}
+		modifier = {
+			factor = 2.0
+			location = {
+				any_province_character = {
+					NOR = {
+						character = ROOT
+						is_liege_of = ROOT
+						religion = ROOT
+					}
+					same_realm = ROOT
+					bastion_of_faith_religion_trigger = yes
+				}
+			}
 		}
 		# Local Pagan religion authority
 		modifier = {
@@ -1312,14 +1476,27 @@ character_event = {
 	trigger = {
 		has_job_action = action_inquisition
 		has_character_flag = preacher_arrives
+		NOR = {
+			trait = tolerant_ruler
+			liege = {
+				trait = tolerant_ruler
+			}
+		}
+		top_liege = {
+			NAND = {
+				trait = tolerant_ruler
+				religion_group = ROOT
+			}
+		}
 		location = {
 			owner = {
-				NOT = { character = ROOT }
-				NOT = { is_liege_of = ROOT }
-				NOT = { religion = ROOT }
-				religion_group = pagan_group
+				NOR = {
+					character = ROOT
+					is_liege_of = ROOT
+					religion = ROOT
+					same_realm = ROOT
+				}
 				is_reformed_religion = no
-				NOT = { same_realm = ROOT }
 			}
 		}
 	}
@@ -1375,6 +1552,25 @@ character_event = {
 			factor = 0.75
 			religion_authority = 0.8
 		}
+		
+		modifier = {
+			factor = 0.75
+			proselyte_religion_trigger = yes
+		}
+		modifier = {
+			factor = 2.0
+			location = {
+				any_province_character = {
+					NOR = {
+						character = ROOT
+						is_liege_of = ROOT
+						religion = ROOT
+					}
+					same_realm = ROOT
+					bastion_of_faith_religion_trigger = yes
+				}
+			}
+		}
 	}
 	
 	option = {
@@ -1413,11 +1609,12 @@ character_event = {
 		has_character_flag = preacher_arrives
 		location = {
 			owner = {
-				NOT = { character = ROOT }
-				NOT = { is_liege_of = ROOT }
-				NOT = { religion = ROOT }
-				religion_group = pagan_group
-				NOT = { same_realm = ROOT }
+				NOR = {
+					character = ROOT
+					is_liege_of = ROOT
+					religion = ROOT
+					same_realm = ROOT
+				}
 			}
 		}
 		any_playable_ruler = {
@@ -1425,8 +1622,10 @@ character_event = {
 				has_job_action = action_inquisition
 				has_character_flag = preacher_arrives
 				at_location = ROOT
-				NOT = { character = ROOT }
-				NOT = { same_liege = ROOT }
+				NOR = {
+					character = ROOT
+					same_liege = ROOT
+				}
 			}
 		}			
 	}
@@ -1444,8 +1643,10 @@ character_event = {
 						has_job_action = action_inquisition
 						has_character_flag = preacher_arrives
 						at_location = ROOT
-						NOT = { character = ROOT }
-						NOT = { same_liege = ROOT }
+						NOR = {
+							character = ROOT
+							same_liege = ROOT
+						}
 					}
 				}
 				random_courtier = {
@@ -1453,8 +1654,10 @@ character_event = {
 						has_job_action = action_inquisition
 						has_character_flag = preacher_arrives
 						at_location = ROOT
-						NOT = { character = ROOT }
-						NOT = { same_liege = ROOT }
+						NOR = {
+							character = ROOT
+							same_liege = ROOT
+						}
 					}
 					character_event = { id = 39611 days = 1 }
 				}
@@ -1506,10 +1709,12 @@ character_event = {
 		has_job_action = action_improve_rel_relations
 		location = { 
 			any_province_lord = {
-				NOT = { character = ROOT }
+				NOR = {
+					character = ROOT
+					is_liege_of = ROOT
+				}
 				is_priest = yes
 				religion = ROOT
-				NOT = { is_liege_of = ROOT }
 			}
 		}
 	}
@@ -1642,9 +1847,11 @@ character_event = {
 		NOT = { religion_group = indian_group }
 		location = { 
 			any_province_lord = {
-				NOT = { character = ROOT }
+				NOR = {
+					character = ROOT
+					is_liege_of = ROOT
+				}
 				is_priest = yes
-				NOT = { is_liege_of = ROOT }
 				same_realm = ROOT
 				religion = ROOT
 				religion_head = {
@@ -1913,6 +2120,12 @@ character_event = {
 			factor = 0.75
 			learning = 13
 		}
+		
+		# NOTE: no PB employer opinion factors for heretic MTTH, only for AI chance to become one once the event's already triggered.
+		modifier = {
+			factor = 1.5
+				bastion_of_faith_religion_trigger = yes
+		}
 	}
 	
 	option = {
@@ -1925,7 +2138,7 @@ character_event = {
 	}
 	option = {
 		name = "EVTOPTB927"
-		ai_chance = { factor = 20 }
+		ai_chance = { factor = 50 }
 	}
 }
 
@@ -2155,6 +2368,24 @@ character_event = {
 		modifier = {
 			factor = 2.0
 			religion_authority = 0.8
+		}
+		modifier = {
+			factor = 0.9
+			trait = zealous
+		}
+		modifier = {
+			factor = 0.9
+			liege = { trait = zealous }
+		}
+		modifier = { # Conversion bonus for Proselyte religions
+			factor = 1.5
+			proselyte_religion_trigger = yes
+		}
+		modifier = { # Conversion resistance for Bastion of the Faith and Ancestral religions
+			factor = 0.5
+			location = {
+				bastion_of_faith_religion_trigger = yes
+			}
 		}
 	}
 	
@@ -2413,13 +2644,17 @@ character_event = {
 				war = no
 				any_war = {
 					OR = {
-						using_cb = crusade
-						using_cb = religious
+						custom_tooltip = {
+							text = WAGING_CRUSADE
+							hidden_tooltip = {
+								crusade_trigger = yes
+							}
+						}
 						using_cb = religious_revolt
-						using_cb = pagan_holy_war
-						using_cb = buddhist_holy_war
-						using_cb = muslim_invasion
-						using_cb = manifest_destiny_invasion
+#						using_cb = pagan_holy_war
+#						using_cb = buddhist_holy_war
+#						using_cb = muslim_invasion
+#						using_cb = manifest_destiny_invasion
 					}
 				}
 			}
@@ -2429,9 +2664,12 @@ character_event = {
 			county = {
 				is_occupied = no
 			}
-			ROOT = {
-				liege = {
-					is_capital = PREVPREV
+			is_capital = yes
+			owner = {
+				ROOT = {
+					liege = {
+						character = PREVPREV
+					}
 				}
 			}
 		}
@@ -2583,13 +2821,17 @@ character_event = {
 		NOT = {
 			any_war = {
 				OR = {
-					using_cb = crusade
-					using_cb = religious
+					custom_tooltip = {
+						text = WAGING_CRUSADE
+						hidden_tooltip = {
+							crusade_trigger = yes
+						}
+					}
 					using_cb = religious_revolt
-					using_cb = pagan_holy_war
-					using_cb = buddhist_holy_war
-					using_cb = muslim_invasion
-					using_cb = manifest_destiny_invasion
+#					using_cb = pagan_holy_war
+#					using_cb = buddhist_holy_war
+#					using_cb = muslim_invasion
+#					using_cb = manifest_destiny_invasion
 				}
 			}
 		}
