@@ -1,0 +1,217 @@
+###################################
+#
+# When the World Stopped Making Sense 
+# - Zoroastrian Sect Events
+#
+###################################
+namespace = zorosect
+# Converted to Zoroastrianism - choose branch
+character_event = {
+	id = zorosect.1
+	desc = EVTDESC_zorosect.1
+	picture = GFX_evt_bishop
+	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_zorosect.1
+		add_trait = mazdeist
+		
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 2
+				OR = { 
+					culture = persian
+					culture = armadian
+					culture = afghan
+					culture = khalan
+					culture = georgian
+				}	
+			}
+		}
+	}
+
+	option = {
+		name = EVTOPTB_zorosect.1
+		add_trait = zurvanist_trait
+		
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 2
+				OR = { 
+					culture = parthian
+					culture = indo_parthian
+					culture = aramaic
+					culture = aramean 
+					culture = helleno_aramean
+					culture = sindhi
+				}	
+			}
+		}
+	}
+
+	option = {
+		name = EVTOPTC_zorosect.1
+		add_trait = siyavashist
+		
+		option = {
+		name = EVTOPTC_zorosect.1
+		add_trait = siyavashist
+		
+		ai_chance = {
+			factor = .1
+			modifier = {
+				factor = 9000
+				OR = { 
+					culture = khwarezmian
+					culture = dahi
+					culture = sogdian
+					culture_group = altaic
+					culture = bactrian
+					culture = hepthalite
+					culture = hunas
+				}	
+			}
+			modifier = {
+				factor = .1
+				OR = { 
+					culture = persian
+					culture = parthian
+					culture = indo_parthian
+					culture = georgian
+					culture = hunas
+					}	
+				}
+			}
+		}
+	}
+}
+
+# Converted within Zoroastrian - choose branch
+character_event = {
+	id = zorosect.2
+	desc = EVTDESC_zorosect.2
+	picture = GFX_evt_bishop
+	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_zorosect.1
+		trigger = {
+			NOT = { trait = mazdeist }
+		}
+		add_trait = mazdeist
+	}
+
+	option = {
+		name = EVTOPTB_zorosect.1
+		trigger = {
+			NOT = { trait = zurvanist_trait }
+		}
+		add_trait = zurvanist_trait
+	}
+
+
+	option = {
+		name = EVTOPTC_zorosect.1
+		trigger = {
+			NOT = { trait = siyavashist }
+		}
+		add_trait = siyavashist
+	}
+}
+
+# Zoroastrian without branch - choose branch
+character_event = {
+	id = zorosect.3
+	desc = EVTDESC_zorosect.3
+	picture = GFX_evt_bishop
+	border = GFX_event_normal_frame_religion
+
+	trigger = { 
+		religion = zoroastrian 
+		NOT = { has_character_flag = chosen_zoro_sect }
+		AND = {
+			NOT = { trait = mazdeist }
+			NOT = { trait = zunist_trait }
+			NOT = { trait = siyavashist }
+		}
+	}
+	
+	immediate = {
+		set_character_flag = chosen_zoro_sect
+	}
+	option = {
+		name = EVTOPTA_zorosect.1
+		add_trait = mazdeist
+		
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 2
+				OR = { 
+					culture = persian
+					culture = armadian
+					culture = afghan
+					culture = khalan
+					culture = georgian
+				}	
+			}
+		}
+	}
+
+	option = {
+		name = EVTOPTB_zorosect.1
+		add_trait = zurvanist_trait
+		
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 2
+				OR = { 
+					culture = parthian
+					culture = indo_parthian
+					culture = aramaic
+					culture = aramean 
+					culture = helleno_aramic
+					culture = sindhi
+				}	
+			}
+		}
+	}
+
+	option = {
+		name = EVTOPTC_zorosect.1
+		add_trait = siyavashist
+		
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 9000
+				OR = { 
+					culture = khwarezmian
+					culture = dahi
+					culture = sogdian
+					culture_group = altaic
+					culture = bactrian
+					culture = hepthalite
+					culture = hunas
+				}	
+			}
+			modifier = {
+				factor = .1
+				OR = { 
+					culture = persian
+					culture = parthian
+					culture = indo_parthian
+					culture = georgian
+					culture = hunas
+				}	
+			}
+		}
+	}
+}

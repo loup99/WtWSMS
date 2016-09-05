@@ -1,0 +1,587 @@
+###################################
+#
+# Historical Events
+#
+# Id 60000 - 61000 is reserved
+#
+###################################
+namespace = hist
+
+# Bavarian Ethnogensis
+province_event = {
+	id = hist.1
+	desc = EVTDESC_hist_1
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_diplomacy
+	
+	trigger = {
+		year = 550
+		culture = rygir
+		k_rugiland = { has_holder = no } 
+		NOT = { year = 800 }
+	}
+	
+	mean_time_to_happen = {
+		months = 1400
+	}
+
+	option = {
+		name = EVTOPTA_hist_1
+		trigger = {
+			NOT = {
+				owner = { culture = bavarian }
+			}
+		}
+		culture = bavarian
+		add_province_modifier = bavarian_influx
+	}
+	option = {
+		name = EVTOPTB_hist_1
+		trigger = {
+			owner = { culture = bavarian }
+		}
+		culture = bavarian
+	}
+}
+
+# Diocese of Connor
+character_event = {
+	id = hist.2
+	title = "EVTTIT_hist_2"
+	desc = EVTDESC_hist_2
+	picture = "GFX_evt_stone_church"
+	border = "GFX_event_normal_frame_religion"
+	
+	major = yes
+	
+	trigger = {
+		year = 480
+		has_landed_title = k_dal_riata
+		religion = insular 
+		NOT = { year = 481 }
+	}
+	
+	mean_time_to_happen = {
+		months = 6
+	}
+	
+	immediate = {
+		religion_authority = {
+			modifier = diocese_of_connor
+			years = 100
+		}
+	}
+
+	option = {
+		name = EVTOPTA_hist_2
+		piety = 150 
+		cash = 50 
+	}
+}
+
+# The Hagiography of Germanus of Auxerre
+character_event = {
+	id = hist.3
+	title = "EVTTIT_hist_3"
+	desc = EVTDESC_hist_3
+	picture = GFX_evt_heretic
+	border = "GFX_event_normal_frame_religion"
+	
+	major = yes
+	
+	trigger = {
+		year = 480
+		has_landed_title = k_soissons
+		religion = nicene 
+		NOT = { year = 481 }
+	}
+	
+	mean_time_to_happen = {
+		months = 6
+	}
+	
+	immediate = {
+		religion_authority = {
+			modifier = heresey_denounced
+			years = 10
+		}
+	}
+
+	option = {
+		name = EVTOPTA_hist_3
+		piety = 150 
+		cash = 50 
+	}
+}
+
+# The Death of Strabo
+character_event = {
+	id = hist.4
+	desc = EVTDESC_hist_4
+	picture = GFX_evt_beheading
+	border = "GFX_event_normal_frame_war"
+	
+	trigger = {
+		year = 481
+		has_landed_title = d_thracian_goths
+		culture = ostrogothic
+		NOT = { year = 482 }
+	}
+	
+	mean_time_to_happen = {
+		months = 6
+	}
+	
+	option = {
+		name = EVTOPTA_hist_3
+		random_list = {
+			75 = { death = { death_reason = death_accident } }
+			25 = { add_trait = maimed hidden_tooltip = { character_event = { id = 38281 } }
+			}
+		}
+	}
+}
+
+# Tension in Armenia
+character_event = {
+	id = hist.4
+	title = EVTTITLE_hist_4
+	desc = EVTDESC_hist_4
+	picture = GFX_evt_bandits
+	
+	trigger = {
+		year = 481
+		has_landed_title = e_persia
+		religion = zoroastrian
+		NOT = { year = 482 }
+	}
+	
+	mean_time_to_happen = {
+		months = 6
+	}
+	
+	immediate = {
+		set_global_flag = armenian_revolt
+		set_character_flag = armenian_enemy
+	}
+	
+	option = {
+		name = EVTOPTA_hist_5
+		random_realm_province = {
+			limit = {
+				culture = armenian
+				OR = {
+					religion = miaphysite
+					religion = nestorian
+				}
+			}
+			hidden_tooltip = { province_event = { id = hist.5 } }
+		}
+	}
+}
+
+# Vahan Mamikonian
+province_event = {
+	id = hist.5
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+
+	immediate = {
+		create_character = {
+			random_traits = no
+			dynasty = 23006
+			religion = ROOT
+			culture = armenian
+			age = 45
+			female = no
+			trait = honest
+			trait = brave
+			trait = diligent
+			trait = zealous
+			trait = proud
+			trait = brilliant_strategist
+			trait = aggressive_leader
+			attributes = {
+				diplomacy = 10
+				martial = 10
+				stewardship = 5
+				intrigue = 6
+				learning = 7
+			}
+		}
+		new_character = {
+			set_name = Vahan
+			set_character_flag = is_vahan
+			set_defacto_liege = THIS
+			prestige = 100
+			piety = 50
+			add_claim = k_armenia
+			add_claim = d_armenia
+			add_claim = d_atropatene
+			create_title = {
+				tier = DUKE
+				landless = yes
+				temporary = yes
+				culture = armenian
+				name = "ARMENIAN_REVOLT"
+				holder = THIS
+			}
+			spawn_unit = {
+				owner = THIS
+				leader = THIS
+				province = ROOT
+				home = ROOT
+				troops = {
+					archers = { 1000 1000 }
+					light_infantry = { 1500 1500 }
+					heavy_infantry = { 1000 1000 }
+					light_cavalry = { 500 500 }
+				}
+				attrition = 1.0
+			}
+			spawn_unit = {
+				owner = THIS
+				province = ROOT
+				home = ROOT
+				troops = {
+					archers = { 1000 1000 }
+					light_infantry = { 1500 1500 }
+					heavy_infantry = { 1000 1000 }
+					light_cavalry = { 500 500 }
+				}
+				attrition = 1.0
+			}
+			spawn_unit = {
+				owner = THIS
+				province = ROOT
+				home = ROOT
+				troops = {
+					archers = { 1000 1000 }
+					light_infantry = { 1500 1500 }
+					heavy_infantry = { 1000 1000 }
+					light_cavalry = { 500 500 }
+				}
+				attrition = 1.0
+			}
+			if = {
+				limit = {
+					FROM = { any_realm_title = { title = k_armenia } }
+				}
+				k_armenia = {
+					FROM = {
+						reverse_war = {
+							target = PREVPREV
+							casus_belli = claim
+							thirdparty_title = PREV
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					FROM = { NOT = { any_realm_title = { title = k_armenia } } }
+					FROM = { any_realm_title = { title = d_aremenia } }
+				}
+				d_aremenia = {
+					FROM = {
+						reverse_war = {
+							target = PREVPREV
+							casus_belli = claim
+							thirdparty_title = PREV
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					FROM = { NOT = { any_realm_title = { title =  k_armenia } } }
+					FROM = { NOT = { any_realm_title = { title =  d_armenia } } }
+					FROM = { any_realm_title = { title =  d_atropatene } }
+				}
+				d_atropatene = {
+					FROM = {
+						reverse_war = {
+							target = PREVPREV
+							casus_belli = claim
+							thirdparty_title = PREV
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# The Henotikon
+character_event = {
+	id = hist.6
+	title = "EVTTIT_hist_6"
+	desc = EVTDESC_hist_6
+	picture = "GFX_evt_stone_church"
+	border = "GFX_event_normal_frame_religion"
+	
+	major = yes
+	
+	trigger = {
+		year = 482
+		has_landed_title = e_byzantium
+		culture = isaurian 
+		NOT = { year = 483 }
+	}
+	
+	mean_time_to_happen = {
+		months = 6
+	}
+
+	option = {
+		name = EVTOPTA_hist_6
+		hidden_tooltip = { character_event = { id = hist.5 days = 30 random = 10 } }
+		piety = 150 
+	}
+	option = {
+		name = EVTOPTB_hist_6
+		piety = -250
+		prestige = 50
+	}
+}
+
+# The Henotikon Fails
+character_event = {
+	id = hist.7
+	title = "EVTTIT_hist_7"
+	desc = EVTDESC_hist_7
+	picture = "GFX_evt_stone_church"
+	border = "GFX_event_normal_frame_religion"
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_global_flag = the_henotikon 
+		religion_authority = {
+			modifier = the_henotikon
+			years = 40
+		}
+	}
+	
+	option = {
+		name = EVTOPTA_hist_7
+		hidden_tooltip = { narrative_event = { id = hist.8 } }
+		piety = -50 
+	}
+}
+
+# The Henotikon (Foriegn reception)
+narrative_event = {
+	id = hist.8
+	title = "EVTNAMEhist_8"
+	desc = "EVTDESChist_8"
+	picture = "GFX_evt_crusaders"
+	border = "GFX_event_narrative_frame_religion"
+	
+	major = yes
+	only_playable = yes
+	
+	is_triggered_only = yes
+		
+	option = {
+		name = "EVTOPTAhist_8"
+		trigger = {
+			has_landed_title = e_byzantium
+			religion_group = christian
+		}
+	}
+	option = {
+		name = "EVTOPTBhist_8"
+		trigger = {
+			NOT = { religion_group = christian }
+		}
+	}
+	option = {
+		name = "EVTOPTChist_8"
+		trigger = {
+			religion_group = christian
+			NOT = { has_landed_title = e_byzantium }
+		}
+	}
+}
+
+# The Leontius Revolt 
+character_event = {
+	id = hist.9
+	title = EVTTITLE_hist_9
+	desc = EVTDESC_hist_9
+	picture = GFX_evt_bandits
+	
+	trigger = {
+		year = 484
+		has_landed_title = e_byzantium
+		religion = nicene
+		NOT = { year = 484 }
+	}
+	
+	mean_time_to_happen = {
+		months = 6
+	}
+	
+	immediate = {
+		set_global_flag = leontius_revolt
+	}
+	
+	option = {
+		name = EVTOPTA_hist_9
+		random_realm_province = {
+			limit = {
+				province_id = 764
+			}
+			hidden_tooltip = { province_event = { id = hist.10 } }
+		}
+	}
+}
+
+# Leontius and Company 
+province_event = {
+	id = hist.11
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+
+	immediate = {
+		create_character = {
+			random_traits = no
+			dynasty = 1022182
+			religion = ROOT
+			culture = helleno_aramean
+			age = 46
+			female = no
+			trait = sympathy_pagans
+			trait = brave
+			trait = diligent
+			trait = cynical
+			trait = proud
+			trait = brilliant_strategist
+			trait = aggressive_leader
+			attributes = {
+				diplomacy = 10
+				martial = 10
+				stewardship = 5
+				intrigue = 6
+				learning = 7
+			}
+		}
+		new_character = {
+			set_name = Leontius
+			set_character_flag = is_leontius
+			set_defacto_liege = THIS
+			prestige = 100
+			piety = 50
+			add_claim = e_byzantium
+			add_claim = k_oriens
+			add_claim = k_egypt
+			create_title = {
+				tier = EMPIRE
+				title = "LEONTIUS_EMPEROR"
+				landless = yes
+				temporary = yes
+				short_name = yes
+				culture = helleno_aramean
+				name = "THE_EMPIRE_IN_ANTIOCH"
+				holder = THIS
+			}
+			spawn_unit = {
+				owner = THIS
+				leader = THIS
+				province = ROOT
+				home = ROOT
+				troops = {
+					archers = { 1000 1000 }
+					light_infantry = { 1500 1500 }
+					heavy_infantry = { 1000 1000 }
+					light_cavalry = { 1500 1500 }
+					heavy_cavalry = { 500 500 }
+				}
+				attrition = 1.0
+			}
+			spawn_unit = {
+				owner = THIS
+				province = ROOT
+				home = ROOT
+				troops = {
+					archers = { 1000 1000 }
+					light_infantry = { 1500 1500 }
+					heavy_infantry = { 1000 1000 }
+					light_cavalry = { 1500 1500 }
+					heavy_cavalry = { 500 500 }
+				}
+				attrition = 1.0
+			}
+			spawn_unit = {
+				owner = THIS
+				province = ROOT
+				home = ROOT
+				troops = {
+					archers = { 1000 1000 }
+					light_infantry = { 1500 1500 }
+					heavy_infantry = { 1000 1000 }
+					light_cavalry = { 1500 1500 }
+					heavy_cavalry = { 500 500 }
+				}
+				attrition = 1.0
+			}
+			
+			if = {
+				limit = {
+					FROM = { any_realm_title = { title = e_byzantium } }
+				}
+				e_byzantium = {
+					FROM = {
+						reverse_war = {
+							target = PREVPREV
+							casus_belli = claim
+							thirdparty_title = PREV
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# 1st Lex Burgundionum 
+character_event = {
+	id = hist.12
+	title = "EVTTIT_hist_12"
+	desc = EVTDESC_hist_12
+	picture = "GFX_evt_stone_church"
+	border = "GFX_event_normal_frame_religion"
+	
+	major = yes
+	
+	trigger = {
+		year = 484
+		has_landed_title = k_burgundy
+		religion = insular 
+		NOT = { year = 485 }
+	}
+	
+	mean_time_to_happen = {
+		months = 6
+	}
+	
+	immediate = {
+		religion_authority = {
+			modifier = diocese_of_connor
+			years = 100
+		}
+	}
+
+	option = {
+		name = EVTOPTA_hist_2
+		piety = 150 
+		cash = 50 
+	}
+}

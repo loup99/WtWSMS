@@ -52,7 +52,155 @@ decisions = {
 			factor = 1
 		}
 	}
-
+	choose_sanamahi_patron_deity = {
+		potential = {
+			has_dlc = "Rajas of India"
+			is_playable = yes
+			age = 16
+			not = { trait = incapable }
+			OR = {
+				religion = sanamahi
+				religion = sanamahi_reformed
+			}
+			NOT = {
+				has_character_modifier = patron_lainingthou
+				has_character_modifier = patron_ebudhou
+				has_character_modifier = patron_apokpa
+				has_character_modifier = patron_ebendhou
+				has_character_modifier = patron_panthoibi
+				has_character_modifier = patron_shidapa
+			}
+		}
+		allow = {
+			prisoner = no
+		}
+		effect = {
+			character_event = { id = spirit.34 }
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0.01
+			modifier = {
+				factor = 5
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.5
+				trait = cynical
+			}
+		}
+	}
+	give_toumanglais = {
+		potential = {
+			is_ruler = yes
+			is_theocracy = no
+			OR = {
+				religion = sanamahi
+				religion = sanamahi_reformed
+			}
+			NOT = {
+				has_character_flag = gave_offering_unugais
+			}
+			primary_title = { higher_tier_than = BARON }
+		}
+		allow = {
+            scaled_wealth = 0.20
+			prestige = 50
+			piety = 50
+		}
+		effect = {
+			scaled_wealth = -0.20
+			set_character_flag = { gave_offering_unugais } 
+            character_event = { id = sanamahi.15 }
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.5 # Slow it down
+				always = yes
+			}
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.5
+				trait = arbitrary
+			}
+			modifier = {
+				factor = 2
+				trait = kind
+			}
+			modifier = {
+				factor = 0.5
+				trait = envious
+			}
+			modifier = {
+				factor = 2
+				trait = ambitious
+			}
+			modifier = {
+				factor = 0.5
+				trait = content
+			}
+			modifier = {
+				factor = 2
+				trait = diligent
+			}
+			modifier = {
+				factor = 0.5
+				trait = slothful
+			}
+			modifier = {
+				factor = 0.05
+				has_character_flag = retreat_at_least_once
+				NOT = { trait = zealous }
+			}
+	    }
+    }	
+	enlist_paygan = {
+		is_high_prio = yes
+		is_mercenary = yes
+		potential = {
+			OR = { 
+			culture = persian
+			culture = parthian
+			}
+			religion = zoroastrian
+		}
+		allow = {
+			war = yes
+			piety = 150
+		}
+		effect = {
+			piety = -150
+			capital_scope = {
+				PREV = {
+					spawn_unit = {
+						owner = ROOT
+						province = PREV
+						home = PREV
+						troops = {
+							light_infantry = { 1000 1000 }
+						}
+						attrition = 1.0
+						morale = -.20 
+						disband_on_peace = yes
+						maintenance_multiplier = 0.5
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 0 # decisions with the "is_mercenary" will not be calculated from the script
+		}
+	}
+	
 	create_ebionites_patriarchy = {
 		
 		is_high_prio = yes
