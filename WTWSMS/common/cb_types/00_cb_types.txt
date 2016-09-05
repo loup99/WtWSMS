@@ -3343,6 +3343,7 @@ religious = {
 			NOT = { religion_group = pagan_group }
 			NOT = { pacifist = yes }
 			NOT = { religion = buddhist }
+			NOT = { religion = kemetic_pagan }
 			NOR = { 
 				has_romance_culture_trigger = yes 
 				has_landed_title = e_byzantium
@@ -3638,6 +3639,69 @@ religious = {
 				FROM = {
 					primary_title = { title = e_golden_horde }
 					NOT = { year = 1300 }
+				}
+			}
+		}
+		# Try to guide the Sassanids in the right direction
+		modifier = {
+			factor = 0
+			ROOT = {
+				OR = {
+					culture = persian
+					religion = zoroastrian
+					governmet = sassanid_government
+				}
+			}
+			OR = {
+				kingdom = {
+					OR = {
+						title = k_arabia
+						title = k_alania
+						title = k_cumania
+						title = k_hedjaz
+					}
+					
+				}
+			}
+		}
+		# STOP CONQUERING THE STEPPES
+		modifier = {
+			factor = 0
+			ROOT = {
+				OR = {
+					goverment = feudal_government
+					governmet = sassanid_government
+				}
+			}
+			OR = {
+				kingdom = {
+					OR = {
+						title = k_alania
+						title = k_cumania
+					}
+					
+				}
+			}
+		}
+		# Keep the Greeks out of ahistorical areas 
+		modifier = {
+			factor = 0.1
+			ROOT = {
+				OR = {
+					culture = greek
+					culture = isaurian
+					has_landed_title = e_byzantium
+				}
+			}
+			OR = {
+				kingdom = {
+					OR = {
+						title = k_alania
+						title = k_cumania
+						title = k_arabia
+						title = k_tuaregia
+					}
+					
 				}
 			}
 		}
@@ -7037,6 +7101,7 @@ pagan_subjugation = {
 	can_use = {
 		ROOT = {
 			religion_group = pagan_group
+			year = 800
 			OR = {
 				is_reformed_religion = no
 				religion = hellenic_pagan
@@ -8550,6 +8615,9 @@ pagan_county_conquest = {
 	can_use = {
 		ROOT = {
 			mercenary = no
+		}
+		ROOT = {
+			NOT = { religion = semitic_pagan } 
 		}
 		OR = {
 			ROOT = {
@@ -11546,7 +11614,12 @@ tributary_cb = {
 				is_nomadic = no
 			}
 		}
-		
+		modifier = {
+			factor = 500 # Semitic Pagans love this one
+			ROOT = {
+				religion = semitic_pagan
+			}
+		}
 		modifier = {
 			factor = 0.1 # Target has almost no money
 			FROM = {

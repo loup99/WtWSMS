@@ -1,0 +1,271 @@
+targetted_decisions = {	
+# commenting that Convert to Attacker's Religion decision out, for both thematic (I think it's one of the main means that causes a realm to convert right now) and technical (I can't get it to restrict to CB's correctly) reasons.
+# If in the future it manages to work as intended, it should probably be restricted to Proselyte religions as well	
+	convert_to_attacker_religion = {
+		is_high_prio = yes
+		filter = all
+		ai_target_filter = all
+		
+		from_potential = {
+			war = yes
+			is_playable = yes
+			controls_religion = no
+			custom_tooltip = {
+				text = not_bastion_tooltip
+				hidden_tooltip = {
+					bastion_of_faith_religion_trigger = no
+				}
+			}
+		}
+		potential = {
+			any_war = {
+				defender = { character = FROM }
+				attacker = {
+					character = ROOT
+					NOT = { religion = ROOT }
+					custom_tooltip = {
+						text = proselyte_religion_tooltip
+						hidden_tooltip = {
+							proselyte_religion_trigger = yes
+						}
+					}
+				}
+				OR = {
+					using_cb = religious
+					using_cb = crusade
+					using_cb = muslim_invasion
+					using_cb = viking_invasion
+					using_cb = pagan_holy_war
+					using_cb = manifest_destiny_invasion
+					using_cb = nomad_expansion
+					using_cb = buddhist_holy_war
+				}
+			}
+		}
+		
+		allow = {
+			FROM = {
+				NOT = { trait = zealous }
+				prestige = 500
+			}
+		}
+		
+		effect = {
+			FROM = {
+				prestige = -500
+				piety = 100
+				religion_authority = {
+					modifier = ruler_converted_from
+				}
+			}
+			hidden_tooltip = {
+				ROOT = {
+					letter_event = { id = 62800 }
+				}
+			}
+			hidden_tooltip = {
+				FROM = {
+					any_courtier = {
+						limit = {
+							religion = FROM
+							employer = { character = FROM }
+						}
+						religion = ROOT
+					}
+					any_vassal = {
+						limit = {
+							is_playable = no
+							religion = FROM
+						}
+						religion = ROOT
+					}
+					capital_scope = {
+						if = {
+							limit = { religion = FROM }
+							religion = ROOT
+						}
+					}
+					religion = ROOT 
+				}
+			}
+			
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			
+			#piety = 100
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					any_war = {
+						defender = { character = ROOT }
+						OR = {
+							using_cb = religious
+							using_cb = crusade
+							using_cb = muslim_invasion
+							using_cb = viking_invasion
+							using_cb = pagan_holy_war
+							using_cb = manifest_destiny_invasion
+							using_cb = nomad_expansion
+							using_cb = buddhist_holy_war
+						}
+						war_score = 50
+						thirdparty_title_scope = {
+							ROOT = {
+								primary_title = {
+									title = PREVPREV
+								}
+							}
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				any_war = {
+					defender = { character = ROOT }
+					OR = {
+						using_cb = religious
+						using_cb = crusade
+						using_cb = muslim_invasion
+						using_cb = viking_invasion
+						using_cb = pagan_holy_war
+						using_cb = manifest_destiny_invasion
+						using_cb = nomad_expansion
+						using_cb = buddhist_holy_war
+					}
+					war_score = 75
+					thirdparty_title_scope = {
+						ROOT = {
+							primary_title = {
+								title = PREVPREV
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	### Spousal/Concubine conversion decisions done by SirKulinski
+	convert_to_spouse_religion = {
+		filter = spouse
+		ai_target_filter = spouse
+	
+		from_potential = {
+			ai = no
+			is_playable = yes
+			custom_tooltip = {
+				text = traditional_religion_tooltip
+				hidden_tooltip = {
+					traditional_religion_trigger = yes
+				}
+			}
+			controls_religion = no
+			NOT = { trait = zealous }
+		}
+		potential = {
+			custom_tooltip = {
+				text = proselyte_religion_tooltip
+				hidden_tooltip = {
+					proselyte_religion_trigger = yes
+				}
+			}
+			any_spouse = {
+				character = FROM
+			}
+		}
+		
+		effect = {
+			FROM = {
+				prestige = -500
+				religion_authority = {
+					modifier = ruler_converted_from
+				}
+				
+				religion = ROOT
+				
+				hidden_tooltip = {
+					religion_authority = {
+						modifier = ruler_converted_to
+					}
+				}
+				piety = 200
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	convert_to_consort_religion = {
+		filter = home_court
+		ai_target_filter = home_court
+	
+		from_potential = {
+			ai = no
+			is_playable = yes
+			custom_tooltip = {
+				text = traditional_religion_tooltip
+				hidden_tooltip = {
+					traditional_religion_trigger = yes
+				}
+			}
+			controls_religion = no
+			NOT = { trait = zealous }
+		}
+		potential = {
+			custom_tooltip = {
+				text = proselyte_religion_tooltip
+				hidden_tooltip = {
+					proselyte_religion_trigger = yes
+				}
+			}
+			consort = {
+				character = FROM
+			}
+		}
+		
+		effect = {
+			FROM = {
+				prestige = -500
+				religion_authority = {
+					modifier = ruler_converted_from
+				}
+				
+				religion = ROOT
+				
+				hidden_tooltip = {
+					religion_authority = {
+						modifier = ruler_converted_to
+					}
+				}
+				piety = 200
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}
