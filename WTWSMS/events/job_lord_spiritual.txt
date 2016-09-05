@@ -54,15 +54,9 @@ character_event = {
 			}
 		}
 		has_job_action = action_inquisition
-		NOT = {
-			location = {
-				religion = ROOT
-			}
-		}
+		NOT = { location = { religion = ROOT } }
 		location = {
-			owner = {
-				same_realm = ROOT
-			}
+			owner = { same_realm = ROOT }
 		}
 	}
 	
@@ -305,11 +299,9 @@ character_event = {
 		location = {
 			any_province_character = {
 				is_adult = yes
-				NOR = {
-					character = ROOT
-					is_liege_of = ROOT
-					religion = ROOT
-				}
+				NOT = { character = ROOT }
+				NOT = { is_liege_of = ROOT }
+				NOT = { religion = ROOT }
 				OR = {
 					is_ruler = no
 					primary_title = {
@@ -437,11 +429,9 @@ character_event = {
 			random_province_character = {
 				limit = {
 					is_adult = yes
-					NOR = {
-						character = ROOT
-						is_liege_of = ROOT
-						religion = ROOT
-					}
+					NOT = { character = ROOT }
+					NOT = { is_liege_of = ROOT }
+					NOT = { religion = ROOT }
 					OR = {
 						is_ruler = no
 						primary_title = {
@@ -462,7 +452,6 @@ character_event = {
 letter_event = {
 	id = 20010
 	desc = "EVTDESC20010"
-#	picture = GFX_evt_heretic
 	border = GFX_event_letter_frame_religion
 	
 	is_triggered_only = yes
@@ -684,8 +673,10 @@ character_event = {
 	option = {
 		name = "EVTOPTA20021"
 		trigger = {
-			NOR = {
+			NOT = {
 				religion_group = muslim
+			}
+			NOT = {
 				trait = wroth
 			}
 		}
@@ -707,9 +698,11 @@ character_event = {
 		name = "EVTOPTC20021"
 		trigger = {
 			religion_group = muslim
-			NAND = {
-				trait = wroth
-				NOT = { trait = humble }
+			NOT = {
+				AND = {
+					trait = wroth
+					NOT = { trait = humble }
+				}
 			}
 		}
 		add_trait = wounded
@@ -777,17 +770,15 @@ character_event = {
 		location = {
 			any_province_lord = {
 				trait = cynical
-				NOR = {
-					is_liege_of = ROOT
-					has_character_flag = no_heretic
-					has_character_flag = branded_heretic
-					character = ROOT
-					piety = 100
-				}
+				NOT = { is_liege_of = ROOT }
+				NOT = { has_character_flag = no_heretic }
+				NOT = { has_character_flag = branded_heretic }
+				NOT = { character = ROOT }
 				age = 20
 				same_realm = ROOT
 				religion_group = ROOT
 				can_change_religion = yes
+				NOT = { piety = 100 }
 			}
 		}
 	}
@@ -850,17 +841,15 @@ character_event = {
 			random_province_lord = {
 				limit = {
 					trait = cynical
-					NOR = {
-						is_liege_of = ROOT
-						has_character_flag = no_heretic
-						has_character_flag = branded_heretic
-						character = ROOT
-						piety = 100
-					}
+					NOT = { is_liege_of = ROOT }
+					NOT = { has_character_flag = no_heretic }
+					NOT = { has_character_flag = branded_heretic }
+					NOT = { character = ROOT }
 					age = 20
 					same_realm = ROOT
 					religion_group = ROOT
 					can_change_religion = yes
+					NOT = { piety = 100 }
 				}
 				save_event_target_as = suspected_heretic
 			}
@@ -1067,10 +1056,8 @@ character_event = {
 	trigger = {
 		has_job_action = action_inquisition
 		location = {
-			NOR = {
-				religion = ROOT
-				has_province_modifier = religious_tension
-			}
+			NOT = { religion = ROOT }
+			NOT = { has_province_modifier = religious_tension }
 		}
 	}
 	
@@ -1238,10 +1225,8 @@ letter_event = {
 				# Province barons
 				any_province_lord = {
 					limit = {
-						NOR = {
-							character = ROOT
-							character = FROM
-						}
+						NOT = { character = ROOT }
+						NOT = { character = FROM }
 					}
 					opinion = {
 						who = ROOT
@@ -1284,12 +1269,11 @@ character_event = {
 		NOT = { has_character_flag = preacher_arrives }
 		location = {
 			owner = {
-				NOR = {
-					character = ROOT
-					is_liege_of = ROOT
-					religion = ROOT
-					same_realm = ROOT
-				}
+				NOT = { character = ROOT }
+				NOT = { is_liege_of = ROOT }
+				NOT = { religion = ROOT }
+				religion_group = pagan_group
+				NOT = { same_realm = ROOT }
 				controls_religion = no
 			}
 		}
@@ -1342,7 +1326,7 @@ character_event = {
 				}
 				is_reformed_religion = no
 				controls_religion = no
-#				at_location = ROOT
+				# at_location = ROOT
 			}
 		}
 	}
@@ -1643,10 +1627,8 @@ character_event = {
 						has_job_action = action_inquisition
 						has_character_flag = preacher_arrives
 						at_location = ROOT
-						NOR = {
-							character = ROOT
-							same_liege = ROOT
-						}
+						NOT = { character = ROOT }
+						NOT = { same_liege = ROOT }
 					}
 				}
 				random_courtier = {
@@ -1654,10 +1636,8 @@ character_event = {
 						has_job_action = action_inquisition
 						has_character_flag = preacher_arrives
 						at_location = ROOT
-						NOR = {
-							character = ROOT
-							same_liege = ROOT
-						}
+						NOT = { character = ROOT }
+						NOT = { same_liege = ROOT }
 					}
 					character_event = { id = 39611 days = 1 }
 				}
@@ -1709,12 +1689,10 @@ character_event = {
 		has_job_action = action_improve_rel_relations
 		location = { 
 			any_province_lord = {
-				NOR = {
-					character = ROOT
-					is_liege_of = ROOT
-				}
+				NOT = { character = ROOT }
 				is_priest = yes
 				religion = ROOT
+				NOT = { is_liege_of = ROOT }
 			}
 		}
 	}
@@ -1847,11 +1825,9 @@ character_event = {
 		NOT = { religion_group = indian_group }
 		location = { 
 			any_province_lord = {
-				NOR = {
-					character = ROOT
-					is_liege_of = ROOT
-				}
+				NOT = { character = ROOT }
 				is_priest = yes
+				NOT = { is_liege_of = ROOT }
 				same_realm = ROOT
 				religion = ROOT
 				religion_head = {
@@ -2647,14 +2623,15 @@ character_event = {
 						custom_tooltip = {
 							text = WAGING_CRUSADE
 							hidden_tooltip = {
-								crusade_trigger = yes
+								using_cb = crusade
+								using_cb = religious
 							}
 						}
 						using_cb = religious_revolt
-#						using_cb = pagan_holy_war
-#						using_cb = buddhist_holy_war
-#						using_cb = muslim_invasion
-#						using_cb = manifest_destiny_invasion
+						using_cb = pagan_holy_war
+						using_cb = buddhist_holy_war
+						using_cb = muslim_invasion
+						using_cb = manifest_destiny_invasion
 					}
 				}
 			}
@@ -2664,12 +2641,9 @@ character_event = {
 			county = {
 				is_occupied = no
 			}
-			is_capital = yes
-			owner = {
-				ROOT = {
-					liege = {
-						character = PREVPREV
-					}
+			ROOT = {
+				liege = {
+					is_capital = PREVPREV
 				}
 			}
 		}
@@ -2824,14 +2798,15 @@ character_event = {
 					custom_tooltip = {
 						text = WAGING_CRUSADE
 						hidden_tooltip = {
-							crusade_trigger = yes
+							using_cb = crusade
+							using_cb = religious
 						}
 					}
 					using_cb = religious_revolt
-#					using_cb = pagan_holy_war
-#					using_cb = buddhist_holy_war
-#					using_cb = muslim_invasion
-#					using_cb = manifest_destiny_invasion
+					using_cb = pagan_holy_war
+					using_cb = buddhist_holy_war
+					using_cb = muslim_invasion
+					using_cb = manifest_destiny_invasion
 				}
 			}
 		}
