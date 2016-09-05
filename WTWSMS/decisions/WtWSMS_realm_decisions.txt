@@ -490,5 +490,417 @@ decisions = {
 			factor = 1
 		}
 	}
+	create_bishop_of_iona = {
+		
+		is_high_prio = yes
+	
+		potential = {
+			religion = insular
+			has_global_flag = insular_whitby_victory
+			NOT = { is_title_active = d_insular }
+		}
+		
+		allow = {
+			piety = 1000
+			OR = {
+				owns = 35 # Innse Gall (Iona)
+				any_realm_lord = {
+					owns = 35
+				}
+			}
+		}
+		
+		effect = {
+			activate_title = { title = d_insular status = yes }
+			hidden_tooltip = {
+				create_random_priest = {
+					dynasty = none
+					random_traits = yes
+				}
+				new_character = {
+					d_insular = {
+						grant_title = PREV
+					}
+					wealth = 500
+					opinion = {
+						who = ROOT
+						modifier = opinion_creator_of_rel_heal
+					}
+				}
+				
+				religion_authority = {
+					modifier = patriarchy_instituted
+					years = 20
+				}
+			}
+			piety = 1000
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	create_pelagian_bishop = {
+		
+		is_high_prio = yes
+	
+		potential = {
+			religion = pelagianism
+			NOT = { is_title_active = d_pelagian }
+		}
+		
+		allow = {
+			piety = 1000
+			OR = {
+				owns = 35 # Innse Gall (Iona)
+				any_realm_lord = {
+					owns = 35
+				}
+			}
+		}
+		
+		effect = {
+			activate_title = { title = d_pelagian status = yes }
+			hidden_tooltip = {
+				create_random_priest = {
+					dynasty = none
+					random_traits = yes
+				}
+				new_character = {
+					d_pelagian = {
+						grant_title = PREV
+					}
+					wealth = 500
+					opinion = {
+						who = ROOT
+						modifier = opinion_creator_of_rel_heal
+					}
+				}
+				
+				religion_authority = {
+					modifier = patriarchy_instituted
+					years = 20
+				}
+			}
+			piety = 1000
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	peregrinatio = {
+		potential = {
+			is_ruler = yes
+			prisoner = no
+			OR = {
+				religion = insular
+				religion = pelagianism
+			}
+		}
+		allow = {
+			war = no
+			any_demesne_title = {
+				is_occupied = no
+			}
+			prisoner = no
+		}
+		effect = {
+			custom_tooltip = {
+				text = gaelic_abdication
+				piety = 1500
+				abdicate = yes
+				add_trait = monk
+				}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0
+			
+			modifier = {
+				factor = 0
+				NOT = {
+					scaled_wealth = 3.0
+				}
+			}
+			modifier = {
+				factor = 0
+				trait = cynical
+			}
+			modifier = {
+				factor = 0
+				trait = craven
+			}
+			modifier = {
+				factor = 0
+				trait = paranoid
+			}
+		}
+	}
+	call_synod_of_whitby = {
+		
+		is_high_prio = yes
+	
+		potential = {
+			always = no # TODO Event ins.4 does not exist !
+			is_ruler = yes
+			year = 644
+			NOT = { has_global_flag = synod_of_whitby } 
+			prisoner = no
+			OR = {
+				religion = insular
+				religion = nicene
+			}
+		}
+		allow = {
+			piety = 1000
+			and = {
+				owns = 57 # York
+				any_realm_lord = {
+					owns = 57
+				}
+			}
+		}
+		
+		effect = {
+			set_global_flag = synod_of_whitby
+			character_event = { id = ins.4 days = 2 } 
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+		modifier = {
+			factor = 0
+			trait = cynical	
+		}
+		modifier = {
+			factor = 0
+			trait = arbitrary	
+		}
+		modifier = {
+			factor = 0
+			AND = {
+				culture_group = celtic
+				trait = zealous
+			}
+		}
+	}
+
+invite_poet_to_court = { #Invite a Poet to court
+		potential = {
+			NOT = { year = 1066 }
+			OR = {
+				culture_group = celtic
+				culture = romano_british
+				religion = insular
+				religion = celtic_pagan
+			}
+		}
+		allow = {
+			NOT = { has_character_modifier = new_poet_in_court }
+			NOT = { has_character_flag = inviting_poet_over }
+			primary_title = { higher_tier_than = BARON }
+			NOT = {
+				any_vassal = {
+					has_minor_title = title_court_celtic_poet
+				}
+			}
+			NOT = {
+				any_courtier = {
+					has_minor_title = title_court_celtic_poet
+				}
+			}
+		}
+		effect = {
+			scaled_wealth = -0.5
+			
+			set_character_flag = inviting_poet_over
+
+			hidden_tooltip = {
+				character_event = {
+					id = wafrica.1
+					days = 3
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.3 #Decrease chance AI will do this
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					any_vassal = {
+						has_minor_title = title_court_celtic_poet
+					}
+					any_courtier = {
+						has_minor_title = title_court_celtic_poet
+					}
+				}
+			}
+			modifier = {
+				factor = 0.1
+				any_vassal = {
+					trait = poet
+				}
+				any_courtier = {
+					trait = poet
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = diligent
+			}	
+			modifier = {
+				factor = 0.5
+				trait = slothful
+			}	
+			modifier = {
+				factor = 2
+				trait = ambitious
+			}	
+			modifier = {
+				factor = 0.5
+				trait = imbecile
+			}		
+			modifier = {
+				factor = 2
+				trait = zealous
+			}	
+			modifier = {
+				factor = 0.5
+				trait = cynical
+			}			
+			modifier = {
+				factor = 2
+				primary_title = { higher_tier_than = DUKE }
+			}	
+			modifier = {
+				factor = 0.5
+				trait = slow
+			}	
+		}
+	}	
+
+	assign_poet = { # For the AI, because they are dumb enough not to hand out minor titles
+		potential = {
+			ai = yes
+			NOT = { year = 1066 }
+			OR = {
+				culture_group = celtic
+				culture = romano_british
+				religion = insular
+				religion = celtic_pagan
+			}
+			NOT = { 
+				any_courtier = {
+					has_minor_title = title_court_celtic_poet
+				}
+			}
+		}
+		allow = {
+			primary_title = { higher_tier_than = BARON }
+			any_courtier = {
+				trait = poet
+				is_female = no
+				is_adult = yes
+			}
+		}
+		effect = {
+			random_courtier = {
+				limit = {
+					is_adult = yes
+					is_female = no
+					trait = poet
+				}
+				give_minor_title = title_court_celtic_poet
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.75 #Decrease chance AI will do this - they'll still do it eventually anyways, this will just prevent them from doing it immediately
+			}
+		}
+	}
+#CHRISTIAN
+patrons_ins = {
+		potential = {
+			is_playable = yes
+			is_landed = yes
+			age = 16
+			not = { 
+				trait = incapable
+				trait = infirm
+				trait = possessed 
+				}
+			NOT = {
+				has_character_modifier = patron_peter
+				has_character_modifier = patron_george
+				has_character_modifier = patron_ambrose
+				has_character_modifier = patron_gregory
+				has_character_modifier = patron_augustine
+				has_character_modifier = patron_anthony
+				has_character_modifier = patron_mary
+				has_character_modifier = patron_thomas
+				has_character_modifier = patron_john
+			}
+			religion = insular
+		}
+		allow = {
+			prisoner = no
+		}
+		effect = {
+			character_event = { id = PATRONS_CHR.1 }
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.05
+			}
+			modifier = {
+				factor = 0.2
+				trait = slothful
+			}
+			modifier = {
+				factor = 0.1
+				trait = cynical
+			}
+			modifier = {
+				factor = 1.1
+				age = 40
+			}
+			modifier = {
+				factor = 1.3
+				age = 50
+			}
+			modifier = {
+				factor = 1.5
+				age = 60
+			}
+		}
+	}
+
 }
 

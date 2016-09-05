@@ -1,0 +1,611 @@
+##################################################################
+#
+# Sanamahi Events
+#
+##################################################################
+
+
+#Set up Umanglais
+namespace = sanamahi
+province_event = {
+	id = sanamahi.11
+	desc = sanamahi.11.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	trigger = {
+		owner = {
+			OR = {
+				religion = sanamahi
+				religion = sanamahi_reformed			
+			}
+		}
+		NOT = { has_province_modifier = umanglais_good }
+		NOT = { has_province_modifier = umanglais_neutral }
+		NOT = { has_province_modifier = umanglais_bad }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = sanamahi.11.a
+		if = {
+			limit = {
+				owner = {
+					NOT = { learning = 8 }
+				}
+			}
+			random_list = {
+				15 = {
+					add_province_modifier = {
+						name = umanglais_good
+						duration = -1
+					}				
+				}
+				50 = {
+					add_province_modifier = {
+						name = umanglais_neutral
+						duration = -1
+					}				
+				}
+				35 = {
+					add_province_modifier = {
+						name = umanglais_bad
+						duration = -1
+					}				
+				}
+			}
+		}
+		if = {
+			limit = {
+				owner = {
+					learning = 8
+					NOT = { learning = 16 }
+				}
+			}
+			random_list = {
+				25 = {
+					add_province_modifier = {
+						name = umanglais_good
+						duration = -1
+					}				
+				}
+				50 = {
+					add_province_modifier = {
+						name = umanglais_neutral
+						duration = -1
+					}				
+				}
+				25 = {
+					add_province_modifier = {
+						name = umanglais_bad
+						duration = -1
+					}				
+				}
+			}
+		}
+		if = {
+			limit = {
+				owner = {
+					learning = 16
+				}
+			}
+			random_list = {
+				35 = {
+					add_province_modifier = {
+						name = umanglais_good
+						duration = -1
+					}				
+				}
+				50 = {
+					add_province_modifier = {
+						name = umanglais_neutral
+						duration = -1
+					}				
+				}
+				15 = {
+					add_province_modifier = {
+						name = umanglais_bad
+						duration = -1
+					}				
+				}
+			}
+		}
+	}
+}
+
+# Remove Umanglais
+
+province_event = {
+	id = sanamahi.12
+	desc = sanamahi.12.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	trigger = {
+		NOT = {
+			owner = {
+				OR = {
+					religion = sanamahi
+					religion = sanamahi_reformed			
+				}
+			}
+		}
+		OR = {
+			has_province_modifier = umanglais_good
+			has_province_modifier = umanglais_neutral
+			has_province_modifier = umanglais_bad
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = sanamahi.12.a
+		if = {
+			limit = {
+				has_province_modifier = umanglais_good
+			}
+			remove_province_modifier = umanglais_good
+		}
+		if = {
+			limit = {
+				has_province_modifier = umanglais_neutral
+			}
+			remove_province_modifier = umanglais_neutral
+		}
+		if = {
+			limit = {
+				has_province_modifier = umanglais_bad
+			}
+			remove_province_modifier = umanglais_bad
+		}
+	}
+}
+
+# Haltija Improve
+
+province_event = {
+	id = sanamahi.13
+	desc = sanamahi.13.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	trigger = {
+		NOT = {
+			owner = {
+				OR = {
+					religion = sanamahi
+					religion = sanamahi_reformed			
+				}
+			}
+		}
+		OR = {
+			has_province_modifier = umanglais_neutral
+			has_province_modifier = umanglais_bad
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 258
+		modifier = {
+			factor = 1.2
+			owner = {
+				trait = cynical
+			}
+		}
+		modifier = {
+			factor = 0.8
+			owner = {
+				trait = zealous
+			}
+		}
+		modifier = {
+			factor = 1.2
+			owner = {
+				trait = greedy
+			}
+		}
+		modifier = {
+			factor = 0.8
+			owner = {
+				trait = charitable
+			}
+		}
+		modifier = {
+			factor = 1.2
+			owner = {
+				trait = cruel
+			}
+		}
+		modifier = {
+			factor = 0.8
+			owner = {
+				trait = kind
+			}
+		}
+		modifier = {
+			factor = 1.2
+			owner = {
+				trait = proud
+			}
+		}
+		modifier = {
+			factor = 0.8
+			owner = {
+				trait = humble
+			}
+		}
+		modifier = {
+			factor = 1.2
+			owner = {
+				trait = slothful
+			}
+		}
+		modifier = {
+			factor = 0.8
+			owner = {
+				trait = diligent
+			}
+		}
+		modifier = {
+			factor = 2
+			owner = {
+				NOT = { learning = 5 }
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = {
+				learning = 5
+				NOT = { learning = 10 }
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = {
+				learning = 10
+				NOT = { learning = 16 }
+			}
+		}
+		modifier = {
+			factor = 0.5
+			owner = {
+				learning = 16
+			}
+		}
+		modifier = {
+			factor = 0.8
+			owner = {
+				has_character_modifier = bear_hunt_held 
+			}
+		}
+		modifier = {
+			factor = 0.5
+			owner = {
+				has_character_modifier = umanglais_offerings_good 
+			}
+		}
+		modifier = {
+			factor = 0.9
+			owner = {
+				has_character_modifier = umanglais_offerings_neutral 
+			}
+		}
+		modifier = {
+			factor = 1.8
+			owner = {
+				has_character_modifier = umanglais_offerings_bad 
+			}
+		}
+	}
+	
+	option = {
+		name = sanamahi.13.a
+		if = {
+			limit = {
+				has_province_modifier = umanglais_neutral
+			}
+			remove_province_modifier = umanglais_neutral
+			add_province_modifier = {
+				name = umanglais_good
+				duration = -1
+			}	
+		}
+		if = {
+			limit = {
+				has_province_modifier = umanglais_bad
+			}
+			remove_province_modifier = umanglais_bad
+			add_province_modifier = {
+				name = umanglais_neutral
+				duration = -1
+			}	
+		}
+	}
+}
+
+# Haltija Get Worse
+
+province_event = {
+	id = sanamahi.14
+	desc = sanamahi.14.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	trigger = {
+		NOT = {
+			owner = {
+				OR = {
+					religion = sanamahi
+					religion = sanamahi_reformed			
+				}
+			}
+		}
+		OR = {
+			has_province_modifier = umanglais_good
+			has_province_modifier = umanglais_neutral
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 258
+		modifier = {
+			factor = 0.8
+			owner = {
+				trait = cynical
+			}
+		}
+		modifier = {
+			factor = 1.2
+			owner = {
+				trait = zealous
+			}
+		}
+		modifier = {
+			factor = 0.8
+			owner = {
+				trait = greedy
+			}
+		}
+		modifier = {
+			factor = 1.2
+			owner = {
+				trait = charitable
+			}
+		}
+		modifier = {
+			factor = 0.8
+			owner = {
+				trait = cruel
+			}
+		}
+		modifier = {
+			factor = 1.2
+			owner = {
+				trait = kind
+			}
+		}
+		modifier = {
+			factor = 0.8
+			owner = {
+				trait = proud
+			}
+		}
+		modifier = {
+			factor = 1.2
+			owner = {
+				trait = humble
+			}
+		}
+		modifier = {
+			factor = 0.8
+			owner = {
+				trait = slothful
+			}
+		}
+		modifier = {
+			factor = 1.2
+			owner = {
+				trait = diligent
+			}
+		}
+		modifier = {
+			factor = 0.5
+			owner = {
+				NOT = { learning = 5 }
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = {
+				learning = 5
+				NOT = { learning = 10 }
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = {
+				learning = 10
+				NOT = { learning = 16 }
+			}
+		}
+		modifier = {
+			factor = 2
+			owner = {
+				learning = 16
+			}
+		}
+		modifier = {
+			factor = 1.2
+			owner = {
+				has_character_modifier = bear_hunt_held 
+			}
+		}
+		modifier = {
+			factor = 1.8
+			owner = {
+				has_character_modifier = umanglais_offerings_good 
+			}
+		}
+		modifier = {
+			factor = 1.2
+			owner = {
+				has_character_modifier = umanglais_offerings_neutral 
+			}
+		}
+		modifier = {
+			factor = 0.5
+			owner = {
+				has_character_modifier = umanglais_offerings_bad 
+			}
+		}
+	}
+	
+	option = {
+		name = sanamahi.14.a
+		if = {
+			limit = {
+				has_province_modifier = umanglais_neutral
+			}
+			remove_province_modifier = umanglais_neutral
+			add_province_modifier = {
+				name = umanglais_bad
+				duration = -1
+			}	
+		}
+		if = {
+			limit = {
+				has_province_modifier = umanglais_good
+			}
+			remove_province_modifier = umanglais_good
+			add_province_modifier = {
+				name = umanglais_neutral
+				duration = -1
+			}	
+		}
+	}
+}
+
+##################################################################
+# Haltija Offerings
+##################################################################
+
+#Offerings start
+character_event = {
+	id = sanamahi.15
+	desc = sanamahi.15.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	#trigger = {
+	#	has_character_flag = hosting_griot_performance
+	#}
+	option = {
+		name = sanamahi.15.a
+		character_event = { id = sanamahi.16 days = 2 tooltip = "sanamahi.16.tooltip" }
+		#clr_character_flag = hosting_griot_performance
+	}
+	
+}
+#Offerings middle
+character_event = {
+	id = sanamahi.16
+	desc = sanamahi.16.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = sanamahi.16.a
+		if = {
+			limit = {
+				NOT = { learning = 8 }
+			}
+			random_list = {
+				35 = { character_event = { id = sanamahi.17 days = 2 tooltip = "sanamahi.17.tooltip" } } #bad
+				50 = { character_event = { id = sanamahi.18 days = 2 tooltip = "sanamahi.18.tooltip" } } #neutral
+				15 = { character_event = { id = sanamahi.19 days = 2 tooltip = "sanamahi.19.tooltip" } } #good
+			}
+		}
+		if = {
+			limit = {
+				learning = 8
+				NOT = { learning = 16 }
+			}
+			random_list = {
+				25 = { character_event = { id = sanamahi.17 days = 2 tooltip = "sanamahi.17.tooltip" } } #bad
+				50 = { character_event = { id = sanamahi.18 days = 2 tooltip = "sanamahi.18.tooltip" } } #neutral
+				25 = { character_event = { id = sanamahi.19 days = 2 tooltip = "sanamahi.19.tooltip" } } #good
+			}
+		}
+		if = {
+			limit = {
+				learning = 16
+			}
+			random_list = {
+				15 = { character_event = { id = sanamahi.17 days = 2 tooltip = "sanamahi.17.tooltip" } } #bad
+				50 = { character_event = { id = sanamahi.18 days = 2 tooltip = "sanamahi.18.tooltip" } } #neutral
+				35 = { character_event = { id = sanamahi.19 days = 2 tooltip = "sanamahi.19.tooltip" } } #good
+			}
+		}
+	}
+	
+}
+#Offerings bad
+character_event = {
+	id = sanamahi.17
+	desc = sanamahi.17.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = sanamahi.17.a
+		piety = -5
+		clr_character_flag = umanglais_offerings_giving
+		add_character_modifier = {
+			name = umanglais_offerings_bad
+			duration = 730
+		}
+	}
+	
+}
+#Offerings neutral
+character_event = {
+	id = sanamahi.18
+	desc = sanamahi.18.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = sanamahi.18.a
+		clr_character_flag = umanglais_offerings_giving
+		add_character_modifier = {
+			name = umanglais_offerings_neutral
+			duration = 730
+		}
+	}
+	
+}
+#Offerings good
+character_event = {
+	id = sanamahi.19
+	desc = sanamahi.19.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = sanamahi.19.a
+		piety = 5
+		clr_character_flag = umanglais_offerings_giving
+		add_character_modifier = {
+			name = umanglais_offerings_good
+			duration = 730
+		}
+	}
+	
+}
