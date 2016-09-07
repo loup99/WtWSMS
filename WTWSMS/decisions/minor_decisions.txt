@@ -1122,7 +1122,8 @@ decisions = {
 				religion_group = muslim
 				religion_group = zoroastrian_group
 			}
-			NOT = {	religion_group = jewish_group }
+			NOT = { religion_group = jewish_group }
+			NOT = { religion = ebionites }
 			is_playable = yes
 			is_nomadic = no
 		}
@@ -1138,6 +1139,7 @@ decisions = {
 			NOT = {
 				has_character_modifier = borrowed_from_jews
 				has_character_modifier = expelled_jewish
+				religion = ebionites
 			}
 			top_liege = { NOT = { has_character_modifier = expelled_jewish } }
 		}
@@ -1169,6 +1171,39 @@ decisions = {
 			}			
 			modifier = {
 				factor = 0.01 # Slow it down
+			}
+		}
+	}
+	repay_money_jews = {
+		potential = {	
+			NOT = { 
+				has_character_modifier = expelled_jewish
+			}
+			has_character_modifier = borrowed_from_jews
+			has_dlc = "Sons of Abraham"
+		}
+		
+		allow = {
+			wealth = 350
+		}
+		
+		effect = {
+			remove_character_modifier = borrowed_from_jews
+			wealth = -350
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { wealth = 450 }
+			}
+			modifier = {
+				factor = 0.1 # Slow it down
 			}
 		}
 	}
