@@ -1,7 +1,6 @@
-
-# Targetted decisions are possible vs _all_ other characters and shown are in the Diplomacy View, not the Intrigue View. The taker is in the FROM scope.
+# Targeted decisions are possible vs _all_ other characters and shown are in the Diplomacy View, not the Intrigue View. The taker is in the FROM scope.
 #
-# filter = [self/court/home_court/vassals/sub_realm/realm/dynasty/all] ('self' MUST be set for decisions targetting only the taker, the other filter types can be set to lessen CPU load)
+# filter = [self/court/home_court/vassals/sub_realm/realm/dynasty/all] ('self' MUST be set for decisions targeting only the taker, the other filter types can be set to lessen CPU load)
 # ai_target_filter = [self/court/home_court/vassals/sub_realm/realm/dynasty/all] (which characters for which the AI evaluates the decision.)
 #	court: all characters in the AI's host court, including prisoners, and characters currently away (wards, prisoners, etc)
 #	home_court: all characters in the AI's home court, including prisoners, and characters currently away (wards, prisoners, etc)
@@ -17,11 +16,12 @@
 targetted_decisions = {
 
 	vassal_fatwa_decision = {
+		only_playable = yes
 		filter = vassals				# Only those under me
 		ai_target_filter = vassals		# Only those under me
 
 		from_potential = {
-			is_ruler = yes
+			is_playable = yes
 			uses_decadence = yes
 			any_courtier = {
 				has_job_title = job_spiritual
@@ -77,12 +77,13 @@ targetted_decisions = {
 	}
 	
 	vassal_castrate_decision = {
+		only_playable = yes
 		filter = court
 		ai_target_filter = court
 
 		from_potential = {
 			has_dlc = "Legacy of Rome"
-			is_ruler = yes
+			is_playable = yes
 			culture_group = byzantine
 		}
 	
@@ -190,7 +191,11 @@ targetted_decisions = {
 			
 			modifier = {
 				factor = 0
-				reverse_opinion = { who = FROM value = 40 }
+				OR = {
+					reverse_opinion = { who = FROM value = 40 }
+					FROM = { NOT = { piety = 100 } }
+					FROM = { LIEGE = { dynasty = ROOT } }
+				}
 			}
 			modifier = {
 				factor = 0
@@ -212,12 +217,13 @@ targetted_decisions = {
 	}
 	
 	vassal_blinding_decision = {
+		only_playable = yes
 		filter = court
 		ai_target_filter = court
 	
 		from_potential = {
 			has_dlc = "Legacy of Rome"
-			is_ruler = yes
+			is_playable = yes
 			culture_group = byzantine
 		}
 	
@@ -236,14 +242,13 @@ targetted_decisions = {
 				}
 			}
 			character_event = { id = LoR.831 tooltip = "EVTTOOLTIPLoR.831" }
-			add_trait = blinded
-			random = {
-				chance = 5				
-				death = {
-					death_reason = death_execution
-					killer = FROM
+			if = {
+				limit = {
+					trait = one_eyed
 				}
+				remove_trait = one_eyed
 			}
+			add_trait = blinded
 			prisoner = no
 			opinion = {
 				modifier = opinion_blinded_me
@@ -326,10 +331,14 @@ targetted_decisions = {
 			}
 			modifier = {
 				factor = 0
-				reverse_opinion = { who = FROM value = 40 }
+				OR = {
+					reverse_opinion = { who = FROM value = 40 }
+					FROM = { NOT = { piety = 100 } }
+					FROM = { LIEGE = { dynasty = ROOT } }
+				}
 			}
 			modifier = {
-				factor = 0.1
+				factor = 0
 				FROM = { trait = kind }
 			}
 			modifier = {
@@ -350,11 +359,12 @@ targetted_decisions = {
 	
 	
 	vassal_zun_judgement_decision = {
+		only_playable = yes
 		filter = court
 		ai_target_filter = court
 	
 		from_potential = {
-			is_ruler = yes
+			is_playable = yes
 			OR = {
 				religion = zun_pagan
 				religion = zun_pagan_reformed
@@ -377,7 +387,7 @@ targetted_decisions = {
 			always = no
 		}
 		ai_will_do = {
-			factor = 10000000
+			factor = 1
 			
 			modifier = {
 				factor = 0

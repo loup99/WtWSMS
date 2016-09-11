@@ -5,7 +5,7 @@
 #
 # Event IDs ancrel.3400-3549 are reserved
 #
-# ancrel.3400 - 3410	various maintenance type events
+# ancrel.3400 - 3410	various events
 # ancrel.3411 - 3420	Rebuilding of Crotone
 # ancrel.3450 - 3549	The Unbinding Festival
 # ancrel.3550 - 3599	Holy Order Events
@@ -119,6 +119,153 @@ character_event = {
 		}
 	}
 }
+
+# Promethean child comes of age and chooses which school to join
+# [on_adulthood]
+character_event = {
+	id = ancrel.3403
+	desc = ancrel.3403.desc
+	picture = GFX_evt_library
+
+	is_triggered_only = yes
+
+	religion = promethean_pagan
+	
+	immediate = {
+		set_character_flag = acr_changed_school
+	}
+
+	option = {
+		name = ancrel.3403.a
+		add_trait = stoic
+
+		ai_chance = {
+			factor = 40
+			modifier = {
+				factor = 1.2
+				trait = cynical
+			}
+			modifier = {
+				factor = 1.2
+				trait = just
+			}
+		}
+	}
+	option = {
+		name = ancrel.3403.b
+		add_trait = skeptic
+
+		ai_chance = {
+			factor = 35
+			modifier = {
+				factor = 0.75
+				trait = ambitious
+			}
+		}
+	}
+	option = {
+		name = ancrel.3403.c
+		add_trait = epicurean
+
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0.5
+				trait = greedy
+			}
+			modifier = {
+				factor = 0.5
+				trait = gluttonous
+			}
+			modifier = {
+				factor = 0.5
+				trait = lustful
+			}
+			modifier = {
+				factor = 2
+				trait = content
+			}
+			modifier = { # the ambitious would never choose Epicureanism
+				factor = 0
+				trait = ambitious
+			}
+		}
+	}
+}
+
+# Promethean has decided to change their school of thought
+# [decision]
+character_event = {
+	id = ancrel.3404
+	desc = ancrel.3404.desc
+	picture = GFX_evt_library
+
+	is_triggered_only = yes
+
+	option = {
+		name = ancrel.3403.a
+		trigger = {	NOT = {	trait = stoic } }
+
+		add_trait = stoic
+
+		ai_chance = {
+			factor = 40
+			modifier = {
+				factor = 1.2
+				trait = cynical
+			}
+			modifier = {
+				factor = 1.2
+				trait = just
+			}
+		}
+	}
+	option = {
+		name = ancrel.3403.b
+		trigger = {	NOT = {	trait = skeptic } }
+
+		add_trait = skeptic
+
+		ai_chance = {
+			factor = 35
+			modifier = {
+				factor = 0.75
+				trait = ambitious
+			}
+		}
+	}
+	option = {
+		name = ancrel.3403.c
+		trigger = {	NOT = {	trait = epicurean } }
+
+		add_trait = epicurean
+
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0.5
+				trait = greedy
+			}
+			modifier = {
+				factor = 0.5
+				trait = gluttonous
+			}
+			modifier = {
+				factor = 0.5
+				trait = lustful
+			}
+			modifier = {
+				factor = 2
+				trait = content
+			}
+			modifier = { # the ambitious would never choose Epicureanism
+				factor = 0
+				trait = ambitious
+			}
+		}
+	}
+}
+
 ###################################################################
 #
 # Rebuilding Crotone
