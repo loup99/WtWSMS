@@ -10,7 +10,17 @@ title_commander = {
 	monthly_salary = 0.05
 	monthly_prestige = 0.50
 	
+	revoke_allowed = no # Handled by diplomatic interaction
+	
 	allowed_to_hold = {
+		OR = {
+			primary_title = { temporary = no }
+			NOT = {
+				primary_title = {
+					always = yes
+				}
+			}
+		}
 		liege = { character = FROM }
 		OR = {
 			AND = {
@@ -19,20 +29,18 @@ title_commander = {
 					AND = {
 						is_feminist_religion_trigger = yes
 						liege = { religion = PREV }
-					}
-					AND = {
-						religion_group = pagan_group
-						OR = {
-							independent = yes
-							martial = 20
-						}
-						liege = { religion = PREV }
-					}
-					liege = {	
-						primary_title = {
-							has_law = status_of_women_4
-						}
 					}	
+					liege = {
+						OR = {
+							primary_title = {
+								has_law = status_of_women_4
+							}
+							has_game_rule = {
+								name = gender
+								value = all
+							}
+						}
+					}
 				}
 				OR = {
 					NOT = { religion = hindu }
@@ -45,7 +53,7 @@ title_commander = {
 		
 		prisoner = no
 		NOT = { trait = incapable }
-		NOT = { trait = in_hiding }
+		NOT = { is_inaccessible_trigger = yes }
 		NOT = { has_character_flag = guru }
 	}
 	

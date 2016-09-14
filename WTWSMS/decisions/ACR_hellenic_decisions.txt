@@ -1,6 +1,7 @@
 decisions = {
 
 	recreate_pontificate = {
+		only_playable = yes
 		is_high_prio = yes
 		potential = {
 			religion = hellenic_pagan
@@ -67,8 +68,8 @@ decisions = {
 	}
 
 	organize_sacred_band = {
+		only_playable = yes
 		is_high_prio = yes
-		
 		potential = {
 			higher_tier_than = count
 			religion = hellenic_pagan
@@ -110,6 +111,7 @@ decisions = {
 	}
 
 	hold_titan_thysia = {
+		only_playable = yes
 		is_high_prio = yes
 		potential = {
 			has_dlc = "The Old Gods"
@@ -191,6 +193,7 @@ decisions = {
 	}
 
 	found_sickles = {
+		only_playable = yes
 		is_high_prio = yes
 		potential = {
 			has_dlc = "The Old Gods"
@@ -350,6 +353,7 @@ decisions = {
 	}
 
 	rebuild_first_academy = {
+		only_playable = yes
 		is_high_prio = yes
 		potential = {
 			religion = promethean_pagan
@@ -421,6 +425,7 @@ decisions = {
 	}
 
 	rebuild_crotone = {
+		only_playable = yes
 		is_high_prio = yes
 		potential = {
 			religion = promethean_pagan
@@ -472,6 +477,7 @@ decisions = {
 	}
 
 	hold_unbinding_festival = {
+		only_playable = yes
 		is_high_prio = yes
 		potential = {
 			has_dlc = "The Old Gods"
@@ -537,6 +543,7 @@ decisions = {
 	}
 
 	organize_men_of_steel = {
+		only_playable = yes
 		is_high_prio = yes
 		potential = {
 			is_ruler = yes
@@ -683,6 +690,96 @@ decisions = {
 			modifier = {
 				factor = 0.25
 				trait = cynical
+			}
+		}
+	}
+
+	change_school = {
+		potential = {
+			has_dlc = "The Old Gods"
+			is_ruler = yes
+			age = 16
+			prisoner = no
+			NOT = { trait = in_hiding }
+			
+			OR = {
+				religion = promethean_pagan
+				is_neoplatonist_trigger = yes
+			}
+			
+			OR = {
+				had_character_flag = { flag = acr_changed_school days = 1825 }
+				NOT = { has_character_flag = acr_changed_school }
+			}
+			NOT = {	has_character_flag = do_not_disturb }
+		}
+		allow = {
+			OR = {
+				piety = 200
+				is_neoplatonist_trigger = no
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					is_neoplatonist_trigger = yes
+				}
+				piety = -200
+			}
+			set_character_flag = acr_changed_school
+			custom_tooltip = {
+				text = choose_school_tip
+				hidden_tooltip = { character_event = { id = ancrel.3404 } }
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0.05 # unlikely
+
+			modifier = {
+				factor = 0
+				NOT = { piety = 350 }
+				is_neoplatonist_trigger = yes
+			}
+			modifier = {
+				factor = 2
+				trait = greedy
+				trait = epicurean
+			}
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+			modifier = {
+				factor = 2
+				trait = ambitious
+			}
+			modifier = {
+				factor = 1.5
+				trait = skeptic
+				trait = zealous
+			}
+			modifier = {
+				factor = 1.25
+				trait = skeptic
+				trait = ambitious
+			}
+			modifier = {
+				factor = 1.5
+				trait = stoic
+				trait = greedy
+			}
+			modifier = {
+				factor = 1.5
+				trait = stoic
+				trait = ambitious
+			}
+			modifier = {
+				factor = 100
+				religion = promethean_pagan
+				is_neoplatonist_trigger = no
 			}
 		}
 	}

@@ -31,6 +31,7 @@ character_event = {
 	picture = GFX_evt_heretic
 	border = GFX_event_normal_frame_religion
 
+	min_age = 16
 	capable_only = yes
 	prisoner = no
 	
@@ -73,6 +74,18 @@ character_event = {
 		modifier = {
 			factor = 0.5
 			location = { religion_group = ROOT }
+		}
+		modifier = {
+			factor = 0.75
+			location = { has_province_modifier = depopulated_1 }
+		}
+		modifier = {
+			factor = 0.50
+			location = { has_province_modifier = depopulated_2 }
+		}
+		modifier = {
+			factor = 0.25
+			location = { has_province_modifier = depopulated_3 }
 		}
 		modifier = {
 			factor = 1.25
@@ -167,6 +180,7 @@ character_event = {
 				}
 			}
 		}
+		
 		modifier = {
 			factor = 0.3   
 			liege = { 
@@ -193,14 +207,21 @@ character_event = {
 				has_province_modifier = heretic_stronghold
 			}
 		}
+		modifier = {
+			factor = 3
+			has_game_rule = {
+				name = religious_conversion
+				value = slower
+			}
+		}
 	}
 
 	option = {
 		name = "EVTOPTA900"
 		piety = 10
-		location = {
-			religion = ROOT
-			hidden_tooltip = {
+		location = { religion = ROOT }
+		hidden_tooltip = {
+			location = {
 				if = {
 					limit = { has_province_modifier = heretic_stronghold }
 					remove_province_modifier = heretic_stronghold
@@ -276,6 +297,7 @@ character_event = {
 	picture = GFX_evt_heretic
 	border = GFX_event_normal_frame_religion
 
+	min_age = 16
 	capable_only = yes
 	prisoner = no
 	
@@ -535,6 +557,7 @@ character_event = {
 	picture = GFX_evt_peasants
 	border = GFX_event_normal_frame_religion
 
+	min_age = 16
 	capable_only = yes
 	prisoner = no
 	
@@ -748,6 +771,7 @@ character_event = {
 	picture = GFX_evt_heretic
 	border = GFX_event_normal_frame_religion
 
+	min_age = 16
 	capable_only = yes
 	prisoner = no
 	
@@ -1050,6 +1074,7 @@ character_event = {
 	picture = GFX_evt_peasants
 	border = GFX_event_normal_frame_religion
 
+	min_age = 16
 	capable_only = yes
 	prisoner = no
 	
@@ -1304,10 +1329,10 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_character_flag = preacher_arrives
 	
 	trigger = {
 		has_job_action = action_inquisition
-		has_character_flag = preacher_arrives
 		NOR = {
 			trait = tolerant_ruler
 			liege = {
@@ -1455,11 +1480,13 @@ character_event = {
 	picture = GFX_evt_bishop
 	border = GFX_event_normal_frame_religion
 	
+	min_age = 16
+	capable_only = yes
 	prisoner = no
+	has_character_flag = preacher_arrives
 	
 	trigger = {
 		has_job_action = action_inquisition
-		has_character_flag = preacher_arrives
 		NOR = {
 			trait = tolerant_ruler
 			liege = {
@@ -1586,11 +1613,13 @@ character_event = {
 	picture = GFX_evt_bishop
 	border = GFX_event_normal_frame_religion
 	
+	min_age = 16
+	capable_only = yes
 	prisoner = no
+	has_character_flag = preacher_arrives
 	
 	trigger = {
 		has_job_action = action_inquisition
-		has_character_flag = preacher_arrives
 		location = {
 			owner = {
 				NOR = {
@@ -1652,9 +1681,11 @@ character_event = {
 	hide_window = yes
 	
 	min_age = 16
+	capable_only = yes
+	prisoner = no
+	has_character_flag = preacher_arrives
 	
 	trigger = {
-		has_character_flag = preacher_arrives
 		NOT = { has_job_action = action_inquisition }
 	}
 	
@@ -1682,6 +1713,7 @@ character_event = {
 	picture = GFX_evt_bishop
 	border = GFX_event_normal_frame_religion
 
+	min_age = 16
 	capable_only = yes
 	prisoner = no
 	
@@ -1817,12 +1849,16 @@ character_event = {
 	picture = GFX_evt_pope_feast
 	border = GFX_event_normal_frame_religion
 
+	min_age = 16
 	capable_only = yes
 	prisoner = no
 	
 	trigger = {
 		has_job_action = action_improve_rel_relations
 		NOT = { religion_group = indian_group }
+		religion_head = {
+			NOT = { character = liege }
+		}
 		location = { 
 			any_province_lord = {
 				NOT = { character = ROOT }
@@ -1952,6 +1988,7 @@ character_event = {
 	picture = GFX_evt_emissary
 	border = GFX_event_normal_frame_religion
 	
+	min_age = 16
 	capable_only = yes
 	prisoner = no
 	
@@ -2021,6 +2058,21 @@ letter_event = {
 		name = "EVTOPTA20260"
 		scaled_wealth = -0.5
 		culture_techpoints = 50
+		if = {
+			limit = {
+				has_dlc = "Reapers"
+			}
+			custom_tooltip = {
+				text = increase_prosperity_custom_tooltip
+				hidden_tooltip = {
+					FROM = {
+						location = {
+							change_variable = { which = prosperity_value value = 6 }
+						}
+					}
+				}
+			}
+		}
 	}
 	option = {
 		name = "EVTOPTB20260"
@@ -2036,6 +2088,7 @@ character_event = {
 	picture = GFX_evt_heretic
 	border = GFX_event_normal_frame_religion
 	
+	min_age = 16
 	capable_only = yes
 	prisoner = no
 	
@@ -2151,6 +2204,7 @@ character_event = {
 	picture = GFX_evt_bishop
 	border = GFX_event_normal_frame_religion
 
+	min_age = 16
 	capable_only = yes
 	prisoner = no
 	
@@ -2283,6 +2337,7 @@ character_event = {
 	picture = GFX_evt_peasants
 	border = GFX_event_normal_frame_religion
 
+	min_age = 16
 	capable_only = yes
 	prisoner = no
 	
@@ -2453,6 +2508,7 @@ character_event = {
 	picture = GFX_evt_bishop
 	border = GFX_event_normal_frame_religion
 	
+	min_age = 16
 	capable_only = yes
 	prisoner = no
 	
@@ -2525,6 +2581,7 @@ character_event = {
 	picture = GFX_evt_bishop
 	border = GFX_event_normal_frame_religion
 	
+	min_age = 16
 	capable_only = yes
 	prisoner = no
 	
@@ -2603,10 +2660,12 @@ character_event = {
 	picture = GFX_evt_battle
 	border = GFX_event_normal_frame_war
 
+	min_age = 16
 	capable_only = yes
 	prisoner = no
 	
 	trigger = {
+		has_job_action = action_build_zeal
 		liege = {
 			is_adult = yes
 			prisoner = no
@@ -2636,7 +2695,6 @@ character_event = {
 				}
 			}
 		}
-		has_job_action = action_build_zeal
 		location = {
 			county = {
 				is_occupied = no
