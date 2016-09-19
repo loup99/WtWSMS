@@ -1518,4 +1518,41 @@ decisions = {
 			factor = 1
 		}
 	}
+	organize_legio_sala = {
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			prisoner = no
+			age = 16
+			has_landed_title = c_massat
+			NOT = { is_title_active = b_legio_sala }
+		}
+		allow = {
+			wealth = 200
+			AND = {
+				NOT = { 
+				tier = DUKE
+				tier = KING
+				tier = EMPEROR
+				}
+			}
+		}
+		effect = {
+			wealth = -200
+			activate_title = { title = b_legio_sala status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					b_legio_sala = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
 }
