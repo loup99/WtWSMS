@@ -571,4 +571,54 @@ decisions = {
 			factor = 1
 		}
 	}
+	create_salem = {
+		is_high_prio = yes
+		only_playable = yes
+		only_rulers = yes
+
+		potential = {
+			religion = melchisedechianism
+			independent = yes
+			NOT = { is_title_active = k_melchisedechianism }
+		}
+		
+		allow = {
+			piety = 1000
+			OR = {
+				trait = mystic
+				learning = 14
+			}
+			primary_title = { higher_tier_than = KING }
+			realm_size = 150
+		}
+		
+		effect = {
+			activate_title = { 
+				title = k_melchisedechianism
+				status = yes
+			}
+			hidden_tooltip = {
+				grant_title =  PREV	
+				religion_authority = {
+					modifier = patriarchy_instituted
+					years = 20
+				}
+			}
+			piety = 1000
+			add_trait = mystic
+			set_global_flag = here_come_dat_priest_king
+			add_trait = newsalem
+			ROOT = { 
+				narrative_event = { id = here_come_dat_priest_king_declare }
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
 }

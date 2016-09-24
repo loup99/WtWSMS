@@ -1315,6 +1315,7 @@ decisions = {
 				religion_group = jewish_group
 				has_character_modifier = expelled_jewish
 				is_nomadic = yes
+				religion = ebionites
 			}
 			age = 16
 		}
@@ -1326,14 +1327,28 @@ decisions = {
 				religion_group = muslim
 				religion_group = zoroastrian_group
 			}
-			NOT = { any_realm_province = { religion_group = jewish_group } }
+			NOT = { 
+				any_realm_province = { 
+					OR = {
+						religion_group = jewish_group 
+						religion = ebionites
+					}
+				} 
+			}
+
 			prisoner = no
 			NOT = { trait = incapable }
+			NOT = { religion = ebionites }
+			NOT = { religion_group = jewish_group }
 		}
 		effect = {
-			prestige = -100
+			prestige = -300
 			scaled_wealth = 2
 			banish_religion = jewish
+			banish_religion = ebionites
+			banish_religion = karaite
+			banish_religion = samaritan
+			banish_religion = tzadikite
 			if = {
 				limit = { trait = sympathy_judaism }
 				remove_trait = sympathy_judaism
@@ -1369,6 +1384,11 @@ decisions = {
 				limit = { religion_group = jewish_group }
 				remove_friend = ROOT
 			}
+			random = {
+				chance = 50
+				add_trait = cruel
+			}
+			remove_trait = just
 		}
 		ai_will_do = {
 			factor = 1
@@ -1386,19 +1406,28 @@ decisions = {
 			modifier = {
 				factor = 0
 				any_friend = {
-					religion_group = jewish_group
+					OR = {
+						religion_group = jewish_group
+						religion = ebionites
+					}
 				}
 			}
 			modifier = {
 				factor = 0
 				any_spouse = {
-					religion_group = jewish_group
+					OR ={
+						religion_group = jewish_group
+						religion = ebionites
+					}
 				}
 			}
 			modifier = {
 				factor = 0
 				any_child = {
-					religion_group = jewish_group
+					OR = {
+						religion_group = jewish_group
+						religion = ebionites
+					}
 				}
 			}
 			modifier = {
@@ -1431,6 +1460,10 @@ decisions = {
 			modifier = {
 				factor = 1.2
 				trait = paranoid
+			}
+			modifier = {
+				factor = 0
+				religion = ebionites
 			}
 		}
 	}
