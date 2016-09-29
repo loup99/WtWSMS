@@ -1,0 +1,121 @@
+##### I promised several Pepe/frog themed objects. All frog-related items will be placed in this central file, using a central namespace. #####
+
+namespace = feelsgoodman
+
+# Egyptian pagan asked to vist local Kek cult's shrine
+character_event = {
+	id = feelsgoodman.1
+	desc = "FEELSGOODMAN2"
+	picture = GFX_evt_praisekek
+
+	is_triggered_only = yes
+
+	trigger = {
+		trait = traveling
+		religion = egyptian_pagan
+	}
+
+	option = { #intro/setup, priest approaches player and player joins him
+		name = "FEELSGOODMAN_YES"
+		
+		piety = 5
+
+		set_character_flag = meme_magic_kek
+		
+		random_vassal = {
+			limit = {
+				is_priest = yes
+				religion = egyptian_pagan
+			}
+			opinion = {
+				modifier = opinion_pleased
+				who = ROOT
+				years = 1
+			}
+			set_character_flag = meme_magic_kekpriest
+		}
+		hidden_tooltip = "ONWARDS_TO_KEK"
+	}
+
+
+	option = { #Ignore and move on
+		name = "EVTOPTD1000109068"
+		tooltip_info = cynical
+		piety = -5
+		add_character_modifier = {
+			name = the_cynical
+			duration = 365
+		}
+		random_list = {
+			50 = { }
+			50 = {
+				add_trait = cynical
+			}
+		}
+		random_vassal = {
+			limit = {
+				is_priest = yes
+				religion = egyptian_pagan
+			}
+			opinion = {
+				modifier = opinion_angry
+				who = ROOT
+				months = 6
+			}
+		}
+	}
+}
+
+# Having accepted priest's request, arrive at Kek shrine
+narrative_event = {
+	id = feelsgoodman.3
+	title = "FEELSGOODMAN4"
+	desc = "FEELSGOODMAN5"
+	picture = GFX_evt_kek_with_numeral_fives
+	border = GFX_event_narrative_frame_religion
+	
+	is_triggered_only = yes
+	mean_time_to_happen = {
+		days = 2
+	}
+	major = no
+	
+	trigger = {
+		has_character_flag = meme_magic_kek
+		religion = egyptian_pagan
+	}
+
+	option = {
+		desc = FEELSGOODMAN6
+		random = {
+			chance = 15
+			top_liege = {
+				random_realm_character = {
+					limit = {
+						is_priest = yes
+						has_character_flag = meme_magic_kekpriest
+					}
+					NOT = { is_friend = ROOT }
+				}
+				add_friend = ROOT
+				hidden_tooltip = { character_event = { id = WoL.4121 } }
+			}
+			
+		}
+		clr_character_flag = meme_magic_kekpriest
+		random_realm_character = {
+			limit = {
+				is_priest = yes
+				has_characte_flag = meme_magic_kekpriest
+			}
+			clr_character_flag = meme_magic_kekpriest
+		}
+		clr_character_flag = meme_magic_kek
+		random = {
+			chance = 5
+			add_trait = zealous
+		}
+		piety = 15
+		prestige = 1
+	}
+}
