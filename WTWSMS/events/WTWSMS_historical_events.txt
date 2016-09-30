@@ -10,7 +10,7 @@ namespace = hist
 # Bavarian Ethnogensis
 province_event = {
 	id = hist.1
-	desc = EVTDESC_hist_1
+	desc = hist.1.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_diplomacy
 	
@@ -26,7 +26,7 @@ province_event = {
 	}
 
 	option = {
-		name = EVTOPTA_hist_1
+		name = hist.1.a
 		trigger = {
 			NOT = {
 				owner = { culture = bavarian }
@@ -36,7 +36,7 @@ province_event = {
 		add_province_modifier = bavarian_influx
 	}
 	option = {
-		name = EVTOPTB_hist_1
+		name = hist.1.b
 		trigger = {
 			owner = { culture = bavarian }
 		}
@@ -47,10 +47,10 @@ province_event = {
 # Diocese of Connor
 character_event = {
 	id = hist.2
-	title = "EVTTIT_hist_2"
-	desc = EVTDESC_hist_2
-	picture = "GFX_evt_stone_church"
-	border = "GFX_event_normal_frame_religion"
+	title = hist.2.name
+	desc = hist.2.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
 	
 	major = yes
 	
@@ -75,7 +75,7 @@ character_event = {
 	}
 
 	option = {
-		name = EVTOPTA_hist_2
+		name = hist.2.a
 		piety = 150 
 		cash = 50 
 	}
@@ -84,10 +84,10 @@ character_event = {
 # The Hagiography of Germanus of Auxerre
 character_event = {
 	id = hist.3
-	title = "EVTTIT_hist_3"
-	desc = EVTDESC_hist_3
+	title = hist.3.name
+	desc = hist.3.desc
 	picture = GFX_evt_heretic
-	border = "GFX_event_normal_frame_religion"
+	border = GFX_event_normal_frame_religion
 	
 	major = yes
 	
@@ -96,7 +96,7 @@ character_event = {
 		has_landed_title = k_soissons
 		religion = nicene 
 		NOT = { year = 481 }
-		NOT = { has_global_flag = heresey_denounced }
+		NOT = { has_global_flag = heresy_denounced }
 	}
 	
 	mean_time_to_happen = {
@@ -112,7 +112,7 @@ character_event = {
 	}
 
 	option = {
-		name = EVTOPTA_hist_3
+		name = hist.3.a
 		piety = 150 
 		cash = 50 
 	}
@@ -121,14 +121,15 @@ character_event = {
 # The Death of Strabo
 character_event = {
 	id = hist.4
-	desc = EVTDESC_hist_4
+	desc = hist.4.desc
 	picture = GFX_evt_beheading
-	border = "GFX_event_normal_frame_war"
+	border = GFX_event_normal_frame_war
 	
 	trigger = {
 		year = 481
 		has_landed_title = d_thracian_goths
 		culture = ostrogothic
+		e_byzantium = { holder_scope = { war_with = ROOT } }  
 		NOT = { year = 482 }
 	}
 	
@@ -137,7 +138,7 @@ character_event = {
 	}
 	
 	option = {
-		name = EVTOPTA_hist_3
+		name = hist.4.a
 		random_list = {
 			75 = { death = { death_reason = death_accident } }
 			25 = { add_trait = maimed hidden_tooltip = { character_event = { id = 38281 } }
@@ -148,15 +149,16 @@ character_event = {
 
 # Tension in Armenia
 character_event = {
-	id = hist.4
-	title = EVTTITLE_hist_4
-	desc = EVTDESC_hist_4
+	id = hist.5
+	title = hist.5.name
+	desc = hist.5.desc 
 	picture = GFX_evt_bandits
 	
 	trigger = {
 		year = 481
 		has_landed_title = e_persia
 		religion = zoroastrian
+		NOT { culture = armenian }
 		NOT = { year = 482 }
 	}
 	
@@ -170,7 +172,7 @@ character_event = {
 	}
 	
 	option = {
-		name = EVTOPTA_hist_5
+		name = hist.5.a
 		random_realm_province = {
 			limit = {
 				culture = armenian
@@ -179,14 +181,14 @@ character_event = {
 					religion = nestorian
 				}
 			}
-			hidden_tooltip = { province_event = { id = hist.5 } }
+			hidden_tooltip = { province_event = { id = hist.6 } }
 		}
 	}
 }
 
 # Vahan Mamikonian
 province_event = {
-	id = hist.5
+	id = hist.6
 	
 	hide_window = yes
 	
@@ -320,11 +322,11 @@ province_event = {
 
 # The Henotikon
 character_event = {
-	id = hist.6
-	title = "EVTTIT_hist_6"
-	desc = EVTDESC_hist_6
-	picture = "GFX_evt_stone_church"
-	border = "GFX_event_normal_frame_religion"
+	id = hist.7
+	title = hist.7.name
+	desc = hist.7.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
 	
 	major = yes
 	
@@ -340,12 +342,12 @@ character_event = {
 	}
 
 	option = {
-		name = EVTOPTA_hist_6
-		hidden_tooltip = { character_event = { id = hist.5 days = 30 random = 10 } }
+		name = hist.7.a
+		hidden_tooltip = { character_event = { id = hist.8 days = 30 random = 10 } }
 		piety = 150 
 	}
 	option = {
-		name = EVTOPTB_hist_6
+		name = hist.7.b
 		piety = -250
 		prestige = 50
 	}
@@ -353,11 +355,11 @@ character_event = {
 
 # The Henotikon Fails
 character_event = {
-	id = hist.7
-	title = "EVTTIT_hist_7"
-	desc = EVTDESC_hist_7
-	picture = "GFX_evt_stone_church"
-	border = "GFX_event_normal_frame_religion"
+	id = hist.8
+	title = hist.8.name
+	desc = hist.8.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
 	
 	major = yes
 	
@@ -372,19 +374,19 @@ character_event = {
 	}
 	
 	option = {
-		name = EVTOPTA_hist_7
-		hidden_tooltip = { narrative_event = { id = hist.8 } }
+		name = hist.8.a
+		hidden_tooltip = { narrative_event = { id = hist.9 } }
 		piety = -50 
 	}
 }
 
-# The Henotikon (Foriegn reception)
+# The Henotikon (Foreign reception)
 narrative_event = {
-	id = hist.8
-	title = "EVTNAMEhist_8"
-	desc = "EVTDESChist_8"
-	picture = "GFX_evt_crusaders"
-	border = "GFX_event_narrative_frame_religion"
+	id = hist.9
+	title = hist.9.name
+	desc = hist.9.desc
+	picture = GFX_evt_crusaders
+	border = GFX_event_narrative_frame_religion
 	
 	major = yes
 	only_playable = yes
@@ -392,20 +394,20 @@ narrative_event = {
 	is_triggered_only = yes
 		
 	option = {
-		name = "EVTOPTAhist_8"
+		name = hist.9.a
 		trigger = {
 			has_landed_title = e_byzantium
 			religion_group = christian
 		}
 	}
 	option = {
-		name = "EVTOPTBhist_8"
+		name = hist.9.b
 		trigger = {
 			NOT = { religion_group = christian }
 		}
 	}
 	option = {
-		name = "EVTOPTChist_8"
+		name = hist.9.c
 		trigger = {
 			religion_group = christian
 			NOT = { has_landed_title = e_byzantium }
@@ -415,9 +417,9 @@ narrative_event = {
 
 # The Leontius Revolt 
 character_event = {
-	id = hist.9
-	title = EVTTITLE_hist_9
-	desc = EVTDESC_hist_9
+	id = hist.10
+	title = hist.10.name
+	desc = hist.10.desc
 	picture = GFX_evt_bandits
 	
 	trigger = {
@@ -436,12 +438,12 @@ character_event = {
 	}
 	
 	option = {
-		name = EVTOPTA_hist_9
+		name = hist.10.a
 		random_realm_province = {
 			limit = {
 				province_id = 764
 			}
-			hidden_tooltip = { province_event = { id = hist.10 } }
+			hidden_tooltip = { province_event = { id = hist.11 } }
 		}
 	}
 }
@@ -558,10 +560,10 @@ province_event = {
 # 1st Lex Burgundionum 
 character_event = {
 	id = hist.12
-	title = "EVTTIT_hist_12"
-	desc = EVTDESC_hist_12
-	picture = "GFX_evt_stone_church"
-	border = "GFX_event_normal_frame_religion"
+	title = hist.12.name
+	desc = hist.12.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
 	
 	major = yes
 	
@@ -578,13 +580,13 @@ character_event = {
 	
 	immediate = {
 		religion_authority = {
-			modifier = diocese_of_connor
+			modifier = diocese_of_connor # Ask Enlil
 			years = 100
 		}
 	}
 
 	option = {
-		name = EVTOPTA_hist_2
+		name = hist.12.a 
 		piety = 150 
 		cash = 50 
 	}
