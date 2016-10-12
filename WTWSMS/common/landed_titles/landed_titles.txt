@@ -3423,6 +3423,10 @@ e_roman_empire = {
 	culture = italian
 	religion = orthodox
 	
+	dynasty_title_names = no
+
+	dignity = 100
+
 	allow = {
 		always = no # Only created through special event
 	}
@@ -3460,16 +3464,10 @@ e_byzantium = {
 		creation_requires_capital = yes
 	
 		allow = {
-			primary_title = {
-				title = d_cyprus
-			}
-			independent = yes
-			OR = {
-				culture = helleno_aramean
-				culture = greek
-			}
+			completely_controls = d_cyprus
+			controls = d_cyprus
 			is_adult = yes
-			prestige = 5000
+			prestige = 750
 			OR = {
 				religion_group = christian
 				religion = hellenic_pagan
@@ -3477,6 +3475,8 @@ e_byzantium = {
 				religion = neoplatonist
 				religion = titan_pagan
 				religion = promethean_pagan
+				religion = assyrian_pagan #Cyprus was held and populated by Assyrians
+				religion = jewish #Jewish Revolt in 70 AD, large Jewish presence
 			}
 			NOT = {
 				tier = emperor
@@ -3507,7 +3507,10 @@ e_byzantium = {
 	k_trebizond = {
 		color={ 100 151 33 }
 		capital = 678 # Trapezous
-		culture = greek
+		OR = {
+			culture = greek
+			culture = pontic
+		}
 	
 		allow = {
 			always = no
@@ -3557,17 +3560,22 @@ e_byzantium = {
 		
 		capital = 560 # Cherson
 		
-		hellenic_pagan = 600
+		hellenic_pagan = 50
+		bosporan_faith = 2000
 		
 		allow = {
 			hidden_tooltip = {
 				OR = {
 					ai = no
 					AND = {
-						religion_group = christian
+						OR = {
+							religion_group = christian
+							religion = bosporan_faith
+						}
 						OR = { 
 							culture_group = byzantine
 							culture_group = latin
+							culture = bosporan
 						}
 					}
 				}
@@ -4296,7 +4304,7 @@ e_byzantium = {
 		
 		culture = greek
 		hellenic_pagan = 1000
-
+		christian = 50
 		muslim = 50 	
 
 		d_athens = {
@@ -4989,8 +4997,9 @@ e_byzantium = {
 		
 		culture = pontic
 
-		tengri_pagan_reformed = 1500
-		zoroastrian_group = 500 
+		tengri_pagan_reformed = 100
+		zoroastrian_group = 500
+		bosporan_faith = 2000
 
 		d_bithynia = {
 			color={ 120 150 170 }
@@ -5265,6 +5274,9 @@ e_byzantium = {
 		capital = 601 #	Imeretia
 	
 		culture = georgian
+
+		zoroastrian = 75
+		bosporan_faith = 50
 
 		d_colchis = {
 			color={ 70 140 115 }
@@ -12790,8 +12802,9 @@ e_tartaria = {
 		
 		capital = 594 #	Sarkel
 		
-		tengri_pagan_reformed = 500
+		tengri_pagan_reformed = 1000
 		zoroastrian_group = 50 # Crusade target weight
+		bosporan_faith = 100
 		
 		# Creation/Usurp Trigger
 		allow = {
@@ -13973,7 +13986,7 @@ e_tartaria = {
 		
 		culture = alan
 		
-		tengri_pagan_reformed = 200
+		tengri_pagan_reformed = 500
 
 		d_alania = {
 			color={ 155 110 48 }
@@ -41931,6 +41944,7 @@ e_rajastan = {
 				color2={ 255 255 255 }
 				
 				holy_site = hindu
+				pentarchy = mimamsa
 				
 				b_mathura = {
 				}
@@ -42146,6 +42160,7 @@ e_rajastan = {
 				color2={ 255 255 255 }
 				
 				holy_site = hindu
+				pentarchy = mimamsa
 				
 				b_dvaraka = {
 				}
@@ -42704,6 +42719,7 @@ e_rajastan = {
 				color2={ 255 255 255 }
 				
 				holy_site = hindu
+				pentarchy = mimamsa
 				
 				b_ujjayini = {
 				}
@@ -43032,6 +43048,7 @@ e_rajastan = {
 				color2={ 255 255 255 }
 				
 				holy_site = hindu
+				pentarchy = mimamsa
 				
 				b_ayodhya = {
 				}
@@ -44074,6 +44091,7 @@ e_bengal = {
 				
 				holy_site = hindu
 				holy_site = buddhist
+				pentarchy = mimamsa
 				
 				b_varanasi = {
 				}
