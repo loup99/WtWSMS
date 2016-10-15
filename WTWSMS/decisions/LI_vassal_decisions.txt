@@ -42,10 +42,13 @@ targetted_decisions = {
 			}
 		}
 		allow = {
+			opinion = { who = FROM value = 35}
 			OR = {
-				has_opinion_modifier = {	#Can not try to convert if recently failed to convert
-					who = FROM
-					modifier = tried_to_convert_me
+				NOT = {
+					has_opinion_modifier = {	#Can not try to convert if recently failed to convert
+						who = FROM
+						modifier = tried_to_convert_me
+					}
 				}
 				AND = {
 					prisoner = yes
@@ -56,10 +59,12 @@ targetted_decisions = {
 			}
 		}
 		effect = {
-			letter_event = {
-				id = demand_conversion.1
-				days = 3
-				random = 7
+			ROOT = {
+				letter_event = {
+					id = demand_conversion.1
+					days = 3
+					random = 7
+				}
 			}
 		}
 		revoke_allowed = {
