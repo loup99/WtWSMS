@@ -8,7 +8,8 @@ decisions = {
 		
 		potential = {
 			is_playable = yes
-			NOT = {
+			NOR = {
+				has_character_modifier = epic_tournament
 				has_character_flag = epic_tournament
 			}
 			OR = {
@@ -18,7 +19,10 @@ decisions = {
 			}
 			independent = yes
 			NOT = { is_nomadic = yes }
-			NOT = { is_female = yes	}
+			OR = {
+				gender_equality_trigger = yes
+				NOT = { is_female = yes	}
+			}
 			OR = {
 				tier = king
 				tier = emperor 
@@ -41,7 +45,11 @@ decisions = {
 			}
 		}
 		effect = {
-			set_character_flag = epic_tournament
+			add_character_modifier = {
+				name = epic_tournament
+				years = 100
+				hidden = yes
+			}
 			set_character_flag = do_not_disturb
 			clr_character_flag = tournament_has_ended
 			hidden_tooltip = { character_event = { id = 70999 days = 300 } } # Safety catch flag clearing
@@ -237,11 +245,15 @@ decisions = {
 		potential = {
 			is_playable = yes
 			independent = yes
-			NOT = {
+			NOR = {
 				has_character_flag = epic_tournament_furusiyya
+				has_character_modifier = epic_tournament_furusiyya
 			}
 			religion_group = muslim
-			NOT = { is_female = yes	}
+			OR = {
+				gender_equality_trigger = yes
+				NOT = { is_female = yes	}
+			}
 			OR = {
 				tier = king
 				tier = emperor 
@@ -265,7 +277,11 @@ decisions = {
 		}
 		effect = {
 			set_character_flag = do_not_disturb
-			set_character_flag = epic_tournament_furusiyya
+			add_character_modifier = {
+				name = epic_tournament_furusiyya
+				years = 100
+				hidden = yes
+			}
 			clr_character_flag = tournament_has_ended_furusiyya
 			hidden_tooltip = { character_event = { id = 88999 days = 300 } } # Safety catch flag clearing
 			wealth = -200
@@ -804,15 +820,18 @@ decisions = {
 			piety = 1500
 		}
 		effect = {
-			hidden_tooltip = {
-				narrative_event = { id = TOG.6000 }
-			}
 			set_global_flag = saoshyant_appears
 			give_nickname = nick_the_saoshyant
 			add_trait = saoshyant
 			prestige = 500
 			piety = 500
 			
+			hidden_tooltip = {
+				narrative_event = { id = TOG.6000 }
+				any_child = {
+					character_event = { id = TOG.6001 }
+				}
+			}
 		}
 		ai_will_do = {
 			factor = 1
@@ -2918,7 +2937,7 @@ decisions = {
 		}
 		
 		ai_will_do = {
-			factor = 0.1
+			factor = 0
 		}
 	}
 	
