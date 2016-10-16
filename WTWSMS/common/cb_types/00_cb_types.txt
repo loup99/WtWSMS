@@ -576,7 +576,7 @@ other_claim = {
 
 	on_reverse_demand_title = {
 		any_claim = {
-			remove_claim = ROOT
+			remove_claim = PREV
 		}
 	}
 
@@ -7242,16 +7242,6 @@ pagan_subjugation = {
 				is_reformed_religion = ROOT
 				religion = hellenic_pagan
 			}
-			NOT = {
-				religion = promethean_pagan
-				any_war = {
-					defender = { character = PREVPREV }
-					OR = {
-						using_cb = pagan_subjugation
-						using_cb = nomad_subjugation
-					}
-				}
-			}
 		}
 	}
 	
@@ -7259,7 +7249,7 @@ pagan_subjugation = {
 		ROOT = {
 			add_character_modifier = { 
 				name = launched_subjugation
-				days = -1
+				years = 100
 				hidden = yes
 			}
 		}
@@ -8725,7 +8715,6 @@ pagan_county_conquest = {
 			AND = {
 				ROOT = {
 					religion_group = pagan_group
-					NOT = { religion = promethean_pagan }
 					NOT = { same_realm = FROM }
 				}
 				FROM = {
@@ -10763,7 +10752,7 @@ indian_subjugation = {
 				}
 				add_character_modifier = { 
 					name = launched_subjugation
-					days = -1
+					years = 100
 					hidden = yes
 				}
 			}
@@ -12688,10 +12677,20 @@ nomad_subjugation = {
 				ROOT = {
 					population = 10000
 				}
+				has_opinion_modifier = {
+					modifier = declared_independence_nomad
+					who = FROM
+				}
 			}
 		}
 		ROOT = {
-			prestige = 500
+			OR = {
+				prestige = 500
+				has_opinion_modifier = {
+					modifier = declared_independence_nomad
+					who = FROM
+				}
+			}
 		}
 	}
 	
@@ -12701,7 +12700,13 @@ nomad_subjugation = {
 			NOT = { same_realm = FROM }
 			NOT = { is_liege_or_above = FROM }
 			mercenary = no
-			NOT = { has_character_modifier = launched_subjugation }
+			OR = {
+				NOT = { has_character_modifier = launched_subjugation }
+				has_opinion_modifier = {
+					modifier = declared_independence_nomad
+					who = FROM
+				}
+			}
 		}
 		
 		FROM = {
@@ -12721,11 +12726,21 @@ nomad_subjugation = {
 	
 	on_add = {
 		ROOT = {
-			prestige = -500
-			add_character_modifier = { 
-				name = launched_subjugation
-				days = -1
-				hidden = yes
+			if = {
+				limit = {
+					NOT = {
+						has_opinion_modifier = {
+							modifier = declared_independence_nomad
+							who = FROM
+						}
+					}
+				}
+				prestige = -500
+				add_character_modifier = { 
+					name = launched_subjugation
+					years = 100
+					hidden = yes
+				}
 			}
 		}
 	}
@@ -12874,8 +12889,18 @@ nomad_subjugation = {
 	}
 	
 	on_invalidation = {
-		ROOT = {
-			remove_character_modifier = launched_subjugation
+		if = {
+			limit = {
+				NOT = {
+					has_opinion_modifier = {
+						modifier = declared_independence_nomad
+						who = FROM
+					}
+				}
+			}
+			ROOT = {
+				remove_character_modifier = launched_subjugation
+			}
 		}
 	}
 
