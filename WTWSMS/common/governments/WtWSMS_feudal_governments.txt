@@ -22,15 +22,17 @@ feudal_governments = {
 		potential = {
 			NAND = {
 				controls_religion = yes
-				NOT = { religion_group = muslim }
-				NOT = { religion = zoroastrian }
 				NOT = {	primary_title = { is_landless_type_title = no }	}
 			}			
 			NOT = { religion_group = muslim }
 			NOT = { religion = zoroastrian }
-			
 			is_theocracy = no
-			bureaucratic_government_trigger = yes
+			primary_title = {
+				bureaucratic_government_trigger = yes
+			}
+			primary_title = {
+				sassanid_government_trigger = no
+			}
 		}	
 		
 		color = { 153 0 36 }
@@ -86,14 +88,16 @@ feudal_governments = {
 		potential = {
 			NAND = {
 				controls_religion = yes
-				NOT = { religion_group = muslim }
-				NOT = { religion = zoroastrian }
 				NOT = {	primary_title = { is_landless_type_title = no }	}
 			}
-			NOT = {
-				bureaucratic_government_trigger = yes 
+			primary_title = {
+				bureaucratic_government_trigger = no
+			} 
+			primary_title = {
+				sassanid_government_trigger = yes
 			}
 			is_patrician = no
+			is_theocracy = no
 			religion = zoroastrian
 		}
 		
@@ -126,5 +130,42 @@ feudal_governments = {
 			vassal_opinion = -35
 		}
 	}
+	
+	legion_government = {
+		preferred_holdings = { CASTLE }
+		allowed_holdings = { 
+		}
+		accepts_liege_governments = {
+			feudal_government
+			bureaucratic_government
+		}
+		potential = {
+			NAND = {
+				controls_religion = yes
+				OR = {
+					religion_group = christian
+					religion_group = pagan
+				}
+			}
+			primary_title = {
+				roman_legion_title_trigger = yes
+			}
+			is_landed = no
+		}
+		
+		color = { 0.73 0.15 0.09 }
+		
+		dukes_called_kings = no
+		barons_need_dynasty = no
+
+		can_build_holdings = no
+		can_build_forts = no
+		can_build_hospitals = no
+		
+		can_create_kingdoms = no
+		can_be_granted_kingdoms_and_empires_by_other_government = no
+		have_gender_laws = no
+	}
+
 
 }
