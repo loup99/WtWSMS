@@ -20,9 +20,9 @@ targetted_decisions = {
 		ai_target_filter = sub_realm
 		
 		from_potential = {
-			is_ruler = yes
+			is_playable = yes
 			has_regent = no
-			proselyte_religion_trigger = yes	#Only proselyte religions may do this
+			proselyte_religion_trigger = yes #Only proselyte religions may do this	
 		}
 		potential = {
 			NOR = {
@@ -43,9 +43,14 @@ targetted_decisions = {
 		}
 		allow = {
 			OR = {
-				has_opinion_modifier = {	#Can not try to convert if recently failed to convert
-					who = FROM
-					modifier = tried_to_convert_me
+				AND = {
+					NOT = {
+						has_opinion_modifier = {	#Can not try to convert if recently failed to convert
+							who = FROM
+							modifier = tried_to_convert_me
+						}
+					}
+					opinion = { who = FROM value = 35}
 				}
 				AND = {
 					prisoner = yes
@@ -56,10 +61,12 @@ targetted_decisions = {
 			}
 		}
 		effect = {
-			letter_event = {
-				id = demand_conversion.1
-				days = 3
-				random = 7
+			ROOT = {
+				letter_event = {
+					id = demand_conversion.1
+					days = 3
+					random = 7
+				}
 			}
 		}
 		revoke_allowed = {
@@ -71,6 +78,5 @@ targetted_decisions = {
 				factor = 0.001	#slow it down
 			}
 		}
-	}
-	
+	}	
 }
