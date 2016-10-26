@@ -7,6 +7,8 @@ narrative_event = {
 	id = MED.20
 	title = EVTNAMEMED.20
 	desc = EVTDESCMED.20
+
+	major = yes
 	
 	picture = GFX_evt_coastal_land
 	
@@ -53,6 +55,8 @@ narrative_event = {
 	title = EVTNAMEMED.21
 	desc = EVTDESCMED.21
 	
+	major = yes
+
 	picture = GFX_evt_rome_restored_byzantine
 	
 	is_triggered_only = yes
@@ -69,5 +73,45 @@ narrative_event = {
 			has_landed_title = e_wre
 		}
 		prestige = -500
+	}
+}
+
+narrative_event = { #Shown when a Donatist enforces the "only good people can be priests" doctrine and restores the Bishop of Carthage
+	id = 662342141
+	title = 662342141_title
+	desc = 662342141_desc
+	picture = GFX_evt_pope_feast
+	border = GFX_event_narrative_frame_war
+	
+	major = yes
+
+	is_triggered_only = yes
+	
+	option = {
+		name = 662342141_YES
+		trigger = {
+			religion = donatism
+		}
+	}
+
+	option = {
+		name = 662342141_NO
+		trigger = {
+			AND = {
+				religion_group = christian
+				NOT = {
+					religion = donatism
+				}
+			}
+		}
+	}
+	option = {
+		name = 662342141_SOWHAT
+		trigger = {
+			NOT = { 
+				religion_group = christian 
+				religion = donatism
+			}	
+		}
 	}
 }
