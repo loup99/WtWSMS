@@ -623,6 +623,86 @@ decisions = {
 			factor = 1
 		}
 	}
+
+	create_priscillian_patriarchy = {
+		only_playable = yes
+		is_high_prio = yes
+	
+		potential = {
+			religion = priscillianism
+			NOT = { is_title_active = k_priscillianism }
+		}
+		
+		allow = {
+			is_heretic = no
+			piety = 1000
+			trait = vegetarian
+			martial = 8
+			learning = 8
+			OR = {
+				trait = humble
+				trait = zealous
+			}
+			OR = {
+				owns = 198
+				any_realm_lord = {
+					owns = 198
+				}
+			}
+		}
+		
+		effect = {
+			activate_title = { title = k_priscillianism status = yes }
+			hidden_tooltip = {
+				create_character = {
+					name = "Priscillian"
+					dynasty = none
+					trait = humble
+					trait = vegetarian
+					trait = zealous
+					trait = mystic
+					race = ROOT
+					religion = priscillianism
+					culture = ROOT
+					female = no
+					attributes = {
+						martial = 8
+						intrigue = 10
+						learning = 10
+					}
+					historical = yes
+				}
+				}
+				new_character = {
+					k_priscillianism = {
+						grant_title = PREV
+					}
+					b_avila = {
+						grant_title = PREV
+					}
+					wealth = 0
+					opinion = {
+						who = ROOT
+						modifier = opinion_creator_of_rel_heal
+					}
+				}
+				
+				religion_authority = {
+					modifier = patriarchy_instituted
+					years = 20
+				}
+			}
+			piety = 1000
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
 	
 	the_henotikon = {
 		is_high_prio = yes
