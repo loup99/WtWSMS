@@ -1338,7 +1338,10 @@ character_event = { #Priest-King of Salem is annointed as mystic
 	has_global_flag = here_come_dat_priest_king
 
 	trigger = {
-		has_landed_title = k_melchisedechianism
+		OR = {
+			has_landed_title = k_melchisedechianism
+			controls_religion = melchisedechianism
+		}
        		religion = melchisedechianism
 		NOT = { trait = mystic }
 	}
@@ -1351,5 +1354,40 @@ character_event = { #Priest-King of Salem is annointed as mystic
 		name = Amen!
 		add_trait = mystic
 		add_learning = 1
+	}
+}
+
+character_event = { #Priscillianist clergyman takes vegetarianism as part of ordination/investiture
+	id = spirit.43
+	hide_window = yes
+
+	trigger = {
+		religion = priscillianism
+		OR = {
+			government = theocracy_government
+			AND = {
+				controls_religion = priscillianism
+				has_global_flag = veggiepriest
+			}
+		}
+		NOT = {
+			trait = vegetarian
+			trait = cruel
+			trait = bad_priest_christian
+			trait = impaler
+			trait = hunter
+			trait = falconer
+			trait = cannibal
+		}
+
+	}
+
+	mean_time_to_happen = {
+		days = 7
+	}
+
+	option = {
+		name = Amen!
+		add_trait = vegetarian
 	}
 }
