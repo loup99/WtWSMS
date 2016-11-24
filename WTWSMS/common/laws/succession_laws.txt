@@ -560,13 +560,19 @@ succession_laws = {
 	succ_turkish_succession = {
 		oldest_child_opinion = -5
 #		child_opinion = 30
-#		dynasty_opinion = 10
+		dynasty_opinion = 10
 		potential = {
 			holder_scope = {
-				religion_group = muslim
-				is_republic = no
-				is_merchant_republic = no
-				is_nomadic = no
+				OR = {
+					AND  = {
+						religion_group = muslim
+						is_republic = no
+						is_merchant_republic = no
+						is_nomadic = no
+					}
+					is_mercenary = yes
+				}
+
 			}
 			OR = {
 				holder_scope = { # Viceroyalties can always have turkish succession if muslim
@@ -673,8 +679,13 @@ succession_laws = {
 				is_landless_type_title = yes
 				holder_scope = { is_theocracy = no }
 				holder_scope = { 
-					NOT = { religion = catholic }
-					NOT = { religion = fraticelli }
+					NOT = { 
+						religion = catholic 
+						religion = fraticelli 
+						religion = aquileian
+						religion = donatism
+						religion = priscillianism
+					}
 				}
 			}
 			holder_scope = { 
@@ -718,6 +729,9 @@ succession_laws = {
 				OR = {
 					religion = catholic
 					religion = fraticelli
+					religion = aquileian
+					religion = donatism
+					religion = priscillianism
 				}
 				is_merchant_republic = no
 				OR = {
