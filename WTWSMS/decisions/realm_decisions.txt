@@ -659,10 +659,15 @@ decisions = {
 				has_landed_title = e_byzantium
 				has_landed_title = e_roman_empire
 			}
-			has_global_flag = viking_age_started
+			year = 876
 			NOT = { has_global_flag = varangian_guard_founded }
 			any_playable_ruler = {
-				religion = norse_pagan
+				OR = {
+					religion = norse_pagan
+					religion = norse_pagan_reformed
+					religion = germanic_pagan
+					religion = germanic_pagan_reformed
+				}
 				capital_scope = {
 					distance = {
 						where = 496	# Constantinople
@@ -684,7 +689,7 @@ decisions = {
 				narrative_event = { id = TOG.3100 }
 				create_character = {
 					random_traits = yes
-					religion = norse_pagan
+					religion = ROOT
 					culture = norse
 					dynasty = NONE
 					female = no
@@ -1102,14 +1107,14 @@ decisions = {
 			has_dlc = "The Old Gods"
 			is_playable = yes
 			religion = zoroastrian
-			NOT = { has_global_flag = zoroastrian_priesthood_founded }
+			NOT = { has_global_flag = zoroastrian_priesthood_refounded }
 		}
 		allow = {
 			has_landed_title = e_persia
 			piety = 300
 		}
 		effect = {
-			set_global_flag = zoroastrian_priesthood_founded
+			set_global_flag = zoroastrian_priesthood_refounded
 			piety = -300
 			activate_title = { title = d_zoroastrian status = yes }
 			hidden_tooltip = {
@@ -1150,7 +1155,10 @@ decisions = {
 		potential = {
 			has_dlc = "Sons of Abraham"
 			is_playable = yes
-			religion_group = jewish_group
+			OR = {
+				religion_group = jewish_group
+				religion = ebionites
+			}
 			NOT = { has_global_flag = third_temple_built }
 			NOT = { has_global_flag = building_third_temple }
 		}
@@ -1419,7 +1427,7 @@ decisions = {
 				factor = 0
 				any_courtier = {
 					religion_group = jewish_group
-					reverse_opinion = { who = ROOT value = 20 }
+					reverse_opinion = { who = ROOT value = 50 }
 				}
 			}
 			modifier = {
@@ -1608,7 +1616,12 @@ decisions = {
 			has_dlc = "Rajas of India"
 			is_playable = yes
 			is_feudal = yes
-			religion_group = indian_group	
+			OR = {
+				culture_group = indian_group	
+				culture_group = indo_aryan_group
+				culture_group = dravidian_group
+			}
+				
 			primary_title = {
 				higher_tier_than = DUKE
 			}
@@ -2235,18 +2248,6 @@ decisions = {
 			holy_order = no
 			
 			NOT = { tier = EMPEROR }
-			OR = {
-				ai = no
-				AND = {
-					trait = proud
-					prestige = 40000
-				}
-				AND = {
-					trait = ambitious
-					prestige = 40000
-				}
-				prestige = 120000
-			}
 			
 			NOT = {
 				has_game_rule = {
