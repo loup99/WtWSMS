@@ -55,6 +55,10 @@ k_papal_state = {
 		Alexander Anastasius Benedictus Caelestinus Callistus Clemens Eugenius Leo
 		Gregorius Hadrianus Honorius Innocentius Ioannes Lucius Marinus Martinus
 		Nicolaus Sergius Silvester Stephanus Urbanus Victor
+		Lucius Callixtus Julius Pelagius Adeodatus Theodore Marinus Agapetus Damasus Paschal
+		Gelasius Marcellus "John Paul" Anacletus Evaristus Telesphorus Hyginus Anicetus Mark Hilarius 
+		Simplicius Symmachus Hormisdas Silverius Vigilius Sabinian Severinus Vitalian Donus Agatho
+		Conon Sisinnius Constantine Zachary Valentine Formosus Romanus Lando
 	}
 }
 
@@ -3423,6 +3427,10 @@ e_roman_empire = {
 	culture = italian
 	religion = orthodox
 	
+	dynasty_title_names = no
+
+	dignity = 100
+
 	allow = {
 		always = no # Only created through special event
 	}
@@ -3460,21 +3468,22 @@ e_byzantium = {
 		creation_requires_capital = yes
 	
 		allow = {
-			primary_title = {
-				title = d_cyprus
-			}
-			independent = yes
-			OR = {
-				culture = helleno_aramean
-				culture = greek
-			}
+			completely_controls = d_cyprus
+			controls = d_cyprus
 			is_adult = yes
 			prestige = 5000
+			independent = yes
 			OR = {
 				religion_group = christian
 				religion = hellenic_pagan
 				religion = cybelian_pagan
 				religion = neoplatonist
+<<<<<<< HEAD
+				religion = titan_pagan
+				religion = promethean_pagan
+				religion = jewish #Jew Revolt in 70 AD, large Jewish presence
+=======
+>>>>>>> refs/remotes/loup99/master
 			}
 			NOT = {
 				tier = emperor
@@ -3505,7 +3514,10 @@ e_byzantium = {
 	k_trebizond = {
 		color={ 100 151 33 }
 		capital = 678 # Trapezous
-		culture = greek
+		OR = {
+			culture = greek
+			culture = pontic
+		}
 	
 		allow = {
 			always = no
@@ -3555,17 +3567,22 @@ e_byzantium = {
 		
 		capital = 560 # Cherson
 		
-		hellenic_pagan = 600
+		hellenic_pagan = 50
+		bosporan_faith = 2000
 		
 		allow = {
 			hidden_tooltip = {
 				OR = {
 					ai = no
 					AND = {
-						religion_group = christian
+						OR = {
+							religion_group = christian
+							religion = bosporan_faith
+						}
 						OR = { 
 							culture_group = byzantine
 							culture_group = latin
+							culture = bosporan
 						}
 					}
 				}
@@ -4291,7 +4308,7 @@ e_byzantium = {
 		
 		culture = greek
 		hellenic_pagan = 1000
-
+		christian = 50
 		muslim = 50 	
 
 		d_athens = {
@@ -4980,8 +4997,9 @@ e_byzantium = {
 		
 		culture = pontic
 
-		tengri_pagan_reformed = 1500
-		zoroastrian_group = 500 
+		tengri_pagan_reformed = 100
+		zoroastrian_group = 500
+		bosporan_faith = 2000
 
 		d_bithynia = {
 			color={ 120 150 170 }
@@ -5256,6 +5274,9 @@ e_byzantium = {
 		capital = 601 #	Imeretia
 	
 		culture = georgian
+
+		zoroastrian = 75
+		bosporan_faith = 50
 
 		d_colchis = {
 			color={ 70 140 115 }
@@ -6765,6 +6786,7 @@ e_byzantium = {
 				holy_site = docetic
 				holy_site = hellenic_pagan
 				holy_site = nestorian
+				holy_site = priscillianism # Marcus, one of the earliest Priscillian theologians, was born and lived here
 			
 				b_alexandria = {
 					pentarchy = yes
@@ -12779,8 +12801,9 @@ e_tartaria = {
 		
 		capital = 594 #	Sarkel
 		
-		tengri_pagan_reformed = 500
+		tengri_pagan_reformed = 1000
 		zoroastrian_group = 50 # Crusade target weight
+		bosporan_faith = 100
 		
 		# Creation/Usurp Trigger
 		allow = {
@@ -13962,7 +13985,7 @@ e_tartaria = {
 		
 		culture = alan
 		
-		tengri_pagan_reformed = 200
+		tengri_pagan_reformed = 500
 
 		d_alania = {
 			color={ 155 110 48 }
@@ -19639,6 +19662,7 @@ e_gaul = {
 				roman = "Quam Primum"
 				visigothic = "Cossium"
 				romano_gallic = "Quam Primum"
+				holy_site = priscillianism # Priscillian fled to Osccitania
 				
 				b_labrit = {
 					roman = "Quam Primum"
@@ -22779,6 +22803,8 @@ e_spain = {
 				suebi = "Faro do Burgo"
 				greek = "Stémma"
 				old_frankish = Krone
+
+				holy_site = priscillianism 
 				
 				b_corunna = {
 				}
@@ -23600,6 +23626,7 @@ e_spain = {
 				visigothic = Vallisoletano
 				suebi = Vallisoletano
 				cantabrian = "Vallis Tolitix"
+				holy_site = priscillianism #Priscillian was the Bishop of the City of Avila
 				
 				b_valladolid = {
 				}
@@ -23616,6 +23643,7 @@ e_spain = {
 				b_iscar = {
 				}
 				b_avila = {
+#					### holy_site = priscillianism #Priscillian was the Bishop of the City of Avila ###
 				}
 			}
 			c_cuenca = {
@@ -32483,6 +32511,7 @@ e_italy = {
 				holy_site = latin_solar_pagan
 				holy_site = latin_solar_pagan_reformed
 				holy_site = mandulis_pagan
+				holy_site = priscillianism # Priscillian conflicted fiercely with the Pope
 				
 				b_roma = {
 					pentarchy = yes
@@ -41916,6 +41945,7 @@ e_rajastan = {
 				color2={ 255 255 255 }
 				
 				holy_site = hindu
+				pentarchy = mimamsa
 				
 				b_mathura = {
 				}
@@ -42131,6 +42161,7 @@ e_rajastan = {
 				color2={ 255 255 255 }
 				
 				holy_site = hindu
+				pentarchy = mimamsa
 				
 				b_dvaraka = {
 				}
@@ -42689,6 +42720,7 @@ e_rajastan = {
 				color2={ 255 255 255 }
 				
 				holy_site = hindu
+				pentarchy = mimamsa
 				
 				b_ujjayini = {
 				}
@@ -43017,6 +43049,7 @@ e_rajastan = {
 				color2={ 255 255 255 }
 				
 				holy_site = hindu
+				pentarchy = mimamsa
 				
 				b_ayodhya = {
 				}
@@ -44059,6 +44092,7 @@ e_bengal = {
 				
 				holy_site = hindu
 				holy_site = buddhist
+				pentarchy = mimamsa
 				
 				b_varanasi = {
 				}

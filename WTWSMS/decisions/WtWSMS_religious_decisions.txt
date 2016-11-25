@@ -468,8 +468,7 @@ decisions = {
 				}
 			}
 			piety = 1000
-			# TODO event 662342141 does not exist
-			#narrative_event = { id = 662342141 days = 2 }
+			narrative_event = { id = 662342141 }
 		}
 		
 		revoke_allowed = {
@@ -577,8 +576,8 @@ decisions = {
 	
 	create_salem = {
 		is_high_prio = yes
-		only_playable = yes
 		only_rulers = yes
+		only_playable = yes
 
 		potential = {
 			religion = melchisedechianism
@@ -592,29 +591,125 @@ decisions = {
 				trait = mystic
 				learning = 14
 			}
-			primary_title = { higher_tier_than = KING }
 			realm_size = 150
 		}
 		
 		effect = {
-			activate_title = { 
-				title = k_melchisedechianism
-				status = yes
+			give_nickname = nick_the_anointed
+			primary_title = {
+				k_melchisedechianism = {
+					activate_title = { title = THIS status = yes } # Otherwise grant_title doesn't work
+					grant_title = ROOT
+					make_primary_title = yes
+					gender_succ = agnatic
+					succession = primogeniture
+				}
 			}
 			hidden_tooltip = {
-				grant_title =  PREV	
+				add_claim = k_oriens
+				add_claim = k_jerusalem
+				add_claim = c_hebron
+				add_claim = c_jerusalem
+				religion_authority = {
+					modifier = patriarchy_instituted
+					years = 20
+				any_child = {
+					add_claim = k_oriens
+					add_claim = k_jerusalem
+					add_claim = c_jerusalem
+					add_claim = c_hebron
+				}
+			}
+
+			piety = 1000
+			add_trait = mystic
+			set_global_flag = here_come_dat_priest_king
+			add_trait = newsalem
+			ROOT = { 
+				narrative_event = { id = spirit.41 }
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	create_priscillian_patriarchy = {
+		only_playable = yes
+		is_high_prio = yes
+	
+		potential = {
+			religion = priscillianism
+			NOT = { is_title_active = k_priscillianism }
+			independent = yes
+		}
+		
+		allow = {
+			piety = 1000
+			trait = vegetarian
+			martial = 8
+			learning = 8
+			OR = {
+				trait = humble
+				trait = zealous
+			}
+			OR = {
+				owns = 198
+				any_realm_lord = {
+					owns = 198
+				}
+			}
+		}
+		
+		effect = {
+			give_nickname = nick_with_immortal_soul
+			set_global_flag = veggiepriest
+			activate_title = { title = k_priscillianism status = yes }
+			hidden_tooltip = {
+				create_character = {
+					name = "Priscillian"
+					dynasty = none
+					trait = humble
+					trait = vegetarian
+					trait = zealous
+					trait = mystic
+					race = egyptian
+					religion = priscillianism
+					culture = ROOT
+					female = no
+					attributes = {
+						martial = 8
+						intrigue = 10
+						learning = 10
+					}
+					historical = yes
+				}
+				new_character = {
+					k_priscillianism = {
+						grant_title = PREV
+					}
+					b_avila = {
+						grant_title = PREV
+						make_capital_holding = yes
+					}
+					wealth = 0
+					opinion = {
+						who = ROOT
+						modifier = opinion_creator_of_rel_heal
+					}
+				}
+				
 				religion_authority = {
 					modifier = patriarchy_instituted
 					years = 20
 				}
 			}
 			piety = 1000
-			add_trait = mystic
-			set_global_flag = here_come_dat_priest_king
-			add_trait = newsalem
-			ROOT = { 
-				narrative_event = { id = here_come_dat_priest_king_declare }
-			}
 		}
 		
 		revoke_allowed = {

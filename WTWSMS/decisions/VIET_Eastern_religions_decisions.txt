@@ -1,6 +1,6 @@
 ###########################################################################################################################
 #
-# Decisions for "Eastern" religions like bud_sthaviravada, Hinduism, Manichaeism, etc.
+# Decisions for "Eastern" religions like bud_sthaviravada, Hinduism, Manichaeism, etc., also vegetariansim
 #
 ###########################################################################################################################
 
@@ -8,9 +8,19 @@ decisions = {
 
   become_a_vegetarian = {
 		potential = {
-			is_ruler = yes
+			OR = {
+				is_ruler = yes
+				AND = {
+					religion = priscillianism
+					has_job_title = job_spiritual
+				}
+				religion = taoism
+				religion = jain
+			}
 			OR = {
 				religion_group = indian_group
+				religion = taoism
+				religion = priscillianism #Priscillianism was so extreme in its asceticism that it demanded absolute vegetarianism of its clergy
 			}
 			NOR = {
 				trait = vegetarian
@@ -19,16 +29,32 @@ decisions = {
 		allow = {
 			piety = 100
 			prestige = 50
-            OR = {
+			OR = {
 				trait = zealous
 				trait = kind
 				trait = temperate
+				AND = {
+					religion = priscillianism
+					is_theocracy = yes
+				}
+				AND = {
+					religion = priscillianism
+					has_job_title = job_spiritual
+				}
 			}
 			OR = {
 				NOT = { trait = gluttonous }
 				OR = {
 					trait = zealous
 					trait = kind
+					AND = {
+						religion = priscillianism
+						is_theocracy = yes
+					}
+					AND = {
+						religion = priscillianism
+						has_job_title = job_spiritual
+					}
 				}
 			}
 			NOR = {
@@ -90,6 +116,18 @@ decisions = {
 			modifier = {
 				factor = 0.25
 				trait = content
+			}
+			modifier = {
+				factor = 9999
+				AND = {
+					religion = priscillianism
+					is_theocracy = yes
+				}
+			}
+			modifier = {
+				factor = 3
+				religion = priscillianism
+			}
 			}
 	    }
     }

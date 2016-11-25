@@ -419,7 +419,7 @@ christian = {
 		character_modifier = { ### If Antinomians can sin without consequence, few other Christians will like them and they'll sin a ton. ###
 			same_religion_opinion = 25
 			fertility = 0.3
-			add_piety_midifier = -0.25
+			add_piety_modifier = -1
 			ai_greed = 2
 			ai_honor = -1
 			sex_appeal_opinion = 5
@@ -501,7 +501,7 @@ christian = {
 		}
 		
 		evil_god_names = {
-			GOD_YALTABAOTH 
+			GOD_YALTABAOTH GOD_YALDABAOTH
 		}
 		
 		can_retire_to_monastery = yes
@@ -556,10 +556,10 @@ christian = {
 		
 		high_god_name = GOD_SETH
 		god_names = {
-			GOD_THE_SERPENT GOD_SOPHIA GOD_BARBELO GOD_UNKNOWN_GOD GOD_SETH
+			GOD_THE_SERPENT GOD_SOPHIA GOD_BARBELO GOD_UNKNOWN_GOD GOD_SETH THE_HISSING_GOD THE_FANGED_ONE
 		}
 		evil_god_names = {
-			GOD_YALDABAOTH
+			GOD_YALDABAOTH GOD_YALTABAOTH
 		}
 		
 		can_retire_to_monastery = yes
@@ -711,7 +711,13 @@ christian = {
 
 		god_names = {
 			PROPHET_MELCHISEDECH GOD_GOD GOD_THE_LORD GOD_JESUS ADONAI 
-		}		
+		}
+
+		evil_god_names = {
+			SATAN THE_DEVIL THE_DARKNESS THE_DARK_SPIRITS
+		}
+
+		# can_have_antipopes = yes  # If it's possible to have Antipopes against a secular title, I want it to happen, because I want to simulate a struggle over who is the rightful Priest-King of Salem
 
 		can_retire_to_monastery = yes
 		female_temple_holders = no
@@ -861,7 +867,7 @@ christian = {
 		religious_clothing_priest = 2
 	}
 	donatism = {
-		graphical_culture = westerngfx
+		graphical_culture = africangfx
 
 		icon = 106
 		heresy_icon = 130
@@ -875,6 +881,15 @@ christian = {
 		crusade_name = CRUSADE
 		scripture_name = THE_BIBLE
 		priest_title = PRIEST
+
+		high_god_name = GOD_GOD
+		god_names = {
+			GOD_GOD GOD_THE_LORD GOD_JESUS
+		}
+
+		evil_god_names = {
+			TRADITORES SATAN
+		}
 
 		investiture = yes
 		can_have_antipopes = no
@@ -892,21 +907,84 @@ christian = {
 		infidel_opinion = -20
 	}
 	priscillianism = {
-		graphical_culture = westerngfx
+		graphical_culture = southerngfx # This, alongside the "occitangfx" unit, is the Iberian GFX
+		secondary_event_pictures = manichean
+
+		ai_peaceful = no
+
+		ai_convert_same_group = 2 # always try to convert
+		ai_convert_other_group = 2 # always try to convert
+
+		priest_title = PRIEST
+		scripture_name = THE_VULGATE_BIBLE
 
 		icon = 110
 		heresy_icon = 130
 		
+		crusade_cb = "CRUSADE"
+		
 		color = { 0.5 0.7 0.5 }
 		parent = nicene
 		allow_looting = no
+		autocephalacy = no
+		female_temple_holders = yes
+		can_grant_invasion_cb = invasion
+		investiture = yes
+		can_have_antipopes = no
+		raised_vassal_opinion_loss = no
+		can_excommunicate = yes
+		dislike_tribal_organization = no
+		priests_can_marry = no
+		can_retire_to_monastery = yes
 		
-		religious_clothing_head = 2
-		religious_clothing_priest = 2
+		religious_clothing_head = 1
+		religious_clothing_priest = 1
+
+		uses_decadence = yes # Priscillianists were extreme in their asceticism, not unlike the unimplemented Dulcinians, but violently so - charity and humility were the ultimate religious deeds, as such, Priscillianists would violently attack decadent rulers, we should honestly implement Dulcinian things on the Prisicllianists
+
+		can_call_crusade = yes
+
+		independence_war_score_bonus = 35
+
+		high_god_name = {
+			GOD_TWELVE_PATRIARCHS
+		}
+
+		god_names = {
+			PROPHET_MARCUS PROPHET_PRISCILLIAN PROPHET_HELPIDIUS GOD_CHRISTGOD GOD_JESUS GOD_TWELVE_PATRIARCHS GOD_TWELVE_HEAVENS GOD_GOD GOD_THE_LORD
+		}
+
+		evil_god_names = {
+			THE_ZODIAC_KILLERS THE_DARK_SPIRITS THE_DARKNESS
+		}
+
+		character_modifier = {
+			martial = 1
+			intrigue = 3 #When under the extreme persecution they faced, Priscillianists used bribery and intrigue to stay alive
+			ai_honor = -5 #Priscillianists were explicitly allowed to lie to advance the religion by any means neccesary, this is why Saint Augustine attacked them directly in his books
+			ai_zeal = 10 #Priscillianists were violently zealous and feared all over Iberia
+			ai_greed = -20 #Asceticism
+		}
+
+		unit_modifier = {
+			heavy_infantry_offensive = 0.15
+
+			key = "OFF_RELIGION"
+		}
+
+		unit_home_modifier = {
+			heavy_infantry_defensive = 0.3
+			
+			key = "OFF_RELIGION"
+		}
+
 		
+		aggression = 1.5
 		general_opinion = -20
 		same_opinion_if_same_religion = 40
 		infidel_opinion = -40
+
+		intermarry = manichean
 	}
 	monophysite = {
 		graphical_culture = westerngfx
@@ -1228,7 +1306,11 @@ muslim = {
 		uses_jizya_tax = yes
 	}
 	yazidi = {
-		graphical_culture = muslimgfx
+		ai_convert_same_group = 1 #Yazidis do not normally prolestyze unless asked, they tend to keep their faith to themselves, which is why they are nearing extinction in RL
+		ai_convert_other_group = 1 
+
+		graphical_culture = persiangfx #Yazidis ain't Islamic
+		coa_on_barony_only = yes
 
 		icon = 3
 		heresy_icon = 8
@@ -1239,18 +1321,20 @@ muslim = {
 		scripture_name = THE_BOOK_OF_ILLUMINATION
 		priest_title = SHEIKH_PRIEST
 		
-		high_god_name = GOD_SHAYTAN
+		high_god_name = GOD_TAWUSE_MELEK
 		
 		god_names = {
-			GOD_THE_PEACOCK_ANGEL GOD_TAWUSE_MELEK GOD_SHAYTAN
+			GOD_THE_PEACOCK_ANGEL GOD_TAWUSE_MELEK SHAYTAN GOD_MELEK_TAUS GOD_MELEKISRAFEL GOD_MELEKAZRAEL GOD_MELEKMIHAEL GOD_MELEKDARDAEL GOD_MELEKSAMAEL GOD_MELEKNURAEL GOD_7MYSTERY
 		}
 		
 		evil_god_names = {
-			THE_DARK_SPIRITS
+			THE_DARK_SPIRITS GOD_ALLAH
 		}
 		
 		parent = sunni
 		priests_can_marry = yes
+		female_temple_holders = yes #Female Yazidis of the priestly caste can become full clergy, but they cannot be the Sheikh/Yazidi Pope equivalent
+		priests_can_inherit = yes #Yazidi clergy, much like Jewish Levites, inherit their positions, but I am not sure how this would be simulated
 		can_excommunicate = yes
 		can_call_crusade = yes
 		max_wives = 4
@@ -1259,7 +1343,14 @@ muslim = {
 		landed_kin_prestige_bonus = yes
 		attacking_same_religion_piety_loss = yes
 		uses_decadence = no
-		uses_jizya_tax = yes
+		uses_jizya_tax = no
+		can_hold_temples = no
+		defensive_attrition = yes #Yazidi originated deep in the mountains and hostile terrain
+
+		religious_clothing_head = 5 #The Sheikh wears white but can wear a pink headdress
+		religious_clothing_priest = 5 #Different orders of Yazidi clergy wear different colors (lowest rank wears black), but white is considered universally accepted
+
+		#Yazidis have castes that are enforced, but only among the clergy, not the laity, no idea how to simulate this
 	}
 	ibadi = {
 		graphical_culture = muslimgfx
@@ -1527,6 +1618,7 @@ muslim = {
 	}
 	druze = {
 		graphical_culture = muslimgfx
+		has_coa_on_barony_only = yes
 
 		icon = 4
 		heresy_icon = 9
@@ -1539,12 +1631,12 @@ muslim = {
 		priests_can_marry = yes
 		psc_marriage = no
 		max_wives = 4
-		matrilineal_marriages = no
+		matrilineal_marriages = yes
 		
-		landed_kin_prestige_bonus = yes
+		landed_kin_prestige_bonus = no
 		attacking_same_religion_piety_loss = yes
-		uses_decadence = yes
-		uses_jizya_tax = yes
+		uses_decadence = no
+		uses_jizya_tax = no
 		
 		general_opinion = -10
 		same_opinion_if_same_religion = 20
@@ -1646,7 +1738,7 @@ muslim = {
 		landed_kin_prestige_bonus = yes
 	}
 	quamatian = {
-		graphical_culture = muslimgfx
+		graphical_culture = republicsgfx #The holy utopia of the Quamatian religion was a divine Republic
 
 		icon = 4
 		heresy_icon = 9
@@ -1874,6 +1966,8 @@ pagan_group = {
 		
 		religious_clothing_head = 3
 		religious_clothing_priest = 3
+
+		allow_in_ruler_designer = no
 	}
 	sanamahi = { # Manipuran Paganism
 		graphical_culture = mesoamericangfx
@@ -2031,6 +2125,8 @@ pagan_group = {
 		religious_clothing_priest = 3
 		
 		intermarry = norse_pagan
+		intermarry = germanic_pagan
+		intermarry = germanic_pagan_reformed
 		
 		allow_in_ruler_designer = no
 	}		
@@ -2086,6 +2182,8 @@ pagan_group = {
 		religious_clothing_priest = 3
 		
 		intermarry = norse_pagan_reformed
+		intermarry = germanic_pagan_reformed
+		intermarry = germanic_pagan
 		
 		dislike_tribal_organization = yes
 	}
@@ -2195,6 +2293,8 @@ pagan_group = {
 		intermarry = norse_pagan
 		intermarry = norse_pagan_reformed
 		intermarry = insular
+
+		allow_in_ruler_designer = no
 	}		
 	germanic_pagan = {
 		graphical_culture = norsegfx
@@ -2582,6 +2682,8 @@ pagan_group = {
 		
 		religious_clothing_head = 6
 		religious_clothing_priest = 4
+
+		allow_in_ruler_designer = no
 	}		
 
 	scythian_pagan = { # Iranian Steppe Paganism / Tabitian
@@ -2685,6 +2787,8 @@ pagan_group = {
 
 		religious_clothing_head = 3
 		religious_clothing_priest = 3
+
+		allow_in_ruler_designer = no
 	}
 	
 	semitic_pagan = { 
@@ -2763,6 +2867,8 @@ pagan_group = {
 		female_temple_holders = yes
 		can_call_crusade = yes
 		allow_looting = yes
+
+		allow_in_ruler_designer = no
 	}
 	
 	baltic_pagan_reformed = {
@@ -2936,6 +3042,8 @@ pagan_group = {
 		
 		religious_clothing_head = 3
 		religious_clothing_priest = 3
+
+		allow_in_ruler_designer = no
 	}		
 	
 	dravidian_pagan = {
@@ -3500,6 +3608,8 @@ pagan_group = {
 		
 		religious_clothing_head = 3
 		religious_clothing_priest = 3
+
+		allow_in_ruler_designer = no
 	}
 
 	central_african_pagan = {
@@ -3687,6 +3797,8 @@ pagan_group = {
 		
 		religious_clothing_head = 3
 		religious_clothing_priest = 3
+
+		allow_in_ruler_designer = no
 	}
 
 	african_solar_pagan = {
@@ -3768,6 +3880,8 @@ pagan_group = {
 		
 		religious_clothing_head = 3
 		religious_clothing_priest = 3
+
+		allow_in_ruler_designer = no
 	}
 
 	latin_solar_pagan = {
@@ -3970,7 +4084,8 @@ pagan_group = {
 		religious_clothing_priest = 5
 	}
 	zun_pagan_reformed = {
-		graphical_culture = muslimgfx
+		graphical_culture = indiangfx
+		secondary_event_pictures = zoroastrian
 
 		icon = 49
 		heresy_icon = 50
@@ -4015,7 +4130,8 @@ pagan_group = {
 	}
 	
 	zun_pagan = {
-		graphical_culture = muslimgfx
+		graphical_culture = persiangfx
+ 		secondary_event_pictures = zoroastrian
 
 		icon = 48
 		heresy_icon = 50
@@ -4142,7 +4258,7 @@ pagan_group = {
 		heresy_icon = 85
 		
 		color = { 0.5 0.05 0.0 }
-		#parent = hellenic_pagan
+		parent = hellenic_pagan
 		
 		high_god_name = GOD_MASTIMAN
 		god_names = {
@@ -4187,9 +4303,11 @@ pagan_group = {
 		crusade_name = GREAT_HOLY_WAR
 		scripture_name = THE_LEGENDS
 		priest_title = AUGUR
+
+		feminist = yes
 		
 		priests_can_marry = yes
-		female_temple_holders = no
+		female_temple_holders = yes
 		
 		religious_clothing_head = 5
 		religious_clothing_priest = 5
@@ -4284,11 +4402,11 @@ pagan_group = {
 		
 		color = {0.9 0.8 0}
 		
-		crusade_name = GREAT_HOLY_WAR
+		crusade_name = SUN_WAR
 		
 		high_god_name = GOD_ATEN
 		god_names = {
-			GOD_ATEN
+			GOD_ATEN GOD_THE_SUN GOD_INVINCIBLE_SUN
 		}
 		evil_god_names = {
 			GOD_SET
@@ -4435,6 +4553,7 @@ zoroastrian_group = {
 
 	hepthal_religion = {
 		graphical_culture = persiangfx
+		secondary_event_pictures = zoroastrian
 
 		icon =  133
 		heresy_icon = 134
@@ -4585,6 +4704,7 @@ zoroastrian_group = {
 		intermarry = zun_pagan_reformed
 		intermarry = tengri_pagan
 		intermarry = tengri_pagan_reformed
+		intermarry = priscillianism
 	}
 }
 
@@ -4670,6 +4790,7 @@ jewish_group = {
 	}
 	tzadikite = {
 		graphical_culture = jewishgfx
+		secondary_event_pictures = buddhist
 		
 		icon = 38
 		heresy_icon = 39
@@ -4679,6 +4800,15 @@ jewish_group = {
 		parent = jewish
 		
 		crusade_name = GREAT_HOLY_WAR
+
+		high_god_name = ADONAI
+		
+		god_names = {
+			GOD_GOD GOD_THE_LORD ADONAI NETZOTZIM
+		}
+		evil_god_names = {
+			SITRA_ACHRA SITRA_ACHRA2
+		}
 		
 		unit_modifier = {
 			levy_size = 0.3
@@ -4748,7 +4878,6 @@ bosporan_group = {
 	
 	color = { 1.0 1.0 0.68 }
 	
-	# Names given only to Jewish characters (base names)
 	male_names = {
 		Belet Ezra Hanukkah Hezekiah Isaac Levi Manasseh Nisi Simeon Yavdi Zebulun
 	}
@@ -4775,6 +4904,19 @@ bosporan_group = {
 		can_grant_divorce = yes
 		can_call_crusade = yes
 		can_grant_invasion_cb = invasion
+
+		short_reign_opinion_year_mult = 0 # No short reign penalty
+
+		character_modifier = { 
+			fertility = 0.10
+			learning = 2
+			ai_honor = 5
+		}
+	
+		defensive_attrition = yes
+		independence_war_score_bonus = 50
+		attacking_same_religion_piety_loss = yes
+		# has_heir_designation = yes
  		
 		priests_can_marry = yes
  		
@@ -4936,11 +5078,13 @@ indian_group = {
 		intermarry = buddhist
 	}
 	mimamsa = {
+		has_coa_on_barony_only = yes
+
 		ai_convert_same_group = 2 # always
 		ai_convert_other_group = 1 # only when zealous
 
 		graphical_culture = hindugfx
-		secondary_event_pictures = sunni
+		secondary_event_pictures = buddhist
 
 		icon = 118
 		heresy_icon = 45
@@ -4956,7 +5100,7 @@ indian_group = {
 			THE_VINAYAKAS
 		}
 		
-		autocephalacy = no
+		autocephaly = yes
 		can_grant_divorce = yes
 		priests_can_inherit = yes
 		priests_can_marry = yes
@@ -4964,7 +5108,8 @@ indian_group = {
 		max_consorts = 3
 		can_grant_invasion_cb = yes
 		can_grant_claim = yes
-		can_retire_to_monastery = yes		
+		can_retire_to_monastery = yes
+		can_excommunicate = yes
 
 		unit_modifier = {
 			land_morale = 0.3
@@ -5248,7 +5393,7 @@ chinese_group = {
 	}
 	
 	taoism = {
-		graphical_culture = buddhistgfx
+		graphical_culture = jaingfx
 		secondary_event_pictures = jain
 		
 		icon = 5

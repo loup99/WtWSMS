@@ -1292,6 +1292,7 @@ character_event = {
 character_event = {
 	id = spirit.40
 	hide_window = yes
+	picture = GFX_evt_gnostics_rising
 
 	has_global_flag = here_come_dat_priest_king
 	
@@ -1314,13 +1315,15 @@ character_event = {
 	}
 }
 
-narrative_event = {
+narrative_event = { #Shown when a Melchisidechian creates the Kingdom of Salem
 	id = spirit.41
 	title = spirit.41.name
 	desc = spirit.41.desc
-	picture = GFX_evt_heretic
+	picture = GFX_evt_gnostics_rising
 	border = GFX_event_narrative_frame_learning
 	
+	major = yes
+
 	is_triggered_only = yes
 	
 	option = {
@@ -1328,3 +1331,99 @@ narrative_event = {
 	}
 }
 
+character_event = { #Priest-King of Salem or Melchisidechian clergyman is annointed as mystic
+	id = spirit.42
+	hide_window = yes
+
+	trigger = {
+		OR = {
+			AND = {
+				has_global_flag = here_come_dat_priest_king
+				has_landed_title = k_melchisedechianism
+				controls_religion = melchisedechianism
+			}
+			is_theocracy = yes
+			has_job_title = job_spiritual
+		}
+       		religion = melchisedechianism
+		NOT = { trait = mystic }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = Amen!
+		add_trait = mystic
+		add_learning = 1
+	}
+}
+
+character_event = { #Priscillianist clergyman takes vegetarianism as part of ordination/investiture
+	id = spirit.43
+	hide_window = yes
+
+	trigger = {
+		religion = priscillianism
+		OR = {
+			government = theocracy_government
+			AND = {
+				controls_religion = priscillianism
+				has_global_flag = veggiepriest
+			}
+			has_job_title = job_spiritual
+			trait = nun
+			trait = monk
+		}
+		NOT = {
+			trait = vegetarian
+			trait = cruel
+			trait = bad_priest_christian
+			trait = impaler
+			trait = hunter
+			trait = falconer
+			trait = cannibal_trait
+			trait = arbitrary
+			trait = excommunicated
+		}
+
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = Amen!
+		add_trait = vegetarian
+	}
+}
+
+character_event = { #Tzadikite Rabbis are annointed as Khaballistic clergymen
+	id = spirit.44
+	hide_window = yes
+
+	trigger = {
+		OR = {
+			AND = {
+				has_landed_title = d_tzadikite
+				controls_religion = d_tzadikite
+			}
+			is_theocracy = yes
+			has_job_title = job_spiritual
+		}
+       		religion = tzadikite
+		NOT = { trait = mystic }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = For greater knowledge in YHWH's name!
+		add_trait = mystic
+		add_learning = 1
+	}
+}
