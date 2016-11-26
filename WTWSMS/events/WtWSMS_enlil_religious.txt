@@ -1354,7 +1354,7 @@ character_event = { #Priest-King of Salem or Melchisidechian clergyman is annoin
 	}
 	
 	option = {
-		name = Amen!
+		name = spirit.42.a
 		add_trait = mystic
 		add_learning = 1
 	}
@@ -1395,7 +1395,7 @@ character_event = { #Priscillianist clergyman takes vegetarianism as part of ord
 	}
 
 	option = {
-		name = Amen!
+		name = spirit.43.a
 		add_trait = vegetarian
 	}
 }
@@ -1422,8 +1422,47 @@ character_event = { #Tzadikite Rabbis are annointed as Khaballistic clergymen
 	}
 	
 	option = {
-		name = For greater knowledge in YHWH's name!
+		name = spirit.44.a
 		add_trait = mystic
 		add_learning = 1
 	}
 }
+
+narrative_event = { #Shown when a Donatist enforces the "only good people can be priests" doctrine and restores the Bishop of Carthage
+	id = 662342141
+	title = 662342141_title
+	desc = 662342141_desc
+	picture = GFX_evt_pope_feast
+	border = GFX_event_narrative_frame_war
+	
+	major = yes
+
+	is_triggered_only = yes
+	
+	option = {
+		name = 662342141_YES
+		trigger = {
+			religion = donatism
+		}
+	}
+
+	option = {
+		name = 662342141_NO
+		trigger = {
+			AND = {
+				religion_group = christian
+				NOT = {
+					religion = donatism
+				}
+			}
+		}
+	}
+	option = {
+		name = 662342141_SOWHAT
+		trigger = {
+			NOT = { 
+				religion_group = christian 
+				religion = donatism
+			}	
+		}
+	}

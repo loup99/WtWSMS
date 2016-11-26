@@ -659,15 +659,10 @@ decisions = {
 				has_landed_title = e_byzantium
 				has_landed_title = e_roman_empire
 			}
-			year = 876
+			has_global_flag = viking_age_started
 			NOT = { has_global_flag = varangian_guard_founded }
 			any_playable_ruler = {
-				OR = {
-					religion = norse_pagan
-					religion = norse_pagan_reformed
-					religion = germanic_pagan
-					religion = germanic_pagan_reformed
-				}
+				religion = norse_pagan
 				capital_scope = {
 					distance = {
 						where = 496	# Constantinople
@@ -689,7 +684,7 @@ decisions = {
 				narrative_event = { id = TOG.3100 }
 				create_character = {
 					random_traits = yes
-					religion = ROOT
+					religion = norse_pagan
 					culture = norse
 					dynasty = NONE
 					female = no
@@ -1107,14 +1102,14 @@ decisions = {
 			has_dlc = "The Old Gods"
 			is_playable = yes
 			religion = zoroastrian
-			NOT = { has_global_flag = zoroastrian_priesthood_refounded }
+			NOT = { has_global_flag = zoroastrian_priesthood_founded }
 		}
 		allow = {
 			has_landed_title = e_persia
 			piety = 300
 		}
 		effect = {
-			set_global_flag = zoroastrian_priesthood_refounded
+			set_global_flag = zoroastrian_priesthood_founded
 			piety = -300
 			activate_title = { title = d_zoroastrian status = yes }
 			hidden_tooltip = {
@@ -1427,7 +1422,7 @@ decisions = {
 				factor = 0
 				any_courtier = {
 					religion_group = jewish_group
-					reverse_opinion = { who = ROOT value = 50 }
+					reverse_opinion = { who = ROOT value = 20 }
 				}
 			}
 			modifier = {
@@ -1616,12 +1611,7 @@ decisions = {
 			has_dlc = "Rajas of India"
 			is_playable = yes
 			is_feudal = yes
-			OR = {
-				culture_group = indian_group	
-				culture_group = indo_aryan_group
-				culture_group = dravidian_group
-			}
-				
+			religion_group = indian_group	
 			primary_title = {
 				higher_tier_than = DUKE
 			}
@@ -2248,6 +2238,18 @@ decisions = {
 			holy_order = no
 			
 			NOT = { tier = EMPEROR }
+			OR = {
+				ai = no
+				AND = {
+					trait = proud
+					prestige = 40000
+				}
+				AND = {
+					trait = ambitious
+					prestige = 40000
+				}
+				prestige = 120000
+			}
 			
 			NOT = {
 				has_game_rule = {

@@ -419,7 +419,7 @@ christian = {
 		character_modifier = { ### If Antinomians can sin without consequence, few other Christians will like them and they'll sin a ton. ###
 			same_religion_opinion = 25
 			fertility = 0.3
-			add_piety_modifier = -1
+			add_piety_midifier = -0.25
 			ai_greed = 2
 			ai_honor = -1
 			sex_appeal_opinion = 5
@@ -540,6 +540,10 @@ christian = {
 		
 		religious_clothing_head = 1
 		religious_clothing_priest = 5
+		
+		general_opinion = -10
+		same_opinion_if_same_religion = 20
+		infidel_opinion = -20
 	}
 	sethian = {
 		graphical_culture = westerngfx
@@ -559,7 +563,7 @@ christian = {
 			GOD_THE_SERPENT GOD_SOPHIA GOD_BARBELO GOD_UNKNOWN_GOD GOD_SETH THE_HISSING_GOD THE_FANGED_ONE
 		}
 		evil_god_names = {
-			GOD_YALDABAOTH GOD_YALTABAOTH
+			GOD_YALDABAOTH
 		}
 		
 		can_retire_to_monastery = yes
@@ -717,8 +721,6 @@ christian = {
 			SATAN THE_DEVIL THE_DARKNESS THE_DARK_SPIRITS
 		}
 
-		# can_have_antipopes = yes  # If it's possible to have Antipopes against a secular title, I want it to happen, because I want to simulate a struggle over who is the rightful Priest-King of Salem
-
 		can_retire_to_monastery = yes
 		female_temple_holders = no
 		
@@ -867,7 +869,7 @@ christian = {
 		religious_clothing_priest = 2
 	}
 	donatism = {
-		graphical_culture = africangfx
+		graphical_culture = westerngfx
 
 		icon = 106
 		heresy_icon = 130
@@ -902,18 +904,13 @@ christian = {
 		priests_can_inherit = no
 		autocephalacy = no
 		
-		general_opinion = -10
-		same_opinion_if_same_religion = 20
-		infidel_opinion = -20
+		general_opinion = -20
+		same_opinion_if_same_religion = 40
+		infidel_opinion = -40
 	}
 	priscillianism = {
 		graphical_culture = southerngfx # This, alongside the "occitangfx" unit, is the Iberian GFX
 		secondary_event_pictures = manichean
-
-		ai_peaceful = no
-
-		ai_convert_same_group = 2 # always try to convert
-		ai_convert_other_group = 2 # always try to convert
 
 		priest_title = PRIEST
 		scripture_name = THE_VULGATE_BIBLE
@@ -940,11 +937,7 @@ christian = {
 		religious_clothing_head = 1
 		religious_clothing_priest = 1
 
-		uses_decadence = yes # Priscillianists were extreme in their asceticism, not unlike the unimplemented Dulcinians, but violently so - charity and humility were the ultimate religious deeds, as such, Priscillianists would violently attack decadent rulers, we should honestly implement Dulcinian things on the Prisicllianists
-
 		can_call_crusade = yes
-
-		independence_war_score_bonus = 35
 
 		high_god_name = {
 			GOD_TWELVE_PATRIARCHS
@@ -960,9 +953,8 @@ christian = {
 
 		character_modifier = {
 			martial = 1
-			intrigue = 3 #When under the extreme persecution they faced, Priscillianists used bribery and intrigue to stay alive
+			intrigue = 1 #When under the extreme persecution they faced, Priscillianists used bribery and intrigue to stay alive
 			ai_honor = -5 #Priscillianists were explicitly allowed to lie to advance the religion by any means neccesary, this is why Saint Augustine attacked them directly in his books
-			ai_zeal = 10 #Priscillianists were violently zealous and feared all over Iberia
 			ai_greed = -20 #Asceticism
 		}
 
@@ -978,8 +970,7 @@ christian = {
 			key = "OFF_RELIGION"
 		}
 
-		
-		aggression = 1.5
+
 		general_opinion = -20
 		same_opinion_if_same_religion = 40
 		infidel_opinion = -40
@@ -1306,9 +1297,6 @@ muslim = {
 		uses_jizya_tax = yes
 	}
 	yazidi = {
-		ai_convert_same_group = 1 #Yazidis do not normally prolestyze unless asked, they tend to keep their faith to themselves, which is why they are nearing extinction in RL
-		ai_convert_other_group = 1 
-
 		graphical_culture = persiangfx #Yazidis ain't Islamic
 		coa_on_barony_only = yes
 
@@ -1350,7 +1338,9 @@ muslim = {
 		religious_clothing_head = 5 #The Sheikh wears white but can wear a pink headdress
 		religious_clothing_priest = 5 #Different orders of Yazidi clergy wear different colors (lowest rank wears black), but white is considered universally accepted
 
-		#Yazidis have castes that are enforced, but only among the clergy, not the laity, no idea how to simulate this
+		general_opinion = -20
+		same_opinion_if_same_religion = 40
+		infidel_opinion = -40
 	}
 	ibadi = {
 		graphical_culture = muslimgfx
@@ -1738,7 +1728,7 @@ muslim = {
 		landed_kin_prestige_bonus = yes
 	}
 	quamatian = {
-		graphical_culture = republicsgfx #The holy utopia of the Quamatian religion was a divine Republic
+		graphical_culture = muslimgfx
 
 		icon = 4
 		heresy_icon = 9
@@ -4258,7 +4248,7 @@ pagan_group = {
 		heresy_icon = 85
 		
 		color = { 0.5 0.05 0.0 }
-		parent = hellenic_pagan
+		#parent = hellenic_pagan
 		
 		high_god_name = GOD_MASTIMAN
 		god_names = {
@@ -4834,9 +4824,9 @@ jewish_group = {
 		
 		expel_modifier = expelled_jewish
 		
-		general_opinion = -10
-		same_opinion_if_same_religion = 20
-		infidel_opinion = -20
+		general_opinion = -20
+		same_opinion_if_same_religion = 40
+		infidel_opinion = -40
 	}
 	karaite = {
 		graphical_culture = jewishgfx
@@ -4916,12 +4906,15 @@ bosporan_group = {
 		defensive_attrition = yes
 		independence_war_score_bonus = 50
 		attacking_same_religion_piety_loss = yes
-		# has_heir_designation = yes
  		
 		priests_can_marry = yes
  		
 		religious_clothing_head = 7
 		religious_clothing_priest = 7
+		
+		general_opinion = -10
+		same_opinion_if_same_religion = 20
+		infidel_opinion = -20
 	}
  }
 
@@ -5100,7 +5093,7 @@ indian_group = {
 			THE_VINAYAKAS
 		}
 		
-		autocephaly = yes
+		autocephalacy = no
 		can_grant_divorce = yes
 		priests_can_inherit = yes
 		priests_can_marry = yes
