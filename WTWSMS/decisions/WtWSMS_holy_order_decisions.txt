@@ -195,4 +195,57 @@ decisions = {
 		}
 	}
 
+avenge_priscillian = { # Create Priscillianism Holy Order
+		only_playable = yes
+		is_high_prio = yes
+		potential = {
+			has_global_flag = veggiepriest
+			is_playable = yes
+			higher_tier_than = duke
+			has_regent = no
+			religion = priscillianism
+			NOT = { has_global_flag = iberia_wets_its_pants }
+		}
+		allow = {
+			piety = 1000
+			prestige = 300
+			wealth = 300
+		}
+		effect = {
+			set_global_flag = iberia_wets_its_pants
+			prestige = 100
+			piety = -1000
+			wealth = -300
+			activate_title = { title = d_priscillianism_holy_order status = yes }
+			hidden_tooltip = {
+#				# narrative_event = { id = spirit. }
+				create_random_priest = {
+					name = "Priscillian"
+					random_traits = yes
+					religion = priscillianism
+					culture = ROOT
+					race = egyptian_arabic
+					dynasty = NONE
+					age = 34
+					wealth = 300
+					trait = vegetarian
+					trait = inspiring_leader
+					trait = humble
+					trait = holy_warrior
+					attributes = {
+						martial = 12
+					}
+				}
+				new_character = {
+					c_priscillianism_holy_order = {
+						grant_title = PREV
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
 }
