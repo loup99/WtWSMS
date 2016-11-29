@@ -452,7 +452,8 @@ nick_the_fair = {
 		NOT = { age = 50 }
 	}
 	chance = {
-		factor = 1
+		factor = 1.5
+
 	}
 }
 
@@ -758,8 +759,10 @@ nick_of_a_thousand_faces = {
 		age = 16
 		intrigue = 10
 		trait = disfigured
-		trait = deceitful
-		trait = envious
+		OR = {
+			trait = deceitful
+			trait = envious
+		}
 	}
 	chance = {
 		factor = 5
@@ -1296,6 +1299,7 @@ nick_the_blessed = {
 			religion_group = christian
 			religion_group = muslim
 			religion_group = jewish_group
+			religion_group = bosporan_group
 		}
 	}
 	chance = {
@@ -1422,9 +1426,11 @@ nick_the_ironside = {
 nick_the_lion = {
 	allow = {
 		ruled_years = 15
+		trait = brave
 		OR = {
-			trait = brave
 			is_strong_trigger = yes
+			trait = strong
+			trait = brawny
 		}
 		OR = {
 			trait = skilled_tactician
@@ -1525,6 +1531,9 @@ nick_the_terrible = {
 			trait = deceitful
 			trait = paranoid
 			trait = envious
+			trait = cannibal_trait
+			has_character_modifier = cannibal
+			has_character_modifier = crazy_cannibal
 		}
 		any_vassal = {
 			has_opinion_modifier = { who = ROOT modifier = opinion_tyrant }
@@ -1573,21 +1582,25 @@ nick_the_oppressor = {
 			trait = deceitful
 			trait = paranoid
 			trait = envious
+			trait = cannibal_trait
+			has_character_modifier = cannibal
+			has_character_modifier = crazy_cannibal
 		}
 		any_vassal = {
 			has_opinion_modifier = { who = ROOT modifier = opinion_tyrant }
 		}
 	}
 	chance = {
-		factor = 2
+		factor = 2		
 	}
 }
 
 nick_the_witch = {
 	allow = {
 		age = 16
+		trait = mystic
 		OR = {
-			trait = mystic
+			trait = possessed
 			trait = physician
 		}
 		NOT = {
@@ -1647,20 +1660,27 @@ nick_the_quarreller = {
 nick_the_devil = {
 	allow = {
 		ruled_years = 10
-		trait = wroth
+		OR = {
+			trait = wroth
+			trait = cannibal_trait
+			has_character_modifier = cannibal
+		}
 		OR = {
 			trait = kinslayer
 			trait = excommunicated
 			trait = impaler
+			trait = cannibal_trait
+			has_character_modifier = cannibal
 		}
 	}
 	chance = {
-		factor = 2
+		factor = 1
 		modifier = {
-			factor = 2
+			factor = 50
 			OR = {
-				trait = kinslayer
-				trait = excommunicated
+				has_character_modifier = cannibal
+				has_character_modifier = crazy_cannibal
+				trait = cannibal_trait
 			}
 		}
 	}
@@ -1689,10 +1709,11 @@ nick_the_dragon = {
 			trait = kinslayer
 		}
 		modifier = {
-			factor = 5
+			factor = 0.65
 			OR = {
 				trait = cannibal_trait
 				has_character_modifier = cannibal
+				has_character_modifier = crazy_cannibal
 			}
 		}
 	}
@@ -1881,6 +1902,9 @@ nick_the_black = {
 			trait = excommunicated
 			trait = impaler
 			trait = bad_priest_christian
+			trait = cannibal_trait
+			has_character_modifier = cannibal
+			has_character_modifier = crazy_cannibal
 		}
 	}
 	chance = {
@@ -1925,8 +1949,10 @@ nick_the_wolf = {
 #################################
 nick_the_hammer = {
 	allow = {
-		trait = brave
-		trait = champion
+		OR = {
+			trait = brave
+			trait = champion
+		}
 		martial = 14
 		OR = {
 			trait = skilled_tactician
@@ -1953,7 +1979,7 @@ nick_the_hammer = {
 		
 		modifier = {
 			factor = 1.4
-			tier = king
+			tier = KING
 		}
 		
 		modifier = {
@@ -2129,12 +2155,14 @@ nick_the_avenger = {
 		NOT = {trait = craven}
 		OR={
 			trait = champion
-			trait = crusader	
+			trait = crusader
+			has_landed_title = d_priscillianism_holy_order
 		}
 		martial = 14
 		OR = {
 			trait = skilled_tactician
 			trait = brilliant_strategist
+			has_landed_title = d_priscillianism_holy_order
 		}
 	}
 	chance = {
@@ -2193,6 +2221,10 @@ nick_the_avenger = {
 		modifier = {
 			factor = 1.25
 			trait = skilled_tactician
+		}
+		modifier = {
+			factor = 50
+			has_landed_title = d_priscillianism_holy_order
 		}
 	}
 }
@@ -2354,6 +2386,15 @@ nick_the_holy = {
 		NOT = { trait = cruel }
 		NOT = { trait = envious }
 		NOT = { trait = wroth }
+		NOT = { trait = impaler }
+		NOT = { trait = schemer }
+		NOT = { trait = deceitful }
+		NOT = { trait = bad_priest_christian }
+		NOT = { trait = cannibal_trait }
+		NOT = {
+			has_character_modifier = cannibal
+			has_character_modifier = crazy_cannibal
+		}
 	}
 	chance={
 		factor = 2
@@ -2516,7 +2557,7 @@ nick_the_martyr = {
 }
 nick_the_saint = {
 	allow={
-		piety = 500
+		piety = 5000
 		religion_group = christian
 		NOT = { trait = lustful }
 		NOT = { trait = hedonist }
@@ -2526,6 +2567,19 @@ nick_the_saint = {
 		NOT = { trait = cruel }
 		NOT = { trait = envious }
 		NOT = { trait = wroth }
+		NOT = { trait = impaler }
+		NOT = { has_character_modifier = known_murderer }
+		NOT = { trait = cannibal_trait }
+		NOT = { trait = kinslayer }
+		NOT = { trait = bad_priest_christian }
+		NOT = {
+			AND = {
+				religion = priscillianism
+				NOT = {
+					trait = vegetarian
+				}
+			}
+		}
 	}
 	chance={
 		factor = 2

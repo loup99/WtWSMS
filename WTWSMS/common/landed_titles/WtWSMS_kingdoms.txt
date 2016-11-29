@@ -8,7 +8,8 @@ k_gepidia = {
 	culture = gepid
 	
 	allow = {
-		always = no
+		culture = gepid
+		prestige = 1500
 	}
 }
 
@@ -128,16 +129,19 @@ d_senate = {
 	
 	culture = roman
 
+	creation_requires_capital = yes
+
 	title = "PRINCEPS_SENATUS"
 	
 	allow = {
 		is_republic = yes
+		culture = roman
 	}
 }	
 d_roman_prefect = {
 	color = { 73 0 0 }
 
-	dignity = 200 # Never want the Senate to change primary title
+	dignity = 200 # Never want the Praefectus to change primary title
 	
 	capital = 333 # Rome
 
@@ -145,10 +149,25 @@ d_roman_prefect = {
 	
 	culture = roman
 
+	creation_requires_capital = yes
+
 	title = "PRAEFECTUS_URBI"
 	
 	allow = {
-		always = no
+		completely_controls = c_roma
+		independent = yes
+		NOT = {
+			tier = KING
+			tier = EMPEROR
+			has_landed_title = d_senate
+		}
+		OR = {
+			culture_group = latin
+			culture = italian
+			culture = ostrogothic
+			culture = skiirian
+			culture = roman
+		}
 	}
 }
 k_venice = {
@@ -157,7 +176,9 @@ k_venice = {
 	culture = italian
 	
 	dignity = 200 # Never want the Republic of Venice to change primary title
-	
+
+	creation_requires_capital = yes	
+
 	allow = {
 		is_republic = yes
 	}
@@ -943,7 +964,8 @@ d_juhuria = {
 	culture = juhuro
 	
 	allow = {
-		always = no
+		culture = juhuro
+		religion = tzadikite
 	}
 }
 
@@ -982,7 +1004,12 @@ k_vandalica = {
 	culture = vandalic
 	
 	allow = {
-		always = no
+		culture = vandalic
+		realm_size = 100
+		prestige = 500
+		NOT = {
+			tier = emperor
+		}
 	}
 }
 
@@ -1044,6 +1071,7 @@ k_soissons = {
 		prestige = 500
 		culture = romano_gallic
 		religion = nicene
+		martial = 14
 	}
 }
 
@@ -1150,6 +1178,9 @@ e_oriens = {
 	color={ 218 165 32 }
 	
 	capital = 764 # Antiocheia
+
+	title = "COMES_ORIENTIS_EMPEROR"
+	title = "PROCONSUL_FOA"
 	
 	culture = greek
 	
