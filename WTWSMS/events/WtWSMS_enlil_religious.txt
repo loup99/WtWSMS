@@ -1,5 +1,5 @@
 namespace = spirit
-# Germanic/Norse Schism
+
 character_event = {
 	id = spirit.1
 	desc = EVTDESC_spirit.1
@@ -1289,7 +1289,7 @@ character_event = {
 	}
 }
 
-character_event = {
+character_event = { # Offspring of the King of Salem receive the special Trait
 	id = spirit.40
 	hide_window = yes
 	picture = GFX_evt_gnostics_rising
@@ -1315,7 +1315,7 @@ character_event = {
 	}
 }
 
-narrative_event = { #Shown when a Melchisidechian creates the Kingdom of Salem
+narrative_event = { #Shown when a Melchisedechian creates the Kingdom of Salem
 	id = spirit.41
 	title = spirit.41.name
 	desc = spirit.41.desc
@@ -1328,10 +1328,31 @@ narrative_event = { #Shown when a Melchisidechian creates the Kingdom of Salem
 	
 	option = {
 		name = spirit.41.a
+		trigger = {
+			religion = melchisidechianism
+		}
+	}
+	option = {
+		name = spirit.41.b
+		trigger = {
+			religion_group = christian
+			NOT = {
+				religion = melchisedechianism
+			}
+		}
+	}
+	option = {
+		name = spirit.41.c
+		trigger = {
+			NOT = {
+				religion_group = christian
+				religion = melchisedechianism
+			}
+		}
 	}
 }
 
-character_event = { #Priest-King of Salem or Melchisidechian clergyman is annointed as mystic
+character_event = { #Priest-King of Salem or Melchisedechian clergyman is annointed as mystic
 	id = spirit.42
 	hide_window = yes
 
@@ -1343,6 +1364,7 @@ character_event = { #Priest-King of Salem or Melchisidechian clergyman is annoin
 				controls_religion = melchisedechianism
 			}
 			is_theocracy = yes
+			government = theocracy_government
 			has_job_title = job_spiritual
 		}
        		religion = melchisedechianism
