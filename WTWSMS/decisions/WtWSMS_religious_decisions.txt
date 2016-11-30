@@ -710,6 +710,71 @@ decisions = {
 			factor = 1
 		}
 	}
+
+	create_sethian_patriarchy = {
+		only_playable = yes
+		is_high_prio = yes
+	
+		potential = {
+			religion = sethian
+			NOT = { 
+				is_title_active = d_sethian
+				has_global_flag = hes_a_cold_hearted_snake
+			}
+		
+		}
+		
+		allow = {
+			piety = 1000
+			OR = {
+				realm_size = 65
+				completely_controls = c_alexandria
+			}
+		}
+		
+		effect = {
+			activate_title = { title = d_sethian status = yes }
+			set_global_flag = hes_a_cold_hearted_snake
+			hidden_tooltip = {
+				create_random_priest = {
+					dynasty = none
+					random_traits = yes
+					culture = coptic
+					race = egyptian_arabic
+					religion = sethian
+					trait = zealous
+					trait = mystic
+					learning = 12
+					age = 18
+					female = no	
+				}
+				new_character = {
+					d_sethian = {
+						grant_title = PREV
+					}
+					wealth = 500
+					opinion = {
+						who = ROOT
+						modifier = opinion_creator_of_rel_heal
+					}
+				}
+				
+				religion_authority = {
+					modifier = patriarchy_instituted
+					years = 20
+				}
+			}
+			piety = 1000
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
 	
 	the_henotikon = {
 		is_high_prio = yes

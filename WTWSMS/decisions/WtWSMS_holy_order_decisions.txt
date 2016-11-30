@@ -357,4 +357,59 @@ decisions = {
 			factor = 1
 		}
 	}
+
+	create_sethian_holy_order = { # Create Sethian Holy Order
+		only_playable = yes
+		is_high_prio = yes
+		potential = {
+			has_global_flag = hes_a_cold_hearted_snake
+			is_playable = yes
+			has_regent = no
+			religion = sethian
+			NOT = { has_global_flag = cobras_striking }
+		}
+		allow = {
+			piety = 1000
+			prestige = 300
+			wealth = 300
+		}
+		effect = {
+			set_global_flag = cobras_striking
+			prestige = 500
+			piety = -1000
+			wealth = -300
+			activate_title = { title = d_sethian_holy_order status = yes }
+			hidden_tooltip = {
+				create_random_priest = {
+					name = "Seth"
+					random_traits = yes
+					religion = sethian
+					culture = coptic
+					race = egyptian_arabic
+					dynasty = NONE
+					age = 34
+					wealth = 500
+					trait = holy_warrior
+					attributes = {
+					martial = 12
+					}
+				}
+				new_character = {
+					d_sethian_holy_order = {
+						grant_title = PREV
+					}
+				}
+			}
+#			d_sethian = { 
+#				holder_scope = {
+#					ROOT = {
+#						narrative_event = { id = holy. }
+#					}
+#				}
+#			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
 }
