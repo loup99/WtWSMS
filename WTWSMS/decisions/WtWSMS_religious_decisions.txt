@@ -1,4 +1,4 @@
-decisions = {	
+decisions = {
 	create_binitarian_patriarchy = {
 		only_playable = yes
 		is_high_prio = yes
@@ -765,6 +765,80 @@ decisions = {
 				}
 			}
 			piety = 1000
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	create_borborites_matriarchy = {
+		only_playable = yes
+		is_high_prio = yes
+	
+		potential = {
+			OR = {
+				religion = borborites
+				trait = whoreborite
+			}
+			NOT = { is_title_active = d_borborites }
+		}
+		
+		allow = {
+			piety = 2000
+			trait = lustful
+			trait = hedonist
+			tier = KING
+			NOT = {
+				trait = chaste
+				trait = celibate
+			}
+		}
+		
+		effect = {
+			piety = 1000
+			activate_title = { title = d_borborites status = yes }
+			custom_tooltip = {
+				name = borborlove
+				hidden_tooltip = {
+					create_random_priest = {
+						dynasty = none
+						random_traits = yes
+						female = yes
+						culture = ROOT
+						race = coptic
+						trait = whoreborite
+						trait = hedonist
+						trait = lustful
+						trait = zealous
+						trait = fair
+						trait = fertile
+						trait = imposing
+						trait = tolerant_ruler
+						trait = melodious_voice
+						trait = seductress
+					}
+					new_character = {
+						d_borborites = {
+							grant_title = PREV
+						}
+						wealth = 500
+						opinion = {
+							who = ROOT
+							modifier = opinion_creator_of_rel_heal
+						}
+					}
+				
+					religion_authority = {
+						modifier = patriarchy_instituted
+						years = 50
+					}
+				}
+			}
 		}
 		
 		revoke_allowed = {

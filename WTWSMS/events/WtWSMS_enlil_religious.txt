@@ -1430,7 +1430,7 @@ character_event = { #Tzadikite Rabbis are annointed as Khaballistic clergymen
 		OR = {
 			AND = {
 				has_landed_title = d_tzadikite
-				controls_religion = d_tzadikite
+				controls_religion = tzadikite
 			}
 			is_theocracy = yes
 			has_job_title = job_spiritual
@@ -1527,5 +1527,85 @@ character_event = { # Borborite characters have their Borborite rituals cleansed
 	
 	immediate = {
 		remove_trait = whoreborite
+	}
+}
+
+
+character_event = { # Force Enatic Succession on Borborite religious head
+	id = spirit.47
+	hide_window = yes
+
+	trigger = {
+		OR = {
+			has_landed_title = d_borborites
+			controls_religion = borborites
+		}
+       		religion = borborites
+		NOT = {
+			primary_title = { has_law = enatic_succession }
+		}
+		NOT = {
+			primary_title = {
+				d_borborites = {
+					{ has_law = enatic_succession }
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = "Bunga bunga"
+		d_borborites = {
+			set_law = enatic_succession
+		}
+		add_stewardship = -1
+		primary_title = {
+			d_borborites = {
+				add_law = enatic_succession
+			}
+		}
+	}
+}
+
+character_event = { # Force True Cognatic Succession on Borborite clergy
+	id = spirit.48
+	hide_window = yes
+
+	trigger = {
+       		OR = {
+			religion = borborites
+			trait = whoreborite
+		}
+		OR = {
+			government = theocracy_government
+			is_theocracy = yes
+		}
+		NOT = {
+			primary_title = { has_law = true_cognatic_succession }
+		}
+		is_ruler = yes
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = "Bunga bunga"
+		primary_title = {
+			set_law = true_cognatic_succession
+		}
+		add_stewardship = -1
+		primary_title = {
+			add_law = true_cognatic_succession
+		}
+		add_law = true_cognatic_succession
+		add_trait = lustful
+		add_trait = hedonist
+		add_trait = fertile
 	}
 }
