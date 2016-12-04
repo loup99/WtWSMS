@@ -1,5 +1,6 @@
 decisions = {
 	organize_scholae_palatinae = {
+		only_playable = yes
 		is_high_prio = yes
 		potential = {
 			has_landed_title = e_byzantium
@@ -42,6 +43,7 @@ decisions = {
 	}
 
 	restore_italia = {
+		only_playable = yes
 		is_high_prio = yes
 		potential = {
 			always = no # TODO Event restoration.1 does not exist !
@@ -69,6 +71,7 @@ decisions = {
 	}
 	
 	support_greens = {
+		only_playable = yes
 		potential = {
 			culture_group = latin
 			has_global_flag = circus_maximus_built
@@ -118,6 +121,7 @@ decisions = {
 	}
 	
 	support_blues = {
+		only_playable = yes
 		potential = {
 			culture_group = latin
 			has_global_flag = circus_maximus_built
@@ -179,6 +183,7 @@ decisions = {
 	}
 
 	rebuild_circus_maximus = {
+		only_playable = yes
 		is_high_prio = yes
 		potential = {
 			religion_group = christian 
@@ -205,6 +210,7 @@ decisions = {
 	}
 	
 	organize_excubitors = {
+		only_playable = yes
 		is_high_prio = yes
 		potential = {
 			has_landed_title = e_byzantium
@@ -247,6 +253,7 @@ decisions = {
 	}
 	
 	abolish_masmuda = {
+		only_playable = yes
 		potential = {
 			has_landed_title = k_masmuda
 			age = 16
@@ -280,6 +287,7 @@ decisions = {
 	}
 	
 	sole_roman_empire = {
+		only_independent = yes
 		is_high_prio = yes
 		potential = {
 			OR = {
@@ -323,6 +331,7 @@ decisions = {
 	}
 	
 	unite_roman_empires = {
+		only_independent = yes
 		is_high_prio = yes
 		potential = {
 			has_dlc = "Legacy of Rome"
@@ -391,6 +400,7 @@ decisions = {
 	}
 	
 	restore_western_roman_empire = {
+		only_independent = yes
 		is_high_prio = yes
 		potential = {
 			NOT = { has_landed_title = e_byzantium } # Use restore_roman_empire instead
@@ -443,6 +453,7 @@ decisions = {
 	}
 
 	restore_eastern_roman_empire = {
+		only_independent = yes
 		is_high_prio = yes
 		potential = {
 			NOT = { has_landed_title = e_wre } # Use restore_roman_empire instead
@@ -490,8 +501,9 @@ decisions = {
 			factor = 1
 		}
 	}
+	
 	create_bishop_of_iona = {
-		
+		only_playable = yes
 		is_high_prio = yes
 	
 		potential = {
@@ -544,8 +556,9 @@ decisions = {
 			factor = 1
 		}
 	}
+	
 	create_pelagian_bishop = {
-		
+		only_playable = yes
 		is_high_prio = yes
 	
 		potential = {
@@ -597,9 +610,10 @@ decisions = {
 			factor = 1
 		}
 	}
+	
 	peregrinatio = {
+		only_rulers = yes
 		potential = {
-			is_ruler = yes
 			prisoner = no
 			OR = {
 				religion = insular
@@ -647,13 +661,13 @@ decisions = {
 			}
 		}
 	}
+	
 	call_synod_of_whitby = {
-		
+		only_rulers = yes
 		is_high_prio = yes
 	
 		potential = {
 			always = no # TODO Event ins.4 does not exist !
-			is_ruler = yes
 			year = 644
 			NOT = { has_global_flag = synod_of_whitby } 
 			prisoner = no
@@ -683,25 +697,60 @@ decisions = {
 		
 		ai_will_do = {
 			factor = 1
-		}
-		modifier = {
-			factor = 0
-			trait = cynical	
-		}
-		modifier = {
-			factor = 0
-			trait = arbitrary	
-		}
-		modifier = {
-			factor = 0
-			AND = {
-				culture_group = celtic
-				trait = zealous
+			modifier = {
+				factor = 0
+				trait = cynical	
+			}
+			modifier = {
+				factor = 0
+				trait = arbitrary	
+			}
+			modifier = {
+				factor = 0
+				AND = {
+					culture_group = celtic
+					trait = zealous
+				}
 			}
 		}
 	}
+	
+	lex_burgundionum = {
+		only_independent = yes
+		
+		is_high_prio = yes 
+		
+		potential = {
+			has_landed_title = k_maxima_sequanorum
+			religion = arian 
+			culture = burgundian
+			NOT = { has_global_flag = lex_burgundionum }
+		}
+		
+		allow = {
+			prestige = 100
+			war = no
+			prisoner = no
+			NOT = { is_inaccessible_trigger = yes }
+			age = 16
+		}
+		
+		effect = {
+			narrative_event = { id = hist.14 }
+			set_global_flag = lex_burgundionum
+			religion_authority = {
+				modifier = lex_burgundionum 
+				years = 100
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1 
+		}
+	}
 
-invite_poet_to_court = { #Invite a Poet to court
+	invite_poet_to_court = { #Invite a Poet to court
+		only_playable = yes
 		potential = {
 			NOT = { year = 1066 }
 			OR = {
@@ -842,7 +891,8 @@ invite_poet_to_court = { #Invite a Poet to court
 		}
 	}
 #CHRISTIAN
-patrons_ins = {
+	patrons_ins = {
+		only_playable = yes
 		potential = {
 			is_playable = yes
 			is_landed = yes

@@ -1288,3 +1288,181 @@ character_event = {
 		hidden_tooltip = { character_event = { id = spirit.34 } }
 	}
 }
+
+character_event = {
+	id = spirit.40
+	hide_window = yes
+	picture = GFX_evt_gnostics_rising
+
+	has_global_flag = here_come_dat_priest_king
+	
+	trigger = {
+		OR = {
+			mother = { trait = newsalem }
+			father = { trait = newsalem }
+			mother = { trait = spawn_of_newsalem }
+			father = { trait = spawn_of_newsalem } 
+		}
+		NOT = { trait = spawn_of_newsalem }
+	}
+	
+	mean_time_to_happen = {
+		days = 3
+	}
+	
+	immediate = {
+		add_trait = spawn_of_newsalem
+	}
+}
+
+narrative_event = { #Shown when a Melchisidechian creates the Kingdom of Salem
+	id = spirit.41
+	title = spirit.41.name
+	desc = spirit.41.desc
+	picture = GFX_evt_gnostics_rising
+	border = GFX_event_narrative_frame_learning
+	
+	major = yes
+
+	is_triggered_only = yes
+	
+	option = {
+		name = spirit.41.a
+	}
+}
+
+character_event = { #Priest-King of Salem or Melchisidechian clergyman is annointed as mystic
+	id = spirit.42
+	hide_window = yes
+
+	trigger = {
+		OR = {
+			AND = {
+				has_global_flag = here_come_dat_priest_king
+				has_landed_title = k_melchisedechianism
+				controls_religion = melchisedechianism
+			}
+			is_theocracy = yes
+			has_job_title = job_spiritual
+		}
+       		religion = melchisedechianism
+		NOT = { trait = mystic }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = spirit.42.a
+		add_trait = mystic
+		add_learning = 1
+	}
+}
+
+character_event = { #Priscillianist clergyman takes vegetarianism as part of ordination/investiture
+	id = spirit.43
+	hide_window = yes
+
+	trigger = {
+		religion = priscillianism
+		OR = {
+			government = theocracy_government
+			AND = {
+				controls_religion = priscillianism
+				has_global_flag = veggiepriest
+			}
+			has_job_title = job_spiritual
+			trait = nun
+			trait = monk
+		}
+		NOT = {
+			trait = vegetarian
+			trait = cruel
+			trait = bad_priest_christian
+			trait = impaler
+			trait = hunter
+			trait = falconer
+			trait = cannibal_trait
+			trait = arbitrary
+			trait = excommunicated
+		}
+
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = spirit.43.a
+		add_trait = vegetarian
+	}
+}
+
+character_event = { #Tzadikite Rabbis are annointed as Khaballistic clergymen
+	id = spirit.44
+	hide_window = yes
+
+	trigger = {
+		OR = {
+			AND = {
+				has_landed_title = d_tzadikite
+				controls_religion = d_tzadikite
+			}
+			is_theocracy = yes
+			has_job_title = job_spiritual
+		}
+       		religion = tzadikite
+		NOT = { trait = mystic }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = spirit.44.a
+		add_trait = mystic
+		add_learning = 1
+	}
+}
+
+narrative_event = { #Shown when a Donatist enforces the "only good people can be priests" doctrine and restores the Bishop of Carthage
+	id = 662342141
+	title = 662342141_title
+	desc = 662342141_desc
+	picture = GFX_evt_pope_feast
+	border = GFX_event_narrative_frame_war
+	
+	major = yes
+
+	is_triggered_only = yes
+	
+	option = {
+		name = 662342141_YES
+		trigger = {
+			religion = donatism
+		}
+	}
+
+	option = {
+		name = 662342141_NO
+		trigger = {
+			AND = {
+				religion_group = christian
+				NOT = {
+					religion = donatism
+				}
+			}
+		}
+	}
+	option = {
+		name = 662342141_SOWHAT
+		trigger = {
+			NOT = { 
+				religion_group = christian 
+				religion = donatism
+			}	
+		}
+	}

@@ -92,6 +92,7 @@ focus_business = {
 		is_adult = yes
 		NOT = { trait = incapable }
 		prisoner = no
+		NOT = { religion = priscillianism }
 	}
 	
 	# AI Pick chance
@@ -170,9 +171,14 @@ focus_seduction = {
 		NOT = { trait = chaste }
 		NOT = { religion = monatist }
 		NOT = { religion = donatism }
+		NOT = { religion = priscillianism }
 		NOT = {
 			AND = {	
 				religion_group = christian_group
+				trait = zealous
+			}
+			AND = {
+				religion_group = jewish_group
 				trait = zealous
 			}
 		}
@@ -193,6 +199,13 @@ focus_seduction = {
 		modifier = {
 			factor = 0
 			trait = chaste
+		}
+		modifier = {
+			factor = 0
+			has_game_rule = {
+				name = ai_seduction
+				value = off
+			}
 		}
 		
 		modifier = {
@@ -282,6 +295,7 @@ focus_seduction = {
 			}
 		}
 		modifier = { 
+			factor = 2.0
 			religion = antinomianism
 		}
 	}
@@ -296,6 +310,10 @@ focus_seduction = {
 			trait = incapable
 			is_playable = no
 			trait = eunuch
+			trait = celibate
+			religion = monatist
+			religion = donatistism
+			religion = priscillianism
 		}
 	}
 	
@@ -327,6 +345,13 @@ focus_intrigue = {
 	chance = {
 		factor = 100
 		
+		modifier = {
+			factor = 0
+			has_game_rule = {
+				name = ai_intrigue
+				value = off
+			}
+		}
 		modifier = {
 			factor = 0
 			trait = honest
@@ -416,6 +441,13 @@ focus_hunting = {
 		NOT = { trait = incapable }
 		NOT = { religion = jain }
 		NOT = { religion = taoism }
+		NOT = { trait = vegetarian }
+		NOT = {
+			AND = {
+				religion = priscillianism
+				government = theocracy_government
+			}
+		}
 		prisoner = no
 	}
 	
@@ -459,6 +491,13 @@ focus_hunting = {
 			prisoner = yes
 			trait = incapable
 			is_playable = no
+			religion = taoist
+			religion = jain
+			trait = vegetarian
+			AND = {
+				religion = priscillianism
+				goverment = theocracy_government
+			}
 		}
 	}
 	
@@ -573,6 +612,7 @@ focus_carousing = {
 	allow = {
 		NOT = { religion = monatist }
 		NOT = { religion = donatism }
+		NOT = { religion = priscillianism }
 		is_adult = yes
 		NOT = { trait = incapable }
 		prisoner = no
@@ -823,6 +863,10 @@ focus_scholarship = {
 			factor = 3.0
 			is_theocracy = yes
 		}
+		modifier = {
+			factor = 1.0
+			trait = mystic
+		}
 	}
 	
 	# Focuses have no success conditions
@@ -919,6 +963,10 @@ focus_theology = {
 			factor = 3.0
 			is_theocracy = yes
 		}
+		modifier = {
+			factor = 1.5
+			religion = priscillianism
+		}
 	}
 	
 	# Focuses have no success conditions
@@ -939,4 +987,5 @@ focus_theology = {
 	# MODIFIERS
 	learning = 2
 	church_opinion = 20
+	health = 1.0
 }

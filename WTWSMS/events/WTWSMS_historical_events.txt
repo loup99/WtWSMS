@@ -10,7 +10,7 @@ namespace = hist
 # Bavarian Ethnogensis
 province_event = {
 	id = hist.1
-	desc = EVTDESC_hist_1
+	desc = hist.1.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_diplomacy
 	
@@ -26,7 +26,7 @@ province_event = {
 	}
 
 	option = {
-		name = EVTOPTA_hist_1
+		name = hist.1.a
 		trigger = {
 			NOT = {
 				owner = { culture = bavarian }
@@ -36,7 +36,7 @@ province_event = {
 		add_province_modifier = bavarian_influx
 	}
 	option = {
-		name = EVTOPTB_hist_1
+		name = hist.1.b
 		trigger = {
 			owner = { culture = bavarian }
 		}
@@ -47,18 +47,16 @@ province_event = {
 # Diocese of Connor
 character_event = {
 	id = hist.2
-	title = "EVTTIT_hist_2"
-	desc = EVTDESC_hist_2
-	picture = "GFX_evt_stone_church"
-	border = "GFX_event_normal_frame_religion"
-	
-	major = yes
+	title = hist.2.name
+	desc = hist.2.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
 	
 	trigger = {
-		year = 480
 		has_landed_title = k_dal_riata
-		religion = insular 
-		NOT = { year = 481 }
+		religion = insular
+		completely_controls = c_ulster
+		NOT = { has_global_flag = diocese_of_connor }
 	}
 	
 	mean_time_to_happen = {
@@ -70,30 +68,63 @@ character_event = {
 			modifier = diocese_of_connor
 			years = 100
 		}
+		set_global_flag = diocese_of_connor
 	}
 
 	option = {
-		name = EVTOPTA_hist_2
+		name = hist.2.a
 		piety = 150 
-		cash = 50 
+		wealth = 50
+		hidden_tooltip = { 
+			any_playable_ruler = {
+				limit = {
+					religion_group = christian
+					religion = celtic_pagan
+					NOT = { has_landed_title = k_dal_riata }
+				}
+				narrative_event = { id = hist.3 } 
+			}
+		}
+	}
+}
+
+# INFO - Diocese of Connor
+narrative_event = {
+	id = hist.3
+	title = hist.3.name
+	desc = hist.3.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = hist.3.a
+		trigger = { religion_group = christian }
+	}
+	
+	option = {
+		name = hist.3.b
+		trigger = { 
+			OR = {
+				religion = celtic_pagan 
+			}
+		}
 	}
 }
 
 # The Hagiography of Germanus of Auxerre
 character_event = {
-	id = hist.3
-	title = "EVTTIT_hist_3"
-	desc = EVTDESC_hist_3
+	id = hist.4
+	title = hist.4.name
+	desc = hist.4.desc
 	picture = GFX_evt_heretic
-	border = "GFX_event_normal_frame_religion"
-	
-	major = yes
-	
+	border = GFX_event_normal_frame_religion
+		
 	trigger = {
-		year = 480
 		has_landed_title = k_soissons
 		religion = nicene 
-		NOT = { year = 481 }
+		NOT = { has_global_flag = heresey_denounced }
 	}
 	
 	mean_time_to_happen = {
@@ -105,38 +136,84 @@ character_event = {
 			modifier = heresey_denounced
 			years = 10
 		}
+		set_global_flag = heresey_denounced
 	}
 
 	option = {
-		name = EVTOPTA_hist_3
+		name = hist.4.a
 		piety = 150 
-		cash = 50 
+		wealth = 50 
+		hidden_tooltip = { 
+			any_playable_ruler = {
+				limit = {
+					region = world_europe_west
+					region = world_europe_south	
+					NOT = { has_landed_title = k_soissons }					
+				}
+				narrative_event = { id = hist.5 } 
+			}
+		}
+	}
+}
+
+# INFO - The Hagiography of Germanus of Auxerre
+narrative_event = {
+	id = hist.5
+	title = hist.5.name
+	desc = hist.5.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = hist.5.a
+		piety = 50 
+		trigger = { religion = nicene }
+	}
+	
+	option = {
+		name = hist.5.b
+		piety = -50 
+		trigger = { 
+			NOT = {
+				religion = nicene
+			}
+		}
 	}
 }
 
 # The Death of Strabo
 character_event = {
-	id = hist.4
-	desc = EVTDESC_hist_4
+	id = hist.6
+	desc = hist.6.desc
 	picture = GFX_evt_beheading
-	border = "GFX_event_normal_frame_war"
+	border = GFX_event_normal_frame_war
 	
 	trigger = {
-		year = 481
 		has_landed_title = d_thracian_goths
 		culture = ostrogothic
-		NOT = { year = 482 }
+		e_byzantium = { holder_scope = { war_with = ROOT } }  
+		NOT = { has_global_flag = death_strabo }
 	}
 	
 	mean_time_to_happen = {
 		months = 6
 	}
 	
+	immediate = {
+		set_global_flag = death_strabo
+	}
+	
 	option = {
-		name = EVTOPTA_hist_3
+		name = hist.6.a
 		random_list = {
 			75 = { death = { death_reason = death_accident } }
-			25 = { add_trait = maimed hidden_tooltip = { character_event = { id = 38281 } }
+			25 = { 
+				add_trait = maimed 
+				hidden_tooltip = { 
+					character_event = { id = 38281 } 
+				} 
 			}
 		}
 	}
@@ -144,16 +221,16 @@ character_event = {
 
 # Tension in Armenia
 character_event = {
-	id = hist.4
-	title = EVTTITLE_hist_4
-	desc = EVTDESC_hist_4
+	id = hist.7
+	title = hist.7.name
+	desc = hist.7.desc 
 	picture = GFX_evt_bandits
 	
 	trigger = {
-		year = 481
 		has_landed_title = e_persia
 		religion = zoroastrian
-		NOT = { year = 482 }
+		NOT = { culture = armenian }
+		NOT = { has_global_flag = armenian_revolt }
 	}
 	
 	mean_time_to_happen = {
@@ -166,7 +243,7 @@ character_event = {
 	}
 	
 	option = {
-		name = EVTOPTA_hist_5
+		name = hist.5.a
 		random_realm_province = {
 			limit = {
 				culture = armenian
@@ -175,14 +252,14 @@ character_event = {
 					religion = nestorian
 				}
 			}
-			hidden_tooltip = { province_event = { id = hist.5 } }
+			hidden_tooltip = { province_event = { id = hist.8 } }
 		}
 	}
 }
 
 # Vahan Mamikonian
 province_event = {
-	id = hist.5
+	id = hist.8
 	
 	hide_window = yes
 	
@@ -234,10 +311,10 @@ province_event = {
 				province = ROOT
 				home = ROOT
 				troops = {
-					archers = { 1000 1000 }
-					light_infantry = { 1500 1500 }
-					heavy_infantry = { 1000 1000 }
-					light_cavalry = { 500 500 }
+					archers = { 500 500 }
+					light_infantry = { 750 750 }
+					heavy_infantry = { 500 500 }
+					light_cavalry = { 250 250 }
 				}
 				attrition = 1.0
 			}
@@ -246,10 +323,10 @@ province_event = {
 				province = ROOT
 				home = ROOT
 				troops = {
-					archers = { 1000 1000 }
-					light_infantry = { 1500 1500 }
-					heavy_infantry = { 1000 1000 }
-					light_cavalry = { 500 500 }
+					archers = { 500 500 }
+					light_infantry = { 750 750 }
+					heavy_infantry = { 500 500 }
+					light_cavalry = { 250 250 }
 				}
 				attrition = 1.0
 			}
@@ -258,10 +335,10 @@ province_event = {
 				province = ROOT
 				home = ROOT
 				troops = {
-					archers = { 1000 1000 }
-					light_infantry = { 1500 1500 }
-					heavy_infantry = { 1000 1000 }
-					light_cavalry = { 500 500 }
+					archers = { 500 500 }
+					light_infantry = { 750 750 }
+					heavy_infantry = { 500 500 }
+					light_cavalry = { 250 250 }
 				}
 				attrition = 1.0
 			}
@@ -282,9 +359,9 @@ province_event = {
 			if = {
 				limit = {
 					FROM = { NOT = { any_realm_title = { title = k_armenia } } }
-					FROM = { any_realm_title = { title = d_aremenia } }
+					FROM = { any_realm_title = { title = d_armenia } }
 				}
-				d_aremenia = {
+				d_armenia = {
 					FROM = {
 						reverse_war = {
 							target = PREVPREV
@@ -315,52 +392,43 @@ province_event = {
 }
 
 # The Henotikon
-character_event = {
-	id = hist.6
-	title = "EVTTIT_hist_6"
-	desc = EVTDESC_hist_6
-	picture = "GFX_evt_stone_church"
-	border = "GFX_event_normal_frame_religion"
+narrative_event = {
+	id = hist.9
+	title = hist.9.name
+	desc = hist.9.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_narrative_frame_religion
 	
-	major = yes
-	
-	trigger = {
-		year = 482
-		has_landed_title = e_byzantium
-		culture = isaurian 
-		NOT = { year = 483 }
-	}
-	
-	mean_time_to_happen = {
-		months = 6
-	}
+	is_triggered_only = yes
 
 	option = {
-		name = EVTOPTA_hist_6
-		hidden_tooltip = { character_event = { id = hist.5 days = 30 random = 10 } }
+		name = hist.9.a
+		hidden_tooltip = { 
+			narrative_event = { 
+				id = hist.10 
+				days = 30 random = 10 
+			} 
+		}
 		piety = 150 
 	}
 	option = {
-		name = EVTOPTB_hist_6
+		name = hist.9.b
 		piety = -250
 		prestige = 50
 	}
 }
 
 # The Henotikon Fails
-character_event = {
-	id = hist.7
-	title = "EVTTIT_hist_7"
-	desc = EVTDESC_hist_7
-	picture = "GFX_evt_stone_church"
-	border = "GFX_event_normal_frame_religion"
-	
-	major = yes
+narrative_event = {
+	id = hist.10
+	title = hist.10.name
+	desc = hist.10.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_narrative_frame_religion
 	
 	is_triggered_only = yes
 	
-	immediate = {
-		set_global_flag = the_henotikon 
+	immediate = { 
 		religion_authority = {
 			modifier = the_henotikon
 			years = 40
@@ -368,40 +436,44 @@ character_event = {
 	}
 	
 	option = {
-		name = EVTOPTA_hist_7
-		hidden_tooltip = { narrative_event = { id = hist.8 } }
+		name = hist.10.a
+		hidden_tooltip = {
+			any_playable_ruler = {
+				limit = {
+					NOT = { has_landed_title = e_byzantium }
+				}
+				narrative_event = { id = hist.11 } 
+			}
+		}
 		piety = -50 
 	}
 }
 
-# The Henotikon (Foriegn reception)
+# INFO - The Henotikon Fails
 narrative_event = {
-	id = hist.8
-	title = "EVTNAMEhist_8"
-	desc = "EVTDESChist_8"
-	picture = "GFX_evt_crusaders"
-	border = "GFX_event_narrative_frame_religion"
-	
-	major = yes
-	only_playable = yes
+	id = hist.11
+	title = hist.11.name
+	desc = hist.11.desc
+	picture = GFX_evt_crusaders
+	border = GFX_event_narrative_frame_religion
 	
 	is_triggered_only = yes
 		
 	option = {
-		name = "EVTOPTAhist_8"
+		name = hist.11.a
 		trigger = {
 			has_landed_title = e_byzantium
 			religion_group = christian
 		}
 	}
 	option = {
-		name = "EVTOPTBhist_8"
+		name = hist.11.b
 		trigger = {
 			NOT = { religion_group = christian }
 		}
 	}
 	option = {
-		name = "EVTOPTChist_8"
+		name = hist.11.c
 		trigger = {
 			religion_group = christian
 			NOT = { has_landed_title = e_byzantium }
@@ -411,16 +483,17 @@ narrative_event = {
 
 # The Leontius Revolt 
 character_event = {
-	id = hist.9
-	title = EVTTITLE_hist_9
-	desc = EVTDESC_hist_9
+	id = hist.12
+	title = hist.12.name
+	desc = hist.12.desc
 	picture = GFX_evt_bandits
 	
 	trigger = {
 		year = 484
 		has_landed_title = e_byzantium
 		religion = nicene
-		NOT = { year = 484 }
+		NOT = { year = 485 }
+		NOT = { has_global_flag = leontius_revolt }
 	}
 	
 	mean_time_to_happen = {
@@ -432,19 +505,19 @@ character_event = {
 	}
 	
 	option = {
-		name = EVTOPTA_hist_9
+		name = hist.12.a
 		random_realm_province = {
 			limit = {
 				province_id = 764
 			}
-			hidden_tooltip = { province_event = { id = hist.10 } }
+			hidden_tooltip = { province_event = { id = hist.13 } }
 		}
 	}
 }
 
 # Leontius and Company 
 province_event = {
-	id = hist.11
+	id = hist.13
 	
 	hide_window = yes
 	
@@ -483,7 +556,7 @@ province_event = {
 			add_claim = k_oriens
 			add_claim = k_egypt
 			create_title = {
-				tier = EMPIRE
+				tier = king
 				title = "LEONTIUS_EMPEROR"
 				landless = yes
 				temporary = yes
@@ -498,11 +571,11 @@ province_event = {
 				province = ROOT
 				home = ROOT
 				troops = {
-					archers = { 1000 1000 }
-					light_infantry = { 1500 1500 }
-					heavy_infantry = { 1000 1000 }
-					light_cavalry = { 1500 1500 }
-					heavy_cavalry = { 500 500 }
+					archers = { 500 500 }
+					light_infantry = { 750 750 }
+					heavy_infantry = { 500 500 }
+					light_cavalry = { 750 750 }
+					heavy_cavalry = { 250 250 }
 				}
 				attrition = 1.0
 			}
@@ -511,11 +584,11 @@ province_event = {
 				province = ROOT
 				home = ROOT
 				troops = {
-					archers = { 1000 1000 }
-					light_infantry = { 1500 1500 }
-					heavy_infantry = { 1000 1000 }
-					light_cavalry = { 1500 1500 }
-					heavy_cavalry = { 500 500 }
+					archers = { 500 500 }
+					light_infantry = { 750 750 }
+					heavy_infantry = { 500 500 }
+					light_cavalry = { 750 750 }
+					heavy_cavalry = { 250 250 }
 				}
 				attrition = 1.0
 			}
@@ -524,11 +597,11 @@ province_event = {
 				province = ROOT
 				home = ROOT
 				troops = {
-					archers = { 1000 1000 }
-					light_infantry = { 1500 1500 }
-					heavy_infantry = { 1000 1000 }
-					light_cavalry = { 1500 1500 }
-					heavy_cavalry = { 500 500 }
+					archers = { 500 500 }
+					light_infantry = { 750 750 }
+					heavy_infantry = { 500 500 }
+					light_cavalry = { 750 750 }
+					heavy_cavalry = { 250 250 }
 				}
 				attrition = 1.0
 			}
@@ -552,36 +625,56 @@ province_event = {
 }
 
 # 1st Lex Burgundionum 
-character_event = {
-	id = hist.12
-	title = "EVTTIT_hist_12"
-	desc = EVTDESC_hist_12
-	picture = "GFX_evt_stone_church"
-	border = "GFX_event_normal_frame_religion"
-	
-	major = yes
-	
-	trigger = {
-		year = 484
-		has_landed_title = k_burgundy
-		religion = insular 
-		NOT = { year = 485 }
-	}
-	
-	mean_time_to_happen = {
-		months = 6
-	}
-	
-	immediate = {
-		religion_authority = {
-			modifier = diocese_of_connor
-			years = 100
-		}
-	}
+narrative_event = {
+	id = hist.14
+	title = hist.14.name
+	desc = hist.14.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_narrative_frame_religion
+		
+	is_triggered_only = yes
 
 	option = {
-		name = EVTOPTA_hist_2
+		name = hist.14.a 
 		piety = 150 
-		cash = 50 
+		wealth = 50 
+		hidden_tooltip = { 
+			any_playable_ruler = {
+				limit = {
+					region = world_europe_west
+					region = world_europe_south
+					NOT = { has_landed_title = k_maxima_sequanorum }					
+				}
+				narrative_event = { id = hist.15 } 
+			}
+		}
+
+	}
+}
+
+# INFO - 1st Lex Burgundionum 
+narrative_event = {
+	id = hist.15
+	title = hist.15.name
+	desc = hist.15.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_narrative_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = hist.5.a
+		piety = 50 
+		trigger = { religion = arian }
+	}
+	
+	option = {
+		name = hist.5.b
+		piety = -50 
+		trigger = { 
+			NOT = {
+				religion = arian
+			}
+		}
 	}
 }

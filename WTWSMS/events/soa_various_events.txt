@@ -126,11 +126,23 @@ character_event = {
 	id = SoA.3000
 	hide_window = yes
 	
-	ai = no
 	only_playable = yes
 	
 	trigger = {
 		has_dlc = "Sons of Abraham"
+		OR = {
+			ai = no
+			has_game_rule = {
+				name = supernatural_events
+				value = unrestricted
+			}
+		}
+		NOT = {
+			has_game_rule = {
+				name = supernatural_events
+				value = off
+			}
+		}
 		OR = {
 			religion_group = christian
 			religion_group = muslim
@@ -651,6 +663,8 @@ character_event = {
 				}
 			}
 			add_trait = bastard
+
+			dynasty = mother
 			
 			mother = {
 				remove_spouse = yes
@@ -665,6 +679,10 @@ character_event = {
 						who = ROOT
 						modifier = opinion_witch
 					}
+				}
+				if = {
+					limit = { is_lover = ROOT }
+					remove_lover = ROOT
 				}
 			}
 		}
@@ -916,7 +934,6 @@ character_event = {
 		remove_trait = humble
 		remove_trait = quick
 		remove_trait = slow
-		remove_trait = dull
 		remove_trait = imbecile
 		remove_trait = weak
 		remove_trait = feeble
@@ -1248,7 +1265,7 @@ character_event = {
 	border = GFX_event_normal_frame_religion
 	
 	trigger = {
-		trait = maimed
+		is_maimed_trigger = yes
 		trait = possessed
 		has_dlc = "Sons of Abraham"
 		OR = {
@@ -1267,7 +1284,34 @@ character_event = {
 	
 	option = {
 		name = EVTOPTA_SOA_3050
-		remove_trait = maimed
+		if = {
+			limit = { trait = maimed }
+			remove_trait = maimed
+		}
+		if = {
+			limit = { trait = one_eyed }
+			remove_trait = one_eyed
+		}
+		if = {
+			limit = { trait = one_handed }
+			remove_trait = one_handed
+		}
+		if = {
+			limit = { trait = one_legged }
+			remove_trait = one_legged
+		}
+		if = {
+			limit = { trait = disfigured }
+			remove_trait = disfigured
+		}
+		if = {
+			limit = { trait = mangled }
+			remove_trait = mangled
+		}
+		if = {
+			limit = { has_character_modifier = phantom_pain }
+			remove_character_modifier = phantom_pain
+		}
 	}
 }
 
@@ -1452,6 +1496,7 @@ character_event = {
 				trait = has_bubonic_plague
 			}
 			remove_trait = has_bubonic_plague
+			set_character_flag = achievement_i_got_better
 		}
 		if = {
 			limit = {
@@ -1471,6 +1516,7 @@ character_event = {
 			}
 			remove_trait = has_aztec_disease
 		}
+		clear_disease_level_effect = yes
 	}
 }
 
@@ -1534,11 +1580,11 @@ character_event = {
 	
 	only_rulers = yes
 	has_character_flag = demon_child_non_pagan
+	war = yes
+	has_dlc = "Sons of Abraham"
 	
 	trigger = {
-		war = yes
 		trait = possessed
-		has_dlc = "Sons of Abraham"
 		OR = {
 			is_primary_war_defender = yes
 			is_primary_war_attacker = yes
@@ -1899,11 +1945,11 @@ character_event = {
 	only_capable = yes
 	min_age = 16
 	has_character_flag = witch_nanny
+	has_dlc = "Sons of Abraham"
+	is_married = no
 	
 	trigger = {
-		has_dlc = "Sons of Abraham"
 		is_ruler = no
-		is_married = no
 		is_consort = no
 		NOT = { religion_group = pagan_group }
 		NOT = {
@@ -2037,7 +2083,7 @@ character_event = {
 			}
 		}
 		death = {
-			death_reason = death_suicide
+			death_reason = death_suicide_fall
 		}
 	}
 }

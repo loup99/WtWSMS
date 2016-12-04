@@ -1,0 +1,282 @@
+################################################
+# Events for Flavour
+#
+# ID 554350001 and on are reserved
+##################################################
+#Followup events to demand_religious_conversion decision
+namespace = demand_conversion
+
+#Demand that vassal/courtier convert to liege's religion
+#FROMFROM = liege demanding conversion
+letter_event = {
+	id = demand_conversion.1
+	desc = EVTDESCdemand_conversion.1
+	border = GFX_event_letter_frame_religion
+	show_from_from = yes
+	
+	is_triggered_only = yes
+	
+	#Agree to convert
+	option = {
+		name = EVTOPTAdemand_conversion.1
+		ai_chance = {
+			factor = 100
+			#More likely to convert if he likes you
+			modifier = {
+				factor = 1.5
+				opinion = {
+					who = FROMFROM
+					value = 25
+				}
+			}
+			modifier = {
+				factor = 1.5
+				opinion = {
+					who = FROMFROM
+					value = 50
+				}
+			}
+			modifier = {
+				factor = 1.5
+				opinion = {
+					who = FROMFROM
+					value = 75
+				}
+			}
+			#More likely to convert if cynical
+			modifier = {
+				factor = 2.0
+				trait = cynical
+			}
+			#More likely to convert if liege has higher learning
+			modifier = {
+				factor = 1.5
+				FROMFROM = {
+					attribute_diff = {
+						attribute = learning
+						character = ROOT
+						value = 5
+					}
+				}
+			}
+			modifier = {
+				factor = 1.5
+				FROMFROM = {
+					attribute_diff = {
+						attribute = learning
+						character = ROOT
+						value = 10
+					}
+				}
+			}
+			modifier = {
+				factor = 1.5
+				FROMFROM = {
+					attribute_diff = {
+						attribute = learning
+						character = ROOT
+						value = 15
+					}
+				}
+			}
+			modifier = {
+				factor = 1.5
+				FROMFROM = {
+					attribute_diff = {
+						attribute = learning
+						character = ROOT
+						value = 20
+					}
+				}
+			}
+			modifier = {
+				factor = 1.5
+				FROMFROM = {
+					attribute_diff = {
+						attribute = learning
+						character = ROOT
+						value = 25
+					}
+				}
+			}
+		}
+		tooltip = {
+			religion = FROMFROM
+		}
+		FROMFROM = {
+			letter_event = {
+				id = demand_conversion.2
+				days = 3
+				random = 7
+			}
+		}
+	}
+	#Refuse to convert
+	option = {
+		name = EVTOPTBdemand_conversion.1
+		trigger = {
+			NAND = {	#Can not refuse conversion if imprisoned by liege
+				prisoner = yes
+				host = {
+					character = FROMFROM
+				}
+			}
+		}
+		ai_chance = {
+			factor = 100
+			#Less likely to convert if he doesn't like you
+			modifier = {
+				factor = 1.5
+				NOT = {
+					opinion = {
+						who = FROMFROM
+						value = 0
+					}
+				}
+			}
+			modifier = {
+				factor = 1.5
+				NOT = {
+					opinion = {
+						who = FROMFROM
+						value = -25
+					}
+				}
+			}
+			modifier = {
+				factor = 1.5
+				NOT = {
+					opinion = {
+						who = FROMFROM
+						value = -50
+					}
+				}
+			}
+			modifier = {
+				factor = 1.5
+				NOT = {
+					opinion = {
+						who = FROMFROM
+						value = -75
+					}
+				}
+			}
+			#Less likely to convert if zealous
+			modifier = {
+				factor = 10.0
+				trait = zealous
+			}
+			#Less likely to convert if learning is higher than liege's
+			modifier = {
+				factor = 1.5
+				attribute_diff = {
+					attribute = learning
+					character = FROMFROM
+					value = 5
+				}
+			}
+			modifier = {
+				factor = 1.5
+				attribute_diff = {
+					attribute = learning
+					character = FROMFROM
+					value = 10
+				}
+			}
+			modifier = {
+				factor = 1.5
+				attribute_diff = {
+					attribute = learning
+					character = FROMFROM
+					value = 15
+				}
+			}
+			modifier = {
+				factor = 1.5
+				attribute_diff = {
+					attribute = learning
+					character = FROMFROM
+					value = 20
+				}
+			}
+			modifier = {
+				factor = 1.5
+				attribute_diff = {
+					attribute = learning
+					character = FROMFROM
+					value = 25
+				}
+			}
+			#Less likely to convert if Bastion of Faith
+			modifier = {
+				factor = 2.0
+				bastion_of_faith_religion_trigger = yes
+			}
+			#Less likely to convert if organized religion
+			modifier = {
+				factor = 2.0
+				organized_religion_trigger = yes
+			}
+			#Less likely to convert if different religion group
+			modifier = {
+				factor = 2.0
+				NOT = {
+					religion_group = FROMFROM
+				}
+			}
+			#Less likely to convert if a vassal rather than courtier
+			modifier = {
+				factor = 1.2
+				is_ruler = yes
+			}
+		}
+		tooltip = {
+			opinion = {
+				who = FROMFROM
+				modifier = tried_to_convert_me
+				months = 12
+			}
+		}
+		FROMFROM = {
+			letter_event = {
+				id = demand_conversion.3
+				days = 3
+				random = 7
+			}
+		}
+	}
+}
+
+#Notification event: accepted conversion
+letter_event = {
+	id = demand_conversion.2
+	desc = EVTDESC202
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = OK
+		FROM = {
+			religion = ROOT
+		}
+	}
+}
+
+#Notification event: refused conversion
+letter_event = {
+	id = demand_conversion.3
+	desc = EVTDESC203
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = OK
+		reverse_opinion = {
+			who = ROOT
+			modifier = tried_to_convert_me
+			months = 12
+		}
+	}
+}

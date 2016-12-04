@@ -1,6 +1,6 @@
 decisions = {	
 	create_binitarian_patriarchy = {
-		
+		only_playable = yes
 		is_high_prio = yes
 	
 		potential = {
@@ -52,6 +52,7 @@ decisions = {
 			factor = 1
 		}
 	}
+	
 	choose_sanamahi_patron_deity = {
 		potential = {
 			has_dlc = "Rajas of India"
@@ -92,7 +93,9 @@ decisions = {
 			}
 		}
 	}
+	
 	give_toumanglais = {
+		only_playable = yes
 		potential = {
 			is_ruler = yes
 			is_theocracy = no
@@ -112,7 +115,7 @@ decisions = {
 		}
 		effect = {
 			scaled_wealth = -0.20
-			set_character_flag = { gave_offering_unugais } 
+			set_character_flag = gave_offering_unugais
             character_event = { id = sanamahi.15 }
 		}
 		revoke_allowed = {
@@ -163,13 +166,15 @@ decisions = {
 			}
 	    }
     }	
+	
 	enlist_paygan = {
+		only_playable = yes
 		is_high_prio = yes
 		is_mercenary = yes
 		potential = {
 			OR = { 
-			culture = persian
-			culture = parthian
+				culture = persian
+				culture = parthian
 			}
 			religion = zoroastrian
 		}
@@ -202,7 +207,7 @@ decisions = {
 	}
 	
 	create_ebionites_patriarchy = {
-		
+		only_playable = yes
 		is_high_prio = yes
 	
 		potential = {
@@ -256,7 +261,7 @@ decisions = {
 	}
 
 	create_apollinarian_patriarchy = {
-		
+		only_playable = yes
 		is_high_prio = yes
 	
 		potential = {
@@ -310,7 +315,7 @@ decisions = {
 	}
 
 	create_adoptionian_patriarchy = {
-		
+		only_playable = yes
 		is_high_prio = yes
 	
 		potential = {
@@ -365,7 +370,7 @@ decisions = {
 	}
 
 	create_patripassian_patriarchy = {
-		
+		only_playable = yes
 		is_high_prio = yes
 	
 		potential = {
@@ -420,7 +425,7 @@ decisions = {
 	}
 
 	restore_bishop_of_carthage = {
-		
+		only_playable = yes
 		is_high_prio = yes
 	
 		potential = {
@@ -477,7 +482,7 @@ decisions = {
 	}
 
 	create_valentinian_patriarchy = {
-		
+		only_playable = yes
 		is_high_prio = yes
 	
 		potential = {
@@ -532,8 +537,9 @@ decisions = {
 	}
 
 	alamannian_sacrifice = {
+		only_playable = yes
+		only_rulers = yes
 		potential = {
-			is_ruler = yes
 			is_feudal = yes
 			prisoner = no
 			culture = alamannian
@@ -566,6 +572,169 @@ decisions = {
 		}
 		ai_will_do = {
 			factor = 1
+		}
+	}
+	
+	create_salem = {
+		is_high_prio = yes
+		only_playable = yes
+		only_rulers = yes
+
+		potential = {
+			religion = melchisedechianism
+			independent = yes
+			NOT = { is_title_active = k_melchisedechianism }
+		}
+		
+		allow = {
+			piety = 1000
+			OR = {
+				trait = mystic
+				learning = 14
+			}
+			primary_title = { higher_tier_than = KING }
+			realm_size = 150
+		}
+		
+		effect = {
+			give_nickname = nick_the_anointed
+			activate_title = { 
+				title = k_melchisedechianism
+				status = yes
+			}
+			hidden_tooltip = {
+				grant_title =  PREV	
+				religion_authority = {
+					modifier = patriarchy_instituted
+					years = 20
+				}
+			}
+			piety = 1000
+			add_trait = mystic
+			set_global_flag = here_come_dat_priest_king
+			add_trait = newsalem
+			ROOT = { 
+				narrative_event = { id = spirit.41 }
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	create_priscillian_patriarchy = {
+		only_playable = yes
+		is_high_prio = yes
+	
+		potential = {
+			religion = priscillianism
+			NOT = { is_title_active = k_priscillianism }
+			independent = yes
+		}
+		
+		allow = {
+			piety = 1000
+			trait = vegetarian
+			martial = 8
+			learning = 8
+			OR = {
+				trait = humble
+				trait = zealous
+			}
+			OR = {
+				owns = 198
+				any_realm_lord = {
+					owns = 198
+				}
+			}
+		}
+		
+		effect = {
+			give_nickname = nick_with_immortal_soul
+			set_global_flag = veggiepriest
+			activate_title = { title = k_priscillianism status = yes }
+			hidden_tooltip = {
+				create_character = {
+					name = "Priscillian"
+					dynasty = none
+					trait = humble
+					trait = vegetarian
+					trait = zealous
+					trait = mystic
+					race = egyptian
+					religion = priscillianism
+					culture = ROOT
+					female = no
+					attributes = {
+						martial = 8
+						intrigue = 10
+						learning = 10
+					}
+					historical = yes
+				}
+				new_character = {
+					k_priscillianism = {
+						grant_title = PREV
+					}
+					b_avila = {
+						grant_title = PREV
+						make_capital_holding = yes
+					}
+					wealth = 0
+					opinion = {
+						who = ROOT
+						modifier = opinion_creator_of_rel_heal
+					}
+				}
+				
+				religion_authority = {
+					modifier = patriarchy_instituted
+					years = 20
+				}
+			}
+			piety = 1000
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	the_henotikon = {
+		is_high_prio = yes
+		only_independent = yes
+
+		potential = {
+			has_landed_title = e_byzantium
+			religion = nicene
+			NOT = { has_global_flag = the_henotikon}
+		}
+		
+		allow = {
+			piety = 100
+			prestige = 100
+			war = no
+			prisoner = no
+			NOT = { is_inaccessible_trigger = yes }
+			age = 16
+		}
+		
+		effect = {
+			narrative_event = { id = hist.9 }
+			set_global_flag = the_henotikon
+		}
+		
+		ai_will_do = {
+			factor = 1 
 		}
 	}
 }

@@ -713,6 +713,7 @@ narrative_event = {
 			character = 175110
 		}
 		add_claim = e_italy
+		character_event = { id = zusk_event.26 days = 1 } # Delay granting e_wre, so that below titular titles aren't transferred
 	}
 	option = {
 		name = ZUSK30OP7
@@ -1018,6 +1019,210 @@ character_event = {
 		}
 		set_global_flag = ostrogoths_arrived 
 	}
+}
+
+# Rouran arrives
+province_event = {
+	id = zusk_event.16
+	hide_window = yes
+	
+	picture = GFX_evt_peasants
+	border = GFX_event_normal_frame_war
+
+	trigger = {
+        year = 500
+		NOT = { has_global_flag = rouran_arrived }
+        province_id = 1423
+	}
+	
+	mean_time_to_happen = {
+		years = 20
+	}
+	
+    immediate = {
+		set_global_flag = rouran_arrived
+        activate_title = { title = e_rouran status = yes }
+		
+		create_character = {
+            name = Nagai
+			random_traits = no
+			dynasty = 100
+			religion = tengri_pagan
+             culture = mongol
+			female = no
+			age = 45
+		}
+		
+		new_character = {
+			save_event_target_as = target_rouran
+
+            wealth = 500
+
+            e_rouran = {
+				grant_title = PREV
+			}
+            set_defacto_liege = THIS
+
+            c_fergana = {
+				grant_title = PREV
+			}
+
+			create_character = {
+				random_traits = yes
+				dynasty = none
+				religion = tengri_pagan
+				culture = mongol
+				female = no
+				age = 23
+				attributes = {
+					martial = 6
+				}
+				trait = skilled_tactician
+			}
+			new_character = {
+				spawn_unit = {
+					province = ROOT
+					home = ROOT
+					owner = PREV
+					troops = {
+						horse_archers = { 2700 2700 }
+						light_cavalry = { 1600 1600 }
+						light_infantry = { 541 541 }
+						heavy_infantry = { 210 210 }
+						knights = { 47 47 }
+					}
+					attrition = 0.25
+				}
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				religion = tengri_pagan
+				culture = mongol
+				female = no
+				age = 27
+				attributes = {
+					martial = 6
+				}
+				trait = skilled_tactician
+			}
+			new_character = {
+				spawn_unit = {
+					province = ROOT
+					home = ROOT
+					owner = PREV
+					troops = {
+						horse_archers = { 2700 2700 }
+						light_cavalry = { 1600 1600 }
+						light_infantry = { 541 541 }
+						heavy_infantry = { 210 210 }
+						knights = { 47 47 }
+					}
+					attrition = 0.25
+				}
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				religion = tengri_pagan
+				culture = mongol
+				female = no
+				age = 27
+				attributes = {
+					martial = 6
+				}
+				trait = skilled_tactician
+			}
+			new_character = {
+				spawn_unit = {
+					province = ROOT
+					home = ROOT
+					owner = PREV
+					troops = {
+						horse_archers = { 2700 2700 }
+						light_cavalry = { 1600 1600 }
+						light_infantry = { 541 541 }
+						heavy_infantry = { 210 210 }
+						knights = { 47 47 }
+					}
+					attrition = 0.25
+				}
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				religion = tengri_pagan
+				culture = mongol
+				female = no
+				age = 27
+				attributes = {
+					martial = 6
+				}
+				trait = skilled_tactician
+			}
+			new_character = {
+				spawn_unit = {
+					province = ROOT
+					home = ROOT
+					owner = PREV
+					troops = {
+						horse_archers = { 2700 2700 }
+						light_cavalry = { 1600 1600 }
+						light_infantry = { 541 541 }
+						heavy_infantry = { 210 210 }
+						knights = { 47 47 }
+					}
+					attrition = 0.25
+				}
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				religion = tengri_pagan
+				culture = mongol
+				female = no
+				age = 27
+				attributes = {
+					martial = 6
+				}
+				trait = skilled_tactician
+			}
+			new_character = {
+				spawn_unit = {
+					province = ROOT
+					home = ROOT
+					owner = PREV
+					troops = {
+						horse_archers = { 2700 2700 }
+						light_cavalry = { 1600 1600 }
+						light_infantry = { 541 541 }
+						heavy_infantry = { 210 210 }
+						knights = { 47 47 }
+					}
+					attrition = 0.25
+				}
+			}
+			
+			# DoW on the province top liege
+			1425 = {
+				kingdom = {
+					event_target:target_rouran = {
+						war = {
+							casus_belli = tribal_invasion
+							target = PREVPREV # The top liege of the owner
+							thirdparty_title = PREV # The de jure kingdom
+						}
+					}
+				}
+			}
+		}
+    }
+
+	option = {
+		name = "EVTOPTA_TOG_1000"
+	}
+
+
 }
 
 # Gökturk arrives
