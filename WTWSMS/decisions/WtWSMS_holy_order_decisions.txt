@@ -1,5 +1,4 @@
 decisions = {
-
 	expel_fist_hubal = {
 		only_playable = yes
 		potential = {
@@ -194,5 +193,223 @@ decisions = {
 			factor = 0
 		}
 	}
+	
+	found_melch_holy_order = { # Create Melchisedechianist Holy Order
+		only_playable = yes
+		is_high_prio = yes
+		potential = {
+			has_global_flag = here_come_dat_priest_king
+			is_playable = yes
+			higher_tier_than = duke
+			has_regent = no
+			religion = melchisedechianism
+			NOT = { has_global_flag = order_of_melchizidek }
+		}
+		allow = {
+			piety = 1000
+			prestige = 300
+			wealth = 300
+		}
+		effect = {
+			set_global_flag = order_of_melchizidek
+			prestige = 500
+			piety = -1000
+			wealth = -30
+			activate_title = { title = d_melchisedechianism_holy_order status = yes }
+			hidden_tooltip = {
+				create_random_priest = {
+					random_traits = yes
+					religion = melchisedechianism
+					culture = hebrew
+					female = no
+					dynasty = NONE
+					age = 30
+					wealth = 300
+					trait = mystic
+					trait = inspiring_leader
+					trait = holy_warrior
+					trait = scholar
+					trait = wroth
+					trait = zealous
+					attributes = {
+						martial = 12
+					}
+				}
+				new_character = {
+					d_melchisedechianism_holy_order = {
+						grant_title = PREV
+					}
+				}
+				create_random_soldier = {
+					random_traits = yes
+					religion = melchisedechianism
+					culture = juhuro
+					age = 18
+					wealth = 50
+					trait = mystic
+					trait = scholar
+					trait = zealous
+					female = no
+					attributes = {
+						martial = 13
+					}
+				}
+				create_random_soldier = {
+					random_traits = yes
+					religion = melchisedechianism
+					culture = sephardi
+					age = 18
+					wealth = 50
+					trait = mystic
+					trait = scholar
+					trait = zealous
+					female = no
+					attributes = {
+						martial = 12
+					}
+				}
+				create_random_soldier = {
+					random_traits = yes
+					religion = melchisedechianism
+					culture = ROOT
+					race = ROOT
+					age = 16
+					female = yes
+					trait = mystic
+					trait = lustful
+					trait = master_seductress
+					attributes = {
+						martial = 12
+					}
+				}
+			}
+			k_melchisedechianism = { 
+				holder_scope = {
+					ROOT = {
+						narrative_event = { id = holy.2062 }
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
 
+	avenge_priscillian = { # Create Priscillianism Holy Order
+		only_playable = yes
+		is_high_prio = yes
+		potential = {
+			has_global_flag = veggiepriest
+			is_playable = yes
+			higher_tier_than = duke
+			has_regent = no
+			religion = priscillianism
+			NOT = { has_global_flag = iberia_wets_its_pants }
+		}
+		allow = {
+			piety = 1000
+			prestige = 300
+			wealth = 300
+		}
+		effect = {
+			set_global_flag = iberia_wets_its_pants
+			prestige = 500
+			piety = -1000
+			wealth = -30
+			activate_title = { title = c_priscillianism_holy_order status = yes }
+			custom_tooltip = {
+				name = avenge_priscillian_custom_tooltip
+				hidden_tooltip = {
+					create_random_priest = {
+						name = "Priscillian"
+						random_traits = yes
+						religion = priscillianism
+						culture = ROOT
+						race = egyptian_arabic
+						dynasty = NONE
+						age = 34
+						wealth = 300
+						trait = vegetarian
+						trait = inspiring_leader
+						trait = humble
+						trait = holy_warrior
+						attributes = {
+							martial = 12
+						}
+					}
+					new_character = {
+						c_priscillianism_holy_order = {
+							grant_title = PREV
+						}
+					}
+				}
+			}
+			k_priscillianism = { 
+				holder_scope = {
+					ROOT = {
+						narrative_event = { id = holy.2063 }
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	create_sethian_holy_order = { # Create Sethian Holy Order
+		only_playable = yes
+		is_high_prio = yes
+		potential = {
+			has_global_flag = hes_a_cold_hearted_snake
+			is_playable = yes
+			has_regent = no
+			religion = sethian
+			NOT = { has_global_flag = cobras_striking }
+		}
+		allow = {
+			piety = 1000
+			prestige = 300
+			wealth = 300
+		}
+		effect = {
+			set_global_flag = cobras_striking
+			prestige = 500
+			piety = -1000
+			wealth = -300
+			activate_title = { title = d_sethian_holy_order status = yes }
+			hidden_tooltip = {
+				create_random_priest = {
+					name = "Seth"
+					random_traits = yes
+					religion = sethian
+					culture = coptic
+					race = egyptian_arabic
+					dynasty = NONE
+					age = 34
+					wealth = 500
+					trait = holy_warrior
+					attributes = {
+					martial = 12
+					}
+				}
+				new_character = {
+					d_sethian_holy_order = {
+						grant_title = PREV
+					}
+				}
+			}
+#			d_sethian = { 
+#				holder_scope = {
+#					ROOT = {
+#						narrative_event = { id = holy. }
+#					}
+#				}
+#			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
 }

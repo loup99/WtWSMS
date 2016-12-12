@@ -1,6 +1,5 @@
 namespace = spirit
 
-# Germanic/Norse Schism
 character_event = {
 	id = spirit.1
 	desc = EVTDESC_spirit.1
@@ -192,7 +191,6 @@ narrative_event = {
 		}
 	}
 }
-
 #Goes to the Pope
 character_event = {
 	id = spirit.3
@@ -268,7 +266,6 @@ character_event = {
 		}	
 	}
 }
-
 # Denied
 character_event = {
 	id = spirit.4
@@ -317,7 +314,6 @@ character_event = {
 		prestige = -150
 	}
 }
-
 #Goes to the Emperor
 character_event = {
 	id = spirit.6
@@ -378,7 +374,6 @@ character_event = {
 		}	
 	}
 }
-
 # Denied
 character_event = {
 	id = spirit.7
@@ -409,7 +404,6 @@ character_event = {
 		prestige = 150
 	}
 }
-
 # Denied
 character_event = {
 	id = spirit.8 
@@ -659,7 +653,6 @@ narrative_event = {
 		}
 	}
 }
-
 # Your Priest Finds a Holy Tree. 
 province_event = {
 	id = spirit.14
@@ -721,7 +714,6 @@ province_event = {
 		}
 	}
 }
-
 # Positive Holy Tree 
 province_event = {
 	id = spirit.15
@@ -851,9 +843,10 @@ province_event = {
 		name = EVTOPTCspirit.17
 		owner = {
 			religion = germanic_pagan
+				}
+			}
 		}
-	}
-}
+
 
 # Old Tree 
 province_event = {
@@ -870,8 +863,9 @@ province_event = {
 	}
 	option = {
 		name = EVTOPTAspirit.18
-	}
-}
+			}
+		}
+	
 	
 # Germans Sacrifice Prisoner
 character_event = {
@@ -887,6 +881,7 @@ character_event = {
 		name = EVTOPTA_SSI_060
 	}
 }
+
 
 # Germans Sacrifice Occupied Province Character
 character_event = {
@@ -979,6 +974,7 @@ character_event = {
 		}
 	}
 }
+
 
 # On-action event: Valentinian Bridal Chamber 
 character_event = {
@@ -1125,6 +1121,7 @@ character_event = {
 	}
 }
 
+
 # Germans Sacrifice Occupied Province Character
 character_event = {
 	id = spirit.30
@@ -1195,7 +1192,6 @@ character_event = {
 		piety = 25
 	}
 }
-
 # Nicene Reversion
 character_event = {
 	id = spirit.33
@@ -1219,6 +1215,7 @@ character_event = {
 		religion = nicene 
 	}
 }
+
 
 # Choose patron deity 1
 character_event = {
@@ -1292,25 +1289,71 @@ character_event = {
 	}
 }
 
-# Shown when a Melchisidechian creates the Kingdom of Salem
-narrative_event = { 
+character_event = { # Offspring of the King of Salem receive the special Trait
 	id = spirit.40
-	title = spirit.40.name
-	desc = spirit.40.desc
+	hide_window = yes
 	picture = GFX_evt_gnostics_rising
-	border = GFX_event_narrative_frame_learning
+
+	has_global_flag = here_come_dat_priest_king
 	
-	is_triggered_only = yes
+	trigger = {
+		OR = {
+			mother = { trait = newsalem }
+			father = { trait = newsalem }
+			mother = { trait = spawn_of_newsalem }
+			father = { trait = spawn_of_newsalem } 
+		}
+		NOT = { trait = spawn_of_newsalem }
+	}
 	
-	option = {
-		name = spirit.40.a
+	mean_time_to_happen = {
+		days = 3
+	}
+	
+	immediate = {
+		add_trait = spawn_of_newsalem
 	}
 }
 
-# Priest-King of Salem or Melchisidechian clergyman is annointed as mystic
-character_event = { 
+narrative_event = { #Shown when a Melchisedechian creates the Kingdom of Salem
 	id = spirit.41
+	title = spirit.41.name
+	desc = spirit.41.desc
+	picture = GFX_evt_gnostics_rising
+	border = GFX_event_narrative_frame_learning
 	
+	major = yes
+
+	is_triggered_only = yes
+	
+	option = {
+		name = spirit.41.a
+		trigger = {
+			religion = melchisidechianism
+		}
+	}
+	option = {
+		name = spirit.41.b
+		trigger = {
+			religion_group = christian
+			NOT = {
+				religion = melchisedechianism
+			}
+		}
+	}
+	option = {
+		name = spirit.41.c
+		trigger = {
+			NOT = {
+				religion_group = christian
+				religion = melchisedechianism
+			}
+		}
+	}
+}
+
+character_event = { #Priest-King of Salem or Melchisedechian clergyman is annointed as mystic
+	id = spirit.42
 	hide_window = yes
 
 	trigger = {
@@ -1321,20 +1364,11 @@ character_event = {
 				controls_religion = melchisedechianism
 			}
 			is_theocracy = yes
+			government = theocracy_government
 			has_job_title = job_spiritual
 		}
-		religion = melchisedechianism
-		NOT = {
-			trait = mystic
-			trait = cruel
-			trait = bad_priest_christian
-			trait = impaler
-			trait = hunter
-			trait = falconer
-			trait = cannibal_trait
-			trait = arbitrary
-			trait = excommunicated
-		}
+       		religion = melchisedechianism
+		NOT = { trait = mystic }
 	}
 	
 	mean_time_to_happen = {
@@ -1342,15 +1376,14 @@ character_event = {
 	}
 	
 	option = {
-		name = spirit.41.a
+		name = spirit.42.a
 		add_trait = mystic
+		add_learning = 1
 	}
 }
 
-# Priscillianist clergyman takes vegetarianism as part of ordination/investiture
-character_event = { 
-	id = spirit.42
-	
+character_event = { #Priscillianist clergyman takes vegetarianism as part of ordination/investiture
+	id = spirit.43
 	hide_window = yes
 
 	trigger = {
@@ -1359,7 +1392,7 @@ character_event = {
 			government = theocracy_government
 			AND = {
 				controls_religion = priscillianism
-				has_landed_title = d_priscillianism
+				has_global_flag = veggiepriest
 			}
 			has_job_title = job_spiritual
 			trait = nun
@@ -1376,6 +1409,7 @@ character_event = {
 			trait = arbitrary
 			trait = excommunicated
 		}
+
 	}
 
 	mean_time_to_happen = {
@@ -1383,38 +1417,26 @@ character_event = {
 	}
 
 	option = {
-		name = spirit.42.a
+		name = spirit.43.a
 		add_trait = vegetarian
 	}
 }
 
-# Tzadikite Rabbis are annointed as Khaballistic clergymen
-character_event = { 
-	id = spirit.43
-	
+character_event = { #Tzadikite Rabbis are annointed as Khaballistic clergymen
+	id = spirit.44
 	hide_window = yes
 
 	trigger = {
 		OR = {
 			AND = {
 				has_landed_title = d_tzadikite
-				controls_religion = d_tzadikite
+				controls_religion = tzadikite
 			}
 			is_theocracy = yes
 			has_job_title = job_spiritual
 		}
-       	religion = tzadikite
-		NOT = {
-			trait = mystic
-			trait = cruel
-			trait = bad_priest_christian
-			trait = impaler
-			trait = hunter
-			trait = falconer
-			trait = cannibal_trait
-			trait = arbitrary
-			trait = excommunicated
-		}
+       		religion = tzadikite
+		NOT = { trait = mystic }
 	}
 	
 	mean_time_to_happen = {
@@ -1424,14 +1446,14 @@ character_event = {
 	option = {
 		name = spirit.44.a
 		add_trait = mystic
+		add_learning = 1
 	}
 }
 
-# Shown when a Donatist restores the Bishop of Carthage
-narrative_event = { 
-	id = spirit.44
-	title = spirit.44.title
-	desc = spirit.44.desc
+narrative_event = { #Shown when a Donatist enforces the "only good people can be priests" doctrine and restores the Bishop of Carthage
+	id = 662342141
+	title = 662342141_title
+	desc = 662342141_desc
 	picture = GFX_evt_pope_feast
 	border = GFX_event_narrative_frame_war
 	
@@ -1440,15 +1462,14 @@ narrative_event = {
 	is_triggered_only = yes
 	
 	option = {
-		name = spirit.44.a
+		name = 662342141_YES
 		trigger = {
 			religion = donatism
 		}
-		piety = 50
 	}
 
 	option = {
-		name = spirit.44.b
+		name = 662342141_NO
 		trigger = {
 			AND = {
 				religion_group = christian
@@ -1459,7 +1480,7 @@ narrative_event = {
 		}
 	}
 	option = {
-		name = spirit.44.c
+		name = 662342141_SOWHAT
 		trigger = {
 			NOT = { 
 				religion_group = christian 
@@ -1469,45 +1490,122 @@ narrative_event = {
 	}
 }
 
-# Create Arian Papacy
-narrative_event = { 
+character_event = { # Borborite setup
 	id = spirit.45
-	title = spirit.45.title
-	desc = spirit.45.desc
-	picture = GFX_evt_pope_feast
-	border = GFX_event_narrative_frame_war
+	hide_window = yes
+	picture = GFX_evt_gnostics_rising
 	
-	major = yes
-
-	is_triggered_only = yes
-	
-	option = {
-		name = spirit.45.a
-		trigger = {
-			religion = arian
-		}
-		piety = 50
+	trigger = {
+		religion = borborites
+		NOT = { trait = whoreborite }
 	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		add_trait = whoreborite
+	}
+}
 
-	option = {
-		name = spirit.45.b
-		trigger = {
-			AND = {
-				religion_group = christian
-				NOT = {
-					religion = arian
+character_event = { # Borborite characters have their Borborite rituals cleansed
+	id = spirit.46
+	hide_window = yes
+	picture = GFX_evt_gnostics_rising
+
+	has_global_flag = here_come_dat_priest_king
+	
+	trigger = {
+		trait = whoreborite
+		NOT = { religion = borborites }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		remove_trait = whoreborite
+	}
+}
+
+
+character_event = { # Force Enatic Succession on Borborite religious head
+	id = spirit.47
+	hide_window = yes
+
+	trigger = {
+		OR = {
+			has_landed_title = d_borborites
+			controls_religion = borborites
+		}
+       		religion = borborites
+		NOT = {
+			primary_title = { has_law = enatic_succession }
+		}
+		NOT = {
+			primary_title = {
+				d_borborites = {
+					{ has_law = enatic_succession }
 				}
 			}
 		}
 	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
 	option = {
-		name = spirit.45.c
-		trigger = {
-			NOT = { 
-				religion_group = christian 
-				religion = donatism
-			}	
+		name = "Bunga bunga"
+		d_borborites = {
+			set_law = enatic_succession
+		}
+		add_stewardship = -1
+		primary_title = {
+			d_borborites = {
+				add_law = enatic_succession
+			}
 		}
 	}
 }
 
+character_event = { # Force True Cognatic Succession on Borborite clergy
+	id = spirit.48
+	hide_window = yes
+
+	trigger = {
+       		OR = {
+			religion = borborites
+			trait = whoreborite
+		}
+		OR = {
+			government = theocracy_government
+			is_theocracy = yes
+		}
+		NOT = {
+			primary_title = { has_law = true_cognatic_succession }
+		}
+		is_ruler = yes
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = "Bunga bunga"
+		primary_title = {
+			set_law = true_cognatic_succession
+		}
+		add_stewardship = -1
+		primary_title = {
+			add_law = true_cognatic_succession
+		}
+		add_law = true_cognatic_succession
+		add_trait = lustful
+		add_trait = hedonist
+		add_trait = fertile
+	}
+}

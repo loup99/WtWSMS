@@ -264,8 +264,8 @@ christian = {
 		can_retire_to_monastery = yes
 		priests_can_inherit = no
 		
-		religious_clothing_head = 0
-		religious_clothing_priest = 1
+		religious_clothing_head = 5
+		religious_clothing_priest = 5
 	}
 	eutychian = {
 		graphical_culture = westerngfx
@@ -531,7 +531,7 @@ christian = {
 			GOD_GOD GOD_JESUS GOD_HOLY_SPIRIT GOD_APOLLO
 		}
 		evil_god_names = {
-			GOD_YALTABAOTH 
+			GOD_YALTABAOTH GOD_YALDABAOTH 
 		}
 		
 		can_retire_to_monastery = yes
@@ -563,7 +563,7 @@ christian = {
 			GOD_THE_SERPENT GOD_SOPHIA GOD_BARBELO GOD_UNKNOWN_GOD GOD_SETH THE_HISSING_GOD THE_FANGED_ONE
 		}
 		evil_god_names = {
-			GOD_YALDABAOTH
+			GOD_YALDABAOTH GOD_YALTABAOTH 
 		}
 		
 		can_retire_to_monastery = yes
@@ -576,7 +576,7 @@ christian = {
 
 		max_consorts = 3 # Can take concubines
 
-		religious_clothing_head = 3
+		religious_clothing_head = 7
 		religious_clothing_priest = 3
 	}
 	valentinianism = {
@@ -690,8 +690,7 @@ christian = {
 		parent = nicene
 
 		character_modifier = {
-			# FIXME heretic_opinion is not a valid modifier
-			# heretic_opinion = 20
+			infidel_opinion = 20
 		}
 		
 		can_retire_to_monastery = yes
@@ -709,12 +708,14 @@ christian = {
 		color = { 1.0 0.5 0.7 }
 		parent = nicene
 
+		scripture_name = MELCHLOGIA
+
 		high_god_name = { 
-			GOD_THE_LORD
+			ELELYON
 		}
 
 		god_names = {
-			PROPHET_MELCHISEDECH GOD_GOD GOD_THE_LORD GOD_JESUS ADONAI 
+			PROPHET_MELCHISEDECH GOD_GOD GOD_THE_LORD GOD_JESUS ADONAI ELELYON
 		}
 
 		evil_god_names = {
@@ -1186,6 +1187,62 @@ christian = {
 		religious_clothing_head = 5
 		religious_clothing_priest = 5
 	}
+
+	borborites = {
+		graphical_culture = norsegfx
+
+		icon = 112
+		heresy_icon = 130
+		
+		color = { 255 0 128 }
+		parent = nicene
+		
+		crusade_name = GREAT_HOLY_WAR
+		scripture_name = GOSPEL_OF_EVE
+		priest_title = PIMP
+		
+		high_god_name = GOD_BARBELO
+		god_names = {
+			GOD_SABAOTH GOD_SOPHIA GOD_BARBELO GOD_SETH THE_HISSING_GOD GOD_THE_MOTHERFATHER GOD_8HEAVEN GOD_8ARCHON GOD_AEON GOD_ANDROGYNOUS_NAME PROMISCUITY GOD_8HEAVENS GOD_JESUS PROPHET_NOAH
+		}
+		evil_god_names = {
+			EPIPHANIUS GOD_YALDABAOTH IGNORANCE CHASTITY THE_DARK_SPIRITS GOD_YALTABAOTH
+		}
+
+		character_modifier = {
+			fertility = .33
+			martial = -2
+			stewardship = -2
+			sex_appeal_opinion = 15
+			# Other, more advanced modifiers are in the special Borborite trait to avoid clutter
+		}
+
+
+		can_retire_to_monastery = no
+		female_temple_holders = yes
+		feminist = yes
+		can_excommunicate = no
+		can_grant_claim = yes
+		can_call_crusade = no
+		priests_can_marry = yes
+		defensive_attrition = yes
+		allow_looting = no
+		pacifist = yes
+
+		has_heir_designation = yes
+
+		max_consorts = 5 # Can take concubines
+
+		aggression = 0.5
+
+		general_opinion = -40
+		same_opinion_if_same_religion = 50
+		infidel_opinion = -40
+		christian_opinion = -40
+
+		religious_clothing_head = 5
+		religious_clothing_priest = 4
+	}
 	
 }
 
@@ -1295,52 +1352,6 @@ muslim = {
 		attacking_same_religion_piety_loss = yes
 		uses_decadence = yes
 		uses_jizya_tax = yes
-	}
-	yazidi = {
-		graphical_culture = persiangfx #Yazidis ain't Islamic
-		coa_on_barony_only = yes
-
-		icon = 3
-		heresy_icon = 8
-		
-		color = { 0.2 0.2 0.7 }
-		
-		crusade_name = JIHAD
-		scripture_name = THE_BOOK_OF_ILLUMINATION
-		priest_title = SHEIKH_PRIEST
-		
-		high_god_name = GOD_TAWUSE_MELEK
-		
-		god_names = {
-			GOD_THE_PEACOCK_ANGEL GOD_TAWUSE_MELEK SHAYTAN GOD_MELEK_TAUS GOD_MELEKISRAFEL GOD_MELEKAZRAEL GOD_MELEKMIHAEL GOD_MELEKDARDAEL GOD_MELEKSAMAEL GOD_MELEKNURAEL GOD_7MYSTERY
-		}
-		
-		evil_god_names = {
-			THE_DARK_SPIRITS GOD_ALLAH
-		}
-		
-		parent = sunni
-		priests_can_marry = yes
-		female_temple_holders = yes #Female Yazidis of the priestly caste can become full clergy, but they cannot be the Sheikh/Yazidi Pope equivalent
-		priests_can_inherit = yes #Yazidi clergy, much like Jewish Levites, inherit their positions, but I am not sure how this would be simulated
-		can_excommunicate = yes
-		can_call_crusade = yes
-		max_wives = 4
-		matrilineal_marriages = yes
-		
-		landed_kin_prestige_bonus = yes
-		attacking_same_religion_piety_loss = yes
-		uses_decadence = no
-		uses_jizya_tax = no
-		can_hold_temples = no
-		defensive_attrition = yes #Yazidi originated deep in the mountains and hostile terrain
-
-		religious_clothing_head = 5 #The Sheikh wears white but can wear a pink headdress
-		religious_clothing_priest = 5 #Different orders of Yazidi clergy wear different colors (lowest rank wears black), but white is considered universally accepted
-
-		general_opinion = -20
-		same_opinion_if_same_religion = 40
-		infidel_opinion = -40
 	}
 	ibadi = {
 		graphical_culture = muslimgfx
@@ -2064,6 +2075,11 @@ pagan_group = {
 		
 		religious_clothing_head = 3
 		religious_clothing_priest = 3
+
+		intermarry = norse_pagan
+		intermarry = norse_pagan_reformed
+		intermarrry = germanic_pagan
+		intermarry = germanic_pagan_reformed
 	}
 
 	norse_pagan_reformed = {
@@ -2114,9 +2130,14 @@ pagan_group = {
 		religious_clothing_head = 3
 		religious_clothing_priest = 3
 		
+		intermarry = celtic_pagan
+		intermarry = celtic_pagan_reformed
 		intermarry = norse_pagan
 		intermarry = germanic_pagan
 		intermarry = germanic_pagan_reformed
+		intermarry = saxon_pagan
+		intermarry = saxon_pagan_reformed
+		intermarry = insular
 		
 		allow_in_ruler_designer = no
 	}		
@@ -2171,9 +2192,14 @@ pagan_group = {
 		religious_clothing_head = 3
 		religious_clothing_priest = 3
 		
-		intermarry = norse_pagan_reformed
-		intermarry = germanic_pagan_reformed
+		intermarry = celtic_pagan
+		intermarry = celtic_pagan_reformed
+	 	intermarry = norse_pagan_reformed
 		intermarry = germanic_pagan
+		intermarry = germanic_pagan_reformed
+		intermarry = saxon_pagan
+		intermarry = saxon_pagan_reformed
+		intermarry = insular
 		
 		dislike_tribal_organization = yes
 	}
@@ -2244,9 +2270,9 @@ pagan_group = {
 		
 		color = { 0.0 0.0 0.0 }
 		
-		high_god_name = GOD_WODAN
+		high_god_name = GOD_THUNOR
 		god_names = {
-			GOD_BALDER GOD_DONAR GOD_ZIU GOD_WODAN GOD_FRIHA GOD_GAUSUS GOD_OSTARA
+			GOD_BALDER GOD_DONAR GOD_ZIU GOD_WODAN GOD_FRIHA GOD_GAUSUS GOD_OSTARA GOD_THUNOR GOD_THOR
 		}
 		evil_god_names = {
 			LUKA HEL FENRIR JORMUNGANDER
@@ -2280,10 +2306,14 @@ pagan_group = {
 		religious_clothing_head = 3
 		religious_clothing_priest = 3
 		
+		intermarry = celtic_pagan
+		intermarry = celtic_pagan_reformed
 		intermarry = norse_pagan
-		intermarry = norse_pagan_reformed
+	 	intermarry = norse_pagan_reformed
+		intermarry = germanic_pagan
+		intermarry = saxon_pagan
+		intermarry = saxon_pagan_reformed
 		intermarry = insular
-
 		allow_in_ruler_designer = no
 	}		
 	germanic_pagan = {
@@ -2294,12 +2324,12 @@ pagan_group = {
 		
 		color = { 0.4 0.0 0.1 }
 		
-		high_god_name = GOD_WODAN
+		high_god_name = GOD_THUNOR
 		god_names = {
-			GOD_BALDER GOD_DONAR GOD_ZIU GOD_WODAN GOD_FRIHA GOD_GAUSUS GOD_OSTARA
+			GOD_BALDER GOD_DONAR GOD_ZIU GOD_WODAN GOD_FRIHA GOD_GAUSUS GOD_OSTARA GOD_THUNOR GOD_THOR
 		}
 		evil_god_names = {
-			LUKA HEL FENRIR JORMUNGANDER
+			LUKA FENRIR JORMUNGANDER
 		}
 		
 		unit_modifier = {
@@ -2334,14 +2364,17 @@ pagan_group = {
 		religious_clothing_head = 3
 		religious_clothing_priest = 3
 		
-		intermarry = norse_pagan_reformed
-		intermarry = arian
-		intermarry = nicene
+		intermarry = celtic_pagan
+		intermarry = celtic_pagan_reformed
 		intermarry = norse_pagan
+	 	intermarry = norse_pagan_reformed
 		intermarry = germanic_pagan_reformed
+		intermarry = saxon_pagan
+		intermarry = saxon_pagan_reformed
 		intermarry = insular
+		
 	}
-	west_pagan = {
+	saxon_pagan = {
 		graphical_culture = norsegfx
 
 		icon = 59
@@ -2351,10 +2384,10 @@ pagan_group = {
 		
 		high_god_name = GOD_WODEN
 		god_names = {
-			GOD_BALDAEG GOD_FREO GOD_HELITH GOD_SEAXNEAT GOD_PUNOR GOD_TIW GOD_WODEN
+			GOD_BEALDAEG GOD_EOSTRE GOD_HRETHA GOD_TIW GOD_WADE GOD_WAYLAND GOD_ING GOD_FREO GOD_WODEN GOD_HELITH GOD_FRIGE GOD_THUNOR GOD_SEAXNEAT GOD_PUNOR GOD_FEORHBEALU GOD_SCINNA GOD_HILDEDEOFUL GOD_SCYNSCAPA GOD_THE_STAER GOD_THE_SUN GOD_THE_MOON 
 		}
 		evil_god_names = {
-			GOD_FEORHBEALU GOD_SCINNA GOD_HILDEDEOFUL GOD_SCYNSCAPA
+			HEL LOKI LUKA
 		}
 		
 		unit_modifier = {
@@ -2387,12 +2420,16 @@ pagan_group = {
 		religious_clothing_head = 3
 		religious_clothing_priest = 3
 		
-		intermarry = norse_pagan_reformed
-		intermarry = arian
-		intermarry = nicene
-		intermarry = norse_pagan
-		intermarry = germanic_pagan_reformed
 		dislike_tribal_organization = yes
+
+		intermarry = celtic_pagan
+		intermarry = celtic_pagan_reformed
+		intermarry = norse_pagan
+	 	intermarry = norse_pagan_reformed
+		intermarry = germanic_pagan
+		intermarry = germanic_pagan_reformed
+		intermarry = saxon_pagan_reformed
+		intermarry = insular
 	}	
 	celtic_pagan_reformed = { # Druidic
 		graphical_culture = norsegfx
@@ -2459,6 +2496,11 @@ pagan_group = {
 		
 		intermarry = celtic_pagan
 		intermarry = norse_pagan
+	 	intermarry = norse_pagan_reformed
+		intermarry = germanic_pagan
+		intermarry = germanic_pagan_reformed
+		intermarry = saxon_pagan
+		intermarry = saxon_pagan_reformed
 		intermarry = insular
 		
 		allow_in_ruler_designer = no
@@ -2530,6 +2572,13 @@ pagan_group = {
 		religious_clothing_head = 3
 		religious_clothing_priest = 3
 
+		intermarry = celtic_pagan_reformed
+		intermarry = norse_pagan
+	 	intermarry = norse_pagan_reformed
+		intermarry = germanic_pagan
+		intermarry = germanic_pagan_reformed
+		intermarry = saxon_pagan
+		intermarry = saxon_pagan_reformed
 		intermarry = insular
 	}
 	tengri_pagan_reformed = { # Mongols
@@ -3558,7 +3607,7 @@ pagan_group = {
 		
 		high_god_name = GOD_AMUN
 		god_names = {
-			GOD_AMUN GOD_AMANAI GOD_YUA GOD_TFUST GOD_ISIS GOD_OSIRIS GOD_TINJIS GOD_SET GOD_NEITH GOD_BAAL GOD_TANIT GOD_GURZIL GOD_IFRI GOD_SATURN GOD_MASTIMAN GOD_POSEIDON
+			GOD_AMUN GOD_AMANAI GOD_YUA GOD_TFUST GOD_ISIS GOD_OSIRIS GOD_TINJIS GOD_SET GOD_NEITH GOD_BAAL GOD_TANIT GOD_GURZIL GOD_IFRI GOD_SATURN GOD_MASTIMAN GOD_POSEIDON GOD_THE_SUN GOD_THE_MOON
 		}
 		evil_god_names = {
 			THE_DARK_SPIRITS
@@ -3615,7 +3664,7 @@ pagan_group = {
 		
 		high_god_name = GOD_AMUN
 		god_names = {
-			GOD_AMUN GOD_AMANAI GOD_YUA GOD_TFUST GOD_ISIS GOD_OSIRIS GOD_TINJIS GOD_SET GOD_NEITH GOD_BAAL GOD_TANIT GOD_GURZIL GOD_IFRI GOD_SATURN GOD_MASTIMAN GOD_POSEIDON
+			GOD_AMUN GOD_AMANAI GOD_YUA GOD_TFUST GOD_ISIS GOD_OSIRIS GOD_TINJIS GOD_SET GOD_NEITH GOD_BAAL GOD_TANIT GOD_GURZIL GOD_IFRI GOD_SATURN GOD_MASTIMAN GOD_POSEIDON GOD_THE_SUN GOD_THE_MOON
 		}
 		evil_god_names = {
 			THE_DARK_SPIRITS
@@ -3761,7 +3810,7 @@ pagan_group = {
 		scripture_name = THE_LEGENDS
 		priest_title = SHAMAN
 		
-		high_god_name = THE_SUN
+		high_god_name = GOD_THE_SUN
 		god_names = {
 			GOD_AMUN GOD_GURZIL GOD_THE_SUN
 		}
@@ -3802,7 +3851,7 @@ pagan_group = {
 		scripture_name = THE_LEGENDS
 		priest_title = SHAMAN
 		
-		high_god_name = THE_SUN
+		high_god_name = GOD_THE_SUN
 		god_names = {
 			GOD_AMUN GOD_GURZIL GOD_THE_SUN
 		}
@@ -4087,7 +4136,7 @@ pagan_group = {
 		high_god_name = GOD_ZUN
 		
 		god_names = {
-			GOD_ZUN GOD_THE_SUN GOD_THE_GIVER_OF_JUSTICE
+			GOD_ZUN GOD_THE_SUN GOD_THE_GIVER_OF_JUSTICE GOD_THE_INVINCIBLE_SUN
 		}
 		evil_god_names = {
 			THE_DARKNESS
@@ -4178,10 +4227,10 @@ pagan_group = {
 		
 		high_god_name = GOD_SATURN
 		god_names = {
-			GOD_JUNO GOD_VESTA GOD_MINERVA GOD_CERES GOD_DIANA GOD_VENUS GOD_MARS GOD_MERCURY GOD_JUPITER GOD_NEPTUNE GOD_VULCAN GOD_APOLLO
+			GOD_JUNO GOD_VESTA GOD_MINERVA GOD_CERES GOD_DIANA GOD_VENUS GOD_MARS GOD_MERCURY GOD_JUPITER GOD_NEPTUNE GOD_VULCAN GOD_APOLLO GOD_PLUTO
 		}
 		evil_god_names = {
-			GOD_PLUTO
+			GOD_THE_TITANS GOD_CRONUS
 		}
 		
 		unit_modifier = {
@@ -4696,6 +4745,65 @@ zoroastrian_group = {
 		intermarry = tengri_pagan_reformed
 		intermarry = priscillianism
 	}
+
+	yazidi = {
+		graphical_culture = persiangfx #Yazidis ain't Islamic
+		coa_on_barony_only = yes
+
+		icon = 3
+		heresy_icon = 8
+		
+		color = { 0.2 0.2 0.7 }
+		
+		crusade_name = JIHAD
+		scripture_name = THE_BOOK_OF_ILLUMINATION
+		priest_title = SHEIKH_PRIEST
+		
+		high_god_name = GOD_TAWUSE_MELEK
+		
+		god_names = {
+			GOD_THE_PEACOCK_ANGEL GOD_TAWUSE_MELEK SHAYTAN GOD_MELEK_TAUS GOD_MELEKISRAFEL GOD_MELEKAZRAEL GOD_MELEKMIHAEL GOD_MELEKDARDAEL GOD_MELEKSAMAEL GOD_MELEKNURAEL GOD_7MYSTERY
+		}
+		
+		evil_god_names = {
+			THE_DARK_SPIRITS GOD_ALLAH
+		}
+		
+		parent = zoroastrian
+		priests_can_marry = yes
+		female_temple_holders = yes #Female Yazidis of the priestly caste can become full clergy, but they cannot be the Sheikh/Yazidi Pope equivalent
+		priests_can_inherit = yes #Yazidi clergy, much like Jewish Levites, inherit their positions, but I am not sure how this would be simulated
+		can_excommunicate = yes
+		can_call_crusade = yes
+		max_wives = 4
+		matrilineal_marriages = yes
+		
+		landed_kin_prestige_bonus = yes
+		attacking_same_religion_piety_loss = yes
+		uses_decadence = no
+		uses_jizya_tax = no
+		can_hold_temples = no
+		defensive_attrition = yes #Yazidi originated deep in the mountains and hostile terrain
+
+		religious_clothing_head = 5 #The Sheikh wears white but can wear a pink headdress
+		religious_clothing_priest = 5 #Different orders of Yazidi clergy wear different colors (lowest rank wears black), but white is considered universally accepted
+
+		general_opinion = -20
+		same_opinion_if_same_religion = 40
+		infidel_opinion = -40
+
+		intermarry = muslim
+		intermarry = sunni
+		intermarry = shia
+		intermarry = pagan_group
+		intermarry = jewish_group
+		intermarry = indian_group
+		intermarry = scythian_pagan
+		intermarry = zun_pagan
+		intermarry = zun_pagan_reformed
+		intermarry = tengri_pagan
+		intermarry = tengri_pagan_reformed
+	}
 }
 
 jewish_group = {
@@ -4777,6 +4885,8 @@ jewish_group = {
 		general_opinion = -10
 		same_opinion_if_same_religion = 20
 		infidel_opinion = -20
+
+		intermarry = ebionites
 	}
 	tzadikite = {
 		graphical_culture = jewishgfx
@@ -4827,6 +4937,8 @@ jewish_group = {
 		general_opinion = -20
 		same_opinion_if_same_religion = 40
 		infidel_opinion = -40
+
+		intermarry = ebionites
 	}
 	karaite = {
 		graphical_culture = jewishgfx
@@ -4854,6 +4966,8 @@ jewish_group = {
 		general_opinion = -10
 		same_opinion_if_same_religion = 20
 		infidel_opinion = -20
+
+		intermarry = ebionites
 	}
 }
 

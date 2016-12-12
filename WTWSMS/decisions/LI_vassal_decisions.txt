@@ -22,7 +22,19 @@ targetted_decisions = {
 		from_potential = {
 			is_playable = yes
 			has_regent = no
-			proselyte_religion_trigger = yes #Only proselyte religions may do this	
+			OR = {
+				NOT = {
+					religion_group = pagan_group
+				}
+				AND = {
+					religion_group = pagan_group
+					is_reformed_religion = yes
+				}
+				proselyte_religion_trigger = yes
+			}
+			NOT = {
+				ancestral_religion_trigger = yes
+			}
 		}
 		potential = {
 			NOR = {

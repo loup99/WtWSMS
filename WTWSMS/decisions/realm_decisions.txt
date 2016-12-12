@@ -662,7 +662,12 @@ decisions = {
 			has_global_flag = viking_age_started
 			NOT = { has_global_flag = varangian_guard_founded }
 			any_playable_ruler = {
-				religion = norse_pagan
+				OR = {
+					religion = norse_pagan
+					religion = germanic_pagan
+					religion = norse_pagan_reformed
+					religion = germanic_pagan_reformed
+				}
 				capital_scope = {
 					distance = {
 						where = 496	# Constantinople
@@ -1150,10 +1155,7 @@ decisions = {
 		potential = {
 			has_dlc = "Sons of Abraham"
 			is_playable = yes
-			OR = {
-				religion_group = jewish_group
-				religion = ebionites
-			}
+			religion_group = jewish_group
 			NOT = { has_global_flag = third_temple_built }
 			NOT = { has_global_flag = building_third_temple }
 		}
@@ -1246,7 +1248,8 @@ decisions = {
 			}
 		}
 		allow = {
-			completely_controls = k_oriens
+			completely_controls = d_palestinia_salutaris
+			completely_controls = d_iudea
 			774 = {
 				religion = ROOT
 			}
@@ -1790,15 +1793,19 @@ decisions = {
 		is_high_prio = yes
 		
 		potential = {
-			is_playable = yes
-			NOT = { has_global_flag = charlemagne_hre }
-			NOT = { has_global_flag = rome_restored }
-			independent = yes
-			OR = {
-				religion = catholic
-				religion = fraticelli
-			}
-			NOT = { has_landed_title = e_byzantium }
+			always = no
+#			is_playable = yes
+#			NOT = { has_global_flag = charlemagne_hre }
+#			NOT = { has_global_flag = rome_restored }
+#			independent = yes
+#			religion_group = christian
+#			NOT = { has_landed_title = e_byzantium }
+#			NOT = { has_landed_title = e_wre }
+#			NOT = { has_landed_title = k_soissons }
+#			OR = {
+#				has_global_flag = historical_events_fall_of_rome
+#				has_global_flag = fall_of_rome
+#			}
 		}
 		allow = {
 			is_adult = yes
@@ -1810,8 +1817,8 @@ decisions = {
 				text = form_the_hre_early_tooltip_1
 				hidden_tooltip = {
 					OR = {
-						has_landed_title = k_italy
-						has_landed_title = e_italy
+						has_landed_title = k_italia
+						has_landed_title = e_italia
 					}
 				}
 			}
@@ -1820,18 +1827,18 @@ decisions = {
 				hidden_tooltip = {
 					any_demesne_title = {
 						OR = {
-							title = e_france
-							title = e_germany
+							title = e_gual
+							title = e_germania
 							title = e_britannia
-							title = e_spain
+							title = e_hispania
 							AND = {
 								tier = KING
-								NOT = {	title = k_italy	}
+								NOT = { title = k_italia }
 								OR = {
-									empire = { title = e_france }
-									empire = { title = e_germany }
+									empire = { title = e_gual }
+									empire = { title = e_germania }
 									empire = { title = e_britannia }
-									empire = { title = e_spain }
+									empire = { title = e_hispania }
 								}
 							}
 						}
@@ -1842,28 +1849,28 @@ decisions = {
 				text = form_the_hre_early_tooltip_3
 				hidden_tooltip = {
 					OR = {
-						has_landed_title = e_italy
-						e_italy = {	has_holder = no	}
+						has_landed_title = e_italia
+						e_italy = { has_holder = no }
 						e_italy = { holder_scope = { NOT = { religion_group = christian } } }
 					}
 					OR = {
-						has_landed_title = e_germany
-						e_germany = {	has_holder = no	}
-						e_germany = { holder_scope = { NOT = { religion_group = christian } } }
+						has_landed_title = e_germania
+						e_germania = { has_holder = no }
+						e_germania = { holder_scope = { NOT = { religion_group = christian } } }
 					}
 					OR = {
-						has_landed_title = e_france
-						e_france = { has_holder = no	}
-						e_france = { holder_scope = { NOT = { religion_group = christian } } }
+						has_landed_title = e_gaul
+						e_gaul = { has_holder = no	}
+						e_gaul = { holder_scope = { NOT = { religion_group = christian } } }
 					}
 					OR = {
-						has_landed_title = e_spain
-						e_spain = {	has_holder = no	}
-						e_spain = { holder_scope = { NOT = { religion_group = christian } } }
+						has_landed_title = e_hispania
+						e_hispania = { has_holder = no }
+						e_hispania = { holder_scope = { NOT = { religion_group = christian } } }
 					}
 					OR = {
 						has_landed_title = e_britannia
-						e_britannia = {	has_holder = no	}
+						e_britannia = { has_holder = no }
 						e_britannia = { holder_scope = { NOT = { religion_group = christian } } }
 					} 
 				}
@@ -1882,10 +1889,7 @@ decisions = {
 			set_global_flag = charlemagne_hre
 			activate_title = { title = e_hre status = yes }
 			scaled_wealth = -2
-			if = {
-				limit = { has_nickname = no }
-				give_nickname = nick_the_great
-			}
+			give_nickname = nick_the_great
 			any_demesne_title = {
 				limit = { tier = KING }
 				de_jure_liege = e_hre
@@ -2238,18 +2242,6 @@ decisions = {
 			holy_order = no
 			
 			NOT = { tier = EMPEROR }
-			OR = {
-				ai = no
-				AND = {
-					trait = proud
-					prestige = 40000
-				}
-				AND = {
-					trait = ambitious
-					prestige = 40000
-				}
-				prestige = 120000
-			}
 			
 			NOT = {
 				has_game_rule = {
@@ -2337,6 +2329,7 @@ decisions = {
 				entry = CHRONICLE_FOUNDED_NEW_KINGDOM_OR_EMPIRE
 				portrait = [Root.GetID]
 			}
+			give_nickname = nick_the_great
 		}
 		revoke_allowed = {
 			always = no

@@ -172,14 +172,19 @@ focus_seduction = {
 		NOT = { religion = monatist }
 		NOT = { religion = donatism }
 		NOT = { religion = priscillianism }
-		NOT = {
-			AND = {	
-				religion_group = christian_group
-				trait = zealous
-			}
-			AND = {
-				religion_group = jewish_group
-				trait = zealous
+		custom_tooltip = {
+			name = seventhcommandment
+			hidden_tooltip = {
+				NOT = {
+					AND = {	
+						religion_group = christian_group
+						trait = zealous
+					}
+					AND = {
+						religion_group = jewish_group
+						trait = zealous
+					}
+				}
 			}
 		}
 		custom_tooltip = {
@@ -209,7 +214,7 @@ focus_seduction = {
 		}
 		
 		modifier = {
-			factor = 0.01 # Faithful spouse/consort
+			factor = 0 # Faithful spouse/consort
 			OR = {
 				AND = {
 					is_married = yes
@@ -298,6 +303,10 @@ focus_seduction = {
 			factor = 2.0
 			religion = antinomianism
 		}
+		modifier = {
+			factor = 12.0
+			religion = borborites
+		}
 	}
 	
 	# Focuses have no success conditions
@@ -312,12 +321,23 @@ focus_seduction = {
 			trait = eunuch
 			trait = celibate
 			religion = monatist
-			religion = donatistism
+			religion = donatism
 			religion = priscillianism
+			AND = {
+				religion_group = christian
+				trait = zealous
+			}
+			AND = {
+				religion_group = jewish_group
+				trait = zealous
+			}
 		}
 	}
 	
 	abort_effect = {
+		remove_trait = seducer
+		remove_trait = seductress
+		remove_trait = hedonist
 	}
 	
 	# MODIFIERS
@@ -405,6 +425,20 @@ focus_intrigue = {
 			factor = 4.0
 			trait = deceitful
 		}
+		modifier = {
+			factor = 0
+			OR = { # "THOU SHALT NOT MURDER" / # "THOU SHALT NOT LIE"
+				AND = {
+					religion_group = christian
+					trait = zealous
+					NOT = { religion = priscillianism }
+				}
+				AND = {
+					religion_group = jewish_group
+					trait = zealous
+				}
+			}
+		}
 	}
 	
 	# Focuses have no success conditions
@@ -416,6 +450,8 @@ focus_intrigue = {
 		OR = {
 			prisoner = yes
 			trait = incapable
+			trait = honest
+			trait = kind
 			is_playable = no
 		}
 	}
@@ -895,11 +931,22 @@ focus_theology = {
 	
 	potential = {
 		is_playable = yes
+		custom_tooltip = {
+			name = notborbor
+			hidden_tooltip = {
+				NOT = {
+					religion = borborites  # The Theology Focus removes several traits seen as holy to Borborites, so it's better not to use it at all
+				}
+			}
+		}
 	}
 	
 	allow = {
 		is_adult = yes
 		NOT = { trait = incapable }
+		NOT = {
+			religion = borborites  # The Theology Focus removes several traits seen as holy to Borborites, so it's better not to use it at all
+		}
 	}
 	
 	# AI Pick chance
@@ -917,6 +964,10 @@ focus_theology = {
 		modifier = {
 			factor = 0
 			trait = cynical
+		}
+		modifier = {
+			factor = 0
+			religion = borborites
 		}
 		modifier = {
 			factor = 0.25
