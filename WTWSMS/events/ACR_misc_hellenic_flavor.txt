@@ -37,7 +37,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = cynical
@@ -137,7 +137,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = cynical
@@ -237,7 +237,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = patient
@@ -333,7 +333,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = kind
@@ -408,7 +408,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = lustful
@@ -545,10 +545,12 @@ character_event = {
 		NOT = { trait = dwarf }
 		NOT = { trait = imbecile }
 		NOT = { trait = weak }
+
+		supernatural_events_trigger = yes
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = lustful
@@ -687,7 +689,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = just
@@ -760,7 +762,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = cruel
@@ -874,7 +876,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = kind
@@ -935,12 +937,10 @@ character_event = {
 			factor = 1
 			modifier = {
 				factor = 0
-				AND = {
-					trait = chaste
-					OR = {
-						has_lover = yes
-						is_married = yes
-					}
+				trait = chaste
+				OR = {
+					has_lover = yes
+					is_married = yes
 				}
 			}
 			modifier = {
@@ -1086,7 +1086,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = kind
@@ -1143,12 +1143,10 @@ character_event = {
 			factor = 1
 			modifier = {
 				factor = 0
-				AND = {
-					trait = chaste
-					OR = {
-						has_lover = yes
-						is_married = yes
-					}
+				trait = chaste
+				OR = {
+					has_lover = yes
+					is_married = yes
 				}
 			}
 			modifier = {
@@ -1240,7 +1238,7 @@ character_event = {
 			25 = { add_trait = chaste }
 		}
 		add_character_modifier = {
-			name = VIET_hellenic_helped_maid
+			name = VIET_hellenic_helped_servant
 			duration = 1095
 		}
 		custom_tooltip = { text = ancrel.2511.tooltip.4 }
@@ -1257,7 +1255,7 @@ character_event = {
 			25 = { add_trait = chaste }
 		}
 		add_character_modifier = {
-			name = VIET_hellenic_helped_maid
+			name = VIET_hellenic_helped_servant
 			duration = 1095
 		}
 		custom_tooltip = { text = ancrel.2511.tooltip.5 }
@@ -1285,7 +1283,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = arbitrary
@@ -1399,7 +1397,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = gregarious
@@ -1493,7 +1491,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = just
@@ -1537,9 +1535,8 @@ character_event = {
 				NOT = { trait = incapable }
 				ai = yes
 				NOT = { dynasty = ROOT }
-				has_landed_title = no			
+				has_landed_title = no
 			}
-			set_character_flag = VIET_cybele_father
 			random_child = {
 				limit = {
 					is_female = no
@@ -1551,7 +1548,10 @@ character_event = {
 					NOT = { dynasty = ROOT }
 					has_landed_title = no				
 				}
-				set_character_flag = VIET_cybele_son
+				save_event_target_as = the_son
+				PREV = {
+					save_event_target_as = the_father
+				}
 			}
 		}
 	}
@@ -1559,20 +1559,14 @@ character_event = {
 	option = { # support father - no castration!
 		name = ancrel.2514.a
 		prestige = 10
-		random_courtier = {
-			limit = {
-				has_character_flag = VIET_cybele_father
-			}
+		event_target:the_father = {
 			opinion = {
 				modifier = opinion_cybele_agree
 				who = ROOT
 				years = 100
 			}			
 		}
-		random_courtier = {
-			limit = {
-				has_character_flag = VIET_cybele_son
-			}
+		event_target:the_son = {
 			opinion = {
 				modifier = opinion_cybele_disagree
 				who = ROOT
@@ -1583,20 +1577,14 @@ character_event = {
 	option = { # support son - yes castration!
 		name = ancrel.2514.b
 		piety = 10
-		random_courtier = {
-			limit = {
-				has_character_flag = VIET_cybele_father
-			}
+		event_target:the_father = {
 			opinion = {
 				modifier = opinion_cybele_disagree
 				who = ROOT
 				years = 100
 			}			
 		}
-		random_courtier = {
-			limit = {
-				has_character_flag = VIET_cybele_son
-			}
+		event_target:the_son = {
 			opinion = {
 				modifier = opinion_cybele_agree
 				who = ROOT
@@ -1613,10 +1601,10 @@ character_event = {
 		name = ancrel.2514.c
 		random_list = {
 			75 = { #father wins
-				custom_tooltip = { text = ancre.4214.tooltip.1 }
+				custom_tooltip = { text = ancrel.2514.tt.1 }
 			}
 			25 = { #son wins
-				custom_tooltip = { text = ancre.4214.tooltip.2 }
+				custom_tooltip = { text = ancrel.2514.tt.2 }
 				hidden_tooltip = {
 					add_trait = eunuch
 					add_character_modifier = {
@@ -1653,7 +1641,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = diligent
@@ -1738,7 +1726,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = gregarious
@@ -1913,7 +1901,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 	}
 
 	option = { # ok
@@ -1992,7 +1980,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = zealous
@@ -2058,7 +2046,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = content
@@ -2153,7 +2141,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = lustful
@@ -2298,7 +2286,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = lustful
@@ -2355,8 +2343,13 @@ character_event = {
 				years = 1
 			}
 		}
-		hidden_tooltip = {
-			character_event = { id = ancrel.2524 }
+		if = {
+			limit = {
+				supernatural_events_trigger = yes
+			}
+			hidden_tooltip = {
+				character_event = { id = ancrel.2524 }
+			}
 		}
 	}
 	option = { # Hera, because MILFs or she's queenly or something
@@ -2380,8 +2373,13 @@ character_event = {
 				years = 1
 			}
 		}
-		hidden_tooltip = {
-			character_event = { id = ancrel.2525 }
+		if = {
+			limit = {
+				supernatural_events_trigger = yes
+			}
+			hidden_tooltip = {
+				character_event = { id = ancrel.2525 }
+			}
 		}
 	}
 	option = { # Athena, because nerds are sexy
@@ -2408,8 +2406,13 @@ character_event = {
 			50 = { prestige = 5 }
 			50 = { piety = 5 }
 		}
-		hidden_tooltip = {
-			character_event = { id = ancrel.2525 }
+		if = {
+			limit = {
+				supernatural_events_trigger = yes
+			}
+			hidden_tooltip = {
+				character_event = { id = ancrel.2526 }
+			}
 		}
 	}
 	option = { # I am a girl
@@ -2516,7 +2519,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = diligent
@@ -2590,7 +2593,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = diligent
@@ -2669,7 +2672,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = diligent
@@ -2761,25 +2764,33 @@ character_event = {
 		war = no 
 		in_command = no 
 		is_abroad = no	
-		NOT = { has_global_flag =  VIET_i_cant_believe_the_virgin_goddess_of_the_hunt_is_this_cute } #global flag only triggers if character becomes friends with Artemis
-		NOT = { has_character_flag =  VIET_stumbled_on_artemis }
-		NOT = { has_character_flag =  VIET_is_artemis_bff }
+
+		#global flag only triggers if character becomes friends with Artemis
+		NOT = { has_global_flag =  VIET_i_cant_believe_the_virgin_goddess_of_the_hunt_is_this_cute } 
+		NOR = { 
+			has_character_flag =  VIET_stumbled_on_artemis
+			has_character_flag =  VIET_is_artemis_bff
+		}
 		religion = hellenic_pagan	
-		NOT = { health_traits = 1 }
-		NOT = { trait = inbred }
-		NOT = { trait = hunchback }
-		NOT = { trait = clubfooted }
-		NOT = { trait = dwarf }
-		NOT = { trait = imbecile }
-		NOT = { trait = cruel }
-		NOT = { trait = arbitrary }
-		NOT = { trait = wroth }
-		NOT = { trait = lustful }
+		NOR = { 
+			health_traits = 1
+			trait = inbred
+			trait = hunchback
+			trait = clubfooted
+			trait = dwarf
+			trait = imbecile
+			trait = cruel
+			trait = arbitrary
+			trait = wroth
+			trait = lustful
+		}
 		prestige = 500
+
+		supernatural_events_trigger = yes
 	}
 
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = hunter
@@ -2880,7 +2891,7 @@ narrative_event = {
 			random_list = {
 				5 = { character_event = { id = ancrel.2552 } } #Artemis kills you
 				20 = { character_event = { id = ancrel.2553 } } #Artemis injures you
-				75 = { character_event = { id = ancrel.2554 } } #Artemis spares you and becomes your bff
+				75 = { character_event = { id = ancrel.2555 } } #Artemis spares you and becomes your bff
 			}
 		}
 	}
@@ -3074,7 +3085,6 @@ narrative_event = {
 # Give Artemis another offering of dead animals...
 character_event = {
 	id = ancrel.2559
-	title = ancrel.2559.title
 	desc = ancrel.2559.desc
 	picture = GFX_evt_artemis_moon
 
@@ -3093,7 +3103,7 @@ character_event = {
 	}
 
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = zealous
@@ -3171,7 +3181,7 @@ narrative_event = {
 	}
 
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = lustful
@@ -3449,7 +3459,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = zealous
@@ -3489,7 +3499,7 @@ narrative_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = zealous
@@ -3633,7 +3643,7 @@ narrative_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = zealous
@@ -3951,7 +3961,7 @@ narrative_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = kind
@@ -4058,7 +4068,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = zealous
@@ -4104,7 +4114,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = zealous
@@ -4125,7 +4135,7 @@ character_event = {
 			name = VIET_artemis_rumors
 			duration = 730
 		}
-		character_event = { id = ancrel.2584 days = 30 random = 30 tooltip = ancrel.2584.tooltip }
+		character_event = { id = ancrel.2584 days = 30 random = 10 tooltip = ancrel.2584.tooltip }
 	}
 }
 
@@ -4235,7 +4245,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = zealous
@@ -4340,7 +4350,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = content
@@ -4425,7 +4435,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = zealous
@@ -4525,7 +4535,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = honest
@@ -4616,7 +4626,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = honest
@@ -4729,7 +4739,6 @@ narrative_event = {
 # Wild Boar Spotted
 character_event = {
 	id = ancrel.2600
-	#title = ancrel.2600.title
 	desc = ancrel.2600.desc
 	picture = GFX_evt_hades_forest
 	
@@ -4747,7 +4756,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = diligent
@@ -4797,7 +4806,6 @@ character_event = {
 # Boar attacks!
 character_event = {
 	id = ancrel.2601
-	#title = ancrel.2601.title
 	desc = ancrel.2601.desc
 	picture = GFX_evt_hades_forest
 	
@@ -4860,7 +4868,7 @@ narrative_event = {
 # Slay the boar
 narrative_event = {
 	id = ancrel.2603
-	#title = ancrel.2603.title
+	title = ancrel.2603.title
 	desc = ancrel.2603.desc
 	picture = GFX_evt_hades_forest
 	
@@ -4873,14 +4881,14 @@ narrative_event = {
 			hidden_tooltip = { character_event = { id = 38280 } }
 			chance = 25
 		}
-		character_event = { id = ancrel.2604 tooltip = ancrel.2604.tooltip }
+		character_event = { id = ancrel.2604 tooltip = ancrel.2603.tooltip }
 	}	
 }
 
 # Boar is dead - but who sent it?
 narrative_event = {
 	id = ancrel.2604
-	#title = ancrel.2604.title
+	title = ancrel.2604.title
 	desc = ancrel.2604.desc
 	picture = GFX_evt_hades_forest
 	
@@ -4896,11 +4904,9 @@ narrative_event = {
 	}	
 }
 
-
 # Ceryneian Hind Spotted
 character_event = {
 	id = ancrel.2605
-	#title = ancrel.2605.title
 	desc = ancrel.2605.desc
 	picture = GFX_evt_hades_forest
 	
@@ -4918,7 +4924,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = gregarious
@@ -4968,7 +4974,7 @@ character_event = {
 # Ceryneian Hind goes crazy
 character_event = {
 	id = ancrel.2606
-	#title = ancrel.2606.title
+	title = ancrel.2606.title
 	desc = ancrel.2606.desc
 	picture = GFX_evt_hades_forest
 	
@@ -4985,7 +4991,6 @@ character_event = {
 # Ceryneian Hind goes crazy
 character_event = {
 	id = ancrel.2607
-	#title = ancrel.2607.title
 	desc = ancrel.2607.desc
 	picture = GFX_evt_hades_forest
 	
@@ -5036,7 +5041,6 @@ narrative_event = {
 # Successfully survived Ceryneian Hind
 character_event = {
 	id = ancrel.2610
-	#title = ancrel.2610.title
 	desc = ancrel.2610.desc
 	picture = GFX_evt_hades_forest
 	
@@ -5054,7 +5058,6 @@ character_event = {
 # Artemis helps you recover from illnesses - might need to be changed for upcoming DLC
 character_event = {
 	id = ancrel.2611
-	#title = ancrel.2611.title
 	desc = ancrel.2611.desc
 	picture = GFX_evt_artemis
 	
@@ -5066,18 +5069,8 @@ character_event = {
 		is_abroad = no
 		has_character_flag = VIET_is_artemis_bff
 		has_character_flag = VIET_hunted_with_artemis_twice
-		religion = hellenic_pagan	
-		OR = {
-			trait = syphilitic
-			trait = leper
-			trait = has_tuberculosis
-			trait = has_typhoid_fever
-			trait = has_typhus
-			trait = has_bubonic_plague
-			trait = has_measles
-			trait = has_small_pox
-			trait = has_aztec_disease
-		}
+		religion = hellenic_pagan
+		has_disease_trigger = yes
 	}
 	
 	mean_time_to_happen = {
@@ -5090,68 +5083,11 @@ character_event = {
 			factor = 1.25
 			trait = cynical
 		}
-		#modifier = {
-		#	factor = 2
-		#	NOT = { has_character_flag = VIET_hunted_with_artemis_twice }
-		#}
 	}
 
 	option = { # Artemis is kewl
 		name = ancrel.2611.a
-		if = {
-			limit = {
-				trait = syphilitic
-			}
-			remove_trait = syphilitic
-		}
-		if = {
-			limit = {
-				trait = leper
-			}
-			remove_trait = leper
-		}
-		if = {
-			limit = {
-				trait = has_tuberculosis
-			}
-			remove_trait = has_tuberculosis
-		}
-		if = {
-			limit = {
-				trait = has_typhoid_fever
-			}
-			remove_trait = has_typhoid_fever
-		}
-		if = {
-			limit = {
-				trait = has_typhus
-			}
-			remove_trait = has_typhus
-		}
-		if = {
-			limit = {
-				trait = has_bubonic_plague
-			}
-			remove_trait = has_bubonic_plague
-		}
-		if = {
-			limit = {
-				trait = has_measles
-			}
-			remove_trait = has_measles
-		}
-		if = {
-			limit = {
-				trait = has_small_pox
-			}
-			remove_trait = has_small_pox
-		}
-		if = {
-			limit = {
-				trait = has_aztec_disease
-			}
-			remove_trait = has_aztec_disease
-		}
+		remove_disease_trait_effect = yes
 	}
 }
 
@@ -5168,7 +5104,6 @@ narrative_event = {
 		war = no 
 		in_command = no 
 		is_abroad = no
-		has_character_flag = VIET_is_artemis_bff
 		has_character_flag = VIET_is_artemis_bff
 		religion = hellenic_pagan	
 		OR = {
@@ -5238,7 +5173,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = diligent
@@ -5353,7 +5288,6 @@ narrative_event = {
 # Someone has sex in Artemis' temple
 character_event = {
 	id = ancrel.2615
-	#title = ancrel.2615.title
 	desc = ancrel.2615.desc
 	picture = GFX_evt_hades_forest
 	
@@ -5372,7 +5306,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = gregarious
@@ -5472,14 +5406,12 @@ narrative_event = {
 # Yo Artemis if you hate sex why are you hanging out with me?
 character_event = {
 	id = ancrel.2617
-	#title = ancrel.2617.title
 	desc = ancrel.2617.desc
 	picture = GFX_evt_hades_forest
-	
+
 	is_triggered_only = yes
-	
 	ai = no
-	
+
 	trigger = {
 		religion = hellenic_pagan	
 		has_character_flag =  VIET_is_artemis_bff
@@ -5490,7 +5422,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 30
 		modifier = {
 			factor = 2
 			trait = gregarious
@@ -5528,19 +5460,32 @@ character_event = {
 	immediate = {
 		set_character_flag = VIET_artemis_sex_question
 	}
+
+	option = {
+		name = ancrel.2617.a
+		character_event = { id = ancrel.2618 days = 0 }
+	}
+}
+
+character_event = {
+	id = ancrel.2618
+	desc = ancrel.2618.desc
+	picture = GFX_evt_hades_forest
+	
+	is_triggered_only = yes
 	
 	option = {# CASTRATE MYSELF
 		name = ancrel.2617.a
 		piety = 500
-		character_event = { id = ancrel.2618 }
+		character_event = { id = ancrel.2619 }
 	}	
 	option = {# Become celibate
-		name = ancrel.2617.b
+		name = ancrel.2618.b
 		piety = 200
 		add_trait = celibate
 	}	
 	option = {# Become chaste
-		name = ancrel.2617.c
+		name = ancrel.2618.c
 		trigger = {
 			NOT = { trait = chaste }
 		}
@@ -5548,14 +5493,14 @@ character_event = {
 		add_trait = chaste
 	}	
 	option = {# Is chaste
-		name = ancrel.2617.d
+		name = ancrel.2618.d
 		trigger = {
 			trait = chaste
 		}
 		piety = 50
 	}		
 	option = {# ok cool
-		name = ancrel.2617.e
+		name = ancrel.2618.e
 		piety = 20
 		if = {
 			limit = {
@@ -5568,32 +5513,34 @@ character_event = {
 
 # Artemis says you're cuckoo for wanting to castrate yourself
 character_event = {
-	id = ancrel.2618
-	#title = ancrel.2618.title
-	desc = ancrel.2618.desc
+	id = ancrel.2619
+	desc = ancrel.2619.desc
 	picture = GFX_evt_hades_forest
 	
 	is_triggered_only = yes
 	
 	option = {# Become celibate
-		name = ancrel.2617.a
+		name = ancrel.2619.a
 		add_trait = celibate
+		piety = 50
 	}	
 	option = {# Become chaste
-		name = ancrel.2617.b
+		name = ancrel.2619.b
 		trigger = {
 			NOT = { trait = chaste }
 		}
 		add_trait = chaste
+		piety = 50
 	}	
 	option = {# Is chaste
-		name = ancrel.2617.c
+		name = ancrel.2618.d
 		trigger = {
 			trait = chaste
 		}
+		piety = 50
 	}		
 	option = {# ok cool
-		name = ancrel.2617.d
+		name = ancrel.2618.e
 		if = {
 			limit = {
 				trait = lustful
