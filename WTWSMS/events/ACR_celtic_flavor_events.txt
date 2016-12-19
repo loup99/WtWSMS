@@ -188,6 +188,12 @@ character_event = {
 		}
 		is_landed = yes
 		is_abroad = no
+		NOT = {
+			has_game_rule = {
+				name = supernatural_events
+				value = off
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -348,7 +354,27 @@ character_event = {
 		completely_controls = c_innse_gall
 		
 		NOT = { religion_group = pagan_group }
-		culture_group = celtic
+		OR = {
+			culture_group = celtic
+			culture = romano-british
+			culture = saxon
+			culture = jute
+			culture = angle
+			culture = anglo-saxxon
+			culture = english
+			culture = norman
+			culture = old_saxon
+			culture = briton
+			culture = breton
+			has_landed_title = c_innse_gall
+		}
+
+		NOT = {
+			has_game_rule = {
+				name = supernatural_events
+				value = off
+			}
+		}
 	}
 
 	mean_time_to_happen = {
@@ -366,7 +392,7 @@ character_event = {
 			trait = zealous
 		}
 		modifier = {
-			factor = 0.7
+			factor = 0.2
 			trait = sympathy_pagans
 		}
 	}
@@ -382,6 +408,7 @@ character_event = {
 				character_event = { id = ancrel.0209 days = 5 }
 			}
 		}
+		add_trait = traveling
 	}
 	option = {
 		name = EVTOPTBancrel.0208
@@ -409,6 +436,7 @@ character_event = {
 		}
 		hidden_tooltip = {
 			character_event = { id = ancrel.0210 days = 10 }
+			remove_trait = traveling
 		}
 	}
 	option = {
@@ -421,7 +449,8 @@ character_event = {
 				NOT = {trait = zealous}
 				NOT = {trait = cynical}
 			}
-			add_trait = zealous 
+			add_trait = zealous
+			remove_trait = traveling
 		}
 	}
 }
@@ -440,22 +469,27 @@ character_event = {
 		if = {
 			limit = { religion_group = christian }
 			add_trait = sympathy_christendom
+			remove_trait = traveling
 		}
 		if = {
 			limit = { religion_group = muslim }
 			add_trait = sympathy_islam
+			remove_trait = traveling
 		}
 		if = {
 			limit = { religion_group = zoroastrian_group }
 			add_trait = sympathy_zoroastrianism
+			remove_trait = traveling
 		}
 		if = {
 			limit = { religion_group = indian_group }
 			add_trait = sympathy_indian
+			remove_trait = traveling
 		}
 		if = {
 			limit = { religion_group = jewish_group }
 			add_trait = sympathy_judaism
+			remove_trait = traveling
 		}
 		
 		religion = celtic_pagan
@@ -463,6 +497,7 @@ character_event = {
 		custom_tooltip = {
 			text = MIRACLE_STKILDA
 			cure_illness = yes
+			remove_trait = traveling
 		}
 	}
 }
