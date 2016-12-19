@@ -1,0 +1,3850 @@
+##################################################################
+# 
+# ANCIENT RELIGIONS
+# - Promethean Events
+#
+# Event IDs ancrel.3400-3549 are reserved
+#
+# ancrel.3400 - 3410	various events
+# ancrel.3411 - 3420	Rebuilding of Crotone
+# ancrel.3450 - 3549	The Unbinding Festival
+# ancrel.3550 - 3599	Holy Order Events
+#
+##################################################################
+
+# Author: Adam 'theStormWeaver/xirsoi' Chevalier
+namespace = ancrel
+
+# First Academy has been restored!
+narrative_event = {
+	id = ancrel.3400
+	title = ancrel.3400.title
+	desc = ancrel.3400.desc
+	picture = GFX_evt_scientist
+	border = GFX_event_narrative_frame_religion
+
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		trigger = {
+			has_character_flag = acr_restorer_of_academy
+		}
+
+		chronicle = {
+			entry = CHRONICLE_FIRST_ACADEMY
+			portrait = [Root.GetID]
+		}
+
+		name = ancrel.3400.a
+	}
+
+	option = {
+		trigger = {
+			religion = promethean_pagan
+			NOT = {
+				has_character_flag = acr_restorer_of_academy
+			}
+		}
+		name = ancrel.3400.b
+	}
+
+	option = {
+		trigger = {
+			NOT = { religion = promethean_pagan }
+		}
+		name = ancrel.3400.c
+	}
+}
+
+# Depopulated Province Converts!
+province_event = {
+	id = ancrel.3401
+	hide_window = yes
+
+	trigger = {
+		has_province_modifier = depopulated_province
+		owner = {
+			top_liege = {
+				religion = promethean_pagan
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		years = 50
+		modifier = {
+			factor = 0.9
+			religion_authority = 0.50
+		}
+		modifier = {
+			factor = 0.9
+			religion_authority = 0.75
+		}
+		modifier = {
+			factor = 0.9
+			religion_authority = 0.90
+		}
+		modifier = {
+			factor = 0.9
+			any_neighbor_province = {
+				religion = promethean_pagan
+			}
+		}
+	}
+
+	immediate = {
+		owner = { 
+			top_liege = {
+				character_event = { id = ancrel.3402 }
+			}
+		}
+	}
+}
+
+# Depopulated Province Converts! (top liege)
+character_event = {
+	id = ancrel.3402
+	desc = ancrel.3402.desc
+	picture = GFX_evt_peasants
+	border = GFX_event_normal_frame_economy
+
+	is_triggered_only = yes
+
+	option = {
+		FROM = {
+			religion = ROOT
+			culture = ROOT
+			remove_province_modifier = depopulated_province
+		}
+	}
+}
+
+# Promethean child comes of age and chooses which school to join
+# [on_adulthood]
+character_event = {
+	id = ancrel.3403
+	desc = ancrel.3403.desc
+	picture = GFX_evt_library
+
+	is_triggered_only = yes
+
+	religion = promethean_pagan
+	
+	immediate = {
+		set_character_flag = acr_changed_school
+	}
+
+	option = {
+		name = ancrel.3403.a
+		add_trait = stoic
+
+		ai_chance = {
+			factor = 40
+			modifier = {
+				factor = 1.2
+				trait = cynical
+			}
+			modifier = {
+				factor = 1.2
+				trait = just
+			}
+		}
+	}
+	option = {
+		name = ancrel.3403.b
+		add_trait = skeptic
+
+		ai_chance = {
+			factor = 35
+			modifier = {
+				factor = 0.75
+				trait = ambitious
+			}
+		}
+	}
+	option = {
+		name = ancrel.3403.c
+		add_trait = epicurean
+
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0.5
+				trait = greedy
+			}
+			modifier = {
+				factor = 0.5
+				trait = gluttonous
+			}
+			modifier = {
+				factor = 0.5
+				trait = lustful
+			}
+			modifier = {
+				factor = 2
+				trait = content
+			}
+			modifier = { # the ambitious would never choose Epicureanism
+				factor = 0
+				trait = ambitious
+			}
+		}
+	}
+}
+
+# Promethean has decided to change their school of thought
+# [decision]
+character_event = {
+	id = ancrel.3404
+	desc = ancrel.3404.desc
+	picture = GFX_evt_library
+
+	is_triggered_only = yes
+
+	option = {
+		name = ancrel.3403.a
+		trigger = {	NOT = {	trait = stoic } }
+
+		add_trait = stoic
+
+		ai_chance = {
+			factor = 40
+			modifier = {
+				factor = 1.2
+				trait = cynical
+			}
+			modifier = {
+				factor = 1.2
+				trait = just
+			}
+		}
+	}
+	option = {
+		name = ancrel.3403.b
+		trigger = {	NOT = {	trait = skeptic } }
+
+		add_trait = skeptic
+
+		ai_chance = {
+			factor = 35
+			modifier = {
+				factor = 0.75
+				trait = ambitious
+			}
+		}
+	}
+	option = {
+		name = ancrel.3403.c
+		trigger = {	NOT = {	trait = epicurean } }
+
+		add_trait = epicurean
+
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0.5
+				trait = greedy
+			}
+			modifier = {
+				factor = 0.5
+				trait = gluttonous
+			}
+			modifier = {
+				factor = 0.5
+				trait = lustful
+			}
+			modifier = {
+				factor = 2
+				trait = content
+			}
+			modifier = { # the ambitious would never choose Epicureanism
+				factor = 0
+				trait = ambitious
+			}
+		}
+	}
+}
+
+###################################################################
+#
+# Rebuilding Crotone
+#  - ancrel.3411 - 3420 reserved
+#
+###################################################################
+
+# Rebuild Crotone
+character_event = {
+	id = ancrel.3411
+	title = ancrel.3411.title
+	desc = ancrel.3411.desc
+	picture = GFX_persepolis_ruin
+
+	is_triggered_only = yes
+	
+	immediate = {
+		337 = { set_province_flag = acr_reb_crotone_1 }
+	}	
+
+	option = {
+		name = ancrel.3411.a # Make it the greatest academy there ever was!
+	}
+}
+
+# Choose the focus of the academy
+province_event = {
+	id = ancrel.3412
+	title = ancrel.3412.title
+	desc = ancrel.3412.desc
+	picture = GFX_evt_castle_construction
+
+	trigger = {
+		has_global_flag = acr_crotone_building
+		province_id = 337 # Consenza
+		NOT = { has_global_flag = acr_crotone_rebuilt }
+		had_province_flag = { flag = acr_reb_crotone_1 days = 1045 }
+		NOT = { has_province_flag = acr_reb_crotone_2 }
+	}
+
+	immediate = {
+		set_province_flag = acr_reb_crotone_2
+	}
+	
+	mean_time_to_happen = {
+		months = 6
+	}
+	
+	option = {
+		name = ancrel.3412.a # Art, History, and Philosophy; Culture
+		337 = {
+			add_province_modifier = { name = acr_crotone_arts duration = -1 }
+		}
+	}
+	option = {
+		name = ancrel.3412.b # Engineering & Architecture; Economic
+		337 = {
+			add_province_modifier = { name = acr_crotone_engineering duration = -1 }
+		}
+	}
+	option = {
+		name = ancrel.3412.c # Officer Academy; Military
+		337 = {
+			add_province_modifier = { name = acr_crotone_military duration = -1 }
+		}
+	}
+}
+
+# Crotone Finished!
+province_event = {
+	id = ancrel.3413
+	title = ancrel.3413.title
+	desc = ancrel.3413.desc
+	picture = GFX_evt_roman_temple
+	
+	trigger = {
+		has_global_flag = acr_crotone_building
+		province_id = 337 # Consenza
+		NOT = { has_global_flag = acr_crotone_rebuilt }
+		has_province_flag = acr_reb_crotone_1
+		had_province_flag = { flag = acr_reb_crotone_2 days = 546 }		
+	}
+
+	mean_time_to_happen = {
+		months = 3
+	}
+	
+	immediate = {
+		clr_global_flag = acr_crotone_building
+		clr_province_flag = acr_reb_crotone_1
+		clr_province_flag = acr_reb_crotone_2
+		set_global_flag = acr_crotone_rebuilt
+	}
+
+	option = {
+		name = ancrel.3413.a
+		owner = {
+			chronicle = {
+				entry = CHRONICLE_CROTONE
+				portrait = [Root.GetID]
+			}
+			337 = {
+				build_holding = {
+					title = b_crotone
+					type = temple
+					holder = PREV
+				}
+			}
+			religion_authority = { modifier = crotone_academy }
+			prestige = 500
+		}
+		hidden_tooltip = {
+			owner = {
+				set_character_flag = acr_rebuilt_crotone
+				narrative_event = { id = ancrel.3414 days = 7 }
+			}
+		}
+	}
+}
+
+# Crotone Complete major event
+narrative_event = {
+	id = ancrel.3414
+	title = ancrel.3414.title
+	desc = ancrel.3414.desc
+	picture = GFX_evt_roman_temple
+	border = GFX_event_narrative_frame_religion
+	
+	major = yes
+	only_rulers = yes
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { has_character_flag = acr_rebuilt_crotone }
+	}
+
+	option = {
+		trigger = {
+			religion = promethean_pagan
+		}
+		name = ancrel.3414.a
+	}
+
+	option = {
+		trigger = {
+			NOT = { religion = promethean_pagan }
+		}
+
+		name = ancrel.3414.b
+	}
+}
+
+###################################################################
+#
+# The Unbinding Festival
+# - ancrel.3450 - ancrel.3549 reserved
+#
+###################################################################
+
+# Festival Planning Begins!
+character_event = {
+	id = ancrel.3450
+	desc = ancrel.3450.desc
+	picture = GFX_evt_council
+
+	is_triggered_only = yes
+
+	option = {
+		name = ancrel.3450.a
+		hidden_tooltip = {
+			character_event = { id = ancrel.3451 days = 3 } # let the decisions begin!
+		}
+	}
+}
+
+# How extravagant shall the opening ceremony be?
+character_event = {
+	id = ancrel.3451
+	desc = ancrel.3451.desc
+	picture = GFX_evt_courtiers_talking
+
+	is_triggered_only = yes
+
+	immediate = {
+		character_event = { id = ancrel.3452 days = 3 }
+	}
+
+	option = { # just rent out a theatre in the city
+		name = ancrel.3451.a
+		scaled_wealth = -0.05
+		prestige = 75
+
+		random = {
+			chance = 10
+			add_trait = greedy
+			hidden_tooltip = {
+				character_event = { id = 38252 } #Notify Greedy
+			}
+		}
+
+		set_character_flag = unbinding_cheap_open
+
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 1.5
+				NOT = {
+					scaled_wealth = 0.2
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = greedy
+			}
+			modifier = {
+				factor = 10
+				NOT = {
+					scaled_wealth = 0.1
+				}
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { prestige = 200 }
+			}
+		}
+	}
+
+	option = { # build one of wood in the city square
+		name = ancrel.3451.b
+		scaled_wealth = -0.10
+		prestige = 150
+
+		set_character_flag = unbinding_middle_open
+
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 1.2
+				trait = greedy
+			}
+			modifier = {
+				factor = 0.75
+				NOT = {
+					scaled_wealth = 0.2
+				}
+			}
+			modifier = {
+				factor = 2
+				scaled_wealth = 0.5
+			}
+			modifier = {
+				factor = 2
+				NOT = {
+					prestige = 200
+				}
+			}
+		}
+	}
+
+	option = { # build a grand stage of real stone!
+		name = ancrel.3451.c
+		scaled_wealth = -0.20
+		prestige = 300
+
+		random = {
+			chance = 10
+			add_trait = charitable
+			hidden_tooltip = {
+				character_event = { id = 38273 } #Notify Charitable
+			}
+		}
+
+		set_character_flag = unbinding_grand_open
+
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = charitable
+			}
+			modifier = {
+				factor = 2
+				trait = arbitrary
+			}
+			modifier = {
+				factor = 1.5
+				scaled_wealth = 1.0
+			}
+		}
+	}
+}
+
+# How much shall be spent on the festivities?
+character_event = {
+	id = ancrel.3452
+	desc = ancrel.3452.desc
+	picture = GFX_evt_courtiers_talking
+
+	is_triggered_only = yes
+
+	immediate = {
+		character_event = { id = ancrel.3453 days = 3 }
+	}
+
+	option = { # keep it simple
+		name = ancrel.3452.a
+		set_character_flag = unbinding_cheap_festivities
+
+		scaled_wealth = -0.05
+		prestige = -25
+
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 1.5
+				NOT = {
+					scaled_wealth = 0.2
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = greedy
+			}
+			modifier = {
+				factor = 10
+				NOT = {
+					scaled_wealth = 0.1
+				}
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { prestige = 200 }
+			}
+		}
+	}
+	option = { # lets not be cheap
+		name = ancrel.3452.b
+		set_character_flag = unbinding_middle_festivities
+
+		scaled_wealth = -0.1
+		prestige = 25
+
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 1.2
+				trait = greedy
+			}
+			modifier = {
+				factor = 0.75
+				NOT = {
+					scaled_wealth = 0.2
+				}
+			}
+			modifier = {
+				factor = 2
+				scaled_wealth = 0.5
+			}
+			modifier = {
+				factor = 2
+				NOT = {
+					prestige = 200
+				}
+			}
+		}	
+	}
+	option = { # lets make it a festival to remember!
+		name = ancrel.3452.c
+		set_character_flag = unbinding_grand_festivities
+
+		scaled_wealth = -0.2
+		prestige = 50
+
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = charitable
+			}
+			modifier = {
+				factor = 2
+				trait = arbitrary
+			}
+			modifier = {
+				factor = 1.5
+				scaled_wealth = 1.0
+			}
+		}
+	}
+}
+
+# Opening Ceremony - Who Plays Prometheus?
+character_event = {
+	id = ancrel.3453
+	desc = ancrel.3453.desc
+	picture = GFX_evt_prometheus_bound
+	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+
+	option = { #play Prometheus yourself
+		name = ancrel.3453.a
+		save_event_target_as = festival_prometheus
+		prestige = 100
+
+		job_spiritual = {
+			opinion = { modifier = ancrel_dissapointed who = ROOT }
+		}
+
+ 		hidden_tooltip = { # inform the priest
+ 			job_spiritual = { character_event = { id = ancrel.3547 } }
+ 		}
+
+ 		character_event = { id = ancrel.3454 days = 1 } # next decision
+
+ 		ai_chance = {
+ 			factor = 25
+ 			modifier = {
+ 				factor = 1.5
+ 				trait = proud
+ 			}
+ 			modifier = {
+ 				factor = 1.5
+ 				trait = possessed
+ 			}
+ 			modifier = {
+ 				factor = 1.1
+ 				job_spiritual = {
+ 					ROOT = { NOT = { opinion = { who = PREV value = 0 } } }
+ 				}
+ 			}
+ 			modifier = {
+ 				factor = 1.1
+ 				job_spiritual = {
+ 					ROOT = { NOT = { opinion = { who = PREV value = -30 } } }
+ 				}
+ 			}
+ 			modifier = {
+ 				factor = 1.1
+ 				job_spiritual = {
+ 					ROOT = { NOT = { opinion = { who = PREV value = -60 } } }
+ 				}
+ 			}
+ 		}
+	}
+
+	option = { #have your Court Priest do it
+		name = ancrel.3453.b
+		trigger = {
+			any_courtier = {
+				has_job_title = job_spiritual
+			}
+		}
+
+		job_spiritual = {
+			prestige = 100
+			save_event_target_as = festival_prometheus
+			opinion = { modifier = ancrel_honored_me who = ROOT }
+		}
+
+		hidden_tooltip = { #inform the priest
+			job_spiritual = { character_event = { id = ancrel.3548 } }
+		}
+
+ 		character_event = { id = ancrel.3454 days = 1 } # next decision
+
+ 		ai_chance = {
+ 			factor = 50
+ 			modifier = {
+ 				factor = 2
+ 				trait = just
+ 			}
+ 			modifier = {
+ 				factor = 1.2
+ 				trait = content
+ 			}
+ 			modifier = {
+ 				factor = 1.2
+ 				job_spiritual = {
+ 					ROOT = { opinion = { who = PREV value = 60 } }
+ 				}
+ 			}
+ 			modifier = {
+ 				factor = 1.2
+ 				trait = humble
+ 			}
+ 			modifier = {
+ 				factor = 1.2
+ 				job_spiritual = {
+ 					ROOT = { is_plot_target_of = PREV }
+ 				}
+ 			}
+ 		}
+	}
+
+	option = { #random pious vassal
+		name = ancrel.3453.c
+		trigger = {
+			any_vassal = {
+				piety = 500
+				NOT = { has_job_title = job_spiritual }
+			}
+		}
+
+		random_vassal = {
+			limit = {
+				piety = 500
+				NOT = { has_job_title = job_spiritual }
+			}
+
+			prestige = 100
+			save_event_target_as = festival_prometheus
+			opinion = { modifier = ancrel_honored_me who = ROOT }
+		}
+
+		job_spiritual = {
+			opinion = { modifier = ancrel_dissapointed who = ROOT }
+		}
+
+ 		hidden_tooltip = { # inform the characters
+ 			event_target:festival_prometheus = { character_event = { id = ancrel.3548 } }
+ 			job_spiritual = { character_event = { id = ancrel.3546 } }
+ 		}
+
+ 		character_event = { id = ancrel.3454 days = 1 } # next decision
+
+ 		ai_chance = {
+ 			factor = 25
+ 			modifier = {
+ 				factor = 1.2
+ 				job_spiritual = {
+ 					ROOT = { NOT = { opinion = { who = PREV value = -30 } } }
+ 				}
+ 			}
+ 			modifier = {
+ 				factor = 1.2
+ 				job_spiritual = {
+ 					ROOT = { NOT = { opinion = { who = PREV value = -60 } } }
+ 				}
+ 			}
+ 			modifier = {
+ 				factor = 1.5
+ 				trait = arbitrary
+ 			}
+ 		}
+	}
+
+	option = { #totally random vassal, because apparently there is a lack of piety in your realm
+		name = ancrel.3453.d
+		trigger = {
+			NOT = {
+				any_vassal = {
+					piety = 500
+					NOT = { has_job_title = job_spiritual }
+				}
+			}
+		}
+
+		random_vassal = {
+			limit = {
+				NOT = { has_job_title = job_spiritual }
+			}
+			prestige = 100
+			save_event_target_as = festival_prometheus
+			opinion = { modifier = ancrel_honored_me who = ROOT }
+		}
+
+		job_spiritual = {
+			opinion = { modifier = ancrel_dissapointed who = ROOT }
+		}
+
+ 		hidden_tooltip = { # inform the characters
+ 			event_target:festival_prometheus = { character_event = { id = ancrel.3548 } }
+ 			job_spiritual = { character_event = { id = ancrel.3546 } }
+ 		}
+
+ 		character_event = { id = ancrel.3454 days = 1 } # next decision
+
+ 		ai_chance = {
+ 			factor = 25
+ 			modifier = {
+ 				factor = 1.2
+ 				job_spiritual = {
+ 					ROOT = { NOT = { opinion = { who = PREV value = -30 } } }
+ 				}
+ 			}
+ 			modifier = {
+ 				factor = 1.2
+ 				job_spiritual = {
+ 					ROOT = { NOT = { opinion = { who = PREV value = -60 } } }
+ 				}
+ 			}
+ 			modifier = {
+ 				factor = 1.5
+ 				trait = arbitrary
+ 			}
+ 			modifier = {
+ 				factor = 1.1
+ 				trait = lunatic
+ 			}
+ 		}
+	}
+}
+
+# Opening Ceremony - Who Plays Heracles?
+character_event = {
+	id = ancrel.3454
+	desc = ancrel.3454.desc
+	picture = GFX_evt_prometheus_bound
+	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+
+	option = { #play Heracles yourself
+		name = ancrel.3454.a
+		trigger = { # you can't play Prometheus and Heracles at the same time
+			NOT = {
+				character = event_target:festival_prometheus
+			}
+		}
+		save_event_target_as = festival_heracles
+		prestige = 100
+
+		job_marshal = {
+			reverse_opinion = { modifier = ancrel_dissapointed who = ROOT }
+		}
+		hidden_tooltip = {
+			job_marshal = { # inform the marshal
+				character_event = { id = ancrel.3544 }
+			}
+		}
+
+		narrative_event = { id = ancrel.3455 days = 1 } # the opening ceremony!
+
+ 		ai_chance = {
+ 			factor = 25
+ 			modifier = {
+ 				factor = 1.5
+ 				trait = proud
+ 			}
+ 			modifier = {
+ 				factor = 1.5
+ 				trait = possessed
+ 			}
+ 			modifier = {
+ 				factor = 1.1
+ 				job_marshal = {
+ 					ROOT = { NOT = { opinion = { who = PREV value = 30 } } }
+ 				}
+ 			}
+ 			modifier = {
+ 				factor = 1.1
+ 				job_marshal = {
+ 					ROOT = { NOT = { opinion = { who = PREV value = 0 } } }
+ 				}
+ 			}
+ 			modifier = {
+ 				factor = 1.1
+ 				job_marshal = {
+ 					ROOT = { NOT = { opinion = { who = PREV value = -30 } } }
+ 				}
+ 			}
+ 		}
+	}
+
+	option = { #have your Marshal do it
+		name = ancrel.3454.b
+		trigger = {
+			any_courtier = {
+				has_job_title = job_marshal
+			}
+		}
+
+		job_marshal = {
+			prestige = 100
+			save_event_target_as = festival_heracles
+			opinion = { modifier = ancrel_honored_me who = ROOT }
+		}
+
+		hidden_tooltip = { # inform the marshal
+			job_marshal = {
+				character_event = { id = ancrel.3545 }
+			}
+		}
+
+		narrative_event = { id = ancrel.3455 days = 1 } # the opening ceremony!
+
+ 		ai_chance = {
+ 			factor = 50
+ 			modifier = {
+ 				factor = 2
+ 				trait = just
+ 			}
+ 			modifier = {
+ 				factor = 1.2
+ 				trait = content
+ 			}
+ 			modifier = {
+ 				factor = 1.2
+ 				job_marshal = {
+ 					ROOT = { opinion = { who = PREV value = 60 } }
+ 				}
+ 			}
+ 			modifier = {
+ 				factor = 1.2
+ 				trait = humble
+ 			}
+ 			modifier = {
+ 				factor = 1.2
+ 				job_marshal = {
+ 					ROOT = { is_plot_target_of = PREV }
+ 				}
+ 			}
+ 		}
+	}
+
+	option = { #random prestigous vassal
+		name = ancrel.3454.c
+		trigger = {
+			any_vassal = {
+				prestige = 500
+					NOR = { 
+						has_job_title = job_marshal
+						event_target:festival_prometheus = {
+							character = PREV
+						}
+					}
+			}
+		}
+
+		random_vassal = {
+			limit = {
+				prestige = 500
+				NOT = { has_job_title = job_marshal }
+			}
+
+			prestige = 100
+			save_event_target_as = festival_heracles
+			opinion = { modifier = ancrel_honored_me who = ROOT }
+		}
+
+		job_marshal = {
+			opinion = { modifier = ancrel_dissapointed who = ROOT }
+		}
+
+		hidden_tooltip = {
+			event_target:festival_heracles = { # inform the lucky vassal
+				character_event = { id = ancrel.3545 }
+			}
+			job_marshal = { # inform the marshal
+				character_event = { id = ancrel.3543 }
+			}
+		}
+
+		narrative_event = { id = ancrel.3455 days = 1 } # the opening ceremony!
+
+ 		ai_chance = {
+ 			factor = 25
+ 			modifier = {
+ 				factor = 1.2
+ 				job_marshal = {
+ 					ROOT = { NOT = { opinion = { who = PREV value = -30 } } }
+ 				}
+ 			}
+ 			modifier = {
+ 				factor = 1.2
+ 				job_marshal = {
+ 					ROOT = { NOT = { opinion = { who = PREV value = -60 } } }
+ 				}
+ 			}
+ 			modifier = {
+ 				factor = 1.5
+ 				trait = arbitrary
+ 			}
+ 		}
+	}
+
+	option = { #totally random vassal, because apparently there is a lack of prestige in your realm
+		name = ancrel.3454.d
+		trigger = {
+			NOT = {
+				any_vassal = {
+					prestige = 500
+					NOR = { 
+						has_job_title = job_marshal
+						event_target:festival_prometheus = {
+							character = PREV
+						}
+					}
+				}
+			}
+		}
+
+		random_vassal = {
+			limit = {
+				NOT = { has_job_title = job_marshal }
+			}
+			save_event_target_as = festival_heracles
+			prestige = 100
+			opinion = { modifier = ancrel_honored_me who = ROOT }
+		}
+		job_marshal = {
+			opinion = { modifier = ancrel_dissapointed who = ROOT }
+		}
+
+		hidden_tooltip = {
+			event_target:festival_heracles = { # inform the lucky vassal
+				character_event = { id = ancrel.3545 }
+			}
+			job_marshal = { # inform the marshal
+				character_event = { id = ancrel.3543 }
+			}
+		}
+
+		narrative_event = { id = ancrel.3455 days = 1 } # the opening ceremony!
+
+ 		ai_chance = {
+ 			factor = 25
+ 			modifier = {
+ 				factor = 1.2
+ 				job_marshal = {
+ 					ROOT = { NOT = { opinion = { who = PREV value = -30 } } }
+ 				}
+ 			}
+ 			modifier = {
+ 				factor = 1.2
+ 				job_marshal = {
+ 					ROOT = { NOT = { opinion = { who = PREV value = -60 } } }
+ 				}
+ 			}
+ 			modifier = {
+ 				factor = 1.5
+ 				trait = arbitrary
+ 			}
+ 			modifier = {
+ 				factor = 1.1
+ 				trait = lunatic
+ 			}
+ 		}
+	}
+}
+
+# Opening Ceremony (liege)
+narrative_event = {
+	id = ancrel.3455
+	title = ancrel.unbinding_prometheus
+	picture = GFX_evt_prometheus_bound
+	border = GFX_event_narrative_frame_religion
+
+	desc = { # the ruler is Prometheus
+		trigger = {
+			character = event_target:festival_prometheus
+		}
+		text = ancrel.3455.desc.prometheus
+	}
+	desc = { # the ruler is Heracles
+		trigger = {
+			character = event_target:festival_heracles
+		}
+		text = ancrel.3455.desc.heracles
+	}
+	desc = { # the ruler is neither
+		trigger = {
+			NOR = {
+				character = event_target:festival_heracles
+				character = event_target:festival_prometheus
+			}
+		}
+		text = ancrel.3455.desc.other
+	}
+
+	immediate = {
+		add_character_modifier = {
+			name = holding_unbinding_festival
+			duration = -1
+		}
+	}
+
+	is_triggered_only = yes
+
+	option = {
+		name = ancrel.3455.a
+		hidden_tooltip = {
+			any_realm_character = { # regular vassals
+				limit = {
+					NOR = {
+						event_target:festival_heracles = {
+							character = PREV
+						}
+						event_target:festival_prometheus = {
+							character = PREV
+						}
+					}
+				}
+				narrative_event = { id = ancrel.3456 }
+			}
+			if = {
+				limit = {
+					event_target:festival_prometheus = {
+						NOT = { character = ROOT }
+					}
+				}
+				event_target:festival_prometheus = { # prometheus
+					narrative_event = { id = ancrel.3457 }
+				}
+			}
+			if = {
+				limit = {
+					event_target:festival_heracles = {
+						NOT = { character = ROOT }
+					}
+				}
+				event_target:festival_heracles = { # heracles
+					narrative_event = { id = ancrel.3458 }
+				}
+			}
+		}
+	}
+}
+
+# Opening Ceremony (vassals)
+narrative_event = {
+	id = ancrel.3456
+	title = ancrel.unbinding_prometheus
+	desc = ancrel.3455.desc.other
+	picture = GFX_evt_prometheus_bound
+	border = GFX_event_narrative_frame_religion
+
+	is_triggered_only = yes
+
+	option = {
+		name = ancrel.3456.a
+		set_character_flag = unbinding_festival_open
+	}
+}
+
+# Opening Ceremony (Prometheus)
+narrative_event = {
+	id = ancrel.3457
+	title = ancrel.unbinding_prometheus
+	desc = ancrel.3455.desc.prometheus
+	picture = GFX_evt_prometheus_bound
+	border = GFX_event_narrative_frame_religion
+
+	is_triggered_only = yes
+
+	option = {
+		name = ancrel.3457.a
+		set_character_flag = unbinding_festival_open
+	}
+}
+
+# Opening Ceremony (Heracles)
+narrative_event = {
+	id = ancrel.3458
+	title = ancrel.unbinding_prometheus
+	desc = ancrel.3455.desc.heracles
+	picture = GFX_evt_prometheus_bound
+	border = GFX_event_narrative_frame_religion
+
+	is_triggered_only = yes
+
+	option = {
+		name = ancrel.3458.a
+		set_character_flag = unbinding_festival_open
+	}
+}
+
+###################################################################
+#
+# Festival Events
+#
+###################################################################
+
+# A firedancer accidentally burns down a building!
+character_event = {
+	id = ancrel.3459
+	desc = ancrel.3459.desc
+	picture = GFX_evt_burning_house
+
+	trigger = {
+		has_character_modifier = holding_unbinding_festival
+		OR = {
+			NOT = { has_character_flag = festival_event_happened }
+			had_character_flag = {
+				flag = festival_event_happened
+				days = 3
+			}
+		}
+		NOT = { has_character_flag = ancrel_remove_firedancers }
+	}
+
+	immediate = {
+		set_character_flag = festival_event_happened
+	}
+
+	mean_time_to_happen = {
+		days = 480
+		
+		modifier = {
+			factor = 0.75
+			has_character_flag = unbinding_cheap_festivities
+		}
+		modifier = {
+			factor = 1.25
+			has_character_flag = unbinding_grand_festivities
+		}
+	}
+
+	option = {
+		name = ancrel.3459.a
+		capital_holding = {
+			destroy_random_building = yes
+		}
+	}
+}
+
+# a vassal is pleased by the firedancer's performance
+character_event = {
+	id = ancrel.3460
+	desc = ancrel.3460.desc
+	picture = GFX_evt_firedancers
+
+	trigger = { 
+		has_character_modifier = holding_unbinding_festival
+		OR = {
+			NOT = { has_character_flag = festival_event_happened }
+			had_character_flag = {
+				flag = festival_event_happened
+				days = 3
+			}
+		}
+		NOT = { has_character_flag = ancrel_remove_firedancers }
+	}
+
+	immediate = {
+		set_character_flag = festival_event_happened
+	}
+
+	mean_time_to_happen = {
+		days = 360
+		
+		modifier = {
+			factor = 0.33
+			NOT = { has_character_flag = festival_event_happened }
+		}	
+		modifier = {
+			factor = 1.25
+			has_character_flag = unbinding_cheap_festivities
+		}
+		modifier = {
+			factor = 0.75
+			has_character_flag = unbinding_grand_festivities
+		}
+	}
+
+	option = {
+		name = ancrel.3460.a
+		random_vassal = {
+			limit = {
+				prisoner = no
+			}
+			opinion = {
+				modifier = opinion_approves
+				who = ROOT
+				years = 5
+			}
+		}
+	}
+}
+
+# spouse/courtier/vassal looks attractive in the firelight (liege)
+character_event = {
+	id = ancrel.3461
+	desc = ancrel.3461.desc
+	picture = GFX_evt_couple_by_firelight
+
+	is_triggered_only = yes
+
+	option = { # make your move!
+		name = ancrel.3461.a
+		hidden_tooltip = {
+			FROM = { # replace the vanilla spurn/accept event, because it sucks
+				character_event = { id = ancrel.3492 }
+			}
+		}
+
+		random = {
+			chance = 25
+			add_trait = lustful
+			hidden_tooltip = {
+				character_event = { id = 38272 } #Notify Lustful
+			}
+		}
+
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 1.5
+				trait = lustful
+			}
+			modifier = {
+				factor = 5
+				is_lover = FROM
+			}
+			modifier = {
+				factor = 10
+				has_focus = focus_seduction
+			}
+			modifier = {
+				factor = 2
+				NOT = {
+					any_lover = {
+						count = 1
+					}
+				}
+			}
+		}
+	}
+
+	option = { # admire from afar
+		name = ancrel.3461.b
+		piety = 25
+
+		random_list = {
+			10 = {
+				add_trait = content
+				hidden_tooltip = {
+   					character_event = {
+  						id = 38279 #Notify Content
+   					}
+   				}
+			}
+			20 = {
+				add_trait = stressed
+				hidden_tooltip = {
+   					character_event = {
+  						id = 38282 #Notify Stressed
+   					}
+   				}
+			}
+			70 = {
+				#do nothing
+			}
+		}
+
+		ai_chance = {
+			factor = 60
+			modifier = {
+				factor = 200
+				any_lover = {
+					count = 3
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = content
+			}
+			modifier = {
+				factor = 2
+				NOT = { 
+					opinion = { who = FROM value = 30} 
+				}
+			}
+			modifier = {
+				factor = 0.5
+				opinion = { who = FROM value = 60 }
+			}
+		}
+	}
+
+	option = { # who needs sex?
+		name = ancrel.3461.c
+		piety = 100
+
+		random_vassal = {
+			limit = {
+				is_theocracy = yes
+				NOT = {
+					trait = lustful
+					trait = seducer
+					trait = seductress
+					has_focus = focus_carousing
+					has_focus = focus_seduction
+				}
+			}
+
+			opinion = { 
+				modifier = opinion_approves 
+				who = ROOT 
+				years = 5
+			}
+		}
+		random_realm_character = {
+			limit = {
+				OR = {
+					trait = lustful
+					trait = seducer
+					trait = seductress
+					has_focus = focus_carousing
+					has_focus = focus_seduction
+				}
+			}
+
+			opinion = {
+				modifier = ancrel_dissapointed
+				who = ROOT
+				years = 5
+			}
+		}
+
+		random = {
+			chance = 25
+			add_trait = chaste
+			hidden_tooltip = {
+				character_event = { id = 38274 } #Notify Chaste
+			}
+		}
+
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 200
+				OR = {
+					trait = monk
+					trait = nun
+					trait = celibate
+				}
+
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					trait = lustful
+					trait = hedonist
+					trait = seducer
+					trait = seductress
+				}
+			}
+		}
+	}
+}
+
+# courtier/vassal looks attractive in the firelight (c/v)
+character_event = {
+	id = ancrel.3462
+	hide_window = yes
+
+	min_age = 16
+
+	trigger = {
+		liege = {
+			has_character_modifier = holding_unbinding_festival
+			OR = {
+				NOT = { has_character_flag = festival_event_happened }
+				had_character_flag = {
+					flag = festival_event_happened
+					days = 3
+				}
+			}
+			is_attracted_to_prev = yes
+			NOT = { spouse = { character = ROOT } } # different event for spouses, since they may not be a vassal
+			NOT = { has_character_flag = ancrel_remove_firedancers }
+		}
+	}
+
+	immediate = {
+		liege = {
+			set_character_flag = festival_event_happened
+			set_character_flag = festival_lover
+			character_event = { id = ancrel.3461 }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 360
+
+		modifier = {
+			factor = 0.75
+			liege = { trait = lustful }
+		}
+		modifier = {
+			factor = 0.9
+			trait = lustful
+		}
+		modifier = {
+			factor = 0.8
+			trait = fair
+		}
+		modifier = {
+			factor = 0.7
+			liege = {
+				is_lover = ROOT
+			}
+		}
+		modifier = {
+			factor = 1.5
+			liege = {
+				trait = chaste
+			}
+		}
+		modifier = {
+			factor = 2
+			liege = {
+				has_character_flag = festival_lover
+			}
+		}
+		modifier = {
+			factor = 10
+			liege = {
+				trait = celibate
+			}
+		}
+	}
+}
+
+# spouse looks attractive in the firelight (spouse)
+character_event = {
+	id = ancrel.3463
+	hide_window = yes
+
+	min_age = 16
+
+	trigger = {
+		spouse = {
+			has_character_modifier = holding_unbinding_festival
+			OR = {
+				NOT = { has_character_flag = festival_event_happened }
+				had_character_flag = {
+					flag = festival_event_happened
+					days = 3
+				}
+			}
+			is_attracted_to_prev = yes
+			NOT = { has_character_flag = ancrel_remove_firedancers }
+		}
+	}
+
+	immediate = {
+		spouse = {
+			set_character_flag = festival_event_happened
+			set_character_flag = festival_lover
+			character_event = { id = ancrel.3461 }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 180
+
+		modifier = {
+			factor = 0.75
+			spouse = { trait = lustful }
+		}
+		modifier = {
+			factor = 0.9
+			trait = lustful
+		}
+		modifier = {
+			factor = 0.8
+			trait = fair
+		}
+		modifier = {
+			factor = 0.5
+			spouse = {
+				is_lover = ROOT
+			}
+		}
+		modifier = {
+			factor = 1.5
+			spouse = {
+				trait = chaste
+			}
+		}
+		modifier = {
+			factor = 2
+			spouse = {
+				has_character_flag = festival_lover
+			}
+		}
+		modifier = {
+			factor = 10
+			spouse = {
+				trait = celibate
+			}
+		}
+	}
+}
+
+# The character accepts or spurns the liege/spouse
+character_event = {
+	id = ancrel.3492
+	desc = ancrel.3492.desc
+	picture = GFX_evt_lovers
+
+	is_triggered_only = yes
+
+	option = {
+		name = EVTOPTA452 # What took him/her so long?
+		ai_chance = {
+			factor = 34
+			modifier = {
+				factor = 2
+				FROM = {
+					ROOT = { is_attracted_to_prev = yes }
+				}
+			}
+			modifier = {
+				factor = 1.5
+				spouse = {
+					ROOT = { likes_better_than = { who = FROM than = PREV } }
+				}
+			}
+			modifier = {
+				factor = 1.2
+				trait = lustful
+			}
+			modifier = {
+				factor = 1.2
+				trait = arbitrary
+			}
+		}
+		
+		add_lover = FROM
+		
+		FROM = { character_event = { id = 453 tooltip = EVTTOOLTIP453 } }
+		
+		# Chance of impregnation
+		if = {
+			limit = {
+				fertility = 0.25
+				FROM = { fertility = 0.25 }
+				OR = {
+					AND = {
+						is_female = yes
+						FROM = { is_female = no }
+						NOT = { age = 45 }
+					}
+					AND = {
+						is_female = no
+						FROM = {
+							is_female = yes
+							NOT = { age = 45 }
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					fertility = 0.5
+					FROM = { fertility = 0.5 }
+				}
+				random_list = {
+					75 = {
+						if = { 
+							limit = {
+								OR = {
+									is_female = yes
+									FROM = {
+										is_female = yes
+									}
+								}
+							}
+							impregnate = FROM
+							break = yes
+						}
+						impregnate_cuckoo = FROM
+					}
+					25 = { }
+				}
+				break = yes
+			}
+			
+			random_list = {
+				50 = {
+					if = { 
+						limit = {
+							OR = {
+								is_female = yes 
+								FROM = {
+									is_female = yes
+								}
+							}
+						}
+						impregnate = FROM
+						break = yes
+					}
+					impregnate_cuckoo = FROM
+				}
+				50 = { }
+			}
+		}
+	}
+
+	option = {
+		name = EVTOPTB452 # Dissuade
+		ai_chance = {
+			factor = 33
+			modifier = {
+				factor = 10
+				trait = chaste
+			}
+			modifier = {
+				factor = 2
+				FROM = { is_female = no }
+				is_female = yes
+			}
+			modifier = {
+				factor = 2
+				trait = shy
+			}
+			modifier = {
+				factor = 0.5
+				trait = trusting
+			}
+			modifier = {
+				factor = 0.1
+				FROM = {
+					OR = {
+						trait = seducer
+						trait = seductress
+					}
+				}
+			}
+			modifier = {
+				factor = 5
+				FROM = {
+					ROOT = { is_attracted_to_prev = no }
+				}
+			}
+		}
+		
+		FROM = { character_event = { id = 454 tooltip = EVTTOOLTIP454 } }
+	}
+
+	option = {
+		name = EVTOPTC452 # Scream for help!
+		trigger = {
+			FROM = { is_female = no }
+			is_female = yes
+			NOT = { trait = lustful }
+			NOT = { trait = hedonist }
+		}
+		ai_chance = {
+			factor = 33
+			modifier = {
+				factor = 10
+				trait = chaste
+			}
+			modifier = {
+				factor = 2
+				trait = shy
+			}
+			modifier = {
+				factor = 0.5
+				trait = trusting
+			}
+			modifier = {
+				factor = 0.01
+				FROM = {
+					OR = {
+						trait = seducer
+						trait = seductress
+					}
+				}
+			}
+			modifier = {
+				factor = 10
+				FROM = {
+					ROOT = { is_attracted_to_prev = no }
+				}
+			}
+		}
+		FROM = { character_event = { id = 455 tooltip = EVTTOOLTIP455 } }
+	}
+}
+
+# you've been burned by firedancer oil!
+character_event = {
+	id = ancrel.3464
+	desc = ancrel.3464.desc
+	picture = GFX_evt_firedancers
+
+	trigger = { 
+		has_character_modifier = holding_unbinding_festival
+		OR = {
+			NOT = { has_character_flag = festival_event_happened }
+			had_character_flag = {
+				flag = festival_event_happened
+				days = 3
+			}
+		}
+		NOT = { has_character_flag = ancrel_remove_firedancers }
+	}
+
+	immediate = {
+		set_character_flag = festival_event_happened
+		add_trait = wounded
+	}
+
+	mean_time_to_happen = {
+		days = 360
+		modifier = {
+			factor = 0.33
+			NOT = { has_character_flag = festival_event_happened }
+		}	
+		modifier = {
+			factor = 0.75
+			has_character_flag = unbinding_cheap_festivities
+		}
+		modifier = {
+			factor = 1.25
+			has_character_flag = unbinding_grand_festivities
+		}
+	}
+
+	option = { # execute them!
+		name = ancrel.3464.a
+		custom_tooltip = {
+			text = ancrel.remove_firedancers
+			set_character_flag = ancrel_remove_firedancers
+		}
+		prestige = 100
+		random = {
+			chance = 20
+			add_trait = wroth
+		}
+		capital_scope = {
+			add_province_modifier = {
+				name = peasant_unrest
+				days = 180
+			}
+		}
+
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = impaler
+			}
+			modifier = {
+				factor = 2
+				trait = cruel
+			}
+			modifier = {
+				factor = 2
+				trait = arbitrary
+			}
+		}
+	}
+	option = { # imprison them!
+		name = ancrel.3464.b
+		custom_tooltip = {
+			text = ancrel.remove_firedancers
+			set_character_flag = ancrel_remove_firedancers
+		}
+		prestige = 50
+		capital_scope = {
+			add_province_modifier = {
+				name = peasant_unrest
+				days = 90
+			}
+		}
+
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = wroth
+			}
+			modifier = {
+				factor = 1.5
+				trait = arbitrary
+			}
+			modifier = {
+				factor = 1.5
+				trait = proud
+			}
+		}
+	}
+	option = { # on with the show!
+		name = ancrel.3464.c
+		prestige = -100
+
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = just
+			}
+			modifier = {
+				factor = 2
+				trait = kind
+			}
+			modifier = {
+				factor = 2
+				trait = craven
+			}
+		}
+	}
+}
+
+# a vassal is burned by fire dancer oil!
+character_event = {
+	id = ancrel.3494
+	hide_window = yes
+
+	trigger = { 
+		has_character_modifier = holding_unbinding_festival
+		OR = {
+			NOT = { has_character_flag = festival_event_happened }
+			had_character_flag = {
+				flag = festival_event_happened
+				days = 3
+			}
+		}
+		NOT = { has_character_flag = ancrel_remove_firedancers }
+	}
+
+	immediate = {
+		set_character_flag = festival_event_happened
+		random_vassal = {
+			character_event = { id = ancrel.3465 days = 0 }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 270
+		modifier = {
+			factor = 0.50
+			NOT = { has_character_flag = festival_event_happened }
+		}	
+		modifier = {
+			factor = 0.75
+			has_character_flag = unbinding_cheap_festivities
+		}
+		modifier = {
+			factor = 1.25
+			has_character_flag = unbinding_grand_festivities
+		}
+	}
+}
+
+# a vassal has been burned by fire dancer oil! (vassal)
+character_event = {
+	id = ancrel.3465
+	desc = ancrel.3465.desc
+	picture = GFX_evt_firedancers
+
+	is_triggered_only = yes
+
+	immediate = {
+		add_trait = wounded
+	}
+
+	option = { # demand the firedancers are punished!
+		name = ancrel.3465.a
+		custom_tooltip = {
+			text = ancrel.3465.a.tt
+			liege = {
+				character_event = { id = ancrel.3466 }
+			}
+		}
+		random = {
+			chance = 20
+			add_trait = wroth
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				trait = wroth
+			}
+			modifier = {
+				factor = 5
+				trait = cruel
+			}
+			modifier = {
+				factor = 10
+				trait = impaler
+			}
+		}
+	}
+	option = { 	# it was an unfortunate, painful, accident. thats all
+		name = ancrel.3465.b
+		custom_tooltip = {
+			text = ancrel.3465.b.tt
+			liege = {
+				character_event = { id = ancrel.3467 }
+			}
+		}
+		random = {
+			chance = 20
+			add_trait = kind
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				trait = patient
+			}
+			modifier = {
+				factor = 5
+				trait = kind
+			}
+			modifier = {
+				factor = 10
+				trait = just
+			}
+		}
+	}
+}
+
+# a vassal is burned by firedancer oil and demands punishment! (liege)
+character_event = {
+	id = ancrel.3466
+	desc = ancrel.3466.desc
+	picture = GFX_evt_firedancers
+
+	is_triggered_only = yes
+
+	option = {
+		#kill 'em
+		name = ancrel.3466.a
+		custom_tooltip = {
+			text = ancrel.remove_firedancers
+			set_character_flag = ancrel_remove_firedancers
+		}
+		reverse_opinion = { modifier = ancrel_pleased who = FROM }
+		random = {
+			chance = 20
+			add_trait = arbitrary
+		}
+		capital_scope = {
+			add_province_modifier = {
+				name = peasant_unrest
+				days = 180
+			}
+		}
+
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = impaler
+			}
+			modifier = {
+				factor = 2
+				trait = cruel
+			}
+			modifier = {
+				factor = 2
+				trait = arbitrary
+			}
+			modifier = {
+				factor = 1.2
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.2
+				opinion = { who = FROM value = 60 }
+			}
+		}
+	}
+	option = {
+		#remove them from the festival
+		name = ancrel.3466.b
+		custom_tooltip = {
+			text = ancrel.remove_firedancers
+			set_character_flag = ancrel_remove_firedancers
+		}
+		capital_scope = {
+			add_province_modifier = {
+				name = peasant_unrest
+				days = 90
+			}
+		}
+		random = {
+			chance = 20
+			add_trait = just
+		}
+
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = impaler
+			}
+			modifier = {
+				factor = 2
+				trait = cruel
+			}
+			modifier = {
+				factor = 2
+				trait = arbitrary
+			}
+			modifier = {
+				factor = 1.1
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.1
+				opinion = { who = FROM value = 60 }
+			}
+		}
+	}
+	option = {
+		# it was just an accident
+		name = ancrel.3466.c
+		reverse_opinion = { modifier = ancrel_dissapointed who = FROM }
+		random = {
+			chance = 20
+			add_trait = kind
+		}
+
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = just
+			}
+			modifier = {
+				factor = 2
+				trait = kind
+			}
+			modifier = {
+				factor = 2
+				trait = craven
+			}
+			modifier = {
+				factor = 1.2
+				NOT = {
+					opinion = { who = FROM value = -30 }
+				}
+			}
+			modifier = {
+				factor = 1.2
+				NOT = {
+					opinion = { who = FROM value = -60 }
+				}
+			}
+		}
+	}
+}
+
+# a vassal is burned by firedancer oil and suggests leniency! (liege)
+character_event = {
+	id = ancrel.3467
+	desc = ancrel.3467.desc
+	picture = GFX_evt_firedancers
+
+	is_triggered_only = yes
+
+	option = {
+		#kill 'em
+		name = ancrel.3467.a
+		reverse_opinion = { modifier = ancrel_dissapointed who = FROM }
+		custom_tooltip = {
+			text = ancrel.remove_firedancers
+			set_character_flag = ancrel_remove_firedancers
+		}
+		random = {
+			chance = 20
+			add_trait = arbitrary
+		}
+		capital_scope = {
+			add_province_modifier = {
+				name = peasant_unrest
+				days = 180
+			}
+		}
+
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = impaler
+			}
+			modifier = {
+				factor = 2
+				trait = cruel
+			}
+			modifier = {
+				factor = 2
+				trait = arbitrary
+			}
+			modifier = {
+				factor = 1.2
+				NOT = {
+					opinion = { who = FROM value = -30 }
+				}
+			}
+			modifier = {
+				factor = 1.2
+				NOT = {
+					opinion = { who = FROM value = -60 }
+				}
+			}
+		}
+	}
+	option = {
+		#remove them from the festival
+		name = ancrel.3467.b
+		custom_tooltip = {
+			text = ancrel.remove_firedancers
+			set_character_flag = ancrel_remove_firedancers
+		}
+		random = {
+			chance = 20
+			add_trait = just
+		}
+		capital_scope = {
+			add_province_modifier = {
+				name = peasant_unrest
+				days = 90
+			}
+		}
+
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = impaler
+			}
+			modifier = {
+				factor = 2
+				trait = cruel
+			}
+			modifier = {
+				factor = 2
+				trait = arbitrary
+			}
+			modifier = {
+				factor = 1.1
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.1
+				opinion = { who = FROM value = 60 }
+			}
+		}
+	}
+	option = {
+		# it was just an accident
+		name = ancrel.3467.c
+		random = {
+			chance = 20
+			add_trait = kind
+		}
+		reverse_opinion = { modifier = ancrel_pleased who = FROM }
+
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = just
+			}
+			modifier = {
+				factor = 2
+				trait = kind
+			}
+			modifier = {
+				factor = 2
+				trait = craven
+			}
+			modifier = {
+				factor = 1.2
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.2
+				opinion = { who = FROM value = 60 }
+			}
+		}
+	}
+}
+
+# actors portray the brothers making humanity, two vassals have theological argument
+character_event = {
+	id = ancrel.3470
+	desc = ancrel.3470.desc
+	picture = GFX_evt_jugglers
+
+	trigger = {
+		has_character_modifier = holding_unbinding_festival
+		OR = {
+			NOT = { has_character_flag = festival_event_happened }
+			had_character_flag = {
+				flag = festival_event_happened
+				days = 3
+			}
+		}
+		any_realm_character = {
+			prisoner = no
+			liege = {
+				character = ROOT
+			}
+			trait = zealous
+		}
+		any_realm_character = {
+			prisoner = no
+			liege = {
+				character = ROOT
+			}
+			trait = cynical
+		}
+	}
+
+	immediate = {
+		set_character_flag = festival_event_happened
+		random_realm_character = {
+			limit = {
+				prisoner = no
+				liege = {
+					character = ROOT
+				}
+				trait = cynical
+			}
+			save_event_target_as = cynic
+		}
+		random_realm_character = {
+			limit = {
+				prisoner = no
+				liege = {
+					character = ROOT
+				}
+				trait = zealous
+			}
+			save_event_target_as = zealot
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 270
+		modifier = {
+			factor = 0.33
+			NOT = { has_character_flag = festival_event_happened }
+		}	
+		modifier = {
+			factor = 0.75
+			has_character_flag = unbinding_grand_festivities
+		}
+		modifier = {
+			factor = 1.25
+			has_character_flag = unbinding_cheap_festivities
+		}
+	}
+
+	option = { # agree with the cynical vassal
+		name = ancrel.3470.a
+		event_target:cynic = {
+			add_friend = ROOT
+		}
+		event_target:zealot = {
+			add_rival = ROOT
+		}
+		random = {
+			chance = 15
+			add_trait = zealous
+		}
+
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 1.2
+				likes_better_than = { who = event_target:cynic than = event_target:zealot }
+			}
+			modifier = {
+				factor = 5
+				trait = cynical
+			}
+		}
+	}
+	option = { # diffuse the situation
+		name = ancrel.3470.b
+		trigger = {
+			diplomacy = 13
+		}
+		tooltip_info = diplomacy
+
+		prestige = 25
+
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 10
+				NOR = {
+					trait = cynical
+					trait = zealous
+				}
+			}
+		}
+	}
+	option = { # waffle
+		name = ancrel.3470.c
+		trigger = {
+			NOT = {
+				diplomacy = 13
+			}
+		}
+		event_target:cynic = {
+			opinion = {	modifier = ancrel_dissapointed who = ROOT years = 2	}
+		}
+		event_target:zealot = {
+			opinion = {	modifier = ancrel_dissapointed who = ROOT years = 2	}
+		}
+		random = {
+			chance = 20
+			add_trait = stressed
+		}
+
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 5
+				trait = craven
+			}
+		}
+	}
+	option = { # agree with the zealous vassal
+		name = ancrel.3470.d
+		event_target:cynic = {
+			add_rival = ROOT
+		}
+		event_target:zealot = {
+			add_friend = ROOT
+		}
+		random = {
+			chance = 15
+			add_trait = cynical
+		}
+
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 1.2
+				likes_better_than = { who = event_target:zealot than = event_target:cynic }
+			}
+			modifier = {
+				factor = 5
+				trait = zealous
+			}
+		}
+	}
+}
+
+# actors botch a performance and unintentionally blaspheme, and rioting ensues
+character_event = {
+	id = ancrel.3471
+	desc = ancrel.3471.desc
+	picture = GFX_evt_riots_byzantine
+
+	trigger = {
+		has_character_modifier = holding_unbinding_festival
+		OR = {
+			NOT = { has_character_flag = festival_event_happened }
+			had_character_flag = {
+				flag = festival_event_happened
+				days = 3
+			}
+		}
+	}
+
+	immediate = {
+		set_character_flag = festival_event_happened
+	}
+
+	mean_time_to_happen = {
+		days = 270
+		modifier = {
+			factor = 0.33
+			NOT = { has_character_flag = festival_event_happened }
+		}	
+		modifier = {
+			factor = 0.75
+			has_character_flag = unbinding_cheap_festivities
+		}
+		modifier = {
+			factor = 1.25
+			has_character_flag = unbinding_grand_festivities
+		}
+	}
+
+	option = {
+		name = ancrel.3471.a
+		capital_scope = {
+			add_province_modifier = { name = acr_blasphemous_exhibition duration = 180 }
+		}
+	}
+}
+
+# actors do an amazing performance and peasants are pleased!
+character_event = {
+	id = ancrel.3472
+	desc = ancrel.3472.desc
+	picture = GFX_evt_peasants
+
+	trigger = {
+		has_character_modifier = holding_unbinding_festival
+		OR = {
+			NOT = { has_character_flag = festival_event_happened }
+			had_character_flag = {
+				flag = festival_event_happened
+				days = 3
+			}
+		}
+	}
+
+	immediate = {
+		set_character_flag = festival_event_happened
+	}
+
+	mean_time_to_happen = {
+		days = 270
+		modifier = {
+			factor = 0.33
+			NOT = { has_character_flag = festival_event_happened }
+		}	
+		modifier = {
+			factor = 0.75
+			has_character_flag = unbinding_grand_festivities
+		}
+		modifier = {
+			factor = 1.25
+			has_character_flag = unbinding_cheap_festivities
+		}
+	}
+
+	option = {
+		name = ancrel.3472.a
+		capital_scope = {
+			add_province_modifier = { name = acr_excellent_performance duration = 180 }
+		}
+	}
+}
+
+# a brilliant actor distinguishes themselves, you may invite them to your court
+character_event = {
+	id = ancrel.3473
+	desc = ancrel.3473.desc
+	picture = GFX_evt_diplomat
+
+	trigger = {
+		has_character_modifier = holding_unbinding_festival
+		OR = {
+			NOT = { has_character_flag = festival_event_happened }
+			had_character_flag = {
+				flag = festival_event_happened
+				days = 3
+			}
+		}
+	}
+
+	immediate = {
+		set_character_flag = festival_event_happened
+	}
+
+	mean_time_to_happen = {
+		days = 270
+		modifier = {
+			factor = 0.33
+			NOT = { has_character_flag = festival_event_happened }
+		}	
+		modifier = {
+			factor = 0.75
+			has_character_flag = unbinding_grand_festivities
+		}
+		modifier = {
+			factor = 1.25
+			has_character_flag = unbinding_cheap_festivities
+		}
+	}
+
+	option = { # welcome them into your court
+		name = ancrel.3473.a
+		create_character = {
+			dynasty = none
+			age = 23
+			religion = promethean_pagan
+			culture = ROOT
+			attributes = {
+				diplomacy = 10
+			}
+			trait = grey_eminence
+			trait = scholar
+			trait = genius
+			trait = fair
+			trait = diligent
+			trait = proud
+			trait = envious
+		}
+		new_character = {
+			opinion = { modifier = opinion_patron who = ROOT months = 360 }
+		}
+		ai_chance = {
+			factor = 90
+		}
+	}
+	option = { # no need for professional liars in my court
+		name = ancrel.3473.b
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 3
+				trait = honest
+			}
+			modifier = {
+				factor = 1.2
+				trait = arbitrary
+			}
+		}
+	}
+}
+
+# you are called up on stage to perform a key scene
+character_event = {
+	id = ancrel.3474
+	desc = ancrel.3474.desc
+	picture = GFX_evt_theatre
+
+	trigger = {
+		has_character_modifier = holding_unbinding_festival
+		OR = {
+			NOT = { has_character_flag = festival_event_happened }
+			had_character_flag = {
+				flag = festival_event_happened
+				days = 3
+			}
+		}
+	}
+
+	immediate = {
+		set_character_flag = festival_event_happened
+	}
+
+	mean_time_to_happen = {
+		days = 270
+		modifier = {
+			factor = 0.33
+			NOT = { has_character_flag = festival_event_happened }
+		}	
+	}
+
+	option = { # chicken out (bawk!)
+		name = ancrel.3474.a
+		prestige = -10
+		random_list = {
+			80 = {
+				#do nothing
+			}
+			10 = {
+				add_trait = craven
+			}
+			10 = {
+				add_trait = stressed
+			}
+		}
+
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = craven
+			}
+			modifier = {
+				factor = 0
+				diplomacy = 14 # be diplomatic if you can
+			}
+		}
+	}
+	option = { # go on stage, but stick to the lines
+		name = ancrel.3474.b
+		custom_tooltip = {
+			text = ancrel.3474.b.tt
+			random_list = {
+				33 = { # good outcome
+					modifier = {
+						factor = 2
+						learning = 12
+					}
+					character_event = { id = ancrel.3475 }
+				}
+				34 = { # neutral outcome
+					modifier = {
+						factor = 1.5
+						learning = 8
+						NOT = { learning = 12 }
+					}
+					character_event = { id = ancrel.3476 }
+				}
+				33 = { # bad outcome
+					modifier = {
+						factor = 1.2
+						NOT = { learning = 8 }
+					}
+					character_event = { id = ancrel.3477 }
+				}
+			}
+		}
+
+		ai_chance = {
+			factor = 25
+			modifier ={
+				factor = 2
+				trait = brave
+			}
+			modifier = {
+				factor = 1.5
+				trait = gregarious
+			}
+			modifier = {
+				factor = 2
+				trait = content
+			}
+		}
+	}
+	option = { # go on stage and improvise the lines
+		name = ancrel.3474.c
+		custom_tooltip = {
+			text = ancrel.3474.c.tt
+			random_list = {
+				50 = { # good outcome
+					modifier = {
+						factor = 1.2
+						intrigue = 12
+					}
+					modifier = {
+						factor = 1.2
+						intrigue = 16
+					}
+					modifier = {
+						factor = 1.2
+						diplomacy = 12
+					}
+					modifier = {
+						factor = 1.2
+						diplomacy = 16
+					}
+					modifier = {
+						factor = 1.2
+						trait = gregarious
+					}
+					character_event = { id = ancrel.3478 }
+				}
+				50 = { # bad outcome
+					modifier = {
+						factor = 1.2
+						NOT = { intrigue = 8 }
+					}
+					modifier = {
+						factor = 1.2
+						NOT = { intrigue = 4 }
+					}
+					modifier = {
+						factor = 1.2
+						NOT = { diplomacy = 8 }
+					}
+					modifier = {
+						factor = 1.2
+						NOT = { diplomacy = 4 }
+					}
+					modifier = {
+						factor = 1.2
+						trait = shy
+					}
+					character_event = { id = ancrel.3479 }
+				}
+			}
+		}
+
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = brave
+			}
+			modifier = {
+				factor = 2
+				trait = gregarious
+			}
+			modifier = {
+				factor = 2
+				trait = ambitious
+			}
+		}
+	}
+	option = { # gracefully decline
+		trigger = {
+			diplomacy = 14
+		}
+		name = ancrel.3474.d
+		tooltip_info = diplomacy
+
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				NOR = {
+					trait = brave
+					trait = gregarious
+				}
+			}
+			modifier ={
+				factor = 2
+				trait = craven
+			}
+			modifier = {
+				factor = 1.2 # slight preference for this option when available
+				always = yes
+			}
+		}
+	}
+}
+
+# stick to the lines (good outcome)
+character_event = {
+	id = ancrel.3475
+	desc = ancrel.3475.desc
+	picture = GFX_evt_theatre
+
+	is_triggered_only = yes
+
+	option = {
+		name = ancrel.3475.a
+		prestige = 50
+		add_character_modifier = { name = acr_good_performance duration = 360 }
+	}
+}
+
+# stick to the lines (neutral outcome)
+character_event = {
+	id = ancrel.3476
+	desc = ancrel.3476.desc
+	picture = GFX_evt_theatre
+
+	is_triggered_only = yes
+
+	option = {
+		name = ancrel.3476.a
+	}
+}
+
+# stick to the lines (bad outcome)
+character_event = {
+	id = ancrel.3477
+	desc = ancrel.3477.desc
+	picture = GFX_evt_theatre
+
+	is_triggered_only = yes
+
+	option = {
+		name = ancrel.3477.a
+		prestige = -50
+		add_character_modifier = { name = acr_bad_performance duration = 360 }
+	}
+}
+
+# improvise! (bad outcome)
+character_event = {
+	id = ancrel.3478
+	desc = ancrel.3478.desc
+	picture = GFX_evt_theatre
+
+	is_triggered_only = yes
+
+	option = {
+		name = ancrel.3478.a
+		prestige = -100
+		add_character_modifier = { name = acr_terrible_performance duration = 360 }
+	}
+}
+
+# improvise! (good outcome)
+character_event = {
+	id = ancrel.3479
+	desc = ancrel.3479.desc
+	picture = GFX_evt_theatre
+
+	is_triggered_only = yes
+	option = {
+		name = ancrel.3479.a
+		prestige = 100
+		add_character_modifier = { name = acr_great_performance duration = 360 }
+	}
+}
+
+# a philosopher speaks about Pandora and the Jar
+character_event = {
+	id = ancrel.3480
+	desc = ancrel.3480.desc
+	picture = GFX_evt_priests_in_forest
+
+	trigger = {
+		has_character_modifier = holding_unbinding_festival
+		OR = {
+			NOT = { has_character_flag = festival_event_happened }
+			had_character_flag = {
+				flag = festival_event_happened
+				days = 3
+			}
+		}
+	}
+
+	immediate = {
+		set_character_flag = festival_event_happened
+	}
+
+	mean_time_to_happen = {
+		days = 180
+		modifier = {
+			factor = 0.33
+			NOT = { has_character_flag = festival_event_happened }
+		}
+	}
+
+	option = { # say something pious
+		name = ancrel.3480.a
+		piety = 10
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 10
+				trait = zealous
+			}
+		}
+	}
+	option = { # say something proud
+		name = ancrel.3480.b
+		prestige = 10
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 10
+				trait = proud
+			}
+		}
+	}
+}
+
+# a philosopher tells the story of Deucalion's flood, with bits of metal in the stones
+character_event = {
+	id = ancrel.3481
+	desc = ancrel.3481.desc
+	picture = GFX_evt_priests_in_forest
+
+	trigger = {
+		has_character_modifier = holding_unbinding_festival
+		OR = {
+			NOT = { has_character_flag = festival_event_happened }
+			had_character_flag = {
+				flag = festival_event_happened
+				days = 3
+			}
+		}
+	}
+
+	immediate = {
+		set_character_flag = festival_event_happened
+	}
+
+	mean_time_to_happen = {
+		days = 180
+		modifier = {
+			factor = 0.33
+			NOT = { has_character_flag = festival_event_happened }
+		}
+	}
+
+	option = { # git a wee bit 'o piety
+		name = ancrel.3481.a
+		piety = 10
+	}
+}
+
+# a philosopher discusses the goal of enlightenment and oneness
+character_event = {
+	id = ancrel.3482
+	desc = ancrel.3482.desc
+	picture = GFX_evt_priests_in_forest
+
+	trigger = {
+		has_character_modifier = holding_unbinding_festival
+		OR = {
+			NOT = { has_character_flag = festival_event_happened }
+			had_character_flag = {
+				flag = festival_event_happened
+				days = 3
+			}
+		}
+	}
+
+	immediate = {
+		set_character_flag = festival_event_happened
+	}
+
+	mean_time_to_happen = {
+		days = 180
+		modifier = {
+			factor = 0.33
+			NOT = { has_character_flag = festival_event_happened }
+		}
+	}
+
+	option = { # i hope to reach CHIM someday...
+		name = ancrel.3482.a
+		piety = 10
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 10
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.1
+				trait = cynical
+			}
+		}
+	}
+	option = { # bunch of balderdash...
+		name = ancrel.3482.b
+		piety = -10
+		ai_chance = {
+			factor = 50
+		}
+	}
+}
+
+# brilliant philosopher can join your court
+character_event = {
+	id = ancrel.3483
+	desc = ancrel.3483.desc
+	picture = GFX_evt_emissary
+
+	trigger = {
+		has_character_modifier = holding_unbinding_festival
+		OR = {
+			NOT = { has_character_flag = festival_event_happened }
+			had_character_flag = {
+				flag = festival_event_happened
+				days = 3
+			}
+		}
+	}
+
+	immediate = {
+		set_character_flag = festival_event_happened
+	}
+
+	mean_time_to_happen = {
+		days = 270
+		modifier = {
+			factor = 0.33
+			NOT = { has_character_flag = festival_event_happened }
+		}
+		modifier = {
+			factor = 0.75
+			has_character_flag = unbinding_grand_festivities
+		}
+		modifier = {
+			factor = 1.25
+			has_character_flag = unbinding_cheap_festivities
+		}
+	}
+
+	option = { # invite them to your court
+		name = ancrel.3483.a
+		create_character = {
+			dynasty = none
+			age = 26
+			religion = promethean_pagan
+			culture = ROOT
+			attributes = {
+				learning = 10
+			}
+			trait = mastermind_theologian
+			trait = scholar
+			trait = genius
+			trait = celibate
+			trait = diligent
+		}
+		new_character = {
+			opinion = { modifier = opinion_patron who = ROOT months = 360 }
+		}
+
+		ai_chance = {
+			factor = 90
+		}
+	}
+	option = { # i don't like having smart people in my employ :-/
+		name = ancrel.3483.b
+
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 10
+				trait = cynical
+			}
+		}
+	}
+}
+
+# painter creates a caricature of you
+character_event = {
+	id = ancrel.3484
+	desc = ancrel.3484.desc
+	picture = GFX_evt_juggler #placeholder
+
+	trigger = {
+		has_character_modifier = holding_unbinding_festival
+		OR = {
+			NOT = { has_character_flag = festival_event_happened }
+			had_character_flag = {
+				flag = festival_event_happened
+				days = 3
+			}
+		}
+	}
+
+	immediate = {
+		set_character_flag = festival_event_happened
+	}
+
+	mean_time_to_happen = {
+		days = 180
+		modifier = {
+			factor = 0.33
+			NOT = { has_character_flag = festival_event_happened }
+		}
+	}
+
+	option = { # laugh
+		name = ancrel.3484.a
+		random = {
+			chance = 20
+			add_trait = humble
+		}
+	}
+	option = { # huff
+		name = ancrel.3484.b
+		random = {
+			chance = 20
+			add_trait = proud
+		}
+	}
+	option = { # throw 'em in the klink
+		name = ancrel.3485.c
+		random_list = {
+			10 = {
+				add_trait = arbitrary
+			}
+			10 = {
+				add_trait = cruel
+			}
+			80 = {
+				#do nothing
+			}
+		}
+	}
+}
+
+# sculptor makes an amazing statue of Prometheus giving fire to humanity
+character_event = {
+	id = ancrel.3485
+	desc = ancrel.3485.desc
+	picture = GFX_evt_prometheus_statue
+
+	trigger = {
+		has_character_modifier = holding_unbinding_festival
+		OR = {
+			NOT = { has_character_flag = festival_event_happened }
+			had_character_flag = {
+				flag = festival_event_happened
+				days = 3
+			}
+		}
+	}
+
+	immediate = {
+		set_character_flag = festival_event_happened
+	}
+
+	mean_time_to_happen = {
+		days = 270
+		modifier = {
+			factor = 0.33
+			NOT = { has_character_flag = festival_event_happened }
+		}
+		modifier = {
+			factor = 0.75
+			has_character_flag = unbinding_grand_festivities
+		}
+		modifier = {
+			factor = 1.25
+			has_character_flag = unbinding_cheap_festivities
+		}
+	}
+
+	option = { # appreciate the statue
+		name = ancrel.3485.a
+
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 1.5
+				trait = content
+			}
+			modifier = {
+				factor = 1.5
+				trait = humble
+			}
+			modifier = {
+				factor = 1.5
+				trait = charitable
+			}
+			modifier = {
+				factor = 2
+				NOT = { wealth = 200 }
+			}
+		}
+	}
+	option = { # make everyone roll there eyes at you
+		name = ancrel.3485.b
+		piety = 50
+		random_vassal = {
+			limit = {
+				NOT = { trait = zealous }
+			}
+			opinion = { modifier = opinion_annoyed who = ROOT years = 1 }
+		}
+
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.1
+				trait = cynical
+			}
+		}
+	}
+	option = { # buy it!
+		name = ancrel.3485.c
+		wealth = -50
+		add_character_modifier = { name = acr_grand_sculpture duration = 360 }
+
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 1.5
+				trait = greedy
+			}
+			modifier = {
+				factor = 1.2
+				trait = proud
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					wealth = 100
+				}
+			}
+		}
+	}
+}
+
+# a statue is about to fall on liege and vassal
+character_event = {
+	id = ancrel.3493
+	hide_window = yes
+
+	trigger = {
+		has_character_modifier = holding_unbinding_festival
+		OR = {
+			NOT = { has_character_flag = festival_event_happened }
+			had_character_flag = {
+				flag = festival_event_happened
+				days = 3
+			}
+		}
+	}
+
+	immediate = {
+		set_character_flag = festival_event_happened
+		random_vassal = { # ping the vassal
+			character_event = { id = ancrel.3486 }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 270
+		modifier = {
+			factor = 0.33
+			liege = { NOT = { has_character_flag = festival_event_happened } }
+		}
+		modifier = {
+			factor = 0.75
+			liege = { has_character_flag = unbinding_cheap_festivities }
+		}
+		modifier = {
+			factor = 1.25
+			liege = { has_character_flag = unbinding_grand_festivities }
+		}
+	}
+}
+
+# falling statue, ping off the vassal
+character_event = {
+	id = ancrel.3486
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	immediate = {
+		liege = {
+			character_event = { id = ancrel.3487 }
+		}
+	}
+}
+
+# a statue is about to fall on you and a vassal! (liege)
+character_event = {
+	id = ancrel.3487
+	desc = ancrel.3487.desc
+	picture = GFX_evt_falling_statue
+
+	is_triggered_only = yes
+
+	option = { # warn them and get out of the way
+		name = ancrel.3487.a
+		custom_tooltip = {
+			text = ancrel.3487.a.tt
+			hidden_tooltip = {
+				FROM = { character_event = { id = ancrel.3488 } }
+			}
+		}
+		random = {
+			chance = 10
+			add_trait = wounded
+			hidden_tooltip = {
+				character_event = { id = 38280 } # Notify Wounded
+			}
+		}
+
+		ai_chance = {
+			factor = 70
+		}
+	}
+	option = { # run, like a coward
+		name = ancrel.3487.b
+		custom_tooltip = {
+			text = ancrel.3487.b.tt
+			hidden_tooltip = {
+				FROM = { character_event = { id = ancrel.3489 }	}
+			}
+		}
+		random = {
+			chance = 25
+			add_trait = craven
+			hidden_tooltip = {
+				character_event = { id = 38257 } # Notify Craven
+			}
+		}
+
+		ai_chance = {
+			factor = 15
+			modifier = {
+				factor = 5
+				trait = craven
+			}
+			modifier = {
+				factor = 1.5
+				NOT = { opinion = { who = FROM value = 0 } }
+			}
+			modifier = {
+				factor = 1.5
+				NOT = { opinion = { who = FROM value = -30 } }
+			}
+		} 
+	}
+	option = { # get all heroic and push them out of the way
+		name = ancrel.3487.c
+		custom_tooltip = {
+			text = ancrel.3487.c.tt
+			hidden_tooltip = {
+				FROM = { character_event = { id = ancrel.3490 } }
+			}
+		}
+		random_list = {
+			10 = {
+				#do nothing
+			}
+			10 = {
+				death = { death_reason = death_accident }
+			}
+			20 = {
+				add_trait = maimed
+				hidden_tooltip = {
+					character_event = { id = 38281 } # Notify Maimed
+				}
+			}
+			60 = {
+				add_trait = wounded
+				hidden_tooltip = {
+					character_event = { id = 38280 } # Notify Wounded
+				}
+			}
+		}
+		add_trait = brave
+		hidden_tooltip = {
+			character_event = { id = 38270 } # Notify Brave
+		}
+
+		ai_chance = {
+			factor = 15
+			modifier = {
+				factor = 5
+				trait = brave
+			}
+			modifier = {
+				factor = 1.5
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.5
+				opinion = { who = FROM value = 60 }
+			}
+		} 
+	}
+}
+
+# your liege warns of the falling statue before diving out of the way
+character_event = {
+	id = ancrel.3488
+	desc = ancrel.3488.desc
+	picture = GFX_evt_falling_statue	
+
+	is_triggered_only = yes
+
+	option = {
+		name = ancrel.3488.a
+		random_list = {
+			5 = {
+				death = { death_reason = death_accident }
+			}
+			15 = {
+				add_trait = maimed
+				hidden_tooltip = {
+					character_event = { id = 38281 } # Notify Maimed
+				}				
+			}
+			30 = {
+				add_trait = wounded
+				hidden_tooltip = {
+					character_event = { id = 38280 } # Notify Wounded
+				}
+			}
+			50 = {
+				#do nothing
+			}
+		}
+	}
+}
+
+# your liege flees in terror for some reason...
+character_event = {
+	id = ancrel.3489
+	desc = ancrel.3489.desc
+	picture = GFX_evt_falling_statue
+
+	is_triggered_only = yes
+
+	option = {
+		name = ancrel.3489.a
+		random_list = {
+			20 = {
+				death = { death_reason = death_accident }
+			}
+			30 = {
+				add_trait = maimed
+				hidden_tooltip = {
+					character_event = { id = 38281 } # Notify maimed
+				}
+			}
+			50 = {
+				add_trait = wounded
+				hidden_tooltip = {
+					character_event = { id = 38280 } # Notify Wounded
+				}
+			}
+		}
+		opinion = { modifier = opinion_hate who = FROM duration = -1 }
+	}
+}
+
+# your liege throws you to safety before a statue falls on them!
+character_event = {
+	id = ancrel.3490
+	desc = ancrel.3490.desc
+	picture = GFX_evt_falling_statue
+
+	is_triggered_only = yes
+
+	option = {
+		name = ancrel.3490.a
+		add_friend = FROM
+	}
+}
+
+# artist tries something revolutionary (offensive) and does a mural of "The Sisters"
+character_event = {
+	id = ancrel.3491
+	desc = ancrel.3491.desc
+	picture = GFX_evt_favourite_poet
+
+	trigger = {
+		has_character_modifier = holding_unbinding_festival
+		OR = {
+			NOT = { has_character_flag = festival_event_happened }
+			had_character_flag = {
+				flag = festival_event_happened
+				days = 3
+			}
+		}
+	}
+
+	immediate = {
+		set_character_flag = festival_event_happened
+	}
+
+	mean_time_to_happen = {
+		days = 270
+		modifier = {
+			factor = 0.33
+			NOT = { has_character_flag = festival_event_happened }
+		}
+		modifier = {
+			factor = 0.75
+			has_character_flag = unbinding_cheap_festivities
+		}
+		modifier = {
+			factor = 1.25
+			has_character_flag = unbinding_grand_festivities
+		}
+	}
+
+	option = {
+		name = ancrel.horrible
+		capital_scope = {
+			add_province_modifier = { name = peasant_unrest duration = 180 }
+		}
+	}
+}
+
+# our liege must cancel the festival due to war
+character_event = {
+	id = ancrel.3541
+	desc = ancrel.3541.desc
+	picture = GFX_evt_market
+
+	is_triggered_only = yes
+
+	option = {
+		name = OK
+	}
+}
+
+# we are at war, we must cancel the festival!
+character_event = {
+	id = ancrel.3542
+	desc = ancrel.3542.desc
+	picture = GFX_evt_market
+
+
+	trigger = {
+		war = yes
+		has_character_flag = unbinding_festival
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		clear_unbinding_effect = yes
+	}
+
+	option = {
+		name = OK
+		hidden_tooltip = {
+			any_vassal = {
+				limit = {
+					prisoner = no
+				}
+				character_event = { id = ancrel.3541 }
+			}
+		}
+	}
+}
+
+###################################################################
+# Notification events for vassals during prep
+###################################################################
+
+# You've been slighted in the selection of Heracles! (marshal)
+character_event = {
+	id = ancrel.3543
+	desc = ancrel.3543.desc
+	picture = GFX_evt_prometheus_bound
+
+	is_triggered_only = yes
+	
+	option = {
+		name = ancrel.that_bastard
+		opinion = { modifier = ancrel_jealous who = event_target:festival_heracles }
+	}
+}
+
+# You're liege has decided to play Heracles! (marshal)
+character_event = {
+	id = ancrel.3544
+	desc = ancrel.3544.desc
+	picture = GFX_evt_prometheus_bound
+
+	is_triggered_only = yes
+	
+	option = {
+		name = ancrel.bummer
+	}
+}
+
+# You've been selected to play Heracles!
+character_event = {
+	id = ancrel.3545
+	desc = {
+		trigger = {
+			has_job_title = job_marshal
+		}
+		text = ancrel.3545.desc
+	}
+	desc = {
+		trigger = {
+			NOT = { has_job_title = job_marshal }
+		}
+		text = ancrel.3545.desc_alt
+	}
+	picture = GFX_evt_prometheus_bound
+
+	is_triggered_only = yes
+	
+	option = {
+		name = ancrel.fantastic
+	}
+}
+
+# You've been slighted in the selection of Prometheus! (chaplain)
+character_event = {
+	id = ancrel.3546
+	desc = ancrel.3546.desc
+	picture = GFX_evt_prometheus_bound
+
+	is_triggered_only = yes
+
+	option = {
+		name = ancrel.that_bastard
+		opinion = { modifier = ancrel_jealous who = event_target:festival_prometheus }
+	}
+}
+
+# You're liege has decided to play Prometheus! (chaplain)
+character_event = {
+	id = ancrel.3547
+	desc = ancrel.3547.desc
+	picture = GFX_evt_prometheus_bound
+
+	is_triggered_only = yes
+
+	option = {
+		name = ancrel.bummer
+	}
+}
+
+# You've been selected to play Prometheus!
+character_event = {
+	id = ancrel.3548
+	desc = {
+		trigger = {
+			has_job_title = job_spiritual
+		}
+		text = ancrel.3548.desc
+	}
+	desc = {
+		trigger = {
+			NOT = { has_job_title = job_spiritual }
+		}
+		text = ancrel.3548.desc_alt
+	}
+	picture = GFX_evt_prometheus_bound
+
+	is_triggered_only = yes
+	
+	option = {
+		name = ancrel.fantastic
+	}
+}
+
+# Festival is over!
+character_event = {
+	id = ancrel.3549
+	desc = ancrel.3549.desc
+	picture = GFX_evt_market
+	border = GFX_event_normal_frame_economy
+
+	trigger = {
+		had_character_flag = { flag = unbinding_festival days = 60 }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		clear_unbinding_effect = yes
+	}
+
+	option = {
+		name = ancrel.3549.a
+		any_vassal = {
+			limit = {
+				prisoner = no
+			}
+			opinion = {
+				modifier = opinion_held_unbinding_festival
+				who = ROOT
+				months = 12
+			}
+		}
+	}
+}
+
+###################################################################
+#
+# Promethean Holy Orders
+# - ancrel.3550 - ancrel.3599
+#
+###################################################################
+
+# Men of Steel created!
+narrative_event = {
+	id = ancrel.3550
+	title = ancrel.3550.title
+	desc = ancrel.3550.desc
+	picture = GFX_evt_war_planning
+	border = GFX_event_narrative_frame_war
+
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		trigger = {
+			has_character_flag = acr_organizer_steel
+		}
+		name = ancrel.3550.a
+	}
+
+	option = {
+		trigger = {
+			religion = promethean_pagan
+			NOT = {
+				has_character_flag = acr_organizer_steel
+			}
+		}
+		name = ancrel.3550.b
+	}
+
+	option = {
+		trigger = {
+			NOT = { religion = promethean_pagan }
+		}
+		name = ancrel.3550.c
+	}
+}

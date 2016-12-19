@@ -295,6 +295,8 @@ d_senate = {
 	
 	capital = 333 # Rome
 
+	creation_requires_capital = yes
+
 	short_name = yes
 	
 	culture = roman
@@ -303,12 +305,13 @@ d_senate = {
 	
 	allow = {
 		is_republic = yes
+		culture= roman
 	}
 }	
 d_roman_prefect = {
 	color = { 73 0 0 }
 
-	dignity = 200 # Never want the Senate to change primary title
+	dignity = 200 # Never want the Praefectus to change primary title
 	
 	capital = 333 # Rome
 
@@ -319,7 +322,18 @@ d_roman_prefect = {
 	title = "PRAEFECTUS_URBI"
 	
 	allow = {
-		always = no
+		completely_controls = c_roma
+		independent = yes
+		NOT = {
+			has_landed_title = d_senate
+		}
+		OR = {
+			culture_group = latin
+			culture = italian
+			culture = ostrogothic
+			culture = skiirian
+			culture = roman
+		}
 	}
 }
 k_venice = {
@@ -1113,7 +1127,10 @@ d_juhuria = {
 	culture = juhuro
 	
 	allow = {
-		always = no
+ 		OR = {
+			culture = juhuro
+			religion = tzadikite
+		}
 	}
 }
 
@@ -1152,7 +1169,12 @@ k_vandalica = {
 	culture = vandalic
 	
 	allow = {
-		always = no
+ 		culture = vandalic
+		realm_size = 100
+		prestige = 500
+		NOT = {
+			tier = emperor
+		}
 	}
 }
 
@@ -1322,6 +1344,9 @@ e_oriens = {
 	capital = 764 # Antiocheia
 	
 	culture = greek
+
+	title = "COMES_ORIENTIS_EMPEROR"
+	title = "CONSUL_FOA"
 	
 	# Creation/Usurp Trigger
 	allow = {
