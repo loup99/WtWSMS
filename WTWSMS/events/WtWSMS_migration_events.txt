@@ -335,3 +335,978 @@ character_event = {
 		}
 	}
 }
+
+# Slavs
+province_event = {
+	id = zusk_event.8
+	desc = zusk_event.8.desc
+	picture = GFX_evt_tribal_life
+	
+	trigger = {
+        NOT = { year = 800 }
+        NOT = { has_province_flag = no_slavs }
+        NOT = { top_liege = { religion = slavic_pagan } }
+		OR = {
+			religion = slavic_pagan
+			AND = {
+				any_neighbor_province = {
+					has_province_modifier = zusk_slav_timer
+					religion = slavic_pagan
+				}
+				any_neighbor_province = {
+					NOT = { has_province_modifier = zusk_slav_timer }
+					religion = slavic_pagan
+				}
+			}
+			NOT = { 
+				any_neighbor_province = {
+					has_province_modifier = zusk_slav_timer
+					religion = slavic_pagan
+                } 
+			}
+        }
+       
+		any_neighbor_province = { 
+            OR = {
+                top_liege = {
+                    religion = slavic_pagan #Use this instead of the culture, Slavs should stop migrating if they are converted
+                }
+                religion = slavic_pagan
+            }
+        }
+    }
+
+    mean_time_to_happen = {
+		years = 15
+
+		modifier = {
+			factor = 10
+			OR = {
+				culture_group = finno_ugric
+				culture_group = altaic
+				AND = {
+					culture_group = baltic
+					NOT = { culture = venedi }
+				}
+			}
+		}
+
+		modifier = {
+			factor = 1.1
+			year = 500
+		}
+		modifier = {
+			factor = 1.2
+			year = 550
+		}
+		modifier = {
+			factor = 1.4
+			year = 600
+		}
+		modifier = {
+			factor = 1.8
+			year = 650
+		}
+		modifier = {
+			factor = 2
+			year = 700
+		}
+		modifier = {
+			factor = 2.5
+			year = 750
+		}
+
+	}	
+	
+	option = {
+		name = ZUSK8OP1
+		ai_chance = {
+			factor = 70
+		}
+        set_province_flag = no_slavs
+		add_province_modifier = {
+			name = zusk_slav_timer
+			duration = 9125
+			hidden = yes
+		}
+        IF = {
+            limit = {
+                owner = {
+                    NOT = { religion = slavic_pagan }
+                    NOT = { character = ROOT }
+                }
+            }
+			character_event = { id = zusk_event.36 }
+		}
+        county = {
+			create_character = {
+				random_traits = yes
+				dynasty = none
+				religion = slavic_pagan
+				culture = old_slavic
+				female = no
+				age = 25
+				attributes = {
+					martial = 5
+				}
+			
+				trait = peasent_leader
+			}
+
+			new_character = {
+				IF = {
+                    limit = {
+                        NOT = { has_character_flag = decided_culture }
+                        location = { 
+                            culture = bolghar
+                        }
+                    }
+					culture = bulgarian
+                    set_character_flag = decided_culture
+                }    
+				IF = {
+                    limit = {
+                        NOT = { has_character_flag = decided_culture }
+                        location = { 
+                            OR = {
+								culture = roman
+								culture = latin
+                            }
+                        }
+                    }
+                    culture = slovene
+                    set_character_flag = decided_culture
+                }    
+				IF = {
+                    limit = {
+                        NOT = { has_character_flag = decided_culture }
+                        location = { 
+                            OR = {
+                                culture = heruli
+                                culture = lusitanian
+                            }
+                        }
+                    }
+                    culture = polish
+                    set_character_flag = decided_culture
+                } 
+				IF = {
+                    limit = {
+                        NOT = { has_character_flag = decided_culture }
+                        location = { 
+                            culture = dacian
+                        }
+                    }
+                    culture = romanian
+                    set_character_flag = decided_culture
+                }   
+				IF = {
+                    limit = {
+                        NOT = { has_character_flag = decided_culture }
+                        location = { 
+                            culture = illyrian
+                        }
+                    }
+                    culture = serbian
+                    set_character_flag = decided_culture
+                }   
+				IF = {
+                    limit = {
+                        NOT = { has_character_flag = decided_culture }
+                        location = { 
+							OR = { 
+								culture = illyro_roman
+								culture = ostrogothic    
+							}
+						}
+					}
+                    culture = croatian
+                    set_character_flag = decided_culture
+                }   
+				IF = {
+                    limit = {
+                        NOT = { has_character_flag = decided_culture }
+                        location = { 
+                            OR = {
+								culture = rygir
+								culture = gepid
+								culture = iazyges
+                            }
+                        }
+                    }
+                    culture = bohemian
+                    set_character_flag = decided_culture
+                }       
+				IF = {
+                    limit = {
+                        NOT = { has_character_flag = decided_culture }
+                        location = { 
+                            OR = {
+                                culture = lombard
+                                culture = german
+                            }
+                        }
+                    }                                  
+                    culture = pommeranian
+                    set_character_flag = decided_culture
+                }    
+				IF = {
+                    limit = {
+                        NOT = { has_character_flag = decided_culture }
+                        location = { 
+                            OR = {
+                                culture_group = central_germanic
+                                culture_group = east_germanic
+                            }
+                        }
+                    }                                  
+                    culture = wends
+                    set_character_flag = decided_culture
+                } 
+				IF = {
+                    limit = {
+                        NOT = { has_character_flag = decided_culture }
+                        location = { 
+                            OR = { 
+                                culture = romano_british
+                                culture = romano_gallic
+                                culture = french
+                                culture = norman
+                                culture = frankish
+                                culture_group = west_germanic
+                                culture_group = celtic
+                                culture_group = latin
+                            }
+                        }
+                    }                                  
+                    culture = galliya
+                    set_character_flag = decided_culture
+                }    
+                IF = {
+                    limit = {
+                        NOT = { has_character_flag = decided_culture }
+                        location = {  
+                            OR = {
+                                culture = african_romance
+                                culture = berber_germanic
+                                culture = ethiopian
+                                culture_group = west_african
+                                culture_group = east_african
+                                culture_group = central_african
+                            }
+                        }
+                    }                                  
+                    culture = afriki
+                    set_character_flag = decided_culture
+                }
+				IF = {
+                    limit = {
+                        NOT = { has_character_flag = decided_culture }
+                        location = {  
+                            OR = {
+                                culture_group = byzantine
+                                culture_group = proto_carpathian
+                                culture_group = phyrygian_group
+                            }
+                        }
+                    }                                  
+                    culture = macedonian
+                    set_character_flag = decided_culture
+                }   
+				IF = {
+                    limit = {
+                        NOT = { has_character_flag = decided_culture }
+                        location = { 
+                            OR = {                                 
+								culture_group = central_semitic
+								culture_group = south_semitic
+                                culture_group = iranian
+                            }
+                        }
+                    }                                  
+                    culture = akhemenidov
+                    set_character_flag = decided_culture
+                }  
+				IF = {
+                    limit = {
+                        NOT = { has_character_flag = decided_culture }
+                        location = { 
+                            OR = {
+                                culture_group = dravidian_group
+                                culture_group = indo_aryan_group
+                            }
+                        }
+                    }                                  
+                    culture = ved
+                    set_character_flag = decided_culture
+                }  
+                         
+				usurp_title_plus_barony_if_unlanded = PREV
+                set_defacto_liege = THIS
+                reverse_culture = ROOT
+                reverse_religion = ROOT
+
+                spawn_unit = {
+					province = PREV
+					owner = ROOT
+					match_character = ROOT
+					match_mult = 0.75
+					attrition = 0.000
+				}
+
+            }
+		}
+	}
+
+	option = {
+		name = ZUSK8OP2
+		ai_chance = {
+			factor = 30
+		}
+        set_province_flag = no_slavs
+        add_province_modifier = {
+			name = zusk_slav_timer
+			duration = 9125
+			hidden = yes
+		}
+		create_character = {
+			random_traits = yes
+			dynasty = none
+			religion = slavic_pagan
+			culture = old_slavic
+			female = no
+			age = 25
+			attributes = {
+				martial = 5
+			}
+			
+			trait = peasent_leader
+		}
+		new_character = {
+			create_character = {
+				random_traits = yes
+				dynasty = none
+				religion = slavic_pagan
+				culture = old_slavic
+				female = no
+				age = 25
+				attributes = {
+					martial = 5
+				}
+			
+				trait = peasent_leader
+			}
+
+			new_character = {
+				IF = {
+                limit = {
+                    NOT = { has_character_flag = decided_culture }
+                    location = { 
+                        culture = bolghar
+                    }
+                }
+                culture = bulgarian
+                set_character_flag = decided_culture
+            }    
+				IF = {
+                limit = {
+                    NOT = { has_character_flag = decided_culture }
+                    location = { 
+                        OR = {
+                            culture = roman
+                            culture = latin
+                        }
+                    }
+                }
+                culture = slovene
+                set_character_flag = decided_culture
+            }    
+				IF = {
+                limit = {
+                    NOT = { has_character_flag = decided_culture }
+                    location = { 
+                        OR = {
+                            culture = heruli
+                            culture = lusitanian
+                        }
+                    }
+                }
+                culture = polish
+                set_character_flag = decided_culture
+            } 
+				IF = {
+                limit = {
+                    NOT = { has_character_flag = decided_culture }
+                    location = { 
+                        culture = dacian
+                    }
+                }
+                culture = romanian
+                set_character_flag = decided_culture
+            }   
+				IF = {
+                limit = {
+                    NOT = { has_character_flag = decided_culture }
+                    location = { 
+                        culture = illyrian
+                    }
+                }
+                culture = serbian
+                set_character_flag = decided_culture
+            }   
+				IF = {
+                limit = {
+                    NOT = { has_character_flag = decided_culture }
+                    location = { 
+                        OR = { 
+                            culture = illyro_roman
+                            culture = ostrogothic    
+                        }
+                    }
+                }
+                culture = croatian
+                set_character_flag = decided_culture
+            }   
+				IF = {
+                limit = {
+                    NOT = { has_character_flag = decided_culture }
+                    location = { 
+                        OR = {
+                            culture = rygir
+                            culture = gepid
+                            culture = iazyges
+                        }
+                    }
+                }
+                culture = bohemian
+                set_character_flag = decided_culture
+            }       
+				IF = {
+                limit = {
+                    NOT = { has_character_flag = decided_culture }
+                    location = { 
+                        OR = {
+                            culture = lombard
+                            culture = german
+                        }
+                    }
+                }                                  
+                culture = pommeranian
+                set_character_flag = decided_culture
+            }    
+				IF = {
+                limit = {
+                    NOT = { has_character_flag = decided_culture }
+                    location = { 
+                        OR = {
+                            culture_group = central_germanic
+                            culture_group = east_germanic
+                        }
+                    }
+                }                                  
+                culture = wends
+                set_character_flag = decided_culture
+            } 
+				IF = {
+                limit = {
+                    NOT = { has_character_flag = decided_culture }
+                    location = { 
+                        OR = { 
+                            culture = romano_british
+                            culture = romano_gallic
+                            culture = french
+                            culture = norman
+                            culture = frankish
+                            culture_group = west_germanic
+                            culture_group = celtic
+                            culture_group = latin
+                        }
+                    }
+                }                                  
+                culture = galliya
+                set_character_flag = decided_culture
+            }    
+				IF = {
+                limit = {
+                    NOT = { has_character_flag = decided_culture }
+                    location = {  
+                        OR = {
+                            culture = african_romance
+                            culture = berber_germanic
+                            culture = ethiopian
+                            culture_group = west_african
+                            culture_group = east_african
+                            culture_group = central_african
+                        }
+                    }
+                }                                  
+                culture = afriki
+                set_character_flag = decided_culture
+            }
+				IF = {
+                limit = {
+                    NOT = { has_character_flag = decided_culture }
+                    location = {  
+                        OR = {
+                            culture_group = byzantine
+                            culture_group = proto_carpathian
+                            culture_group = phyrygian_group
+                        }
+                    }
+                }                                  
+                culture = macedonian
+                set_character_flag = decided_culture
+            }   
+				IF = {
+                limit = {
+                    NOT = { has_character_flag = decided_culture }
+                    location = { 
+                        OR = {                                 
+                            culture_group = central_semitic
+                            culture_group = south_semitic
+                            culture_group = iranian
+						}
+					}
+				}                                  
+				culture = akhemenidov
+				set_character_flag = decided_culture
+            }  
+				IF = {
+                limit = {
+                    NOT = { has_character_flag = decided_culture }
+                    location = { 
+                        OR = {
+                            culture_group = dravidian_group
+                            culture_group = indo_aryan_group
+						}
+                    }
+                }                                  
+                culture = ved
+                set_character_flag = decided_culture
+            }  
+
+				reverse_culture = ROOT
+				reverse_religion = ROOT
+
+				create_title = {
+				tier = DUKE
+				landless = yes
+				temporary = yes
+				rebel = yes
+				culture = ROOT
+				name = "PEASANT_REVOLT"
+				holder = THIS
+			}
+			
+				random_list = {
+				17 = {
+					spawn_unit = {
+						province = ROOT
+						home = ROOT
+						owner = THIS
+						leader = THIS
+						scaled_by_biggest_garrison = 0.75
+						troops = {
+							archers = { 6 6 }
+							light_cavalry = { 4 4 }
+							light_infantry = { 10 10 }
+						}
+						attrition = 1.0
+					}
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = THIS
+						culture = THIS
+						female = no
+						age = 30
+						trait = peasant_leader
+						trait = tough_soldier
+					}
+					new_character = {
+						spawn_unit = {
+							province = ROOT
+							home = ROOT
+							owner = PREV
+							scaled_by_biggest_garrison = 0.75
+							troops = {
+								archers = { 6 6 }
+								light_cavalry = { 4 4 }
+								light_infantry = { 10 10 }
+							}
+							attrition = 1.0
+							disband_on_peace = yes
+						}
+					}
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = THIS
+						culture = THIS
+						female = no
+						age = 31
+						trait = peasant_leader
+						trait = tough_soldier
+					}
+					new_character = {
+						spawn_unit = {
+							province = ROOT
+							home = ROOT
+							owner = PREV
+							scaled_by_biggest_garrison = 0.75
+							troops = {
+								archers = { 6 6 }
+								light_cavalry = { 4 4 }
+								light_infantry = { 10 10 }
+							}
+							attrition = 1.0
+							disband_on_peace = yes
+						}
+					}
+				}
+				17 = {
+					spawn_unit = {
+						province = ROOT
+						home = ROOT
+						owner = THIS
+						leader = THIS
+						scaled_by_biggest_garrison = 0.5
+						troops = {
+							archers = { 6 6 }
+							light_cavalry = { 4 4 }
+							light_infantry = { 10 10 }
+						}
+						attrition = 1.0
+					}
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = THIS
+						culture = THIS
+						female = no
+						age = 30
+						trait = peasant_leader
+						trait = tough_soldier
+					}
+					new_character = {
+						spawn_unit = {
+							province = ROOT
+							home = ROOT
+							owner = PREV
+							scaled_by_biggest_garrison = 0.5
+							troops = {
+								archers = { 6 6 }
+								light_cavalry = { 4 4 }
+								light_infantry = { 10 10 }
+							}
+							attrition = 1.0
+							disband_on_peace = yes
+						}
+					}
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = THIS
+						culture = THIS
+						female = no
+						age = 31
+						trait = peasant_leader
+						trait = tough_soldier
+					}
+					new_character = {
+						spawn_unit = {
+							province = ROOT
+							home = ROOT
+							owner = PREV
+							scaled_by_biggest_garrison = 0.5
+							troops = {
+								archers = { 6 6 }
+								light_cavalry = { 4 4 }
+								light_infantry = { 10 10 }
+							}
+							attrition = 1.0
+							disband_on_peace = yes
+						}
+					}
+				}
+				16 = {
+					spawn_unit = {
+						province = ROOT
+						home = ROOT
+						owner = THIS
+						leader = THIS
+						scaled_by_biggest_garrison = 0.75
+						troops = {
+							archers = { 6 6 }
+							light_cavalry = { 3 3 }
+							light_infantry = { 11 11 }
+						}
+						attrition = 1.0
+					}
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = THIS
+						culture = THIS
+						female = no
+						age = 30
+						trait = peasant_leader
+						trait = tough_soldier
+					}
+					new_character = {
+						spawn_unit = {
+							province = ROOT
+							home = ROOT
+							owner = PREV
+							scaled_by_biggest_garrison = 0.75
+							troops = {
+								archers = { 6 6 }
+								light_cavalry = { 3 3 }
+								light_infantry = { 11 11 }
+							}
+							attrition = 1.0
+							disband_on_peace = yes
+						}
+					}
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = THIS
+						culture = THIS
+						female = no
+						age = 31
+						trait = peasant_leader
+						trait = tough_soldier
+					}
+					new_character = {
+						spawn_unit = {
+							province = ROOT
+							home = ROOT
+							owner = PREV
+							scaled_by_biggest_garrison = 0.75
+							troops = {
+								archers = { 6 6 }
+								light_cavalry = { 3 3 }
+								light_infantry = { 11 11 }
+							}
+							attrition = 1.0
+							disband_on_peace = yes
+						}
+					}
+				}
+				17 = {
+					spawn_unit = {
+						province = ROOT
+						home = ROOT
+						owner = THIS
+						leader = THIS
+						scaled_by_biggest_garrison = 0.5
+						troops = {
+							archers = { 6 6 }
+							light_cavalry = { 3 3 }
+							light_infantry = { 11 11 }
+						}
+						attrition = 1.0
+					}
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = THIS
+						culture = THIS
+						female = no
+						age = 30
+						trait = peasant_leader
+						trait = tough_soldier
+					}
+					new_character = {
+						spawn_unit = {
+							province = ROOT
+							home = ROOT
+							owner = PREV
+							scaled_by_biggest_garrison = 0.5
+							troops = {
+								archers = { 6 6 }
+								light_cavalry = { 3 3 }
+								light_infantry = { 11 11 }
+							}
+							attrition = 1.0
+							disband_on_peace = yes
+						}
+					}
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = THIS
+						culture = THIS
+						female = no
+						age = 31
+						trait = peasant_leader
+						trait = tough_soldier
+					}
+					new_character = {
+						spawn_unit = {
+							province = ROOT
+							home = ROOT
+							owner = PREV
+							scaled_by_biggest_garrison = 0.5
+							troops = {
+								archers = { 6 6 }
+								light_cavalry = { 3 3 }
+								light_infantry = { 11 11 }
+							}
+							attrition = 1.0
+							disband_on_peace = yes
+						}
+					}
+				}
+				16 = {
+					spawn_unit = {
+						province = ROOT
+						home = ROOT
+						owner = THIS
+						leader = THIS
+						scaled_by_biggest_garrison = 0.75
+						troops = {
+							archers = { 6 6 }
+							light_infantry = { 14 14 }
+						}
+						attrition = 1.0
+					}
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = THIS
+						culture = THIS
+						female = no
+						age = 30
+						trait = peasant_leader
+						trait = tough_soldier
+					}
+					new_character = {
+						spawn_unit = {
+							province = ROOT
+							home = ROOT
+							owner = PREV
+							scaled_by_biggest_garrison = 0.75
+							troops = {
+								archers = { 6 6 }
+								light_infantry = { 14 14 }
+							}
+							attrition = 1.0
+							disband_on_peace = yes
+						}
+					}
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = THIS
+						culture = THIS
+						female = no
+						age = 31
+						trait = peasant_leader
+						trait = tough_soldier
+					}
+					new_character = {
+						spawn_unit = {
+							province = ROOT
+							home = ROOT
+							owner = PREV
+							scaled_by_biggest_garrison = 0.75
+							troops = {
+								archers = { 6 6 }
+								light_infantry = { 14 14 }
+							}
+							attrition = 1.0
+							disband_on_peace = yes
+						}
+					}
+				}
+				17 = {
+					spawn_unit = {
+						province = ROOT
+						home = ROOT
+						owner = THIS
+						leader = THIS
+						scaled_by_biggest_garrison = 0.5
+						troops = {
+							archers = { 6 6 }
+							light_infantry = { 14 14 }
+						}
+						attrition = 1.0
+					}
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = THIS
+						culture = THIS
+						female = no
+						age = 30
+						trait = peasant_leader
+						trait = tough_soldier
+					}
+					new_character = {
+						spawn_unit = {
+							province = ROOT
+							home = ROOT
+							owner = PREV
+							scaled_by_biggest_garrison = 0.5
+							troops = {
+								archers = { 6 6 }
+								light_infantry = { 14 14 }
+							}
+							attrition = 1.0
+							disband_on_peace = yes
+						}
+					}
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = THIS
+						culture = THIS
+						female = no
+						age = 31
+						trait = peasant_leader
+						trait = tough_soldier
+					}
+					new_character = {
+						spawn_unit = {
+							province = ROOT
+							home = ROOT
+							owner = PREV
+							scaled_by_biggest_garrison = 0.5
+							troops = {
+								archers = { 6 6 }
+								light_infantry = { 14 14 }
+							}
+							attrition = 1.0
+							disband_on_peace = yes
+						}
+					}
+				}
+			}
+			
+				# DoW on the province top liege
+				ROOT = {
+					owner = {
+						top_liege = {
+#							set_defacto_vassal = PREVPREVPREV
+							reverse_war = {
+								target = PREVPREVPREV
+								casus_belli = peasant_revolt
+								thirdparty_title = ROOT # The county
+							}
+							reverse_opinion = {
+								who = PREVPREVPREV
+								modifier = opinion_evil_tyrant
+							}
+						}
+					}
+				}
+			}
+
+		}
+
+	}
+
+}
+
