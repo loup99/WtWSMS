@@ -169,3 +169,81 @@ feudal_governments = {
 
 
 }
+	warrior_government = {
+		preferred_holdings = { FORT }
+		allowed_holdings = {		
+			CASTLE 
+			FORT
+			CITY
+			HOSPITAL
+		}
+		
+		allowed_holdings_culture = { # Will not get the wrong government type penalty for tribes of the same religion
+			FEUDAL
+			TRIBAL
+		}
+
+		accepts_liege_governments = {	
+			feudal_government
+			republic_government
+			merchant_republic_government
+			theocracy_government
+			bureaucratic_government
+			tribal_government
+		}
+		
+		potential = {
+			NAND = {
+				controls_religion = yes
+				NOT = {	primary_title = { is_landless_type_title = no }	}
+			}			
+			NOT = { religion_group = muslim }
+			NOT = { religion = zoroastrian }
+			is_theocracy = no
+			primary_title = {
+				bureaucratic_government_trigger = yes
+			}
+			primary_title = {
+				sassanid_government_trigger = no
+			}
+		}	
+		
+		color = { 153 0 36 }
+		
+		barons_need_dynasty = no
+		
+		ignore_in_vassal_limit_calculation = {
+			tribal_government
+		}
+		
+		can_build_tribal = no
+		title_prefix = "temple_duke" 
+		title_prefix = "castle_duke" 
+		title_prefix = "city_duke" 
+		title_prefix = "fort_duke" 
+		
+		builds_with_prestige = yes 
+		
+		allow_title_revokation = yes
+		free_retract_vassalage = yes
+		can_grant_kingdoms_and_empires_to_other_government = yes
+		
+		character_modifier	= {
+			levy_size = -0.25
+			city_vassal_min_levy = -0.1
+			castle_vassal_min_levy = -0.1
+			temple_vassal_min_levy = -0.1
+			city_vassal_max_levy = -0.25
+			castle_vassal_max_levy = -0.25
+			temple_vassal_max_levy = -0.25
+			global_tax_modifier = 0.15
+			city_vassal_tax_modifier = 0.15
+			temple_vassal_tax_modifier = 0.15
+			castle_vassal_tax_modifier = 0.15
+			land_morale = 0.1
+			land_organisation = 0.1
+			demesne_size = 5
+			retinuesize_perc = 2
+
+		}
+	}
