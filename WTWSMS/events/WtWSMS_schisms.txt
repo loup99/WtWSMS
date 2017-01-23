@@ -559,3 +559,133 @@ narrative_event = {
 		}
 	}
 }
+
+namespace = GEORGIAN
+
+# Georgian Schism
+narrative_event = {
+	id = GEORGIAN.1
+	title = GEORGIAN.1.title
+	desc = GEORGIAN.1.desc
+	picture = GFX_evt_nicene_preacher
+	border = GFX_event_narrative_frame_religion
+	
+	only_rulers = yes
+	only_independent = yes
+	
+	trigger = {
+		year = 485
+		religion = georgian_orthodox
+		NOT = { has_global_flag = georgian_schism }
+		NOT = { has_character_flag = georgian_schism }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		# Prevent schism event to fire twice for same character
+		set_character_flag = georgian_schism
+	}
+	
+	option = { # Nicene
+		name = GEORGIAN.1.a
+		ai_chance = { factor = 70 }
+		
+		religion = nicene
+		hidden_tooltip = {
+			religion_authority = {
+				modifier = ruler_converted_to
+			}
+		}
+		capital_scope = {
+			religion = nicene
+		}
+		hidden_tooltip = {
+			any_realm_character = {
+				limit = {
+					religion = georgian_orthodox
+					NOT = { character = ROOT }
+					can_change_religion = yes
+				}
+				character_event = { id = GEORGIAN.2 }
+			}
+		}
+	}
+	option = { # Miaphysite
+		name = GEORGIAN.1.b
+		ai_chance = { factor = 25 }
+		
+		religion = miaphysite
+		hidden_tooltip = {
+			religion_authority = {
+				modifier = ruler_converted_to
+			}
+		}
+		capital_scope = {
+			religion = miaphysite
+		}
+		hidden_tooltip = {
+			any_realm_character = {
+				limit = {
+					religion = georgian_orthodox
+					NOT = { character = ROOT }
+					can_change_religion = yes
+				}
+				character_event = { id = GEORGIAN.2 }
+			}
+		}
+		
+	}
+	option = { # Georgian
+		name = GEORGIAN.1.c
+		ai_chance = { factor = 5 }
+	}
+}
+
+# Vassal is notified about top_liege conversion
+character_event = {
+	id = GEORGIAN.2
+	desc = GEORGIAN.2.desc
+	picture = GFX_evt_nicene_preacher
+	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+	
+	option = { # Accept the choice
+		name = GEORGIAN.2.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.3
+				trait = zealous
+				intrigue = 3
+			}
+			modifier = {
+				factor = 0
+				trait = zealous
+				NOT = { intrigue = 3 }
+			}
+		}
+		
+		religion = FROM
+		if = {
+			limit = { trait = zealous }
+			remove_trait = zealous
+			piety = -50
+		}
+	}
+	option = { # Zealous
+		name = GEORGIAN.2.b
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { trait = zealous }
+			}
+		}
+		
+		piety = 100
+	}
+}
