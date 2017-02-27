@@ -1,0 +1,1252 @@
+###############################################
+#
+# VIET RELIGION UNIQUE DECISIONS
+#
+# Organized by religion, alphabetically:
+#
+# Buddhist
+# Finnish Pagan
+# Finnish/Tengrii Pagan
+# Fraticelli
+# Judaism
+# 
+#
+# Misc 
+#
+###############################################
+
+decisions = {
+
+###################################
+# BUDDHIST
+###################################
+
+	become_a_vegetarian = {
+		only_rulers = yes
+		potential = {
+			is_ruler = yes
+			OR = {
+				religion_group = indian_group
+				religion = cathar
+				religion = bogomilist
+				religion = taoism
+				religion = priscillianism #Priscillianism was so extreme in its asceticism that it demanded absolute vegetarianism of its clergy
+			}
+			NOT = { trait = vegetarian }
+		}
+		allow = {
+			piety = 100
+			prestige = 50
+            OR = {
+				trait = zealous
+				trait = kind
+				trait = temperate
+			}
+			OR = {
+				NOT = { trait = gluttonous }
+				OR = {
+					trait = zealous
+					trait = kind
+				}
+			}
+			NOR = {
+				trait = cruel
+				trait = impaler
+				trait = hunter
+				trait = falconer
+			}
+		}
+		effect = {
+			piety = -25
+			prestige = -25
+            character_event = { id = vegetarian.1 }
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.005 # Slow it down
+				always = yes
+			}
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+			modifier = {
+				factor = 0
+				AND = {
+					trait = arbitrary
+					NOT = { trait = zealous }
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = kind
+			}
+			modifier = {
+				factor = 0.5
+				trait = envious
+			}
+			modifier = {
+				factor = 2
+				trait = temperate
+			}
+			modifier = {
+				factor = 0
+				trait = gluttonous
+			}
+			modifier = {
+				factor = 0.01
+				trait = cruel
+			}
+			modifier = {
+				factor = 0.05
+				trait = slothful
+			}
+			modifier = {
+				factor = 0.25
+				trait = content
+			}
+	    }
+    }
+
+	#BUDDHIST DECISIONS
+	
+    go_on_retreat = {
+		only_playable = yes
+		potential = {
+			is_ruler = yes
+			is_theocracy = no
+			religion = buddhist
+			NOR = {
+				has_character_modifier = participated_in_meditation_retreat
+				has_character_modifier = VIET_retreat_timer
+				has_character_flag = going_on_meditation_retreat
+				has_character_flag = do_not_disturb
+			}
+			primary_title = { higher_tier_than = BARON }
+			OR = {
+				NOT = { has_dlc = "Way of Life" }
+				has_focus = focus_theology
+				has_focus = focus_scholarship
+			}
+		}
+		allow = {
+            scaled_wealth = 0.15
+			prestige = 50
+			piety = 50
+			OR = {
+				trait = zealous
+				trait = kind
+				trait = temperate
+				trait = diligent
+				trait = patient
+				trait = charitable
+			}
+			OR = {
+				NOT = { trait = cruel }
+				trait = zealous
+			}
+			OR = {
+				NOT = { trait = gluttonous }
+				OR = {
+					trait = zealous
+					trait = kind
+				}
+			}
+			OR = {
+				NOT = { trait = wroth }
+				OR = {
+					trait = zealous
+					trait = kind
+				}
+			}
+			OR = {
+				NOT = { trait = slothful }
+				OR = {
+					trait = zealous
+					trait = kind
+				}
+			}
+		}
+		effect = {
+			scaled_wealth = -0.15
+			prestige = -25
+			piety = -25
+			set_character_flag = going_on_meditation_retreat
+			set_character_flag = do_not_disturb
+            character_event = { id = meditation.1 }
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.005 # Slow it down
+				always = yes
+			}
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.5
+				trait = arbitrary
+			}
+			modifier = {
+				factor = 2
+				trait = kind
+			}
+			modifier = {
+				factor = 0.5
+				trait = envious
+			}
+			modifier = {
+				factor = 2
+				trait = ambitious
+			}
+			modifier = {
+				factor = 0.5
+				trait = content
+			}
+			modifier = {
+				factor = 2
+				trait = diligent
+			}
+			modifier = {
+				factor = 0.5
+				trait = slothful
+			}
+			modifier = {
+				factor = 0.05
+				has_character_flag = retreat_at_least_once
+				NOT = { trait = zealous }
+			}
+	    }
+    }		
+    
+	visit_buddhist_temple = {
+		only_playable = yes
+		potential = {
+			is_ruler = yes
+			religion = buddhist
+			NOR = {
+				has_character_modifier = visit_buddhist_temple_timer
+				has_character_modifier = visited_buddhist_temple
+				has_character_flag = visiting_buddhist_temple
+				has_character_flag = do_not_disturb
+			}
+			primary_title = { higher_tier_than = BARON }
+		}
+		allow = {
+            scaled_wealth = 0.15
+		}
+		effect = {
+			scaled_wealth = -0.15
+			set_character_flag = visiting_buddhist_temple
+            character_event = { id = buddhist.1 }
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.005 # Slow it down
+				always = yes
+			}
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.5
+				trait = arbitrary
+			}
+			modifier = {
+				factor = 2
+				trait = kind
+			}
+			modifier = {
+				factor = 0.5
+				trait = envious
+			}
+			modifier = {
+				factor = 2
+				trait = ambitious
+			}
+			modifier = {
+				factor = 0.5
+				trait = content
+			}
+			modifier = {
+				factor = 2
+				trait = diligent
+			}
+			modifier = {
+				factor = 0.5
+				trait = slothful
+			}
+	    }
+    }	
+    
+	dedicate_holy_site = {
+		only_playable = yes
+		potential = {
+			is_ruler = yes
+			religion = buddhist
+			NOR = {
+				has_character_modifier = built_buddhist_stupa
+				has_character_modifier = built_buddhist_temple
+				has_character_modifier = built_buddhist_monastery
+				has_character_flag = dedicated_buddhist_holy_site
+			}
+			primary_title = { higher_tier_than = BARON }
+		}
+		allow = {
+            scaled_wealth = 0.4
+			prestige = 100
+		}
+		effect = {
+			scaled_wealth = -0.4
+			prestige = -75
+			set_character_flag = dedicated_buddhist_holy_site
+            character_event = { id = buddhist.13 }
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.005 # Slow it down
+				always = yes
+			}
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.5
+				trait = arbitrary
+			}
+			modifier = {
+				factor = 2
+				trait = kind
+			}
+			modifier = {
+				factor = 0.5
+				trait = envious
+			}
+			modifier = {
+				factor = 2
+				trait = ambitious
+			}
+			modifier = {
+				factor = 0.5
+				trait = content
+			}
+			modifier = {
+				factor = 2
+				trait = diligent
+			}
+			modifier = {
+				factor = 0.5
+				trait = slothful
+			}
+			modifier = {
+				factor = 0.5
+				lower_tier_than = KING
+			}
+	    }
+    }	
+    
+	change_buddhist_sect = {
+		only_playable = yes
+		potential = {
+			is_ruler = yes
+			religion = buddhist
+			NOR = { 
+				has_character_flag = choosing_buddhist_sect 
+				has_character_modifier = recently_chose_buddhist_sect 
+			}
+			primary_title = { higher_tier_than = BARON }
+		}
+		allow = {
+            prestige = 50
+			piety = 50
+		}
+		effect = {
+			prestige = -50
+			piety = -50
+            character_event = { id = buddhist.3 }
+			set_character_flag = choosing_buddhist_sect
+			set_character_flag = buddhist_sect_already_chose_once
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.005 # Slow it down
+				has_character_flag = buddhist_sect_already_chose_once
+				always = yes
+			}
+			modifier = {
+				factor = 0.5
+				trait = zealous
+			}
+			modifier = {
+				factor = 2
+				trait = arbitrary
+			}
+			modifier = {
+				factor = 0.5
+				trait = kind
+			}
+			modifier = {
+				factor = 2
+				trait = envious
+			}
+			modifier = {
+				factor = 2
+				trait = ambitious
+			}
+			modifier = {
+				factor = 0.5
+				trait = content
+			}
+			modifier = {
+				factor = 2
+				trait = greedy
+			}
+			modifier = {
+				factor = 0.5
+				trait = patient
+			}
+	    }
+    }
+	
+################################################
+# FINNISH PAGAN
+################################################
+
+	hold_bear_hunt = { # Bear hunt and Karhunpeijaiset (i.e. bear feast)
+		only_playable = yes
+		is_high_prio = yes
+		potential = {
+			is_female = no
+			OR = {
+				religion = finnish_pagan
+				religion = finnish_pagan_reformed
+			}
+			NOT = { has_character_flag = bear_hunt_started }
+			NOT = { has_character_flag = bear_hunt_middle }
+			NOT = { has_character_flag = do_not_disturb }
+			OR = {
+				NOT = { has_dlc = "Way of Life" }
+				has_focus = focus_theology
+				has_focus = focus_hunting
+				trait = zealous
+				trait = hunter
+			}
+		}
+		allow = {
+			war = no
+			NOT = { has_character_modifier = bear_hunt_held }
+			primary_title = { higher_tier_than = BARON }
+			wealth = 20
+			scaled_wealth = 0.1
+		}
+		effect = {
+			scaled_wealth = -0.1
+
+			set_character_flag = bear_hunt_started
+			set_character_flag = do_not_disturb
+			
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.5 #Decrease chance AI will do this
+			}
+			modifier = {
+				factor = 2
+				trait = diligent
+			}	
+			modifier = {
+				factor = 0.5
+				trait = slothful
+			}	
+			modifier = {
+				factor = 2
+				trait = ambitious
+			}	
+			modifier = {
+				factor = 0.5
+				trait = imbecile
+			}		
+			modifier = {
+				factor = 2
+				trait = zealous
+			}	
+			modifier = {
+				factor = 0.5
+				trait = cynical
+			}			
+			modifier = {
+				factor = 2
+				primary_title = { higher_tier_than = DUKE }
+			}	
+			modifier = {
+				factor = 0.5
+				trait = slow
+			}			
+			modifier = {
+				factor = 2
+				trait = gregarious
+			}	
+			modifier = {
+				factor = 0.5
+				trait = shy
+			}				
+			modifier = {
+				factor = 2
+				trait = brave
+			}	
+			modifier = {
+				factor = 0.5
+				trait = craven
+			}	
+		}
+	}
+	
+	make_offerings_to_haltija = { # Make Offerings to Haltija
+		only_playable = yes
+		potential = {
+			OR = {
+				religion = finnish_pagan
+				religion = finnish_pagan_reformed
+			}
+			NOT = { has_global_flag = VIET_finnish_features_off }
+			NOT = { has_character_flag = do_not_disturb }
+		}
+		allow = {
+			NOT = { has_character_flag = haltija_offerings_giving }
+			NOT = { has_character_modifier = haltija_offerings_bad }
+			NOT = { has_character_modifier = haltija_offerings_neutral }
+			NOT = { has_character_modifier = haltija_offerings_good }
+			primary_title = { higher_tier_than = BARON }
+			wealth = 20
+			scaled_wealth = 0.05
+		}
+		effect = {
+			scaled_wealth = -0.05
+			piety = 20
+			set_character_flag = haltija_offerings_giving
+
+			hidden_tooltip = {
+				character_event = {
+					id = finnish.15
+					days = 2
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.5 #Decrease chance AI will do this
+			}
+			modifier = {
+				factor = 2
+				trait = diligent
+			}	
+			modifier = {
+				factor = 0.5
+				trait = slothful
+			}	
+			modifier = {
+				factor = 2
+				trait = ambitious
+			}	
+			modifier = {
+				factor = 0.5
+				trait = imbecile
+			}		
+			modifier = {
+				factor = 2
+				trait = zealous
+			}	
+			modifier = {
+				factor = 0.5
+				trait = cynical
+			}			
+			modifier = {
+				factor = 2
+				primary_title = { higher_tier_than = DUKE }
+			}	
+			modifier = {
+				factor = 0.5
+				trait = slow
+			}			
+			modifier = {
+				factor = 2
+				trait = gregarious
+			}	
+			modifier = {
+				factor = 0.5
+				trait = shy
+			}
+		}
+	}
+	
+	ask_ancestors_for_advice = { # Start Shaman journey event chain
+		only_playable = yes
+		potential = {
+			OR = {
+				religion = finnish_pagan
+				religion = finnish_pagan_reformed
+				religion = tengri_pagan_reformed
+				religion = tengri_pagan
+			}
+			NOT = { has_character_modifier = ask_ancestors_for_advice_timer }
+			NOT = {
+				AND = {
+					OR = {
+						religion = finnish_pagan
+						religion = finnish_pagan_reformed
+					}
+					has_global_flag = VIET_finnish_features_off 
+				}
+			}
+			NOT = {
+				AND = {
+					OR = {
+						religion = tengri_pagan
+						religion = tengri_pagan_reformed
+					}
+					has_global_flag = VIET_tengri_features_off 
+				}
+			}
+			NOT = { has_character_flag = asking_ancestors_for_advice }
+			NOT = { has_character_flag = do_not_disturb }
+		}
+		allow = {
+			war = no
+			primary_title = { higher_tier_than = BARON }
+			NOT = { has_character_modifier = ask_ancestors_for_advice_timer }
+			OR = {
+				any_vassal = {
+					trait = sacred_reindeer
+				}
+				any_courtier = {
+					trait = sacred_reindeer
+				}
+			}
+			scaled_wealth = 0.1
+		}
+		effect = {
+			scaled_wealth = -0.1
+
+			hidden_tooltip = {
+				character_event = {
+					id = shaman.1
+					days = 3
+				}
+			}
+			
+			set_character_flag = asking_ancestors_for_advice
+			set_character_flag = do_not_disturb
+			
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.5 #Decrease chance AI will do this
+			}
+			modifier = {
+				factor = 2
+				trait = diligent
+			}	
+			modifier = {
+				factor = 0.5
+				trait = slothful
+			}	
+			modifier = {
+				factor = 2
+				trait = ambitious
+			}	
+			modifier = {
+				factor = 0.5
+				trait = imbecile
+			}		
+			modifier = {
+				factor = 2
+				trait = zealous
+			}	
+			modifier = {
+				factor = 0.5
+				trait = cynical
+			}							
+			modifier = {
+				factor = 2
+				trait = gregarious
+			}	
+			modifier = {
+				factor = 0.5
+				trait = shy
+			}									
+			modifier = {
+				factor = 2
+				trait = humble
+			}	
+			modifier = {
+				factor = 0.5
+				trait = proud
+			}							
+			modifier = {
+				factor = 2
+				trait = depressed
+			}	
+			modifier = {
+				factor = 2
+				trait = stressed
+			}	
+		}
+	}
+
+	invite_shaman_to_court = { #Invite a Shaman to court
+		only_playable = yes
+		potential = {
+			is_ruler = yes
+			NOT = { tier = baron }
+			OR = {
+				religion = finnish_pagan
+				religion = finnish_pagan_reformed
+				religion = tengri_pagan_reformed
+				religion = tengri_pagan
+			}
+		}
+		allow = {
+			NOT = { has_character_flag = inviting_shaman_over }
+			war = no
+			piety = 20
+		}
+		effect = {
+			piety = -10
+			
+			set_character_flag = inviting_shaman_over
+
+			hidden_tooltip = {
+				character_event = {
+					id = shaman.34
+					days = 3
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.3 #Decrease chance AI will do this
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					any_vassal = {
+						trait = sacred_reindeer
+					}
+					any_courtier = {
+						trait = sacred_reindeer
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = diligent
+			}	
+			modifier = {
+				factor = 0.5
+				trait = slothful
+			}	
+			modifier = {
+				factor = 2
+				trait = ambitious
+			}	
+			modifier = {
+				factor = 0.5
+				trait = imbecile
+			}		
+			modifier = {
+				factor = 2
+				trait = zealous
+			}	
+			modifier = {
+				factor = 0.5
+				trait = cynical
+			}			
+			modifier = {
+				factor = 2
+				primary_title = { higher_tier_than = DUKE }
+			}	
+			modifier = {
+				factor = 0.5
+				trait = slow
+			}	
+		}
+	}
+	
+################################################
+# FRATICELLI
+################################################
+
+	switch_to_relaxati = {
+		only_rulers = yes
+		potential = {
+			religion = fraticelli
+			is_ruler = yes
+			age = 16
+			prisoner = no
+			has_character_modifier = VIET_fraticelli_zelanti
+			NOT = { has_character_modifier = VIET_fraticelli_relaxati }
+			NOT = { has_character_flag = fraticelli_switched_support }
+		}
+
+		allow = {
+			piety = 25
+		}
+
+		effect = {
+			piety = -25
+			set_character_flag = fraticelli_switched_support
+			character_event = { id = VIETmisc.10001 }
+		}
+
+		revoke_allowed = {
+			always = no
+		}
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = humble
+			}
+			modifier = {
+				factor = 0.5
+				trait = proud
+			}
+			modifier = {
+				factor = 2
+				trait = just
+			}
+			modifier = {
+				factor = 0.5
+				trait = zealous
+			}
+			modifier = {
+				factor = 2
+				trait = gregarious
+			}
+			modifier = {
+				factor = 0.5
+				trait = shy
+			}
+			modifier = {
+				factor = 0.005 # Slow it down
+			}
+		}
+	}
+
+	switch_to_zelanti = {
+		only_rulers = yes
+		potential = {
+			religion = fraticelli
+			is_ruler = yes
+			age = 16
+			prisoner = no
+			has_character_modifier = VIET_fraticelli_relaxati
+			NOT = { has_character_modifier = VIET_fraticelli_zelanti }
+			NOT = { has_character_flag = fraticelli_switched_support }
+		}
+
+		allow = {
+			piety = 25
+		}
+
+		effect = {
+			piety = -25
+			set_character_flag = fraticelli_switched_support
+			character_event = { id = VIETmisc.10002 }
+		}
+
+		revoke_allowed = {
+			always = no
+		}
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.5
+				trait = cynical
+			}
+			modifier = {
+				factor = 2
+				trait = temperate
+			}
+			modifier = {
+				factor = 0.5
+				trait = gluttonous
+			}
+			modifier = {
+				factor = 2
+				trait = shy
+			}
+			modifier = {
+				factor = 0.5
+				trait = gregarious
+			}
+			modifier = {
+				factor = 0.005 # Slow it down
+			}
+		}
+	}
+
+	become_secular_franciscan = {
+		only_rulers = yes
+		potential = {
+			religion = fraticelli
+			is_ruler = yes
+			age = 16
+			prisoner = no
+			NOT = { trait = secular_franciscan }
+			NOT = { trait = incapable }
+			OR = {
+				NOT = { has_dlc = "Way of Life" }
+				has_focus = focus_theology
+				has_focus = focus_scholarship
+			}
+		}
+
+		allow = {
+			piety = 100
+			prestige = 100
+			OR = {
+				trait = diligent
+				trait = zealous
+				trait = temperate
+				trait = charitable
+			}
+			NOT = { trait = cynical }
+			NOT = { trait = greedy }
+			NOT = { trait = gluttonous }
+			NOT = { trait = slothful }
+			NOT = { trait = imbecile }
+		}
+
+		effect = {
+			piety = -100
+			prestige = -100
+			character_event = { id = VIETmisc.10006 }
+		}
+
+		revoke_allowed = {
+			always = no
+		}
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+			modifier = {
+				factor = 0
+				trait = content
+			}
+			modifier = {
+				factor = 0.001 # Slow it down
+			}
+		}
+	}
+
+################################################
+# JUDAISM
+################################################
+
+    claim_descent_from_david = {
+		only_playable = yes
+		potential = {
+			has_landed_title = k_israel
+			religion_group = jewish_group
+			NOT = { trait = house_of_david }
+			NOT = { has_dynasty_flag = claimed_descent_from_david }
+		}
+		allow = {
+            piety = 200
+		}
+		effect = {
+			piety = -200
+            character_event = { id = VIETjewish.15 }
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+	    }
+    }
+	
+	organize_israel_defense = {
+		only_playable = yes
+		is_high_prio = yes
+		potential = {
+			is_female = no
+			prisoner = no
+			age = 16
+			religion_group = jewish_group
+			has_landed_title = k_israel
+			NOT = { has_global_flag = israel_military_elite_formed }
+		}
+		allow = {
+			prestige = 300
+			piety = 300
+			wealth = 300
+			custom_tooltip = {
+				text = israel_aliyah_are_coming
+				hidden_tooltip = {
+					has_global_flag = israel_aliyah_sufficient
+				}
+			}
+		}
+		effect = {
+			set_global_flag = israel_military_elite_formed
+			prestige = -300
+			wealth = -300
+			activate_title = { title = d_israel_defense status = yes }
+			hidden_tooltip = {
+				# Creating random leader of Israel Defense Force
+				#
+				# 40% Mizrahi
+				# 30% sephardi
+				# 30% Ashkenazi
+				#
+				random_list = {
+					40 = {
+						create_character = {
+							random_traits = yes
+							religion = jewish
+							culture = mizrahi
+							dynasty = NONE
+							female = no
+							age = 34
+							trait = skilled_tactician
+						}
+						new_character = {
+							d_israel_defense = {
+								grant_title = PREV
+							}
+							set_defacto_liege = ROOT
+							character_event = { id = VIETjewish.19 }
+						}
+					}
+					30 = {
+						create_character = {
+							random_traits = yes
+							religion = jewish
+							culture = sephardi
+							dynasty = NONE
+							female = no
+							age = 34
+							trait = skilled_tactician
+						}
+						new_character = {
+							d_israel_defense = {
+								grant_title = PREV
+							}
+							set_defacto_liege = ROOT
+							character_event = { id = VIETjewish.19 }
+						}
+					}
+					30 = {
+						create_character = {
+							random_traits = yes
+							religion = jewish
+							culture = ashkenazi
+							dynasty = NONE
+							female = no
+							age = 34
+							trait = skilled_tactician
+						}
+						new_character = {
+							d_israel_defense = {
+								grant_title = PREV
+							}
+							set_defacto_liege = ROOT
+							character_event = { id = VIETjewish.19 }
+						}
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}	
+	
+######################################
+#
+# MISCELLANEOUS
+#
+######################################	
+
+	embrace_twelver_shiism = {
+		only_rulers = yes
+		potential = {
+			has_dlc = "Sons of Abraham"
+			OR = {
+				religion = shiite
+				religion = alawite
+				religion = qarmatian
+				religion = ghurabi
+			}
+			NOT = { 
+				OR = {
+					trait = twelver
+					trait = sevener
+					trait = fiver
+				}
+			}
+			is_ruler = yes
+			age = 16
+			prisoner = no
+		}
+		
+		allow = {
+			piety = 50
+		}
+		
+		effect = {
+			add_trait = twelver
+			character_event = { id = VIETmisc.201 tooltip = embrace_twelver.tooltip }
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				liege = { trait = twelver }
+			}
+			modifier = {
+				factor = 0.05 # Slow it down
+			}
+		}
+	}
+	embrace_sevener_shiism = {
+		only_rulers = yes
+		potential = {
+			has_dlc = "Sons of Abraham"
+			OR = {
+				religion = shiite
+				religion = hurufi
+				religion = druze #remove once we do Druze stuff down the line
+				religion = ghurabi
+			}
+			NOT = { 
+				OR = {
+					trait = twelver
+					trait = sevener
+					trait = fiver
+				}
+			}
+			is_ruler = yes
+			age = 16
+			prisoner = no
+		}
+		
+		allow = {
+			piety = 50
+		}
+		
+		effect = {
+			add_trait = sevener
+			character_event = { id = VIETmisc.202 tooltip = embrace_sevener.tooltip }
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				liege = { trait = sevener }
+			}
+			modifier = {
+				factor = 0.05 # Slow it down
+			}
+		}
+	}
+	embrace_fiver_shiism = {
+		only_rulers = yes
+		potential = {
+			has_dlc = "Sons of Abraham"
+			OR = {
+				religion = shiite
+				religion = ghurabi
+			}
+			NOT = { 
+				OR = {
+					trait = twelver
+					trait = sevener
+					trait = fiver
+				}
+			}
+			is_ruler = yes
+			age = 16
+			prisoner = no
+		}
+		
+		allow = {
+			piety = 50
+		}
+		
+		effect = {
+			add_trait = fiver
+			character_event = { id = VIETmisc.203 tooltip = embrace_fiver.tooltip }
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				liege = { trait = fiver }
+			}
+			modifier = {
+				factor = 0.05 # Slow it down
+			}
+		}
+	}
+	
+}
