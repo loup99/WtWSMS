@@ -1,0 +1,1555 @@
+###############################################
+#
+# VIET CULTURE UNIQUE DECISIONS
+#
+# Organized by culture, alphabetically:
+#
+# Celtic
+# Greek
+# Iranian/Silk Road
+# Sinic
+# Turkish
+# West African
+#
+# Misc (Cretan, etc.)
+#
+###############################################
+
+decisions = {
+
+##########################
+# CELTIC
+##########################
+
+	create_britain = {
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			OR = {
+				culture = briton
+				culture = welsh
+				culture = breton
+				culture = cornish
+				culture = cumbric
+			}
+			k_britain = {
+				has_holder = no
+			}
+			NOT = { has_global_flag = VIET_britain_restored }
+		}
+		allow = {
+			independent = yes
+			NOT = { tier = emperor }
+			realm_size = 80			
+			OR = {
+				completely_controls = k_england
+				has_landed_title = k_england
+			}
+			OR = {
+				AND = {
+					k_dumnonia = {
+						has_holder = yes
+					}
+					OR = {
+						completely_controls = k_dumnonia
+						has_landed_title = k_dumnonia					
+					}
+				}
+				OR = {
+					completely_controls = k_brittany
+					has_landed_title = k_brittany	
+				}
+			}
+			piety = 200
+			prestige = 500
+		}
+		effect = {
+			set_global_flag = VIET_britain_restored
+			hidden_tooltip = {
+				character_event = { 
+					id = VIETceltic.0
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	create_dumnonia = {
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			OR = {
+				culture = cornish
+			}
+			k_dumnonia = {
+				has_holder = no
+			}
+			NOT = { has_global_flag = VIET_dumnonia_restored }
+			NOT = { tier = king }
+			NOT = { tier = emperor }
+		}
+		allow = {
+			AND = {
+				completely_controls = d_cornwall
+				realm_size = 11
+			}
+			piety = 100
+			prestige = 200
+		}
+		effect = {
+			set_global_flag = VIET_dumnonia_restored
+			hidden_tooltip = {
+				character_event = { 
+					id = VIETceltic.6
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	reestablish_knights_of_the_round_table = {
+		only_playable = yes
+		is_high_prio = yes
+		potential = {
+			has_landed_title = k_britain
+			NOT = { has_global_flag = VIET_knights_of_the_round_table_refounded }
+		}
+		allow = {
+			piety = 100
+			prestige = 100
+		}
+		effect = {
+			set_global_flag = VIET_knights_of_the_round_table_refounded
+			hidden_tooltip = {
+				character_event = { 
+					id = VIETceltic.3
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	enact_stannary_charter = {
+		only_playable = yes
+		potential = {
+			higher_tier_than = DUKE
+			independent = yes
+			completely_controls = d_cornwall
+			NOT = { has_global_flag = cornish_statuary_charters_on }
+		}
+		allow = {
+			prestige = 100
+			custom_tooltip = { text = cornish_statuary_charters_turned_off }
+			has_global_flag = cornish_statuary_charters_off
+		}
+		effect = {
+			prestige = -25
+			custom_tooltip = { text = stannary_charters_enacted }
+			clr_global_flag = cornish_statuary_charters_off
+			set_global_flag = cornish_statuary_charters_on
+		}
+		ai_will_do = {
+			factor = 0.01
+			modifier = {
+				factor = 2
+				trait = just
+			}
+		}
+	}
+
+	revoke_stannary_charter = {
+		only_playable = yes
+		potential = {
+			higher_tier_than = DUKE
+			independent = yes
+			completely_controls = d_cornwall
+			NOT = { has_global_flag = cornish_statuary_charters_off }
+		}
+		allow = {
+			prestige = 100
+			custom_tooltip = { text = cornish_statuary_charters_turned_on }
+			has_global_flag = cornish_statuary_charters_on
+		}
+		effect = {
+			prestige = -25
+			custom_tooltip = { text = cornish_statuary_charters_turned_on }
+			clr_global_flag = cornish_statuary_charters_on
+			set_global_flag = cornish_statuary_charters_off
+		}
+		ai_will_do = {
+			factor = 0.005
+			modifier = {
+				factor = 2
+				trait = ambitious
+			}
+		}
+	}
+
+	erect_high_cross = {
+		only_playable = yes
+		potential = {
+			is_ruler = yes
+			age = 16
+			scaled_wealth = 0.5
+			prisoner = no
+			religion_group = christian
+			NOT = { has_character_flag = VIET_celtic_high_cross }
+			OR = {
+				culture = saxon
+				AND = {
+					culture_group = celtic
+					NOT = { culture = breton }
+				}
+			}
+		}
+		allow = {
+			war = no
+			prisoner = no
+			piety = 100
+		}
+		effect = {
+			scaled_wealth = -0.5
+			piety = -50
+			set_character_flag = VIET_celtic_high_cross
+			add_character_modifier = {
+				name = VIET_erected_high_cross
+				duration = 3650
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0.01
+			
+			modifier = {
+				factor = 5
+				trait = zealous
+			}
+
+			modifier = {
+				factor = 0
+				NOT = {
+					learning = 8
+				}
+			}
+
+			modifier = {
+				factor = 0
+				NOT = {
+					piety = 100
+				}
+			}
+		}
+	}
+
+	erect_calvary_breton = {
+		only_playable = yes
+		potential = {
+			is_ruler = yes
+			age = 16
+			scaled_wealth = 0.5
+			prisoner = no
+			religion_group = christian
+			NOT = { has_character_flag = VIET_celtic_breton_cavalry }
+			culture = breton
+		}
+		allow = {
+			war = no
+			prisoner = no
+			piety = 100
+		}
+		effect = {
+			scaled_wealth = -0.5
+			piety = -50
+			set_character_flag = VIET_celtic_breton_cavalry
+			add_character_modifier = {
+				name = VIET_erected_breton_cavalry
+				duration = 3650
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0.01
+			
+			modifier = {
+				factor = 5
+				trait = zealous
+			}
+
+			modifier = {
+				factor = 0
+				NOT = {
+					learning = 8
+				}
+			}
+
+			modifier = {
+				factor = 0
+				NOT = {
+					piety = 100
+				}
+			}
+		}
+	}
+
+	go_on_tro_breizh = {
+		only_playable = yes
+		potential = {
+			culture = breton
+			is_ruler = yes
+			religion_group = christian
+			OR = {
+				NOT = { has_dlc = "Way of Life" }
+				NOT = { trait = pilgrim }
+				has_focus = focus_theology
+			}
+			NOT = { has_character_flag = do_not_disturb }
+		}
+		allow = {
+			war = no
+			in_command = no
+			any_demesne_title = {
+				is_occupied = no
+			}
+			prisoner = no
+			scaled_wealth = 0.1
+			age = 16
+			custom_tooltip = {
+				text = health_travel_condition
+				hidden_tooltip = {
+					NOT = {	trait = pregnant }
+					NOT = {	trait = incapable }
+					NOT = {	trait = blinded }
+					NOT = {	trait = has_tuberculosis }
+					NOT = {	trait = has_typhoid_fever }
+					NOT = {	trait = has_typhus }
+					NOT = {	trait = has_bubonic_plague }
+					NOT = {	trait = has_measles }
+					NOT = {	trait = has_small_pox }
+					NOT = {	trait = has_aztec_disease }
+				}
+			}
+		}
+		effect = {
+			scaled_wealth = -0.1
+			hidden_tooltip = {
+				character_event = { 
+					id = VIETceltic.100
+				}
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0.01          # Only a small minority of Christians ever go on a pilgrimage
+			modifier = {
+				factor = 0
+				NOT = { age = 25 }
+			}
+			modifier = {
+				factor = 3
+				trait = zealous
+			}
+		}
+	}
+	
+	go_to_gwyl_madant = {
+		only_playable = yes
+		potential = {
+			OR = {
+				culture = welsh
+				any_demesne_province = {
+					culture = welsh
+				}
+			}
+			OR = {
+				NOT = { has_dlc = "Way of Life" }
+				lower_tier_than = DUKE
+				has_focus = focus_carousing
+			}
+			NOT = { has_character_modifier = gwyl_madant_timer }
+		}
+		allow = {
+			war = no
+			in_command = no
+			any_demesne_title = {
+				is_occupied = no
+			}
+			prisoner = no
+			scaled_wealth = 0.01
+			age = 16
+			NOT = { has_character_modifier = attended_gwyl_madant }
+			NOT = { has_character_flag = do_not_disturb }
+			NOT = {
+				AND = {
+					religion_group = muslim
+					trait = zealous
+				}
+			}
+			custom_tooltip = {
+				text = health_travel_condition
+				hidden_tooltip = {
+					NOT = {	trait = pregnant }
+					NOT = {	trait = incapable }
+					NOT = {	trait = blinded }
+					NOT = {	trait = has_tuberculosis }
+					NOT = {	trait = has_typhoid_fever }
+					NOT = {	trait = has_typhus }
+					NOT = {	trait = has_bubonic_plague }
+					NOT = {	trait = has_measles }
+					NOT = {	trait = has_small_pox }
+					NOT = {	trait = has_aztec_disease }
+				}
+			}
+		}
+		effect = {
+			scaled_wealth = -0.01
+			hidden_tooltip = {
+				character_event = { 
+					id = VIETceltic.150
+				}
+			}
+			add_character_modifier = {
+				name = gwyl_madant_timer
+				hidden = yes
+				duration = 1460
+			}
+			set_character_flag = do_not_disturb
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0.01          # Reduce chances of happening
+			modifier = {
+				factor = 2
+				trait = drunkard
+			}
+			modifier = {
+				factor = 2
+				trait = gregarious
+			}
+			modifier = {
+				factor = 0.5
+				trait = shy
+			}
+			modifier = {
+				factor = 0.5
+				trait = proud
+			}
+			modifier = {
+				factor = 0.5
+				religion_group = muslim
+			}
+			modifier = {
+				factor = 2
+				religion_group = pagan_group
+			}
+		}
+	}	
+	
+	visit_celtic_holy_well = {
+		only_playable = yes
+		potential = {
+			OR = {
+				culture_group = celtic
+				culture_group = continental_celtic
+				culture_group = west_germanic
+			}
+			NOT = { has_character_modifier = VIET_visited_holy_well }
+			any_demesne_province = {
+				OR = {
+					has_province_modifier = VIET_celtic_holy_well_1
+					has_province_modifier = VIET_celtic_holy_well_2
+					has_province_modifier = VIET_celtic_holy_well_3
+					has_province_modifier = VIET_celtic_holy_well_4
+				}
+			}
+		}
+		allow = {
+			war = no
+			in_command = no
+			any_demesne_title = {
+				is_occupied = no
+			}
+			prisoner = no
+			scaled_wealth = 0.01
+			age = 16
+			prestige = 25
+			NOT = { has_character_flag = do_not_disturb }
+			custom_tooltip = {
+				text = health_travel_condition
+				hidden_tooltip = {
+					NOT = {	trait = pregnant }
+					NOT = {	trait = incapable }
+					NOT = {	trait = blinded }
+					NOT = {	trait = has_tuberculosis }
+					NOT = {	trait = has_typhoid_fever }
+					NOT = {	trait = has_typhus }
+					NOT = {	trait = has_bubonic_plague }
+					NOT = {	trait = has_measles }
+					NOT = {	trait = has_small_pox }
+					NOT = {	trait = has_aztec_disease }
+				}
+			}
+		}
+		effect = {
+			prestige = -25
+			scaled_wealth = -0.01
+			hidden_tooltip = {
+				character_event = { 
+					id = VIETceltic.2
+				}
+			}
+			add_character_modifier =  {
+				name = VIET_visited_holy_well
+				hidden = yes
+				duration = 3650
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0.01          # Reduce chances of happening
+			modifier = {
+				factor = 2
+				trait = gregarious
+			}
+			modifier = {
+				factor = 0.5
+				trait = shy
+			}
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.5
+				trait = cynical
+			}
+			modifier = {
+				factor = 2
+				trait = diligent
+			}
+			modifier = {
+				factor = 0.5
+				trait = slothful
+			}
+		}
+	}	
+	
+	contribute_to_fathers_hogback_stone = {
+		only_playable = yes
+		is_high_prio = yes
+		potential = {
+			OR = {
+				culture = cumbric
+			}
+			has_character_flag = VIET_govan_stones_timer
+			has_global_flag = viking_age_started
+		}
+		allow = {
+			scaled_wealth = 0.2
+		}
+		effect = {
+			hidden_tooltip = {
+				character_event = { 
+					id = VIETceltic.20
+				}
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	go_to_obby_oss = {
+		only_playable = yes
+		is_high_prio = yes
+		potential = {
+			is_ruler = yes
+			age = 16
+			prisoner = no
+			any_demesne_title = {
+				is_occupied = no
+			}
+			NOT = {	has_character_flag = going_to_obby_oss }
+			NOT = {	has_character_flag = do_not_disturb }
+			has_landed_title = c_cornwall
+			OR = {
+				culture = cornish
+				AND = {
+					NOT = { culture = cornish }
+					primary_title = { tier = COUNT }					
+				}
+			}
+			OR = {
+				NOT = { has_dlc = "Way of Life" }
+				lower_tier_than = DUKE
+				has_focus = focus_carousing
+				has_focus = focus_seduction
+			}
+		}
+		allow = {
+			scaled_wealth = 0.01
+			war = no
+			any_demesne_title = {
+				is_occupied = no
+			}
+			AND = {
+				NOT = { month = 4 }
+				month = 0
+			}
+			prisoner = no
+		}
+		effect = {
+			scaled_wealth = -0.01
+			set_character_flag = do_not_disturb
+			set_character_flag = going_to_obby_oss
+			hidden_tooltip = { 
+				character_event = { id = VIETceltic.200 } 
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0
+				trait = depressed
+			}
+		}
+	}	
+
+#########################
+# GREEK
+#########################
+
+	attend_cretan_wine_festival = {
+		only_playable = yes
+		potential = {
+			OR = {
+				any_demesne_province = {
+					OR = {
+						province_id = 479
+						province_id = 480
+					}
+				}
+				capital_scope = {
+					OR = {
+						province_id = 479
+						province_id = 480
+					}
+				}
+			}
+			NOT = { has_character_modifier = VIET_cretan_feast_timer }
+			NOT = { has_character_flag = do_not_disturb }
+			OR = {
+				NOT = { has_dlc = "Way of Life" }
+				lower_tier_than = DUKE
+				has_focus = focus_carousing
+				has_focus = focus_business
+			}
+		}
+		allow = {
+			war = no
+			in_command = no
+			any_demesne_title = {
+				is_occupied = no
+			}
+			prisoner = no
+			scaled_wealth = 0.01
+			age = 16
+			NOT = { has_character_modifier = VIET_attended_cretan_feast }
+			NOT = {
+				AND = {
+					religion_group = muslim
+					trait = zealous
+				}
+			}
+			custom_tooltip = {
+				text = health_travel_condition
+				hidden_tooltip = {
+					NOT = {	trait = pregnant }
+					NOT = {	trait = incapable }
+					NOT = {	trait = blinded }
+					NOT = {	trait = has_tuberculosis }
+					NOT = {	trait = has_typhoid_fever }
+					NOT = {	trait = has_typhus }
+					NOT = {	trait = has_bubonic_plague }
+					NOT = {	trait = has_measles }
+					NOT = {	trait = has_small_pox }
+					NOT = {	trait = has_aztec_disease }
+				}
+			}
+		}
+		effect = {
+			scaled_wealth = -0.01
+			hidden_tooltip = {
+				character_event = { 
+					id = VIETmisc.9000
+				}
+			}
+			add_character_modifier = {
+				name = VIET_cretan_feast_timer
+				hidden = yes
+				duration = 3650
+			}
+			set_character_flag = do_not_disturb
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0.01          # Reduce chances of happening
+			modifier = {
+				factor = 0.001
+				NOT = {
+					OR = {
+						culture = greek
+						culture = griko
+						trait = drunkard
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = drunkard
+			}
+			modifier = {
+				factor = 2
+				trait = gregarious
+			}
+			modifier = {
+				factor = 0.5
+				trait = shy
+			}
+			modifier = {
+				factor = 0.5
+				trait = proud
+			}
+			modifier = {
+				factor = 0.5
+				religion_group = muslim
+			}
+			modifier = {
+				factor = 2
+				religion_group = pagan_group
+			}
+		}
+	}
+	
+#########################
+# IRANIAN
+#########################
+
+	celebrate_nowruz = {
+		only_playable = yes
+		potential = {
+			is_ruler = yes
+			OR = {
+				culture_group = iranian
+				capital_scope = {
+					culture_group = iranian
+				}
+				culture_group = serindian
+				capital_scope = {
+					culture_group = serindian
+				}
+				has_landed_title = e_persia
+				has_landed_title = k_persia
+				has_landed_title = k_azerbaijian
+				has_landed_title = k_sogdiana
+			}
+			NOT = { has_character_modifier = VIET_celebrating_nowruz }
+			NOT = { has_character_modifier = VIET_nowruz_timer }
+		}
+		allow = {
+			month = 3
+			NOT = {
+				month = 6
+			}
+			war = no
+			in_command = no
+			any_demesne_title = {
+				is_occupied = no
+			}
+			prisoner = no
+			scaled_wealth = 0.2
+			age = 16
+			NOT = { has_character_flag = do_not_disturb }
+			NOT = { has_character_flag = VIET_nowruz }
+			custom_tooltip = {
+				text = health_travel_condition
+				hidden_tooltip = {
+					NOT = {	trait = pregnant }
+					NOT = {	trait = incapable }
+					NOT = {	trait = blinded }
+					NOT = {	trait = has_tuberculosis }
+					NOT = {	trait = has_typhoid_fever }
+					NOT = {	trait = has_typhus }
+					NOT = {	trait = has_bubonic_plague }
+					NOT = {	trait = has_measles }
+					NOT = {	trait = has_small_pox }
+					NOT = {	trait = has_aztec_disease }
+				}
+			}
+		}
+		effect = {
+			scaled_wealth = -0.2
+			hidden_tooltip = {
+				character_event = { 
+					id = silkroad.300
+				}
+			}
+			set_character_flag = do_not_disturb
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0.05         # Reduce chances of happening
+			modifier = {
+				factor = 2
+				trait = drunkard
+			}
+			modifier = {
+				factor = 2
+				trait = gregarious
+			}
+			modifier = {
+				factor = 0.5
+				trait = shy
+			}
+			modifier = {
+				factor = 2
+				trait = ambitious
+			}
+			modifier = {
+				factor = 0.5
+				trait = content
+			}
+			modifier = {
+				factor = 2
+				trait = charitable
+			}
+			modifier = {
+				factor = 0.5
+				trait = greedy
+			}
+			modifier = {
+				factor = 0.5
+				religion_group = muslim
+			}
+			modifier = {
+				factor = 0.2
+				religion_group = muslim
+				trait = zealous
+			}
+		}
+	}	
+	
+	hold_sogdian_fair = {
+		only_playable = yes
+		potential = {
+			is_ruler = yes
+			OR = {
+				culture = soghdian
+				capital_scope = {
+					OR = {
+						culture = soghdian
+						has_province_modifier = VIET_sogdian_colony
+					}
+				}
+				any_demesne_province = {
+					OR = {
+						culture = soghdian
+						has_province_modifier = VIET_sogdian_colony
+					}
+				}
+			}
+			NOT = { has_character_flag = VIET_sogdian_fair }
+			NOT = { has_character_modifier = VIET_sogdian_fair_timer }
+			OR = {
+				NOT = { has_dlc = "Way of Life" }
+				lower_tier_than = DUKE
+				has_focus = focus_carousing
+				has_focus = focus_business
+				has_focus = focus_rulership
+				trait = sartapaw
+				culture = soghdian
+			}
+		}
+		allow = {
+			war = no
+			in_command = no
+			any_demesne_title = {
+				is_occupied = no
+			}
+			prisoner = no
+			scaled_wealth = 0.3
+			age = 16
+			NOT = { has_character_flag = do_not_disturb }
+			#NOT = { has_character_flag = VIET_sogdian_fair }
+			custom_tooltip = {
+				text = health_travel_condition
+				hidden_tooltip = {
+					NOT = {	trait = pregnant }
+					NOT = {	trait = incapable }
+					NOT = {	trait = blinded }
+					NOT = {	trait = has_tuberculosis }
+					NOT = {	trait = has_typhoid_fever }
+					NOT = {	trait = has_typhus }
+					NOT = {	trait = has_bubonic_plague }
+					NOT = {	trait = has_measles }
+					NOT = {	trait = has_small_pox }
+					NOT = {	trait = has_aztec_disease }
+				}
+			}
+		}
+		effect = {
+			scaled_wealth = -0.3
+			hidden_tooltip = {
+				character_event = { 
+					id = silkroad.400
+				}
+			}
+			set_character_flag = do_not_disturb
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0.05         # Reduce chances of happening
+			modifier = {
+				factor = 2
+				trait = sartapaw
+			}
+			modifier = {
+				factor = 2
+				trait = gregarious
+			}
+			modifier = {
+				factor = 0.5
+				trait = shy
+			}
+			modifier = {
+				factor = 2
+				trait = ambitious
+			}
+			modifier = {
+				factor = 0.5
+				trait = content
+			}
+			modifier = {
+				factor = 2
+				trait = greedy 
+			}
+			modifier = {
+				factor = 0.5
+				trait = charitable
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { stewardship = 8 }
+			}
+			modifier = {
+				factor = 0.8
+				religion_group = muslim
+				trait = zealous
+			}
+		}
+	}
+
+	support_silk_road = {
+		only_playable = yes
+		is_high_prio = yes
+		potential = {
+			NOT = { religion_group = muslim }
+			OR = {
+				NOT = { religion_group = pagan_group }
+				religion = zun_pagan
+				religion = zun_pagan_reformed
+				AND = {
+					religion_group = pagan_group
+					realm_size = 80
+				}
+				culture = soghdian
+			}
+			NOT = { has_global_flag = sogdian_merchants_supported }
+			OR = { 
+				tier = emperor 
+				tier = king 
+			}
+			NOT = { has_global_flag = silk_road_level_3 }
+			NOT = { has_global_flag = silk_road_level_0 }
+			capital_scope = {
+				OR = {
+					kingdom = { title = k_turkestan }
+					kingdom = { title = k_afghanistan }
+					kingdom = { title = k_khiva }
+					kingdom = { title = k_baluchistan }
+					kingdom = { title = k_persia }
+					kingdom = { title = k_sogdiana }
+					empire = { title = e_persia }
+				}
+			} #change for SWMH
+		}
+		allow = {
+			independent = yes
+			OR = {
+				has_landed_title = k_persia
+				has_landed_title = k_turkestan
+				has_landed_title = k_khiva
+				has_landed_title = k_sogdiana
+				has_landed_title = k_afghanistan
+				has_landed_title = k_baluchistan
+				has_landed_title = e_persia
+				culture = soghdian
+			} #change for SWMH
+			prestige = 250
+			realm_size = 60
+			scaled_wealth = 0.5
+		}
+		effect = {
+			set_global_flag = sogdian_merchants_supported
+			scaled_wealth = -0.5
+			hidden_tooltip = {
+				character_event = { 
+					id = silkroad.8
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.01
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					trait = content
+					trait = slothful
+					trait = arbitrary
+					trait = imbecile
+					trait = slow
+				}
+			}
+		}
+	}
+
+#########################
+# SINIC
+#########################
+
+	invite_scholar_to_court = {
+		only_playable = yes
+		potential = {
+			ai = no
+			OR = {
+				culture_group = sinic
+				has_landed_title = e_khitan
+			}
+		}
+		allow = {
+			scaled_wealth = 0.2
+		}
+		effect = {
+			scaled_wealth = -0.2
+			create_random_character = {
+				trait = jinshi
+				random_traits = yes
+				dynasty = random
+				female = no
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+#########################
+# TURKISH
+#########################
+
+	form_turkish_empire = {
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			prisoner = no
+			is_ruler = yes
+			independent = yes
+			OR = {
+				higher_tier_than = DUKE
+				num_of_duke_titles = 2
+			}
+			is_adult = yes
+			religion_group = muslim
+			culture = turkish
+			NOT = { trait = incapable }
+			NOT = { has_global_flag = fall_of_constantinople }
+			e_turkish = { has_holder = no }
+		}
+		allow = {
+			war = no
+			OR = {
+				has_landed_title = c_byzantion
+				any_realm_lord = {
+					has_landed_title = c_byzantion
+				}
+			}
+		}
+		effect = {
+			set_global_flag = fall_of_constantinople
+			narrative_event = { id = ottoman.1 tooltip = ottoman.1.tt }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	ottoman_promote_concubine = { #Promote Concubine to Wife Status
+		only_independent = yes
+		potential = {
+			OR = {
+				has_landed_title = e_turkish
+				father = { has_landed_title = e_turkish }
+				any_sibling = { has_landed_title = e_turkish }
+			}
+			religion_group = muslim
+			culture = turkish
+			NOT = { has_character_flag = ottoman_wifey_harem }
+			is_female = no
+			is_adult = yes #sorry no horny kids
+		}
+		allow = {
+			NOT = { num_of_spouses = 4 }
+		}
+		effect = {
+			set_character_flag = ottoman_wifey_harem
+			custom_tooltip = { text = ottoman_promote_concubine_woot }
+			hidden_tooltip = {
+				character_event = {
+					id = ottoman.9
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.01
+				trait = homosexual
+			}
+			modifier = {
+				factor = 0.01
+				trait = celibate
+			}
+			modifier = {
+				factor = 0.7
+				trait = chaste
+			}
+			modifier = {
+				factor = 2
+				trait = lustful
+			}
+			modifier = {
+				factor = 2
+				trait = gregarious
+			}
+			modifier = {
+				factor = 1.5
+				trait = trusting
+			}
+			modifier = {
+				factor = 0.5
+				has_character_flag = ottoman_wifey_harem_done_once
+			}
+		}
+	}
+
+#########################
+# WEST AFRICAN
+#########################
+
+	invite_griot_to_court = { #Invite a Griot to court
+		only_playable = yes
+		potential = {
+			is_ruler = yes
+			OR = {
+				culture_group = west_african
+				culture_group = central_african
+				religion = west_african_pagan
+				religion = west_african_pagan_reformed
+			}
+		}
+		allow = {
+			primary_title = { higher_tier_than = BARON }
+			NOR = {
+				has_character_modifier = new_griot_in_court
+				has_character_flag = inviting_griot_over
+				any_vassal = {
+					has_minor_title = title_court_griot
+				}
+				any_courtier = {
+					has_minor_title = title_court_griot
+				}
+			}
+		}
+		effect = {
+			scaled_wealth = -0.5
+			
+			set_character_flag = inviting_griot_over
+
+			hidden_tooltip = {
+				character_event = {
+					id = wafrica.1
+					days = 3
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1 # Slow it down
+				always = yes
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					any_vassal = {
+						has_minor_title = title_court_griot
+					}
+					any_courtier = {
+						has_minor_title = title_court_griot
+					}
+				}
+			}
+			modifier = {
+				factor = 0.05
+				any_vassal = {
+					trait = griot
+				}
+				any_courtier = {
+					trait = griot
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = diligent
+			}	
+			modifier = {
+				factor = 0.5
+				trait = slothful
+			}	
+			modifier = {
+				factor = 2
+				trait = ambitious
+			}	
+			modifier = {
+				factor = 0.5
+				trait = imbecile
+			}		
+			modifier = {
+				factor = 2
+				trait = zealous
+			}	
+			modifier = {
+				factor = 0.5
+				trait = cynical
+			}			
+			modifier = {
+				factor = 2
+				primary_title = { higher_tier_than = DUKE }
+			}	
+			modifier = {
+				factor = 0.5
+				trait = slow
+			}	
+		}
+	}	
+
+	assign_griot = { # For the AI, because they are dumb enough not to hand out minor titles
+		only_playable = yes
+		potential = {
+			ai = yes
+			OR = {
+				culture_group = west_african
+				culture_group = central_african
+				religion = west_african_pagan
+				religion = west_african_pagan_reformed
+			}
+			NOT = { 
+				any_courtier = {
+					has_minor_title = title_court_griot
+				}
+			}
+		}
+		allow = {
+			primary_title = { higher_tier_than = BARON }
+			any_courtier = {
+				trait = griot
+				is_female = no
+				is_adult = yes
+			}
+		}
+		effect = {
+			random_courtier = {
+				limit = {
+					is_adult = yes
+					is_female = no
+					trait = griot
+				}
+				give_minor_title = title_court_griot
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1 # Slow it down
+				always = yes
+			}
+		}
+	}
+	
+	receive_iron_woman = { # Receive an Iron Woman, a special ceremony staff/spear (historically and presently, used mostly by the Bambara Peoples, a Mande subgroup)
+		only_playable = yes
+		potential = {
+			is_ruler = yes
+			OR = {
+				culture_group = west_african
+				religion = west_african_pagan
+				religion = west_african_pagan_reformed
+			}
+			NOR = { 
+				has_character_flag = received_iron_woman
+				has_character_flag = do_not_disturb  
+			}
+		}
+		allow = {
+			primary_title = { higher_tier_than = BARON }
+			OR = {
+				any_vassal = {
+					has_minor_title = title_court_griot
+				}
+				any_courtier = {
+					has_minor_title = title_court_griot
+				}
+			}
+			wealth = 50
+			prestige = 30
+			piety = 30
+		}
+		effect = {
+			wealth = -50
+			prestige = -30
+			piety = -30
+
+			set_character_flag = iron_woman_ongoing
+			set_character_flag = do_not_disturb
+			character_event = {
+				id = wafrica.10
+				days = 10
+				random = 7
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.005 # Slow it down
+				always = yes
+			}
+			modifier = {
+				factor = 0
+				any_vassal = {
+					has_minor_title = title_court_griot
+				}
+				any_courtier = {
+					has_minor_title = title_court_griot
+				}
+			}
+			modifier = {
+				factor = 0.05
+				any_vassal = {
+					trait = griot
+				}
+				any_courtier = {
+					trait = griot
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = diligent
+			}	
+			modifier = {
+				factor = 0.5
+				trait = slothful
+			}	
+			modifier = {
+				factor = 2
+				trait = ambitious
+			}	
+			modifier = {
+				factor = 0.5
+				trait = imbecile
+			}		
+			modifier = {
+				factor = 2
+				trait = zealous
+			}	
+			modifier = {
+				factor = 0.5
+				trait = cynical
+			}			
+			modifier = {
+				factor = 2
+				primary_title = { higher_tier_than = DUKE }
+			}	
+			modifier = {
+				factor = 0.5
+				trait = slow
+			}	
+		}
+	}
+	
+	host_griot_performance = { # Start Griot performance event chain
+		only_playable = yes
+		potential = {
+			is_ruler = yes
+			OR = {
+				culture_group = west_african
+				culture_group = central_african
+				religion = west_african_pagan
+				religion = west_african_pagan_reformed
+			}
+			NOR = { 
+				has_character_modifier = griot_performance_timer 
+				has_character_modifier = held_griot_performance 
+				has_character_flag = hosting_griot_performance 
+				has_character_flag = do_not_disturb  
+			}
+		}
+		allow = {
+			primary_title = { higher_tier_than = BARON }
+			OR = {
+				any_vassal = {
+					has_minor_title = title_court_griot
+				}
+				any_courtier = {
+					has_minor_title = title_court_griot
+				}
+			}
+			scaled_wealth = 0.2			
+		}
+		effect = {
+			scaled_wealth = -0.2
+
+			hidden_tooltip = {
+				character_event = {
+					id = wafrica.16
+					days = 3
+				}
+			}
+			
+			set_character_flag = hosting_griot_performance
+			set_character_flag = do_not_disturb
+			
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.005 # Slow it down
+				always = yes
+			}
+			modifier = {
+				factor = 2
+				trait = diligent
+			}	
+			modifier = {
+				factor = 0.5
+				trait = slothful
+			}	
+			modifier = {
+				factor = 2
+				trait = ambitious
+			}	
+			modifier = {
+				factor = 0.5
+				trait = imbecile
+			}		
+			modifier = {
+				factor = 2
+				trait = zealous
+			}	
+			modifier = {
+				factor = 0.5
+				trait = cynical
+			}			
+			modifier = {
+				factor = 2
+				trait = charitable
+			}	
+			modifier = {
+				factor = 0.5
+				trait = slow
+			}				
+			modifier = {
+				factor = 2
+				trait = gregarious
+			}	
+			modifier = {
+				factor = 0.5
+				trait = shy
+			}				
+			modifier = {
+				factor = 2
+				trait = poet
+			}	
+			modifier = {
+				factor = 0.5
+				trait = inbred
+			}					
+			modifier = {
+				factor = 2
+				trait = scholar
+			}	
+			modifier = {
+				factor = 0.5
+				trait = cruel
+			}						
+			modifier = {
+				factor = 2
+				trait = proud
+			}	
+			modifier = {
+				factor = 0.5
+				trait = humble
+			}							
+			modifier = {
+				factor = 0.5
+				trait = arbitrary
+			}	
+		}
+	}
+}

@@ -5,6 +5,7 @@
 # Id 60000 - 61000 is reserved
 #
 ###################################
+
 namespace = hist
 
 # Bavarian Ethnogensis
@@ -675,6 +676,48 @@ narrative_event = {
 			NOT = {
 				religion = arian
 			}
+		}
+	}
+}
+
+# Saxons take Deva Victrix
+narrative_event = {
+	id = hist.16
+	title = hist.16.name
+	desc = hist.16.desc
+	picture = GFX_evt_castle_hill
+	border = GFX_event_normal_frame_war
+	
+	major = yes
+	
+	trigger = {
+		culture_group = central_germanic  
+		completely_controls = c_lancaster
+		NOT = { has_global_flag = saxon_lancaster }
+	}
+	
+	major_trigger = {
+		ai = no
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+		
+	immediate = {
+		set_global_flag = saxon_lancaster
+	}
+	
+	option = {
+		name = hist.16.a
+		trigger = {
+			NOT = { culture = old_saxon culture = anglo culture = jute culture = old_frisian culture = saxon } 
+		}
+	}
+	option = {
+		name = hist.16.b
+		trigger = {
+			OR = { culture = old_saxon culture = anglo culture = jute culture = old_frisian culture = saxon } 
 		}
 	}
 }
