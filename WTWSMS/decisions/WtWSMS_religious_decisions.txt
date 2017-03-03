@@ -417,10 +417,12 @@ decisions = {
 		}
 		
 		allow = {
-			is_heretic = no
 			piety = 1000
+			trait = vegetarian
+			martial = 8
+			learning = 8
 			OR = {
-				owns = 198 # Valladolid
+				owns = 198
 				any_realm_lord = {
 					owns = 198
 				}
@@ -429,17 +431,36 @@ decisions = {
 		
 		effect = {
 			give_nickname = nick_with_immortal_soul
-			activate_title = { title = d_priscillianism status = yes }
+			set_global_flag = veggiepriest
+			activate_title = { title = k_priscillianism status = yes }
 			hidden_tooltip = {
-				create_random_priest = {
+				create_character = {
+					name = "Priscillian"
 					dynasty = none
-					random_traits = yes
+					trait = humble
+					trait = vegetarian
+					trait = zealous
+					trait = mystic
+					race = egyptian_arabic
+					religion = priscillianism
+					culture = ROOT
+					female = no
+					attributes = {
+						martial = 8
+						intrigue = 10
+						learning = 10
+					}
+					historical = yes
 				}
 				new_character = {
-					d_priscillianism = {
+					k_priscillianism = {
 						grant_title = PREV
 					}
-					wealth = 500
+					b_avila = {
+						grant_title = PREV
+						make_capital_holding = yes
+					}
+					wealth = 0
 					opinion = {
 						who = ROOT
 						modifier = opinion_creator_of_rel_heal
@@ -968,4 +989,78 @@ decisions = {
 		}
 	}
 
+#	create_borborites_matriarchy = {
+#		only_playable = yes
+#		is_high_prio = yes
+#	
+#		potential = {
+#			OR = {
+#				religion = borborites
+#				trait = whoreborite
+#			}
+#			NOT = { is_title_active = d_borborites }
+#		}
+#		
+#		allow = {
+#			piety = 2000
+#			trait = lustful
+#			trait = hedonist
+#			tier = KING
+#			NOT = {
+#				trait = chaste
+#				trait = celibate
+#			}
+#		}
+#		
+#		effect = {
+#			piety = 1000
+#			activate_title = { title = d_borborites status = yes }
+#			custom_tooltip = {
+#				name = borborlove
+#				hidden_tooltip = {
+#					create_random_priest = {
+#						dynasty = none
+#						random_traits = yes
+#						female = yes
+#						culture = ROOT
+#						race = coptic
+#						trait = whoreborite
+#						trait = hedonist
+#						trait = lustful
+#						trait = zealous
+#						trait = fair
+#						trait = fertile
+#						trait = imposing
+#						trait = tolerant_ruler
+#						trait = melodious_voice
+#						trait = seductress
+#					}
+#					new_character = {
+#						d_borborites = {
+#							grant_title = PREV
+#						}
+#						wealth = 500
+#						opinion = {
+#							who = ROOT
+#							modifier = opinion_creator_of_rel_heal
+#						}
+#					}
+#				
+#					religion_authority = {
+#						modifier = patriarchy_instituted
+#						years = 50
+#					}
+#				}
+#			}
+#		}
+#		
+#		revoke_allowed = {
+#			always = no
+#		}
+#		
+#		ai_will_do = {
+#			factor = 1
+#		}
+#	}
+#
 }

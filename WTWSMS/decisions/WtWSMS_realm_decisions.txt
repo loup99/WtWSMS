@@ -22,7 +22,7 @@ decisions = {
 				narrative_event = { id = guard.3100 }
 				create_character = {
 					random_traits = yes
-					religion = nicene
+					religion = ROOT
 					culture = greek
 					dynasty = NONE
 					female = no
@@ -73,7 +73,15 @@ decisions = {
 	support_greens = {
 		only_playable = yes
 		potential = {
-			has_romance_culture_trigger = yes
+			OR = {
+				culture_group = latin
+				culture = roman
+				has_landed_title = e_wre
+				has_landed_title = e_roman_empire
+				has_title = c_roma
+				has_title = b_rome
+				has_title b_roma
+			}
 			has_global_flag = circus_maximus_built
 			NOT = { 
 				OR = {
@@ -123,7 +131,15 @@ decisions = {
 	support_blues = {
 		only_playable = yes
 		potential = {
-			has_romance_culture_trigger = yes
+			OR = {
+				culture_group = latin
+				culture = roman
+				has_landed_title = e_wre
+				has_landed_title = e_roman_empire
+				has_title = c_roma
+				has_title = b_rome
+				has_title b_roma
+			}
 			has_global_flag = circus_maximus_built
 			NOT = { 
 				OR = {
@@ -186,7 +202,13 @@ decisions = {
 		only_playable = yes
 		is_high_prio = yes
 		potential = {
-			religion_group = christian 
+			OR = {
+				religion_group = christian
+				religion_group = hellenic_pagan
+				religion_group = neoplatonist
+				has_romance_culture_trigger = yes
+				culture = roman
+			}
 			has_landed_title = c_roma
 			NOT = { has_global_flag = circus_maximus_built }
 			NOT = { has_global_flag = building_circus_maximus }
@@ -230,9 +252,9 @@ decisions = {
 			activate_title = { title = d_excubitors status = yes }
 			hidden_tooltip = {
 				narrative_event = { id = guard.31001 }
-				create_character = {
+				create_random_soldier = {
 					random_traits = yes
-					religion = nicene
+					religion = ROOT
 					culture = greek
 					dynasty = NONE
 					female = no
@@ -297,12 +319,13 @@ decisions = {
 			OR = {
 				religion_group = christian
 				religion_group = pagan_group
+				has_romance_culture_trigger = yes
+				culture = roman
 			}
 			age = 16
 			prisoner = no
 			NOT = { trait = incapable }
 			NOT = { has_claim = e_roman_empire }
-			has_romance_culture_trigger = yes
 		}
 		allow = {
 			prestige = 1500
@@ -341,15 +364,10 @@ decisions = {
 				has_landed_title = e_wre
 				has_landed_title = e_byzantium
 			}
-			OR = {
-				religion_group = christian
-				religion_group = pagan_group
-			}
 			age = 16
 			prisoner = no
 			NOT = { trait = incapable }
 			NOT = { has_global_flag = rome_restored }
-			has_romance_culture_trigger = yes
 		}
 		allow = {
 			prestige = 3000
@@ -413,11 +431,12 @@ decisions = {
 			OR = {
 				religion_group = christian
 				religion_group = pagan_group
+				has_romance_culture_trigger = yes
+				culture = roman
 			}
 			age = 16
 			prisoner = no
 			NOT = { trait = incapable }
-			has_romance_culture_trigger = yes
 		}
 		allow = {
 			# Controls Italia and Roma
@@ -430,10 +449,10 @@ decisions = {
 					
 			# Rome's glory
 			custom_tooltip = { 
+				text = restore_western_roman_empire.tooltip
 				hidden_tooltip = {
 					has_global_flag = circus_maximus_built
 				}
-				text = restore_western_roman_empire.tooltip
 			}
 #			is_title_active = c_legio_i_suburbicaria
 			is_title_active = c_legio_viii_augusta
@@ -467,11 +486,13 @@ decisions = {
 			OR = {
 				religion_group = christian
 				religion_group = pagan_group
+				has_romance_culture_trigger = yes
+				culture = roman
+				culture_group = byzantine
 			}
 			age = 16
 			prisoner = no
 			NOT = { trait = incapable }
-			has_romance_culture_trigger = yes
 		}
 		allow = {
 			# Controls Greece, Anatolia and Constantinople
@@ -481,13 +502,13 @@ decisions = {
 				province = 496 # Constantinople
 			}
 					
-			# Rome's glory
-			is_title_active = c_legio_i_flavia_constantia
-			is_title_active = c_legio_i_isaura_sagittaria
-			is_title_active = c_legio_ii_herculia
-			is_title_active = c_legio_ii_isaura
-			is_title_active = c_legio_i_flavia_theodosiana
-			is_title_active = c_legio_i_iovia
+#			Rome's glory
+#			is_title_active = c_legio_i_flavia_constantia
+#			is_title_active = c_legio_i_isaura_sagittaria
+#			is_title_active = c_legio_ii_herculia
+#			is_title_active = c_legio_ii_isaura
+#			is_title_active = c_legio_i_flavia_theodosiana
+#			is_title_active = c_legio_i_iovia
 			
 			# Prestige and power
 			prestige = 1500
@@ -738,7 +759,7 @@ decisions = {
 				trait = slow
 			}	
 		}
-	}	
+	}
 
 	assign_poet = { # For the AI, because they are dumb enough not to hand out minor titles
 		potential = {
@@ -843,5 +864,4 @@ decisions = {
 			}
 		}
 	}
-
 }

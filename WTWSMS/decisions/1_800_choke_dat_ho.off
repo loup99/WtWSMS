@@ -1,0 +1,136 @@
+#################################
+#      Borborite Side-Ho Decision      #
+#################################
+
+# Due to serious complications with the coding of the decision to spawn a Shrine Prostitute, I have elected to move that Decision into its own file, to isolate the problem. #
+# This file will be implemented after the Sects EP is made. #
+# This entire file is dedicated to Tyler Perry. #
+
+decisions = {
+	1_800_choke_dat_ho = {
+		potential = {
+			religion = borborites
+			is_adult = yes
+			is_female = no
+			is_ruler = yes
+			NOT = {
+				trait = incapable
+				trait = chaste
+				trait = celibate
+				trait = monk
+				trait = nun
+				trait = infertile
+			}
+		}
+		allow = {
+			prestige = 500
+			piety = 100
+			custom_tooltip = {
+				name = choke_dat_ho_tt
+				hidden_tooltip = {
+					NOT = {
+						any_courtier = {
+							has_minor_title = title_primary_shrine_prostitute
+						}
+					}
+#					NOT = {
+#						has_character_flag = 1800_choke_dat_ho
+#					}
+				}
+			}
+		}
+		effect = {
+			scaled_wealth = -0.05
+			piety = -25
+			custom_tooltip = {
+				name = dont_hate_the_player
+				hidden_tooltip = {
+					create_character = {
+						random_traits = yes
+						dynasty = NONE
+						female = yes
+						age = 16
+						trait = fair
+						trait = fertile
+						trait = lustful
+						culture = ROOT
+						race = coptic
+						religion = borborites
+						trait = seductress
+						trait = melodious_voice
+					}
+					new_character = {
+						remove_trait = ugly
+						remove_trait = hunchback
+						remove_trait = mangled
+						remove_trait = wrymouth
+						remove_trait = disfigured
+						remove_trait = chaste
+						remove_trait = temperate
+						remove_trait = celibate
+						add_trait = whoreborite
+						add_consort = ROOT
+						save_event_target_as = invited_character
+						give_minor_title = title_primary_shrine_prostitute
+					}
+#					set_character_flag = { 
+#						flag = 1800_choke_dat_ho
+#						days = 2191
+#					}
+				}
+			}
+		}
+#		revoke_allowed = {
+#			always = no
+#		}
+		ai_will_do = {
+			factor = 1
+#			modifier = {
+#				factor = 0.05
+#				any_courtier = {
+#					is_consort = yes
+#				}
+#			}
+			modifier = {
+				factor = 0
+				has_character_flag = 1800_choke_dat_ho
+			}
+			modifier = {
+				factor = 8
+				trait = lustful
+			}
+			modifier = {
+				factor = 2
+				trait = gregarious
+			}
+			modifier = {
+				factor = 0
+				trait = chaste
+			}
+			modifier = {
+				factor = 0
+				trait = celibate
+			}
+			modifier = {
+				factor = 8
+				trait = hedonist
+			}
+			modifier = {
+				factor = 0
+				trait = incapable
+			}
+			modifier = {
+				factor = 20
+				trait = zealous
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					any_courtier = {
+						has_minor_title = title_primary_shrine_prostitute
+					}
+				}
+			}
+		}
+	}
+}

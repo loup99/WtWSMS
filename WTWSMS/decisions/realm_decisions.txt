@@ -662,7 +662,14 @@ decisions = {
 			has_global_flag = viking_age_started
 			NOT = { has_global_flag = varangian_guard_founded }
 			any_playable_ruler = {
-				religion = norse_pagan
+				OR = {
+					religion = norse_pagan
+					religion = germanic_pagan
+					religion = norse_pagan_reformed
+					religion = germanic_pagan_reformed
+					religion = saxon_pagan
+					religion = saxon_pagan_reformed
+				}
 				capital_scope = {
 					distance = {
 						where = 496	# Constantinople
@@ -684,7 +691,7 @@ decisions = {
 				narrative_event = { id = TOG.3100 }
 				create_character = {
 					random_traits = yes
-					religion = norse_pagan
+					religion = germanic_pagan
 					culture = norse
 					dynasty = NONE
 					female = no
@@ -1150,10 +1157,7 @@ decisions = {
 		potential = {
 			has_dlc = "Sons of Abraham"
 			is_playable = yes
-			OR = {
-				religion_group = jewish_group
-				religion = ebionites
-			}
+			religion_group = jewish_group
 			NOT = { has_global_flag = third_temple_built }
 			NOT = { has_global_flag = building_third_temple }
 		}
@@ -1246,7 +1250,8 @@ decisions = {
 			}
 		}
 		allow = {
-			completely_controls = k_oriens
+			completely_controls = d_palestinia_salutaris
+			completely_controls = d_iudea
 			774 = {
 				religion = ROOT
 			}
@@ -2238,18 +2243,6 @@ decisions = {
 			holy_order = no
 			
 			NOT = { tier = EMPEROR }
-			OR = {
-				ai = no
-				AND = {
-					trait = proud
-					prestige = 40000
-				}
-				AND = {
-					trait = ambitious
-					prestige = 40000
-				}
-				prestige = 120000
-			}
 			
 			NOT = {
 				has_game_rule = {
@@ -2337,6 +2330,7 @@ decisions = {
 				entry = CHRONICLE_FOUNDED_NEW_KINGDOM_OR_EMPIRE
 				portrait = [Root.GetID]
 			}
+			give_nickname = nick_the_great
 		}
 		revoke_allowed = {
 			always = no
