@@ -7,6 +7,155 @@
 
 namespace = wafrica
 
+
+# Griot calculator
+character_event = {
+	id = wafrica.0
+	desc = wafrica.0.desc
+	picture = GFX_evt_griot
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	only_rulers = yes
+	
+	trigger = {		#Not needed?
+		OR = {
+			culture_group = west_african
+			culture_group = central_african
+			religion = west_african_pagan
+			religion = west_african_pagan_reformed
+		}
+		primary_title = { higher_tier_than = BARON }
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				NOT = {
+					any_vassal = {
+						has_minor_title = title_court_griot
+					}
+				}
+				NOT = {
+					any_courtier = {
+						has_minor_title = title_court_griot
+					}
+				}			
+			}
+			add_character_modifier = {
+				name = VIET_no_griot
+				duration = 400
+			}
+			break = yes
+		}
+		if = {
+			limit = {
+				OR = {
+					any_vassal = {
+						has_minor_title = title_court_griot
+					}
+					any_courtier = {
+						has_minor_title = title_court_griot
+					}
+				}			
+			}
+			if = {
+				limit = {
+					any_vassal = {
+						has_minor_title = title_court_griot
+					}
+				}
+				random_vassal = {
+					limit = {
+						has_minor_title = title_court_griot
+					}
+					save_event_target_as = VIET_griot_mark
+				}
+			}
+			if = {
+				limit = {
+					any_courtier = {
+						has_minor_title = title_court_griot
+					}
+				}
+				random_courtier = {
+					limit = {
+						has_minor_title = title_court_griot
+					}
+					save_event_target_as = VIET_griot_mark
+				}
+			}
+			if = {
+				limit = {
+					has_character_modifier = VIET_no_griot
+				}
+				remove_character_modifier = VIET_no_griot
+			}
+			if = {
+				limit = {
+					has_character_modifier = VIET_griot_inspiring_warriors_1
+				}
+				remove_character_modifier = VIET_griot_inspiring_warriors_1
+			}
+			if = {
+				limit = {
+					has_character_modifier = VIET_griot_inspiring_warriors_2
+				}
+				remove_character_modifier = VIET_griot_inspiring_warriors_2
+			}
+			if = {
+				limit = {
+					has_character_modifier = VIET_griot_inspiring_warriors_3
+				}
+				remove_character_modifier = VIET_griot_inspiring_warriors_3
+			}
+			if = {
+				limit = {
+					has_character_modifier = VIET_griot_inspiring_community_1
+				}
+				remove_character_modifier = VIET_griot_inspiring_community_1
+			}
+			if = {
+				limit = {
+					has_character_modifier = VIET_griot_inspiring_community_2
+				}
+				remove_character_modifier = VIET_griot_inspiring_community_2
+			}
+			if = {
+				limit = {
+					has_character_modifier = VIET_griot_inspiring_community_3
+				}
+				remove_character_modifier = VIET_griot_inspiring_community_3
+			}
+			if = {
+				limit = {
+					has_character_modifier = VIET_griot_inspiring_spirits_1
+				}
+				remove_character_modifier = VIET_griot_inspiring_spirits_1
+			}
+			if = {
+				limit = {
+					has_character_modifier = VIET_griot_inspiring_spirits_2
+				}
+				remove_character_modifier = VIET_griot_inspiring_spirits_2
+			}
+			if = {
+				limit = {
+					has_character_modifier = VIET_griot_inspiring_spirits_3
+				}
+				remove_character_modifier = VIET_griot_inspiring_spirits_3
+			}
+			random_list = {
+				33 = { character_event = { id = wafrica.2 } } #warriors
+				33 = { character_event = { id = wafrica.3 } } #community
+				33 = { character_event = { id = wafrica.4 } } #spirits
+			}
+		}
+	}
+}
+
 # Character gets Griot
 character_event = {
 	id = wafrica.1
@@ -27,15 +176,15 @@ character_event = {
 			35 = {
 				create_character = {
 					random_traits = yes
-					dynasty = random
+					dynasty = culture
 					culture = ROOT
 					trait = griot
 					attributes = {
-						diplomacy = 3
-						martial = 3
-						stewardship = 3
-						intrigue = 3
-						learning = 3
+						diplomacy = 4
+						martial = 4
+						stewardship = 4
+						intrigue = 4
+						learning = 4
 					}
 				}
 				new_character = {
@@ -49,21 +198,21 @@ character_event = {
 						modifier = opinion_new_courtier
 						who = ROOT
 						years = 5
-					}	
+					}				
 				}			
 			}
 			30 = {
 				create_character = {
 					random_traits = yes
-					dynasty = random
+					dynasty = culture
 					culture = ROOT
 					trait = griot
 					attributes = {
-						diplomacy = 5
-						martial = 5
-						stewardship = 5
-						intrigue = 5
-						learning = 5
+						diplomacy = 6
+						martial = 6
+						stewardship = 6
+						intrigue = 6
+						learning = 6
 					}
 				}
 				new_character = {
@@ -83,15 +232,15 @@ character_event = {
 			20 = {
 				create_character = {
 					random_traits = yes
-					dynasty = random
+					dynasty = culture
 					culture = ROOT
 					trait = griot
 					attributes = {
-						diplomacy = 8
-						martial = 8
-						stewardship = 8
-						intrigue = 8
-						learning = 8
+						diplomacy = 9
+						martial = 9
+						stewardship = 9
+						intrigue = 9
+						learning = 9
 					}
 				}
 				new_character = {
@@ -111,15 +260,15 @@ character_event = {
 			12 = {
 				create_character = {
 					random_traits = yes
-					dynasty = random
+					dynasty = culture
 					culture = ROOT
 					trait = griot
 					attributes = {
-						diplomacy = 10
-						martial = 10
-						stewardship = 10
-						intrigue = 10
-						learning = 10
+						diplomacy = 12
+						martial = 12
+						stewardship = 12
+						intrigue = 12
+						learning = 12
 					}
 				}
 				new_character = {
@@ -139,15 +288,15 @@ character_event = {
 			3 = {
 				create_character = {
 					random_traits = yes
-					dynasty = random
+					dynasty = culture
 					culture = ROOT
 					trait = griot
 					attributes = {
-						diplomacy = 13
-						martial = 13
-						stewardship = 13
-						intrigue = 13
-						learning = 13
+						diplomacy = 14
+						martial = 14
+						stewardship = 14
+						intrigue = 14
+						learning = 14
 					}
 				}
 				new_character = {
@@ -168,210 +317,196 @@ character_event = {
 	}
 }
 
-#Griot about to get married
+# Griot modifiers - warriors
 character_event = {
 	id = wafrica.2
-#	desc = wafrica.2.desc
-#	picture = GFX_evt_malian_ceremony
-	hide_window = yes
+	desc = wafrica.2.desc
+	picture = GFX_evt_griot
+	
+	notification = yes
 	
 	is_triggered_only = yes
 	
-	min_age = 16
-	
-	trigger = {
-		OR = {
-			culture_group = west_african
-			religion = west_african_pagan
-			religion = west_african_pagan_reformed			
+	immediate = {
+		if = {
+			limit = {
+				event_target:VIET_griot_mark = { 
+					NOT = { diplomacy = 10 } 
+				}
+			}
+			add_character_modifier = {
+				name = VIET_griot_inspiring_warriors_1
+				duration = 400
+			}
+			VIET_griot_mark = {
+				clear_event_target = VIET_griot_mark
+			}
 		}
-		trait = griot
-		is_married = no
-		is_female = no
-		NOT = { age = 45 }
-		is_ruler = no
-		liege = {
-			OR = {
-				culture_group = west_african
-				religion = west_african_pagan
-				religion = west_african_pagan_reformed			
+		if = {
+			limit = {
+				event_target:VIET_griot_mark = { 
+					diplomacy = 10 
+					NOT = { diplomacy = 20 } 
+				}
+			}
+			add_character_modifier = {
+				name = VIET_griot_inspiring_warriors_2
+				duration = 400
+			}
+			VIET_griot_mark = {
+				clear_event_target = VIET_griot_mark
+			}
+		}
+		if = {
+			limit = {
+				event_target:VIET_griot_mark = { 
+					diplomacy = 20 
+				}
+			}
+			add_character_modifier = {
+				name = VIET_griot_inspiring_warriors_3
+				duration = 400
+			}
+			VIET_griot_mark = {
+				clear_event_target = VIET_griot_mark
 			}
 		}
 	}
-
-	weight_multiplier = {
-		days = 1
-		
-		modifier = {
-			factor = 1.4
-			ROOT = {
-				age = 16
-				NOT = { age = 25 }
-			}
-		}
-		
-		modifier = {
-			factor = 1.25
-			ROOT = {
-				age = 25
-				NOT = { age = 32 }
-			}
-		}
-		
-		modifier = {
-			factor = 0.83
-			ROOT = {
-				age = 32
-				NOT = { age = 40 }
-			}
-		}
-		
-		modifier = {
-			factor = 0.67
-			ROOT = {
-				age = 40
-			}
-		}
-		
-		modifier = {
-			factor = 0.1
-			ROOT = { trait = celibate }
-		}
-		
-		modifier = {
-			factor = 1.1
-			ROOT = { trait = lustful }
-		}
-		
-		modifier = {
-			factor = 1.1
-			ROOT = { trait = fair }
-		}	
-		
-		modifier = {
-			factor = 1.1
-			ROOT = { trait = genius }
-		}
-		
-		modifier = {
-			factor = 1.1
-			ROOT = { trait = quick }
-		}	
-		
-		modifier = {
-			factor = 1.1
-			ROOT = { trait = zealous }
-		}
-
-		modifier = {
-			factor = 1.1
-			ROOT = { trait = charitable }
-		}	
-		
-		modifier = {
-			factor = 1.1
-			ROOT = { trait = greedy }
-		}
-		
-		modifier = {
-			factor = 1.1
-			ROOT = { trait = gregarious }
-		}	
-		
-		modifier = {
-			factor = 0.9
-			ROOT = { trait = cynical }
-		}
-		
-		modifier = {
-			factor = 0.9
-			ROOT = { trait = ugly }
-		}	
-		
-		modifier = {
-			factor = 0.9
-			ROOT = { trait = chaste }
-		}
-				
-		modifier = {
-			factor = 0.9
-			ROOT = { trait = homosexual }
-		}
-		
-		modifier = {
-			factor = 0.9
-			ROOT = { trait = shy }
-		}			
-	}
 	
-	option = { # inform liege
-		liege = {
-			character_event = { id = wafrica.3 days = 3 }
-		}
+	option = {
+		name = wafrica.2.a
 	}
 	
 }
 
-#liege informed of Griot's marriage
+# Griot modifiers - society
 character_event = {
 	id = wafrica.3
 	desc = wafrica.3.desc
-	picture = GFX_evt_malian_ceremony
+	picture = GFX_evt_griot
+	
+	notification = yes
 	
 	is_triggered_only = yes
 	
-	option = {
-		name = wafrica.3.a #Ok
-		create_character = {
-			female = yes
-			random_traits = yes
-			dynasty = random
-			religion = FROM
-			culture = FROM
+	immediate = {
+		if = {
+			limit = {
+				event_target:VIET_griot_mark = { 
+					NOT = { diplomacy = 8 } 
+					NOT = { learning = 8 } 
+				}
+			}
+			add_character_modifier = {
+				name = VIET_griot_inspiring_community_1
+				duration = 400
+			}
+			VIET_griot_mark = {
+				clear_event_target = VIET_griot_mark
+			}
 		}
-		new_character = {
-			add_spouse = FROM
+		if = {
+			limit = {
+				event_target:VIET_griot_mark = {
+					AND = {
+						diplomacy = 8 
+						learning = 8
+					}
+					NOT = { diplomacy = 15 } 
+					NOT = { learning = 15 } 
+				}
+			}
+			add_character_modifier = {
+				name = VIET_griot_inspiring_community_2
+				duration = 400
+			}
+			VIET_griot_mark = {
+				clear_event_target = VIET_griot_mark
+			}
 		}
-		FROM = {
-			prestige = 10
-			piety = 10
+		if = {
+			limit = {
+				event_target:VIET_griot_mark = { 
+					AND = {
+						diplomacy = 15 
+						learning = 15
+					}
+				}
+			}
+			add_character_modifier = {
+				name = VIET_griot_inspiring_community_3
+				duration = 400
+			}
+			VIET_griot_mark = {
+				clear_event_target = VIET_griot_mark
+			}
 		}
 	}
+	option = {
+		name = wafrica.3.a
+	}	
 }
 
-#liege doesn't have a Griot - fired on a yearly basis to remind players
+# Griot modifiers - spirits
 character_event = {
 	id = wafrica.4
 	desc = wafrica.4.desc
 	picture = GFX_evt_griot
 	
+	notification = yes
+	
 	is_triggered_only = yes
 	
-	only_rulers = yes
-	
-	trigger = {
-		ai = no
-		OR = {
-			culture_group = west_african
-			religion = west_african_pagan
-			religion = west_african_pagan_reformed			
-		}
-		primary_title = { higher_tier_than = BARON }
-		NOT = {
-			any_vassal = {
-				has_minor_title = title_court_griot
+	immediate = {
+		if = {
+			limit = {
+				event_target:VIET_griot_mark = { 
+					NOT = { learning = 10 } 
+				}
+			}
+			add_character_modifier = {
+				name = VIET_griot_inspiring_spirits_1
+				duration = 400
+			}
+			VIET_griot_mark = {
+				clear_event_target = VIET_griot_mark
 			}
 		}
-		NOT = {
-			any_courtier = {
-				has_minor_title = title_court_griot
+		if = {
+			limit = {
+				event_target:VIET_griot_mark = { 
+					learning = 10 
+					NOT = { learning = 20 } 
+				}
+			}
+			add_character_modifier = {
+				name = VIET_griot_inspiring_spirits_2
+				duration = 400
+			}
+			VIET_griot_mark = {
+				clear_event_target = VIET_griot_mark
+			}
+		}
+		if = {
+			limit = {
+				event_target:VIET_griot_mark = { 
+					learning = 20 
+				}
+			}
+			add_character_modifier = {
+				name = VIET_griot_inspiring_spirits_3
+				duration = 400
+			}
+			VIET_griot_mark = {
+				clear_event_target = VIET_griot_mark
 			}
 		}
 	}
 	
 	option = {
-		name = wafrica.4.a #Ok
+		name = wafrica.4.a
 	}
+	
 }
 
 
@@ -387,18 +522,19 @@ character_event = {
 	desc = "wafrica.10.desc"
 	picture = GFX_evt_dogon_village
 	
-	is_triggered_only = yes
-	
-	has_character_flag = iron_woman_ongoing
-	
 	trigger = {
+		has_character_flag = iron_woman_ongoing
 		NOT = { has_character_flag = iron_woman_started }
 	}
 	
+	mean_time_to_happen = {
+		days = 1
+	}
+
 	option = {
 		name = wafrica.10.a
 		set_character_flag = iron_woman_started
-		narrative_event = { id = wafrica.5 days = 3 tooltip = "wafrica.5.tooltip" }
+		character_event = { id = wafrica.5 days = 3 tooltip = "wafrica.5.tooltip" }
 	}
 }
 
@@ -460,6 +596,7 @@ narrative_event = {
 		name = wafrica.7.a
 		prestige = 30
 		set_character_flag = received_iron_woman
+		clr_character_flag = do_not_disturb
 		random_list = {
 			25 = {
 				add_character_modifier = {
@@ -505,6 +642,7 @@ narrative_event = {
 		name = wafrica.8.a
 		piety = 30
 		set_character_flag = received_iron_woman
+		clr_character_flag = do_not_disturb
 		random_list = {
 			25 = {
 				add_character_modifier = {
@@ -551,6 +689,7 @@ narrative_event = {
 		piety = 15
 		prestige = 15
 		set_character_flag = received_iron_woman
+		clr_character_flag = do_not_disturb
 		random_list = {
 			25 = {
 				add_character_modifier = {
@@ -596,10 +735,13 @@ narrative_event = {
 	picture = GFX_evt_griot
 	
 	only_rulers = yes
+	only_independent = yes
 
 	trigger = {
-		culture_group = west_african
-		religion_group = muslim
+		AND = {
+			culture_group = west_african
+			religion_group = muslim
+		}
 		NOT = { trait = noble_stranger_descendant }
 		NOT = { trait = bilal_descendant }
 		primary_title = { 
@@ -620,17 +762,32 @@ narrative_event = {
 		days = 1
 	}
 	
+	immediate = {
+		set_global_flag = descent_from_bilal_claimed
+		set_character_flag = le_lion_king
+		set_dynasty_flag = descendants_of_bilal
+		if = {
+			limit = {
+				NOT = { has_global_flag = lion_king_nickname_given }
+			}
+			character_event = { id = wafrica.46 days = 10 random = 10 }
+		}
+	}
+	
 	option = {
 		name = wafrica.11.a #Ok
-		add_trait = bilal_descendant
-		set_dynasty_flag = descendants_of_bilal
+		add_trait = bilal_descendant		
 		prestige = 100
 		piety = 100
-		set_character_flag = le_lion_king
-		character_event = {
-			id = wafrica.46
-			days = 40
-			random = 20
+		hidden_tooltip = {
+			any_dynasty_member = {
+				limit = {
+					NOT = {
+						character = ROOT
+					}
+				}
+				character_event = { id = wafrica.12 }
+			}		
 		}
 	}
 }
@@ -643,27 +800,10 @@ character_event = {
 	
 	is_triggered_only = yes
 	
-	trigger = {
-		has_character_flag = le_lion_king
-		NOT = { has_global_flag = lion_king_nickname_given }
-	}
-	
 	option = { # ok
 		name = wafrica.46.a
 		give_nickname = nick_lion_king
 		set_global_flag = lion_king_nickname_given
-		hidden_tooltip = {
-			any_dynasty_member = {
-				limit = {
-					NOT = {
-						trait = bilal_descendant
-					}
-				}
-				character_event = {
-					id = wafrica.12
-				}
-			}
-		}
 	}				
 	
 }
@@ -705,11 +845,11 @@ narrative_event = {
 	picture = GFX_evt_griot
 	
 	only_rulers = yes
+	only_independent = yes
 
 	trigger = {
-		NOT = { has_global_flag = VIET_wafrican_features_off }
-		has_global_flag = VIET_Immersion_On
 		OR = {
+			culture_group = central_african
 			culture_group = west_african
 			religion = west_african_pagan
 			religion = west_african_pagan_reformed
@@ -727,6 +867,7 @@ narrative_event = {
 		}
 		NOT = { trait = noble_stranger_descendant }
 		NOT = { trait = bilal_descendant }
+		NOT = { has_global_flag = bilal_descendant }
 		primary_title = { 
 			higher_tier_than = DUKE
 			any_previous_holder = { #Will not fire if Kingdom is usurped by someone else or reformed
@@ -744,6 +885,10 @@ narrative_event = {
 		days = 1
 	}
 	
+	immediate = {
+		set_dynasty_flag = descendants_of_noble_stranger
+	}
+	
 	option = {
 		name = wafrica.13.a #Ok
 		add_trait = noble_stranger_descendant
@@ -754,13 +899,11 @@ narrative_event = {
 			any_dynasty_member = {
 				limit = {
 					NOT = {
-						trait = noble_stranger_descendant
+						character = ROOT
 					}
 				}
-				character_event = {
-					id = wafrica.14
-				}
-			}
+				character_event = { id = wafrica.14 }
+			}		
 		}
 	}
 }
@@ -843,34 +986,46 @@ narrative_event = {
 	}
 	
 	option = {
-		name = wafrica.45.a # 1 of 25 performance events will fire
+		name = wafrica.45.a # one of these performance events will fire
 		hidden_tooltip = {
 			random_list = {
-				4 = { character_event = { id = wafrica.17 days = 6 } }
-				4 = { character_event = { id = wafrica.18 days = 6 } }
-				4 = { narrative_event = { id = wafrica.19 days = 6 } }
-				4 = { character_event = { id = wafrica.20 days = 6 } }
-				4 = { character_event = { id = wafrica.21 days = 6 } }
-				4 = { narrative_event = { id = wafrica.22 days = 6 } }
-				4 = { character_event = { id = wafrica.23 days = 6 } }
-				4 = { narrative_event = { id = wafrica.24 days = 6 } }
-				4 = { character_event = { id = wafrica.25 days = 6 } }
-				4 = { narrative_event = { id = wafrica.26 days = 6 } }
-				4 = { character_event = { id = wafrica.27 days = 6 } }
-				4 = { character_event = { id = wafrica.28 days = 6 } }
-				4 = { character_event = { id = wafrica.29 days = 6 } }
-				4 = { character_event = { id = wafrica.30 days = 6 } }
-				4 = { character_event = { id = wafrica.31 days = 6 } }
-				4 = { character_event = { id = wafrica.32 days = 6 } }
-				4 = { narrative_event = { id = wafrica.35 days = 6 } }
-				4 = { character_event = { id = wafrica.36 days = 6 } }
-				4 = { narrative_event = { id = wafrica.37 days = 6 } }
-				4 = { narrative_event = { id = wafrica.38 days = 6 } }
-				4 = { narrative_event = { id = wafrica.40 days = 6 } }
-				4 = { narrative_event = { id = wafrica.41 days = 6 } }
-				4 = { narrative_event = { id = wafrica.42 days = 6 } }
-				4 = { narrative_event = { id = wafrica.43 days = 6 } }
-				4 = { narrative_event = { id = wafrica.44 days = 6 } }
+				10 = { character_event = { id = wafrica.17 days = 5 } }
+				10 = { character_event = { id = wafrica.18 days = 5 } }
+				10 = { character_event = { id = wafrica.19 days = 5 } }
+				10 = { character_event = { id = wafrica.20 days = 5 } }
+				10 = { character_event = { id = wafrica.21 days = 5 } }
+				10 = { character_event = { id = wafrica.22 days = 5 } }
+				10 = { character_event = { id = wafrica.23 days = 5 } }
+				10 = { character_event = { id = wafrica.24 days = 5 } }
+				10 = { character_event = { id = wafrica.25 days = 5 } }
+				10 = { character_event = { id = wafrica.26 days = 5 } }
+				10 = { character_event = { id = wafrica.27 days = 5 } }
+				10 = { character_event = { id = wafrica.28 days = 5 } }
+				10 = { character_event = { id = wafrica.29 days = 5 } }
+				10 = { character_event = { id = wafrica.30 days = 5 } }
+				10 = { character_event = { id = wafrica.31 days = 5 } }
+				10 = { character_event = { id = wafrica.32 days = 5 } }
+				10 = { character_event = { id = wafrica.35 days = 5 } }
+				10 = { character_event = { id = wafrica.36 days = 5 } }
+				10 = { character_event = { id = wafrica.37 days = 5 } }
+				10 = { character_event = { id = wafrica.38 days = 5 } }
+				10 = { character_event = { id = wafrica.40 days = 5 } }
+				10 = { character_event = { id = wafrica.41 days = 5 } }
+				10 = { character_event = { id = wafrica.42 days = 5 } }
+				10 = { character_event = { id = wafrica.43 days = 5 } }
+				10 = { character_event = { id = wafrica.44 days = 5 } }
+				#New Set
+				10 = { character_event = { id = wafrica.100 days = 6 } }
+				10 = { character_event = { id = wafrica.101 days = 6 } }
+				10 = { character_event = { id = wafrica.102 days = 6 } }
+				10 = { character_event = { id = wafrica.103 days = 6 } }
+				10 = { character_event = { id = wafrica.104 days = 6 } }
+				10 = { character_event = { id = wafrica.105 days = 6 } }
+				10 = { character_event = { id = wafrica.106 days = 6 } }
+				10 = { character_event = { id = wafrica.107 days = 6 } }
+				10 = { character_event = { id = wafrica.108 days = 6 } }
+				10 = { character_event = { id = wafrica.109 days = 6 } }
+				10 = { character_event = { id = wafrica.110 days = 6 } }
 			}
 		}
 	}
@@ -891,34 +1046,46 @@ character_event = {
 	}
 	
 	option = {
-		name = wafrica.33.a # 1 of 20 performance events will fire
+		name = wafrica.33.a # one of these performance events will fire
 		hidden_tooltip = {
 			random_list = {
-				4 = { character_event = { id = wafrica.17 days = 5 } }
-				4 = { character_event = { id = wafrica.18 days = 5 } }
-				4 = { narrative_event = { id = wafrica.19 days = 5 } }
-				4 = { character_event = { id = wafrica.20 days = 5 } }
-				4 = { character_event = { id = wafrica.21 days = 5 } }
-				4 = { narrative_event = { id = wafrica.22 days = 5 } }
-				4 = { character_event = { id = wafrica.23 days = 5 } }
-				4 = { narrative_event = { id = wafrica.24 days = 5 } }
-				4 = { character_event = { id = wafrica.25 days = 5 } }
-				4 = { narrative_event = { id = wafrica.26 days = 5 } }
-				4 = { character_event = { id = wafrica.27 days = 5 } }
-				4 = { character_event = { id = wafrica.28 days = 5 } }
-				4 = { character_event = { id = wafrica.29 days = 5 } }
-				4 = { character_event = { id = wafrica.30 days = 5 } }
-				4 = { character_event = { id = wafrica.31 days = 5 } }
-				4 = { character_event = { id = wafrica.32 days = 5 } }
-				4 = { narrative_event = { id = wafrica.35 days = 5 } }
-				4 = { character_event = { id = wafrica.36 days = 5 } }
-				4 = { narrative_event = { id = wafrica.37 days = 5 } }
-				4 = { narrative_event = { id = wafrica.38 days = 5 } }
-				4 = { narrative_event = { id = wafrica.40 days = 5 } }
-				4 = { narrative_event = { id = wafrica.41 days = 5 } }
-				4 = { narrative_event = { id = wafrica.42 days = 5 } }
-				4 = { narrative_event = { id = wafrica.43 days = 5 } }
-				4 = { narrative_event = { id = wafrica.44 days = 5 } }
+				10 = { character_event = { id = wafrica.17 days = 5 } }
+				10 = { character_event = { id = wafrica.18 days = 5 } }
+				10 = { character_event = { id = wafrica.19 days = 5 } }
+				10 = { character_event = { id = wafrica.20 days = 5 } }
+				10 = { character_event = { id = wafrica.21 days = 5 } }
+				10 = { character_event = { id = wafrica.22 days = 5 } }
+				10 = { character_event = { id = wafrica.23 days = 5 } }
+				10 = { character_event = { id = wafrica.24 days = 5 } }
+				10 = { character_event = { id = wafrica.25 days = 5 } }
+				10 = { character_event = { id = wafrica.26 days = 5 } }
+				10 = { character_event = { id = wafrica.27 days = 5 } }
+				10 = { character_event = { id = wafrica.28 days = 5 } }
+				10 = { character_event = { id = wafrica.29 days = 5 } }
+				10 = { character_event = { id = wafrica.30 days = 5 } }
+				10 = { character_event = { id = wafrica.31 days = 5 } }
+				10 = { character_event = { id = wafrica.32 days = 5 } }
+				10 = { character_event = { id = wafrica.35 days = 5 } }
+				10 = { character_event = { id = wafrica.36 days = 5 } }
+				10 = { character_event = { id = wafrica.37 days = 5 } }
+				10 = { character_event = { id = wafrica.38 days = 5 } }
+				10 = { character_event = { id = wafrica.40 days = 5 } }
+				10 = { character_event = { id = wafrica.41 days = 5 } }
+				10 = { character_event = { id = wafrica.42 days = 5 } }
+				10 = { character_event = { id = wafrica.43 days = 5 } }
+				10 = { character_event = { id = wafrica.44 days = 5 } }
+				#New Set
+				10 = { character_event = { id = wafrica.100 days = 6 } }
+				10 = { character_event = { id = wafrica.101 days = 6 } }
+				10 = { character_event = { id = wafrica.102 days = 6 } }
+				10 = { character_event = { id = wafrica.103 days = 6 } }
+				10 = { character_event = { id = wafrica.104 days = 6 } }
+				10 = { character_event = { id = wafrica.105 days = 6 } }
+				10 = { character_event = { id = wafrica.106 days = 6 } }
+				10 = { character_event = { id = wafrica.107 days = 6 } }
+				10 = { character_event = { id = wafrica.108 days = 6 } }
+				10 = { character_event = { id = wafrica.109 days = 6 } }
+				10 = { character_event = { id = wafrica.110 days = 6 } }
 			}
 		}
 	}
@@ -958,6 +1125,7 @@ character_event = {
 			duration = 365
 		}
 		clr_character_flag = hosting_griot_performance
+		clr_character_flag = do_not_disturb
 	}
 }
 
@@ -1642,6 +1810,223 @@ narrative_event = {
 		prestige = 1
 	}					
 	
+}
+
+# Comedy
+narrative_event = {
+	id = wafrica.100
+	title = wafrica.100.name
+	desc = wafrica.100.desc
+	picture = GFX_evt_small_town
+	
+	is_triggered_only = yes
+	
+	
+	option = { # ok
+		name = wafrica.100.a
+		prestige = 1
+	}					
+	
+}
+
+# Fables
+narrative_event = {
+	id = wafrica.101
+	title = wafrica.101.name
+	desc = wafrica.101.desc
+	picture = GFX_evt_small_town
+	
+	is_triggered_only = yes
+	
+	
+	option = { # ok
+		name = wafrica.101.a
+		piety = 2
+	}					
+	
+}
+
+# Kaiki Best Girl
+narrative_event = {
+	id = wafrica.102
+	title = wafrica.102.name
+	desc = wafrica.102.desc
+	picture = GFX_evt_tuscan_country_west_african
+	
+	is_triggered_only = yes
+	
+	
+	option = { # ok
+		name = wafrica.102.a
+		piety = 2
+	}	
+	option = { # ok
+		name = wafrica.102.b
+		prestige = 2
+	}					
+	
+}
+
+# Kaiki Best Girl 2
+narrative_event = {
+	id = wafrica.103
+	title = wafrica.103.name
+	desc = wafrica.103.desc
+	picture = GFX_evt_tuscan_country_west_african
+	
+	is_triggered_only = yes
+	
+	
+	option = { # ok
+		name = wafrica.103.a
+		piety = 1
+	}					
+	
+}
+
+# Cliches
+narrative_event = {
+	id = wafrica.104
+	title = wafrica.104.name
+	desc = wafrica.104.desc
+	picture = GFX_evt_skyrim_forest_west_african
+	
+	is_triggered_only = yes
+	
+	
+	option = { # ok
+		name = wafrica.104.a
+		prestige = 3
+	}			
+	option = { # ok
+		name = wafrica.104.b
+		piety = 3
+	}					
+	
+}
+
+# Honoring the Past
+narrative_event = {
+	id = wafrica.105
+	title = wafrica.105.name
+	desc = wafrica.105.desc
+	picture = GFX_evt_dogon_village
+	
+	is_triggered_only = yes
+	
+	
+	option = { # ok
+		name = wafrica.105.a
+		piety = 1
+		prestige = 1
+	}				
+	
+}
+
+# Embarassing!
+character_event = {
+	id = wafrica.106
+	desc = wafrica.106.desc
+	picture = GFX_evt_dogon_village
+	
+	is_triggered_only = yes
+	
+	
+	option = { # ok
+		name = wafrica.106.a
+		random_courtier = {
+			limit = {
+				is_adult = yes
+				NOT = { trait = incapable }
+			}
+			prestige = -5
+		}
+	}	
+}
+
+# Crappy story
+character_event = {
+	id = wafrica.107
+	desc = wafrica.107.desc
+	picture = GFX_evt_skyrim_forest_west_african
+	
+	is_triggered_only = yes
+	
+	
+	option = { # ok
+		name = wafrica.107.a
+		prestige = 1
+	}		
+	option = { # ok
+		name = wafrica.107.b
+		piety = 1
+	}	
+}
+
+# Samurai Jack is naked
+narrative_event = {
+	id = wafrica.108
+	title = wafrica.108.name
+	desc = wafrica.108.desc
+	picture = GFX_evt_skyrim_forest_west_african
+	
+	is_triggered_only = yes
+	
+	
+	option = { # ok
+		name = wafrica.108.a
+		prestige = 1
+	}	
+}
+
+# Samurai Jack and the Warrior Woman
+narrative_event = {
+	id = wafrica.109
+	title = wafrica.109.name
+	desc = wafrica.109.desc
+	picture = GFX_evt_dogon_village
+	
+	is_triggered_only = yes
+	
+	
+	option = { # ok
+		name = wafrica.109.a
+		piety = 1
+	}	
+}
+
+# Jack vs. Aku pt 1
+narrative_event = {
+	id = wafrica.110
+	title = wafrica.110.name
+	desc = wafrica.110.desc
+	picture = GFX_evt_tuscan_country_west_african
+	
+	is_triggered_only = yes
+	
+	
+	option = { # ok
+		name = wafrica.110.a
+		hidden_tooltip = {
+			character_event = { id = wafrica.111 }
+		}
+	}	
+}
+
+# Jack vs. Aku pt 2
+narrative_event = {
+	id = wafrica.111
+	title = wafrica.111.name
+	desc = wafrica.111.desc
+	picture = GFX_evt_desert
+	
+	is_triggered_only = yes
+	
+	
+	option = { # ok
+		name = wafrica.110.a
+		#piety = 1
+	}	
 }
 
 ##################################################################

@@ -7,13 +7,15 @@
 # VIETCeltic 0-999 Cybrxkhan Stuff
 #
 # VIETceltic.0-.99 General and miscellaneous events and decisions
-# VIETceltic.100-999 Decisions
+# VIETceltic.100-499 Decisions
 #	100-149 Tro Breizh
 #	150-199 Gwyl Madant
 #	200-249 'Obby 'Oss
-#	
+# VIETceltic.500-599 Knights of le Round Table	
 #
 ###############################################
+
+
 
 namespace = VIETceltic
 
@@ -135,26 +137,26 @@ character_event = {
 		name = VIETceltic.2.a
 		piety = 20
 		random_list = {
-			64 = { }
-			9 = {
+			60 = { }
+			10 = {
 				add_character_modifier =  {
 					name = VIET_holy_wells_blessing_1
 					duration = 1460
 				}
 			}
-			9 = {
+			10 = {
 				add_character_modifier =  {
 					name = VIET_holy_wells_blessing_2
 					duration = 1460
 				}
 			}
-			9 = {
+			10 = {
 				add_character_modifier =  {
 					name = VIET_holy_wells_blessing_3
 					duration = 1460
 				}
 			}
-			9 = {
+			10 = {
 				add_character_modifier =  {
 					name = VIET_holy_wells_blessing_4
 					duration = 1460
@@ -189,14 +191,7 @@ character_event = {
 	capable_only = yes
 	prisoner = no
 
-	trigger = {
-		has_minor_title = title_knight_of_the_round_table
-		NOT = { trait = knight_of_the_round_table }
-	}
-	
-	mean_time_to_happen = {
-		days = 1
-	}
+	is_triggered_only = yes
 
 	option = {
 		name = VIETceltic.4.a
@@ -215,6 +210,8 @@ character_event = {
 	picture = GFX_evt_coming_home
 
 	min_age = 16
+	
+	is_triggered_only = yes
 
 	trigger = {
 		OR = {
@@ -373,18 +370,17 @@ character_event = {
 			trait = brave
 			trait = just
 			trait = diligent
+			trait = ambitious
 		}
 		OR = {
 			trait = kind
 			trait = zealous
 			trait = charitable
 			trait = patient
-			trait = ambitious
 			trait = humble
 		}
 		NOT = { trait = craven }
 		NOT = { trait = cruel }
-		NOT = { trait = arbitrary }
 		NOT = { trait = gluttonous }
 		NOT = { trait = slothful }
 		NOT = { trait = greedy }
@@ -405,7 +401,7 @@ character_event = {
 		add_trait = like_king_arthur
 	}	
 	option = {
-		name = VIETceltic.10.a
+		name = VIETceltic.10.b
 		trigger = {
 			is_female = yes
 		}
@@ -431,7 +427,7 @@ narrative_event = {
 		}
 		has_global_flag = viking_age_started
 		higher_tier_than = COUNT
-		father_even_if_dead = {
+		father = {
 			is_alive = no
 		}
 		NOT = { has_character_flag = VIET_govan_stones_triggered }
@@ -465,8 +461,8 @@ narrative_event = {
 		}
 		higher_tier_than = COUNT
 		had_character_flag = {
-			flag = VIET_govan_stones_timer
-			days = 365
+		  flag = VIET_govan_stones_timer
+		  days = 365
 		}
 	}
 
@@ -482,7 +478,7 @@ narrative_event = {
 		name = VIETceltic.12.a
 		prestige = -100
 		add_character_modifier = {
-			name = cumbrian_dishonored_relative
+			name = cumbric_dishonored_relative
 			duration = 3650
 		}
 	}	
@@ -1241,6 +1237,185 @@ narrative_event = {
 			}			
 		}
 	}		
+}
+
+# Celtiberian courtier spawn
+character_event = {
+	id = VIETceltic.23
+	desc = VIETceltic.23.desc
+	picture = GFX_evt_castle_construction_iberian
+	
+	prisoner = no
+	only_rulers = yes
+	capable_only = yes
+	
+	trigger = {
+		NOT = { year = 925 }
+		culture_group = iberian
+		NOT = { culture = celtiberian }
+		NOT = {
+			any_courtier = {
+				culture = celtiberian
+				has_character_flag = VIET_spawned_courtier
+			}
+		}
+		capital_scope = {
+			culture_group = iberian
+			NOT = { culture = celtiberian }
+			OR = {
+				kingdom = { title = k_castille }
+				kingdom = { title = k_navarra }
+				kingdom = { title = k_asturias }
+				kingdom = { title = k_spanish_galicia }
+				kingdom = { title = k_portugal }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 1500
+
+		modifier = {
+			factor = 4
+			NOT = { religion_group = christian }
+		}
+		
+		modifier = {
+			factor = 2
+			NOT = { has_global_flag = SWMH } #there are Celtiberian provinces in the non-SWMH version at the 769 start
+		}
+		
+		modifier = {
+			factor = 2
+			trait = cruel
+		}
+
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = arbitrary
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}		
+		
+		modifier = {
+			factor = 0.9
+			martial = 14
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = ambitious
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = charitable
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = trusting
+		}
+		
+		modifier = {
+			factor = 0.9
+			trait = brave
+		}
+		
+	}
+	
+	option = {
+		name = "VIETceltic.23.a"
+
+		create_random_soldier = {
+			random_traits = yes
+			culture = celtiberian
+			dynasty = culture
+			religion = catholic
+			female = no
+		}
+		new_character = {
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}				
+		}
+		random_list = {
+			30 = {
+				create_random_soldier = {
+					random_traits = yes
+					culture = celtiberian
+					dynasty = culture
+					religion = catholic
+					female = no
+					attributes = {
+						martial = 12
+					}
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}			
+			}
+			70 = { }
+		}
+		random_list = {
+			50 = {
+				create_character  = {
+					random_traits = yes
+					culture = celtiberian
+					dynasty = culture
+					religion = catholic
+					female = yes
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}			
+			}
+			50 = { }
+		}
+	}
+	
+	option = {
+		name = "reject.VIET.courtiers"
+	}	
+	
 }
 
 ###############################################
@@ -3390,5 +3565,1645 @@ character_event = {
 			}
 		}
 		prestige = -5
+	}
+}
+
+
+#######################################################
+# KNIGHTS OF LE ROUND TABLE
+#######################################################
+
+# Sir Lancelot
+character_event = {
+	id = VIETceltic.500
+	desc = VIETceltic.500.desc
+	picture = GFX_evt_joust
+
+	is_triggered_only = yes
+
+	only_men = yes
+	min_age = 16	
+	capable_only = yes
+	prisoner = no	
+
+	trigger = {
+		liege = {
+			has_landed_title = k_britain
+		}
+		NOT = { has_global_flag = VIET_sir_lancelot_found }
+		NOT = { has_character_flag = VIET_arthurian_legend }
+		NOT = { has_character_modifier = VIET_lancelot }
+		trait = knight_of_the_round_table
+		OR = {
+			trait = strong
+			trait = misguided_warrior
+			trait = tough_soldier
+			trait = skilled_tactician
+			trait = brilliant_strategist
+			trait = poor_warrior
+			trait = trained_warrior
+			trait = skilled_warrior
+			trait = master_warrior
+			martial = 20
+		}
+		OR = {
+			trait = brave
+			trait = just
+			trait = ambitious
+			trait = zealous
+		}
+		NOT = { trait = arbitrary }
+		NOT = { trait = craven }
+		NOT = { trait = weak }
+		martial = 13
+	}
+
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			trait = fair
+		}
+		modifier = {
+			factor = 0.5
+			trait = ugly
+		}
+		modifier = {
+			factor = 2
+			trait = brave
+		}
+		modifier = {
+			factor = 0.5
+			trait = chaste
+		}
+		modifier = {
+			factor = 2
+			health = 6
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { health = 4 }
+		}
+	}
+
+	option = {
+		name = VIETceltic.500.a
+		set_character_flag = VIET_arthurian_legend
+		set_global_flag = VIET_sir_lancelot_found
+		prestige = 100
+		add_character_modifier = {
+			name = VIET_lancelot
+			duration = -1
+		}
+		liege = {
+			character_event = { id = VIETceltic.501 }
+		}
+	}
+}
+# Sir Lancelot
+character_event = {
+	id = VIETceltic.501
+	desc = VIETceltic.501.desc
+	picture = GFX_evt_joust
+
+	is_triggered_only = yes
+
+	option = {
+		name = VIETceltic.501.a
+	}
+	option = {
+		name = VIETceltic.501.b
+		trigger = {
+			is_female = no
+			is_married = yes
+		}
+	}
+}
+
+# Sir Perceval
+character_event = {
+	id = VIETceltic.502
+	desc = VIETceltic.502.desc
+	picture = GFX_evt_knight_kneeling
+
+	is_triggered_only = yes
+
+	only_men = yes
+	min_age = 16	
+	capable_only = yes
+	prisoner = no	
+
+	trigger = {
+		liege = {
+			has_landed_title = k_britain
+		}
+		NOT = { has_global_flag = VIET_sir_perceval_found }
+		NOT = { has_character_flag = VIET_arthurian_legend }
+		NOT = { has_character_modifier = VIET_perceval }
+		trait = knight_of_the_round_table
+		AND = {
+			trait = trusting
+			trait = kind
+		}
+		OR = {
+			trait = humble
+			trait = patient
+			trait = chaste
+			trait = imbecile
+			trait = slow
+		}
+		NOT = { trait = envious }
+		NOT = { trait = cruel }
+		NOT = { trait = paranoid }
+		NOT = { trait = proud }
+		NOT = { trait = lustful }
+	}
+
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			trait = zealous
+		}
+		modifier = {
+			factor = 0.5
+			trait = cynical
+		}
+		modifier = {
+			factor = 2
+			trait = brave
+		}
+		modifier = {
+			factor = 0.5
+			trait = craven
+		}
+		modifier = {
+			factor = 2
+			trait = honest
+		}
+		modifier = {
+			factor = 0.5
+			trait = deceitful
+		}
+	}
+
+	option = {
+		name = VIETceltic.502.a
+		set_character_flag = VIET_arthurian_legend
+		set_global_flag = VIET_sir_perceval_found
+		piety = 100
+		add_character_modifier = {
+			name = VIET_perceval
+			duration = -1
+		}
+		liege = {
+			character_event = { id = VIETceltic.503 }
+		}
+	}
+}
+# Sir Perceval
+character_event = {
+	id = VIETceltic.503
+	desc = VIETceltic.503.desc
+	picture = GFX_evt_knight_kneeling
+
+	is_triggered_only = yes
+
+	option = {
+		name = VIETceltic.503.a
+	}
+}
+
+# Sir Gawain
+character_event = {
+	id = VIETceltic.504
+	desc = VIETceltic.504.desc
+	picture = GFX_evt_crusaders
+
+	is_triggered_only = yes
+
+	only_men = yes
+	min_age = 16	
+	capable_only = yes
+	prisoner = no	
+
+	trigger = {
+		liege = {
+			has_landed_title = k_britain
+		}
+		NOT = { has_global_flag = VIET_sir_gawain_found }
+		NOT = { has_character_flag = VIET_arthurian_legend }
+		NOT = { has_character_modifier = VIET_gawain }
+		trait = knight_of_the_round_table
+		AND = {
+			trait = charitable
+			trait = chaste
+			trait = kind
+		}
+		NOT = { trait = envious }
+		NOT = { trait = lustful }
+		NOT = { trait = arbitrary }
+		martial = 13
+	}
+
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			trait = zealous
+		}
+		modifier = {
+			factor = 0.5
+			trait = cynical
+		}
+		modifier = {
+			factor = 2
+			trait = brave
+		}
+		modifier = {
+			factor = 0.5
+			trait = craven
+		}
+		modifier = {
+			factor = 2
+			trait = strong
+		}
+		modifier = {
+			factor = 0.5
+			trait = weak
+		}
+	}
+
+	option = {
+		name = VIETceltic.504.a
+		set_character_flag = VIET_arthurian_legend
+		set_global_flag = VIET_sir_gawain_found
+		piety = 50
+		prestige = 50
+		add_character_modifier = {
+			name = VIET_gawain
+			duration = -1
+		}
+		liege = {
+			character_event = { id = VIETceltic.505 }
+		}
+	}
+}
+# Sir Gawain
+character_event = {
+	id = VIETceltic.505
+	desc = VIETceltic.505.desc
+	picture = GFX_evt_crusaders
+
+	is_triggered_only = yes
+
+	option = {
+		name = VIETceltic.505.a
+	}
+}
+
+# Sir Galahad
+character_event = {
+	id = VIETceltic.506
+	desc = VIETceltic.506.desc
+	picture = GFX_evt_cathedral
+
+	is_triggered_only = yes
+
+	only_men = yes
+	min_age = 16	
+	capable_only = yes
+	prisoner = no	
+
+	trigger = {
+		liege = {
+			has_landed_title = k_britain
+		}
+		NOT = { has_global_flag = VIET_sir_galahad_found }
+		NOT = { has_character_flag = VIET_arthurian_legend }
+		NOT = { has_character_modifier = VIET_galahad }
+		trait = knight_of_the_round_table
+		AND = {
+			trait = chaste
+			trait = kind
+		}
+		OR = {
+			trait = humble
+			trait = patient
+			trait = charitable
+			trait = temperate
+			trait = diligent
+		}
+		NOT = { trait = envious }
+		NOT = { trait = lustful }
+		NOT = { trait = gluttonous }
+		NOT = { trait = greedy }
+		NOT = { trait = slothful }
+		NOT = { trait = wroth }
+		NOT = { trait = proud }
+	}
+
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			trait = zealous
+		}
+		modifier = {
+			factor = 0.5
+			trait = cynical
+		}
+		modifier = {
+			factor = 2
+			piety = 1000
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { piety = 50 }
+		}
+	}
+
+	option = {
+		name = VIETceltic.506.a
+		set_character_flag = VIET_arthurian_legend
+		set_global_flag = VIET_sir_galahad_found
+		piety = 50
+		prestige = 50
+		add_character_modifier = {
+			name = VIET_galahad
+			duration = -1
+		}
+		liege = {
+			character_event = { id = VIETceltic.507 }
+		}
+	}
+}
+# Sir Galahad
+character_event = {
+	id = VIETceltic.507
+	desc = VIETceltic.507.desc
+	picture = GFX_evt_cathedral
+
+	is_triggered_only = yes
+
+	option = {
+		name = VIETceltic.507.a
+	}
+}
+
+# Sir Mordred's birth - INCEST YAYAYAYAY
+character_event = {
+	id = VIETceltic.508
+	desc = VIETceltic.508.desc
+	picture = GFX_evt_bad_news
+
+	is_triggered_only = yes
+
+	only_men = yes
+	min_age = 14
+	max_age = 45
+	capable_only = yes
+	prisoner = no	
+
+	trigger = {
+		OR = {
+			has_landed_title = k_britain
+			AND = {
+				higher_tier_than = DUKE
+				ai = no
+				culture_group = celtic
+				OR = {
+					culture = welsh
+					culture = breton
+					culture = cornish
+					culture = cumbric
+					culture = norsebriton
+				}
+			}
+		}
+		any_sibling = {
+			age = 14
+			NOT = { age = 45 }
+			is_female = yes
+			NOT = { trait = incapable }
+			NOT = { trait = pregnant }
+			#is_married = no
+			#is_consort = no
+			ai = yes
+		}
+		NOT = { trait = celibate }
+		NOT = { trait = infirm }
+		NOT = { has_global_flag = VIET_arthurian_toothbrush }
+	}
+
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			trait = like_king_arthur
+		}
+		modifier = {
+			factor = 2
+			trait = lustful
+		}
+		modifier = {
+			factor = 0.5
+			trait = chaste
+		}
+		modifier = {
+			factor = 2
+			trait = drunkard
+		}
+		modifier = {
+			factor = 0.5
+			trait = maimed
+		}
+		modifier = {
+			factor = 2
+			trait = hedonist
+		}
+		modifier = {
+			factor = 0.5
+			trait = scholar
+		}
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		modifier = {
+			factor = 2
+			trait = trusting
+		}
+		modifier = {
+			factor = 0.5
+			trait = paranoid
+		}
+		modifier = {
+			factor = 2
+			trait = kind
+		}
+		modifier = {
+			factor = 0.5
+			trait = envious
+		}
+	}
+
+	option = {
+		name = VIETceltic.508.a
+		set_character_flag = VIET_arthur_incest
+		set_global_flag = VIET_arthurian_toothbrush
+		random_sibling = {
+			limit = {
+				age = 14
+				NOT = { age = 45 }
+				is_female = yes
+				NOT = { trait = incapable }
+				NOT = { trait = pregnant }
+				#is_married = no
+				#is_consort = no
+				ai = yes
+			}
+			set_character_flag = VIET_morgause_incest
+			piety = -40
+			custom_tooltip = { text = VIET_mordred_incest_nay }
+			hidden_tooltip = {
+				impregnate = ROOT
+			}
+		}
+		piety = -40
+	}
+	option = {
+		name = VIETceltic.508.b
+		set_character_flag = VIET_arthur_incest
+		set_global_flag = VIET_arthurian_toothbrush
+		random_sibling = {
+			limit = {
+				age = 14
+				NOT = { age = 45 }
+				is_female = yes
+				NOT = { trait = incapable }
+				NOT = { trait = pregnant }
+				#is_married = no
+				#is_consort = no	
+			}
+			set_character_flag = VIET_morgause_incest
+			add_lover = ROOT
+			piety = -50
+			custom_tooltip = { text = VIET_mordred_incest_yay }
+			hidden_tooltip = {
+				impregnate = ROOT
+				add_trait = lustful
+			}
+		}
+		piety = -50
+		add_trait = lustful
+	}
+}
+
+# Sir Mordred is born from (un)holy incest
+character_event = {
+	id = VIETceltic.509
+	desc = VIETceltic.509.desc
+	picture = GFX_evt_bad_news
+
+	is_triggered_only = yes
+
+	trigger = {
+		mother = { has_character_flag = VIET_morgause_incest  }
+		father = { has_character_flag = VIET_arthur_incest }
+	}
+	
+	immediate = {
+		set_character_flag = VIET_mordred_child
+		remove_trait = inbred
+		remove_trait = imbecile
+		remove_trait = slow
+		remove_trait = weak
+		if = {
+			limit = {
+				is_female = no
+			}
+			mother = {
+				character_event = { id = VIETceltic.510 }
+			}
+			father = {
+				character_event = { id = VIETceltic.510 }
+			}
+		}
+		if = {
+			limit = {
+				is_female = yes
+			}
+			mother = {
+				character_event = { id = VIETceltic.511 }
+			}
+			father = {
+				character_event = { id = VIETceltic.511 }
+			}
+		}
+
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Sir Mordred is born from (un)holy incest
+character_event = {
+	id = VIETceltic.510
+	desc = VIETceltic.510.desc
+	picture = GFX_evt_birth
+
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETceltic.510.a
+		prestige = -25
+		piety = -25
+	}
+}
+
+# Sir Mordred is born from (un)holy incest
+character_event = {
+	id = VIETceltic.511
+	desc = VIETceltic.511.desc
+	picture = GFX_evt_birth
+
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETceltic.511.a
+		prestige = -10
+		piety = -10
+	}
+}
+
+# Mordred shows promise
+character_event = {
+	id = VIETceltic.512
+	desc = VIETceltic.512.desc
+	picture = GFX_evt_child_sword
+
+	is_triggered_only = yes
+	
+	min_age = 6
+	max_age = 10
+	
+	trigger = {
+		has_character_flag = VIET_mordred_child
+		NOT = { has_character_flag = VIET_mordred_promise }
+	}	
+	
+	option = {
+		name = VIETceltic.512.a
+		set_character_flag = VIET_mordred_promise
+		add_trait = ambitious
+		add_trait = envious
+		if = {
+			limit = {
+				NOT = { trait = genius }
+				NOT = { trait = quick }
+			}
+			random_list = {
+				25 = { add_trait = genius }
+				25 = { add_trait = quick }
+				50 = { }
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = strong }
+			}
+			random = {
+				chance = 25
+				add_trait = strong
+			}
+		}
+		hidden_tooltip = {
+			change_martial = 2
+			change_intrigue = 1
+		}
+		if = {
+			limit = {
+				is_female = no
+			}
+			father = { character_event = { id = VIETceltic.513 } }
+			mother = { character_event = { id = VIETceltic.513 } }
+		}
+		if = {
+			limit = {
+				is_female = yes
+			}
+			father = { character_event = { id = VIETceltic.514 } }
+			mother = { character_event = { id = VIETceltic.514 } }
+		}
+	}
+}
+
+# Mordred shows promise
+character_event = {
+	id = VIETceltic.513
+	desc = VIETceltic.513.desc
+	picture = GFX_evt_child_sword
+
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETceltic.513.a
+	}	
+	option = {
+		name = VIETceltic.513.b
+	}
+}
+
+# Mordredia shows promise
+character_event = {
+	id = VIETceltic.514
+	desc = VIETceltic.514.desc
+	picture = GFX_evt_child_sword
+
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETceltic.514.a
+	}	
+	option = {
+		name = VIETceltic.514.b
+	}
+}
+
+# Mordred learns the truth
+character_event = {
+	id = VIETceltic.515
+	desc = VIETceltic.515.desc
+	picture = GFX_evt_child_bully
+
+	is_triggered_only = yes
+	
+	min_age = 10
+	max_age = 16
+	
+	trigger = {
+		has_character_flag = VIET_mordred_child
+		has_character_flag = VIET_mordred_promise
+		NOT = { has_character_flag = VIET_mordred_promise_1 }
+	}	
+	
+	option = {
+		name = VIETceltic.515.a
+		set_character_flag = VIET_mordred_promise_1
+		random = {
+			add_trait = wroth
+			chance = 25
+		}
+		random = {
+			add_trait = cruel
+			chance = 25
+		}
+		random = {
+			add_trait = deceitful
+			chance = 25
+		}
+		father = { character_event = { id = VIETceltic.516 } }
+		mother = { character_event = { id = VIETceltic.516 } }
+	}
+}
+
+# Mordred confronts you
+character_event = {
+	id = VIETceltic.516
+	desc = VIETceltic.516.desc
+	picture = GFX_evt_son_asking_father
+
+	is_triggered_only = yes
+	
+	option = {
+		name = VIETceltic.516.a
+		FROM = {
+			opinion = {
+				modifier = opinion_is_mordred
+				who = ROOT
+				years = 100
+			}
+		}
+	}	
+}
+
+
+
+# Mordred
+character_event = {
+	id = VIETceltic.517
+	desc = VIETceltic.517.desc
+	picture = GFX_evt_shadowy_cabal
+
+	is_triggered_only = yes
+
+	#only_men = yes
+	min_age = 16	
+	capable_only = yes
+	prisoner = no	
+
+	trigger = {
+		liege = {
+			has_landed_title = k_britain
+		}
+		OR = {
+			NOT = { has_global_flag = VIET_sir_mordred_found }
+			has_character_flag = VIET_mordred_child
+		}
+		NOT = { has_global_flag = VIET_sir_mordred_found_child }
+		NOT = { has_character_flag = VIET_arthurian_legend }
+		NOT = { has_character_modifier = VIET_mordred }
+		trait = knight_of_the_round_table
+		OR = {
+			AND = {
+				OR = {
+					trait = envious
+					trait = cruel
+				}
+				OR = {
+					trait = wroth
+					trait = greedy
+					trait = deceitful
+					trait = ambitious
+				}
+				NOT = { trait = kind }
+				NOT = { trait = just }
+				NOT = { trait = content }
+				NOT = { trait = humble }
+			}
+			AND = {
+				OR = {
+					trait = bastard
+					trait = legit_bastard
+				}
+				father = {
+					is_alive = yes
+					is_ruler = yes
+					is_liege_of = ROOT
+				}
+			}
+			has_character_flag = VIET_mordred_child
+		}
+	}
+
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 20
+			has_character_flag = VIET_mordred_child
+		}
+	}
+
+	option = {
+		name = VIETceltic.517.a
+		set_character_flag = VIET_arthurian_legend
+		set_global_flag = VIET_sir_mordred_found
+		piety = -50
+		prestige = -50
+		add_character_modifier = {
+			name = VIET_mordred
+			duration = -1
+		}
+		liege = {
+			character_event = { id = VIETceltic.518 tooltip = VIETceltic.518.tooltip }
+		}
+		if = {
+			limit = {
+				has_character_flag = VIET_mordred_child
+			}
+			set_global_flag = VIET_sir_mordred_found_child
+			k_britain = {
+				add_pressed_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOT = { has_character_flag = VIET_mordred_child }
+			}
+			k_britain = {
+				add_weak_claim = ROOT
+			}
+		}
+	}
+}
+# Sir Mordred
+character_event = {
+	id = VIETceltic.518
+	desc = VIETceltic.518.desc
+	picture = GFX_evt_shadowy_cabal
+
+	is_triggered_only = yes
+
+	option = {
+		name = VIETceltic.518.a
+		trigger = {
+			NOT = {
+				any_child = {
+					has_character_modifier = VIET_mordred
+				}
+			}
+		}
+		add_rival = FROM
+	}
+	option = {
+		name = VIETceltic.518.b
+		trigger = {
+			any_child = {
+				has_character_modifier = VIET_mordred
+			}
+		}
+		add_rival = FROM
+	}
+}
+# Moorish Knight
+character_event = {
+	id = VIETceltic.519
+	desc = VIETceltic.519.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+	
+	min_age = 16	
+	capable_only = yes
+	prisoner = no	
+	only_rulers = yes	
+
+	trigger = {
+		has_landed_title = k_britain
+		NOT = { has_global_flag = VIET_morien }
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 4
+			prestige = 2000
+		}
+		modifier = {
+			factor = 0.25
+			NOT = { prestige = 100 }
+		}
+		modifier = {
+			factor = 4
+			trait = like_king_arthur
+		}
+		modifier = {
+			factor = 0.25
+			NOT = { trait = like_king_arthur }
+		}
+	}
+
+	option = {
+		name = VIETceltic.519.a
+		set_global_flag = VIET_morien
+		if = {
+			limit = {
+				NOT = { has_global_flag = SWMH }
+			}
+			random_list = {
+				25 = {
+					create_random_soldier = {
+						random_traits = yes
+						culture = andalusian_arabic
+						dynasty = culture
+						religion = catholic
+						female = no
+						attributes = {
+							martial = 11
+						}
+					}
+					new_character = {
+						opinion = {
+							modifier = opinion_patron
+							who = ROOT
+							years = 20
+						}
+						reverse_opinion = {
+							modifier = opinion_new_courtier
+							who = ROOT
+							years = 5
+						}
+						random = {
+							chance = 33
+							add_trait = tall
+						}
+						random = {
+							chance = 33
+							add_trait = strong
+						}
+						remove_trait = incapable
+						remove_trait = imbecile
+						remove_trait = slow
+						remove_trait = craven
+						remove_trait = weak					
+					}
+				}
+				50 = {
+					create_random_soldier = {
+						random_traits = yes
+						culture = maghreb_arabic
+						dynasty = culture
+						religion = catholic
+						female = no
+						attributes = {
+							martial = 11
+						}
+					}
+					new_character = {
+						opinion = {
+							modifier = opinion_patron
+							who = ROOT
+							years = 20
+						}
+						reverse_opinion = {
+							modifier = opinion_new_courtier
+							who = ROOT
+							years = 5
+						}
+						random = {
+							chance = 33
+							add_trait = tall
+						}
+						random = {
+							chance = 33
+							add_trait = strong
+						}
+						remove_trait = incapable
+						remove_trait = imbecile
+						remove_trait = slow
+						remove_trait = craven
+						remove_trait = weak					
+					}
+				}
+				25 = {
+					create_random_soldier = {
+						random_traits = yes
+						culture = manden
+						dynasty = culture
+						religion = catholic
+						female = no
+						attributes = {
+							martial = 11
+						}
+					}
+					new_character = {
+						opinion = {
+							modifier = opinion_patron
+							who = ROOT
+							years = 20
+						}
+						reverse_opinion = {
+							modifier = opinion_new_courtier
+							who = ROOT
+							years = 5
+						}
+						random = {
+							chance = 33
+							add_trait = tall
+						}
+						random = {
+							chance = 33
+							add_trait = strong
+						}
+						remove_trait = incapable
+						remove_trait = imbecile
+						remove_trait = slow
+						remove_trait = craven
+						remove_trait = weak					
+					}
+				}			
+			}
+		}		
+		if = {
+			limit = {
+				has_global_flag = SWMH
+			}
+			random_list = {
+				10 = {
+					create_random_soldier = {
+						random_traits = yes
+						culture = andalusian_arabic
+						dynasty = culture
+						religion = catholic
+						female = no
+						attributes = {
+							martial = 11
+						}
+					}
+					new_character = {
+						opinion = {
+							modifier = opinion_patron
+							who = ROOT
+							years = 20
+						}
+						reverse_opinion = {
+							modifier = opinion_new_courtier
+							who = ROOT
+							years = 5
+						}
+						random = {
+							chance = 33
+							add_trait = tall
+						}
+						random = {
+							chance = 33
+							add_trait = strong
+						}
+						remove_trait = incapable
+						remove_trait = imbecile
+						remove_trait = slow
+						remove_trait = craven
+						remove_trait = weak					
+					}
+				}
+				20 = {
+					create_random_soldier = {
+						random_traits = yes
+						culture = maghreb_arabic
+						dynasty = culture
+						religion = catholic
+						female = no
+						attributes = {
+							martial = 11
+						}
+					}
+					new_character = {
+						opinion = {
+							modifier = opinion_patron
+							who = ROOT
+							years = 20
+						}
+						reverse_opinion = {
+							modifier = opinion_new_courtier
+							who = ROOT
+							years = 5
+						}
+						random = {
+							chance = 33
+							add_trait = tall
+						}
+						random = {
+							chance = 33
+							add_trait = strong
+						}
+						remove_trait = incapable
+						remove_trait = imbecile
+						remove_trait = slow
+						remove_trait = craven
+						remove_trait = weak					
+					}
+				}
+				10 = {
+					create_random_soldier = {
+						random_traits = yes
+						culture = manden
+						dynasty = culture
+						religion = catholic
+						female = no
+						attributes = {
+							martial = 11
+						}
+					}
+					new_character = {
+						opinion = {
+							modifier = opinion_patron
+							who = ROOT
+							years = 20
+						}
+						reverse_opinion = {
+							modifier = opinion_new_courtier
+							who = ROOT
+							years = 5
+						}
+						random = {
+							chance = 33
+							add_trait = tall
+						}
+						random = {
+							chance = 33
+							add_trait = strong
+						}
+						remove_trait = incapable
+						remove_trait = imbecile
+						remove_trait = slow
+						remove_trait = craven
+						remove_trait = weak					
+					}
+				}
+				10 = {
+					create_random_soldier = {
+						random_traits = yes
+						culture = berber
+						dynasty = culture
+						religion = catholic
+						female = no
+						attributes = {
+							martial = 11
+						}
+					}
+					new_character = {
+						opinion = {
+							modifier = opinion_patron
+							who = ROOT
+							years = 20
+						}
+						reverse_opinion = {
+							modifier = opinion_new_courtier
+							who = ROOT
+							years = 5
+						}
+						random = {
+							chance = 33
+							add_trait = tall
+						}
+						random = {
+							chance = 33
+							add_trait = strong
+						}
+						remove_trait = incapable
+						remove_trait = imbecile
+						remove_trait = slow
+						remove_trait = craven
+						remove_trait = weak					
+					}
+				}
+				10 = {
+					create_random_soldier = {
+						random_traits = yes
+						culture = sanhaja 
+						dynasty = culture
+						religion = catholic
+						female = no
+						attributes = {
+							martial = 11
+						}
+					}
+					new_character = {
+						opinion = {
+							modifier = opinion_patron
+							who = ROOT
+							years = 20
+						}
+						reverse_opinion = {
+							modifier = opinion_new_courtier
+							who = ROOT
+							years = 5
+						}
+						random = {
+							chance = 33
+							add_trait = tall
+						}
+						random = {
+							chance = 33
+							add_trait = strong
+						}
+						remove_trait = incapable
+						remove_trait = imbecile
+						remove_trait = slow
+						remove_trait = craven
+						remove_trait = weak					
+					}
+				}
+				10 = {
+					create_random_soldier = {
+						random_traits = yes
+						culture = tagelmust  
+						dynasty = culture
+						religion = catholic
+						female = no
+						attributes = {
+							martial = 11
+						}
+					}
+					new_character = {
+						opinion = {
+							modifier = opinion_patron
+							who = ROOT
+							years = 20
+						}
+						reverse_opinion = {
+							modifier = opinion_new_courtier
+							who = ROOT
+							years = 5
+						}
+						random = {
+							chance = 33
+							add_trait = tall
+						}
+						random = {
+							chance = 33
+							add_trait = strong
+						}
+						remove_trait = incapable
+						remove_trait = imbecile
+						remove_trait = slow
+						remove_trait = craven
+						remove_trait = weak					
+					}
+				}
+				10 = {
+					create_random_soldier = {
+						random_traits = yes
+						culture = masmuda  
+						dynasty = culture
+						religion = catholic
+						female = no
+						attributes = {
+							martial = 11
+						}
+					}
+					new_character = {
+						opinion = {
+							modifier = opinion_patron
+							who = ROOT
+							years = 20
+						}
+						reverse_opinion = {
+							modifier = opinion_new_courtier
+							who = ROOT
+							years = 5
+						}
+						random = {
+							chance = 33
+							add_trait = tall
+						}
+						random = {
+							chance = 33
+							add_trait = strong
+						}
+						remove_trait = incapable
+						remove_trait = imbecile
+						remove_trait = slow
+						remove_trait = craven
+						remove_trait = weak					
+					}
+				}
+				10 = {
+					create_random_soldier = {
+						random_traits = yes
+						culture = zanata   
+						dynasty = culture
+						religion = catholic
+						female = no
+						attributes = {
+							martial = 11
+						}
+					}
+					new_character = {
+						opinion = {
+							modifier = opinion_patron
+							who = ROOT
+							years = 20
+						}
+						reverse_opinion = {
+							modifier = opinion_new_courtier
+							who = ROOT
+							years = 5
+						}
+						random = {
+							chance = 33
+							add_trait = tall
+						}
+						random = {
+							chance = 33
+							add_trait = strong
+						}
+						remove_trait = incapable
+						remove_trait = imbecile
+						remove_trait = slow
+						remove_trait = craven
+						remove_trait = weak					
+					}
+				}	
+				10 = {
+					create_random_soldier = {
+						random_traits = yes
+						culture = tuareg    
+						dynasty = culture
+						religion = catholic
+						female = no
+						attributes = {
+							martial = 11
+						}
+					}
+					new_character = {
+						opinion = {
+							modifier = opinion_patron
+							who = ROOT
+							years = 20
+						}
+						reverse_opinion = {
+							modifier = opinion_new_courtier
+							who = ROOT
+							years = 5
+						}
+						random = {
+							chance = 33
+							add_trait = tall
+						}
+						random = {
+							chance = 33
+							add_trait = strong
+						}
+						remove_trait = incapable
+						remove_trait = imbecile
+						remove_trait = slow
+						remove_trait = craven
+						remove_trait = weak					
+					}
+				}			
+			}
+		}
+	}
+}
+
+
+# Excalibur - find start
+character_event = {
+	id = VIETceltic.520
+	desc = VIETceltic.520.desc
+	picture = GFX_evt_skyrim_forest
+
+	is_triggered_only = yes
+	
+	min_age = 16	
+	capable_only = yes
+	prisoner = no	
+	only_rulers = yes	
+
+	trigger = {
+		has_landed_title = k_britain
+		trait = like_king_arthur
+		NOT = { has_global_flag = VIET_excalibur_found }
+		NOT = { has_character_modifier = VIET_has_excalibur }
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			trait = brave
+		}
+		modifier = {
+			factor = 0.5
+			trait = craven
+		}
+		modifier = {
+			factor = 2
+			trait = zealous
+		}
+		modifier = {
+			factor = 0.5
+			trait = cynical
+		}
+		modifier = {
+			factor = 2
+			trait = ambitious
+		}
+		modifier = {
+			factor = 0.5
+			trait = content
+		}
+		modifier = {
+			factor = 2
+			trait = diligent
+		}
+		modifier = {
+			factor = 0.5
+			trait = slothful
+		}
+		modifier = {
+			factor = 2
+			trait = kind
+		}
+		modifier = {
+			factor = 0.5
+			trait = cruel
+		}
+		modifier = {
+			factor = 2
+			trait = just
+		}
+		modifier = {
+			factor = 0.5
+			trait = arbitrary
+		}
+	}
+
+	option = {
+		name = VIETceltic.520.a
+		set_global_flag = VIET_excalibur_found
+		character_event = { id = VIETceltic.521 days = 2 random = 2 tooltip = VIETceltic.521.tooltip }
+	}
+}
+
+# Excalibur - obtained
+narrative_event = {
+	id = VIETceltic.521
+	title = VIETceltic.521.title
+	desc = VIETceltic.521.desc
+	picture = GFX_evt_journey_to_spirit_world
+
+	is_triggered_only = yes
+
+	option = {
+		name = VIETceltic.521.a
+		add_character_modifier = {
+			name = VIET_has_excalibur
+			duration = -1
+		}
+	}
+}
+
+# Excalibur heals wounds
+character_event = {
+	id = VIETceltic.522
+	title = VIETceltic.522.title
+	desc = VIETceltic.522.desc
+	picture = GFX_evt_recovery
+
+	is_triggered_only = yes
+	
+	min_age = 16	
+	capable_only = yes
+	prisoner = no	
+	only_rulers = yes	
+
+	trigger = {
+		has_character_modifier = VIET_has_excalibur
+		OR = {
+			trait = maimed
+			trait = blinded
+			trait = incapable
+			trait = eunuch
+			trait = infirm
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			piety = 2000
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { piety = 100 }
+		}
+	}
+
+	option = {
+		name = VIETceltic.522.a
+		if = {
+			limit = {
+				trait = maimed
+			}
+			remove_trait = maimed
+		}
+		if = {
+			limit = {
+				trait = blinded
+			}
+			remove_trait = blinded
+		}
+		if = {
+			limit = {
+				trait = incapable
+			}
+			remove_trait = incapable
+		}
+		if = {
+			limit = {
+				trait = eunuch
+			}
+			remove_trait = eunuch
+		}
+		if = {
+			limit = {
+				trait = infirm
+			}
+			remove_trait = infirm
+		}
+	}
+}
+
+# Excalibur is awesome in battle
+character_event = {
+	id = VIETceltic.523
+	title = VIETceltic.523.title
+	desc = VIETceltic.523.desc
+	picture = GFX_evt_battle
+
+	is_triggered_only = yes
+	
+	min_age = 16	
+	capable_only = yes
+	prisoner = no	
+	only_rulers = yes	
+
+	trigger = {
+		has_character_modifier = VIET_has_excalibur
+		NOT = { has_character_flag = VIET_excalibur_battle }
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			piety = 2000
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { piety = 100 }
+		}
+	}
+
+	option = {
+		name = VIETceltic.523.a
+		prestige = 50
+		set_character_flag = VIET_excalibur_battle
+	}
+}
+
+# Excalibur is lost forever... again
+narrative_event = {
+	id = VIETceltic.524
+	title = VIETceltic.524.title
+	desc = VIETceltic.524.desc
+	picture = GFX_evt_castle_construction
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_global_flag = VIET_excalibur_found
+		NOT = { has_global_flag = VIET_excalibur_lost }
+		has_landed_title = k_britain
+	}
+
+	option = {
+		name = VIETceltic.524.a
+		set_global_flag = VIET_excalibur_lost
+		character_event = { id = VIETceltic.525 tooltip = VIETceltic.525.tooltip }
+	}
+}
+
+# Excalibur is lost forever... again
+narrative_event = {
+	id = VIETceltic.525
+	title = VIETceltic.525.title
+	desc = VIETceltic.525.desc
+	picture = GFX_evt_journey_to_spirit_world
+
+	is_triggered_only = yes
+
+	option = {
+		name = VIETceltic.525.a
 	}
 }

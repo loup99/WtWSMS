@@ -3,6 +3,7 @@
 #
 # Events for Vegetarians
 #
+# VEGETARIAN STRONK
 #
 ################################################################
 
@@ -28,8 +29,10 @@ character_event = {
 		#Fires off events about how character adapts to being vegetarian
 		if = {
 			limit = {
-				trait = temperate
-				trait = kind
+				AND = {
+					trait = temperate
+					trait = kind
+				}
 			}
 			hidden_tooltip = {
 				random_list = {
@@ -100,10 +103,11 @@ character_event = {
 	desc = vegetarian.3.desc	
 	picture = GFX_evt_monk
 	
-	only_rulers = yes
-	
 	min_age = 16
 	capable_only = yes
+	only_rulers = yes
+	
+	is_triggered_only = yes
 	
 	trigger = {
 		is_theocracy = yes
@@ -118,22 +122,21 @@ character_event = {
 		NOT = { has_character_flag = not_vegetarian_sect }
 	}
 	
-	mean_time_to_happen = {
-		days = 1
-	}
-	
 	option = { #Be vegetarian
 		name = vegetarian.3.a
 		trigger = {
-			NOT = { culture = bodpa }
+			NOT = { culture = tibetan }
+			NOT = { culture = japanese }
 		}
 		add_trait = vegetarian
 		set_character_flag = vegetarian_temp_tracker #temporarily track vegetarianism status
 		#Fires off events about how character adapts to being vegetarian
 		if = {
 			limit = {
-				trait = temperate
-				trait = kind
+				AND = {
+					trait = temperate
+					trait = kind
+				}
 			}
 			hidden_tooltip = {
 				random_list = {
@@ -197,8 +200,11 @@ character_event = {
 	option = { #Be vegetarian
 		name = vegetarian.3.b
 		trigger = {
-				culture = bodpa
+			OR = {
+				culture = tibetan
+				culture = japanese
 			}
+		}
 		ai_chance = {
 			factor = 4
 			modifier = {
@@ -215,8 +221,10 @@ character_event = {
 		#Fires off events about how character adapts to being vegetarian
 		if = {
 			limit = {
-				trait = temperate
-				trait = kind
+				AND = {
+					trait = temperate
+					trait = kind
+				}
 			}
 			hidden_tooltip = {
 				random_list = {
@@ -280,8 +288,11 @@ character_event = {
 	option = { #Be not vegetarian
 		name = vegetarian.3.c
 		trigger = {
-				culture = bodpa
+			OR = {
+				culture = tibetan
+				culture = japanese
 			}
+		}
 		ai_chance = {
 			factor = 1
 			modifier = {
@@ -490,6 +501,7 @@ character_event = {
 		clr_character_flag = vegetarian_perseverance_2
 		clr_character_flag = vegetarian_perseverance_3
 		remove_trait = vegetarian
+		piety = -20
 	}	
 	option = { #Can resist
 		name = vegetarian.7.b
@@ -2432,8 +2444,8 @@ character_event = {
 				}
 			}
 			opinion = {
-				who = ROOT
 				modifier = opinion_shamed_me
+				who = ROOT
 				years = 1
 			}
 		}
