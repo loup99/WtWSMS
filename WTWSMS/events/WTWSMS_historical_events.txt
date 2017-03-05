@@ -95,7 +95,7 @@ narrative_event = {
 	title = hist.3.name
 	desc = hist.3.desc
 	picture = GFX_evt_stone_church
-	border = GFX_event_normal_frame_religion
+	border = GFX_event_narrative_frame_religion
 	
 	is_triggered_only = yes
 	
@@ -163,7 +163,7 @@ narrative_event = {
 	title = hist.5.name
 	desc = hist.5.desc
 	picture = GFX_evt_stone_church
-	border = GFX_event_normal_frame_religion
+	border = GFX_event_narrative_frame_religion
 	
 	is_triggered_only = yes
 	
@@ -686,7 +686,7 @@ narrative_event = {
 	title = hist.16.name
 	desc = hist.16.desc
 	picture = GFX_evt_castle_hill
-	border = GFX_event_normal_frame_war
+	border = GFX_event_narrative_frame_war
 	
 	major = yes
 	
@@ -721,3 +721,76 @@ narrative_event = {
 		}
 	}
 }
+
+# 2000th anniversary of the Gothic kingdom
+narrative_event = {
+	id = hist.17
+	title = hist.17.name
+	desc = hist.17.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_narrative_frame_religion
+		
+	is_triggered_only = yes
+
+	option = {
+		name = hist.17.a 
+		prestige = 250
+		any_realm_character	= {
+			limit = {
+				OR = {
+					culture = romano_gothic
+					culture = ostrogothic
+				}
+			}
+			opinion = {
+				modifier = opinion_twothousandth_anniversary_gothic_kingdom
+				who = ROOT
+				years = 10
+			}
+		}
+		hidden_tooltip = { 
+			any_playable_ruler = {
+				limit = {
+					region = world_europe_west
+					region = world_europe_south
+					NOT = { has_landed_title = k_ostrogoths }					
+				}
+				narrative_event = { id = hist.18 } 
+			}
+		}
+
+	}
+}
+
+# INFO - 2000th anniversary of the Gothic kingdom
+narrative_event = {
+	id = hist.18
+	title = hist.18.name
+	desc = hist.18.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_narrative_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = hist.18.a
+		prestige = 50 
+		trigger = { 
+			OR = {
+				culture = romano_gothic
+				culture = ostrogothic
+			} 
+		}
+	}
+	
+	option = {
+		name = hist.18.b
+		trigger = { 
+			NOR = {
+				culture = romano_gothic
+				culture = ostrogothic
+			} 
+		}
+	}
+}
+

@@ -985,6 +985,10 @@ character_event = {
 	mean_time_to_happen = {
 		years = 1
 	}
+	
+	immediate = {
+		set_global_flag = ostrogoths_arrived
+	}
 
 	option = {
 		name = ZUSK37OP1
@@ -996,8 +1000,7 @@ character_event = {
 		ai_chance = {
 			factor = 90
 		}
-	 	treasury = -50
-	 	set_global_flag = ostrogoths_arrived 
+	 	treasury = -50		
 		custom_tooltip = { 
 			text = ostrogoth_attack_tooltip
 			hidden_tooltip = {
@@ -1016,7 +1019,6 @@ character_event = {
 		ai_chance = {
 			factor = 10
 		}
-		set_global_flag = ostrogoths_arrived 
 	}
 }
 
@@ -3288,11 +3290,14 @@ character_event = {
 }
 
 # Zeno has won the war for the ERE against Basiliscus
-character_event = {
+narrative_event = {
 	id = historical_wtwsms.1
 	title = historical_wtwsms.1.name
 	desc = historical_wtwsms.1.desc
 	picture = GFX_evt_victory_arch_byzantine
+	
+	only_rulers = yes
+	only_independent = yes
 	
 	trigger = { 
 		start_date = 476.2.2
@@ -3325,6 +3330,7 @@ character_event = {
 		}
 		d_europa = { 
 			holder_scope = {
+				abdicate_to = ROOT
 				imprison = ROOT
 			}
 		}
@@ -3355,14 +3361,17 @@ narrative_event = {
 }
 
 # Theodoric has won the Invasion of Italy against Odoacer
-character_event = {
+narrative_event = {
 	id = historical_wtwsms.3
 	title = historical_wtwsms.3.name
 	desc = historical_wtwsms.3.desc
 	picture = GFX_evt_heretic
 	
+	only_rulers = yes
+	only_independent = yes
+	
 	trigger = {
-		start_date = 476.2.2
+		has_global_flag = ostrogoths_arrived		
 		ROOT = { 
 			has_landed_title = k_ostrogoths
 		}
@@ -3430,5 +3439,133 @@ narrative_event = {
 	
 	option = { # To expand/look into options with ERE
 		name = OK
+	}
+}
+
+# Nepos reconquers Italy
+narrative_event = {
+	id = historical_wtwsms.5
+	title = historical_wtwsms.5.name
+	desc = historical_wtwsms.5.desc
+	picture = GFX_evt_heretic
+	
+	only_rulers = yes
+	only_independent = yes
+	
+	trigger = {
+		has_global_flag = julis_nepos_wre
+		OR = {
+			start_date = 476.2.2
+			start_date = 480.5.1
+		}
+		ROOT = { 
+			has_landed_title = e_wre
+		}
+		OR = { 
+			k_italy = { 
+				any_previous_holder = { 
+					ROOT = { has_truce = PREV}
+				}
+			}
+			k_ostrogoths = { 
+				any_previous_holder = { 
+					ROOT = { has_truce = PREV}
+				}
+			}
+		}
+		OR = {
+			c_roma = {
+				holder_scope = {
+					top_liege = {
+						character = ROOT
+					}
+				}
+			}
+			c_ravenna = {
+				holder_scope = {
+					top_liege = {
+						character = ROOT
+					}
+				}
+			}
+		}
+		NOT = { has_global_flag = nepos_return_italy }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_global_flag = nepos_return_italy
+	}
+
+	option = {
+		name = historical_wtwsms.5.a
+
+		prestige = 100 
+		if = {
+			limit = {
+				k_ostrogoths = { 
+					holder_scope = { 
+						vassal_of = ROOT
+					}
+				}
+			}
+			k_ostrogoths = { 
+				holder_scope = {
+					imprison = ROOT				
+					abdicate_to = ROOT
+				}
+			}
+			k_ostrogoths = { 
+				destroy_landed_title = THIS
+			}
+		}
+		if = {
+			limit = {
+				k_italy = { 
+					holder_scope = { 
+						vassal_of = ROOT
+					}
+				}
+			}
+			k_italy = { 
+				holder_scope = { 
+					imprison = ROOT
+					abdicate_to = ROOT 
+				}
+			}
+			k_italy = { 
+				destroy_landed_title = THIS
+			}
+		}
+		change_infamy = { # To avoid huge coalition
+			value = -100 
+			localisation = CHANGE_INFAMY_EFFECT
+		}
+		hidden_tooltip = {
+			any_playable_ruler = {
+				narrative_event = { id = historical_wtwsms.6 }
+				limit = {
+					NOT = { has_landed_title = e_wre }
+				}
+			}
+		}
+	}
+}
+
+# INFO - Nepos reconquers Italy
+narrative_event = {
+	id = historical_wtwsms.6
+	title = historical_wtwsms.6.name
+	desc = historical_wtwsms.6.desc
+	picture = GFX_evt_heretic
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = { 
+		name = historical_wtwsms.6.a
 	}
 }
