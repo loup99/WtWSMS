@@ -1418,7 +1418,7 @@ character_event = {
 character_event = {
 	id = RoI.207
 	desc = EVTDESC_RoI_204
-	picture = GFX_evt_bishop_buddhist
+	picture = GFX_evt_bishop_indian_group
 	border = GFX_event_normal_frame_religion
 
 	is_triggered_only = yes
@@ -1494,7 +1494,7 @@ character_event = {
 character_event = {
 	id = RoI.210
 	desc = EVTDESC_RoI_210
-	picture = GFX_evt_bishop_jain
+	picture = GFX_evt_bishop_indian_group
 	border = GFX_event_normal_frame_religion
 
 	is_triggered_only = yes
@@ -1554,10 +1554,17 @@ character_event = {
 		name = EVTOPTA_RoI_215
 		wealth = -30
 		prestige = 30
+		add_artifact = cursed_diamond_crown
+		set_character_flag = cursed_diamond_crown
 		hidden_tooltip = { character_event = { id = RoI.216 days = 60 } }  # Make a grand crown
 	}
 	option = {
 		name = EVTOPTB_RoI_215
+		add_artifact = cursed_diamond
+		new_artifact = {
+			set_creation_date = 1.1.1
+		}
+		set_character_flag = cursed_diamond
 		hidden_tooltip = { character_event = { id = RoI.221 days = 60 } } # Put it in the treasury
 	}
 	option = {
@@ -1568,6 +1575,10 @@ character_event = {
 		}
 		spouse = {
 			add_lover = ROOT
+			add_artifact = cursed_diamond
+			new_artifact = {
+				set_creation_date = 1.1.1
+			}
 			set_character_flag = spouse_diamond
 			hidden_tooltip = { character_event = { id = RoI.225 days = 60 } } # Give it to your spouse
 		}
@@ -1813,6 +1824,11 @@ character_event = {
 	picture = GFX_evt_emissary
 
 	is_triggered_only = yes
+
+	immediate = {
+		destroy_artifact = cursed_diamond
+		destroy_artifact = cursed_diamond_crown
+	}
 	
 	option = {
 		name = EVTOPTA_RoI_223
@@ -1945,6 +1961,12 @@ character_event = {
 	picture = GFX_evt_market
 
 	is_triggered_only = yes
+
+	immediate = {
+		spouse = {
+			destroy_artifact = cursed_diamond
+		}
+	}
 	
 	option = {
 		name = EVTOPTA_RoI_228
@@ -2019,6 +2041,18 @@ character_event = {
 	picture = GFX_evt_throne_room
 
 	is_triggered_only = yes
+
+	immediate = {
+		random_artifact = {
+			limit = {
+				artifact_type = cursed_diamond
+			}
+			transfer_artifact = {
+				from = spouse
+				to = ROOT
+			}
+		}
+	}
 	
 	option = {
 		name = EVTOPTA_RoI_232
@@ -2054,15 +2088,43 @@ character_event = {
 			NOT = { has_character_flag = loves_diamond }
 		}
 		wealth = 100
-		hidden_tooltip = { character_event = { id = RoI.241 days = 30 } }
+		hidden_effect = { 
+			character_event = { id = RoI.241 days = 30 } 
+		}
+		if = {
+			limit = { 
+				has_artifact = cursed_diamond
+			}
+			destroy_artifact = cursed_diamond
+		}
+		if = {
+			limit = { 
+				has_artifact = cursed_diamond
+			}
+			destroy_artifact = cursed_diamond_crown
+		}
 	}
 	option = {
 		name = EVTOPTB_RoI_240
-		hidden_tooltip = { character_event = { id = RoI.243 days = 30 } }
+		hidden_effect = { 
+			character_event = { id = RoI.243 days = 30 } 
+		}
+		if = {
+			limit = { 
+				has_artifact = cursed_diamond
+			}
+			destroy_artifact = cursed_diamond
+		}
+		if = {
+			limit = { 
+				has_artifact = cursed_diamond
+			}
+			destroy_artifact = cursed_diamond_crown
+		}
 	}
 	option = {
 		name = EVTOPTC_RoI_240
-		hidden_tooltip = { character_event = { id = RoI.245 days = 30 } }
+		hidden_effect = { character_event = { id = RoI.245 days = 30 } }
 	}
 	option = {
 		name = EVTOPTD_RoI_240
@@ -2071,6 +2133,18 @@ character_event = {
 		}
 		death = {
 			death_reason = death_suicide
+		}
+		if = {
+			limit = { 
+				has_artifact = cursed_diamond
+			}
+			destroy_artifact = cursed_diamond
+		}
+		if = {
+			limit = { 
+				has_artifact = cursed_diamond
+			}
+			destroy_artifact = cursed_diamond_crown
 		}
 	}
 }
@@ -2105,6 +2179,14 @@ character_event = {
 		add_character_modifier = {
 			name = the_diamond_thief
 			duration = 1800
+		}
+		if = {
+			limit = { has_character_flag = cursed_diamond_crown }
+			add_artifact = cursed_diamond_crown
+		}
+		if = {
+			limit = { has_character_flag = cursed_diamond }
+			add_artifact = cursed_diamond
 		}
 		hidden_tooltip = { character_event = { id = RoI.245 days = 60 } }
 	}
@@ -2179,6 +2261,13 @@ character_event = {
 
 	is_triggered_only = yes
 	
+	immediate = {
+		destroy_artifact = cursed_diamond
+		destroy_artifact = cursed_diamond_crown
+		clr_character_flag = cursed_diamond
+		clr_character_flag = cursed_diamond_crown
+	}
+
 	option = {
 		name = EVTOPTA_RoI_245
 		trigger = {
@@ -2303,6 +2392,42 @@ character_event = {
 				killer = ROOT
 			}
 		}
+	}
+}
+
+# On Death - clearing the treasury
+character_event = {
+	id = RoI.248
+
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_artifact = cursed_diamond_crown
+		has_artifact = cursed_diamond
+	}
+
+	immediate = {
+		destroy_artifact = cursed_diamond
+		destroy_artifact = cursed_diamond_crown
+		save_event_target_as = cursed_diamond_parent
+		current_heir = {
+			character_event = { id = RoI.249 days = 7 }
+		}
+	}
+}
+
+# Heir finds out famous diamond has disappeared
+character_event = {
+	id = RoI.249
+	desc = EVTDESC_RoI.249
+	picture = GFX_evt_bad_news
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_RoI.249
 	}
 }
 
@@ -4889,3 +5014,23 @@ province_event = {
 	}
 }
 
+#character_event = {	
+#	id = RoI.3552
+#	hide_window = yes
+
+#	religion_group = indian_group
+#	trigger = {
+#		OR = {
+#			religion = hindu
+#			religion = buddhist
+#		}
+#	}
+
+#	is_triggered_only = yes
+
+#	trigger = {
+
+#	}
+
+
+#}

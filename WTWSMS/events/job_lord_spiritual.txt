@@ -65,6 +65,12 @@ character_event = {
 		months = 1920
 		modifier = {
 			factor = 0.75
+			liege = {
+				has_artifact = finger_of_st_john
+			}
+		}
+		modifier = {
+			factor = 0.75
 			location = { culture_group = ROOT }
 		}
 		modifier = {
@@ -154,6 +160,13 @@ character_event = {
 		modifier = {
 			factor = 0.75
 			religion_authority = 0.9
+		}
+		modifier = {
+			factor = 0.75
+			liege = {
+				society_member_of = monastic_order_dominican
+				society_rank >= 4
+			}
 		}
 
 		modifier = { # Conversion bonus
@@ -734,16 +747,22 @@ character_event = {
 }
 
 # 20022: Inform the Liege about wounding
-letter_event = {
+character_event = {
 	id = 20022
-	desc = "EVTDESC20022"
-	border = GFX_event_letter_frame_religion
+	desc = EVTDESC20022
+	picture = GFX_evt_peasants
+	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
+	notification = yes
+	
+	immediate = {
+		prestige = -10
+	}
 	
 	option = {
-		name = "EVTOPTA20022"
-		prestige = -10
+		name = EVTOPTA20022
+		tooltip = { prestige = -10 }
 	}
 }
 

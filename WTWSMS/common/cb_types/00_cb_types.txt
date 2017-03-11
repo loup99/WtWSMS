@@ -1409,7 +1409,11 @@ other_claim_on_liege = {
 					}
 				}
 			}
-			ROOT = { abdicate = yes }
+			ROOT = {
+				abdicate = {
+					move = no
+				}
+			}
 		}
 		
 		usurp_title_plus_barony_if_unlanded_and_vassals_no_adj = { target = ROOT type = claim }
@@ -3271,6 +3275,10 @@ crusade = {
 
 	on_reverse_demand = {
 		ROOT = {
+			transfer_scaled_wealth = {
+				to = FROM
+				value = 4.0
+			}
 			piety = -200
 			religion_authority = {
 				modifier = lost_crusade
@@ -3343,6 +3351,22 @@ crusade = {
 					}
 					participation_scaled_decadence = -100
 				}
+			}
+		}
+		any_attacker = {
+			limit = {
+				character = ROOT
+				uses_decadence = yes
+			}
+			participation_scaled_decadence = 35
+		}
+		any_attacker = {
+			limit = {
+				NOT = { character = ROOT }
+				uses_decadence = yes
+			}
+			hidden_tooltip = { 
+				participation_scaled_decadence = 35
 			}
 		}
 	}
@@ -3617,6 +3641,22 @@ religious = {
 					}
 					participation_scaled_decadence = -10
 				}
+			}
+		}
+		any_attacker = {
+			limit = {
+				character = ROOT
+				uses_decadence = yes
+			}
+			participation_scaled_decadence = 20
+		}
+		any_attacker = {
+			limit = {
+				NOT = { character = ROOT }
+				uses_decadence = yes
+			}
+			hidden_tooltip = { 
+				participation_scaled_decadence = 20
 			}
 		}
 		ROOT = { 
@@ -4490,6 +4530,18 @@ overthrow_ruler = {
 			limit = { NOT = { character = FROM } }
 			hidden_tooltip = { participation_scaled_prestige = 50 }
 		}
+		hidden_tooltip = {
+			any_attacker = {
+				limit = { liege = { character = FROM } }
+				prisoner = FROM
+				disband_event_forces = faction_revolters
+				add_character_modifier = {
+					name = faction_council_power_ultimatum_timer
+					hidden = yes
+					duration = 3650
+				}
+			}
+		}
 	}
 
 	attacker_ai_victory_worth = {
@@ -4636,18 +4688,6 @@ overthrow_ruler_no_calls = {
 	
 	attacker_ai_defeat_worth = {
 		factor = 100
-	}
-	
-	on_defender_leader_death = {
-		hidden_tooltip = {
-			any_attacker = {
-				letter_event = {
-					id = 251
-				}
-			}
-		}
-		
-		end_war = invalid
 	}
 
 	defender_ai_victory_worth = {
@@ -6840,10 +6880,6 @@ seize_trade_post = {
 			mercenary = no
 		}
 		FROM = {
-			OR = {
-				is_merchant_republic = yes
-				is_patrician = yes
-			}
 			NOT = { is_liege_or_above = ROOT }
 		}
 	}
@@ -6874,10 +6910,6 @@ seize_trade_post = {
 			NOT = { is_liege_or_above = FROM }
 		}
 		FROM = {
-			OR = {
-				is_merchant_republic = yes
-				is_patrician = yes
-			}
 			NOT = { is_liege_or_above = ROOT }
 		}
 	}
@@ -7241,6 +7273,15 @@ pagan_subjugation = {
 				is_reformed_religion = no
 				is_reformed_religion = ROOT
 				religion = hellenic_pagan
+			}
+			NOT = {
+				any_war = {
+					defender = { character = PREVPREV }
+					OR = {
+						using_cb = pagan_subjugation
+						using_cb = nomad_subjugation
+					}
+				}
 			}
 		}
 	}
@@ -7893,7 +7934,6 @@ duchy_adventure = {
 	war_name = WAR_DUCHY_ADVENTURE
 	sprite = 9
 	truce_days = 3650
-	is_permanent = yes
 	hostile_against_others = yes
 	check_de_jure_tier = DUKE # this scans all dejure duchies for the counties which are held by or vassals(or below) of selected character
 
@@ -8983,18 +9023,6 @@ dejure_county_claim = {
 			}
 		}
 		
-		OR = {
-			ROOT = {
-				NOT = { same_liege = FROM }
-			}
-			FROM = {
-				any_demesne_title = {
-					NOT = { title = PREVPREV }
-					higher_tier_than = BARON
-				}
-			}
-		}
-
 		NOT = {
 			OR = {
 				ROOT = {
@@ -9274,7 +9302,26 @@ dejure_county_claim = {
 	
 	defender_ai_defeat_worth = {
 		factor = 100
-	}	
+	}
+	
+	ai_will_do = { 
+		factor = 1
+		
+		modifier = {
+			factor = 0 # AIs will not take the last counties off their liege's direct vassals
+			ROOT = {
+				same_liege = FROM
+			}
+			FROM = {
+				NOT = {
+					any_demesne_title = {
+						tier = count
+						NOT = { title = PREVPREV }
+					}
+				}
+			}
+		}
+	}
 }
 
 # 44
@@ -9294,6 +9341,7 @@ dejure_barony_claim = {
 	
 	can_use = {
 		FROM = {
+			NOT = { is_vassal_or_below = ROOT }
 			OR = {
 				holy_order = no
 				NOT = { religion = ROOT }
@@ -10073,6 +10121,7 @@ shia_caliphate_rising = {
 						remove_holding_modifier = recently_conquered
 						refill_holding_levy = yes
 					}
+					wealth = 500
 				}
 				
 				if = {
@@ -14132,7 +14181,10 @@ powerful_vassal_takeover_war = { # Started from faction
 						}
 					}
 				}
-				grant_title = PREVPREV
+				usurp_title = {
+					target = PREVPREV
+					type = faction_demand
+				}
 				save_event_target_as = new_title_holder
 				hidden_tooltip = {
 					any_attacker = {

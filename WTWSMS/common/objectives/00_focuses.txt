@@ -92,7 +92,6 @@ focus_business = {
 		is_adult = yes
 		NOT = { trait = incapable }
 		prisoner = no
-		NOT = { religion = priscillianism }
 	}
 	
 	# AI Pick chance
@@ -165,8 +164,7 @@ focus_seduction = {
 		is_adult = yes
 		NOT = { trait = incapable }
 		NOT = { trait = celibate }
-		NOT = { trait = monk }
-		NOT = { trait = nun }
+		NOT = { is_ascetic_trigger = yes }
 		NOT = { trait = eunuch }
 		NOT = { trait = chaste }
 		NOT = { religion = montanist }
@@ -490,7 +488,6 @@ focus_hunting = {
 			prisoner = yes
 			trait = incapable
 			is_playable = no
-			religion = taoist
 			religion = jain
 			trait = vegetarian
 			AND = {
@@ -971,6 +968,12 @@ focus_theology = {
 	# Focuses have no success conditions
 	success = {
 		always = no
+	}
+	creation_effect = {
+		if = {
+			limit = { has_quest = quest_monastic_order_theology_focus }
+			character_event = { id = MNM.4016 }
+		}
 	}
 	
 	abort = {

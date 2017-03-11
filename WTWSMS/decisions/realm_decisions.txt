@@ -855,6 +855,7 @@ decisions = {
 			primary_title = { title = k_asturias }
 			completely_controls = d_leon
 			completely_controls = d_asturias
+			is_vice_royalty = no
 		}
 		effect = {
 			activate_title = { title = k_leon status = yes }
@@ -1338,6 +1339,7 @@ decisions = {
 				has_character_modifier = expelled_jewish
 				is_nomadic = yes
 				religion = ebionites
+				trait = secretly_jewish
 			}
 			age = 16
 		}
@@ -1486,119 +1488,6 @@ decisions = {
 			modifier = {
 				factor = 0
 				religion = ebionites
-			}
-		}
-	}
-	
-	embrace_mutazila = {
-		only_playable = yes
-		
-		potential = {
-			has_dlc = "Sons of Abraham"
-			is_playable = yes
-			religion = sunni
-			NOT = { 
-				OR = {
-					trait = mutazilite
-					trait = ashari
-				}
-			}
-			is_adult = yes
-			prisoner = no
-		}
-		
-		allow = {
-			piety = 50
-		}
-		
-		effect = {
-			add_trait = mutazilite
-			character_event = { id = SoA.600 tooltip = EVTTOOLTIP_SoA_600 }
-		}
-		
-		revoke_allowed = {
-			always = no
-		}
-		
-		ai_will_do = {
-			factor = 1
-			
-			modifier = {
-				factor = 0
-				trait = zealous
-			}
-			modifier = {
-				factor = 1.2
-				trait = cynical
-			}
-			modifier = {
-				factor = 1.2
-				liege = { trait = mutazilite }
-			}
-			modifier = {
-				factor = 0.005 # Slow it down
-			}
-		}
-	}
-	embrace_ashari = {
-		only_playable = yes
-		
-		potential = {	
-			has_dlc = "Sons of Abraham"
-			is_playable = yes
-			religion = sunni
-			NOT = { 
-				OR = {
-					trait = mutazilite
-					trait = ashari
-				}
-			}
-			is_adult = yes
-			prisoner = no
-		}
-		
-		allow = {
-			piety = 50
-		}
-		
-		effect = {
-			add_trait = ashari
-			character_event = { id = SoA.601 tooltip = EVTTOOLTIP_SoA_601 }
-		}
-		
-		revoke_allowed = {
-			always = no
-		}
-		
-		ai_will_do = {
-			factor = 1
-			
-			modifier = {
-				factor = 0
-				trait = cynical
-			}
-			modifier = {
-				factor = 1.2
-				trait = zealous
-			}
-			modifier = {
-				factor = 1.2
-				liege = { trait = ashari }
-			}
-			modifier = {
-				factor = 1.2
-				decadence = 40
-			}
-			modifier = {
-				factor = 1.2
-				decadence = 60
-			}
-			modifier = {
-				factor = 1.2
-				decadence = 80
-			}
-			modifier = {
-				factor = 0.005 # Slow it down
 			}
 		}
 	}
@@ -2943,6 +2832,126 @@ decisions = {
 			factor = 0
 		}
 	}
-	
+}
+
+targetted_decisions = {
+	embrace_mutazila = {
+		only_playable = yes
+		
+		filter = self
+		ai_target_filter = self
+		
+		potential = {
+			has_dlc = "Sons of Abraham"
+			is_playable = yes
+			religion = sunni
+			NOT = { 
+				OR = {
+					trait = mutazilite
+					trait = ashari
+				}
+			}
+			is_adult = yes
+			prisoner = no
+		}
+		
+		allow = {
+			piety = 50
+		}
+		
+		effect = {
+			add_trait = mutazilite
+			character_event = { id = SoA.600 tooltip = EVTTOOLTIP_SoA_600 }
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0
+				trait = zealous
+			}
+			modifier = {
+				factor = 1.2
+				trait = cynical
+			}
+			modifier = {
+				factor = 1.2
+				liege = { trait = mutazilite }
+			}
+			modifier = {
+				factor = 0.005 # Slow it down
+			}
+		}
+	}
+	embrace_ashari = {
+		only_playable = yes
+		
+		filter = self
+		ai_target_filter = self
+		
+		potential = {	
+			has_dlc = "Sons of Abraham"
+			is_playable = yes
+			religion = sunni
+			NOT = { 
+				OR = {
+					trait = mutazilite
+					trait = ashari
+				}
+			}
+			is_adult = yes
+			prisoner = no
+		}
+		
+		allow = {
+			piety = 50
+		}
+		
+		effect = {
+			add_trait = ashari
+			character_event = { id = SoA.601 tooltip = EVTTOOLTIP_SoA_601 }
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0
+				trait = cynical
+			}
+			modifier = {
+				factor = 1.2
+				trait = zealous
+			}
+			modifier = {
+				factor = 1.2
+				liege = { trait = ashari }
+			}
+			modifier = {
+				factor = 1.2
+				decadence = 40
+			}
+			modifier = {
+				factor = 1.2
+				decadence = 60
+			}
+			modifier = {
+				factor = 1.2
+				decadence = 80
+			}
+			modifier = {
+				factor = 0.005 # Slow it down
+			}
+		}
+	}
 }
 
