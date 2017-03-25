@@ -642,8 +642,8 @@ has_lifestyle_learning_trigger = {
 		trait = theologian
 		trait = mystic
 		trait = faqih
-		trait = druidic
-		is_neoplatonist = yes
+		trait = druid
+		is_neoplatonist_trigger = yes
 	}
 }
 
@@ -663,7 +663,7 @@ is_learned_trigger = {
 		trait = physician
 		trait = faqih
 		trait = druid
-		is_neoplatonist = yes
+		is_neoplatonist_trigger = yes
 	}
 }
 
@@ -748,6 +748,22 @@ has_crusade_trait_trigger = {
 			religion_group = jewish_group
 			trait = shaddai
 		}
+		AND = {
+			religion = hellenic_pagan
+			trait = ares_own
+		}
+		AND = {
+			religion = egyptian_pagan
+			trait = montu
+		}
+		AND = {
+			religion = aten_pagan
+			trait = atens_chosen
+		}
+		AND = {
+			religion = celtic_pagan_reformed
+			trait = lughs_own
+		}
 	}
 }
 
@@ -804,6 +820,13 @@ has_secret_religion_trait_trigger = {
 			trait = secretly_zun_pagan_reformed
 			trait = secretly_hellenic_pagan
 			trait = secretly_pagan
+
+			### ACR ###
+			trait = secretly_celtic_pagan
+			trait = secretly_celtic_pagan_reformed
+
+			trait = secretly_egyptian_pagan
+			trait = secretly_aten_pagan
 		}
 	}
 }
@@ -1275,10 +1298,9 @@ can_be_councilmember_king_trigger = {
 			is_female = no
 			AND = {
 				OR = {
-					religion = cathar
-					religion = messalian
+					is_feminist_religion_trigger = yes
 				}
-				liege = { religion = ROOT }
+				liege = { religion = PREV }
 			}
 			AND = {
 				liege = {
@@ -1315,12 +1337,8 @@ can_be_councilmember_emperor_trigger = {
 			OR = {
 				is_female = no
 				AND = {
-					religion = cathar
-					liege = { religion = cathar }
-				}
-				AND = {
-					religion = messalian
-					liege = { religion = messalian }
+					is_feminist_religion_trigger = yes
+					liege = { religion = PREV }
 				}
 				AND = {
 					liege = {
@@ -1659,8 +1677,7 @@ block_general_event_trigger = {
 
 gender_equality_trigger = {
 	OR = {
-		religion = cathar
-		religion = messalian
+		is_feminist_religion_trigger = yes
 		AND = {
 			is_landed = yes
 			primary_title = { 
@@ -2307,6 +2324,12 @@ true_religion_group_pagan_group_trigger = {
 		true_religion_zun_pagan_reformed_trigger = yes
 		true_religion_hellenic_pagan_trigger = yes
 		true_religion_pagan_trigger = yes
+		
+		### ACR ###
+		true_religion_celtic_pagan_trigger = yes
+		true_religion_celtic_pagan_reformed_trigger = yes
+		true_religion_egyptian_pagan_trigger = yes
+		true_religion_aten_pagan_trigger = yes
 	}
 }
 
@@ -2523,9 +2546,7 @@ has_society_currency_major_trigger = {
 }
 
 is_ill_trigger = {
-	OR = {
-		has_disease_trigger = yes
-	}
+	has_disease_trigger = yes
 }
 
 is_devil_worshiper_trigger = {
@@ -2537,6 +2558,11 @@ is_devil_worshiper_trigger = {
 			society_member_of = the_plaguebringers
 			society_member_of = the_cult_of_kali
 			society_member_of = the_trollcrafters
+
+			### ACR ###
+			society_member_of = unseelie_petitioners
+			society_member_of = the_coven
+			society_member_of = the_sand_snakes
 		}
 	}
 }
@@ -2646,13 +2672,7 @@ is_secret_religious_society_member_trigger = {
 		society_member_of = secret_religious_society_jewish
 		society_member_of = secret_religious_society_zoroastrian
 		is_indian_secret_religious_society_member_trigger = yes
-		society_member_of = secret_religious_society_norse_pagan_reformed
-		society_member_of = secret_religious_society_slavic_pagan_reformed
-		society_member_of = secret_religious_society_tengri_pagan_reformed
-		society_member_of = secret_religious_society_baltic_pagan_reformed
-		society_member_of = secret_religious_society_finnish_pagan_reformed
-		society_member_of = secret_religious_society_west_african_pagan_reformed
-		society_member_of = secret_religious_society_zun_pagan_reformed
+		is_pagan_secret_religious_society_member_trigger = yes
 	}
 }
 
@@ -2675,6 +2695,25 @@ is_indian_secret_religious_society_member_trigger = {
 		society_member_of = secret_religious_society_hinduism
 		society_member_of = secret_religious_society_buddhism
 		society_member_of = secret_religious_society_jain
+	}
+}
+
+is_pagan_secret_religious_society_member_trigger = {
+	OR = {
+		society_member_of = secret_religious_society_norse_pagan_reformed
+		society_member_of = secret_religious_society_slavic_pagan_reformed
+		society_member_of = secret_religious_society_tengri_pagan_reformed
+		society_member_of = secret_religious_society_baltic_pagan_reformed
+		society_member_of = secret_religious_society_finnish_pagan_reformed
+		society_member_of = secret_religious_society_west_african_pagan_reformed
+		society_member_of = secret_religious_society_zun_pagan_reformed
+		
+		### ACR ###
+		society_member_of = secret_religious_society_celtic_pagan
+		society_member_of = secret_religious_society_celtic_pagan_reformed
+		society_member_of = secret_religious_society_hellenic_pagan
+		society_member_of = secret_religious_society_egyptian_pagan
+		society_member_of = secret_religious_society_aten_pagan	
 	}
 }
 
@@ -2743,6 +2782,28 @@ is_openly_of_prevs_secret_religion_trigger = {
 		AND = {
 			religion = zun_pagan_reformed
 			PREV = { trait = secretly_zun_pagan_reformed }
+		}
+
+		### ACR ###
+		AND = {
+			religion = celtic_pagan
+			PREV = { trait = secretly_celtic_pagan }
+		}
+		AND = {
+			religion = celtic_pagan_reformed
+			PREV = { trait = secretly_celtic_pagan_reformed }
+		}
+		AND = {
+			religion = hellenic_pagan
+			PREV = { trait = secretly_hellenic_pagan }
+		}
+		AND = {
+			religion = egyptian_pagan
+			PREV = { trait = secretly_egyptian_pagan }
+		}
+		AND = {
+			religion = aten_pagan
+			PREV = { trait = secretly_aten_pagan }
 		}
 	}
 }	
@@ -2987,12 +3048,30 @@ has_prevs_secret_religion_truly_trigger = {
 			PREV = { true_religion_zun_pagan_reformed_trigger = yes }
 		}
 		AND = {
+			trait = secretly_pagan
+			PREV = { true_religion_pagan_trigger = yes }
+		}
+
+		### ACR ###
+		AND = {
+			trait = secretly_celtic_pagan
+			PREV = { true_religion_celtic_pagan_trigger = yes }
+		}
+		AND = {
+			trait = secretly_celtic_pagan_reformed
+			PREV = { true_religion_celtic_pagan_reformed_trigger = yes }
+		}
+		AND = {
 			trait = secretly_hellenic_pagan
 			PREV = { true_religion_hellenic_pagan_trigger = yes }
 		}
 		AND = {
-			trait = secretly_pagan
-			PREV = { true_religion_pagan_trigger = yes }
+			trait = secretly_egyptian_pagan
+			PREV = { true_religion_egyptian_pagan_trigger = yes }
+		}
+		AND = {
+			trait = secretly_aten_pagan
+			PREV = { true_religion_aten_pagan_trigger = yes }
 		}
 	}
 }
@@ -3064,6 +3143,29 @@ is_in_prevs_interesting_society_trigger = {
 			society_member_of = secret_religious_society_zun_pagan_reformed
 			PREV = { interested_in_society = secret_religious_society_zun_pagan_reformed }
 		}
+
+		### ACR ###
+		AND = {
+			society_member_of = secret_religious_society_celtic_pagan
+			PREV = { interested_in_society = secret_religious_society_celtic_pagan }
+		}
+		AND = {
+			society_member_of = secret_religious_society_celtic_pagan_reformed
+			PREV = { interested_in_society = secret_religious_society_celtic_pagan_reformed }
+		}
+		AND = {
+			society_member_of = secret_religious_society_hellenic_pagan
+			PREV = { interested_in_society = secret_religious_society_hellenic_pagan }
+		}
+
+		AND = {
+			society_member_of = secret_religious_society_egyptian_pagan
+			PREV = { interested_in_society = secret_religious_society_egyptian_pagan }
+		}
+		AND = {
+			society_member_of = secret_religious_society_aten_pagan
+			PREV = { interested_in_society = secret_religious_society_aten_pagan }
+		}
 	}
 }
 
@@ -3132,6 +3234,29 @@ shares_prevs_secret_religion_trigger = {
 		AND = {
 			trait = secretly_zun_pagan_reformed
 			PREV = { trait = secretly_zun_pagan_reformed }
+		}
+
+		### ACR ###
+		AND = {
+			trait = secretly_celtic_pagan
+			PREV = { trait = secretly_celtic_pagan }
+		}
+		AND = {
+			trait = secretly_celtic_pagan_reformed
+			PREV = { trait = secretly_celtic_pagan_reformed }
+		}
+		AND = {
+			trait = secretly_hellenic_pagan
+			PREV = { trait = secretly_hellenic_pagan }
+		}
+
+		AND = {
+			trait = secretly_egyptian_pagan
+			PREV = { trait = secretly_egyptian_pagan }
+		}
+		AND = {
+			trait = secretly_aten_pagan
+			PREV = { trait = secretly_aten_pagan }
 		}
 	}
 }
@@ -3316,6 +3441,39 @@ has_any_char_old_religion = {
 	    		religion = zun_pagan_reformed
 	    	}
 	    }
+
+	    ### ACR ###
+	    AND = {
+	    	has_character_flag = character_was_celtic_pagan
+	    	any_character = {
+	    		religion = celtic_pagan
+	    	}
+	    }
+	    AND = {
+	    	has_character_flag = character_was_celtic_pagan_reformed
+	    	any_character = {
+	    		religion = celtic_pagan_reformed
+	    	}
+	    }
+	    AND = {
+	    	has_character_flag = character_was_hellenic_pagan
+	    	any_character = {
+	    		religion = hellenic_pagan
+	    	}
+	    }
+}
+	    AND = {
+	    	has_character_flag = character_was_egyptian_pagan
+	    	any_character = {
+	    		religion = egyptian_pagan
+	    	}
+	    }
+	    AND = {
+	    	has_character_flag = character_was_aten_pagan
+	    	any_character = {
+	    		religion = aten_pagan
+	    	}
+	    }
 	}
 }
 
@@ -3353,11 +3511,15 @@ has_common_devilworship_prerequisites = {
 		text = must_be_a_sinner_tooltip
 		hidden_tooltip = {
 			OR = {
-				has_impious_trait_trigger = yes
-				has_vice_trigger = yes
-				trait = drunkard
 				trait = possessed
-				trait = lunatic
+				AND = {
+					has_impious_trait_trigger = yes
+					OR = {
+						has_vice_trigger = yes
+						trait = drunkard
+						trait = lunatic
+					}
+				}
 			}
 		}
 	}
@@ -4408,10 +4570,16 @@ has_unsafe_secret_religion = {
 				trait = secretly_west_african_pagan_reformed
 				trait = secretly_zun_pagan
 				trait = secretly_zun_pagan_reformed
-				trait = secretly_hellenic_pagan
 				trait = secretly_pagan
 				trait = secretly_aztec
 				trait = secretly_aztec_reformed
+
+				### ACR ###
+				trait = secretly_celtic_pagan
+				trait = secretly_celtic_pagan_reformed
+				trait = secretly_hellenic_pagan
+				trait = secretly_egyptian_pagan
+				trait = secretly_aten_pagan
 			}
 		}
 		AND = {
