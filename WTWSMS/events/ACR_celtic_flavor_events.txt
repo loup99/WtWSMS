@@ -543,3 +543,32 @@ narrative_event = {
 		name = EVTOPTCancrel.0256
 	}
 }
+
+########################################
+#
+# - Unfit King
+#
+########################################
+
+# A Celtic King is maimed and thus unfit for rule!
+# [on_yearly_pulse]
+character_event = {
+	id = ancrel.1000
+	desc = ancrel.1000.desc
+	picture = GFX_evt_nuada_mag_tuired
+
+	is_triggered_only = yes
+
+	only_playable = yes
+	religion = celtic_pagan
+
+	trigger = {
+		NOT = { has_character_modifier = unfit_gaelic_king }
+		is_maimed_trigger = yes
+	}
+
+	option = {
+		name = ancrel.troublesome
+		add_character_modifier = { name = unfit_gaelic_king duration = -1 }
+	}
+}
