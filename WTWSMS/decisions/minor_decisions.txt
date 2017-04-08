@@ -352,8 +352,6 @@ decisions = {
 			capital_scope = {
 				region = world_india
 			}
-			NOT = { has_character_flag = holding_tiger_hunt }
-			NOT = { has_character_modifier = hunt_timer }
 		}
 		allow = {
 			war = no
@@ -374,7 +372,11 @@ decisions = {
 			NOT = { religion = jain }
 			custom_tooltip = {
 				text = is_not_busy_trigger_tooltip
-				hidden_tooltip = { NOT = { has_character_flag = do_not_disturb } }
+				hidden_tooltip = { 
+					NOT = { has_character_flag = do_not_disturb } 
+					NOT = { has_character_flag = holding_tiger_hunt }
+					NOT = { has_character_modifier = hunt_timer }
+				}
 			}
 		}
 		effect = {
@@ -1664,7 +1666,11 @@ decisions = {
 				religion_group = zoroastrian_group
 			}
 			NOT = {	religion_group = jewish_group }
-			NOT = { trait = secretly_jewish }
+			NOR = { 
+				secret_religion = jewish
+				secret_religion = karaite
+				secret_religion = samaritan
+			}
 		}
 		
 		allow = {
@@ -2630,6 +2636,7 @@ decisions = {
 			}
 		}
 		allow = {
+			is_adult = yes
 			in_command = no
 			prisoner = no
 			NOT = { trait = incapable }
