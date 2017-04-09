@@ -1,0 +1,69 @@
+decisions = {
+	hold_akelarre = {
+		only_playable = yes
+		potential = {
+			has_dlc = "The Old Gods"
+			is_playable = yes
+			is_adult = yes
+			prisoner = no
+			religion = vasconic 
+			NOT = { has_character_modifier = held_akelarre_timer }
+			NOT = {	has_character_flag = holding_akelarre }
+		}
+		allow = {
+			war = no
+			custom_tooltip = {
+				text = UNOCCUPIED_DEMESNE_TITLE
+				hidden_tooltip = {
+					any_demesne_title = {
+						NOT = { higher_tier_than = count }
+						is_occupied = no
+					}
+				}
+			}
+			scaled_wealth = 0.2
+			prisoner = no
+			NOT = { is_inaccessible_trigger = yes }
+			custom_tooltip = {
+				text = is_not_busy_trigger_tooltip
+				hidden_tooltip = { NOT = { has_character_flag = do_not_disturb } }
+			}
+		}
+		effect = {
+			scaled_wealth = -0.2
+			set_character_flag = holding_akelarre
+			set_character_flag = recent_minor_decision
+			set_character_flag = do_not_disturb
+			custom_tooltip = {
+				text = prepare_akelarre
+				hidden_tooltip = { 
+					character_event = { id = WtWSMS_flavour.20 } 
+				}
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0
+				NOT = {
+					scaled_wealth = 2.0
+				}
+			}
+			
+			modifier = {
+				factor = 0
+				has_character_flag = recent_minor_decision
+				NOT = {
+					had_character_flag = {
+						flag = recent_minor_decision
+						days = 730
+					}
+				}
+			}
+		}
+    }
+}

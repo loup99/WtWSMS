@@ -1610,25 +1610,164 @@ character_event = {
 
 ########################## Vasconic Events ################################
 
-# Akelarre
+### Vasconic Akelarre
+
+# Invitations Sent (Liege)
 character_event = {
-    id = WtWSMS_flavour.20
+	id = WtWSMS_flavour.20
 	desc = WtWSMS_flavour.20.desc
-	picture = GFX_evt_emissary
-	  
-	is_triggered_only = yes 
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	hide_from = yes
 	
 	option = {
-	    name = WtWSMS_flavour.20.a
-		health = -3 
-		add_character_modifier = {
-			name = "akelarre"
-			duration = 50 
+		name = WtWSMS_flavour.20.a
+		any_vassal = {
+			limit = {
+				religion = vasconic
+				is_adult = yes
+				prisoner = no
+				war = no
+				NOT = { trait = incapable }
+			}
+			character_event = { id = WtWSMS_flavour.21 days = 2 }
+		}
+		custom_tooltip = { text = akelarre_invitations_sent }
+		hidden_tooltip = { character_event = { id = WtWSMS_flavour.23 days = 10 } }
+		hidden_tooltip = { character_event = { id = WtWSMS_flavour.24 days = 12 } }
+	}
+}
+
+# Invitations Received (Vassals)
+character_event = {
+	id = WtWSMS_flavour.21
+	desc = WtWSMS_flavour.21.desc
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+
+	trigger = { NOT = { is_inaccessible_trigger = yes } }
+	
+	option = {
+		name = WtWSMS_flavour.21.a
+		ai_chance = {
+			factor = 80
+			modifier = {
+				factor = 0
+				NOT = {	opinion = { who = ROOT value = -20 } }
+			}
+		}
+		custom_tooltip = { text = akelarre_accepted }
+		set_character_flag = attending_akelarre
+		set_character_flag = do_not_disturb
+		hidden_tooltip = { character_event = { id = WtWSMS_flavour.23 days = 8 } }
+	}
+	option = {
+		name = WtWSMS_flavour.21.b
+		ai_chance = {
+			factor = 20
+		}
+		FROM = {
+			opinion = {
+				modifier = opinion_refused_akelarre
+				who = ROOT
+			}
+		}
+		custom_tooltip = { text = akelarre_declined }
+		hidden_tooltip = {
+			FROM = { character_event = { id = WtWSMS_flavour.22 } }
+		}
+	}
+}
+
+# Invitation Refused (Liege)
+character_event = {
+	id = WtWSMS_flavour.22
+	desc = WtWSMS_flavour.22.desc
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = WtWSMS_flavour.22.a
+		opinion = {
+			modifier = opinion_refused_akelarre
+			who = FROM
+		}
+	}
+}
+
+# Akelarre Begins
+character_event = {
+	id = WtWSMS_flavour.23
+	desc = WtWSMS_flavour.23.desc
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_religion
+	
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = WtWSMS_flavour.23.a
+	}
+}
+
+# Akelarre Ends (Liege)
+character_event = {
+	id = WtWSMS_flavour.24
+	desc = WtWSMS_flavour.24.desc
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_religion
+	
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = WtWSMS_flavour.24.a
+		any_vassal = {
+			limit = { has_character_flag = attending_akelarre }
+			opinion = {
+				modifier = opinion_akelarre
+				who = ROOT
+			}
+		}
+		hidden_tooltip = {
+			any_vassal = {
+				limit = { has_character_flag = attending_akelarre }
+				character_event = { id = WtWSMS_flavour.25 }
+			}
 		}
 		add_character_modifier = {
-			name = "no_akelarre"
-			days = 80
+			name = held_akelarre_timer
+			duration = 365
 			hidden = yes
 		}
+		prestige = 50
+		piety = 50
+		clr_character_flag = holding_akelarre
+		clr_character_flag = do_not_disturb
+	}
+}
+
+# Akelarre Ends (Vassals)
+character_event = {
+	id = WtWSMS_flavour.25
+	desc = WtWSMS_flavour.25.desc
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = WtWSMS_flavour.25.a
+		clr_character_flag = attending_akelarre
+		clr_character_flag = do_not_disturb
 	}
 }
