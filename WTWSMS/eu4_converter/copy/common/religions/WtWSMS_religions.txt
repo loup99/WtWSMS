@@ -1,0 +1,332 @@
+christian = {
+	
+	aquileian = { color = { 0.8 0.3 0.5 } icon = 1 }
+	total_depravity = { color = { 0.8 0.3 0.5 } icon = 1 }
+	eutychian = { color = { 0.8 0.3 0.5 } icon = 1 }
+	binitarian = { color = { 0.8 0.3 0.5 } icon = 1 }
+	insular = { color = { 0.8 0.3 0.5 } icon = 1 }
+	pelagianism = { color = { 0.8 0.3 0.5 } icon = 1 }
+	antinomianism = { color = { 0.8 0.3 0.5 } icon = 1 }
+	ebionites = { color = { 0.8 0.3 0.5 } icon = 1 }
+	marcionism = { color = { 0.8 0.3 0.5 } icon = 1 }
+	montanist = { color = { 0.8 0.3 0.5 } icon = 1 }
+	sethian = { color = { 0.8 0.3 0.5 } icon = 1 }
+	valentinianism = { color = { 0.8 0.3 0.5 } icon = 1 }
+	apollinarian = { color = { 0.8 0.3 0.5 } icon = 1 }
+	adoptionism = { color = { 0.8 0.3 0.5 } icon = 1 }
+	docetic = { color = { 0.8 0.3 0.5 } icon = 1 }
+	pneumatomachians = { color = { 0.8 0.3 0.5 } icon = 1 }
+	melchisedechianism = { color = { 0.8 0.3 0.5 } icon = 1 }
+	patripassianism = { color = { 0.8 0.3 0.5 } icon = 1 }
+	sabellianism = { color = { 0.8 0.3 0.5 } icon = 1 }
+	psilanthropism = { color = { 0.8 0.3 0.5 } icon = 1 }
+	audianistic = { color = { 0.8 0.3 0.5 } icon = 1 }
+	monarchianism = { color = { 0.8 0.3 0.5 } icon = 4 }
+	donatism = { color = { 0.8 0.3 0.5 } icon = 1 }
+	priscillianism = { color = { 0.8 0.3 0.5 } icon = 1 }
+	nicene = {
+		icon = 1
+		color = { 0.75 0.65 0 }
+		allowed_conversion = {
+			arianism
+			coptic
+			catholic
+			orthodox
+		}
+		country = {
+			stability_cost_modifier = -0.1
+			tolerance_own = 1
+		}
+
+		country_as_secondary = {
+			diplomatic_reputation = 1
+			stability_cost_modifier = -0.1
+		}
+		
+		on_convert = {
+			change_religion = nicene
+			add_stability = -3
+		}
+		
+		heretic = { BOGOMILIST WALDENSIAN FRATICELLI HUSSITE LOLLARD SOCINIAN }
+		
+		papacy = {
+			papal_tag = ROM
+			election_cost = 5
+			seat_of_papacy = 118 # rome
+			
+			levy_church_tax = {
+				cost = 50
+				potential = {
+					NOT = { tag = ROM }
+				}
+				allow = {
+					NOT = { war_with = ROM }
+					NOT = { has_country_modifier = papal_sanction_for_church_taxes }
+				}
+				effect = {
+					add_country_modifier = {
+						name = "papal_sanction_for_church_taxes"
+						duration = 7300
+					}
+				}
+				ai_will_do = {
+					factor = 1
+				}				
+			}			
+			bless_monarch = {
+				cost = 50
+				potential = {
+					NOT = { tag = ROM }
+				}
+				allow = {
+					NOT = { war_with = ROM }
+					NOT = { prestige = 100 }
+					NOT = { has_country_modifier = papal_blessing }
+				}
+				effect = {
+					add_country_modifier = {
+						name = "papal_blessing"
+						duration = 7300
+					}
+				}
+				ai_will_do = {
+					factor = 1
+				}
+			}
+			indulgence_for_sins = {
+				cost = 50
+				potential = {
+					government = monarchy
+					NOT = { tag = ROM }
+				}
+				allow = {
+					NOT = { war_with = ROM }
+					NOT = { legitimacy = 100 }
+					NOT = { has_country_modifier = papal_indulgence }
+				}
+				effect = {
+					add_country_modifier = {
+						name = "papal_indulgence"
+						duration = 7300
+					}
+				}
+				ai_will_do = {
+					factor = 1
+				}
+			}	
+			local_saint = {
+				cost = 100
+				potential = {
+					NOT = { tag = ROM }
+				}
+				allow = {
+					NOT = { war_with = ROM }
+					NOT = { stability = 3 }
+				}
+				effect = {
+					add_stability = 1
+				}
+				ai_will_do = {
+					factor = 1
+					modifier = {
+						factor = 2
+						NOT = { stability = 0 }
+					}
+				}
+			}
+			forgiveness_for_usury = {
+				cost = 50
+				potential = {
+					NOT = { tag = ROM }
+				}
+				allow = {
+					NOT = { war_with = ROM }
+					NOT = { has_country_modifier = usury_forgiven }
+				}
+				effect = {
+					add_country_modifier = {
+						name = "usury_forgiven"
+						duration = 7300
+					}
+				}
+				ai_will_do = {
+					factor = 1
+					modifier = {
+						factor = 0
+						NOT = { num_of_loans = 1 }
+					}
+				}
+			}			
+			proclaim_holy_war = {
+				cost = 50
+				potential = {
+					NOT = { tag = ROM }
+				}
+				allow = {
+					is_at_war = yes
+					NOT = { war_with = ROM }
+					NOT = { has_country_modifier = papal_sanction_for_holy_war }
+				}
+				effect = {
+					add_country_modifier = {
+						name = "papal_sanction_for_holy_war"
+						duration = 7300
+					}
+				}
+				ai_will_do = {
+					factor = 1
+					modifier = {
+						factor = 0
+						manpower_percentage = 0.5
+					}
+				}
+			}
+			send_papal_legate = {
+				cost = 50
+				potential = {
+					NOT = { tag = ROM }
+				}
+				allow = {
+					NOT = { war_with = ROM }
+					NOT = { has_country_modifier = papal_legate }
+				}
+				effect = {
+					add_country_modifier = {
+						name = "papal_legate"
+						duration = 7300
+					}
+				}
+				ai_will_do = {
+					factor = 1
+				}
+			}	
+			sanction_commercial_monopoly = {
+				cost = 100
+				potential = {
+					NOT = { tag = ROM }
+				}
+				allow = {
+					NOT = { war_with = ROM }
+					NOT = { mercantilism = 1 }
+				}
+				effect = {
+					add_mercantilism = 0.01
+				}
+				ai_will_do = {
+					factor = 1
+					modifier = {
+						factor = 0
+						NOT = { has_idea_group = trade_ideas }
+					}
+				}
+			}			
+		}
+	}
+	arian = {
+		color = { 0.4 0.4 0 }
+		icon = 2
+		allowed_conversion = {
+			nicene
+			nestorian
+			coptic
+			catholic
+		}
+		country = {
+			global_tax_modifier = 0.1
+			stability_cost_modifier = -0.1
+		}
+		country_as_secondary = {
+			global_tax_modifier = 0.1
+			defensiveness = 0.1
+		}
+		on_convert = {
+			change_religion = arian
+			add_stability = -3
+		}
+		
+		heretic = { BOGOMILIST WALDENSIAN HUSSITE LOLLARD SOCINIAN }
+
+		date = 325.1.1
+	}
+	
+	crusade_name = CRUSADE
+}
+
+muslim = {
+	abadites = { color = { 0.8 0.3 0.5 } icon = 6 }
+	quranism = { color = { 0.8 0.3 0.5 } icon = 6 }
+	qadariyya = { color = { 0.8 0.3 0.5 } icon = 6 }
+	khawariji = { color = { 0.8 0.3 0.5 } icon = 6 }
+	haruriyyah = { color = { 0.8 0.3 0.5 } icon = 6 }
+	wahhabi = { color = { 0.8 0.3 0.5 } icon = 6 }
+	mahdi = { color = { 0.8 0.3 0.5 } icon = 6 }
+	salafi = { color = { 0.8 0.3 0.5 } icon = 6 }
+	twelver = { color = { 0.8 0.3 0.5 } icon = 6 }
+	zayid = { color = { 0.8 0.3 0.5 } icon = 6 }
+	ismaili = { color = { 0.8 0.3 0.5 } icon = 6 }
+	uwaisi = { color = { 0.8 0.3 0.5 } icon = 6 }
+	quamatian = { color = { 0.8 0.3 0.5 } icon = 6 }
+}
+
+pagan = {
+	semitic_pagan_reformed = {
+		color = { 0.9 0.9 0.9 }
+		icon = 20
+		province = {
+			local_missionary_strength = 0.01
+		}
+		country = {
+			tolerance_heathen = 1
+			defensiveness = 0.1
+		}
+		country_as_secondary = {
+			global_regiment_recruit_speed = -0.10
+			defensiveness = 0.2
+		}
+
+		personal_deity = yes
+		
+		heretic = { BEAR_SPIRIT SNAKE_CLAN }
+		
+		annex = yes
+	}
+	druidist = {
+		color = { 0.4 0.9 0.1 }
+		icon = 21
+		province = {
+			local_missionary_strength = 0.02
+		}
+		country = {
+			tolerance_own = 1
+			global_unrest = -1
+		}
+		country_as_secondary = {
+			tolerance_own = 1
+			global_unrest = -1
+		}
+
+		personal_deity = yes
+		
+		heretic = { GOAT_SKULL }
+	}
+	kemetic = {
+		color = { 0.9 0.9 0.3 }
+		icon = 19
+		province = {
+			local_missionary_strength = 0.02
+		}
+		country = {
+			tolerance_heretic = 1
+			tolerance_heathen = 1
+		}
+		country_as_secondary = {
+			build_cost = -0.1
+			defensiveness = 0.2
+		}
+
+		personal_deity = yes
+		
+		heretic = { BEAR_SPIRIT SNAKE_CLAN }
+	}
+}
