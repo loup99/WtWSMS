@@ -1,0 +1,246 @@
+decisions = {
+	find_enarei = {
+		only_playable = yes
+		potential = {
+			OR = {
+				religion = scythian_pagan_reformed
+				religion = scythian_pagan
+			}
+			is_playable = yes
+			is_adult = yes
+			OR = {
+				is_feudal = yes
+				is_tribal = yes
+				is_nomadic = yes
+			}
+			prisoner = no
+			NOT = { has_character_flag = looking_for_enarei }
+			NOT = { has_character_flag = found_enarei }
+			NOT = {
+				any_courtier = {
+					has_minor_title = title_enarei
+				}
+			}
+		}
+		allow = {
+			prisoner = no
+			wealth = 50
+		}
+		effect = {
+			wealth = -50
+			set_character_flag = looking_for_enarei
+			character_event = { id = ENA.3000 }
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0
+				trait = cynical
+			}
+			modifier = {
+				factor = 0
+				NOT = { wealth = 200 }
+			}
+		}
+	}
+	form_xucau_warriors = {
+		potential = {
+			religion = scythian_pagan_reformed			
+			NOT = { is_title_active = d_xucau_warriors }
+		}
+		allow = {
+			war = no
+			wealth = 500
+		}
+
+		effect = {
+			wealth = -500
+			activate_title = { title = d_xucau_warriors status = yes }
+			hidden_tooltip = {
+				create_character = {
+					random_traits = yes
+					religion = ROOT
+					culture = ROOT
+					dynasty = NONE
+					female = no
+					age = 34
+					trait = skilled_tactician
+				}
+				new_character = {
+					d_xucau_warriors = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	form_wasilla_guardians = {
+		potential = {
+			religion = scythian_pagan_reformed			
+			NOT = { is_title_active = d_wasilla_guardians }
+			religion_authority = 0.50
+		}
+		allow = {
+			war = no
+			wealth = 500
+		}
+
+		effect = {
+			wealth = -500
+			activate_title = { title = d_wasilla_guardians status = yes }
+			hidden_tooltip = {
+				create_character = {
+					random_traits = yes
+					religion = ROOT
+					culture = ROOT
+					dynasty = NONE
+					female = no
+					age = 34
+					trait = skilled_tactician
+				}
+				new_character = {
+					d_wasilla_guardians = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	celebrate_djiorgwyba = {
+		potential = {
+			has_dlc = "The Old Gods"
+			is_playable = yes
+			is_adult = yes
+			prisoner = no
+			OR = {
+				religion = scythian_pagan
+				religion = scythian_pagan_reformed
+			}
+			NOT = {
+				has_character_modifier = held_djiorgwyba_feast_timer
+				liege = { has_character_flag = holding_djiorgwyba_feast }
+				has_character_flag = holding_djiorgwyba_feast
+				has_character_flag = planning_djiorgwyba_feast
+			}
+		}
+		allow = {
+			war = no
+			custom_tooltip = {
+				text = UNOCCUPIED_DEMESNE_TITLE
+				hidden_tooltip = {
+					any_demesne_title = {
+						NOT = { higher_tier_than = count }
+						is_occupied = no
+					}
+				}
+			}
+			wealth = 50
+			prestige = 100
+			prisoner = no
+			NOT = { is_inaccessible_trigger = yes }
+			custom_tooltip = {
+				text = is_not_busy_trigger_tooltip
+				hidden_tooltip = { NOT = { has_character_flag = do_not_disturb } }
+			}
+			month = 8
+			not = { month = 10 }
+		}
+		effect = {
+			wealth = -50
+			set_character_flag = planning_djiorgwyba_feast
+			set_character_flag = recent_minor_decision
+			set_character_flag = do_not_disturb
+			custom_tooltip = {
+				text = prepare_djiorgwyba_feast
+				hidden_tooltip = { 
+					character_event = { id = DJI.700 } 
+				}
+			}
+			if = {
+				limit = {
+					has_dlc = "Reapers"
+				}
+				custom_tooltip = {
+					text = capital_prospers_custom_tooltip
+					hidden_tooltip = {
+						capital_scope = {
+							change_variable = { which = prosperity_value value = 8 }
+						}
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { month = 3 }
+				month = 6
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					wealth = 300
+				}
+			}
+			modifier = {
+				factor = 0
+				trait = shy
+			}
+		}
+	}
+}
+
+targetted_decisions = {
+
+	seek_diviniation_from_enarei = {
+		only_playable = yes
+		filter = court
+		ai_target_filter = court
+	
+		from_potential = {
+			is_ruler = yes
+			OR = {
+				religion = scythian_pagan_reformed
+				religion = scythian_pagan
+			}
+		}
+		
+		potential = {
+			has_minor_title = title_enarei
+			OR = {
+				religion = scythian_pagan_reformed
+				religion = scythian_pagan
+			}
+		}
+		
+		allow = {
+			NOT = { FROM = { has_character_modifier = recent_diviniation } }
+		}
+		
+		effect = {
+			FROM = { add_character_modifier = { name = recent_diviniation duration = 1800 } }
+			FROM = { character_event = { id = ENA.10174 } }
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 0.10
+		}
+	}
+}

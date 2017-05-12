@@ -1,4 +1,4 @@
-#When the World Stopped Making Sense
+# When the World Stopped Making Sense
 
 > A Dark Ages mod for Crusader Kings 2 ! 
 
