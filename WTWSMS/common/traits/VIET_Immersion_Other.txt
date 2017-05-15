@@ -5,29 +5,14 @@ traveling = {
 	monthly_character_prestige = 0.2
 	
 	customizer = no
+	random = no
 	
 	pilgrimage = yes # Will need a regent, but can still be guardian to children
 }
 
 raider = {
 	potential = {
-		OR = {
-			religion = finnish_pagan
-			religion = finnish_pagan_reformed
-			religion = tengri_pagan
-			religion = tengri_pagan_reformed
-			religion = baltic_pagan
-			religion = baltic_pagan_reformed
-			religion = slavic_pagan
-			religion = slavic_pagan_reformed
-			religion = west_african_pagan
-			religion = west_african_pagan_reformed
-			religion = east_african_pagan
-			religion = east_african_pagan_reformed
-			religion = aztec
-			religion = aztec_reformed
-			religion = hellenic_pagan		
-		}
+		religion_group = pagan_group
 	}
 	martial = 1
 	monthly_character_prestige = 0.01
@@ -122,7 +107,8 @@ house_of_david = { # Descendant of David
 	customizer = no
 	
 	agnatic = yes # Always inherited from fathers
-	
+	enatic = yes	
+
 	learning = 1
 	
 	same_religion_opinion = 10
@@ -241,7 +227,6 @@ bad_priest_jewish = {
 # Eastern Religion Traits
 
 vegetarian = {
-
 	religious = yes
 
 	potential = {
@@ -252,6 +237,7 @@ vegetarian = {
 			religion = bogomilist
 			religion = taoist
 			religion = priscillianism
+			religion = miaphysite # RL Coptics fast by taking a vegetarian or vegan diet
 		}
 	}
 
@@ -330,6 +316,13 @@ on_retreat = {
 
 #Chinese traits
 son_of_heaven = {
+	potential = {
+		OR = {
+			culture_group = sinic
+			religion = confucian
+		}
+		higher_real_tier_than = KING
+	}
 
 	monthly_character_prestige = 0.2
 	
@@ -412,21 +405,51 @@ sacred_reindeer = { #Shaman
 	
 }
 
-#Franciscans
-
 wandering_hermit = {
 
 	potential = {
-		religion = fraticelli
+		OR = {
+			religion = fraticelli
+			religion = insular # Monasticism and radical asceticism were core parts of this denomination
+			religion = pelagianism
+			religion_group = indian_group # Jain nudists, Buddhist monks, etc. etc.
+			has_character_modifier = jain_naked_ascetic
+			has_character_modifier = hindu_ascetic
+			has_character_modifier = buddhist_ascetic
+			is_ascetic_trigger = yes
+		}
+		NOT = {
+			trait = cynical
+			trait = seducer
+			trait = seductress
+			trait = lustful
+		}
 	}
 
-	learning = 1
-	monthly_character_piety = 0.75
+	opposites = {
+		cynical
+		seducer
+		seductress
+		lustful	
+	}
+
+	church_opinion = 25 # Clergymen who take the extra step to travel the world for their religion are especially admired by other clergy
+
+	cannot_marry = yes
+	cannot_inherit = yes
+	lifestyle = yes
+
+	priest = yes
+	learning = 2
+	diplomacy = 2
+	monthly_character_piety = 1
 
 	customizer = no
-	random = no
+	random = yes
 	
 }
+
+# Franciscans
 
 secular_franciscan = {
 
