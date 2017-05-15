@@ -1,0 +1,333 @@
+#################################################################################
+#										#
+#         CONVERSION OF TRIGGERED MODIFIER SCRIPTS TO EVENT MODIFIERS 	#
+#										#
+#################################################################################
+
+character_event = { # Zoroastrian receives penalty for not being married
+	id = 1000094008
+	hide_window = yes
+
+	potential = {
+		religion_group = zoroastrian_group
+	}
+	
+	trigger = {
+		age = 16
+		religion_group = zoroastrian_group
+		is_married = no
+	}
+	option = {
+		name = "All the single ladies, put your hands up"
+		add_character_modifier = {
+			name = zoroastrian_not_married
+			duration = -1
+		}
+	}
+}
+
+character_event = { # Zoroastrian loses penalty for not being married
+	id = 1000094009
+	hide_window = yes
+
+	potential = {
+		religion_group = zoroastrian_group
+	}
+	
+	trigger = {
+		age = 16
+		religion_group = zoroastrian_group
+		is_married = yes
+	}
+	option = {
+		name = "I liked it, so I put a ring on it"
+		remove_character_modifier = { name = zoroastrian_not_married }
+	}
+}
+
+character_event = { # Priscillian acquires bonus for being vegetarian
+	id = 1000094010
+	hide_window = yes
+
+	potential = {
+		religion = priscillianism
+	}
+	trigger = {
+		religion = priscillianism
+		trait = vegetarian
+	}
+	option = {
+		name = "Tastes good man"
+		add_character_modifier = { 
+			modifier = priscillian_vegetarian
+			duration = -1
+		}
+	}
+}
+
+character_event = { # Priscillian loses bonus for being vegetarian
+	id = 1000094011
+	hide_window = yes
+
+	potential = {
+		religion = priscillianism
+	}
+	trigger = {
+		religion = priscillianism
+		NOT = { trait = vegetarian }
+	}
+	option = {
+		name = "Can't withstand that bacon"
+		remove_character_modifier = { priscillian_vegetarian }
+	}
+}
+
+character_event = { # Priscillian, Monatist, or Donatist character starts to be seen as wicked and corrupt
+	id = 1000094012
+	hide_window = yes
+
+	potential = {
+		OR = {
+			religion = monatist
+			religion = donatism
+			religion = priscillianism
+		}
+	}
+	trigger = {
+		age = 16
+		OR = {
+			religion = monatist
+			religion = donatism
+			religion = priscillianism
+		}
+		OR = {
+			trait = lustful
+			trait = decadent
+			trait = cruel
+			trait = greedy
+			trait = torturer
+			trait = drunkard
+			trait = impaler
+			trait = cannibal
+			trait = gluttonous
+#			trait = corrupt
+			has_character_modifier = incestuous_adulterer
+			has_character_modifier = incestuous_adultereress
+			has_character_modifier = adulteress
+			has_character_modifier = adulterer
+			has_character_modifier = known_sodomite
+			has_character_modifier = adulterous_priest
+			has_character_modifier = cannibal
+			has_character_modifier = known_cannibal
+			has_character_modifier = known_murderer
+			has_character_focus = focus_seduction
+			has_character_focus = focus_carousing
+		}
+	}
+	option = {
+		name = "I'll do it my way"
+		add_character_modifier = {
+			name = donamonaprisc_decadent
+			duration = -1
+		}
+	}
+}
+
+character_event = { # Priscillian, Monatist, or Donatist character cleans up their act
+	id = 1000094013
+	hide_window = yes
+
+	potential = {
+		OR = {
+			religion = monatist
+			religion = donatism
+			religion = priscillianism
+		}
+	}
+	trigger = {
+		age = 16
+		OR = {
+			religion = monatist
+			religion = donatism
+			religion = priscillianism
+		}
+		NOT = {
+			trait = lustful
+			trait = decadent
+			trait = cruel
+			trait = greedy
+			trait = torturer
+			trait = drunkard
+			trait = impaler
+			trait = cannibal
+			trait = gluttonous
+#			trait = corrupt
+			has_character_modifier = incestuous_adulterer
+			has_character_modifier = incestuous_adultereress
+			has_character_modifier = adulteress
+			has_character_modifier = adulterer
+			has_character_modifier = known_sodomite
+			has_character_modifier = adulterous_priest
+			has_character_modifier = cannibal
+			has_character_modifier = known_cannibal
+			has_character_modifier = known_murderer
+			has_character_focus = focus_seduction
+			has_character_focus = focus_carousing
+		}
+	}
+	option = {
+		name = "This is the way man is meant to live."
+		remove_character_modifier = { name = donamonaprisc_decadent }
+	}
+}
+
+character_event = { # Commissioned Shahnemah Addition
+	id = 1000094014
+	hide_window = yes
+
+	potential = {
+		religion_group = zoroastrian_group
+	}
+	
+	trigger = {
+		has_character_flag = commissioned_shahnameh_addition
+		religion_group = zoroastrian_group
+	}
+	
+	option = {
+		name = "I think my addition looks the best!"
+		add_character_modifier = {
+			name = commissioned_shahnameh_addition
+			duration = -1
+	}
+}
+
+character_event = { # Zoroastrian penalty for celibacy
+	id = 1000094015
+	hide_window = yes
+
+	potential = {
+		religion_group = zoroastrian_group
+	}
+	
+	trigger = {
+		trait = celibate
+		religion_group = zoroastrian_group
+	}
+	
+	option = {
+		name = "My body, my choice!"
+		add_character_modifier = {
+			name = zoroastrian_celibacy
+			duration = -1
+		}
+	}
+}
+
+character_event = { # Zoroastrian penalty for celibacy revoked (Is this possible?)
+	id = 1000094015
+	hide_window = yes
+
+	potential = {
+		religion_group = zoroastrian_group
+	}
+	
+	trigger = {
+		NOT = { trait = celibate }
+		religion_group = zoroastrian_group
+	}
+	
+	option = {
+		name = "Man, was I was missing out!"
+		remove_character_modifier = { name = zoroastrian_celibacy }
+	}
+}
+
+character_event = { # Zoroastrian penalty for dishonesty
+	id = 1000094016
+	hide_window = yes
+
+	potential = {
+		religion_group = zoroastrian_group
+	}
+	
+	trigger = {
+		OR = {
+			trait = deceitful
+			trait = schemer
+		}
+		religion_group = zoroastrian_group
+	}
+
+	option = {
+		name = "Such gullible fools!"
+		add_character_modifier = {
+			name = zoroastrian_deceitfulness
+			duration = -1
+		}
+	}
+}
+
+character_event = { # Zoroastrian penalty for dishonesty is removed
+	id = 1000094017
+	hide_window = yes
+
+	potential = {
+		religion_group = zoroastrian_group
+	}
+	
+	trigger = {
+		NOT = {
+			trait = deceitful
+			trait = schemer
+		}
+		religion_group = zoroastrian_group
+	}
+
+	option = {
+		name = "Asha makes me a better man!"
+		remove_character_modifier = { name = zoroastrian_deceitfulness }
+	}
+}
+
+
+character_event = { # Zoroastrian bonus for honesty
+	id = 1000094018
+	hide_window = yes
+
+	potential = {
+		religion_group = zoroastrian_group
+	}
+	
+	trigger = {
+		trait = honest
+		religion_group = zoroastrian_group
+	}
+
+	option = {
+		name = "Asha makes me a better man!"
+		add_character_modifier = {
+			name = zoroastrian_honesty
+			duration = -1
+		}
+	}
+}
+
+character_event = { # Zoroastrian loses bonus for honesty
+	id = 1000094019
+	hide_window = yes
+
+	potential = {
+		religion_group = zoroastrian_group
+	}
+	
+	trigger = {
+		NOT = { trait = honest }
+		religion_group = zoroastrian_group
+	}
+
+	option = {
+		name = "Asha is not the best policy..."
+		remove_character_modifier = { name = zoroastrian_honesty }
+	}
+}
