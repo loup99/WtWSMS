@@ -438,6 +438,7 @@ title_master_of_the_horse = {
 		OR = {
 			is_feudal = yes
 			is_tribal = yes
+			is_nomadic = yes
 		}
 		NOT = { has_landed_title = e_wre }
 		NOT = { has_landed_title = e_byzantium }
@@ -446,6 +447,7 @@ title_master_of_the_horse = {
 			religion_group = christian
 			religion_group = jewish_group
 			religion = bosporan_faith
+			is_nomadic = yes
 		}
 	}
 	
@@ -503,10 +505,13 @@ title_master_of_the_hunt = {
 		NOT = { has_landed_title = e_byzantium }
 		NOT = { has_landed_title = e_roman_empire }
 		NOT = { religion = jain }
+		NOT = { religion = priscillianism }
+		NOT = { religion = taoism }
 		OR = {
 			religion_group = christian
 			religion_group = jewish_group
 			religion_group = indian_group
+			religion_group = pagan_group
 			religion = bosporan_faith
 		}
 	}
@@ -542,6 +547,7 @@ title_high_almoner = {
 		OR = {
 			is_feudal = yes
 			is_tribal = yes
+			is_republic = yes
 		}
 		NOT = { has_landed_title = e_wre }
 		NOT = { has_landed_title = e_byzantium }
@@ -599,10 +605,6 @@ title_cupbearer = {
 	}
 	
 	allowed_to_grant = {
-		OR = {
-			is_feudal = yes
-			is_tribal = yes
-		}
 		NOT = { has_landed_title = e_wre }
 		NOT = { has_landed_title = e_byzantium }
 		NOT = { has_landed_title = e_roman_empire }
@@ -744,11 +746,6 @@ title_despot = {
 			has_landed_title = e_byzantium
 			has_landed_title = e_roman_empire
 		}
-		OR = {
-			religion_group = christian
-			religion_group = jewish_group
-			religion_group = pagan_group
-		}
 	}
 	
 	gain_effect = {
@@ -783,11 +780,6 @@ title_sebastokrator = {
 			has_landed_title = e_byzantium
 			has_landed_title = e_roman_empire
 		}
-		OR = {
-			religion_group = christian
-			religion_group = jewish_group
-			religion_group = pagan_group
-		}
 	}
 	
 	gain_effect = {
@@ -819,12 +811,6 @@ title_caesar = {
 			has_landed_title = e_byzantium
 			has_landed_title = e_roman_empire
 			has_landed_title = e_wre
-		}
-		OR = {
-			religion_group = christian
-			religion_group = jewish_group
-			religion_group = pagan_group
-			religion = bosporan_faith
 		}
 	}
 	
@@ -874,11 +860,6 @@ title_kouropalates = {
 			has_landed_title = e_byzantium
 			has_landed_title = e_roman_empire
 		}
-		OR = {
-			religion_group = christian
-			religion_group = jewish_group
-			religion_group = pagan_group
-		}
 	}
 		
 	gain_effect = {
@@ -927,11 +908,6 @@ title_anthypatos = {
 			has_landed_title = e_byzantium
 			has_landed_title = e_roman_empire
 		}
-		OR = {
-			religion_group = christian
-			religion_group = jewish_group
-			religion_group = pagan_group
-		}
 	}
 	
 	gain_effect = {
@@ -961,11 +937,6 @@ title_imperial_eunuch = {
 	
 	allowed_to_grant = {
 		is_feudal = yes
-		OR = {
-			religion_group = christian
-			religion_group = jewish_group
-			religion_group = pagan_group
-		}
 		OR = {
 			has_landed_title = e_byzantium
 			has_landed_title = e_roman_empire
@@ -1099,6 +1070,7 @@ title_court_calligrapher = {
 			religion = confucianism
 			religion = taoism
 			religion = bosporan_faith
+			culture_group = sinic
 		}
 	}
 	
@@ -1822,6 +1794,10 @@ title_baghatur = {
 					has_landed_title = e_mongol_empire
 					has_landed_title = e_golden_horde
 					has_landed_title = e_il-khanate
+					AND = {
+						culture = mongol
+						higher_real_tier_than = KING
+					}
 				}
 			}
 		}
@@ -1869,6 +1845,10 @@ title_cherbi = {
 					has_landed_title = e_mongol_empire
 					has_landed_title = e_golden_horde
 					has_landed_title = e_il-khanate
+					AND = {
+						culture = mongol
+						higher_real_tier_than = KING
+					}
 				}
 			}
 		}
@@ -1916,6 +1896,10 @@ title_darkhan = {
 					has_landed_title = e_mongol_empire
 					has_landed_title = e_golden_horde
 					has_landed_title = e_il-khanate
+					AND = {
+						culture = mongol
+						higher_real_tier_than = KING
+					}
 				}
 			}
 		}
@@ -1956,6 +1940,10 @@ title_noyan = {
 			has_landed_title = e_mongol_empire
 			has_landed_title = e_golden_horde
 			has_landed_title = e_il-khanate
+			AND = {
+				culture = mongol
+				higher_real_tier_than = KING
+			}
 		}
 	}
 	
@@ -2001,6 +1989,10 @@ title_behi = {
 					has_landed_title = e_mongol_empire
 					has_landed_title = e_golden_horde
 					has_landed_title = e_il-khanate
+					AND = {
+						culture = mongol
+						higher_real_tier_than = KING
+					}
 				}
 			}
 		}
@@ -2034,10 +2026,11 @@ title_master_of_the_eagle = {
 	
 	allowed_to_grant = {
 		OR = {
-			AND = {
-				is_nomadic = yes
-				culture = mongol
-			}
+			is_nomadic = yes
+			religion = tengri_pagan
+			religion = tengri_pagan_reformed
+			religion = scythian_pagan
+			religion = scythian_pagan_reformed
 			AND = {
 				OR = {
 					is_feudal = yes
@@ -2403,25 +2396,12 @@ title_champion = {
 			is_feudal = yes
 			is_tribal = yes
 		}
-		OR = {
-			religion = baltic_pagan_reformed
-			religion = baltic_pagan
-			religion = finnish_pagan_reformed
-			religion = finnish_pagan
-			religion = slavic_pagan_reformed
-			religion = slavic_pagan
-			religion = west_african_pagan_reformed
-			religion = west_african_pagan
-			religion = aztec_reformed
-			religion = aztec
-			religion = zun_pagan_reformed
-			religion = zun_pagan
-			religion = hellenic_pagan
-			religion = latin_solar_pagan
-		}
+		religion_group = pagan_group
 		NOT = {
 			religion = tengri_pagan
 			religion = tengri_pagan_reformed
+			religion = scythian_pagan
+			religion = scythian_pagan_reformed
 			religion = root_west_pagan
 			religion = root_west_pagan_reformed
 			religion = sanamahi
@@ -2476,6 +2456,7 @@ title_master_of_the_blade = {
 		OR = {
 			is_feudal = yes
 			is_tribal = yes
+			is_nomadic = yes
 		}
 		NOT = {
 			OR = {
@@ -2484,22 +2465,7 @@ title_master_of_the_blade = {
 				has_landed_title = e_il-khanate
 			}
 		}
-		OR = {
-			religion = baltic_pagan_reformed
-			religion = baltic_pagan
-			religion = finnish_pagan_reformed
-			religion = finnish_pagan
-			religion = slavic_pagan_reformed
-			religion = slavic_pagan
-			religion = west_african_pagan_reformed
-			religion = west_african_pagan
-			religion = aztec_reformed
-			religion = aztec
-			religion = tengri_pagan
-			religion = tengri_pagan_reformed
-			religion = zun_pagan_reformed
-			religion = zun_pagan
-		}
+		religion_group = pagan_group
 	}
 	
 	gain_effect = {
@@ -2549,13 +2515,7 @@ title_master_of_the_bow = {
 		OR = {
 			is_feudal = yes
 			is_tribal = yes
-		}
-		NOT = {
-			OR = {
-				has_landed_title = e_mongol_empire
-				has_landed_title = e_golden_horde
-				has_landed_title = e_il-khanate
-			}
+			is_nomadic = yes
 		}
 		OR = {
 			religion = baltic_pagan_reformed
@@ -2570,8 +2530,13 @@ title_master_of_the_bow = {
 			religion = aztec
 			religion = tengri_pagan
 			religion = tengri_pagan_reformed
-			religion = zun_pagan_reformed
-			religion = zun_pagan
+			religion = scythian_pagan
+			religion = scythian_pagan_reformed
+			culture_group = altaic
+			culture = hunnic
+			culture = mongol
+			culture = tangut
+			is_nomadic = yes
 		}
 	}
 	
@@ -2596,20 +2561,7 @@ title_venerable_elder = {
 		NOT = { 
 			primary_title = { temporary = yes } 
 		}
-		OR = { 
-			is_female = no
-			liege = {
-				OR = {
-					primary_title = {
-						has_law = status_of_women_4
-					}
-					has_game_rule = {
-						name = gender
-						value = all
-					}
-				}
-			}
-		}
+		is_female = no
 		age = 50
 	}
 
@@ -2617,15 +2569,11 @@ title_venerable_elder = {
 		OR = {
 			is_feudal = yes
 			is_tribal = yes
-		}
-		NOT = {
-			OR = {
-				has_landed_title = e_mongol_empire
-				has_landed_title = e_golden_horde
-				has_landed_title = e_il-khanate
-			}
+			is_nomadic = yes
 		}
 		OR = {
+			is_tribal = yes
+			is_nomadic = yes
 			religion = baltic_pagan_reformed
 			religion = baltic_pagan
 			religion = finnish_pagan_reformed
@@ -2634,12 +2582,18 @@ title_venerable_elder = {
 			religion = slavic_pagan
 			religion = west_african_pagan_reformed
 			religion = west_african_pagan
+			religion = east_african_pagan
+			religion = east_african_pagan_reformed
 			religion = aztec_reformed
 			religion = aztec
 			religion = tengri_pagan
 			religion = tengri_pagan_reformed
 			religion = zun_pagan_reformed
 			religion = zun_pagan
+			religion = confucian
+			religion = taoism
+			culture = mongol
+			culture_group = sinic
 		}
 	}
 	
@@ -2688,29 +2642,38 @@ title_yabgu = {
 	}
 
 	allowed_to_grant = {
-		#OR = {
-		#	AND = {
+		OR = {
+			AND = {
 				is_nomadic = yes
 				NOT = { culture = mongol }
-		#	}
-		#	AND = {
-		#		OR = {
-		#			is_feudal = yes
-		#			is_tribal = yes
-		#		}
-		#		NOT = {
-		#			OR = {
-		#				has_landed_title = e_mongol_empire
-		#				has_landed_title = e_golden_horde
-		#				has_landed_title = e_il-khanate
-		#			}
-		#		}
-		#		OR = {
-		#			religion = tengri_pagan
-		#			religion = tengri_pagan_reformed
-		#		}
-		#	}
-		#}
+			}
+			AND = {
+				OR = {
+					is_feudal = yes
+					is_tribal = yes
+				}
+				NOT = {
+					OR = {
+						has_landed_title = e_mongol_empire
+						has_landed_title = e_golden_horde
+						has_landed_title = e_il-khanate
+					}
+				}
+				OR = {
+					religion = tengri_pagan
+					religion = tengri_pagan_reformed
+					religion = scythian_pagan_reformed
+					religion = scythian_pagan
+					AND = {
+						higher_real_tier_than = KING
+						OR = {
+							culture_group = altaic
+							culture = hunnic
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	gain_effect = {
@@ -2755,29 +2718,38 @@ title_ishad = {
 	}
 
 	allowed_to_grant = {
-		#OR = {
-		#	AND = {
+		OR = {
+			AND = {
 				is_nomadic = yes
 				NOT = { culture = mongol }
-		#	}
-		#	AND = {
-		#		OR = {
-		#			is_feudal = yes
-		#			is_tribal = yes
-		#		}
-		#		NOT = {
-		#			OR = {
-		#				has_landed_title = e_mongol_empire
-		#				has_landed_title = e_golden_horde
-		#				has_landed_title = e_il-khanate
-		#			}
-		#		}
-		#		OR = {
-		#			religion = tengri_pagan
-		#			religion = tengri_pagan_reformed
-		#		}
-		#	}
-		#}
+			}
+			AND = {
+				OR = {
+					is_feudal = yes
+					is_tribal = yes
+				}
+				NOT = {
+					OR = {
+						has_landed_title = e_mongol_empire
+						has_landed_title = e_golden_horde
+						has_landed_title = e_il-khanate
+					}
+				}
+				OR = {
+					religion = tengri_pagan
+					religion = tengri_pagan_reformed
+					religion = scythian_pagan_reformed
+					religion = scythian_pagan
+					AND = {
+						higher_real_tier_than = KING
+						OR = {
+							culture_group = altaic
+							culture = hunnic
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	gain_effect = {
@@ -2808,29 +2780,37 @@ title_kundur = {
 	}
 	
 	allowed_to_grant = {
-		#OR = {
-		#	AND = {
+		OR = {
+			AND = {
 				is_nomadic = yes
 				NOT = { culture = mongol }
-		#	}
-		#	AND = {
-		#		OR = {
-		#			is_feudal = yes
-		#			is_tribal = yes
-		#		}
-		#		NOT = {
-		#			OR = {
-		#				has_landed_title = e_mongol_empire
-		#				has_landed_title = e_golden_horde
-		#				has_landed_title = e_il-khanate
-		#			}
-		#		}
-		#		OR = {
-		#			religion = tengri_pagan
-		#			religion = tengri_pagan_reformed
-		#		}
-		#	}
-		#}
+			}
+			AND = {
+				OR = {
+					is_feudal = yes
+					is_tribal = yes
+				}
+				NOT = {
+					has_landed_title = e_mongol_empire
+					has_landed_title = e_golden_horde
+					has_landed_title = e_il-khanate
+
+				}
+				OR = {
+					religion = tengri_pagan
+					religion = tengri_pagan_reformed
+					religion = scythian_pagan_reformed
+					religion = scythian_pagan
+					AND = {
+						higher_real_tier_than = KING
+						OR = {
+							culture_group = altaic
+							culture = hunnic
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	gain_effect = {
@@ -2896,6 +2876,7 @@ title_master_of_the_royal_elephants = {
 		OR = { 
 			religion_group = indian_group
 			religion = sanamahi
+			religion = sanamahi_reformed
 		}
 	}
 	
@@ -3169,8 +3150,8 @@ title_councilmember_emperor = {
 title_court_physician = {
 	is_high_prio = yes
 	attribute = learning
-    dignity = 5
-    realm_in_name = yes
+	dignity = 5
+	realm_in_name = yes
 	grant_limit = 1
 	opinion_effect = 10
 	monthly_salary = 0.2
@@ -3196,14 +3177,12 @@ title_court_physician = {
 			OR = {
 				is_female = no
 				AND = {
-					OR = {
-						religion = messalian
-						religion = cathar
-					}
-					liege = { religion = ROOT }
+					is_feminist_religion_trigger = yes
+					liege = { is_feminist_religion_trigger = yes }
 				}
 				liege = {
 					OR = {
+						is_feminist_religion_trigger = yes
 						primary_title = {
 							has_law = status_of_women_4
 						}
@@ -3217,10 +3196,10 @@ title_court_physician = {
 		}
 		OR = {
 			learning = 15
+			trait = physician
 			AND = {
 				learning = 10
 				OR = {
-					trait = physician
 					trait = scholar
 					trait = mystic
 					trait = mutazilite
@@ -3262,8 +3241,8 @@ title_court_physician = {
 title_hermetics_apprentice = {
 	is_high_prio = yes
 	attribute = learning
-    dignity = 1
-    realm_in_name = no
+	dignity = 1
+	realm_in_name = no
 	grant_limit = 1
 	opinion_effect = 10
 	monthly_salary = 0.1
@@ -3300,6 +3279,7 @@ title_hermetics_apprentice = {
 				FROM = { ai = no }
 				learning = 10
 				is_smart_trigger = yes
+				is_learned_trigger = yes
 				trait = gardener
 				trait = scholar
 				trait = mystic

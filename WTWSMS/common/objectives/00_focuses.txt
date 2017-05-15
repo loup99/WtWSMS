@@ -186,6 +186,8 @@ focus_seduction = {
 				NOT = { has_character_modifier = hindu_ascetic }
 				NOT = { has_character_modifier = buddhist_ascetic }
 				NOT = { has_character_modifier = jain_naked_ascetic }
+				NOT = { trait = monk }
+				NOT = { trait = nun }
 			}
 		}
 	}
@@ -207,7 +209,7 @@ focus_seduction = {
 		}
 		
 		modifier = {
-			factor = 0.01 # Faithful spouse/consort
+			factor = 0 # Faithful spouse/consort
 			OR = {
 				AND = {
 					is_married = yes
@@ -296,6 +298,10 @@ focus_seduction = {
 			factor = 2.0
 			religion = antinomianism
 		}
+		modifier = {
+			factor = 4
+			trait = whoreborite
+		}
 	}
 	
 	# Focuses have no success conditions
@@ -307,11 +313,22 @@ focus_seduction = {
 		OR = {
 			trait = incapable
 			is_playable = no
+			trait = chaste
 			trait = eunuch
 			trait = celibate
+			trait = monk
+			trait = nun
 			religion = montanist
 			religion = donatism
 			religion = priscillianism
+			AND = {	
+				religion_group = christian_group
+				trait = zealous
+			}
+			AND = {
+				religion_group = jewish_group
+				trait = zealous
+			}
 		}
 	}
 	
@@ -403,6 +420,14 @@ focus_intrigue = {
 			factor = 4.0
 			trait = deceitful
 		}
+		AND = {	
+				religion_group = christian_group
+				trait = zealous # You shall not lie, you shall not murder
+		}
+		AND = {
+				religion_group = jewish_group
+				trait = zealous # You shall not lie, you shall not murder
+		}
 	}
 	
 	# Focuses have no success conditions
@@ -415,6 +440,14 @@ focus_intrigue = {
 			prisoner = yes
 			trait = incapable
 			is_playable = no
+			AND = {	
+				religion_group = christian_group
+				trait = zealous
+			}
+			AND = {
+				religion_group = jewish_group
+				trait = zealous
+			}
 		}
 	}
 	
@@ -438,6 +471,7 @@ focus_hunting = {
 		is_adult = yes
 		NOT = { trait = incapable }
 		NOT = { religion = jain }
+		NOT = { religion = taoism }
 		NOT = { trait = vegetarian }
 		NOT = {
 			AND = {
@@ -489,6 +523,7 @@ focus_hunting = {
 			trait = incapable
 			is_playable = no
 			religion = jain
+			religion = taoism
 			trait = vegetarian
 			AND = {
 				religion = priscillianism
@@ -517,6 +552,7 @@ focus_war = {
 	allow = {
 		prisoner = no
 		is_adult = yes
+		NOT = { religion = jain } # Total pacifism
 		NOT = { trait = incapable }
 	}
 	
@@ -586,6 +622,7 @@ focus_war = {
 			prisoner = yes
 			trait = incapable
 			is_playable = no
+			religion = jain
 		}
 	}
 	
@@ -617,6 +654,7 @@ focus_carousing = {
 			trait = decadent
 			trait = hedonist
 			trait = drunkard
+			trait = gluttonous
 		}
 		custom_tooltip = {
 			text = is_not_ascetic
@@ -624,6 +662,10 @@ focus_carousing = {
 				NOT = { has_character_modifier = hindu_ascetic }
 				NOT = { has_character_modifier = buddhist_ascetic }
 				NOT = { has_character_modifier = jain_naked_ascetic }
+				NOT = {
+					trait = monk
+					trait = nun
+				}
 			}
 		}
 	}
