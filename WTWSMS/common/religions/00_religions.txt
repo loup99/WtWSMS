@@ -114,7 +114,7 @@ christian = {
 		feminist = yes      # Nullifies the negative opinion modifier that vassals normally get if ruler is female or has female heir
 		
 		religious_clothing_head = 0
-		religious_clothing_priest = 1
+		religious_clothing_priest = 0
 		
 		general_opinion = -20
 		same_opinion_if_same_religion = 40
@@ -183,8 +183,8 @@ christian = {
 		can_retire_to_monastery = yes
 		priests_can_inherit = no
 		
-		religious_clothing_head = 0
-		religious_clothing_priest = 1
+		religious_clothing_head = 5 # Lollards would not have worn anything beyond basic robes due to asceticism
+		religious_clothing_priest = 5
 	}
 	
 	orthodox = {
@@ -399,8 +399,8 @@ christian = {
 		can_retire_to_monastery = yes
 		female_temple_holders = no
 		
-		religious_clothing_head = 2
-		religious_clothing_priest = 2
+		religious_clothing_head = 1
+		religious_clothing_priest = 1
 		
 		general_opinion = -10
 		same_opinion_if_same_religion = 20
@@ -618,8 +618,8 @@ christian = {
 		pc_marriage = yes
 		bs_marriage = yes
 
-		religious_clothing_head = 2
-		religious_clothing_priest = 2
+		religious_clothing_head = 0
+		religious_clothing_priest = 0
 		
 		general_opinion = -10
 		same_opinion_if_same_religion = 20
@@ -877,6 +877,9 @@ christian = {
 	donatism = {
 		graphical_culture = westerngfx
 
+		ai_convert_same_group = 2
+		ai_convert_other_group = 2
+
 		icon = 106
 		heresy_icon = 130
 		
@@ -1069,8 +1072,8 @@ christian = {
 		can_retire_to_monastery = yes
 		priests_can_inherit = no
 		
-		religious_clothing_head = 2
-		religious_clothing_priest = 2
+		religious_clothing_head = 5
+		religious_clothing_priest = 5
 		
 		general_opinion = -10
 		same_opinion_if_same_religion = 20
@@ -1635,6 +1638,9 @@ muslim = {
 		general_opinion = -10
 		same_opinion_if_same_religion = 20
 		infidel_opinion = -20
+
+		religious_clothing_head = 5
+		religious_clothing_priest = 5
 	}
 	hurufi = {
 		graphical_culture = muslimgfx
@@ -1764,8 +1770,8 @@ muslim = {
 		religious_clothing_priest = 5
 
 		landed_kin_prestige_bonus = yes
-		}
 	}
+}
 	
 pagan_group = {
 	has_coa_on_barony_only = yes
@@ -3425,6 +3431,8 @@ pagan_group = {
 		
 		dislike_tribal_organization = yes
 	}
+
+
 	
 	west_african_pagan_reformed = {
 		graphical_culture = africangfx
@@ -3679,7 +3687,7 @@ pagan_group = {
 		
 		high_god_name = GOD_GURZIL
 		god_names = {
-			GOD_AMUN GOD_GURZIL
+			THE_BULL GOD_AMUN GOD_GURZIL THE_BULL_GOD
 		}
 		evil_god_names = {
 			THE_DARK_SPIRITS
@@ -3703,7 +3711,7 @@ pagan_group = {
 		
 		independence_war_score_bonus = 30 # Overrides define CONTESTED_TITLE_OCCUPIED_WARSCORE_BONUS_INDEP
 		
-		aggression = 2 # AI Aggression
+		aggression = 4 # AI Aggression
 		
 		religious_clothing_head = 3
 		religious_clothing_priest = 3
@@ -4039,13 +4047,14 @@ pagan_group = {
 	
 	assyrian_pagan = { # Ashurism, LONG LIVE ENLIL!
 		graphical_culture = persiangfx
-		secondary_event_pictures = sunni
+		secondary_event_pictures = zoroastrian
 		
 		ai_peaceful = no
 
 		pre_reformed = yes
 
 		ai_convert_other_group = 2 # always try to convert
+		ai_convert_same_group = 2 # always try to convert
 		
 		icon = 79
 		heresy_icon = 80
@@ -4068,12 +4077,57 @@ pagan_group = {
 		priests_can_marry = yes
 		female_temple_holders = yes
 		max_consorts = 3 #Mesopotamian culture was highly sexualised
+		hostile_within_group = yes
+		dislike_tribal_organization = no
+		independence_war_score_bonus = 50
 		
 		aggression = 10 # The Ancient assyrians believed that if they stopped conquering it would literally be the end of the world
 		raised_vassal_opinion_loss = no
 		peace_piety_gain = -1.0
 
 		religious_clothing_head = 5
+		religious_clothing_priest = 5
+
+		intermarry = zoroastrian_group
+	}
+
+	ashurism_pagan = { # The primordial religion of the Assyrians under Babylonian rule, a heresy for the Assyrians syncretized with the Babylonian pantheon
+		graphical_culture = persiangfx
+		secondary_event_pictures = zoroastrian
+		
+		parent = assyrian_pagan
+
+		ai_peaceful = yes
+
+		pre_reformed = yes
+
+		icon = 80
+#		heresy_icon = 79
+		
+		color = { 0.6 0.15 0.3 }
+		
+		high_god_name = GOD_ASSUR
+		god_names = {
+			GOD_ENLIL GOD_THE_SUN GOD_ANU GOD_BEL GOD_BELUS GOD_VICTORIOUS_BAAL GOD_BAAL GOD_EA GOD_SHAMASH GOD_RAMMAN
+		}
+		evil_god_names = {
+			MOT
+		}
+		
+		crusade_name = SUN_WAR
+		scripture_name = ENUMA_ELIS
+		priest_title = BARE
+		allow_looting = yes
+		raised_vassal_opinion_loss = no
+		priests_can_marry = yes
+		female_temple_holders = yes
+		max_consorts = 3 #Mesopotamian culture was highly sexualised
+		dislike_tribal_organization = yes
+		ignores_defensive_attrition = yes
+		
+		raised_vassal_opinion_loss = no
+
+		religious_clothing_head = 3
 		religious_clothing_priest = 5
 	}
 	
@@ -4278,14 +4332,14 @@ pagan_group = {
 
 		
 		crusade_name = GUDA_SANTUA
-        scripture_name = EUSKAL_BIBLIA		
-        priest_title = ZAI
+       		scripture_name = EUSKAL_BIBLIA		
+		priest_title = ZAI
       	priests_can_marry = yes
         female_temple_holders = yes
         feminist = yes
         defensive_attrition = yes
         max_consorts = 3
-		reformed = vasconic_pagan_reformed
+reformed = vasconic_pagan_reformed
 		
         peace_prestige_loss = no 
         raised_vassal_opinion_loss = no
