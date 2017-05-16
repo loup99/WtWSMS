@@ -18,7 +18,7 @@ character_event = { # Zoroastrian receives penalty for not being married
 		is_married = no
 	}
 	option = {
-		name = "All the single ladies, put your hands up"
+		name = "All the singles, put your hands up"
 		add_character_modifier = {
 			name = zoroastrian_not_married
 			duration = -1
@@ -36,7 +36,8 @@ character_event = { # Zoroastrian loses penalty for not being married
 	
 	trigger = {
 		age = 16
-		religion_group = zoroastrian_group
+#		religion_group = zoroastrian_group
+		has_character_modifier = zoroastrian_not_married
 		is_married = yes
 	}
 	option = {
@@ -59,7 +60,7 @@ character_event = { # Priscillian acquires bonus for being vegetarian
 	option = {
 		name = "Tastes good man"
 		add_character_modifier = { 
-			modifier = priscillian_vegetarian
+			name = priscillian_vegetarian
 			duration = -1
 		}
 	}
@@ -74,6 +75,7 @@ character_event = { # Priscillian loses bonus for being vegetarian
 	}
 	trigger = {
 		religion = priscillianism
+		has_character_modifier = priscillian_vegetarian
 		NOT = { trait = vegetarian }
 	}
 	option = {
@@ -82,13 +84,13 @@ character_event = { # Priscillian loses bonus for being vegetarian
 	}
 }
 
-character_event = { # Priscillian, Monatist, or Donatist character starts to be seen as wicked and corrupt
+character_event = { # Priscillian, Montanist, or Donatist character starts to be seen as wicked and corrupt
 	id = 1000094012
 	hide_window = yes
 
 	potential = {
 		OR = {
-			religion = monatist
+			religion = montanist
 			religion = donatism
 			religion = priscillianism
 		}
@@ -96,7 +98,7 @@ character_event = { # Priscillian, Monatist, or Donatist character starts to be 
 	trigger = {
 		age = 16
 		OR = {
-			religion = monatist
+			religion = montanist
 			religion = donatism
 			religion = priscillianism
 		}
@@ -108,9 +110,12 @@ character_event = { # Priscillian, Monatist, or Donatist character starts to be 
 			trait = torturer
 			trait = drunkard
 			trait = impaler
-			trait = cannibal
+			trait = cannibal_trait
 			trait = gluttonous
-#			trait = corrupt
+			trait = seducer
+			trait = seductress
+			trait = bad_priest_christian
+			trait = schemer
 			has_character_modifier = incestuous_adulterer
 			has_character_modifier = incestuous_adultereress
 			has_character_modifier = adulteress
@@ -122,6 +127,7 @@ character_event = { # Priscillian, Monatist, or Donatist character starts to be 
 			has_character_modifier = known_murderer
 			has_character_focus = focus_seduction
 			has_character_focus = focus_carousing
+#			trait = corrupt
 		}
 	}
 	option = {
@@ -139,15 +145,17 @@ character_event = { # Priscillian, Monatist, or Donatist character cleans up the
 
 	potential = {
 		OR = {
-			religion = monatist
+			religion = montanist
 			religion = donatism
 			religion = priscillianism
 		}
+
 	}
 	trigger = {
 		age = 16
+		has_character_modifier = donamonaprisc_decadent
 		OR = {
-			religion = monatist
+			religion = montanist
 			religion = donatism
 			religion = priscillianism
 		}
@@ -159,9 +167,12 @@ character_event = { # Priscillian, Monatist, or Donatist character cleans up the
 			trait = torturer
 			trait = drunkard
 			trait = impaler
-			trait = cannibal
+			trait = cannibal_trait
 			trait = gluttonous
-#			trait = corrupt
+			trait = seducer
+			trait = seductress
+			trait = bad_priest_christian
+			trait = schemer
 			has_character_modifier = incestuous_adulterer
 			has_character_modifier = incestuous_adultereress
 			has_character_modifier = adulteress
@@ -173,10 +184,12 @@ character_event = { # Priscillian, Monatist, or Donatist character cleans up the
 			has_character_modifier = known_murderer
 			has_character_focus = focus_seduction
 			has_character_focus = focus_carousing
+#			trait = corrupt
 		}
 	}
 	option = {
 		name = "This is the way man is meant to live."
+		piety = 100
 		remove_character_modifier = donamonaprisc_decadent
 	}
 }
@@ -236,11 +249,12 @@ character_event = { # Zoroastrian penalty for celibacy revoked (Is this possible
 	trigger = {
 		NOT = { trait = celibate }
 		religion_group = zoroastrian_group
+		has_character_modifier = zoroastrian_celibacy
 	}
 	
 	option = {
 		name = "Man, was I was missing out!"
-		remove_character_modifier = { name = zoroastrian_celibacy }
+		remove_character_modifier = zoroastrian_celibacy
 	}
 }
 
@@ -282,12 +296,13 @@ character_event = { # Zoroastrian penalty for dishonesty is removed
 			trait = deceitful
 			trait = schemer
 		}
+		has_character_modifier = zoroastrian_deceitfulness
 		religion_group = zoroastrian_group
 	}
 
 	option = {
 		name = "Asha makes me a better man!"
-		remove_character_modifier = { name = zoroastrian_deceitfulness }
+		remove_character_modifier = zoroastrian_deceitfulness
 	}
 }
 
@@ -324,11 +339,12 @@ character_event = { # Zoroastrian loses bonus for honesty
 	
 	trigger = {
 		NOT = { trait = honest }
+		has_character_modifier = zoroastrian_honesty
 		religion_group = zoroastrian_group
 	}
 
 	option = {
 		name = "Asha is not the best policy..."
-		remove_character_modifier = { name = zoroastrian_honesty }
+		remove_character_modifier = zoroastrian_honesty
 	}
 }
