@@ -425,11 +425,11 @@ christian = {
 		religious_clothing_priest = 5
 
 		character_modifier = { ### If Antinomians can sin without consequence, few other Christians will like them and they'll sin a ton. ###
-			same_religion_opinion = 25
+			same_religion_opinion = 50
 			fertility = 0.3
 			add_piety_midifier = -0.25
 			sex_appeal_opinion = 5
-			christian_opinion = -15
+			christian_opinion = -50
 		}
 
 		high_god_name = { 
@@ -470,7 +470,7 @@ christian = {
 			GOD_GOD GOD_THE_LORD GOD_YESHUA
 		}
 		evil_god_names = {
-			SATAN
+			SATAN THE_DEVIL
 		}
 
 		autocephaly = yes
@@ -528,7 +528,7 @@ christian = {
 
 		
 		character_modifier = {
-			global_tax_modifier = 0.1
+			global_tax_modifier = 0.20
 			fertility = -0.2
 		}
 
@@ -571,6 +571,8 @@ christian = {
 		evil_god_names = {
 			GOD_YALDABAOTH
 		}
+
+		independence_war_score_bonus = 75
 		
 		can_retire_to_monastery = yes
 		female_temple_holders = yes
@@ -617,6 +619,8 @@ christian = {
 		divine_blood = yes # Sacred Xwedodah close-kin marriage mechanics
 		pc_marriage = yes
 		bs_marriage = yes
+
+		independence_war_score_bonus = 50
 
 		religious_clothing_head = 0
 		religious_clothing_priest = 0
@@ -726,6 +730,10 @@ christian = {
 		evil_god_names = {
 			SATAN THE_DEVIL THE_DARKNESS THE_DARK_SPIRITS
 		}
+
+		dislike_tribal_organization = no
+
+		independence_war_score_bonus = 50
 
 		can_retire_to_monastery = yes
 		female_temple_holders = no
@@ -1150,8 +1158,8 @@ christian = {
 		religious_clothing_head = 2
 		religious_clothing_priest = 2
 
-		intermarry = zoroastrian
-		intermarry = islamic
+		intermarry = zoroastrian_group
+		intermarry = muslim
 		
 		general_opinion = -10
 		same_opinion_if_same_religion = 20
@@ -1341,6 +1349,7 @@ muslim = {
 		uses_jizya_tax = no
 		can_hold_temples = no
 		defensive_attrition = yes #Yazidi originated deep in the mountains and hostile terrain
+		independence_war_score_bonus = 75
 
 		religious_clothing_head = 5 #The Sheikh wears white but can wear a pink headdress
 		religious_clothing_priest = 5 #Different orders of Yazidi clergy wear different colors (lowest rank wears black), but white is considered universally accepted
@@ -1526,9 +1535,9 @@ muslim = {
 		max_wives = 4
 		matrilineal_marriages = no
 		landed_kin_prestige_bonus = yes
- 		attacking_same_religion_piety_loss = yes
 		uses_decadence = yes
 		uses_jizya_tax = yes
+		hostile_within_group = yes # All other Muslims (especially non-Sunnis) were seen as "impure" and to be murdered, and still are to this day
 
 		religious_clothing_head = 5 #They actually wear black, but there is no black model that looks like number five
 		religious_clothing_priest = 5
@@ -4068,6 +4077,26 @@ pagan_group = {
 		evil_god_names = {
 			HUMBABA ASAG PAZUZU HANBI KUR LAMASHTU NAMTAR
 		}
+
+		character_modifier = {
+			martial = 4
+			commander_limit = 3
+			short_reign_length = 0 # Assyrians worshipped their rulers as a direct connection to the Ashur and the gods (if they were not gods themselves)
+			ai_ambition = 5 # Causes Assyrian characters to be more likely to go to war, compunds with aggression
+		}
+
+		unit_modifier = {
+			camel_calvary_offensive = 0.5 # The Assyrian Empire mastered the use of the camel
+			land_morale = 0.66
+			light_infantry_offensive= 0.1
+			heavy_infantry_offensive = 0.1
+			knights_offensive = 0.1
+			archers_offensive = 0.1
+			garrison_size = 0.20
+			winter_supply = -0.1 # The Assyrian Empire failed to withstand the cold and never expanded northward in that way
+
+			key = "OFF_RELIGION"
+		}
 		
 		crusade_name = GREAT_HOLY_WAR
 		scripture_name = THE_EPICS
@@ -4080,8 +4109,9 @@ pagan_group = {
 		hostile_within_group = yes
 		dislike_tribal_organization = no
 		independence_war_score_bonus = 50
+		ignores_defensive_attrition = yes
 		
-		aggression = 10 # The Ancient assyrians believed that if they stopped conquering it would literally be the end of the world
+		aggression = 10 # The Ancient Assyrians believed that if they stopped conquering it would literally be the end of the world
 		raised_vassal_opinion_loss = no
 		peace_piety_gain = -1.0
 
@@ -4123,7 +4153,7 @@ pagan_group = {
 		female_temple_holders = yes
 		max_consorts = 3 #Mesopotamian culture was highly sexualised
 		dislike_tribal_organization = yes
-		ignores_defensive_attrition = yes
+		hostile_within_group = yes
 		
 		raised_vassal_opinion_loss = no
 
@@ -4994,24 +5024,41 @@ jewish_group = {
 		}
 		
 		unit_modifier = {
-			levy_size = 0.3
+			levy_size = 0.35
 			
 			retinuesize_perc = 0.5
 			
 			key = "OFF_RELIGION"
 		}
+
+		unit_home_modifier = {
+			land_morale = 0.66
+			light_infantry_defensive = 0.3
+			heavy_infantry_defensive = 0.4
+			knights_defensive = 0.3
+			archers_defensive = 0.2
+			garrison_size = 0.25
+			winter_supply = 0.05 # Mountainous nature
+
+			key = "DEF_RELIGION_HOME_TERRITORY"
+		}
 		
 		character_modifier = {
-			martial  = 2
+			martial  = 4
+			combat_rating = 0.5
+			commander_limit = 1
+			ai_ambition = 1
+			ai_zeal = 2
 		}
 
 		can_grant_divorce = yes
 		can_call_crusade = yes
 		can_grant_invasion_cb = invasion
+		allow_looting = yes
 		
 		priests_can_marry = yes
 		
-		aggression = 2.0 # Offensive Religion 
+		aggression = 5 # Offensive Religion 
 		religious_clothing_head = 7
 		religious_clothing_priest = 7
 		
@@ -5081,7 +5128,7 @@ bosporan_group = {
 			GOD_BOSPORAN GOD_THE_HERO GOD_THE_THREE_MOTHERS GOD_HYPSISTOS
 		}
 		evil_god_names = {
-			SATAN
+			THE_DARKNESS
 		}
 		
 		can_grant_divorce = yes
