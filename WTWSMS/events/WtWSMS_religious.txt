@@ -1489,11 +1489,10 @@ character_event = { # Donatist Tratidores get their own special Trait, because b
 	hide_window = yes
 
 	trigger = {
-       		religion = donatism
+       	religion = donatism
 		OR = {
 			is_theocracy = yes
 			has_job_title = job_spiritual
-			trait = bad_priest_christian
 		}
 		has_character_modifier = donamonaprisc_decadent
 	}
@@ -1510,7 +1509,14 @@ character_event = { # Donatist Tratidores get their own special Trait, because b
 			name = traditor_donatism
 			duration = -1
 		}
-		abdicate = yes # The Donatist denomination required all open Traditores to immediately vacate their office
+		if = {
+			limit = {
+#				# Conditions
+				is_ruler = yes
+			}
+#			# Commands to execute if the conditions match
+			abdicate = yes # The Donatist denomination required all open Traditores to immediately vacate their office
+		}
 	}
 }
 
@@ -1521,7 +1527,10 @@ character_event = { # A Donatist Tratidor has repented and everyone celebrates h
 
 	trigger = {
 		religion = donatism
-		trait = bad_priest_donatism
+		OR = {
+			trait = bad_priest_donatism
+			has_character_modifier = traditor_donatism
+		}
 		NOT = { has_character_modifier = donamonaprisc_decadent }
 	}
 
@@ -1543,9 +1552,9 @@ character_event = { # A Donatist Tratidor has repented and everyone celebrates h
 
 
 ##################################################################
-#								  #
-# 			Sanamahi Events				  #
-#								  #
+#																 #
+# 					Sanamahi Events				  				 #
+#								  								 #
 ##################################################################
 
 namespace = sanamahi
