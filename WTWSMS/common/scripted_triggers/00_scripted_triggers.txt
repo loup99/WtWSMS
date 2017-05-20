@@ -2146,9 +2146,7 @@ has_society_currency_major_trigger = {
 }
 
 is_ill_trigger = {
-	OR = {
-		has_disease_trigger = yes
-	}
+	has_disease_trigger = yes
 }
 
 is_devil_worshiper_trigger = {
@@ -2682,6 +2680,28 @@ is_in_prevs_interesting_society_trigger = {
 			society_member_of = secret_religious_society_aztec_reformed
 			PREV = { interested_in_society = secret_religious_society_aztec_reformed }
 		}
+
+		### ACR ###
+		AND = {
+			society_member_of = secret_religious_society_celtic_pagan
+			PREV = { interested_in_society = secret_religious_society_celtic_pagan }
+		}
+		AND = {
+			society_member_of = secret_religious_society_celtic_pagan_reformed
+			PREV = { interested_in_society = secret_religious_society_celtic_pagan_reformed }
+		}
+		AND = {
+			society_member_of = secret_religious_society_hellenic_pagan
+			PREV = { interested_in_society = secret_religious_society_hellenic_pagan }
+		}
+		AND = {
+			society_member_of = secret_religious_society_egyptian_pagan
+			PREV = { interested_in_society = secret_religious_society_egyptian_pagan }
+		}
+		AND = {
+			society_member_of = secret_religious_society_aten_pagan
+			PREV = { interested_in_society = secret_religious_society_aten_pagan }
+		}
 	}
 }
 
@@ -3003,6 +3023,38 @@ has_any_char_old_religion = {
 	    	has_character_flag = character_was_aztec_reformed
 	    	any_character = {
 	    		religion = aztec_reformed
+	    	}
+	    }
+
+	    ### ACR ###
+	    AND = { 
+	    	has_character_flag = character_was_celtic_pagan
+	    	any_character = {
+	    		religion = celtic_pagan
+	    	}
+	    }
+	    AND = { 
+	    	has_character_flag = character_was_celtic_pagan_reformed
+	    	any_character = {
+	    		religion = celtic_pagan_reformed
+	    	}
+	    }
+	    AND = { 
+	    	has_character_flag = character_was_hellenic_pagan
+	    	any_character = {
+	    		religion = hellenic_pagan
+	    	}
+	    }
+	    AND = { 
+	    	has_character_flag = character_was_egyptian_pagan
+	    	any_character = {
+	    		religion = egyptian_pagan
+	    	}
+	    }
+	    AND = { 
+	    	has_character_flag = character_was_aten_pagan
+	    	any_character = {
+	    		religion = aten_pagan
 	    	}
 	    }
 	}
@@ -3489,6 +3541,37 @@ looting_artifact_event_religious_artifacts_trigger = {
 				ROOT = { religion_group = indian_group }
 			}
 		}
+
+		### ACR ###
+		NAND = {
+			any_artifact = {
+				has_artifact_flag = looted_artifact_tooltip_1
+				has_artifact_flag = celtic_pagan
+				ROOT = { OR = { religion = celtic_pagan religion = celtic_pagan_reformed } }
+			}
+		}
+		NAND = {
+			any_artifact = {
+				has_artifact_flag = looted_artifact_tooltip_1
+				has_artifact_flag = hellenic_pagan
+				ROOT = { religion = hellenic_pagan }
+			}
+		}
+		NAND = {
+			any_artifact = {
+				has_artifact_flag = looted_artifact_tooltip_1
+				has_artifact_flag = egyptian_pagan
+				ROOT = { religion = egyptian_pagan }
+			}
+		}
+		NAND = {
+			any_artifact = {
+				has_artifact_flag = looted_artifact_tooltip_1
+				has_artifact_flag = aten_pagan
+				ROOT = { religion = aten_pagan }
+			}
+		}
+
 	}
 }
 
@@ -4077,10 +4160,16 @@ has_unsafe_secret_religion = {
 				secret_religion = west_african_pagan_reformed
 				secret_religion = zun_pagan
 				secret_religion = zun_pagan_reformed
-				secret_religion = hellenic_pagan
 				secret_religion = pagan
 				secret_religion = aztec
 				secret_religion = aztec_reformed
+
+				### ACR ###
+				secret_religion = celtic_pagan
+				secret_religion = celtic_pagan_reformed
+				secret_religion = hellenic_pagan
+				secret_religion = egyptian_pagan
+				secret_religion = aten_pagan
 			}
 		}
 		AND = {
