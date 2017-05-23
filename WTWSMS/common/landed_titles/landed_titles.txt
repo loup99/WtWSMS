@@ -3425,10 +3425,11 @@ e_roman_empire = {
 	
 	culture = roman
 	religion = nicene
+	primary = yes
 	
 	dynasty_title_names = no
 
-	dignity = 100
+	dignity = 500
 
 	allow = {
 		always = no # Only created through special event
@@ -3445,8 +3446,9 @@ e_byzantium = {
 	
 	culture = greek
 	religion = nicene
+	dynasty_title_names = no
 	
-	duchy_revokation=yes # The Emperor can revoke duchies at no prestige cost and no opinion penalty with other vassals
+	duchy_revokation = yes # The Emperor can revoke duchies at no prestige cost and no opinion penalty with other vassals
 	
 	has_top_de_jure_capital = yes
 	
@@ -3475,10 +3477,10 @@ e_byzantium = {
 			independent = yes
 			OR = {
 				culture = helleno_aramean
-				culture = greek
+				culture_group = byzantine
 			}
 			is_adult = yes
-			prestige = 5000
+			prestige = 2000
 			OR = {
 				religion_group = christian
 				religion = hellenic_pagan
@@ -3514,7 +3516,7 @@ e_byzantium = {
 	k_trebizond = {
 		color={ 100 151 33 }
 		capital = 678 # Trapezous
-		culture = greek
+		culture = pontic
 	
 		allow = {
 			always = no
@@ -3565,17 +3567,20 @@ e_byzantium = {
 		capital = 560 # Cherson
 		
 		hellenic_pagan = 600
-		bosporan_faith = 200
+		bosporan_faith = 1000
 		
 		allow = {
 			hidden_tooltip = {
 				OR = {
 					ai = no
-					AND = {
-						religion_group = christian
-						OR = { 
-							culture_group = byzantine
-							culture_group = latin
+					religion = bosporan_faith
+					OR = {
+						AND = {
+							religion_group = christian
+							OR = { 
+								culture_group = byzantine
+								culture_group = latin
+							}
 						}
 					}
 				}
@@ -5284,6 +5289,8 @@ e_byzantium = {
 				greek = "Lazike"
 				turkish = "Batum"
 				armenian = "Yeger"
+
+				holy_site = tzadikite
 				
 				b_bukistsikhe = {
 				}
@@ -5708,6 +5715,7 @@ e_byzantium = {
 				color2={ 255 255 255 }
 				
 				holy_site = jewish
+				holy_site = tzadikite
 				holy_site = ebionites
 				holy_site = samaritan
 				holy_site = karaite
@@ -5960,7 +5968,8 @@ e_byzantium = {
 				holy_site = nestorian
 				holy_site = pagan
 				holy_site = yazidi
-				holy_site = jewish	
+				holy_site = jewish
+				holy_site = tzadikite
 				holy_site = ebionites
 				holy_site = samaritan
 				holy_site = karaite
@@ -15647,6 +15656,7 @@ e_armenia = {
 	levantine_arabic = Azerbaijan
 	egyptian_arabic = Azerbaijan
 	andalusian_arabic = Azerbaijan
+	juhuro = "Yehudey Kavkaz"
 	
 	k_iberia = {
 		color={ 0 155 205 }
@@ -15656,6 +15666,7 @@ e_armenia = {
 		culture = georgian
 		
 		georgian = "Kartli"
+		juhuro = "Kavkaz" # Caucasus
 		
 		d_iberia = {
 			color={ 0 155 205 }
@@ -15664,6 +15675,7 @@ e_armenia = {
 			capital = 679 #	Kartli
 			
 			georgian = "Kartli"
+			juhuro = "Kavkaz" # "Caucasus" in Juhuri
 
 			c_kartli = {
 				color={ 196 121 121 }
@@ -15715,10 +15727,16 @@ e_armenia = {
 			c_kakheti = {
 				color={ 202 147 147 }
 				color2={ 255 255 255 }
+
+				holy_site = tzadikite
+
+				juhuro = "Kavkaz Gorsky"
 				
 				b_zedazaden = {
 				}
 				b_telavi = {
+					juhuro = Yevreskaya Sloboda # "Jewish Village", today this name actually refers to a city west of here, in modern Azerbaijan, where the worlds's
+#								 # largest concentration of Juhurim live
 				}
 				b_sighnaghi = {
 				}
@@ -15736,6 +15754,8 @@ e_armenia = {
 			c_lori = {
 				color={ 142 70 45 }
 				color2={ 255 255 255 }
+
+				holy_site = tzadikite
 			
 				b_lori_berd = {}
 				b_dzegh = {}
@@ -40299,12 +40319,14 @@ e_latin_empire = {
 	capital = 496 # Byzantion
 	
 	short_name = yes
+	dynasty_title_names = no
 	
 	
 	allow = {
 		OR = {
+			has_romance_culture_trigger = yes
 			religion = catholic
-			is_heresy_of = catholic
+			heresy of = catholic
 		}
 		e_byzantium = {
 			has_holder = no
