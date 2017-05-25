@@ -7137,6 +7137,26 @@ add_prevs_secret_religion_trait_effect = {
 
 #Used in different sutiation, there conditions on effect. Flag has precedence over religion.
 add_secret_religion_trait_trigger_is_religion_or_old_religion_flag_clear_flag_after_effect_is_run_this_name_is_a_tribute_to_m_effect = {
+
+	### WtWSMS ###
+	if = {
+    	limit = {
+    		OR = {
+    			AND = {
+    				NOT = {
+						has_character_was_religion_flag_trigger = yes
+    				}
+    				religion = aquileian
+    			}
+    			has_character_flag = character_was_aquileian
+			}
+    	}
+    	set_secret_religion = aquileian
+    	clr_character_flag = character_was_aquileian
+		break = yes
+    }
+
+	### Vanilla ###
 	if = {
     	limit = {
     		OR = {
@@ -7858,7 +7878,7 @@ add_secret_religion_trait_trigger_is_religion_or_old_religion_flag_clear_flag_af
 		break = yes
     }
 
-    ### ACR ###
+   ### ACR ###
     if = {
     	limit = {
     		OR = {
@@ -7942,6 +7962,14 @@ add_secret_religion_trait_trigger_is_religion_or_old_religion_flag_clear_flag_af
 }
 
 add_religion_char_flag_effect = {
+
+	### WtWSMS ###
+	if = {
+    	limit = { religion = aquileian }
+    	set_character_flag = character_was_aquileian
+    }
+
+	### Vanilla ###
 	if = {
     	limit = { religion = catholic }
     	set_character_flag = character_was_catholic
@@ -8155,6 +8183,11 @@ add_religion_char_flag_effect = {
 }
 
 clr_religion_char_flag_effect = {
+
+	### WtWSMS ###
+	clr_character_flag = character_was_aquileian
+
+	### Vanilla ###
     clr_character_flag = character_was_catholic
 	clr_character_flag = character_was_cathar
 	clr_character_flag = character_was_fraticelli
@@ -8212,6 +8245,17 @@ clr_religion_char_flag_effect = {
 }
 
 event_target_old_religion_from_flag_effect = {
+
+	### WtWSMS ###
+	if = {
+    	limit = { has_character_flag = character_was_aquileian }
+    	random_character = {
+    		limit = { religion = aquileian }
+    		save_event_target_as = old_religion
+    	}
+    }
+
+	### Vanilla ###
 	if = {
     	limit = { has_character_flag = character_was_catholic }
     	random_character = {
@@ -9824,6 +9868,21 @@ add_western_zodiac_trait_effect = {
 flip_secret_religious_community_provinces = {
 	trigger_switch = {
 		on_trigger = society_member_of
+		
+		### WtWSMS ###
+		secret_religious_society_aquileian = {
+			ROOT = {
+				any_demesne_province = {
+					limit = {
+						has_province_modifier = secret_aquileian_community
+					}
+					religion = aquileian
+					remove_province_modifier = secret_aquileian_community
+				}
+			}
+		}
+		
+		### Vanilla ###
 		secret_religious_society_catholic = {
 			ROOT = {
 				any_demesne_province = {
