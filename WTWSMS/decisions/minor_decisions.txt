@@ -14,6 +14,7 @@ decisions = {
 				religion_group = christian
 				religion_group = zoroastrian_group
 				religion_group = jewish_group
+				religion_group = bosporan_group
 			}
 			NOT = {
 				has_character_modifier = holding_large_feast
@@ -2470,7 +2471,10 @@ decisions = {
 	find_guru = {
 		only_playable = yes
 		potential = {
-			religion_group = indian_group
+			OR = {
+				religion_group = indian_group
+				religion = melchisedechianism
+			}
 			is_playable = yes
 			is_adult = yes
 			OR = {
@@ -2647,11 +2651,24 @@ decisions = {
 			NOT = { has_character_flag = performed_sky_burial }
 			OR = {
 				religion_group = zoroastrian_group
+				culture = mongol
+				AND = {
+					religion = buddhist
+					OR = {
+						culture_group = altaic # Tibetan Buddhism practices sky burial
+						culture_group = sinic
+						culture = tangout
+					}
+				}
 				AND = {
 					government = nomadic_government
 					OR = {
 						religion = tengri_pagan
 						religion = tengri_pagan_reformed
+						religion = scythian_pagan
+						religion = scythian_pagan_reformed
+						religion = root_west_pagan
+						religion = root_west_pagan_reformed
 						religion_group = zoroastrian_group
 						religion_group = indian_group
 					}
