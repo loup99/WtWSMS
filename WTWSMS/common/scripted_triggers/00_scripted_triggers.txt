@@ -2487,6 +2487,14 @@ has_my_liege_secret_religion_truly_trigger = {
 
 is_in_prevs_interesting_society_trigger = {
 	OR = {
+	
+		### WtWSMS ###
+		AND = {
+			society_member_of = secret_religious_society_aquileian
+			PREV = { interested_in_society = secret_religious_society_aquileian }
+		}
+		
+		### Vanilla ###
 		AND = {
 			society_member_of = secret_religious_society_catholic
 			PREV = { interested_in_society = secret_religious_society_catholic }
@@ -2738,6 +2746,16 @@ is_visible_to_self_trigger = { #For hidden modifiers
 
 has_any_char_old_religion = {
 	OR = {
+	
+		### WtWSMS ###
+		AND = {
+			has_character_flag = character_was_aquileian
+	    	any_character = {
+	    		religion = aquileian
+	    	}
+	    }
+	
+		### Vanilla ###
 		AND = {
 			has_character_flag = character_was_catholic
 	    	any_character = {
@@ -3207,6 +3225,17 @@ looting_artifact_event_religious_artifacts_trigger = {
 			has_artifact_flag = looted_artifact_tooltip_1
 			has_artifact_flag = religious
 		}
+		
+		### WtWSMS ###
+		NAND = {
+			any_artifact = {
+				has_artifact_flag = looted_artifact_tooltip_1
+				has_artifact_flag = aquileian
+				ROOT = { religion = aquileian }
+			}
+		}
+		
+		### Vanilla ###
 		NAND = {
 			any_artifact = {
 				has_artifact_flag = looted_artifact_tooltip_1
