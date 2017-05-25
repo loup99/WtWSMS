@@ -4,18 +4,17 @@ decisions = {
 		only_playable = yes
 		potential = {
 			is_playable = yes
-			OR = {
-				is_feudal = yes
-				is_tribal = yes
-				is_nomadic = yes
-			}
+
 			prisoner = no
-			OR = {
-				religion_group = christian
-				religion_group = zoroastrian_group
-				religion_group = jewish_group
-				religion_group = bosporan_group
+
+			NOT = { 
+				religion_group = indian_group # They have their own Duwali Feasts
+				religion = zun_pagan # They have their own Sun Feasts
+				religion = zun_pagan_reformed # They have their own Sun Feasts
 			}
+
+			NOT = { is_theocracy = yes }
+
 			NOT = {
 				has_character_modifier = holding_large_feast
 			}
@@ -241,6 +240,8 @@ decisions = {
 			OR = {
 				religion_group = christian
 				religion_group = pagan_group
+				religion = tzadikite # Martial prowess and hunting was critical
+				culture_group = altaic
 				is_nomadic = yes # Nomads lived for this kind of thing
 			}
 			NOT = {
@@ -248,12 +249,18 @@ decisions = {
 					has_landed_title = e_mongol_empire
 					has_landed_title = e_golden_horde
 					has_landed_title = e_il-khanate
+					religion = jain
+					AND = {
+						culture = mongol
+						higher_real_tier_than = KING # Mongol Khagans can Nerge instead
+					}
 				}
 			}
 			NOT = {	has_character_modifier = holding_grand_hunt }
 			OR = {
 				NOT = { has_dlc = "Way of Life" }
 				has_focus = focus_hunting
+				trait = hunter
 			}
 		}
 		allow = {
@@ -632,7 +639,7 @@ decisions = {
 				factor = 0.001             # Only a small minority of Christians ever go on a pilgrimage
 			}
 			modifier = {
-				factor = 3
+				factor = 50
 				trait = zealous
 			}
 			modifier = {
@@ -864,7 +871,7 @@ decisions = {
 				has_landed_title = e_il-khanate
 				has_landed_title = e_golden_horde
 				has_landed_title = e_mongol_empire
-				higher_tier_than = KING
+				higher_real_tier_than = KING
 			}
 			NOT = { has_character_modifier = morale_from_nerge }
 			NOT = {	has_character_flag = holding_nerge }
@@ -1085,12 +1092,16 @@ decisions = {
 				religion = egyptian_pagan
 				religion = aten_pagan
 				religion_group = chinese_group
-				AND = {
-					culture_group = sinic # All Chinamen (as well as many Manchurianws, steppe nomads near China, etc.) see ancestor worship as essential to their culture
-					NOT = {
-						religion_group = christian
-						religion_group = muslim
-						religion_group = jewish_group
+				hidden_tooltip = {
+					text = CHINAMANIDOLS
+
+					AND = {
+						culture_group = sinic # All Chinamen (as well as many Manchurians, steppe nomads near China, etc.) see ancestor worship as essential to their culture
+						NOT = {
+							religion_group = christian
+							religion_group = muslim
+							religion_group = jewish_group
+						}
 					}
 				}
 			}
@@ -1592,7 +1603,6 @@ decisions = {
 			OR = { 
 				religion_group = jewish_group
 				religion = audianistic
-				religion = bosporan_faith
 				religion = ebionites
 			}
 			NOT = { has_character_modifier = held_passover_timer }
@@ -1694,6 +1704,7 @@ decisions = {
 				secret_religion = jewish
 				secret_religion = karaite
 				secret_religion = samaritan
+				secret_religion = tzadikite
 			}
 		}
 		
