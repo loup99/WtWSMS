@@ -3570,17 +3570,15 @@ e_byzantium = {
 		bosporan_faith = 1000
 		
 		allow = {
-			hidden_tooltip = {
+			OR = {
+				religion = bosporan_faith
 				OR = {
-					ai = no
-					religion = bosporan_faith
-					OR = {
-						AND = {
-							religion_group = christian
-							OR = { 
-								culture_group = byzantine
-								culture_group = latin
-							}
+					AND = {
+						religion_group = christian
+						OR = { 
+							culture_group = byzantine
+							culture_group = latin
+							has_romance_culture_trigger = yes
 						}
 					}
 				}
@@ -15776,8 +15774,8 @@ e_armenia = {
 				b_zedazaden = {
 				}
 				b_telavi = {
-					juhuro = Yevreskaya Sloboda # "Jewish Village", today this name actually refers to a city west of here, in modern Azerbaijan, where the worlds's
-#								 # largest concentration of Juhurim live
+					juhuro = Yevreskaya Sloboda # "Jewish Village", today this name actually refers to a city west of here, in modern Azerbaijan, where the 
+#								 # worlds's largest concentration of Juhurim live
 				}
 				b_sighnaghi = {
 				}
@@ -16069,14 +16067,6 @@ e_armenia = {
 		zoroastrian_group = 200 # Crusade target weight
 		
 		# Creation/usurpation trigger
-		allow = {
-			hidden_tooltip = {
-				OR = {
-					ai = no
-					religion_group = christian
-				}
-			}
-		}
 		
 		d_caucasian_albania = {
 			color={ 195 125 55 }
@@ -40377,9 +40367,16 @@ e_latin_empire = {
 	allow = {
 		OR = {
 			has_romance_culture_trigger = yes
+			culture_group = latin
 			religion = catholic
-			heresy of = catholic
+			is_heresy_of = catholic
 		}
+
+		NOT = {
+			culture = greek
+			culture = roman
+		}
+			
 		e_byzantium = {
 			has_holder = no
 		}
