@@ -332,6 +332,8 @@ k_venice = {
 	allow = {
 		is_republic = yes
 	}
+	
+	title = "SUCH_VERY_WOW"
 }
 k_mesopotamia = {
 	color={ 55 128 67 }
@@ -1110,20 +1112,20 @@ d_juhuria = {
 	culture = juhuro
 	
 	allow = {
-		OR = {
-			AND = {
-				culture = juhuro
-				religion = tzadikite
-				completely_controls = c_kakheti
-			}
-			AND = {
-				religion = tzakikite
-				completely_controls = c_kakheti
-				higher_real_tier_than = KING
-				realm_size = 75
-			}
-		}
-		
+		always = no
+#		OR = {
+#			AND = {
+#				culture = juhuro
+#				religion = tzadikite
+#				completely_controls = c_kakheti
+#			}
+#			AND = {
+#				religion = tzakikite
+#				completely_controls = c_kakheti
+#				higher_real_tier_than = KING
+#				realm_size = 75
+#			}
+#		}		
 	}
 
 	name_tier = king
@@ -1336,10 +1338,11 @@ e_oriens = {
 	culture = greek
 
 	title = "COMES_ORIENTIS_EMPEROR"
+	foa = "COMES_ORIENTIS_EMPEROR_FOA"
 		
 	# Creation/Usurp Trigger
 	allow = {
-		always = no 
+		always = no # Special Decision
 	}
 }
 e_nika = {
@@ -2446,7 +2449,7 @@ e_wre = {
 	
 	# Creation/Usurp Trigger
 	allow = {
-		always = no
+		always = no # Special Decision
 	}
 		
 }
@@ -2457,8 +2460,8 @@ e_hre = {
 	
 	capital = 90 # Jülich / Aachen
 	
-	religion=catholic
 	culture = german
+
 	short_name = yes
 
 	allow = {
@@ -2573,7 +2576,10 @@ e_saxony = {
 	
 	# Creation/Usurp Trigger
 	allow = {
-		culture = old_saxon
+		OR = {
+			culture = old_saxon
+			culture = saxon
+		}
 		age = 25
 		prestige = 1000
 		independent = yes
@@ -2617,7 +2623,15 @@ e_moors = {
 	
 	# Creation/Usurp Trigger
 	allow = {
-		culture = maghreb_arabic
+		OR = {
+			culture = maghreb_arabic
+			culture = berber
+			culture = berger_germanic
+			culture = central_african
+		}
+		NOT = {
+			religion_group = pagan_group
+		}
 		age = 25
 		prestige = 1000
 		independent = yes
@@ -2874,7 +2888,7 @@ k_hungary = {
 	
 	capital	= 444 # Esztergom
 
-	avar = Avar
+	avar = Avaria
 	
 	allow = {
 		OR = {
