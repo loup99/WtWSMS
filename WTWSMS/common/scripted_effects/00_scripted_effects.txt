@@ -7171,6 +7171,22 @@ add_secret_religion_trait_trigger_is_religion_or_old_religion_flag_clear_flag_af
     	clr_character_flag = character_was_nicene
 		break = yes
     }
+	if = {
+    	limit = {
+    		OR = {
+    			AND = {
+    				NOT = {
+						has_character_was_religion_flag_trigger = yes
+    				}
+    				religion = total_depravity
+    			}
+    			has_character_flag = character_was_nicene
+			}
+    	}
+    	set_secret_religion = total_depravity
+    	clr_character_flag = character_was_total_depravity
+		break = yes
+    }
 
 	### Vanilla ###
 	if = {
@@ -7988,6 +8004,10 @@ add_religion_char_flag_effect = {
     	limit = { religion = nicene }
     	set_character_flag = character_was_nicene
     }
+	if = {
+    	limit = { religion = total_depravity }
+    	set_character_flag = character_was_total_depravity
+    }
 
 	### Vanilla ###
 	if = {
@@ -8207,6 +8227,7 @@ clr_religion_char_flag_effect = {
 	### WtWSMS ###
 	clr_character_flag = character_was_aquileian
 	clr_character_flag = character_was_nicene
+	clr_character_flag = character_was_total_depravity
 
 	### Vanilla ###
     clr_character_flag = character_was_catholic
@@ -8279,6 +8300,13 @@ event_target_old_religion_from_flag_effect = {
     	limit = { has_character_flag = character_was_nicene }
     	random_character = {
     		limit = { religion = nicene }
+    		save_event_target_as = old_religion
+    	}
+    }
+	if = {
+    	limit = { has_character_flag = character_was_total_depravity }
+    	random_character = {
+    		limit = { religion = total_depravity }
     		save_event_target_as = old_religion
     	}
     }
@@ -9917,6 +9945,17 @@ flip_secret_religious_community_provinces = {
 					}
 					religion = nicene
 					remove_province_modifier = secret_nicene_community
+				}
+			}
+		}
+		secret_religious_society_total_depravity = {
+			ROOT = {
+				any_demesne_province = {
+					limit = {
+						has_province_modifier = secret_total_depravity_community
+					}
+					religion = nicene
+					remove_province_modifier = secret_total_depravity_community
 				}
 			}
 		}
