@@ -78,12 +78,6 @@ province_event = {
 			factor = 50
 		}
 		modifier = {
-			factor = 1.2
-			owner = {
-				trait = cynical
-			}
-		}
-		modifier = {
 			factor = 0.8
 			owner = {
 				trait = zealous
@@ -202,6 +196,19 @@ province_event = {
 		custom_tooltip = {
 			text = sacred_symbol_built
 		}
+		if = {
+			limit = {
+				has_dlc = "Reapers"
+			}
+			custom_tooltip = {
+				text = province_prospers_custom_tooltip
+				hidden_tooltip = {
+					ROOT = {
+						change_variable = { which = prosperity_value value = 4 }
+					}
+				}
+			}
+		}
 		hidden_tooltip = {
 			random_list = {
 				10 = {
@@ -268,6 +275,7 @@ province_event = {
 		}
 	}
 }
+
 province_event = {
 	id = ancrel.0245
 	desc = ancrel.0245.desc
@@ -311,46 +319,61 @@ province_event = {
 	}
 	option = {
 		name = ancrel.0244.a
-		IF = {
+		if = {
 			limit = { province_id = 5 }
 			add_province_modifier = {
 				name = sacred_the_giants_causeway
 				duration = -1
 			}
 		}
-		IF = {
+		if = {
 			limit = { province_id = 11 }
 			add_province_modifier = {
 				name = sacred_lia_fail
 				duration = -1
 			}
 		}
-		IF = {
+		if = {
 			limit = { province_id = 105 }
 			add_province_modifier = {
 				name = sacred_carnac
 				duration = -1
 			}
 		}
-		IF = {
+		if = {
 			limit = { province_id = 23 }
 			add_province_modifier = {
 				name = sacred_stonehenge
 				duration = -1
 			}
 		}
-		IF = {
+		if = {
 			limit = { province_id = 10 }
 			add_province_modifier = {
 				name = sacred_hill_of_uisneach
 				duration = -1
 			}
 		}
-		IF = {
+		if = {
 			limit = { province_id = 36 }
 			add_province_modifier = {
 				name = sacred_ring_of_brodgar
 				duration = -1
+			}
+		}
+
+
+		if = {
+			limit = {
+				has_dlc = "Reapers"
+			}
+			custom_tooltip = {
+				text = province_prospers_custom_tooltip
+				hidden_tooltip = {
+					ROOT = {
+						change_variable = { which = prosperity_value value = 12 }
+					}
+				}
 			}
 		}
 	}
@@ -635,6 +658,18 @@ province_event = {
 			name = sidhe_angry
 			duration = -1
 		}
+
+		if = {
+			limit = {
+				has_dlc = "Reapers"
+			}
+			custom_tooltip = {
+				text = province_loses_prosperity_custom_tooltip
+				hidden_tooltip = {
+					subtract_variable = { which = prosperity_value value = 4 }
+				}
+			}
+		}
 	}
 }
 
@@ -669,7 +704,6 @@ character_event = {
 			character_event = { id = ancrel.0249 days = 5 }
 		}
 	}
-	
 }
 
 #Offerings middle (Poem)
@@ -714,7 +748,6 @@ character_event = {
 			}
 		}
 	}
-	
 }
 
 #Offerings bad
@@ -735,7 +768,6 @@ character_event = {
 			duration = 730
 		}
 	}
-	
 }
 
 #Offerings neutral
@@ -755,7 +787,6 @@ character_event = {
 			duration = 730
 		}
 	}
-	
 }
 
 #Offerings good
@@ -776,7 +807,6 @@ character_event = {
 			duration = 730
 		}
 	}
-	
 }
 
 #Offerings middle (Gold)
@@ -821,7 +851,6 @@ character_event = {
 			}
 		}
 	}
-	
 }
 
 # Lost sacred symbol
@@ -1034,6 +1063,18 @@ province_event = {
 					has_province_modifier = sacred_river
 				}
 				remove_province_modifier = sacred_river
+			}
+		}
+		
+		if = {
+			limit = {
+				has_dlc = "Reapers"
+			}
+			custom_tooltip = {
+				text = province_loses_prosperity_custom_tooltip
+				hidden_tooltip = {
+					subtract_variable = { which = prosperity_value value = 4 }
+				}
 			}
 		}
 	}

@@ -39,3 +39,165 @@ banish_to_monastery_effect = {
 		}
 	}
 }
+
+# reduces prosperity by 3 levels, adding depopulation if necessary
+devestate_province_effect = {
+	if = {
+		limit = {
+			OR = {
+				has_province_modifier = depopulated_1
+				has_province_modifier = depopulated_2
+			}
+			NOR = {
+				has_province_modifier = prosperity_modifier_1
+				has_province_modifier = prosperity_modifier_2
+				has_province_modifier = prosperity_modifier_3
+			}
+		}
+		remove_province_modifier = depopulated_1
+		remove_province_modifier = depopulated_2
+		add_province_modifier = {
+			name = depopulated_3
+			duration = -1
+		}
+		clr_province_flag = recent_depopulation_1
+		clr_province_flag = recent_depopulation_2
+		set_province_flag = recent_depopulation_3
+	}
+	if = {
+		limit = {
+			has_province_modifier = prosperity_modifier_1
+		}
+		remove_province_modifier = prosperity_modifier_1
+		add_province_modifier = {
+			name = depopulated_2
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			has_province_modifier = prosperity_modifier_2
+		}
+		remove_province_modifier = prosperity_modifier_2
+		add_province_modifier = {
+			name = depopulated_1
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			has_province_modifier = prosperity_modifier_3
+		}
+		remove_province_modifier = prosperity_modifier_3
+	}
+
+	set_variable = { which = prosperity_value value = 0 }
+}
+
+decrease_prosperity_effect = {
+	if = {
+		limit = {
+			has_province_modifier = prosperity_modifier_1
+		}
+		remove_province_modifier = prosperity_modifier_1
+		set_variable = { which = prosperity_value value = 0 }
+	}
+	if = {
+		limit = {
+			has_province_modifier = prosperity_modifier_2
+		}
+		remove_province_modifier = prosperity_modifier_2
+		add_province_modifier = {
+			name = prosperity_modifier_1
+			duration = -1
+		}
+		set_variable = { which = prosperity_value value = 100 }
+	}
+	if = {
+		limit = {
+			has_province_modifier = prosperity_modifier_3
+		}
+		remove_province_modifier = prosperity_modifier_3
+		add_province_modifier = {
+			name = prosperity_modifier_2
+			duration = -1
+		}
+		set_variable = { which = prosperity_value value = 250 }
+	}
+}
+
+# requires event targets donor_province and receiver_province
+# receiver_province must have province flag received_<one/two/three>_prosperity
+random_province_conversion_from_colonists_effect = {
+	random_list = {
+		15 = { # both religion and culture
+			modifier = {
+				factor = 1.5
+				any_neighbor_province = {
+					culture = event_target:donor_province
+				}
+			}
+			modifier = {
+				factor = 1.5
+				any_neighbor_province = {
+					religion = event_target:donor_province
+				}
+			}
+			modifier = {
+				factor = 2
+				has_province_flag = received_two_prosperity
+			}
+			modifier = {
+				factor = 5
+				has_province_flag = received_three_prosperity
+			}
+
+			culture = event_target:donor_province
+			relgion = event_target:donor_province
+		}
+		20 = { # culture
+			modifier = {
+				factor = 1.2
+				any_neighbor_province = {
+					culture = event_target:donor_province
+				}
+			}
+			modifier = {
+				factor = 1.5
+				has_province_flag = received_two_prosperity
+			}
+			modifier = {
+				factor = 2
+				has_province_flag = received_three_prosperity
+			}
+
+			culture = event_target:donor_province
+		}
+		25 = { # religion
+			modifier = {
+				factor = 1.2
+				any_neighbor_province = {
+					religion = event_target:donor_province
+				}
+			}
+			modifier = {
+				factor = 1.5
+				has_province_flag = received_two_prosperity
+			}
+			modifier = {
+				factor = 2
+				has_province_flag = received_three_prosperity
+			}
+
+			religion = event_target:donor_province
+		}
+		50 = { # nothing!
+		}
+	}
+
+	event_target:receiver_province = {
+		clr_province_flag = received_one_prosperity
+		clr_province_flag = received_two_prosperity
+		clr_province_flag = received_three_prosperity
+	}
+}
