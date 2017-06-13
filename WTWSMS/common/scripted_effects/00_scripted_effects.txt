@@ -7218,6 +7218,22 @@ add_secret_religion_trait_trigger_is_religion_or_old_religion_flag_clear_flag_af
     	clr_character_flag = character_was_binitarian
 		break = yes
     }
+	if = {
+    	limit = {
+    		OR = {
+    			AND = {
+    				NOT = {
+						has_character_was_religion_flag_trigger = yes
+    				}
+    				religion = georgian_orthodox
+    			}
+    			has_character_flag = character_was_georgian_orthodox
+			}
+    	}
+    	set_secret_religion = georgian_orthodox
+    	clr_character_flag = character_was_georgian_orthodox
+		break = yes
+    }
 
 	### Vanilla ###
 	if = {
@@ -8047,6 +8063,10 @@ add_religion_char_flag_effect = {
     	limit = { religion = binitarian }
     	set_character_flag = character_was_binitarian
     }
+	if = {
+    	limit = { religion = georgian_orthodox }
+    	set_character_flag = character_was_georgian_orthodox
+    }
 
 	### Vanilla ###
 	if = {
@@ -8269,6 +8289,7 @@ clr_religion_char_flag_effect = {
 	clr_character_flag = character_was_total_depravity
 	clr_character_flag = character_was_eutychian
 	clr_character_flag = character_was_binitarian
+	clr_character_flag = character_was_georgian_orthodox
 
 	### Vanilla ###
     clr_character_flag = character_was_catholic
@@ -8362,6 +8383,13 @@ event_target_old_religion_from_flag_effect = {
     	limit = { has_character_flag = character_was_binitarian }
     	random_character = {
     		limit = { religion = binitarian }
+    		save_event_target_as = old_religion
+    	}
+    }
+	if = {
+    	limit = { has_character_flag = character_was_georgian_orthodox }
+    	random_character = {
+    		limit = { religion = georgian_orthodox }
     		save_event_target_as = old_religion
     	}
     }
@@ -10033,6 +10061,17 @@ flip_secret_religious_community_provinces = {
 					}
 					religion = binitarian
 					remove_province_modifier = secret_binitarian_community
+				}
+			}
+		}
+		secret_religious_society_georgian_orthodox = {
+			ROOT = {
+				any_demesne_province = {
+					limit = {
+						has_province_modifier = secret_georgian_orthodox_community
+					}
+					religion = georgian_orthodox
+					remove_province_modifier = secret_georgian_orthodox_community
 				}
 			}
 		}
