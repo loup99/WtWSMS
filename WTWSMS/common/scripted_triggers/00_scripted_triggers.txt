@@ -2518,6 +2518,10 @@ is_in_prevs_interesting_society_trigger = {
 			PREV = { interested_in_society = secret_religious_society_georgian_orthodox }
 		}
 		AND = {
+			society_member_of = secret_religious_society_insular
+			PREV = { interested_in_society = secret_religious_society_insular }
+		}
+		AND = {
 			society_member_of = secret_religious_society_taoism
 			PREV = { interested_in_society = secret_religious_society_taoism }
 		}
@@ -2810,6 +2814,12 @@ has_any_char_old_religion = {
 			has_character_flag = character_was_georgian_orthodox
 	    	any_character = {
 	    		religion = georgian_orthodox
+	    	}
+	    }
+		AND = {
+			has_character_flag = character_was_insular
+	    	any_character = {
+	    		religion = insular
 	    	}
 	    }
 		AND = {
@@ -3336,10 +3346,18 @@ looting_artifact_event_religious_artifacts_trigger = {
 		NAND = {
 			any_artifact = {
 				has_artifact_flag = looted_artifact_tooltip_1
+				has_artifact_flag = insular
+				ROOT = { religion = insular }
+			}
+		}
+		NAND = {
+			any_artifact = {
+				has_artifact_flag = looted_artifact_tooltip_1
 				has_artifact_flag = taoism
 				ROOT = { religion = taoism }
 			}
 		}
+		
 		
 		### Vanilla ###
 		NAND = {
