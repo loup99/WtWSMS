@@ -7235,6 +7235,22 @@ add_secret_religion_trait_trigger_is_religion_or_old_religion_flag_clear_flag_af
     	clr_character_flag = character_was_georgian_orthodox
 		break = yes
     }
+	if = {
+    	limit = {
+    		OR = {
+    			AND = {
+    				NOT = {
+						has_character_was_religion_flag_trigger = yes
+    				}
+    				religion = taoism
+    			}
+    			has_character_flag = character_was_taoism
+			}
+    	}
+    	set_secret_religion = taoism
+    	clr_character_flag = character_was_taoism
+		break = yes
+    }
 
 	### Vanilla ###
 	if = {
@@ -8068,6 +8084,10 @@ add_religion_char_flag_effect = {
     	limit = { religion = georgian_orthodox }
     	set_character_flag = character_was_georgian_orthodox
     }
+	if = {
+    	limit = { religion = taoism }
+    	set_character_flag = character_was_taoism
+    }
 
 	### Vanilla ###
 	if = {
@@ -8391,6 +8411,13 @@ event_target_old_religion_from_flag_effect = {
     	limit = { has_character_flag = character_was_georgian_orthodox }
     	random_character = {
     		limit = { religion = georgian_orthodox }
+    		save_event_target_as = old_religion
+    	}
+    }
+	if = {
+    	limit = { has_character_flag = character_was_taoism }
+    	random_character = {
+    		limit = { religion = taoism }
     		save_event_target_as = old_religion
     	}
     }
@@ -10073,6 +10100,17 @@ flip_secret_religious_community_provinces = {
 					}
 					religion = georgian_orthodox
 					remove_province_modifier = secret_georgian_orthodox_community
+				}
+			}
+		}
+		secret_religious_society_taoism = {
+			ROOT = {
+				any_demesne_province = {
+					limit = {
+						has_province_modifier = secret_taoism_community
+					}
+					religion = taoism
+					remove_province_modifier = secret_taoism_community
 				}
 			}
 		}
