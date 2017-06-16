@@ -1,4 +1,4 @@
-# Merged from PB_employment_decisions and employment_decisions from VIET
+# Merged from PB_employment_decisions and employment_decisions from VIET into WtWSMS_employment_decisions
 # Warning: do not add vanilla employment decision, as they would conflict and be broken !
 decisions = {
 
@@ -12,16 +12,76 @@ decisions = {
 			}
 		}
 		allow = {
-			scaled_wealth = 0.2
+			prestige = 25
+			scaled_wealth = 0.25
+			NOT = {
+				has_character_modifier = in_seclusion
+			}
 		}
 		effect = {
-			scaled_wealth = -0.2
+			prestige = -25
+			scaled_wealth = -0.25
 			create_random_diplomat = {
 				random_traits = yes
 				dynasty = random
 				female = no
+				attributes = {
+					diplomacy = 8
+					learning = 2
+					stewardship = 2
+					intrigue = 2
+					martial = 2
+				}
 			}
 			new_character = {
+				remove_trait = weak
+				remove_trait = slow
+				remove_trait = imbecile
+				remove_trait = dull
+				
+				remove_trait = mystic
+				remove_trait = socializer
+				remove_trait = gamer
+				remove_trait = hedonist
+				remove_trait = duelist
+				remove_trait = hunter
+				remove_trait = strategist
+				remove_trait = administrator
+				remove_trait = architect
+				remove_trait = gardener
+				remove_trait = schemer
+				remove_trait = impaler
+				remove_trait = seducer
+				remove_trait = seductress
+				remove_trait = theologian
+				remove_trait = scholar
+				
+				random_list = { # Flavor Randomization
+					35 = { 
+						# Nothing
+					}
+					20 = {
+						change_diplomacy = 2
+					}
+					10 = {
+						add_trait = socializer
+					}
+					10 = {
+						add_trait = hedonist
+					}
+					10 = {
+						add_trait = gamer
+					}
+					5 = {
+						add_trait = strategist
+					}
+					5 = {
+						change_diplomacy = 4
+					}
+					5 = { 
+						add_trait = shrewd
+					}
+				}
 				hidden_tooltip = {
 					if = {
 						limit = {
@@ -31,7 +91,9 @@ decisions = {
 						character_event = { id = RoI.30121 }
 					}
 				}
+				save_event_target_as = invited_character
 			}
+			character_event = { id = NE.1 }
 		}
 		revoke_allowed = {
 			always = no
@@ -95,15 +157,87 @@ decisions = {
 			}
 		}
 		allow = {
-			scaled_wealth = 0.2
+			prestige = 25
+			scaled_wealth = 0.25
+			NOT = {
+				has_character_modifier = in_seclusion
+			}
 		}
 		effect = {
-			scaled_wealth = -0.2
+			prestige = -25
+			scaled_wealth = -0.25
 			create_random_intriguer = {
 				random_traits = yes
 				dynasty = random
+				female = no
+				attributes = {
+					diplomacy = 2
+					learning = 2
+					stewardship = 2
+					intrigue = 8
+					martial = 2
+				}
 			}
 			new_character = {
+				remove_trait = weak
+				remove_trait = slow
+				remove_trait = imbecile
+				remove_trait = dull
+				
+				remove_trait = mystic
+				remove_trait = socializer
+				remove_trait = gamer
+				remove_trait = hedonist
+				remove_trait = duelist
+				remove_trait = hunter
+				remove_trait = strategist
+				remove_trait = administrator
+				remove_trait = architect
+				remove_trait = gardener
+				remove_trait = schemer
+				remove_trait = impaler
+				remove_trait = seducer
+				remove_trait = seductress
+				remove_trait = theologian
+				remove_trait = scholar
+				
+				random_list = { # Flavor Randomization
+					35 = { 
+						# Nothing
+					}
+					20 = {
+						change_intrigue = 2
+					}
+					10 = {
+						add_trait = schemer
+					}
+					10 = {
+						add_trait = impaler
+					}
+					10 = {
+						if = {
+							limit = {
+								is_female = yes
+							}
+							add_trait = seductress
+						}
+						if = {
+							limit = {
+								is_female = no
+							}
+							add_trait = seducer
+						}
+					}
+					5 = {
+						add_trait = paranoid
+					}
+					5 = {
+						change_intrigue = 4
+					}
+					5 = { 
+						add_trait = shrewd
+					}
+				}
 				hidden_tooltip = {
 					if = {
 						limit = {
@@ -113,7 +247,9 @@ decisions = {
 						character_event = { id = RoI.30121 }
 					}
 				}
+				save_event_target_as = invited_character
 			}
+			character_event = { id = NE.1 }
 		}
 		revoke_allowed = {
 			always = no
@@ -170,10 +306,15 @@ decisions = {
 			}
 		}
 		allow = {
-			scaled_wealth = 0.2
+			prestige = 25
+			scaled_wealth = 0.25
+			NOT = {
+				has_character_modifier = in_seclusion
+			}
 		}
 		effect = {
-			scaled_wealth = -0.2
+			prestige = -25
+			scaled_wealth = -0.25
 			random_list = {
 				20 = {
 					create_random_steward = {
@@ -181,6 +322,19 @@ decisions = {
 						trait = eunuch
 						dynasty = random
 						female = no
+					}
+					new_character = {
+						hidden_tooltip = {
+							if = {
+								limit = {
+									religion_group = indian_group
+								}
+								add_trait = kshatriya
+								character_event = { id = RoI.30121 }
+							}
+						}
+
+						save_event_target_as = invited_character
 					}
 				}
 				20 = {
@@ -190,6 +344,19 @@ decisions = {
 						dynasty = random
 						female = no
 					}
+					new_character = {
+						hidden_tooltip = {
+							if = {
+								limit = {
+									religion_group = indian_group
+								}
+								add_trait = kshatriya
+								character_event = { id = RoI.30121 }
+							}
+						}
+						
+						save_event_target_as = invited_character
+					}
 				}
 				20 = {
 					create_random_soldier = {
@@ -197,6 +364,19 @@ decisions = {
 						trait = eunuch
 						dynasty = random
 						female = no
+					}
+					new_character = {
+						hidden_tooltip = {
+							if = {
+								limit = {
+									religion_group = indian_group
+								}
+								add_trait = kshatriya
+								character_event = { id = RoI.30121 }
+							}
+						}
+						
+						save_event_target_as = invited_character
 					}
 				}
 				20 = {
@@ -206,6 +386,19 @@ decisions = {
 						dynasty = random
 						female = no
 					}
+					new_character = {
+						hidden_tooltip = {
+							if = {
+								limit = {
+									religion_group = indian_group
+								}
+								add_trait = kshatriya
+								character_event = { id = RoI.30121 }
+							}
+						}
+
+						save_event_target_as = invited_character
+					}					
 				}
 				20 = {
 					create_random_priest = {
@@ -214,8 +407,23 @@ decisions = {
 						dynasty = random
 						female = no
 					}
+					new_character = {
+						hidden_tooltip = {
+							if = {
+								limit = {
+									religion_group = indian_group
+								}
+								add_trait = brahmin
+								character_event = { id = RoI.30121 }
+							}
+						}
+
+						save_event_target_as = invited_character
+					}					
 				}
+				
 			}
+			character_event = { id = NE.1 }
 		}
 		revoke_allowed = {
 			always = no
