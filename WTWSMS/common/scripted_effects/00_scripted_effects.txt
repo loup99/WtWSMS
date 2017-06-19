@@ -7306,6 +7306,22 @@ add_secret_religion_trait_trigger_is_religion_or_old_religion_flag_clear_flag_af
     				NOT = {
 						has_character_was_religion_flag_trigger = yes
     				}
+    				religion = marcionism
+    			}
+    			has_character_flag = character_was_marcionism
+			}
+    	}
+    	set_secret_religion = marcionism
+    	clr_character_flag = character_was_marcionism
+		break = yes
+    }
+	if = {
+    	limit = {
+    		OR = {
+    			AND = {
+    				NOT = {
+						has_character_was_religion_flag_trigger = yes
+    				}
     				religion = taoism
     			}
     			has_character_flag = character_was_taoism
@@ -8165,6 +8181,10 @@ add_religion_char_flag_effect = {
     	set_character_flag = character_was_ebionites
     }
 	if = {
+    	limit = { religion = marcionism }
+    	set_character_flag = character_was_marcionism
+    }
+	if = {
     	limit = { religion = taoism }
     	set_character_flag = character_was_taoism
     }
@@ -8394,6 +8414,7 @@ clr_religion_char_flag_effect = {
 	clr_character_flag = character_was_pelagianism
 	clr_character_flag = character_was_antinomianism
 	clr_character_flag = character_was_ebionites
+	clr_character_flag = character_was_marcionism
 
 	### Vanilla ###
     clr_character_flag = character_was_catholic
@@ -8522,6 +8543,13 @@ event_target_old_religion_from_flag_effect = {
     	limit = { has_character_flag = character_was_ebionites }
     	random_character = {
     		limit = { religion = ebionites }
+    		save_event_target_as = old_religion
+    	}
+    }
+	if = {
+    	limit = { has_character_flag = character_was_marcionism }
+    	random_character = {
+    		limit = { religion = marcionism }
     		save_event_target_as = old_religion
     	}
     }
@@ -10255,6 +10283,17 @@ flip_secret_religious_community_provinces = {
 					}
 					religion = ebionites
 					remove_province_modifier = secret_ebionites_community
+				}
+			}
+		}
+		secret_religious_society_marcionism = {
+			ROOT = {
+				any_demesne_province = {
+					limit = {
+						has_province_modifier = secret_marcionism_community
+					}
+					religion = marcionism
+					remove_province_modifier = secret_marcionism_community
 				}
 			}
 		}
