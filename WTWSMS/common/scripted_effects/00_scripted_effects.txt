@@ -7274,6 +7274,22 @@ add_secret_religion_trait_trigger_is_religion_or_old_religion_flag_clear_flag_af
     				NOT = {
 						has_character_was_religion_flag_trigger = yes
     				}
+    				religion = antinomianism
+    			}
+    			has_character_flag = character_was_antinomianism
+			}
+    	}
+    	set_secret_religion = antinomianism
+    	clr_character_flag = character_was_antinomianism
+		break = yes
+    }
+	if = {
+    	limit = {
+    		OR = {
+    			AND = {
+    				NOT = {
+						has_character_was_religion_flag_trigger = yes
+    				}
     				religion = taoism
     			}
     			has_character_flag = character_was_taoism
@@ -8125,6 +8141,10 @@ add_religion_char_flag_effect = {
     	set_character_flag = character_was_pelagianism
     }
 	if = {
+    	limit = { religion = antinomianism }
+    	set_character_flag = character_was_antinomianism
+    }
+	if = {
     	limit = { religion = taoism }
     	set_character_flag = character_was_taoism
     }
@@ -8352,6 +8372,7 @@ clr_religion_char_flag_effect = {
 	clr_character_flag = character_was_binitarian
 	clr_character_flag = character_was_georgian_orthodox
 	clr_character_flag = character_was_pelagianism
+	clr_character_flag = character_was_antinomianism
 
 	### Vanilla ###
     clr_character_flag = character_was_catholic
@@ -8466,6 +8487,13 @@ event_target_old_religion_from_flag_effect = {
     	limit = { has_character_flag = character_was_pelagianism }
     	random_character = {
     		limit = { religion = pelagianism }
+    		save_event_target_as = old_religion
+    	}
+    }
+	if = {
+    	limit = { has_character_flag = character_was_antinomianism }
+    	random_character = {
+    		limit = { religion = antinomianism }
     		save_event_target_as = old_religion
     	}
     }
@@ -10177,6 +10205,17 @@ flip_secret_religious_community_provinces = {
 					}
 					religion = pelagianism
 					remove_province_modifier = secret_pelagianism_community
+				}
+			}
+		}
+		secret_religious_society_antinomianism = {
+			ROOT = {
+				any_demesne_province = {
+					limit = {
+						has_province_modifier = secret_antinomianism_community
+					}
+					religion = antinomianism
+					remove_province_modifier = secret_antinomianism_community
 				}
 			}
 		}
