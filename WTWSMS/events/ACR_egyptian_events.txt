@@ -121,6 +121,7 @@ province_event = {
 				set_character_flag = event_ancrel4003
 				narrative_event = { id = ancrel.4003 days = 7 }
 			}
+			increase_prosperity_effect = yes
 		}
 	}
 }
@@ -241,7 +242,23 @@ province_event = {
 				}
 			}
 		}		
-	}	
+	}
+
+	after = {
+		if = {
+			limit = {
+				has_dlc = "Reapers"
+			}
+			custom_tooltip = {
+				text = province_prospers_custom_tooltip
+				hidden_tooltip = {
+					ROOT = {
+						change_variable = { which = prosperity_value value = 8 }
+					}
+				}
+			}
+		}
+	}
 }
 
 # The Priesthood Restored
@@ -474,69 +491,83 @@ character_event = {
 		
 		hidden_tooltip = {
 			# Calculate piety gain = 200 + nb_sed_festivals * 50
-			# Does not work as variables cannot be assigned to commands !?
 			# set_variable = { which = gain which = nb_sed_festivals }
-			# multiply_variable = { which = gain value = 50 } 
+			# multiply_variable = { which = gain value = 50 }
 			# change_variable = { which = gain value = 200 }
 			# piety = gain # variable
-		}
-		if = {
-			limit = {
-				is_variable_equal = { which = nb_sed_festivals value = 1 }
+
+			if = {
+				limit = {
+					is_variable_equal = { which = nb_sed_festivals value = 1 }
+				}
+				piety = 200
 			}
-			piety = 200
-		}
-		if = {
-			limit = {
-				is_variable_equal = { which = nb_sed_festivals value = 2 }
+			if = {
+				limit = {
+					is_variable_equal = { which = nb_sed_festivals value = 2 }
+				}
+				piety = 300
 			}
-			piety = 300
-		}
-		if = {
-			limit = {
-				is_variable_equal = { which = nb_sed_festivals value = 3 }
+			if = {
+				limit = {
+					is_variable_equal = { which = nb_sed_festivals value = 3 }
+				}
+				piety = 400
 			}
-			piety = 400
-		}
-		if = {
-			limit = {
-				is_variable_equal = { which = nb_sed_festivals value = 4 }
+			if = {
+				limit = {
+					is_variable_equal = { which = nb_sed_festivals value = 4 }
+				}
+				piety = 500
 			}
-			piety = 500
-		}
-		if = {
-			limit = {
-				is_variable_equal = { which = nb_sed_festivals value = 5 }
+			if = {
+				limit = {
+					is_variable_equal = { which = nb_sed_festivals value = 5 }
+				}
+				piety = 600
 			}
-			piety = 600
-		}
-		if = {
-			limit = {
-				is_variable_equal = { which = nb_sed_festivals value = 6 }
+			if = {
+				limit = {
+					is_variable_equal = { which = nb_sed_festivals value = 6 }
+				}
+				piety = 700
 			}
-			piety = 700
-		}
-		if = {
-			limit = {
-				is_variable_equal = { which = nb_sed_festivals value = 7 }
+			if = {
+				limit = {
+					is_variable_equal = { which = nb_sed_festivals value = 7 }
+				}
+				piety = 800
 			}
-			piety = 800
-		}
-		if = {
-			limit = {
-				is_variable_equal = { which = nb_sed_festivals value = 8 }
+			if = {
+				limit = {
+					is_variable_equal = { which = nb_sed_festivals value = 8 }
+				}
+				piety = 900
 			}
-			piety = 900
-		}
-		if = {
-			limit = {
-				check_variable = { which = nb_sed_festivals value = 9 }
+			if = {
+				limit = {
+					check_variable = { which = nb_sed_festivals value = 9 }
+				}
+				piety = 1000
 			}
-			piety = 1000
 		}
 		add_character_modifier = {
 			name = held_sed_festival
 			duration = 365
+		}
+
+		if = {
+			limit = {
+				has_dlc = "Reapers"
+			}
+			custom_tooltip = {
+				text = capital_prospers_custom_tooltip
+				hidden_tooltip = {
+					capital_scope = {
+						change_variable = { which = prosperity_value value = 6 }
+					}
+				}
+			}
 		}
 	}
 }
@@ -606,10 +637,6 @@ character_event = {
 
 		add_trait = depressed
 		piety = -200
-		add_character_modifier = {
-			name = held_failed_sed_festival
-			duration = 365
-		}
 	}
 	
 	option = {
@@ -618,10 +645,6 @@ character_event = {
 		add_trait = cynical
 		piety = -200
 		prestige = -200
-		add_character_modifier = {
-			name = held_failed_sed_festival
-			duration = 365
-		}
 	}
 	
 	option = {
@@ -630,9 +653,25 @@ character_event = {
 		add_trait = arbitrary
 		add_trait = paranoid
 		prestige = -200
+	}
+
+	after = {
 		add_character_modifier = {
 			name = held_failed_sed_festival
 			duration = 365
+		}
+		if = {
+			limit = {
+				has_dlc = "Reapers"
+			}
+			custom_tooltip = {
+				text = province_loses_prosperity_custom_tooltip
+				hidden_tooltip = {
+					capital_scope = {
+						subtract_variable = { which = prosperity_value value = 6 }
+					}
+				}
+			}
 		}
 	}
 }
@@ -666,6 +705,12 @@ character_event = {
 						name = VIET_nile_flood_good
 						duration = 365
 					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						change_variable = { which = prosperity_value value = 2 }
+					}
 					any_province_lord = {
 						character_event = { id = ancrel.4101 }
 					}
@@ -675,6 +720,12 @@ character_event = {
 					add_province_modifier = {
 						name = VIET_nile_flood_good
 						duration = 365
+					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						change_variable = { which = prosperity_value value = 2 }
 					}
 					any_province_lord = {
 						character_event = { id = ancrel.4101 }
@@ -686,6 +737,12 @@ character_event = {
 						name = VIET_nile_flood_good
 						duration = 365
 					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						change_variable = { which = prosperity_value value = 2 }
+					}
 					any_province_lord = {
 						character_event = { id = ancrel.4101 }
 					}
@@ -695,6 +752,12 @@ character_event = {
 					add_province_modifier = {
 						name = VIET_nile_flood_good
 						duration = 365
+					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						change_variable = { which = prosperity_value value = 2 }
 					}
 					any_province_lord = {
 						character_event = { id = ancrel.4101 }
@@ -706,6 +769,12 @@ character_event = {
 						name = VIET_nile_flood_good
 						duration = 365
 					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						change_variable = { which = prosperity_value value = 2 }
+					}
 					any_province_lord = {
 						character_event = { id = ancrel.4101 }
 					}
@@ -715,6 +784,12 @@ character_event = {
 					add_province_modifier = {
 						name = VIET_nile_flood_good
 						duration = 365
+					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						change_variable = { which = prosperity_value value = 2 }
 					}
 					any_province_lord = {
 						character_event = { id = ancrel.4101 }
@@ -726,6 +801,12 @@ character_event = {
 						name = VIET_nile_flood_good
 						duration = 365
 					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						change_variable = { which = prosperity_value value = 2 }
+					}
 					any_province_lord = {
 						character_event = { id = ancrel.4101 }
 					}
@@ -735,6 +816,12 @@ character_event = {
 					add_province_modifier = {
 						name = VIET_nile_flood_good
 						duration = 365
+					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						change_variable = { which = prosperity_value value = 2 }
 					}
 					any_province_lord = {
 						character_event = { id = ancrel.4101 }
@@ -746,6 +833,12 @@ character_event = {
 						name = VIET_nile_flood_good
 						duration = 365
 					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						change_variable = { which = prosperity_value value = 2 }
+					}
 					any_province_lord = {
 						character_event = { id = ancrel.4101 }
 					}
@@ -755,6 +848,12 @@ character_event = {
 					add_province_modifier = {
 						name = VIET_nile_flood_good
 						duration = 365
+					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						change_variable = { which = prosperity_value value = 2 }
 					}
 					any_province_lord = {
 						character_event = { id = ancrel.4101 }
@@ -766,6 +865,12 @@ character_event = {
 						name = VIET_nile_flood_good
 						duration = 365
 					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						change_variable = { which = prosperity_value value = 2 }
+					}
 					any_province_lord = {
 						character_event = { id = ancrel.4101 }
 					}
@@ -775,6 +880,12 @@ character_event = {
 					add_province_modifier = {
 						name = VIET_nile_flood_good
 						duration = 365
+					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						change_variable = { which = prosperity_value value = 2 }
 					}
 					any_province_lord = {
 						character_event = { id = ancrel.4101 }
@@ -788,6 +899,12 @@ character_event = {
 						name = VIET_nile_flood_great
 						duration = 365
 					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						change_variable = { which = prosperity_value value = 4 }
+					}
 					any_province_lord = {
 						character_event = { id = ancrel.4102 }
 					}
@@ -797,6 +914,12 @@ character_event = {
 					add_province_modifier = {
 						name = VIET_nile_flood_great
 						duration = 365
+					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						change_variable = { which = prosperity_value value = 4 }
 					}
 					any_province_lord = {
 						character_event = { id = ancrel.4102 }
@@ -808,6 +931,12 @@ character_event = {
 						name = VIET_nile_flood_great
 						duration = 365
 					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						change_variable = { which = prosperity_value value = 4 }
+					}
 					any_province_lord = {
 						character_event = { id = ancrel.4102 }
 					}
@@ -817,6 +946,12 @@ character_event = {
 					add_province_modifier = {
 						name = VIET_nile_flood_great
 						duration = 365
+					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						change_variable = { which = prosperity_value value = 4 }
 					}
 					any_province_lord = {
 						character_event = { id = ancrel.4102 }
@@ -828,6 +963,12 @@ character_event = {
 						name = VIET_nile_flood_great
 						duration = 365
 					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						change_variable = { which = prosperity_value value = 4 }
+					}
 					any_province_lord = {
 						character_event = { id = ancrel.4102 }
 					}
@@ -837,6 +978,12 @@ character_event = {
 					add_province_modifier = {
 						name = VIET_nile_flood_great
 						duration = 365
+					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						change_variable = { which = prosperity_value value = 4 }
 					}
 					any_province_lord = {
 						character_event = { id = ancrel.4102 }
@@ -848,6 +995,12 @@ character_event = {
 						name = VIET_nile_flood_great
 						duration = 365
 					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						change_variable = { which = prosperity_value value = 4 }
+					}
 					any_province_lord = {
 						character_event = { id = ancrel.4102 }
 					}
@@ -857,6 +1010,12 @@ character_event = {
 					add_province_modifier = {
 						name = VIET_nile_flood_great
 						duration = 365
+					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						change_variable = { which = prosperity_value value = 4 }
 					}
 					any_province_lord = {
 						character_event = { id = ancrel.4102 }
@@ -868,6 +1027,12 @@ character_event = {
 						name = VIET_nile_flood_great
 						duration = 365
 					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						change_variable = { which = prosperity_value value = 4 }
+					}
 					any_province_lord = {
 						character_event = { id = ancrel.4102 }
 					}
@@ -877,6 +1042,12 @@ character_event = {
 					add_province_modifier = {
 						name = VIET_nile_flood_great
 						duration = 365
+					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						change_variable = { which = prosperity_value value = 4 }
 					}
 					any_province_lord = {
 						character_event = { id = ancrel.4102 }
@@ -888,6 +1059,12 @@ character_event = {
 						name = VIET_nile_flood_great
 						duration = 365
 					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						change_variable = { which = prosperity_value value = 4 }
+					}
 					any_province_lord = {
 						character_event = { id = ancrel.4102 }
 					}
@@ -897,6 +1074,12 @@ character_event = {
 					add_province_modifier = {
 						name = VIET_nile_flood_great
 						duration = 365
+					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						change_variable = { which = prosperity_value value = 4 }
 					}
 					any_province_lord = {
 						character_event = { id = ancrel.4102 }
@@ -910,6 +1093,12 @@ character_event = {
 						name = VIET_nile_flood_overflow
 						duration = 365
 					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						subtract_variable = { which = prosperity_value value = 4 }
+					}
 					any_province_lord = {
 						character_event = { id = ancrel.4103 }
 					}
@@ -919,6 +1108,12 @@ character_event = {
 					add_province_modifier = {
 						name = VIET_nile_flood_overflow
 						duration = 365
+					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						subtract_variable = { which = prosperity_value value = 4 }
 					}
 					any_province_lord = {
 						character_event = { id = ancrel.4103 }
@@ -930,6 +1125,12 @@ character_event = {
 						name = VIET_nile_flood_overflow
 						duration = 365
 					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						subtract_variable = { which = prosperity_value value = 4 }
+					}
 					any_province_lord = {
 						character_event = { id = ancrel.4103 }
 					}
@@ -939,6 +1140,12 @@ character_event = {
 					add_province_modifier = {
 						name = VIET_nile_flood_overflow
 						duration = 365
+					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						subtract_variable = { which = prosperity_value value = 4 }
 					}
 					any_province_lord = {
 						character_event = { id = ancrel.4103 }
@@ -950,6 +1157,12 @@ character_event = {
 						name = VIET_nile_flood_overflow
 						duration = 365
 					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						subtract_variable = { which = prosperity_value value = 4 }
+					}
 					any_province_lord = {
 						character_event = { id = ancrel.4103 }
 					}
@@ -959,6 +1172,12 @@ character_event = {
 					add_province_modifier = {
 						name = VIET_nile_flood_overflow
 						duration = 365
+					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						subtract_variable = { which = prosperity_value value = 4 }
 					}
 					any_province_lord = {
 						character_event = { id = ancrel.4103 }
@@ -970,6 +1189,12 @@ character_event = {
 						name = VIET_nile_flood_overflow
 						duration = 365
 					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						subtract_variable = { which = prosperity_value value = 4 }
+					}
 					any_province_lord = {
 						character_event = { id = ancrel.4103 }
 					}
@@ -979,6 +1204,12 @@ character_event = {
 					add_province_modifier = {
 						name = VIET_nile_flood_overflow
 						duration = 365
+					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						subtract_variable = { which = prosperity_value value = 4 }
 					}
 					any_province_lord = {
 						character_event = { id = ancrel.4103 }
@@ -990,6 +1221,12 @@ character_event = {
 						name = VIET_nile_flood_overflow
 						duration = 365
 					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						subtract_variable = { which = prosperity_value value = 4 }
+					}
 					any_province_lord = {
 						character_event = { id = ancrel.4103 }
 					}
@@ -999,6 +1236,12 @@ character_event = {
 					add_province_modifier = {
 						name = VIET_nile_flood_overflow
 						duration = 365
+					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						subtract_variable = { which = prosperity_value value = 4 }
 					}
 					any_province_lord = {
 						character_event = { id = ancrel.4103 }
@@ -1010,6 +1253,12 @@ character_event = {
 						name = VIET_nile_flood_overflow
 						duration = 365
 					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						subtract_variable = { which = prosperity_value value = 4 }
+					}
 					any_province_lord = {
 						character_event = { id = ancrel.4103 }
 					}
@@ -1019,6 +1268,12 @@ character_event = {
 					add_province_modifier = {
 						name = VIET_nile_flood_overflow
 						duration = 365
+					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						subtract_variable = { which = prosperity_value value = 4 }
 					}
 					any_province_lord = {
 						character_event = { id = ancrel.4103 }
@@ -1032,6 +1287,12 @@ character_event = {
 						name = VIET_nile_flood_poor
 						duration = 365
 					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						subtract_variable = { which = prosperity_value value = 2 }
+					}
 					any_province_lord = {
 						character_event = { id = ancrel.4104 }
 					}
@@ -1041,6 +1302,12 @@ character_event = {
 					add_province_modifier = {
 						name = VIET_nile_flood_poor
 						duration = 365
+					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						subtract_variable = { which = prosperity_value value = 2 }
 					}
 					any_province_lord = {
 						character_event = { id = ancrel.4104 }
@@ -1052,6 +1319,12 @@ character_event = {
 						name = VIET_nile_flood_poor
 						duration = 365
 					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						subtract_variable = { which = prosperity_value value = 2 }
+					}
 					any_province_lord = {
 						character_event = { id = ancrel.4104 }
 					}
@@ -1061,6 +1334,12 @@ character_event = {
 					add_province_modifier = {
 						name = VIET_nile_flood_poor
 						duration = 365
+					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						subtract_variable = { which = prosperity_value value = 2 }
 					}
 					any_province_lord = {
 						character_event = { id = ancrel.4104 }
@@ -1072,6 +1351,12 @@ character_event = {
 						name = VIET_nile_flood_poor
 						duration = 365
 					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						subtract_variable = { which = prosperity_value value = 2 }
+					}
 					any_province_lord = {
 						character_event = { id = ancrel.4104 }
 					}
@@ -1081,6 +1366,12 @@ character_event = {
 					add_province_modifier = {
 						name = VIET_nile_flood_poor
 						duration = 365
+					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						subtract_variable = { which = prosperity_value value = 2 }
 					}
 					any_province_lord = {
 						character_event = { id = ancrel.4104 }
@@ -1092,6 +1383,12 @@ character_event = {
 						name = VIET_nile_flood_poor
 						duration = 365
 					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						subtract_variable = { which = prosperity_value value = 2 }
+					}
 					any_province_lord = {
 						character_event = { id = ancrel.4104 }
 					}
@@ -1101,6 +1398,12 @@ character_event = {
 					add_province_modifier = {
 						name = VIET_nile_flood_poor
 						duration = 365
+					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						subtract_variable = { which = prosperity_value value = 2 }
 					}
 					any_province_lord = {
 						character_event = { id = ancrel.4104 }
@@ -1112,6 +1415,12 @@ character_event = {
 						name = VIET_nile_flood_poor
 						duration = 365
 					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						subtract_variable = { which = prosperity_value value = 2 }
+					}
 					any_province_lord = {
 						character_event = { id = ancrel.4104 }
 					}
@@ -1121,6 +1430,12 @@ character_event = {
 					add_province_modifier = {
 						name = VIET_nile_flood_poor
 						duration = 365
+					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						subtract_variable = { which = prosperity_value value = 2 }
 					}
 					any_province_lord = {
 						character_event = { id = ancrel.4104 }
@@ -1132,6 +1447,12 @@ character_event = {
 						name = VIET_nile_flood_poor
 						duration = 365
 					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						subtract_variable = { which = prosperity_value value = 2 }
+					}
 					any_province_lord = {
 						character_event = { id = ancrel.4104 }
 					}
@@ -1141,6 +1462,12 @@ character_event = {
 					add_province_modifier = {
 						name = VIET_nile_flood_poor
 						duration = 365
+					}
+					if = {
+						limit = {
+							has_dlc = "Reapers"
+						}
+						subtract_variable = { which = prosperity_value value = 2 }
 					}
 					any_province_lord = {
 						character_event = { id = ancrel.4104 }
@@ -1282,6 +1609,20 @@ character_event = {
 			name = VIET_garlic_distribution
 			duration = 730
 		}
+
+		if = {
+			limit = {
+				has_dlc = "Reapers"
+			}
+			custom_tooltip = {
+				text = capital_prospers_custom_tooltip
+				hidden_tooltip = {
+					capital_scope = {
+						change_variable = { which = prosperity_value value = 3 }
+					}
+				}
+			}
+		}
 	}
 
 	option = { #Don't distribute
@@ -1370,7 +1711,18 @@ character_event = {
 			add_province_modifier = {
 				name = VIET_planted_palm_trees
 				duration = 3650
-			}		
+			}
+			if = {
+				limit = {
+					has_dlc = "Reapers"
+				}
+				custom_tooltip = {
+					text = capital_prospers_custom_tooltip
+					hidden_tooltip = {
+						change_variable = { which = prosperity_value value = 2 }
+					}
+				}
+			}
 		}
 	}
 
@@ -1467,22 +1819,8 @@ province_event = {
 			religion = egyptian_pagan
 			religion = aten_pagan
 		}
-		OR = {
-			province_id = 788
-			province_id = 789
-			province_id = 790
-			province_id = 791
-			province_id = 792
-			province_id = 793
-			province_id = 794
-			province_id = 795
-			province_id = 796
-			province_id = 797
-			province_id = 798
-			province_id = 799
-			province_id = 800
-			province_id = 802
-		}
+
+		county = { is_on_nile_trigger = yes }
 	}
 	
 	mean_time_to_happen = {
@@ -1495,7 +1833,7 @@ province_event = {
 		}
 	}
 
-	option = {#Do nothing
+	option = { # Do nothing
 		name = ancrel.4153.a
 		owner = {
 			set_character_flag = VIET_descrated_egyptian_tombs_happened
@@ -1527,8 +1865,23 @@ province_event = {
 				}				
 			}
 		}
+
+		if = {
+			limit = {
+				has_dlc = "Reapers"
+			}
+			custom_tooltip = {
+				text = province_prospers_custom_tooltip
+				hidden_tooltip = {
+					ROOT = {
+						change_variable = { which = prosperity_value value = -4 }
+					}
+				}
+			}
+		}
 	}
-	option = {#Send in security
+
+	option = { # Send in security
 		name = ancrel.4153.b
 		owner = {
 			set_character_flag = VIET_descrated_egyptian_tombs_happened
@@ -1553,6 +1906,20 @@ province_event = {
 					name = VIET_province_desecrated_egyptian_tombs
 					duration = 1095
 				}				
+			}
+		}
+
+		if = {
+			limit = {
+				has_dlc = "Reapers"
+			}
+			custom_tooltip = {
+				text = province_loses_prosperity_custom_tooltip
+				hidden_tooltip = {
+					ROOT = {
+						change_variable = { which = prosperity_value value = -2 }
+					}
+				}
 			}
 		}
 	}
@@ -1698,7 +2065,8 @@ character_event = {
 		wealth = -10
 		character_event = { id = ancrel.4156 tooltip = ancrel.4156.tooltip }
 	}
-	option = { # Add 'em
+
+	option = { # Pff... yeah right
 		name = ancrel.4155.b
 		piety = -5
 		if = {
@@ -1737,7 +2105,7 @@ character_event = {
 
 	is_triggered_only = yes
 
-	option = { # Add 'em
+	option = { # Expel!
 		name = ancrel.4156.a
 		piety = 20
 		if = {
@@ -1888,10 +2256,24 @@ character_event = {
 		}
 	}
 
-	option = { # Add 'em
+	option = { # Yeah, i'm pretty great
 		name = ancrel.4157.a
 		prestige = 10
 		piety = 10
+
+		if = {
+			limit = {
+				has_dlc = "Reapers"
+			}
+			custom_tooltip = {
+				text = capital_prospers_custom_tooltip
+				hidden_tooltip = {
+					capital_scope = {
+						change_variable = { which = prosperity_value value = 6 }
+					}
+				}
+			}
+		}
 	}
 }
 
@@ -1965,13 +2347,26 @@ character_event = {
 		}
 	}
 
-	option = { # Add 'em
+	option = { # Well, that's no good...
 		name = ancrel.4158.a
 		prestige = -10
 		piety = -10
 		add_character_modifier = {
 			name = VIET_not_upholding_maat
 			duration = 1095
+		}
+		if = {
+			limit = {
+				has_dlc = "Reapers"
+			}
+			custom_tooltip = {
+				text = province_loses_prosperity_custom_tooltip
+				hidden_tooltip = {
+					capital_scope = {
+						change_variable = { which = prosperity_value value = 6 }
+					}
+				}
+			}
 		}
 	}
 }

@@ -3,9 +3,7 @@ decisions = {
 		only_playable = yes
 		is_high_prio = yes
 		potential = {
-			NOT = {
-				has_character_flag = aonach_tailteann
-			}
+			NOT = {	has_character_flag = aonach_tailteann }
 			OR = {
 				religion = celtic_pagan
 				religion = celtic_pagan_reformed
@@ -54,16 +52,28 @@ decisions = {
 					character_event = { id = ancrel.1190 }
 				}
 			}
+
+			if = {
+				limit = {
+					has_dlc = "Reapers"
+				}
+				custom_tooltip = {
+					text = capital_prospers_custom_tooltip
+					hidden_tooltip = {
+						capital_scope = {
+							change_variable = { which = prosperity_value value = 12 }
+						}
+					}
+				}
+			}
 		}
 		ai_will_do = {
 			factor = 1
 			modifier = {
 				factor = 0
-				NOT = {
-					OR = {
-						wealth = 1000
-						scaled_wealth = 3.0
-					}
+				NOR = {
+					wealth = 1000
+					scaled_wealth = 3.0
 				}
 			}
 		}
@@ -87,7 +97,9 @@ decisions = {
 		allow = {
 			war = no
 			any_demesne_title = {
-				is_occupied = no
+				location = {
+					any_province_holding = { is_occupied = no }
+				}
 			}
 			OR = {
 				any_vassal = {
@@ -112,7 +124,21 @@ decisions = {
 				hidden_tooltip = {
 					character_event = { id = ancrel.0020 }
 				}
-			}	
+			}
+
+			if = {
+				limit = {
+					has_dlc = "Reapers"
+				}
+				custom_tooltip = {
+					text = capital_prospers_custom_tooltip
+					hidden_tooltip = {
+						capital_scope = {
+							change_variable = { which = prosperity_value value = 6 }
+						}
+					}
+				}
+			}
 		}
 		revoke_allowed = {
 			always = no
@@ -848,7 +874,9 @@ decisions = {
 		allow = {
 			war = no
 			any_demesne_title = {
-				is_occupied = no
+				location = {
+					any_province_holding = { is_occupied = no }
+				}
 			}
 			OR = {
 				any_vassal = {
