@@ -6,6 +6,21 @@ decisions = {
 			OR = {
 				culture = tsakonian
 				culture = spartan
+				custom_tooltip = {
+					name = is_greek_and_hellenic
+					hidden_tooltip = {
+						AND = {
+							culture = greek
+							OR = {
+								religion = hellenic_pagan
+								religion = cybelian_pagan
+								religion = neoplatonist
+								religion = mithraic_pagan
+								religion = mastimani
+							}
+						}
+					}
+				}
 			}
 			NOT = { has_global_flag = THIS_IS_SPARTA }
 		}
@@ -13,23 +28,38 @@ decisions = {
 		allow = {
 			independent = yes
 			is_adult = yes
-			prestige = 5000
+			OR = {
+				AND = {
+					prestige = 4300
+					num_of_duke_titles = 3
+				}
+				prestige = 8000
+			}
 
-			completely_controls = c_sparta
+			completely_controls = c_monemvasia
 			martial = 12
 
 			OR = {
 				culture = spartan
 				culture = tsakonian
+				custom_tooltip = {
+					name = is_greek_and_hellenic
+					hidden_tooltip = {
+						AND = {
+							culture = greek
+							OR = {
+								religion = hellenic_pagan
+								religion = cybelian_pagan
+								religion = neoplatonist
+								religion = mithraic_pagan
+								religion = mastimani
+							}
+						}
+					}
+				}
 			}
 
-			OR = {
-				religion = hellenic_pagan
-				religion = cybelian_pagan
-				religion = neoplatonist
-				religion = mithraic_pagan
-				religion = mastimani
-			}
+			religion_group = pagan_group
 
 			NOT = { tier = EMPEROR }
 			NOT = { trait = craven }
@@ -44,16 +74,33 @@ decisions = {
 							activate_title = { title = THIS status = yes } # Otherwise grant_title doesn't work
 							grant_title = ROOT
 							copy_title_laws = PREV
+							gender_succ = true_cognatic
 						}
 					}
 					ROOT = { 
-						narrative_event = { id = ancrel.2125 }
+						narrative_event = { id = this_is_sparta.1 }
+					}
+					c_monemvasia = {
+						culture = spartan
+						gender_succ = true_cognatic
+					}
+					c_monemvasia = { 
+						set_name = Sparta
+						set_coa = k_sparta
+					}
+					b_sparta = {
+						set_coa = k_sparta
+					}
+					give_nickname = nick_the_great
+					ROOT = {
+						c_monemvasia = {
+							usurp_title_plus_barony_if_unlanded_and_vassals = PREV
+						}
+						capital = c_monemvasia
 					}
 				}
 			}
-			c_sparta = {
-				culture = spartan
-			}
+			clr_global_flag = THIS_IS_NOT_SPARTA
 			set_global_flag = THIS_IS_SPARTA
 		}
 
@@ -68,52 +115,61 @@ decisions = {
 		potential = {
 			has_global_flag = THIS_IS_SPARTA
 			NOT = { has_global_flag = 300 }
-			AND = {
-				OR = {
-					culture = spartan
-					culture = tsakonian
-				}
-				OR = {
-					religion = hellenic_pagan
-					religion = cybelian_pagan
-					religion = neoplatonist
-					religion = mithraic_pagan
-					religion = mastimani				
-				}
+			OR = {
+				culture = spartan
+				culture = tsakonian
+				culture = greek
 			}
 		}
 		allow = {
 			has_landed_title = k_sparta
-			money = 500
-			prestige = 5000
+			money = 300
+			prestige = 7300
 			piety = 750
-			martial = 8
-			AND = {
-				OR = {
-					culture = spartan
-					culture = tsakonian
-				}
-				OR = {
-					religion = hellenic_pagan
-					religion = cybelian_pagan
-					religion = neoplatonist
-					religion = mithraic_pagan
-					religion = mastimani
+			martial = 12
+			religion_group = pagan_group
+			OR = {
+				culture = spartan
+				culture = tsakonian
+				custom_tooltip = {
+					name = is_greek_and_hellenic
+					hidden_tooltip = {
+						AND = {
+							culture = greek
+							OR = {
+								religion = hellenic_pagan
+								religion = cybelian_pagan
+								religion = neoplatonist
+								religion = mithraic_pagan
+								religion = mastimani
+							}
+						}
+					}
 				}
 			}
 			NOT = { trait = craven }
 		}
 		effect = {
 			set_global_flag = 300
-			prestige = 500
-			piety = -750
-			wealth = -500
+			clr_global_flag = THIS_IS_NOT_SPARTA
+			prestige = 300
+			piety = -300
+			wealth = -300
 
 			custom_tooltip = {
 				name = this_is_sparta.8
 				hidden_tooltip = {
 					activate_title = { title = d_three_hundred status = yes }
+					primary_title = {
+						d_three_hundred = {
+							activate_title = { title = THIS status = yes } # Otherwise grant_title doesn't work
+						}
+					}
 				}
+			}
+
+			ROOT = { 
+				narrative_event = { id = this_is_sparta.2 }
 			}
 
 			hidden_tooltip = {
@@ -121,20 +177,23 @@ decisions = {
 					name = "Leonidas"
 					random_traits = yes
 					culture = spartan
-					religion = ROOT
+					religion = hellenic_pagan
 					dynasty = NONE
 					female = no
 					age = 30
-					wealth = 500
+					wealth = 300
+					prestige = 300
+					piety = 300
 					trait = brilliant_strategist
 					trait = strong
 					trait = tall
 					trait = imposing
 					trait = inspiring_leader
 					trait = holy_warrior
-					trait = scholar
 					trait = wroth
 					trait = powerful_voice
+					trait = fertile
+					trait = lustful
 					attributes = {
 						martial = 30
 					}
@@ -142,6 +201,7 @@ decisions = {
 				new_character = {
 					d_three_hundred = {
 						grant_title = PREV
+						gender_succ = true_cognatic
 					}
 				}
 				create_random_priest = {
@@ -227,13 +287,15 @@ decisions = {
 					random_traits = yes
 					female = yes
 					trait = powerful_voice
+					trait = fertile
 				}
 				create_random_soldier = { 
 					random_traits = yes
 					female = yes
 					trait = powerful_voice
+					trait = fertile
 				}
-				create_random_character = { # Slave
+				create_character = { # Slave
 					random_traits = yes
 					religion = nicene
 					culture = greek
@@ -251,7 +313,7 @@ decisions = {
 					female = no
 					trait = eunuch
 				}
-				create_random_character = { # Slave
+				create_character = { # Slave
 					random_traits = yes
 					religion = zoroastrian
 					culture = persian
@@ -276,6 +338,7 @@ decisions = {
 
 		potential = {
 			has_global_flag = THIS_IS_SPARTA
+			has_global_flag = 300
 			OR = {
 				has_landed_title = k_sparta
 				any_liege = {
@@ -287,20 +350,48 @@ decisions = {
 
 		allow = {
 			OR = {
-				religion = hellenic_pagan
-				religion = cybelian_pagan
-				religion = neoplatonist
-				religion = mithraic_pagan
-				religion = mastimani
+				AND = {
+					culture = tsakonian
+					religion_group = pagan_group
+				}
+				custom_tooltip = {
+					name = is_greek_and_hellenic
+					hidden_tooltip = {
+						AND = {
+							culture = greek
+							OR = {
+								religion = hellenic_pagan
+								religion = cybelian_pagan
+								religion = neoplatonist
+								religion = mithraic_pagan
+								religion = mastimani
+								religion = pagan_group
+							}
+						}
+					}
+				}
 			}
 			prisoner = no
-			prestige = 500
-			martial = 8
+			OR = {
+				AND = {
+					prestige = 10000
+					is_landed = yes
+					martial = 12
+				}
+				AND = {
+					prestige = 300
+					martial = 18
+				}
+			}
 			NOT = { trait = craven }
 		}
 
 		effect = {
 			culture = spartan
+			any_child = {
+				limit = { religion_group = pagan_group }
+				culture = spartan
+			}
 		}
 	}
 }

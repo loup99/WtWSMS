@@ -267,6 +267,7 @@ succession_laws = {
 							NOT = { religion_group = pagan_group }
 							is_reformed_religion = yes
 							religion = hellenic_pagan
+							culture = spartan
 						}
 					}
 					OR = {
@@ -611,6 +612,7 @@ succession_laws = {
 			always = no
 		}			
 	}
+	
 	succ_papal_succession = {
 		potential = {
 			OR = { 
@@ -827,7 +829,6 @@ gender_laws = {
 						NOT = { religion_group = muslim }
 						NOT = { religion = aztec }
 						NOT = { religion = aztec_reformed }
-						has_horde_culture = no
 						OR = {
 							AND = {
 								is_tribal = no
@@ -836,7 +837,6 @@ gender_laws = {
 							is_feminist_religion_trigger = yes
 							culture_group = vasconic # Basque
 							culture = spartan
-							culture = tsakonian
 						}
 						is_merchant_republic = no
 						is_patrician = no
@@ -847,7 +847,6 @@ gender_laws = {
 							is_feminist_religion_trigger = yes
 							culture_group = vasconic # Basque
 							culture = spartan
-							culture = tsakonian
 							ROOT = { holder_scope = { primary_title = { has_law = status_of_women_3 } } }
 							ROOT = { holder_scope = { primary_title = { has_law = status_of_women_4 } } }
 							has_game_rule = {
@@ -893,8 +892,10 @@ gender_laws = {
 		}
 		revoke_allowed = {
 			always = no
-		}			
+		}
+		
 		default = yes
+		
 		default_selection = {
 			factor = 10
 		}
@@ -928,11 +929,25 @@ gender_laws = {
 				holder_scope = {
 					NOT = {
 						religion_group = christian
+						culture = spartan # Prevents Spartan AI Pagans from reverting to Agnatic only
+						culture_group = vasconic
+						is_feminist_religion_trigger = yes
 					}
 					primary_title = {
 						NOT = { has_law = status_of_women_3 }
 						NOT = { has_law = status_of_women_4 }
 					}
+				}
+			}
+
+			modifier = {
+				factor = 0
+				holder_scope = {
+					OR = {
+						is_feminist_religion_trigger = yes
+						culture = spartan
+						culture_group = vasconic
+					}				
 				}
 			}
 		}
@@ -946,16 +961,25 @@ gender_laws = {
 				OR = {
 					AND = {
 						NOT = { has_dlc = "Zeus" }
-						is_feminist_religion_trigger = yes
-						culture = basque
+						OR = {
+							is_feminist_religion_trigger = yes
+							culture_group = vasconic # Basque
+							culture = spartan
+						}
 					}
 					AND = {
 						NOT = { religion_group = muslim }
 						NOT = { religion = aztec }
 						NOT = { religion = aztec_reformed }
-						has_horde_culture = no
-						is_tribal = no
-						is_nomadic = no
+						OR = {
+							AND = {
+								is_tribal = no
+								is_nomadic = no
+							}
+							is_feminist_religion_trigger = yes
+							culture_group = vasconic # Basque
+							culture = spartan
+						}
 						is_merchant_republic = no
 						is_patrician = no
 					}
@@ -967,9 +991,10 @@ gender_laws = {
 								primary_title = { has_law = status_of_women_2 }
 								OR = {
 									is_feminist_religion_trigger = yes
-									culture = basque
+									culture_group = vasconic # Basque
 									culture = old_frisian
 									culture = tuareg
+									culture = spartan
 								}
 							}
 						}
@@ -1014,9 +1039,10 @@ gender_laws = {
 					OR = {
 						is_feminist_religion_trigger = yes
 						OR = {
-							culture = basque
+							culture_group = vasconic
 							culture = old_frisian
 							culture = tuareg
+							culture = spartan
 						}
 					}
 				}
@@ -1073,5 +1099,4 @@ gender_laws = {
 			always = no
 		}			
 	}
-	
 }

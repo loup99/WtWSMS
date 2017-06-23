@@ -10,7 +10,7 @@
 
 # ...
 
-# Madness? 
+# Madness? #
 
 # .........
 
@@ -259,6 +259,7 @@ character_event = {
 
 	potential = {
 		culture = spartan
+		religion_group = pagan_group
 	}
 
 	trigger = {
@@ -277,5 +278,173 @@ character_event = {
 	}
 }
 
+narrative_event = { # Fall of Sparta: Holder of Sparta "goes soft" and abandons paganism OR non-Spartan/Tsakonian takes Sparta
 
-# I've chosen my code carefully, Persian.
+	id = this_is_sparta.6
+	title = this_is_sparta.6_TITLE
+	desc = this_is_sparta.10
+	picture = GFX_evt_deca_romana
+	border = GFX_event_narrative_frame_war
+
+	major = yes
+	
+
+	potential = {
+		has_landed_title = k_sparta
+		NOT = { 
+			religion_group = pagan_group
+			religion = hellenic_pagan
+			religion = cybelian_pagan
+			religion = neoplatonist
+			religion = mithraic_pagan
+			religion = mastimani
+		}
+	}
+
+	trigger = {
+		has_landed_title = k_sparta
+		NOT = { 
+			culture = spartan
+			culture = tsakonian
+			religion = hellenic_pagan
+			religion = cybelian_pagan
+			religion = neoplatonist
+			religion = mithraic_pagan
+			religion = mastimani
+			religion_group = pagan_group
+		}
+	}
+
+	option = {
+		name = this_is_sparta.11 # ONLY the controller of Sparta can take this Event, as it dismantles Sparta itself and replaces the titles
+		trigger = {
+			has_landed_title = k_sparta
+			NOT = { has_global_flag = THIS_IS_NOT_SPARTA }
+			NOT = { has_landed_title = k_byzantium }
+			NOT = {
+				k_byzantium = {
+					has_holder = yes
+				}
+			}
+		}
+
+		ROOT = {
+			k_byzantium = {
+				activate_title = { title = THIS status = yes } # Otherwise grant_title doesn't work
+				grant_title = PREV
+			}
+		}
+		k_byzantium = { 
+			set_name = Hellenes
+			set_coa = c_monemvasia
+		} 
+		k_sparta = { 
+			unsafe_destroy_landed_title = THIS
+		}
+		clr_global_flag = THIS_IS_SPARTA
+		set_global_flag = THIS_IS_NOT_SPARTA
+	}
+
+	option = {
+		name = this_is_sparta.11 # Pagans and Spartans mourn
+		trigger = {
+			OR = {
+				culture = spartan
+				religion_group = pagan_group
+				trait = sympathy_pagans
+			}
+			NOT = { has_landed_title = k_sparta }
+		}
+		clr_global_flag = THIS_IS_SPARTA
+	}
+
+	option = { # Everyone else
+		name = this_is_sparta.12
+		trigger = {
+			OR = {
+				NOT = {
+					religion_group = pagan_group
+					culture = spartan
+					has_landed_title = k_sparta
+				}
+				has_landed_title = k_byzantium
+			}
+		}
+		clr_global_flag = THIS_IS_SPARTA
+	}
+}
+
+long_character_event = { # Spartan goes soft
+	id = this_is_sparta.7
+	desc = this_is_sparta.13
+	picture = GFX_evt_deca_romana
+
+	potential = {
+		culture = spartan
+		NOT = {
+			religion_group = pagan_group
+			religion = hellenic_pagan
+			religion = cybelian_pagan
+			religion = neoplatonist
+			religion = mithraic_pagan
+			religion = mastimani			
+		}
+	}
+
+	trigger = {
+		is_adult = yes
+		culture = spartan
+		NOT = {
+			religion = hellenic_pagan
+			religion = cybelian_pagan
+			religion = neoplatonist
+			religion = mithraic_pagan
+			religion = mastimani
+			religion_group = pagan_group
+		}
+	}
+
+	option = {
+		name = this_is_sparta.11
+		culture = tsakonian
+		hidden_tooltip = {
+			remove_character_modifier = this_is_not_sparta
+			remove_character_modifier = inferior_spartan_child
+			remove_character_modifier = spartan_warrior
+			remove_trait = lame_spartan
+		}
+	}
+}
+
+character_event = { # Maintenance and clean up should Sparta cease to exist, that the Decision may be taken again
+	id = this_is_sparta.8
+	hide_window = yes
+
+	potential = {
+		has_landed_title = b_sparta
+		has_global_flag = THIS_IS_SPARTA
+		NOT = { has_global_flag = THIS_IS_NOT_SPARTA }
+	}
+
+	trigger = {
+		k_sparta = {
+			has_holder = no
+		}
+		k_byzantium = {
+			has_holder = no
+		} 
+	}
+
+	option = {
+		name = this_is_sparta.11
+		ROOT = {
+			character_event = { this_is_sparta.6 }
+		}
+
+		clr_global_flag = THIS_IS_SPARTA
+		set_global_flag = THIS_IS_NOT_SPARTA
+	}
+}
+
+
+# I've chosen my code carefully, Persian. #
