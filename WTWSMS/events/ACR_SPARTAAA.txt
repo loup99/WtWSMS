@@ -1,0 +1,281 @@
+#################################################################
+#								#
+#	TURTLESHROOM PRODUCTIONS PROUDLY PRESENTS	#
+#		THE PENULTIMATE SPARTAAAAA MOD		#
+#								#
+#################################################################
+
+#This is blasphemy!#
+#This is madness!#
+
+# ...
+
+# Madness? 
+
+# .........
+
+namespace = this_is_sparta
+
+narrative_event = { # Announcement of the ressurection of SPARTA
+	id = this_is_sparta.1
+
+	title = this_is_sparta.1_TITLE
+	desc = this_is_sparta.2
+	picture = GFX_evt_sparta
+	border = GFX_event_narrative_frame_war
+	
+	is_triggered_only = yes
+
+	major = yes
+
+	option = { # SPARTAAAAAAAAAAAAA
+		name = this_is_sparta.3
+		trigger = {
+			OR = {
+				culture = spartan
+				culture = tsakonian
+				religion = hellenic_pagan
+				religion = cybelian_pagan
+				religion = neoplatonist
+				religion = mithraic_pagan
+				religion = mastimani
+			}
+			NOT = {
+				religion_group = christian
+				trait = secret_zoroastrian
+			}
+		}
+	}
+
+
+	option = { # Greek/Byzantine/Modern Spartan Christian laughs at their ambition
+		name = this_is_sparta.4
+		trigger = {
+			OR = {
+				culture = tsakonian
+				culture_group = byzantine
+			}
+			NOT = { culture = spartan }
+			religion_group = christian
+		}
+	}
+
+	option = { # Romance culture reaction
+		name = this_is_sparta.5
+		trigger = {
+			has_romance_culture_trigger = yes
+			NOT = {
+				culture = tsakonian
+				culture = spartan
+			}
+		}
+
+	option = { # Persian/Iranian/Zoroastrian/etc. reaction and reaction of cravens
+		name = this_is_sparta.6
+		trigger = {
+			OR = {
+				religion = zoroastrian
+				culture = persian
+				culture = romano_persian
+				culture_group = iranian
+				has_landed_title = e_persia
+				has_landed_title = k_persia
+				trait = sympathy_zoroastrians
+				trait = secret_zoroastrian
+			}
+			NOT = {
+				religion = hellenic_pagan
+				religion = cybelian_pagan
+				religion = neoplatonist
+				religion = mithraic_pagan
+				religion = mastimani
+			}
+		}
+	}
+
+	option = { # Everyone else
+		name = this_is_sparta.7
+		trigger = {
+			NOT = {
+				religion = hellenic_pagan
+				religion = cybelian_pagan
+				religion = neoplatonist
+				religion = mithraic_pagan
+				religion = mastimani
+				culture = spartan
+				culture = tsakonian
+				trait = secret_zoroastrian
+				culture = romano_persian
+				culture_group = iranian
+				religion_group = christian
+			}
+		}
+	}
+}
+
+narrative_event = { # Spartan Brigades
+	id = this_is_sparta.2
+
+	title = this_is_sparta.2_TITLE
+	desc = this_is_sparta.9
+	picture = GFX_evt_sparta
+	border = GFX_event_narrative_frame_war
+	
+	is_triggered_only = yes
+
+	major = yes
+
+	option = { # SPARTAAAAAAAAAAAAA
+		name = this_is_sparta.3
+		trigger = {
+			OR = {
+				culture = spartan
+				culture = tsakonian
+				religion = hellenic_pagan
+				religion = cybelian_pagan
+				religion = neoplatonist
+				religion = mithraic_pagan
+				religion = mastimani
+			}
+			NOT = {
+				religion_group = christian
+				trait = secret_zoroastrian
+			}
+		}
+	}
+
+
+	option = { # Christian laughs at their ambition
+		name = this_is_sparta.4
+		trigger = {
+			NOT = { culture = spartan }
+			religion_group = christian
+		}
+	}
+
+	option = { # Romance culture reaction
+		name = this_is_sparta.5
+		trigger = {
+			has_romance_culture_trigger = yes
+			NOT = {
+				culture = tsakonian
+				culture = spartan
+			}
+		}
+
+	option = { # Persian/Iranian/Zoroastrian/etc. reaction and reaction of cravens
+		name = this_is_sparta.6
+		trigger = {
+			OR = {
+				religion = zoroastrian
+				culture = persian
+				culture = romano_persian
+				culture_group = iranian
+				has_landed_title = e_persia
+				has_landed_title = k_persia
+				trait = sympathy_zoroastrians
+				trait = secret_zoroastrian
+				trait = craven
+			}
+			NOT = {
+				culture = spartan
+				religion = hellenic_pagan
+				religion = cybelian_pagan
+				religion = neoplatonist
+				religion = mithraic_pagan
+				religion = mastimani
+			}
+		}
+	}
+
+	option = { # Everyone else
+		name = this_is_sparta.7
+		trigger = {
+			NOT = {
+				religion = hellenic_pagan
+				religion = cybelian_pagan
+				religion = neoplatonist
+				religion = mithraic_pagan
+				religion = mastimani
+				culture = spartan
+				culture = tsakonian
+				trait = secret_zoroastrian
+				trait = craven
+				culture = romano_persian
+				culture_group = iranian
+				religion_group = christian
+			}
+		}
+	}
+}
+
+character_event = { # Penalty for Spartan with Craven trait
+	id = this_is_sparta.3
+	hide_window = yes
+
+	potential = {
+		culture = spartan
+		religion_group = pagan_group
+	}
+
+	trigger = {
+		is_adult = yes
+		trait = craven
+	}
+
+	option = {
+		name = this_is_sparta.8
+	}
+}
+
+character_event = { # Removal of penalty if Spartan is no longer a chicken
+	id = this_is_sparta.4
+	hide_window = yes
+
+	potential = {
+		culture = spartan
+		has_character_modifier = this_is_not_sparta
+	}
+
+	trigger = {
+		is_adult = yes
+		NOT = { trait = craven }
+	}
+
+	option = {
+		name = this_is_sparta.8
+		remove_character_modifier = this_is_not_sparta
+	}
+}
+
+character_event = { 
+# In this Event, a Spartan with defect who has survived the infancy challenge gets the special Lame Spartan Trait, which hurts his Martial but ups his other talents.
+# It should be noted that a Spartan who survives infancy and the challenge with a defect, or manifests one later in life, would still be accepted as a Spartan.
+# Spartans who could not fight were put to work as Sparta's bureaucrats, artists, governors, stewards, farmers, and so on to support the warriors.
+# In fact, King Agesilaos II of Sparta was a cripple and ended up being a Spartan King!
+
+	id = this_is_sparta.5
+	hide_window = yes
+
+	potential = {
+		culture = spartan
+	}
+
+	trigger = {
+		OR = {
+			has_character_flag = survived_spartan_hill
+			has_character_modifier = inferior_spartan_child
+		}
+		age = 6
+	}
+
+	option = {
+		name = this_is_sparta.8
+		add_trait = lame_spartan
+		remove_trait = inferior_spartan_child
+		set_character_flag = once_inferior_child_accepted
+	}
+}
+
+
+# I've chosen my code carefully, Persian.

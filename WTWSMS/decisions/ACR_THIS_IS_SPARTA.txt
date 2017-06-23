@@ -1,0 +1,306 @@
+decisions = {
+	this_is_sparta = {
+		is_high_prio = yes
+
+		potential = {
+			OR = {
+				culture = tsakonian
+				culture = spartan
+			}
+			NOT = { has_global_flag = THIS_IS_SPARTA }
+		}
+
+		allow = {
+			independent = yes
+			is_adult = yes
+			prestige = 5000
+
+			completely_controls = c_sparta
+			martial = 12
+
+			OR = {
+				culture = spartan
+				culture = tsakonian
+			}
+
+			OR = {
+				religion = hellenic_pagan
+				religion = cybelian_pagan
+				religion = neoplatonist
+				religion = mithraic_pagan
+				religion = mastimani
+			}
+
+			NOT = { tier = EMPEROR }
+			NOT = { trait = craven }
+		}
+
+		effect = {
+			custom_tooltip = {
+				name = this_is_sparta.8
+				hidden_tooltip = {
+					primary_title = {
+					 	k_sparta = {
+							activate_title = { title = THIS status = yes } # Otherwise grant_title doesn't work
+							grant_title = ROOT
+							copy_title_laws = PREV
+						}
+					}
+					ROOT = { 
+						narrative_event = { id = ancrel.2125 }
+					}
+				}
+			}
+			c_sparta = {
+				culture = spartan
+			}
+			set_global_flag = THIS_IS_SPARTA
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	three_hundred = {
+		is_high_prio = yes
+
+		potential = {
+			has_global_flag = THIS_IS_SPARTA
+			NOT = { has_global_flag = 300 }
+			AND = {
+				OR = {
+					culture = spartan
+					culture = tsakonian
+				}
+				OR = {
+					religion = hellenic_pagan
+					religion = cybelian_pagan
+					religion = neoplatonist
+					religion = mithraic_pagan
+					religion = mastimani				
+				}
+			}
+		}
+		allow = {
+			has_landed_title = k_sparta
+			money = 500
+			prestige = 5000
+			piety = 750
+			martial = 8
+			AND = {
+				OR = {
+					culture = spartan
+					culture = tsakonian
+				}
+				OR = {
+					religion = hellenic_pagan
+					religion = cybelian_pagan
+					religion = neoplatonist
+					religion = mithraic_pagan
+					religion = mastimani
+				}
+			}
+			NOT = { trait = craven }
+		}
+		effect = {
+			set_global_flag = 300
+			prestige = 500
+			piety = -750
+			wealth = -500
+
+			custom_tooltip = {
+				name = this_is_sparta.8
+				hidden_tooltip = {
+					activate_title = { title = d_three_hundred status = yes }
+				}
+			}
+
+			hidden_tooltip = {
+				create_random_soldier = {
+					name = "Leonidas"
+					random_traits = yes
+					culture = spartan
+					religion = ROOT
+					dynasty = NONE
+					female = no
+					age = 30
+					wealth = 500
+					trait = brilliant_strategist
+					trait = strong
+					trait = tall
+					trait = imposing
+					trait = inspiring_leader
+					trait = holy_warrior
+					trait = scholar
+					trait = wroth
+					trait = powerful_voice
+					attributes = {
+						martial = 30
+					}
+				}
+				new_character = {
+					d_three_hundred = {
+						grant_title = PREV
+					}
+				}
+				create_random_priest = {
+					random_traits = yes
+					religion = ROOT
+					culture = tsakonian
+					age = 30
+					wealth = 50
+					trait = mystic
+					trait = scholar
+					trait = zealous
+					trait = powerful_voice
+					female = no
+					attributes = {
+						martial = 13
+					}
+				}
+				create_random_soldier = {
+					random_traits = yes
+					religion = ROOT
+					culture = spartan
+					age = 18
+					wealth = 50
+					trait = winter_soldier
+					trait = powerful_voice
+					female = no
+					attributes = {
+						martial = 12
+					}
+				}
+				create_random_soldier = {
+					random_traits = yes
+					religion = ROOT
+					culture = spartan
+					trait = powerful_voice
+					female = no
+				}
+				create_random_soldier = {
+					random_traits = yes
+					religion = ROOT
+					culture = greek
+					trait = powerful_voice
+					female = no
+				}
+				create_random_soldier = {
+					random_traits = yes
+					religion = ROOT
+					culture = macedonian
+					trait = powerful_voice
+					female = no
+				}
+				create_random_soldier = {
+					random_traits = yes
+					religion = ROOT
+					culture = macedonian
+					trait = powerful_voice
+					female = no
+				}
+				create_random_soldier = {
+					random_traits = yes
+					religion = ROOT
+					culture = tsakonian
+					trait = powerful_voice
+					female = no
+				}
+				create_random_soldier = {
+					random_traits = yes
+					religion = ROOT
+					culture = spartan
+					race = ROOT
+					age = 16
+					female = yes
+					trait = strong
+					trait = fertile
+					trait = lustful
+					trait = master_seductress
+					trait = powerful_voice
+					attributes = {
+						martial = 14
+					}
+				}
+				create_random_soldier = { 
+					random_traits = yes
+					female = yes
+					trait = powerful_voice
+				}
+				create_random_soldier = { 
+					random_traits = yes
+					female = yes
+					trait = powerful_voice
+				}
+				create_random_character = { # Slave
+					random_traits = yes
+					religion = nicene
+					culture = greek
+					race = ROOT
+					age = 16
+					female = no
+					trait = eunuch
+				}
+				create_random_soldier = { # Slave
+					random_traits = yes
+					religion = nicene
+					culture = random
+					race = random
+					age = 16
+					female = no
+					trait = eunuch
+				}
+				create_random_character = { # Slave
+					random_traits = yes
+					religion = zoroastrian
+					culture = persian
+					race = random
+					female = no
+					trait = eunuch
+				}
+				create_random_soldier = { # Slave
+					random_traits = yes
+					religion = nicene
+					culture = greek
+					race = ROOT
+					female = no
+					trait = eunuch
+				}
+			}
+		}
+	}
+
+	become_spartan = {
+		is_high_prio = yes
+
+		potential = {
+			has_global_flag = THIS_IS_SPARTA
+			OR = {
+				has_landed_title = k_sparta
+				any_liege = {
+					has_landed_title = k_sparta
+				}
+			}
+			NOT = { culture = spartan }
+		}
+
+		allow = {
+			OR = {
+				religion = hellenic_pagan
+				religion = cybelian_pagan
+				religion = neoplatonist
+				religion = mithraic_pagan
+				religion = mastimani
+			}
+			prisoner = no
+			prestige = 500
+			martial = 8
+			NOT = { trait = craven }
+		}
+
+		effect = {
+			culture = spartan
+		}
+	}
+}

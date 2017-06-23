@@ -22,6 +22,7 @@ k_athens = {
 				religion = cybelian_pagan
 				religion = neoplatonist
 				religion = mithraic_pagan
+				religion = mastimani
 			}
 			NOT = {
 				tier = emperor
@@ -37,26 +38,54 @@ k_sparta = {
 	capital = 478 # Sparta
 
 	culture = tsakonian
-	religion = hellenic_pagan
 
 	creation_requires_capital = yes
 
 	allow = {
-		AND = {
-			independent = yes
-			culture = tsakonian
-			is_adult = yes
-			prestige = 10000
-			realm_size = 10
+		always = no # Requires Special Decision
+	}
+
+	d_three_hundred = {
+		color = { 55 40 50 }
+		color2 = { 99 39 49 }
+
+		capital = 478 # Sparta
+
+		allow = {
 			OR = {
-				religion = hellenic_pagan
-				religion = cybelian_pagan
-				religion = neoplatonist
+				culture = spartan
+				culture = tsakonian
+				religion = pagan_group
+				has_landed_title = k_sparta
 			}
+
 			NOT = {
-				tier = emperor
+				religion_group = christian
+				religion_group = muslim
+				religion_group = jewish_group
+				religion_group = zoroastrian_group
 			}
 		}
+
+		culture = spartan
+
+		mercenary = yes
+
+		title = "THREE_HUNDRED_TITLE"
+		foa = "WARCHIEF_FOA"
+
+		landless = yes
+		primary = yes
+
+		dignity = 300
+
+		independent = no
+
+		strength_growth_per_century = 1.5
+
+		income = 1.1
+
+		mercenary_type = hellenic_composition
 	}
 }
 
@@ -79,13 +108,15 @@ k_thracia = {
 				culture = thraco_roman
 			}
 			is_adult = yes
-			prestige = 5000
+			prestige = 2000
 			realm_size = 25
 			OR = {
 				religion_group = christian
 				religion = hellenic_pagan
 				religion = cybelian_pagan
 				religion = neoplatonist
+				religion = mithraic_pagan
+				religion = mastimani
 			}
 			NOT = {
 				tier = emperor
@@ -112,13 +143,15 @@ k_illyria = {
 				culture = illyro_roman
 			}
 			is_adult = yes
-			prestige = 7000
+			prestige = 5000
 			realm_size = 20
 			OR = {
 				religion_group = christian
 				religion = hellenic_pagan
 				religion = cybelian_pagan
 				religion = neoplatonist
+				religion = mithraic_pagan
+				religion = mastimani
 			}
 			NOT = {
 				tier = emperor
@@ -146,13 +179,15 @@ k_cyrenaica = {
 			independent = yes
 			culture = greek
 			is_adult = yes
-			prestige = 9000
+			prestige = 3000
 			realm_size = 20
 			OR = {
 				religion_group = christian
 				religion = hellenic_pagan
 				religion = cybelian_pagan
 				religion = neoplatonist
+				religion = mithraic_pagan
+				religion = mastimani
 			}
 			NOT = {
 				tier = emperor
@@ -177,14 +212,15 @@ k_crete = {
 				title = d_krete
 			}
 			independent = yes
-			culture = greek
 			is_adult = yes
-			prestige = 5000
+			prestige = 1000
 			OR = {
 				religion_group = christian
 				religion = hellenic_pagan
 				religion = cybelian_pagan
 				religion = neoplatonist
+				religion = mithraic_pagan
+				religion = mastimani
 			}
 			NOT = {
 				tier = emperor
@@ -208,10 +244,8 @@ k_helling = {
 			independent = yes
 			culture_group = north_germanic
 			is_adult = yes
-			prestige = 5000
-			NOT = {
-				tier = king
-			}
+			prestige = 1500
+			dignity = 20 # To allow the AI that creates it to form the Empire, because the AI does not normally switch titles
 			NOT = {
 				tier = emperor
 			}
@@ -235,9 +269,8 @@ e_helling = {
 				title = k_helling
 			}
 			independent = yes
-			culture_group = north_germanic
 			is_adult = yes
-			prestige = 7500
+			prestige = 5000
 			NOT = {
 				tier = emperor
 			}
@@ -263,10 +296,15 @@ e_egypt = {
 			}
 			completely_controls = k_egypt
 			independent = yes
-			religion_group = christian
+			OR = {
+				religion_group = christian
+				religion = egyptian_pagan
+				religion = aten_pagan
+			}
 			OR = {
 				culture = coptic
-				culture = greek
+				culture = egyptian
+				culture_group = byzantine
 			}
 			is_adult = yes
 			prestige = 10000
@@ -301,8 +339,13 @@ e_macedon = {
 				religion = hellenic_pagan
 				religion = cybelian_pagan
 				religion = neoplatonist
+				religion = mithraic_pagan
+				religion = mastimani
 			}
-			culture = greek
+			OR = {
+				culture_group = byzantine
+				culture = macedonian
+			}
 			is_adult = yes
 			prestige = 50000
 			NOT = {
@@ -334,6 +377,7 @@ e_palmyra = {
 				religion = semitic_pagan
 				religion = semitic_pagan_reformed
 				religion = assyrian_pagan
+				religion = ashurism_pagan
 			}
 			OR = {
 				culture = aramean
@@ -369,7 +413,10 @@ e_seleucid = {
 			dynasty=104246212
 			OR = {
 				religion = hellenic_pagan
+				religion = cybelian_pagan
+				religion = neoplatonist
 				religion = mithraic_pagan
+				religion = mastimani
 			}
 			culture_group = byzantine
 			is_adult = yes
