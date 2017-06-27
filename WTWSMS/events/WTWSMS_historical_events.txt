@@ -18,6 +18,7 @@ province_event = {
 	trigger = {
 		year = 550
 		culture = rygir
+		NOT = { has_province_modifier = bavarian_influx }
 		k_rugiland = { has_holder = no } 
 		NOT = { year = 800 }
 	}
@@ -34,7 +35,10 @@ province_event = {
 			}
 		}
 		culture = bavarian
-		add_province_modifier = bavarian_influx
+		add_province_modifier = {
+			modifier = bavarian_influx
+			duration = 9125 # 25 years
+		} 
 	}
 	option = {
 		name = hist.1.b
@@ -125,7 +129,7 @@ character_event = {
 	trigger = {
 		has_landed_title = k_soissons
 		religion = nicene 
-		NOT = { has_global_flag = heresey_denounced }
+		NOT = { has_global_flag = heresy_denounced }
 	}
 	
 	mean_time_to_happen = {
@@ -134,10 +138,10 @@ character_event = {
 	
 	immediate = {
 		religion_authority = {
-			modifier = heresey_denounced
+			modifier = heresy_denounced
 			years = 10
 		}
-		set_global_flag = heresey_denounced
+		set_global_flag = heresy_denounced
 	}
 
 	option = {
@@ -794,3 +798,35 @@ narrative_event = {
 	}
 }
 
+# Invention of the Greek fire
+narrative_event = {
+	id = hist.19
+	title = hist.19.name
+	desc = hist.19.desc
+	picture = GFX_evt_greek_fire
+	border = GFX_event_narrative_frame_war
+	
+	only_playable = yes
+
+	trigger = {
+		has_dlc = "Legacy of Rome"
+		OR = {
+			has_landed_title = e_byzantium
+			has_landed_title = e_roman_empire
+		}
+		year = 650 # Around 674
+		NOT = { has_global_flag = greek_fire_invented }
+	}
+	
+	mean_time_to_happen = {
+		months = 240
+	}
+	
+	immediate = { 
+		set_global_flag = greek_fire_invented
+	}
+	
+	option = {
+		name = hist.19.a
+	}
+}

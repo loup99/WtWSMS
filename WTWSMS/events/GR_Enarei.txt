@@ -1,0 +1,1039 @@
+namespace = ENA
+
+###########################################
+# Arrival of guru                         #
+###########################################
+
+# Start looking for guru
+character_event = {
+	id = ENA.3000
+	desc = EVTDESC_ENA_3000
+	picture = GFX_evt_bishop
+	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+
+	option = {
+		name = EVTOPTA_ENA_3000
+		hidden_tooltip = { character_event = { id = ENA.3001 days = 30 random = 60 } }
+	}
+}
+
+# Guru is found
+character_event = {
+	id = ENA.3001
+
+	hide_window = yes
+	
+	is_triggered_only = yes
+
+	immediate = {
+		clr_character_flag = looking_for_enarei
+		set_character_flag = found_enarei
+		random_list = {
+			20 = { # Finds great guru
+				create_character = {
+					random_traits = no
+					dynasty = NONE
+					religion = ROOT
+					culture = ROOT
+					female = no
+					age = 50
+					attributes = {
+						diplomacy = 12
+						stewardship = 10
+						intrigue = 11
+						learning = 14
+					}
+					trait = enarei
+					trait = genius
+					trait = scholar
+					trait = patient
+					trait = mastermind_theologian
+				}
+				new_character = {
+					give_minor_title = title_enarei
+					piety = 600
+					prestige = 150
+					opinion = {
+						modifier = opinion_loyal_servant
+						who = ROOT
+						years = 100
+					}
+					random_list = {  # Small chance of having some unusual memorable trait
+						1 = { add_trait = blinded }
+						1 = { add_trait = dwarf }
+						50 = {}
+					}
+					character_event = { id = ENA.3002 }
+				}
+			}
+			80 = { # Finds ordinary guru
+				create_character = {
+					random_traits = no
+					dynasty = NONE
+					religion = ROOT
+					culture = ROOT
+					female = no
+					age = 50
+					attributes = {
+						diplomacy = 10
+						stewardship = 8
+						intrigue = 9
+						learning = 12
+					}
+					trait = enarei
+					trait = quick
+					trait = scholar
+					trait = patient
+					trait = mastermind_theologian
+				}
+				new_character = {
+					give_minor_title = title_enarei
+					piety = 300
+					prestige = 750
+					opinion = {
+						modifier = opinion_loyal_servant
+						who = ROOT
+						years = 100
+					}
+					character_event = { id = ENA.3002 }
+				}
+			}
+		}
+	}
+}
+
+# Guru bounce event
+character_event = {
+	id = ENA.3002
+
+	hide_window = yes
+	
+	is_triggered_only = yes
+
+	immediate = {
+		FROM = { character_event = { id = ENA.3003 } }
+	}
+}
+
+# Notify player that guru has been found
+character_event = {
+	id = ENA.3003
+	desc = EVTDESC_ENA_3003
+	picture = GFX_evt_bishop
+	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+
+	option = {
+		name = EVTOPTA_ENA_3003
+	}
+}
+
+###########################################
+# Guru offers moral advice                #
+###########################################
+
+# Hedonist
+character_event = {
+	id = ENA.3101
+	desc = EVTDESC_ENA_3101
+	picture = GFX_evt_bishop
+	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+
+	ai = no
+	only_capable = yes
+	prisoner = no
+	min_age = 16
+	
+	trigger = {
+		has_dlc = "Rajas of India"
+		any_courtier = {
+			has_minor_title = title_enarei
+			NOT = { has_character_flag = fake_guru }
+		}
+		trait = hedonist
+	}
+	
+	option = {
+		name = EVTOPTA_ENA_3101
+		prestige = -20
+		random = {
+			chance = 10
+			remove_trait = hedonist
+		}
+	}
+	option = {
+		name = EVTOPTB_ENA_3101
+		piety = -20
+		any_courtier = {
+			limit = { has_minor_title = title_enarei }
+			opinion = {
+				modifier = opinion_unhappy
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+}
+
+# Impaler
+character_event = {
+	id = ENA.3102
+	desc = EVTDESC_ENA_3102
+	picture = GFX_evt_bishop
+	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+
+	ai = no
+	only_capable = yes
+	prisoner = no
+	min_age = 16
+	
+	
+	trigger = {
+		has_dlc = "Rajas of India"
+		any_courtier = {
+			has_minor_title = title_enarei
+			NOT = { has_character_flag = fake_guru }
+		}
+		trait = impaler
+	}
+	
+	option = {
+		name = EVTOPTA_ENA_3102
+		prestige = -20
+		random = {
+			chance = 10
+			remove_trait = impaler
+		}
+	}
+	option = {
+		name = EVTOPTB_ENA_3102
+		piety = -20
+		any_courtier = {
+			limit = { has_minor_title = title_enarei }
+			opinion = {
+				modifier = opinion_unhappy
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+	option = {
+		name = EVTOPTC_ENA_3102
+		piety = -50
+		any_courtier = {
+			limit = { has_minor_title = title_enarei }
+			imprison = ROOT
+			opinion = {
+				modifier = opinion_unhappy
+				who = ROOT
+				years = -1
+			}
+		}
+		custom_tooltip = { text = sacrilege_tooltip }
+		hidden_tooltip = {
+			any_realm_character  = {
+				limit = {  }
+				opinion = {
+					who = ROOT
+					years = 2
+					modifier = opinion_sacrilege
+				}
+			}
+			any_playable_ruler  = {
+				limit = {  }
+				opinion = {
+					who = ROOT
+					years = 2
+					modifier = opinion_sacrilege
+				}
+			}
+		}
+	}
+}
+
+# Lustful
+character_event = {
+	id = ENA.3103
+	desc = EVTDESC_ENA_3103
+	picture = GFX_evt_bishop
+	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+
+	ai = no
+	only_capable = yes
+	prisoner = no
+	min_age = 16
+	
+	trigger = {
+		has_dlc = "Rajas of India"
+		any_courtier = {
+			has_minor_title = title_enarei
+			NOT = { has_character_flag = fake_guru }
+		}
+		trait = lustful
+	}
+	
+	option = {
+		name = EVTOPTA_ENA_3103
+		prestige = -20
+		random = {
+			chance = 10
+			remove_trait = lustful
+		}
+	}
+	option = {
+		name = EVTOPTB_ENA_3103
+		piety = -20
+		any_courtier = {
+			limit = { has_minor_title = title_enarei }
+			opinion = {
+				modifier = opinion_unhappy
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+}
+
+# Gluttonous
+character_event = {
+	id = ENA.3104
+	desc = EVTDESC_ENA_3104
+	picture = GFX_evt_bishop
+	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+
+	ai = no
+	only_capable = yes
+	prisoner = no
+	min_age = 16
+	
+	trigger = {
+		has_dlc = "Rajas of India"
+		any_courtier = {
+			has_minor_title = title_enarei
+			NOT = { has_character_flag = fake_guru }
+		}
+		trait = gluttonous
+	}
+	
+	option = {
+		name = EVTOPTA_ENA_3104
+		prestige = -20
+		random = {
+			chance = 10
+			remove_trait = gluttonous
+		}
+	}
+	option = {
+		name = EVTOPTB_ENA_3104
+		piety = -20
+		any_courtier = {
+			limit = { has_minor_title = title_enarei }
+			opinion = {
+				modifier = opinion_unhappy
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+}
+
+# Greedy
+character_event = {
+	id = ENA.3105
+	desc = EVTDESC_ENA_3105
+	picture = GFX_evt_bishop
+	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+
+	ai = no
+	only_capable = yes
+	prisoner = no
+	min_age = 16
+	
+	
+	trigger = {
+		has_dlc = "Rajas of India"
+		any_courtier = {
+			has_minor_title = title_enarei
+			NOT = { has_character_flag = fake_guru }
+		}
+		trait = greedy
+	}
+	
+	option = {
+		name = EVTOPTA_ENA_3105
+		prestige = -20
+		random = {
+			chance = 10
+			remove_trait = greedy
+		}
+	}
+	option = {
+		name = EVTOPTB_ENA_3105
+		piety = -20
+		any_courtier = {
+			limit = { has_minor_title = title_enarei }
+			opinion = {
+				modifier = opinion_unhappy
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+}
+
+# Envious
+character_event = {
+	id = ENA.3106
+	desc = EVTDESC_ENA_3106
+	picture = GFX_evt_bishop
+	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+
+	ai = no
+	only_capable = yes
+	prisoner = no
+	min_age = 16
+	
+	
+	trigger = {
+		has_dlc = "Rajas of India"
+		any_courtier = {
+			has_minor_title = title_enarei
+			NOT = { has_character_flag = fake_guru }
+		}
+		trait = envious
+	}
+	
+	option = {
+		name = EVTOPTA_ENA_3106
+		prestige = -20
+		random = {
+			chance = 10
+			remove_trait = envious
+		}
+	}
+	option = {
+		name = EVTOPTB_ENA_3106
+		piety = -20
+		any_courtier = {
+			limit = { has_minor_title = title_enarei }
+			opinion = {
+				modifier = opinion_unhappy
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+}
+
+# Wroth
+character_event = {
+	id = ENA.3107
+	desc = EVTDESC_ENA_3107
+	picture = GFX_evt_bishop
+	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+
+	ai = no
+	only_capable = yes
+	prisoner = no
+	min_age = 16
+	
+	
+	trigger = {
+		has_dlc = "Rajas of India"
+		any_courtier = {
+			has_minor_title = title_enarei
+			NOT = { has_character_flag = fake_guru }
+		}
+		trait = wroth
+	}
+
+	option = {
+		name = EVTOPTA_ENA_3107
+		prestige = -20
+		random = {
+			chance = 10
+			remove_trait = wroth
+		}
+	}
+	option = {
+		name = EVTOPTB_ENA_3107
+		piety = -20
+		any_courtier = {
+			limit = { has_minor_title = title_enarei }
+			opinion = {
+				modifier = opinion_unhappy
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+	option = {
+		name = EVTOPTC_ENA_3107
+		piety = -50
+		any_courtier = {
+			limit = { has_minor_title = title_enarei }
+			imprison = ROOT
+			opinion = {
+				modifier = opinion_unhappy
+				who = ROOT
+				years = -1
+			}
+		}
+		custom_tooltip = { text = sacrilege_tooltip }
+		hidden_tooltip = {
+			any_realm_character  = {
+				limit = {  }
+				opinion = {
+					who = ROOT
+					years = 2
+					modifier = opinion_sacrilege
+				}
+			}
+			any_playable_ruler  = {
+				limit = {  }
+				opinion = {
+					who = ROOT
+					years = 2
+					modifier = opinion_sacrilege
+				}
+			}
+		}
+	}
+}
+
+# Proud
+character_event = {
+	id = ENA.3108
+	desc = EVTDESC_ENA_3108
+	picture = GFX_evt_bishop
+	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+
+	ai = no
+	only_capable = yes
+	prisoner = no
+	min_age = 16
+	
+	
+	trigger = {
+		has_dlc = "Rajas of India"
+		any_courtier = {
+			has_minor_title = title_enarei
+			NOT = { has_character_flag = fake_guru }
+		}
+		trait = proud
+	}
+	
+	option = {
+		name = EVTOPTA_ENA_3108
+		prestige = -20
+		random = {
+			chance = 10
+			remove_trait = proud
+		}
+	}
+	option = {
+		name = EVTOPTB_ENA_3108
+		piety = -20
+		any_courtier = {
+			limit = { has_minor_title = title_enarei }
+			opinion = {
+				modifier = opinion_unhappy
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+	option = {
+		name = EVTOPTC_ENA_3108
+		piety = -50
+		any_courtier = {
+			limit = { has_minor_title = title_enarei }
+			imprison = ROOT
+			opinion = {
+				modifier = opinion_unhappy
+				who = ROOT
+				years = -1
+			}
+		}
+		custom_tooltip = { text = sacrilege_tooltip }
+		hidden_tooltip = {
+			any_realm_character  = {
+				limit = {  }
+				opinion = {
+					who = ROOT
+					years = 2
+					modifier = opinion_sacrilege
+				}
+			}
+			any_playable_ruler  = {
+				limit = {  }
+				opinion = {
+					who = ROOT
+					years = 2
+					modifier = opinion_sacrilege
+				}
+			}
+		}
+	}
+}
+
+
+
+# Arbitrary
+character_event = {
+	id = ENA.3109
+	desc = EVTDESC_ENA_3109
+	picture = GFX_evt_bishop
+	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+
+	ai = no
+	only_capable = yes
+	prisoner = no
+	min_age = 16
+	
+	
+	trigger = {
+		has_dlc = "Rajas of India"
+		any_courtier = {
+			has_minor_title = title_enarei
+			NOT = { has_character_flag = fake_guru }
+		}
+		trait = arbitrary
+	}
+	
+	option = {
+		name = EVTOPTA_ENA_3109
+		prestige = -20
+		random = {
+			chance = 10
+			remove_trait = arbitrary
+		}
+	}
+	option = {
+		name = EVTOPTB_ENA_3109
+		piety = -20
+		any_courtier = {
+			limit = { has_minor_title = title_enarei }
+			opinion = {
+				modifier = opinion_unhappy
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+}
+
+
+# Cynical
+character_event = {
+	id = ENA.3110
+	desc = EVTDESC_ENA_3110
+	picture = GFX_evt_bishop
+	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+
+	ai = no
+	only_capable = yes
+	prisoner = no
+	min_age = 16
+	
+	
+	trigger = {
+		has_dlc = "Rajas of India"
+		any_courtier = {
+			has_minor_title = title_enarei
+			NOT = { has_character_flag = fake_guru }
+		}
+		trait = cynical
+	}
+	
+	option = {
+		name = EVTOPTA_ENA_3110
+		prestige = -20
+		random = {
+			chance = 10
+			remove_trait = cynical
+		}
+	}
+	option = {
+		name = EVTOPTB_ENA_3110
+		piety = -20
+		any_courtier = {
+			limit = { has_minor_title = title_enarei }
+			opinion = {
+				modifier = opinion_unhappy
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+}
+
+
+# Cruel
+character_event = {
+	id = ENA.3111
+	desc = EVTDESC_ENA_3111
+	picture = GFX_evt_bishop
+	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+
+	ai = no
+	only_capable = yes
+	prisoner = no
+	min_age = 16
+	
+	
+	trigger = {
+		has_dlc = "Rajas of India"
+		any_courtier = {
+			has_minor_title = title_enarei
+			NOT = { has_character_flag = fake_guru }
+		}
+		trait = cruel
+	}
+	
+	option = {
+		name = EVTOPTA_ENA_3111
+		prestige = -20
+		random = {
+			chance = 10
+			remove_trait = cruel
+		}
+	}
+	option = {
+		name = EVTOPTB_ENA_3111
+		piety = -20
+		any_courtier = {
+			limit = { has_minor_title = title_enarei }
+			opinion = {
+				modifier = opinion_unhappy
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+}
+
+# Paranoid
+character_event = {
+	id = ENA.3114
+	desc = EVTDESC_ENA_3114
+	picture = GFX_evt_bishop
+	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+
+	ai = no
+	only_capable = yes
+	prisoner = no
+	min_age = 16
+	
+	
+	trigger = {
+		has_dlc = "Rajas of India"
+		any_courtier = {
+			has_minor_title = title_enarei
+			NOT = { has_character_flag = fake_guru }
+		}
+		trait = paranoid
+	}
+	
+	option = {
+		name = EVTOPTA_ENA_3114
+		prestige = -20
+		random = {
+			chance = 10
+			remove_trait = paranoid
+		}
+	}
+	option = {
+		name = EVTOPTB_ENA_3114
+		piety = -20
+		any_courtier = {
+			limit = { has_minor_title = title_enarei }
+			opinion = {
+				modifier = opinion_unhappy
+				who = ROOT
+				years = 1
+			}
+		}
+	}
+}
+
+#Diviniation Events
+character_event = {
+	id = ENA.10174
+	desc = EVTDESCENA.10174
+	title = EVTNAMEENA.10174
+	picture = GFX_evt_religious_exultation
+
+        is_triggered_only = yes
+
+        option = {	#Ask military advice
+                name = OPTENAa.10174
+                hidden_tooltip = { 
+				random_list = {
+				50 = {
+					character_event = { id = ENA.10178 } 
+				}
+				50 = {
+					character_event = { id = ENA.10179 } 
+				}
+			}
+        }
+	}
+		option = {	#Ask fertility advice
+                name = OPTENAb.10174
+                hidden_tooltip = { 
+				random_list = {
+				50 = {
+					character_event = { id = ENA.10180 } 
+				}
+				50 = {
+					character_event = { id = ENA.10181 } 
+				}
+			}
+        }
+	}
+		option = {	#Ask economic advice
+                name = OPTENAc.10174
+                hidden_tooltip = { 
+				random_list = {
+				50 = {
+					character_event = { id = ENA.10182 } 
+				}
+				50 = {
+					character_event = { id = ENA.10183 } 
+				}
+			}
+        }
+	}
+}
+
+
+character_event = {		#Good outcome
+	id = ENA.10178
+	desc = EVTDESCENA.10178
+	title = EVTNAMEENA.10178
+	picture = GFX_evt_religious_exultation
+
+        is_triggered_only = yes
+
+        option = {	#Ask military advice
+                name = OPTENAa.10178
+                hidden_tooltip = { 
+				random_list = {
+				25 = {
+					add_trait = brave
+
+				}
+				25 = {
+					add_trait = ambitious
+				}
+				25 = {
+					change_martial = 2
+				}
+				25 = {
+					add_trait = zealous
+				}
+			}
+        }
+	}
+}
+character_event = {		#Bad outcome
+	id = ENA.10179
+	title = EVTNAMEENA.10179
+	desc = EVTDESCENA.10179
+	picture = GFX_evt_religious_exultation
+
+        is_triggered_only = yes
+
+        option = {	#Ask military advice
+                name = OPTENAa.10179
+                hidden_tooltip = { 
+				random_list = {
+				5 = {
+					add_trait = brave
+
+				}
+				25 = {
+					add_trait = craven
+				}
+				25 = {
+					change_martial = -1
+				}
+				5 = {
+					add_trait = cynical
+				}
+				20 = {
+					add_trait = stressed
+				}
+				20 = {
+					add_trait = depressed
+				}
+			}
+        }
+	}
+	    option = {	#Ask military advice
+            name = OPTENAb.10179
+			add_trait = cynical
+			piety = -100
+    
+	}
+}
+character_event = {		#Good outcome
+	id = ENA.10180
+	desc = EVTDESCENA.10180
+	title = EVTNAMEENA.10180
+	picture = GFX_evt_religious_exultation
+
+        is_triggered_only = yes
+
+        option = {	#Ask fertility advice
+                name = OPTENAa.10180
+                hidden_tooltip = { 
+				random_list = {
+				25 = {
+					add_trait = strong
+
+				}
+				25 = {
+					add_trait = lustful
+				}
+				25 = {
+					fertility = 0.5
+				}
+				25 = {
+					add_trait = zealous
+				}
+			}
+        }
+	}
+}
+character_event = {		#Bad outcome
+	id = ENA.10181
+	desc = EVTDESCENA.10181
+	title = EVTNAMEENA.10181
+	picture = GFX_evt_religious_exultation
+
+        is_triggered_only = yes
+
+        option = {	#Ask fertility advice
+                name = OPTENAa.10181
+                hidden_tooltip = { 
+				random_list = {
+				25 = {
+					add_trait = craven
+				}
+				25 = {
+					fertility = -0.25
+				}
+				5 = {
+					add_trait = cynical
+				}
+				20 = {
+					add_trait = stressed
+				}
+				25 = {
+					add_trait = depressed
+				}
+			}
+        }
+	}
+	    option = {	#Ask military advice
+            name = OPTENAb.10181
+			add_trait = cynical
+			piety = -100
+    
+	}
+}
+character_event = {		#Good outcome
+	id = ENA.10182
+	desc = EVTDESCENA.10182
+	title = EVTNAMEENA.10182
+	picture = GFX_evt_religious_exultation
+
+        is_triggered_only = yes
+
+        option = {	#Ask economic advice
+                name = OPTENAa.10182
+                hidden_tooltip = { 
+				random_list = {
+				25 = {
+					add_trait = diligent
+
+				}
+				25 = {
+					add_trait = temperate
+				}
+				25 = {
+					change_stewardship = 2
+				}
+				25 = {
+					add_trait = zealous
+				}
+			}
+        }
+	}
+}
+character_event = {		#Bad outcome
+	id = ENA.10183
+	desc = EVTDESCENA.10183
+	title = EVTNAMEENA.10183
+	picture = GFX_evt_religious_exultation
+
+        is_triggered_only = yes
+
+        option = {	#Ask economic advice
+                name = OPTENAa.10183
+                hidden_tooltip = { 
+				random_list = {
+				25 = {
+					add_trait = craven
+				}
+				25 = {
+					change_stewardship = -1
+				}
+				5 = {
+					add_trait = cynical
+				}
+				20 = {
+					add_trait = stressed
+				}
+				25 = {
+					add_trait = depressed
+				}
+			}
+        }
+	}
+	    option = {	#Ask military advice
+            name = OPTENAb.10181
+			add_trait = cynical
+			piety = -100
+    
+	}
+}
