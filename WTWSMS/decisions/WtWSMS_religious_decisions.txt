@@ -777,6 +777,88 @@ decisions = {
 		}
 	}
 	
+	recruit_donatist_bands = {
+		only_playable = yes
+		is_high_prio = yes
+		is_mercenary = yes
+		potential = {
+			is_playable = yes
+			is_tribal = no
+			is_landed = yes
+			religion = donatism
+			capital_scope = {
+				region = world_africa_north #These bands lived in Northern Africa where there were sizeable Donatist minorities
+			}
+			OR = {
+				ai = no
+				any_war = {
+					OR = {
+						any_defender = {
+							character = ROOT
+							is_primary_war_defender = yes
+						}
+						any_attacker = {
+							character = ROOT
+							is_primary_war_attacker = yes
+						}
+					}
+				}
+			}
+		}
+		
+		allow = {
+			war = yes
+			piety = 500
+			age = 16
+		}
+		
+		effect = {
+			custom_tooltip = { text = recruit_donatist_bands_tooltip }
+			piety = -500
+			
+			hidden_tooltip = {
+				capital_scope = {
+					PREV = {
+						spawn_unit = {
+							owner = ROOT
+							province = PREV
+							home = PREV
+							troops = {
+								light_infantry = { 250 250 }
+							}
+							attrition = 1.0
+							disband_on_peace = yes
+							maintenance_multiplier = 0.5
+						}
+					}
+				}
+				capital_scope = {
+					PREV = {
+						spawn_unit = {
+							owner = ROOT
+							province = PREV
+							home = PREV
+							troops = {
+								light_infantry = { 250 250 }
+							}
+							attrition = 1.0
+							disband_on_peace = yes
+							maintenance_multiplier = 0.5
+						}
+					}
+				}
+			}
+		}
+		
+		revoke_allowed = {
+			always = no #Not used in vanilla
+		}
+		
+		ai_will_do = {
+			factor = 0 # decisions with the "is_mercenary" will not be calculated from the script
+		}
+	}
+	
 	choose_sanamahi_patron_deity = {
 		potential = {
 			has_dlc = "Rajas of India"
@@ -957,7 +1039,7 @@ decisions = {
 							light_infantry = { 1000 1000 }
 						}
 						attrition = 1.0
-						morale = -.20 
+						morale = -0.20 
 						disband_on_peace = yes
 						maintenance_multiplier = 0.5
 					}

@@ -85,6 +85,14 @@ character_event = {
 			}
 			set_province_flag = migration_give_away
 		}
+		# Sets the flag for the timer to prevent migration within 10 years
+		ROOT = { 
+			add_character_modifier = { 
+				modifier = launched_migration_war
+				duration = 3650
+			}
+		}
+
 	}
 	
 	option = {
@@ -169,7 +177,6 @@ character_event = {
 	id = zusk_event.14
 	hide_window = yes
 	
-	
 	is_triggered_only = yes
 	
 	immediate = {
@@ -190,6 +197,10 @@ character_event = {
 				new_character = {
 					usurp_title_plus_barony_if_unlanded = PREV
 					set_defacto_liege = THIS
+					set_truce = {
+						who = ROOT
+						years = 10
+					}
 				}
 			}
 			clr_province_flag = migration_give_away
@@ -680,7 +691,7 @@ province_event = {
 				martial = 5
 			}
 			
-			trait = peasent_leader
+			trait = peasant_leader
 		}
 		new_character = {
 			create_character = {
@@ -694,7 +705,7 @@ province_event = {
 					martial = 5
 				}
 			
-				trait = peasent_leader
+				trait = peasant_leader
 			}
 
 			new_character = {
