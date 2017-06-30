@@ -96,16 +96,58 @@ supernatural_events_trigger = {
 	}
 }
 
+is_celtic_secret_religious_society_member_trigger = {
+	OR = {
+		society_member_of = secret_religious_society_celtic_pagan
+		society_member_of = secret_religious_society_celtic_pagan_reformed
+	}
+}
+
 has_character_was_religion_flag_trigger = {
 	OR = {
+		has_character_flag = character_was_aquileian
+		has_character_flag = character_was_nicene
+		has_character_flag = character_was_total_depravity
+		has_character_flag = character_was_eutychian
+		has_character_flag = character_was_binitarian
+		has_character_flag = character_was_georgian_orthodox
+		has_character_flag = character_was_insular
+		has_character_flag = character_was_pelagianism
+		has_character_flag = character_was_antinomianism
+		has_character_flag = character_was_ebionites
+		has_character_flag = character_was_marcionism
+		has_character_flag = character_was_taoism
+	
 		has_character_flag = character_was_catholic
+		has_character_flag = character_was_cathar
+		has_character_flag = character_was_fraticelli
+		has_character_flag = character_was_waldensian
+		has_character_flag = character_was_lollard
 		has_character_flag = character_was_orthodox
+		has_character_flag = character_was_miaphysite
+		has_character_flag = character_was_monophysite
+		has_character_flag = character_was_bogomilist
+		has_character_flag = character_was_monothelite
+		has_character_flag = character_was_iconoclast
+		has_character_flag = character_was_paulician
+		has_character_flag = character_was_nestorian
+		has_character_flag = character_was_messalian
 		has_character_flag = character_was_sunni
+		has_character_flag = character_was_zikri
+		has_character_flag = character_was_yazidi
+		has_character_flag = character_was_ibadi
+		has_character_flag = character_was_kharijite
 		has_character_flag = character_was_shiite
+		has_character_flag = character_was_druze
+		has_character_flag = character_was_hurufi
 		has_character_flag = character_was_jewish
+		has_character_flag = character_was_karaite
+		has_character_flag = character_was_samaritan
 		has_character_flag = character_was_zoroastrian
-		has_character_flag = character_was_hinduism
-		has_character_flag = character_was_buddhism
+		has_character_flag = character_was_mazdaki
+		has_character_flag = character_was_manichean
+		has_character_flag = character_was_hindu
+		has_character_flag = character_was_buddhist
 		has_character_flag = character_was_jain
 		has_character_flag = character_was_norse_pagan_reformed
 		has_character_flag = character_was_slavic_pagan_reformed
@@ -114,6 +156,15 @@ has_character_was_religion_flag_trigger = {
 		has_character_flag = character_was_finnish_pagan_reformed
 		has_character_flag = character_was_west_african_pagan_reformed
 		has_character_flag = character_was_zun_pagan_reformed
+		has_character_flag = character_was_norse_pagan
+		has_character_flag = character_was_slavic_pagan
+		has_character_flag = character_was_tengri_pagan
+		has_character_flag = character_was_baltic_pagan
+		has_character_flag = character_was_finnish_pagan
+		has_character_flag = character_was_west_african_pagan
+		has_character_flag = character_was_zun_pagan
+		has_character_flag = character_was_aztec
+		has_character_flag = character_was_aztec_reformed
 
 		has_character_flag = character_was_celtic_pagan
 		has_character_flag = character_was_celtic_pagan_reformed
@@ -123,72 +174,121 @@ has_character_was_religion_flag_trigger = {
 	}
 }
 
-#True religion triggers
-true_religion_celtic_pagan_trigger = {
-	OR = {
-		AND = {
-			religion = celtic_pagan
-			has_secret_religion_trait_trigger = no
+religion_openly_celtic_or_reformed_trigger = {
+	custom_tooltip = {
+		text = religion_openly_celtic_or_reformed_tooltip
+		hidden_trigger = {
+			OR = {
+				religion = celtic_pagan
+				religion = celtic_pagan_reformed
+			}
 		}
-		trait = secretly_celtic_pagan
 	}
 }
 
-true_religion_celtic_pagan_reformed_trigger = {
-	OR = {
-		AND = {
-			religion = celtic_pagan_reformed
-			has_secret_religion_trait_trigger = no
+religion_openly_in_hellenic_subgroup_trigger = {
+	custom_tooltip = {
+		text = religion_openly_in_hellenic_subgroup_tooltip
+		hidden_trigger = {
+			religion = hellenic_pagan
 		}
-		trait = secretly_celtic_pagan_reformed
 	}
 }
 
-true_religion_egyptian_pagan_trigger = {
-	OR = {
-		AND = {
-			religion = egyptian_pagan
-			has_secret_religion_trait_trigger = no
+religion_openly_in_egyptian_subgroup_trigger = {
+	custom_tooltip = {
+		text = religion_openly_in_egyptian_subgroup_tooltip
+		hidden_trigger = {
+			OR = {
+				religion = egyptian_pagan
+				religion = aten_pagan
+			}
 		}
-		trait = secretly_egyptian_pagan
 	}
 }
 
-true_religion_aten_pagan_trigger = {
-	OR = {
-		AND = {
-			religion = aten_pagan
-			has_secret_religion_trait_trigger = no
+religion_secretly_celtic_pagan_or_reformed_trigger = {
+	custom_tooltip = {
+		text = religion_secretly_celtic_or_reformed_tooltip
+		hidden_trigger = {
+			OR = {
+				secret_religion = celtic_pagan
+				secret_religion = celtic_pagan_reformed
+			}
 		}
-		trait = secretly_aten_pagan
+	}
+}
+
+religion_secretly_in_hellenic_subgroup_trigger = {
+	custom_tooltip = {
+		text = religion_secretly_in_hellenic_subgroup_tooltip
+		hidden_trigger = {
+			OR = {
+				secret_religion = hellenic_pagan
+				secret_religion = promethean_pagan
+				secret_religion = titan_pagan
+			}
+		}
+	}
+}
+
+religion_secretly_in_egyptian_subgroup_trigger = {
+	custom_tooltip = {
+		text = religion_secretly_in_egyptian_subgroup_tooltip
+		hidden_trigger = {
+			OR = {
+				secret_religion = egyptian_pagan
+				secret_religion = aten_pagan
+			}
+		}
+	}
+}
+
+true_religion_in_celtic_subgroup_trigger = {
+	custom_tooltip = {
+		text = true_religion_in_celtic_subgroup_tooltip
+		hidden_trigger = {
+			OR = {
+				true_religion = celtic_pagan
+				true_religion = celtic_pagan_reformed
+			}
+		}
+	}
+}
+
+true_religion_in_hellenic_subgroup_trigger = {
+	custom_tooltip = {
+		text = true_religion_in_hellenic_subgroup_tooltip
+		hidden_trigger = {
+				true_religion = hellenic_pagan
+		}
+	}
+}
+
+true_religion_in_egyptian_subgroup_trigger = {
+	custom_tooltip = {
+		text = true_religion_in_egyptian_subgroup_tooltip
+		hidden_trigger = {
+			OR = {
+				true_religion = egyptian_pagan
+				true_religion = aten_pagan
+			}
+		}
 	}
 }
 
 #Society triggers
 has_unseelie_prerequisites = {
 	has_common_devilworship_prerequisites = yes
-	OR = {
-		religion = celtic_pagan
-		religion = celtic_pagan_reformed
-		trait = secretly_celtic_pagan
-		trait = secretly_celtic_pagan_reformed
-	}
+	religion_openly_celtic_or_reformed_trigger = yes
 }
 
 has_coven_prerequisites = {
 	has_common_devilworship_prerequisites = yes
-	OR = {
-		religion = hellenic_pagan
-		trait = secretly_hellenic_pagan
-	}
+	religion_openly_in_hellenic_subgroup_trigger = yes
 }
 
 has_sand_snakes_prerequisites = {
 	has_common_devilworship_prerequisites = yes
-	OR = {
-		religion = egyptian_pagan
-		religion = aten_pagan
-		trait = secretly_egyptian_pagan
-		trait = secretly_aten_pagan
-	}
+	religion_openly_in_egyptian_subgroup_trigger = yes
 }

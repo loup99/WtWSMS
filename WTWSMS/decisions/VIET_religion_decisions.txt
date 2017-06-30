@@ -1006,103 +1006,6 @@ decisions = {
 	    }
     }
 	
-	organize_israel_defense = {
-		only_playable = yes
-		is_high_prio = yes
-		potential = {
-			is_female = no
-			prisoner = no
-			age = 16
-			religion_group = jewish_group
-			has_landed_title = k_israel
-			NOT = { has_global_flag = israel_military_elite_formed }
-		}
-		allow = {
-			prestige = 300
-			piety = 300
-			wealth = 300
-			custom_tooltip = {
-				text = israel_aliyah_are_coming
-				hidden_tooltip = {
-					has_global_flag = israel_aliyah_sufficient
-				}
-			}
-		}
-		effect = {
-			set_global_flag = israel_military_elite_formed
-			prestige = -300
-			wealth = -300
-			activate_title = { title = d_israel_defense status = yes }
-			hidden_tooltip = {
-				# Creating random leader of Israel Defense Force
-				#
-				# 40% Mizrahi
-				# 30% sephardi
-				# 30% Ashkenazi
-				#
-				random_list = {
-					40 = {
-						create_character = {
-							random_traits = yes
-							religion = jewish
-							culture = mizrahi
-							dynasty = NONE
-							female = no
-							age = 34
-							trait = skilled_tactician
-						}
-						new_character = {
-							d_israel_defense = {
-								grant_title = PREV
-							}
-							set_defacto_liege = ROOT
-							character_event = { id = VIETjewish.19 }
-						}
-					}
-					30 = {
-						create_character = {
-							random_traits = yes
-							religion = jewish
-							culture = sephardi
-							dynasty = NONE
-							female = no
-							age = 34
-							trait = skilled_tactician
-						}
-						new_character = {
-							d_israel_defense = {
-								grant_title = PREV
-							}
-							set_defacto_liege = ROOT
-							character_event = { id = VIETjewish.19 }
-						}
-					}
-					30 = {
-						create_character = {
-							random_traits = yes
-							religion = jewish
-							culture = ashkenazi
-							dynasty = NONE
-							female = no
-							age = 34
-							trait = skilled_tactician
-						}
-						new_character = {
-							d_israel_defense = {
-								grant_title = PREV
-							}
-							set_defacto_liege = ROOT
-							character_event = { id = VIETjewish.19 }
-						}
-					}
-				}
-			}
-		}
-		ai_will_do = {
-			factor = 1
-		}
-	}	
-	
 ######################################
 #
 # MISCELLANEOUS
@@ -1115,9 +1018,7 @@ decisions = {
 			has_dlc = "Sons of Abraham"
 			OR = {
 				religion = shiite
-				religion = alawite
 				religion = qarmatian
-				religion = ghurabi
 			}
 			NOT = { 
 				OR = {
@@ -1164,7 +1065,6 @@ decisions = {
 				religion = shiite
 				religion = hurufi
 				religion = druze #remove once we do Druze stuff down the line
-				religion = ghurabi
 			}
 			NOT = { 
 				OR = {
@@ -1209,7 +1109,6 @@ decisions = {
 			has_dlc = "Sons of Abraham"
 			OR = {
 				religion = shiite
-				religion = ghurabi
 			}
 			NOT = { 
 				OR = {
