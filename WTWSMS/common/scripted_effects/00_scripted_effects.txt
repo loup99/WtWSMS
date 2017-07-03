@@ -7340,6 +7340,22 @@ add_secret_religion_trait_trigger_is_religion_or_old_religion_flag_clear_flag_af
     				}
     				religion = sramanic
     			}
+    			has_character_flag = character_was_bhakti
+			}
+    	}
+    	set_secret_religion = bhakti
+    	clr_character_flag = character_was_bhakti
+		break = yes
+    }
+	if = {
+    	limit = {
+    		OR = {
+    			AND = {
+    				NOT = {
+						has_character_was_religion_flag_trigger = yes
+    				}
+    				religion = sramanic
+    			}
     			has_character_flag = character_was_sramanic
 			}
     	}
@@ -8237,6 +8253,10 @@ add_religion_char_flag_effect = {
     	set_character_flag = character_was_montanist
 	}
 	if = {
+    	limit = { religion = bhakti }
+    	set_character_flag = character_was_bhakti
+    }
+	if = {
     	limit = { religion = sramanic }
     	set_character_flag = character_was_sramanic
     }
@@ -8476,6 +8496,7 @@ clr_religion_char_flag_effect = {
 	clr_character_flag = character_was_ebionites
 	clr_character_flag = character_was_marcionism
 	clr_character_flag = character_was_montanist
+	clr_character_flag = character_was_bhakti
 	clr_character_flag = character_was_sramanic
 	clr_character_flag = character_was_confucianism
 	clr_character_flag = character_was_taoism
@@ -8621,6 +8642,13 @@ event_target_old_religion_from_flag_effect = {
     	limit = { has_character_flag = character_was_montanist }
     	random_character = {
     		limit = { religion = montanist }
+    		save_event_target_as = old_religion
+    	}
+    }
+	if = {
+    	limit = { has_character_flag = character_was_bhakti }
+    	random_character = {
+    		limit = { religion = bhakti }
     		save_event_target_as = old_religion
     	}
     }
@@ -10390,6 +10418,17 @@ flip_secret_religious_community_provinces = {
 					}
 					religion = montanist
 					remove_province_modifier = secret_montanist_community
+				}
+			}
+		}
+		secret_religious_society_bhakti = {
+			ROOT = {
+				any_demesne_province = {
+					limit = {
+						has_province_modifier = secret_bhakti_community
+					}
+					religion = sramanic
+					remove_province_modifier = secret_bhakti_community
 				}
 			}
 		}
