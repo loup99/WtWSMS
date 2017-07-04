@@ -7338,6 +7338,54 @@ add_secret_religion_trait_trigger_is_religion_or_old_religion_flag_clear_flag_af
     				NOT = {
 						has_character_was_religion_flag_trigger = yes
     				}
+    				religion = ajivika
+    			}
+    			has_character_flag = character_was_ajivika
+			}
+    	}
+    	set_secret_religion = ajivika
+    	clr_character_flag = character_was_ajivika
+		break = yes
+    }
+	if = {
+    	limit = {
+    		OR = {
+    			AND = {
+    				NOT = {
+						has_character_was_religion_flag_trigger = yes
+    				}
+    				religion = carvaka
+    			}
+    			has_character_flag = character_was_carvaka
+			}
+    	}
+    	set_secret_religion = carvaka
+    	clr_character_flag = character_was_carvaka
+		break = yes
+    }
+	if = {
+    	limit = {
+    		OR = {
+    			AND = {
+    				NOT = {
+						has_character_was_religion_flag_trigger = yes
+    				}
+    				religion = mimamsa
+    			}
+    			has_character_flag = character_was_mimamsa
+			}
+    	}
+    	set_secret_religion = mimamsa
+    	clr_character_flag = character_was_mimamsa
+		break = yes
+    }
+	if = {
+    	limit = {
+    		OR = {
+    			AND = {
+    				NOT = {
+						has_character_was_religion_flag_trigger = yes
+    				}
     				religion = tantric
     			}
     			has_character_flag = character_was_tantric
@@ -8269,6 +8317,18 @@ add_religion_char_flag_effect = {
     	set_character_flag = character_was_montanist
 	}
 	if = {
+    	limit = { religion = ajivika }
+    	set_character_flag = character_was_ajivika
+    }
+	if = {
+    	limit = { religion = carvaka }
+    	set_character_flag = character_was_carvaka
+    }
+	if = {
+    	limit = { religion = mimamsa }
+    	set_character_flag = character_was_mimamsa
+    }
+	if = {
     	limit = { religion = tantric }
     	set_character_flag = character_was_tantric
     }
@@ -8516,6 +8576,9 @@ clr_religion_char_flag_effect = {
 	clr_character_flag = character_was_ebionites
 	clr_character_flag = character_was_marcionism
 	clr_character_flag = character_was_montanist
+	clr_character_flag = character_was_ajivika
+	clr_character_flag = character_was_carvaka
+	clr_character_flag = character_was_mimamsa
 	clr_character_flag = character_was_tantric
 	clr_character_flag = character_was_bhakti
 	clr_character_flag = character_was_sramanic
@@ -8663,6 +8726,27 @@ event_target_old_religion_from_flag_effect = {
     	limit = { has_character_flag = character_was_montanist }
     	random_character = {
     		limit = { religion = montanist }
+    		save_event_target_as = old_religion
+    	}
+    }
+	if = {
+    	limit = { has_character_flag = character_was_ajivika }
+    	random_character = {
+    		limit = { religion = ajivika }
+    		save_event_target_as = old_religion
+    	}
+    }
+	if = {
+    	limit = { has_character_flag = character_was_carvaka }
+    	random_character = {
+    		limit = { religion = carvaka }
+    		save_event_target_as = old_religion
+    	}
+    }
+	if = {
+    	limit = { has_character_flag = character_was_mimamsa }
+    	random_character = {
+    		limit = { religion = mimamsa }
     		save_event_target_as = old_religion
     	}
     }
@@ -10446,6 +10530,39 @@ flip_secret_religious_community_provinces = {
 					}
 					religion = montanist
 					remove_province_modifier = secret_montanist_community
+				}
+			}
+		}
+		secret_religious_society_ajivika = {
+			ROOT = {
+				any_demesne_province = {
+					limit = {
+						has_province_modifier = secret_ajivika_community
+					}
+					religion = ajivika
+					remove_province_modifier = secret_ajivika_community
+				}
+			}
+		}
+		secret_religious_society_carvaka = {
+			ROOT = {
+				any_demesne_province = {
+					limit = {
+						has_province_modifier = secret_carvaka_community
+					}
+					religion = carvaka
+					remove_province_modifier = secret_carvaka_community
+				}
+			}
+		}
+		secret_religious_society_mimamsa = {
+			ROOT = {
+				any_demesne_province = {
+					limit = {
+						has_province_modifier = secret_mimamsa_community
+					}
+					religion = mimamsa
+					remove_province_modifier = secret_mimamsa_community
 				}
 			}
 		}
