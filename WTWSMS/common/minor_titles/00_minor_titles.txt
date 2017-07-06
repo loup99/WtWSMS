@@ -465,7 +465,8 @@ title_master_of_the_hunt = {
 	
 	allowed_to_hold = {
 		NOT = { 
-			primary_title = { temporary = yes } 
+			primary_title = { temporary = yes }
+			trait = vegetarian
 		}
 		is_adult = yes
 		OR = { 
@@ -499,13 +500,16 @@ title_master_of_the_hunt = {
 		NOT = { has_landed_title = e_roman_empire }
 		NOT = { religion = jain }
 		NOT = { religion = priscillianism }
-		NOT = { religion = taoism }
+		NOT = { trait = vegetarian }
 		OR = {
 			religion_group = christian
 			religion_group = jewish_group
 			religion_group = indian_group
 			religion_group = pagan_group
 			religion = bosporan_faith
+			religion = confucian
+			religion = taoist
+			culture_group = sinic
 		}
 	}
 	
@@ -540,7 +544,6 @@ title_high_almoner = {
 		OR = {
 			is_feudal = yes
 			is_tribal = yes
-			is_republic = yes
 		}
 		NOT = { has_landed_title = e_wre }
 		NOT = { has_landed_title = e_byzantium }
@@ -578,6 +581,10 @@ title_cupbearer = {
 		is_adult = yes
 		OR = { 
 			is_female = no
+			AND = {
+				is_feminist_religion_trigger = yes
+				liege = { is_feminist_religion_trigger = yes }
+			}
 			liege = {
 				OR = {
 					primary_title = {
@@ -629,6 +636,10 @@ title_seneschal = {
 		is_adult = yes
 		OR = { 
 			is_female = no
+			AND = {
+				is_feminist_religion_trigger = yes
+				liege = { is_feminist_religion_trigger = yes }
+			}
 			liege = {
 				OR = {
 					primary_title = {
@@ -735,8 +746,17 @@ title_despot = {
 	
 	allowed_to_grant = {
 		is_feudal = yes
+			
 		OR = {
-			has_landed_title = e_byzantium
+			AND = {
+				has_landed_title = e_byzantium
+				OR = {
+					religion_group = christian
+					religion_group = jewish_group
+					religion = bosporan_faith
+					culture = roman
+				}
+			}
 			has_landed_title = e_roman_empire
 		}
 	}
@@ -770,7 +790,15 @@ title_sebastokrator = {
 	allowed_to_grant = {
 		is_feudal = yes
 		OR = {
-			has_landed_title = e_byzantium
+			AND = {
+				has_landed_title = e_byzantium
+				OR = {
+					religion_group = christian
+					religion_group = jewish_group
+					religion = bosporan_faith
+					culture = roman
+				}
+			}
 			has_landed_title = e_roman_empire
 		}
 	}
@@ -801,9 +829,19 @@ title_caesar = {
 	allowed_to_grant = {
 		is_feudal = yes
 		OR = {
-			has_landed_title = e_byzantium
 			has_landed_title = e_roman_empire
-			has_landed_title = e_wre
+			AND = {
+				OR = {
+					has_landed_title = e_byzantium
+					has_landed_title = e_wre
+				}
+				OR = {
+					religion_group = christian
+					religion_group = jewish_group
+					religion = bosporan_faith
+					culture = roman
+				}
+			}
 		}
 	}
 	
@@ -962,9 +1000,14 @@ title_food_taster = {
 		NOT = { 
 			primary_title = { temporary = yes } 
 		}
+		
 		is_adult = yes
 		OR = { 
 			is_female = no
+			AND = {
+				is_feminist_religion_trigger = yes
+				liege = { is_feminist_religion_trigger = yes }
+			}
 			liege = {
 				OR = {
 					primary_title = {
@@ -1026,6 +1069,10 @@ title_court_calligrapher = {
 		is_adult = yes
 		OR = { 
 			is_female = no
+			AND = {
+				is_feminist_religion_trigger = yes
+				liege = { is_feminist_religion_trigger = yes }
+			}
 			liege = {
 				OR = {
 					primary_title = {
