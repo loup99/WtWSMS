@@ -7313,7 +7313,6 @@ pagan_subjugation = {
 	can_use = {
 		ROOT = {
 			religion_group = pagan_group
-			year = 800
 			OR = {
 				is_reformed_religion = no
 				religion = hellenic_pagan
@@ -7321,6 +7320,7 @@ pagan_subjugation = {
 			NOT = { same_realm = FROM }
 			NOT = { is_liege_or_above = FROM }
 			mercenary = no
+			prestige = 3000
 			OR = {
 				AND = {
 					has_dlc = "Horse Lords"
@@ -7366,6 +7366,7 @@ pagan_subjugation = {
 				is_reformed_religion = ROOT
 				religion = hellenic_pagan
 			}
+			NOT = { prestige = 3000 }
 			NOT = {
 				any_war = {
 					defender = { character = PREVPREV }
@@ -7376,6 +7377,32 @@ pagan_subjugation = {
 				}
 			}
 		}
+		
+		OR = {
+			AND = {
+				FROM = {
+					lower_tier_than = ROOT
+					independent = yes
+					culture_group = ROOT
+					any_realm_province = {
+						any_neighbor_province = {
+							owner = {
+								OR = {
+									character = ROOT
+									is_liege_or_above = ROOT
+								}
+							}
+						}
+					}
+				}
+				ROOT = {
+					higher_tier_than = COUNT
+					is_adult = yes
+					prisoner = no
+				}
+			}
+			has_global_flag = viking_age_started
+		}
 	}
 	
 	on_add = {
@@ -7385,6 +7412,7 @@ pagan_subjugation = {
 				years = 100
 				hidden = yes
 			}
+			prestige = -1500	
 		}
 	}
 

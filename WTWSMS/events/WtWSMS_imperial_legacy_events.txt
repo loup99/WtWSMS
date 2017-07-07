@@ -1346,9 +1346,8 @@ narrative_event = {
  		name = imperial_legacy.39.a
  		
  		add_character_modifier = {
- 			modifier = bureaucratic_government_adoption
- 			who = ROOT
- 			years = 10
+ 			name = bureaucratic_government_adoption
+ 			duration = 3650 # 10 years 
  		}
  		set_government_type = bureaucratic_government
 		hidden_tooltip = { 
@@ -1360,4 +1359,51 @@ narrative_event = {
 			}
 		}
  	}
- }
+}
+
+# Hagia Sophia Construction Begun
+character_event = {
+	id = imperial_legacy.40
+	desc = imperial_legacy.40.desc
+	picture = GFX_evt_castle_construction
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	hide_from = yes
+	
+	option = {
+		name = imperial_legacy.40.a
+		set_global_flag = building_hagia_sophia
+	}
+}
+
+# Hagia Sophia Built 
+narrative_event = {
+	id = imperial_legacy.41
+	title = imperial_legacy.41.name
+	desc = imperial_legacy.41.desc
+	picture = GFX_evt_hagia_sofia
+	border = GFX_event_narrative_frame_religion
+	major = yes
+	
+	is_triggered_only = yes
+	
+	hide_from = yes
+	
+	major_trigger = {
+		ai = no
+	}
+	
+	immediate = {
+		set_global_flag = hagia_sophia_built
+		clr_global_flag = building_hagia_sophia
+		b_hagiasophia = {
+					add_building = tp_hagiasophia
+				}
+	}
+	
+	option = {
+		name = imperial_legacy.41.a
+	}
+}
