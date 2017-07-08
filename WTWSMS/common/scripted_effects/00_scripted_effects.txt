@@ -8483,6 +8483,38 @@ add_secret_religion_trait_trigger_is_religion_or_old_religion_flag_clear_flag_af
     	clr_character_flag = character_was_taoism
 		break = yes
     }
+	if = {
+    	limit = {
+    		OR = {
+    			AND = {
+    				NOT = {
+						has_character_was_religion_flag_trigger = yes
+    				}
+    				religion = vasconic_pagan
+    			}
+    			has_character_flag = character_was_vasconic_pagan
+			}
+    	}
+    	set_secret_religion = vasconic_pagan
+    	clr_character_flag = character_was_vasconic_pagan
+		break = yes
+    }
+	if = {
+    	limit = {
+    		OR = {
+    			AND = {
+    				NOT = {
+						has_character_was_religion_flag_trigger = yes
+    				}
+    				religion = vasconic_pagan_reformed
+    			}
+    			has_character_flag = character_was_vasconic_pagan_reformed
+			}
+    	}
+    	set_secret_religion = vasconic_pagan_reformed
+    	clr_character_flag = character_was_vasconic_pagan_reformed
+		break = yes
+    }
 
 	### Vanilla ###
 	if = {
@@ -9628,6 +9660,14 @@ add_religion_char_flag_effect = {
     	limit = { religion = taoism }
     	set_character_flag = character_was_taoism
     }
+	if = {
+    	limit = { religion = vasconic_pagan }
+    	set_character_flag = character_was_vasconic_pagan
+    }
+	if = {
+    	limit = { religion = vasconic_pagan_reformed }
+    	set_character_flag = character_was_vasconic_pagan_reformed
+    }
 
 	### Vanilla ###
 	if = {
@@ -9928,6 +9968,8 @@ clr_religion_char_flag_effect = {
 	clr_character_flag = character_was_sramanic
 	clr_character_flag = character_was_confucianism
 	clr_character_flag = character_was_taoism
+	clr_character_flag = character_was_vasconic_pagan
+	clr_character_flag = character_was_vasconic_pagan_reformed
 
 	### Vanilla ###
     clr_character_flag = character_was_catholic
@@ -10574,6 +10616,20 @@ event_target_old_religion_from_flag_effect = {
     	limit = { has_character_flag = character_was_taoism }
     	random_character = {
     		limit = { religion = taoism }
+    		save_event_target_as = old_religion
+    	}
+    }
+	if = {
+    	limit = { has_character_flag = character_was_vasconic_pagan }
+    	random_character = {
+    		limit = { religion = vasconic_pagan }
+    		save_event_target_as = old_religion
+    	}
+    }
+	if = {
+    	limit = { has_character_flag = character_was_vasconic_pagan_reformed }
+    	random_character = {
+    		limit = { religion = vasconic_pagan_reformed }
     		save_event_target_as = old_religion
     	}
     }
@@ -13114,6 +13170,28 @@ flip_secret_religious_community_provinces = {
 					}
 					religion = taoism
 					remove_province_modifier = secret_taoism_community
+				}
+			}
+		}
+		secret_religious_society_vasconic_pagan = {
+			ROOT = {
+				any_demesne_province = {
+					limit = {
+						has_province_modifier = secret_vasconic_pagan_community
+					}
+					religion = vasconic_pagan
+					remove_province_modifier = secret_vasconic_pagan_community
+				}
+			}
+		}
+		secret_religious_society_vasconic_pagan_reformed = {
+			ROOT = {
+				any_demesne_province = {
+					limit = {
+						has_province_modifier = secret_vasconic_pagan_reformed_community
+					}
+					religion = vasconic_pagan_reformed
+					remove_province_modifier = secret_vasconic_pagan_reformed_community
 				}
 			}
 		}
