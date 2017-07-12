@@ -1041,3 +1041,102 @@ letter_event = {
 		name = EVTOPTB_holy_1061
 	}
 }
+
+################################################
+#    Melchisedechian and Priscillianist Holy Orders          #
+################################################
+
+narrative_event = { #Announcement of the Melchisechianism Holy Order
+	id = holy.2062
+	title = holy.2062.title
+	desc = holy.2062.desc
+	major = yes
+	
+	picture = GFX_evt_gnostics_rising
+
+	is_triggered_only = yes
+
+#	trigger = {
+#		religion = melchisedechianism
+#		controls_religion = yes
+#		NOT = {
+#			is_title_active = d_melchisedechianism_holy_order
+#		}
+#	}
+	
+	option = { # Melchizidek's followers rejoice
+		name = holy.2062.a.name
+		trigger = {
+			religion = melchisedechianism
+		}
+	}
+	option = { # Non-Melch Christians are horrified
+		name = holy.2062.b.name
+		trigger = {
+			religion_group = christian
+			NOT = { religion = melchisedechianism }
+		}
+	}
+	option = { # All other characters' reactions
+		name = holy.2062.c.name
+		trigger = {
+			NOT = { 
+				religion = melchisedechianism
+				religion_group = christian
+			}
+		}
+	}
+}
+
+narrative_event = { #Announcement of the Priscillianist Holy Order
+	id = holy.2063
+	title = holy.2063.title
+	desc = holy.2063.desc
+	major = yes
+	
+	picture = GFX_evt_gnostics_rising
+	
+	is_triggered_only = yes
+
+#	trigger = {
+#		religion = priscillianism
+#		controls_religion = yes
+#		NOT = {
+#			is_title_active = c_priscillianism_holy_order
+#		}
+#	}
+	
+	option = { # Priscillianists rejoice
+		name = holy.2063.a.name
+		trigger = {
+			religion = priscillianism
+		}
+	}
+	option = { # Non-Priscillians Christians are horrified
+		name = holy.2063.b.name
+		trigger = {
+			religion_group = christian
+			NOT = { religion = priscillianism }
+		}
+	}
+	option = { # All others that eat meat react
+		name = holy.2063.c.name
+		trigger = {
+			NOT = { 
+				religion = priscillianism
+				religion_group = christian
+				trait = vegetarian
+			}
+		}
+	}
+	option = { # All others that don't eat meat react
+		name = holy.2063.d.name
+		trigger = {
+			trait = vegetarian
+			NOT = { 
+				religion = priscillianism
+				religion_group = christian
+			}
+		}
+	}
+}

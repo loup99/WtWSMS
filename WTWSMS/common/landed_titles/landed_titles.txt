@@ -3425,6 +3425,7 @@ e_roman_empire = {
 	
 	culture = roman
 	religion = nicene
+	primary = yes
 	
 	dynasty_title_names = no
 
@@ -3445,8 +3446,9 @@ e_byzantium = {
 	
 	culture = greek
 	religion = nicene
+	dynasty_title_names = no
 	
-	duchy_revokation=yes # The Emperor can revoke duchies at no prestige cost and no opinion penalty with other vassals
+	duchy_revokation = yes # The Emperor can revoke duchies at no prestige cost and no opinion penalty with other vassals
 	
 	has_top_de_jure_capital = yes
 	
@@ -3475,10 +3477,10 @@ e_byzantium = {
 			independent = yes
 			OR = {
 				culture = helleno_aramean
-				culture = greek
+				culture_group = byzantine
 			}
 			is_adult = yes
-			prestige = 5000
+			prestige = 2000
 			OR = {
 				religion_group = christian
 				religion = hellenic_pagan
@@ -3564,27 +3566,25 @@ e_byzantium = {
 		
 		capital = 560 # Cherson
 		
-		hellenic_pagan = 600
-		bosporan_faith = 200
+		hellenic_pagan = 200
+		bosporan_faith = 600
+		tengri_pagan_reformed = 200
+		slavic_pagan_reformed = 50 # Crusade target weight
 		
 		allow = {
-			hidden_tooltip = {
-				OR = {
-					ai = no
-					AND = {
-						religion_group = christian
-						OR = { 
-							culture_group = byzantine
-							culture_group = latin
-						}
+			OR = {
+				religion = bosporan_faith
+				AND = {
+					religion_group = christian
+					OR = { 
+						culture_group = byzantine
+						culture_group = latin
+						has_romance_culture_trigger = yes
 					}
 				}
 			}
 		}
 		
-		tengri_pagan_reformed = 200
-		slavic_pagan_reformed = 50 # Crusade target weight
-
 		d_cherson = {
 			color={ 25 25 110 }
 			color2={ 255 255 20 }
@@ -3876,7 +3876,7 @@ e_byzantium = {
 					pentarchy = iconoclast
 					pentarchy = paulician
 					pentarchy = nestorian
-					
+
 					turkish = "Ayasofya"
 				}
 				b_galata = {
@@ -5294,6 +5294,8 @@ e_byzantium = {
 				greek = "Lazike"
 				turkish = "Batum"
 				armenian = "Yeger"
+
+				holy_site = tzadikite
 				
 				b_bukistsikhe = {
 				}
@@ -5718,6 +5720,7 @@ e_byzantium = {
 				color2={ 255 255 255 }
 				
 				holy_site = jewish
+				holy_site = tzadikite
 				holy_site = ebionites
 				holy_site = samaritan
 				holy_site = karaite
@@ -5727,6 +5730,7 @@ e_byzantium = {
 				b_sharmelsheikh = {
 				}
 				b_mamlah = {
+#					pentarchy = ebionites
 				}
 				b_nuweiba = {
 				}
@@ -5970,7 +5974,8 @@ e_byzantium = {
 				holy_site = nestorian
 				holy_site = pagan
 				holy_site = yazidi
-				holy_site = jewish	
+				holy_site = jewish
+				holy_site = tzadikite
 				holy_site = ebionites
 				holy_site = samaritan
 				holy_site = karaite
@@ -5992,6 +5997,7 @@ e_byzantium = {
 					pentarchy = iconoclast
 					pentarchy = paulician
 					pentarchy = nestorian
+#					pentarchy = ebionites
 				}
 				b_nablus = {
 				}
@@ -6275,6 +6281,7 @@ e_byzantium = {
 				b_qsarbardawil = {
 				}
 				b_damascus = {
+#					pentarchy = ebionites
 				}
 				b_daraa = {
 				}
@@ -14843,7 +14850,7 @@ e_arabia = {
 				}
 			}
 		}
-		d_trading_company = {
+		d_socotra = {
 			color = { 89 89 89 }
 	
 			capital = 1369 #Socotra
@@ -14855,6 +14862,7 @@ e_arabia = {
 				color2={ 255 255 255 }
 			
 				b_qualnsiyah = {
+					graphical_culture = republicsgfx # To ensure the Socotra Trading Company uses the right GFX
 				}
 				b_tamrida = {
 				}
@@ -14944,6 +14952,7 @@ e_arabia = {
 				b_thamarit = {
 				}
 				b_raysut = {
+#					pentarchy = ebionites
 				}
 				b_amal = {
 				}
@@ -15684,6 +15693,7 @@ e_armenia = {
 	levantine_arabic = Azerbaijan
 	egyptian_arabic = Azerbaijan
 	andalusian_arabic = Azerbaijan
+	juhuro = "Yehudey Kavkaz"
 	
 	k_iberia = {
 		color={ 0 155 205 }
@@ -15693,6 +15703,7 @@ e_armenia = {
 		culture = georgian
 		
 		georgian = "Kartli"
+		juhuro = "Kavkaz" # Caucasus
 		
 		d_iberia = {
 			color={ 0 155 205 }
@@ -15701,6 +15712,7 @@ e_armenia = {
 			capital = 679 #	Kartli
 			
 			georgian = "Kartli"
+			juhuro = "Kavkaz" # "Caucasus" in Juhuri
 
 			c_kartli = {
 				color={ 196 121 121 }
@@ -15752,10 +15764,16 @@ e_armenia = {
 			c_kakheti = {
 				color={ 202 147 147 }
 				color2={ 255 255 255 }
+
+				holy_site = tzadikite
+
+				juhuro = "Kavkaz Gorsky"
 				
 				b_zedazaden = {
 				}
 				b_telavi = {
+					juhuro = "Yevreskaya Sloboda" # "Jewish Village", today this name actually refers to a city east of here, in modern Azerbaijan, where the 
+#								 # worlds's largest concentration of Juhurim live
 				}
 				b_sighnaghi = {
 				}
@@ -15773,6 +15791,8 @@ e_armenia = {
 			c_lori = {
 				color={ 142 70 45 }
 				color2={ 255 255 255 }
+
+				holy_site = tzadikite
 			
 				b_lori_berd = {}
 				b_dzegh = {}
@@ -15805,6 +15825,7 @@ e_armenia = {
 				OR = {
 					ai = no
 					religion_group = christian
+					culture = armenian
 				}
 			}
 		}
@@ -16046,11 +16067,9 @@ e_armenia = {
 		
 		# Creation/usurpation trigger
 		allow = {
-			hidden_tooltip = {
-				OR = {
-					ai = no
-					religion_group = christian
-				}
+			OR = {
+				culture = armenian
+				religion_group = christian
 			}
 		}
 		
@@ -16667,6 +16686,7 @@ e_persia = {
 				b_nahavand = {
 				}
 				b_ganjnameh = {
+#					pentarchy = ebionites
 				}
 				b_malayer = {
 				}
@@ -30620,6 +30640,8 @@ e_italy = {
 		allow = {
 			is_republic = yes
 		}
+
+		title = DOGE_WOW
 	}
 	
 	k_naples = {
@@ -32843,7 +32865,7 @@ e_italy = {
 					pentarchy = iconoclast
 					pentarchy = paulician
 					pentarchy = nestorian
-					
+
 					used_for_dynasty_names = no
 				}
 				b_viterbo = {
@@ -40346,19 +40368,38 @@ e_latin_empire = {
 	capital = 496 # Byzantion
 	
 	short_name = yes
+	dynasty_title_names = no
 	
 	
 	allow = {
 		OR = {
+			has_romance_culture_trigger = yes
+			culture_group = latin
 			religion = catholic
 			is_heresy_of = catholic
 		}
-		e_byzantium = {
-			has_holder = no
+
+		NOT = {
+			culture = greek
+			culture = roman
+			religion = orthodox
+			religion = iconoclast
 		}
+
+		NOT = { has_landed_title = e_byzantium }
+
 		e_roman_empire = {
 			has_holder = no
 		}
+		
+		496 = { # Constantinople
+			owner = {
+				OR = {
+					is_liege_or_above = ROOT
+					character = ROOT
+				}
+		}
+
 		custom_tooltip = {
 			text = controls_kaliopolis_thrake
 			hidden_tooltip = {
@@ -40383,553 +40424,6 @@ e_latin_empire = {
 	}
 }
 
-d_miaphysite = {
-	color={ 217 155 177 }
-	color2={ 220 220 0 }
-	
-	capital = 802 # Alexandria
-	
-	title = "COPTIC_POPE"
-	foa = "POPE_FOA"
-	
-	short_name = yes
-
-	# Always exists
-	landless = yes
-	
-	# Controls a religion
-	controls_religion = miaphysite
-	
-	religion = miaphysite
-	
-	# Cannot be held as a secondary title
-	primary = yes
-	
-	dynasty_title_names = no 	# Will not be named "Seljuk", etc.
-	
-	# Regnal names
-	male_names = {
-		Abraham Alexandros Alexios Agatho Anastasios Andronikos Athanasios Benjamin Christodolos Cosmas Kyril Damian 
-		Demetrius Dioscorus Gabriel Yohannes Iosephos Isaakios Iakobos Makarios Markianos Markos Matheos Khail Mina 
-		Petros Philotheos Shenouda Simeon Theodoros Theophilus Timotheos Zacharias
-	}
-}
-
-d_monophysite = {
-	color={ 200 115 167 }
-	color2={ 220 220 0 }
-	
-	capital = 802 # Alexandria
-	
-	title = "MONOPHYSITE_POPE"
-	foa = "POPE_FOA"
-	
-	short_name = yes
-
-	# Always exists
-	landless = yes
-	
-	# Controls a religion
-	controls_religion = monophysite
-	
-	religion = monophysite
-	
-	# Cannot be held as a secondary title
-	primary = yes
-	
-	dynasty_title_names = no 	# Will not be named "Seljuk", etc.
-	
-	# Regnal names
-	male_names = {
-		Abraham Alexandros Alexios Agatho Anastasius Andronicus Athanasios Benjamin Christodolos Cosmas Cyril Damian 
-		Demetrius Dioscorus Gabriel Ioannes Iosephos Isaakios Iakobos Makarios Markianos Matheos Michail Mina 
-		Petros Philotheos Shenouda Simeon Theodoros Theophilus Timotheos Zacharias
-	}
-}
-
-d_nestorian = {
-	color={ 180 137 97 }
-	color2={ 220 220 0 }
-	
-	capital = 693 # Baghdad
-	
-	title = "PATRIARCH_IN_THE_EAST"
-	foa = "ECUMENICAL_PATRIARCH_FOA"
-	
-	short_name = yes
-
-	# Always exists
-	landless = yes
-	
-	# Controls a religion
-	controls_religion = nestorian
-	
-	religion = nestorian
-	
-	# Cannot be held as a secondary title
-	primary = yes
-	
-	dynasty_title_names = no 	# Will not be named "Seljuk", etc.
-	
-	# Regnal names
-	male_names = {
-		Aba Abraham Eliya Denha Emmanuel Giwargis Hnanisho Ishoyahb Makkikha 
-		Maremmeh Pethion Sabrisho Shemon Sargis Surin Theodosios Timotheos Yahballaha Yohannan
-	}
-}
-
-d_paulician = {
-	color={ 195 130 157 }
-	color2={ 255 255 255 }
-	
-	capital = 496 # Constantinople
-	
-	title = "PAULICIAN_PATRIARCH"
-	foa = "ECUMENICAL_PATRIARCH_FOA"
-	
-	short_name = yes
-
-	# Always exists
-	landless = yes
-	
-	# Controls a religion
-	controls_religion = paulician
-	
-	religion = paulician
-	
-	# Cannot be held as a secondary title
-	primary = yes
-	
-	dynasty_title_names = no 	# Will not be named "Seljuk", etc.
-	
-	# Regnal names
-	male_names = {
-		Alexios Alexandros Anastasios Anthimos Athanasios Antonios Basileios Dionysios Dositheos 
-		Eustathios Eustratios Euthymios Gabriel Gennadios Georgios Gerasimos Germanos Gregorios Ieremias 
-		Ignatios Ioakeim Ioannes Ioseph Isidoros Kallinikos Kallistos Konstantinos Kosmas Kyrillos Leon 
-		Leontios Loukas Makarios Manuel Markos Matthaios Maximos Meletios Methodios Metrophanes Michael 
-		Neophytos Nephon Nikephoros Niketas Nikolaos Pavlos Petros Photios Polykarpos Sergios Stephanos 
-		Sophronios Theodoros Theodosios Theodotos Theophylaktos Thomas Timotheos
-	}
-}
-
-d_monothelite = {
-	color={ 180 170 65 }
-	color2={ 220 220 0 }
-	
-	capital = 764 # Antioch
-	
-	title = "MONOTHELITE_PATRIARCH"
-	foa = "ECUMENICAL_PATRIARCH_FOA"
-	
-	short_name = yes
-
-	# Always exists
-	landless = yes
-	
-	# Controls a religion
-	controls_religion = monothelite
-	
-	religion = monothelite
-	
-	# Cannot be held as a secondary title
-	primary = yes
-	
-	dynasty_title_names = no 	# Will not be named "Seljuk", etc.
-	
-	# Regnal names
-	male_names = {
-		Alexios Alexandros Anastasios Anthimos Athanasios Antonios Basileios Dionysios Dositheos 
-		Eustathios Eustratios Euthymios Gabriel Gennadios Georgios Gerasimos Germanos Gregorios Ieremias 
-		Ignatios Ioakeim Ioannes Ioseph Isidoros Kallinikos Kallistos Konstantinos Kosmas Kyrillos Leon 
-		Leontios Loukas Makarios Manuel Markos Matthaios Maximos Meletios Methodios Metrophanes Michael 
-		Neophytos Nephon Nikephoros Niketas Nikolaos Pavlos Petros Photios Polykarpos Sergios Stephanos 
-		Sophronios Theodoros Theodosios Theodotos Theophylaktos Thomas Timotheos
-	}
-}
-
-d_fraticelli = {
-	color={ 198 249 255 }
-	color2={ 220 220 0 }
-	
-	capital = 333 # Rome
-	
-	title = "POPE"
-	foa = "POPE_FOA"
-	short_name = yes
-	location_ruler_title = yes
-	
-	allow = {
-		always = no # Only by special decision
-	}
-	
-	# Always exists
-	landless = yes
-	
-	# Controls a religion
-	controls_religion = fraticelli
-	
-	religion = fraticelli
-	
-	# Cannot be held as a secondary title
-	primary = yes
-	
-	dynasty_title_names = no 	# Will not be named "Seljuk", etc.
-	
-	# Regnal names
-	male_names = {
-		John Gregory Benedict Clement Innocent Leo Pius Stephen Boniface Urban Alexander Adrian Paul
-		Celestine Martin Nicholas Sixtus Felix Sergius Anastasius Honorius Eugene Sylvester Victor
-		Lucius Callixtus Julius Pelagius Adeodatus Theodore Marinus Agapetus Damasus Paschal
-		Gelasius Marcellus "John Paul" Anacletus Evaristus Telesphorus Hyginus Anicetus Mark Hilarius 
-		Simplicius Symmachus Hormisdas Silverius Vigilius Sabinian Severinus Vitalian Donus Agatho
-		Conon Sisinnius Constantine Zachary Valentine Formosus Romanus Lando
-	}
-}
-
-d_iconoclast = {
-	color={ 153 50 125 }
-	color2={ 220 220 0 }
-	
-	capital = 496 # Constantinople
-	
-	title = "ECUMENICAL_PATRIARCH"
-	foa = "ECUMENICAL_PATRIARCH_FOA"
-	short_name = yes
-	
-	allow = {
-		always = no # Only by special decision
-	}
-
-	# Always exists
-	landless = yes
-	
-	# Controls a religion
-	controls_religion = iconoclast
-	
-	religion = iconoclast
-	
-	# Cannot be held as a secondary title
-	primary = yes
-	
-	dynasty_title_names = no 	# Will not be named "Seljuk", etc.
-	
-	# Regnal names
-	male_names = {
-		Alexios Alexandros Anastasios Anthimos Athanasios Antonios Basileios Dionysios Dositheos 
-		Eustathios Eustratios Euthymios Gabriel Gennadios Georgios Gerasimos Germanos Gregorios Ieremias 
-		Ignatios Ioakeim Ioannes Ioseph Isidoros Kallinikos Kallistos Konstantinos Kosmas Kyrillos Leon 
-		Leontios Loukas Makarios Manuel Markos Matthaios Maximos Meletios Methodios Metrophanes Michael 
-		Neophytos Nephon Nikephoros Niketas Nikolaos Pavlos Petros Photios Polykarpos Sergios Stephanos 
-		Sophronios Theodoros Theodosios Theodotos Theophylaktos Thomas Timotheos
-	}
-}
-
-d_apollinarian = {
-	color={ 153 50 125 }
-	color2={ 220 220 0 }
-	
-	capital = 496 # Constantinople
-	
-	title = "APOLLINARIAN_PATRIARCH"
-	foa = "ECUMENICAL_PATRIARCH_FOA"
-	short_name = yes
-	
-	allow = {
-		always = no # Only by special decision
-	}
-
-	# Always exists
-	landless = yes
-	
-	# Controls a religion
-	controls_religion = apollinarian
-	
-	religion = apollinarian
-	
-	# Cannot be held as a secondary title
-	primary = yes
-	
-	dynasty_title_names = no 	# Will not be named "Seljuk", etc.
-	
-	# Regnal names
-	male_names = {
-		Alexios Alexandros Anastasios Anthimos Athanasios Antonios Basileios Gabriel Dionysios Dositheos 
-		Eustathios Eustratios Euthymios Gabriel Gennadios Georgios Gerasimos Germanos Gregorios Ieremias 
-		Ignatios Ioakeim Ioannes Ioseph Isidoros Kallinikos Kallistos Konstantinos Kosmas Kyrillos Leon 
-		Leontios Loukas Makarios Manuel Markos Matthaios Maximos Meletios Methodios Metrophanes Michael 
-		Neophytos Nephon Nikephoros Niketas Nikolaos Pavlos Petros Photios Polykarpos Sergios Stephanos 
-		Sophronios Theodoros Theodosios Theodotos Theophylaktos Thomas Timotheos
-	}
-}
-
-d_adoptionism = {
-	color={ 153 50 125 }
-	color2={ 220 220 0 }
-	
-	capital = 764 # Antioch
-	
-	title = "PATRIARCH_IN_THE_ADOPTION"
-	foa = "ECUMENICAL_PATRIARCH_FOA"
-	short_name = yes
-	
-	allow = {
-		always = no # Only by special decision
-	}
-
-	# Always exists
-	landless = yes
-	
-	# Controls a religion
-	controls_religion = adoptionism
-	
-	religion = adoptionism
-	
-	# Cannot be held as a secondary title
-	primary = yes
-	
-	dynasty_title_names = no 	# Will not be named "Seljuk", etc.
-	
-	# Regnal names
-	male_names = {
-		Alexios Alexandros Anastasios Anthimos Athanasios Antonios Basileios Gabriel Dionysios Dositheos 
-		Eustathios Eustratios Euthymios Gabriel Gennadios Georgios Gerasimos Germanos Gregorios Ieremias 
-		Ignatios Ioakeim Ioannes Ioseph Isidoros Kallinikos Kallistos Konstantinos Kosmas Kyrillos Leon 
-		Leontios Loukas Makarios Manuel Markos Matthaios Maximos Meletios Methodios Metrophanes Michael 
-		Neophytos Nephon Nikephoros Niketas Nikolaos Pavlos Petros Photios Polykarpos Sergios Stephanos 
-		Sophronios Theodoros Theodosios Theodotos Theophylaktos Thomas Timotheos
-	}
-}
-
-d_patripassian = {
-	color={ 153 50 125 }
-	color2={ 220 220 0 }
-	
-	capital = 333 # Rome
-	
-	title = "HIGH_PATRIARCH"
-	foa = "ECUMENICAL_PATRIARCH_FOA"
-	short_name = yes
-	
-	allow = {
-		always = no # Only by special decision
-	}
-
-	# Always exists
-	landless = yes
-	
-	# Controls a religion
-	controls_religion = patripassianism
-	
-	religion = patripassianism
-	
-	# Cannot be held as a secondary title
-	primary = yes
-	
-	dynasty_title_names = no 	# Will not be named "Seljuk", etc.
-	
-	# Regnal names
-	male_names = {
-		Alexios Alexandros Anastasios Anthimos Athanasios Antonios Basileios Gabriel Dionysios Dositheos 
-		Eustathios Eustratios Euthymios Gabriel Gennadios Georgios Gerasimos Germanos Gregorios Ieremias 
-		Ignatios Ioakeim Ioannes Ioseph Isidoros Kallinikos Kallistos Konstantinos Kosmas Kyrillos Leon 
-		Leontios Loukas Makarios Manuel Markos Matthaios Maximos Meletios Methodios Metrophanes Michael 
-		Neophytos Nephon Nikephoros Niketas Nikolaos Pavlos Petros Photios Polykarpos Sergios Stephanos 
-		Sophronios Theodoros Theodosios Theodotos Theophylaktos Thomas Timotheos
-	}
-}
-
-d_donatism = {
-	color={ 153 50 125 }
-	color2={ 220 220 0 }
-	
-	capital = 817 # Carthage
-	
-	title = "DONATIST"
-	foa = "ECUMENICAL_PATRIARCH_FOA"
-	title_prefix = "BISHOPRIC_OF"
-	
-	allow = {
-		always = no # Only by special decision
-	}
-
-	# Always exists
-	landless = yes
-	
-	# Controls a religion
-	controls_religion = donatism
-	
-	religion = donatism
-	
-	# Cannot be held as a secondary title
-	primary = yes
-	
-	dynasty_title_names = no 	
-	
-	# Regnal names
-	male_names = {
-		Alexios Alexandros Anastasios Anthimos Athanasios Antonios Basileios Gabriel Dionysios Dositheos 
-		Eustathios Eustratios Euthymios Gabriel Gennadios Georgios Gerasimos Germanos Gregorios Ieremias 
-		Ignatios Ioakeim Ioannes Ioseph Isidoros Kallinikos Kallistos Konstantinos Kosmas Kyrillos Leon 
-		Leontios Loukas Makarios Manuel Markos Matthaios Maximos Meletios Methodios Metrophanes Michael 
-		Neophytos Nephon Nikephoros Niketas Nikolaos Pavlos Petros Photios Polykarpos Sergios Stephanos 
-		Sophronios Theodoros Theodosios Theodotos Theophylaktos Thomas Timotheos
-	}
-}
-
-d_binitarian = {
-	color={ 153 50 125 }
-	color2={ 220 220 0 }
-	
-	capital = 774 # Jerusalem
-	
-	title = "HIGH_PATRIARCH"
-	foa = "ECUMENICAL_PATRIARCH_FOA"
-	short_name = yes
-	
-	allow = {
-		always = no # Only by special decision
-	}
-
-	# Always exists
-	landless = yes
-	
-	# Controls a religion
-	controls_religion = binitarian
-	
-	religion = binitarian 
-	
-	# Cannot be held as a secondary title
-	primary = yes
-	
-	dynasty_title_names = no 	# Will not be named "Seljuk", etc.
-	
-	# Regnal names
-	male_names = {
-		Alexios Alexandros Anastasios Anthimos Athanasios Antonios Basileios Gabriel Dionysios Dositheos 
-		Eustathios Eustratios Euthymios Gabriel Gennadios Georgios Gerasimos Germanos Gregorios Ieremias 
-		Ignatios Ioakeim Ioannes Ioseph Isidoros Kallinikos Kallistos Konstantinos Kosmas Kyrillos Leon 
-		Leontios Loukas Makarios Manuel Markos Matthaios Maximos Meletios Methodios Metrophanes Michael 
-		Neophytos Nephon Nikephoros Niketas Nikolaos Pavlos Petros Photios Polykarpos Sergios Stephanos 
-		Sophronios Theodoros Theodosios Theodotos Theophylaktos Thomas Timotheos
-	}
-}
-
-d_ebionites = {
-	color={ 153 153 153 }
-	color2={ 220 220 0 }
-	
-	capital = 774 # Jerusalem
-	
-	title = "EBIONITES_RABI"
-	foa = "HEAD_KOHEN_GADOL_FOA"
-	short_name = yes
-	
-	allow = {
-		always = no # Only by special decision
-	}
-
-	# Always exists
-	landless = yes
-	
-	# Controls a religion
-	controls_religion = ebionites
-	
-	religion = ebionites
-	
-	# Cannot be held as a secondary title
-	primary = yes
-	
-	dynasty_title_names = no 	# Will not be named "Seljuk", etc.
-	
-}
-
-d_valentinianism = {
-	color={ 153 153 153 }
-	color2={ 220 220 0 }
-	
-	capital = 333 # Rome
-	
-	title = "ADAM"
-	foa = "POPE_FOA"
-	short_name = yes
-	
-	allow = {
-		always = no # Only by special decision
-	}
-
-	# Always exists
-	landless = yes
-	
-	# Controls a religion
-	controls_religion = valentinianism
-	
-	religion = valentinianism
-	
-	# Cannot be held as a secondary title
-	primary = yes
-	
-	dynasty_title_names = no 	# Will not be named "Seljuk", etc.
-	
-}
-
-d_priscillianism = {
-	color={ 153 153 153 }
-	color2={ 220 220 0 }
-	
-	capital = 198 # Valladolid
-	
-	title = "POPE"
-	foa = "POPE_FOA"
-	
-	short_name = yes
-	
-	allow = {
-		always = no # Only by special decision
-	}
-
-	# Always exists
-	landless = yes
-	
-	# Controls a religion
-	controls_religion = priscillianism
-	
-	religion = priscillianism
-	
-	# Cannot be held as a secondary title
-	primary = yes
-	
-	dynasty_title_names = no 	# Will not be named "Seljuk", etc.
-}
-
-d_sethian = {
- 	color={ 0.0 0.0 0.2 }
- 	color2={ 255 0 128 }
- 	
- 	capital = 802 # Alexandria
- 
- 	title = "HEAD_SNAKE_KEEPER"
- 	foa = "POPE_FOA"
- 	
- 	short_name = yes
-	
-	allow = {
-		always = no # Only by special decision
-	}
- 
- 	# Always exists
- 	landless = yes
- 	
- 	# Controls a religion
- 	controls_religion = sethian
- 
- 	religion = sethian
-
- 	# Cannot be held as a secondary title
-	primary = yes
- 	
- 	dynasty_title_names = no 	# Will not be named "Seljuk", etc.
-  }
 
 d_yazidi = {
 	color={ 20 50 160 }
@@ -40944,7 +40438,7 @@ d_yazidi = {
 	foa = "CALIPH_FOA"
 	short_name = yes
 	
-	religion=yazidi
+	religion= yazidi
 	
 	# Controls a religion
 	controls_religion = yazidi
@@ -41315,59 +40809,59 @@ d_socotra = {
 
 b_dandolo = {
 	culture = italian
-	religion = catholic
+	religion = nicene
 }
 
 b_contarini = {
 	culture = italian
-	religion = catholic
+	religion = nicene
 }
 
 b_faliero = {
 	culture = italian
-	religion = catholic
+	religion = nicene
 }
 
 b_morosini = {
 	culture = italian
-	religion = catholic
+	religion = nicene
 }
 
 b_ziani = {
 	culture = italian
-	religion = catholic
+	religion = nicene
 }
 
 b_candiano = {
 	culture = italian
-	religion = catholic
+	religion = nicene
 }
 
 b_orsoleo = {
 	culture = italian
-	religion = catholic
+	religion = nicene
 }
 
 b_participazio = {
 	culture = italian
-	religion = catholic
+	religion = nicene
 }
 
 b_tribuno = {
 	culture = italian
-	religion = catholic
+	religion = nicene
 }
 
 b_tradonico = {
 	culture = italian
-	religion = catholic
+	religion = nicene
 }
 
 # GENOA:
 
 b_doria = {
 	culture = italian
-	religion = catholic
+	religion = nicene
 }
 
 b_spinola = {
@@ -41505,27 +40999,27 @@ b_justinian = {
 
 b_dappiano = {
 	culture = italian
-	religion = catholic
+	religion = nicene
 }
 
 b_della_gherardesca = {
 	culture = italian
-	religion = catholic
+	religion = nicene
 }
 
 b_visconti = {
 	culture = italian
-	religion = catholic
+	religion = nicene
 }
 
 b_alliata = {
 	culture = italian
-	religion = catholic
+	religion = nicene
 }
 
 b_caetani = {
 	culture = italian
-	religion = catholic
+	religion = nicene
 }
 
 # OLD PISA:
@@ -41559,81 +41053,81 @@ b_ulpius = {
 
 b_bardewik = {
 	culture = german
-	religion = catholic
+	religion = nicene
 }
 
 b_vorrade = {
 	culture = german
-	religion = catholic
+	religion = nicene
 }
 
 b_warendorp = {
 	culture = german
-	religion = catholic
+	religion = nicene
 }
 
 b_pat_luneburg = {
 	culture = german
-	religion = catholic
+	religion = nicene
 }
 
 b_wittenborg = {
 	culture = german
-	religion = catholic
+	religion = nicene
 }
 
 # GOTLAND:
 
 b_stenkyrka = {
 	culture = swedish
-	religion = catholic
+	religion = nicene
 }
 
 b_guldsmed = {
 	culture = swedish
-	religion = catholic
+	religion = nicene
 }
 
 b_hejnum = {
 	culture = swedish
-	religion = catholic
+	religion = nicene
 }
 
 b_gildehusen = {
 	culture = swedish
-	religion = catholic
+	religion = nicene
 }
 
 b_strabain = {
 	culture = swedish
-	religion = catholic
+	religion = nicene
 }
 
 # AMALFI:
 
 b_konstantios = {
 	culture = greek
-	religion = catholic
+	religion = nicene
 }
 
 b_mauro = {
 	culture = italian
-	religion = catholic
+	religion = nicene
 }
 
 b_musco = {
 	culture = italian
-	religion = catholic
+	religion = nicene
 }
 
 b_polkarios = {
 	culture = greek
-	religion = catholic
+	religion = nicene
 }
 
 b_urso = {
 	culture = italian
-	religion = catholic
+	religion = nicene
 }
 
 ### INDIA ###
@@ -42342,6 +41836,7 @@ e_rajastan = {
 				b_mathura = {
 				}
 				b_krishnajanmabhoomi = {
+#					pentarchy = mimamsa
 				}
 				b_govardhan = {
 				}
@@ -42560,6 +42055,7 @@ e_rajastan = {
 				b_lalpur = {
 				}
 				b_dwarakadheesh = {
+#					pentarchy = mimamsa
 				}
 				b_gomati = {
 				}
@@ -43119,6 +42615,7 @@ e_rajastan = {
 				b_agar = {
 				}
 				b_mahakaleshwar = {
+#					pentarchy = mimamsa
 				}
 				b_mehidpur = {
 				}
@@ -43448,6 +42945,7 @@ e_rajastan = {
 				b_ramkot = {
 				}
 				b_ram_janmabhoomi = {
+#					pentarchy = mimamsa
 				}
 				b_nageshwarnath = {
 				}
@@ -44491,6 +43989,7 @@ e_bengal = {
 				holy_site = mimamsa
 				
 				b_varanasi = {
+#					pentarchy = mimamsa
 				}
 				b_sarnath = {
 				}
