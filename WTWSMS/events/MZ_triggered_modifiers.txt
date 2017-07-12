@@ -1,0 +1,407 @@
+#################################################################################
+#																				#
+#         CONVERSION OF TRIGGERED MODIFIER SCRIPTS TO EVENT MODIFIERS 			#
+#																				#
+#################################################################################
+
+character_event = { # Zoroastrian receives penalty for not being married
+	id = 1000094008
+	hide_window = yes
+
+	potential = {
+		religion_group = zoroastrian_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	trigger = {
+		age = 16
+		religion_group = zoroastrian_group
+		female = no
+		is_married = no
+	}
+
+	option = {
+		name = MZ1
+		add_character_modifier = {
+			name = zoroastrian_not_married
+			duration = -1
+		}
+	}
+}
+
+character_event = { # Zoroastrian loses penalty for not being married
+	id = 1000094009
+	hide_window = yes
+
+	potential = {
+		religion_group = zoroastrian_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	trigger = {
+		age = 16
+#		religion_group = zoroastrian_group
+		has_character_modifier = zoroastrian_not_married
+		is_married = yes
+	}
+	option = {
+		name = MZ2
+		remove_character_modifier = zoroastrian_not_married
+	}
+}
+
+character_event = { # Priscillian acquires bonus for being vegetarian
+	id = 1000094010
+	hide_window = yes
+
+	potential = {
+		religion = priscillianism
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	trigger = {
+		religion = priscillianism
+		trait = vegetarian
+	}
+
+	option = {
+		name = MZ3
+		add_character_modifier = { 
+			name = priscillian_vegetarian
+			duration = -1
+		}
+	}
+}
+
+character_event = { # Priscillian loses bonus for being vegetarian
+	id = 1000094011
+	hide_window = yes
+
+	potential = {
+		religion = priscillianism
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	trigger = {
+		religion = priscillianism
+		has_character_modifier = priscillian_vegetarian
+		NOT = { trait = vegetarian }
+	}
+	option = {
+		name = MZ4
+		remove_character_modifier = priscillian_vegetarian
+	}
+}
+
+character_event = { # Priscillian, Montanist, or Donatist character starts to be seen as wicked and corrupt
+	id = 1000094012
+	hide_window = yes
+
+	potential = {
+		OR = {
+			religion = montanist
+			religion = donatism
+			religion = priscillianism
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	trigger = {
+		age = 16
+		OR = {
+			religion = montanist
+			religion = donatism
+			religion = priscillianism
+		}
+		OR = {
+			trait = lustful
+			trait = decadent
+			trait = cruel
+			trait = greedy
+			trait = torturer
+			trait = drunkard
+			trait = impaler
+			trait = cannibal_trait
+			trait = gluttonous
+			trait = seducer
+			trait = seductress
+			trait = bad_priest_christian
+			trait = schemer
+			has_character_modifier = incestuous_adulterer
+			has_character_modifier = incestuous_adultereress
+			has_character_modifier = adulteress
+			has_character_modifier = adulterer
+			has_character_modifier = known_sodomite
+			has_character_modifier = adulterous_priest
+			has_character_modifier = cannibal
+			has_character_modifier = known_cannibal
+			has_character_modifier = known_murderer
+			has_character_focus = focus_seduction
+			has_character_focus = focus_carousing
+		}
+	}
+	option = {
+		name = MZ5
+		add_character_modifier = {
+			name = defiance_of_asceticism # This Event modifier provides the penalties for a decadent Donatist/Montanist/Priscillian character
+			duration = -1
+		}
+	}
+}
+
+character_event = { # Priscillian, Monatist, or Donatist character cleans up their act
+	id = 1000094013
+	hide_window = yes
+
+	potential = {
+		OR = {
+			religion = montanist
+			religion = donatism
+			religion = priscillianism
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	trigger = {
+		age = 16
+		has_character_modifier = defiance_of_asceticism # This Event modifier provides the penalties for a decadent Donatist/Montanist/Priscillian character
+		OR = {
+			religion = montanist
+			religion = donatism
+			religion = priscillianism
+		}
+		NOT = {
+			trait = lustful
+			trait = decadent
+			trait = cruel
+			trait = greedy
+			trait = torturer
+			trait = drunkard
+			trait = impaler
+			trait = cannibal_trait
+			trait = gluttonous
+			trait = seducer
+			trait = seductress
+			trait = bad_priest_christian
+			trait = schemer
+			has_character_modifier = incestuous_adulterer
+			has_character_modifier = incestuous_adultereress
+			has_character_modifier = adulteress
+			has_character_modifier = adulterer
+			has_character_modifier = known_sodomite
+			has_character_modifier = adulterous_priest
+			has_character_modifier = cannibal
+			has_character_modifier = known_cannibal
+			has_character_modifier = known_murderer
+			has_character_focus = focus_seduction
+			has_character_focus = focus_carousing
+		}
+	}
+	option = {
+		name = MZ6
+		piety = 100
+		remove_character_modifier = defiance_of_asceticism
+	}
+}
+
+character_event = { # Commissioned Shahnemah Addition
+	id = 1000094014
+	hide_window = yes
+
+	potential = {
+		religion_group = zoroastrian_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	trigger = {
+		has_character_flag = commissioned_shahnameh_addition
+		religion_group = zoroastrian_group
+	}
+	
+	option = {
+		name = MZ7
+		add_character_modifier = {
+			name = commissioned_shahnameh_addition
+			duration = -1
+		}
+	}
+}
+
+character_event = { # Zoroastrian penalty for celibacy
+	id = 1000094015
+	hide_window = yes
+
+	potential = {
+		religion_group = zoroastrian_group
+		NOT = { religion = yazidi }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	trigger = {
+		trait = celibate
+		religion_group = zoroastrian_group
+	}
+	
+	option = {
+		name = MZ8
+		add_character_modifier = {
+			name = zoroastrian_celibacy
+			duration = -1
+		}
+	}
+}
+
+character_event = { # Zoroastrian penalty for celibacy revoked (Is this possible?)
+	id = 1000094015
+	hide_window = yes
+
+	potential = {
+		religion_group = zoroastrian_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	trigger = {
+		NOT = { trait = celibate }
+		religion_group = zoroastrian_group
+		has_character_modifier = zoroastrian_celibacy
+	}
+	
+	option = {
+		name = MZ9
+		remove_character_modifier = zoroastrian_celibacy
+	}
+}
+
+character_event = { # Zoroastrian penalty for dishonesty
+	id = 1000094016
+	hide_window = yes
+
+	potential = {
+		religion_group = zoroastrian_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	trigger = {
+		OR = {
+			trait = deceitful
+			trait = schemer
+		}
+		religion_group = zoroastrian_group
+	}
+
+	option = {
+		name = MZ10
+		add_character_modifier = {
+			name = zoroastrian_deceitfulness
+			duration = -1
+		}
+	}
+}
+
+character_event = { # Zoroastrian penalty for dishonesty is removed
+	id = 1000094017
+	hide_window = yes
+
+	potential = {
+		religion_group = zoroastrian_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	trigger = {
+		NOT = {
+			trait = deceitful
+			trait = schemer
+		}
+		has_character_modifier = zoroastrian_deceitfulness
+		religion_group = zoroastrian_group
+	}
+
+	option = {
+		name = MZ11
+		remove_character_modifier = zoroastrian_deceitfulness
+	}
+}
+
+
+character_event = { # Zoroastrian bonus for honesty
+	id = 1000094018
+	hide_window = yes
+
+	potential = {
+		religion_group = zoroastrian_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	trigger = {
+		trait = honest
+		religion_group = zoroastrian_group
+	}
+
+	option = {
+		name = MZ12
+		add_character_modifier = {
+			name = zoroastrian_honesty
+			duration = -1
+		}
+	}
+}
+
+character_event = { # Zoroastrian loses bonus for honesty
+	id = 1000094019
+	hide_window = yes
+
+	potential = {
+		religion_group = zoroastrian_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	trigger = {
+		NOT = { trait = honest }
+		has_character_modifier = zoroastrian_honesty
+		religion_group = zoroastrian_group
+	}
+
+	option = {
+		name = MZ12
+		remove_character_modifier = zoroastrian_honesty
+	}
+}
