@@ -1,0 +1,69 @@
+#### POET EMPLOYMENT DECISION NOTIFICATION
+
+# Ping new Poet to set correct scopes scope.
+# FROM is the liege
+character_event = {
+	id = 312680
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		FROM = {
+			character_event = { id = 312681 }
+		}
+	}
+
+	option = {
+		name = OK
+	}
+}
+
+# Liege is notified that a Poet arrived at court
+# FROM is the poet
+character_event = {
+	id = 312681
+	desc = EVTDESC312681
+	picture = GFX_evt_viking_throneroom_oldgods
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		FROM = { 
+			opinion = {
+				modifier = opinion_patron
+				who = ROOT
+				years = 20
+			}
+			reverse_opinion = {
+				modifier = opinion_new_courtier
+				who = ROOT
+				years = 5
+			}
+		}
+	}
+	
+	option = {
+		name = EVTOPTA312681
+
+		trigger = {
+			NOT = {
+				OR = {
+					any_courtier = {
+						has_minor_title = title_court_celtic_poet
+					}
+					any_vassal = {
+						has_minor_title = title_court_celtic_poet
+					}
+				}
+			}
+		}
+		FROM = {
+			give_minor_title = title_court_celtic_poet
+		}
+	}
+	
+	option = {
+		name = EVTOPTB312681
+	}
+}
