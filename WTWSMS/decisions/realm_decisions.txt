@@ -1271,17 +1271,13 @@ decisions = {
 		potential = {
 			has_dlc = "Sons of Abraham"
 			is_playable = yes
-			OR = {
-				religion_group = jewish_group
-				religion = ebionites
-			}
+			religion_group = jewish_group
 			k_israel = {
 				has_holder = no
 			}
 		}
 		allow = {
-			completely_controls = d_palestinia_salutaris # K_ORIENS IS TOO BIG, THIS IS WHAT ISRAEL HAD IN RL
-			completely_controls = d_iudea # K_ORIENS IS TOO BIG
+			completely_controls = k_oriens
 			774 = {
 				religion = ROOT
 			}
@@ -1301,7 +1297,7 @@ decisions = {
 		only_playable = yes
 		
 		potential = {
-#			has_dlc = "Sons of Abraham"
+			#has_dlc = "Sons of Abraham"
 			is_playable = yes
 			NOR = {
 				religion_group = jewish_group 
@@ -1321,7 +1317,10 @@ decisions = {
 					NOT = { trait = zealous }
 					NOT = { trait = sympathy_judaism }
 				}
-				add_trait = sympathy_judaism
+				random = {
+					chance = 50
+					add_trait = sympathy_judaism
+				}
 			}
 			custom_tooltip = {
 				text = jews_are_welcome
@@ -1373,8 +1372,6 @@ decisions = {
 				secret_religion = jewish
 				secret_religion = samaritan
 				secret_religion = karaite
-				secret_religion = ebionites
-				secret_religion = tzadikite
 			}
 			age = 16
 		}
@@ -1444,7 +1441,7 @@ decisions = {
 				remove_friend = ROOT
 			}
 			random = {
-				chance = 66
+				chance = 50
 				add_trait = cruel
 			}
 			remove_trait = just
@@ -1454,10 +1451,6 @@ decisions = {
 			
 			modifier = {
 				factor = 0.001 # Less likely to do it
-			}
-			modifier = {
-				factor = 0
-				trait = tolerant_ruler
 			}
 			modifier = {
 				factor = 0
@@ -1503,10 +1496,6 @@ decisions = {
 				has_character_modifier = borrowed_from_jews
 			}
 			modifier = {
-				factor = 0.15
-				trait = just
-			}
-			modifier = {
 				factor = 1.2
 				trait = zealous
 				trait = arbitrary
@@ -1531,10 +1520,6 @@ decisions = {
 			modifier = {
 				factor = 0
 				religion = ebionites
-			}
-			modifier = {
-				factor = 0
-				trait = sympathy_judaism
 			}
 		}
 	}
@@ -2043,6 +2028,26 @@ decisions = {
 					value = off
 				}
 			}
+			
+			OR = {
+				ai = no
+				AND = {
+					trait = proud
+					prestige = 5000
+				}
+				AND = {
+					trait = ambitious
+					prestige = 5000
+				}
+				AND = {
+					realm_size = 70
+					any_demesne_title = {
+						count = 4
+						tier = DUKE
+					}
+				}
+				prestige = 15000
+			}
 		}
 		allow = {
 			is_adult = yes
@@ -2154,6 +2159,18 @@ decisions = {
 			holy_order = no
 			
 			NOT = { tier = EMPEROR }
+			OR = {
+				ai = no
+				AND = {
+					trait = proud
+					prestige = 40000
+				}
+				AND = {
+					trait = ambitious
+					prestige = 40000
+				}
+				prestige = 120000
+			}
 			
 			NOT = {
 				has_game_rule = {
