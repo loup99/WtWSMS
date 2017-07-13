@@ -1,0 +1,116 @@
+namespace = NE
+
+# Notification event for invited character
+character_event = {
+	id = NE.1
+	desc = EVTDESC_NE_1
+	picture = GFX_evt_emissary
+
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_NE_1
+		
+		trigger = {
+			event_target:invited_character = { has_character_flag = invited_soldier }
+			OR = {
+				AND = {
+					tier = COUNT
+					NOT = {
+						any_realm_character = {
+							count = 2
+							liege = { character = ROOT }
+							has_minor_title = title_commander
+						}
+					}
+				}
+				AND = {
+					tier = DUKE
+					NOT = {
+						any_realm_character = {
+							count = 4
+							liege = { character = ROOT }
+							has_minor_title = title_commander
+						}
+					}
+				}
+				AND = {
+					tier = KING
+					is_nomadic = no
+					NOT = {
+						any_realm_character = {
+							count = 6
+							liege = { character = ROOT }
+							has_minor_title = title_commander
+						}
+					}
+				}
+				AND = {
+					tier = EMPEROR
+					is_nomadic = no
+					NOT = {
+						any_realm_character = {
+							count = 8
+							liege = { character = ROOT }
+							has_minor_title = title_commander
+						}
+					}
+				}
+				AND = {
+					tier = KING
+					is_nomadic = yes
+					NOT = {
+						any_realm_character = {
+							count = 2
+							liege = { character = ROOT }
+							has_minor_title = title_commander
+						}
+					}
+				}
+				AND = {
+					tier = EMPEROR
+					is_nomadic = yes
+					NOT = {
+						any_realm_character = {
+							count = 4
+							liege = { character = ROOT }
+							has_minor_title = title_commander
+						}
+					}
+				}
+			}
+		}
+		
+		event_target:invited_character = {
+			give_minor_title = title_commander
+		}
+	}
+	
+	option = {
+		name = EVTOPTC_NE_1
+		
+		trigger = {
+			event_target:invited_character = { has_character_flag = invited_court_celtic_poet }
+		}
+		
+		event_target:invited_character = {
+			give_minor_title = title_court_celtic_poet
+		}
+	}
+	
+	option = {
+		name = EXCELLENT
+	}
+	
+	option = {
+		name = EVTOPTB_NE_1
+		
+		hidden_tooltip = {
+			event_target:invited_character = { 
+				death = {
+					death_reason = death_missing
+				}
+			}
+		}
+	}
+}
