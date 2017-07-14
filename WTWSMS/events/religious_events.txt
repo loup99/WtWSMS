@@ -30,7 +30,15 @@ province_event = {
 	}
 	
 	mean_time_to_happen = {
-		months = 9600
+		months = 8000
+		modifier = {
+			factor = 0.15
+			AND = {
+				NOT = { year = 500 }
+				religion = nicene # In the early parts of this Mod, the religious world was in turmoil with the fall of Christian WRE
+			}
+			
+		}
 		modifier = {
 			factor = 2.0
 			religion_authority = 0.6
@@ -191,6 +199,7 @@ character_event = {
 		OR = {
 			religion = catholic
 			religion = fraticelli
+			religion = nicene
 		}
 		
 		any_playable_ruler = {
@@ -285,6 +294,7 @@ character_event = {
 		OR = {
 			religion = catholic
 			religion = fraticelli
+			religion = nicene
 		}
 		
 		any_playable_ruler = {
@@ -372,6 +382,7 @@ character_event = {
 		OR = {
 			religion = catholic
 			religion = fraticelli
+			religion = nicene
 		}
 
 		any_playable_ruler = {
@@ -615,6 +626,13 @@ province_event = {
 	mean_time_to_happen = {
 		months = 1200
 		modifier = {
+			factor = 0.20
+			AND = {
+				NOT = { year = 500 }
+				religion = nicene
+			}
+		}
+		modifier = {
 			factor = 2.0
 			religion_authority = 0.6
 		}
@@ -772,7 +790,7 @@ character_event = {
 			is_heretic = no
 			prisoner = no
 			NOT = { trait = incapable }
-			reverse_opinion = { who = ROOT value = 25 }
+			reverse_opinion = { who = ROOT value = 10 }
 		}
 	}
 	
@@ -783,7 +801,7 @@ character_event = {
 			trait = cynical
 		}
 		modifier = {
-			factor = 0.25
+			factor = 0.1
 			trait = zealous
 		}
 		modifier = {
@@ -852,6 +870,10 @@ character_event = {
 			modifier = {
 				factor = 0.25
 				tier = EMPEROR
+			}
+			modifier = {
+				factor = 1.20
+				trait = arbitrary
 			}
 		}
 		hidden_tooltip = {
@@ -1985,6 +2007,7 @@ character_event = {
 		OR = {
 			religion = catholic
 			religion = fraticelli
+			religion = nicene
 		}
 		
 		religion_authority = 0.20
@@ -1998,6 +2021,9 @@ character_event = {
 				OR = {
 					religion_group = muslim
 					religion_group = pagan_group
+					religion_group = bosporan_group
+					religion_group = zoroastrian_group
+					religion_group = indian_group
 				}
 				OR = {
 					has_job_title = job_chancellor
@@ -2029,10 +2055,13 @@ character_event = {
 
 				any_courtier = {
 					prisoner = no
-					OR = {
-						religion_group = muslim
-						religion_group = pagan_group
-					}
+				OR = {
+					religion_group = muslim
+					religion_group = pagan_group
+					religion_group = bosporan_group
+					religion_group = zoroastrian_group
+					religion_group = indian_group
+				}
 					OR = {
 						has_job_title = job_chancellor
 						has_job_title = job_marshal
@@ -2073,6 +2102,9 @@ character_event = {
 				OR = {
 					religion_group = muslim
 					religion_group = pagan_group
+					religion_group = bosporan_group
+					religion_group = zoroastrian_group
+					religion_group = indian_group
 				}
 				OR = {
 					has_job_title = job_chancellor
@@ -2205,6 +2237,9 @@ character_event = {
 				OR = {
 					religion_group = muslim
 					religion_group = pagan_group
+					religion_group = bosporan_group
+					religion_group = zoroastrian_group
+					religion_group = indian_group
 				}
 				OR = {
 					has_job_title = job_chancellor
@@ -2236,10 +2271,13 @@ character_event = {
 
 				any_courtier = {
 					prisoner = no
-					OR = {
-						religion_group = muslim
-						religion_group = pagan_group
-					}
+				OR = {
+					religion_group = muslim
+					religion_group = pagan_group
+					religion_group = bosporan_group
+					religion_group = zoroastrian_group
+					religion_group = indian_group
+				}
 					OR = {
 						has_job_title = job_chancellor
 						has_job_title = job_marshal
@@ -2280,6 +2318,9 @@ character_event = {
 				OR = {
 					religion_group = muslim
 					religion_group = pagan_group
+					religion_group = bosporan_group
+					religion_group = zoroastrian_group
+					religion_group = indian_group
 				}
 				OR = {
 					has_job_title = job_chancellor
@@ -3602,6 +3643,11 @@ character_event = {
 				FROM = { religion_group = indian_group }
 				trait = sympathy_indian
 			}
+			modifier = {
+				factor = 0
+				FROM = { religion_group = bosporan_group }
+				trait = sympathy_hypsistarian
+			}
 		}
 		
 		FROM = {
@@ -3634,11 +3680,11 @@ character_event = {
 				trait = zealous
 			}
 			modifier = {
-				factor = 3
+				factor = 5
 				trait = cynical
 			}
 			modifier = {
-				factor = 2
+				factor = 4
 				trait = arbitrary
 			}
 			
@@ -3763,9 +3809,14 @@ character_event = {
 			
 			# Pragmatism
 			modifier = {
-				factor = 3  # Powerful rulers want a modern religion
+				factor = 4  # Powerful rulers want a modern religion
 				tier = KING
 				realm_size = 12
+			}
+			modifier = {
+				factor = 6
+				tier = EMPEROR
+				realm_size = 24
 			}
 			modifier = {
 				factor = 5
@@ -3872,41 +3923,46 @@ character_event = {
 			factor = 1
 			# Traits
 			modifier = {
-				factor = 0.3
+				factor = 0.2
 				trait = zealous
 			}
 			modifier = {
-				factor = 3
+				factor = 4
 				trait = cynical
 			}
 			modifier = {
-				factor = 2
+				factor = 4
 				trait = arbitrary
 			}
 			modifier = {
-				factor = 3
+				factor = 4
 				FROM = { religion_group = christian }
 				trait = sympathy_christendom
 			}
 			modifier = {
-				factor = 3
+				factor = 4
 				FROM = { religion_group = muslim }
 				trait = sympathy_islam
 			}
 			modifier = {
-				factor = 3
+				factor = 4
 				FROM = { religion_group = jewish_group }
 				trait = sympathy_judaism
 			}
 			modifier = {
-				factor = 3
+				factor = 4
 				FROM = { religion_group = zoroastrian_group }
 				trait = sympathy_zoroastrianism
 			}
 			modifier = {
-				factor = 3
+				factor = 4
 				FROM = { religion_group = indian_group }
 				trait = sympathy_indian
+			}
+			modifier = {
+				factor = 4
+				FROM = { religion_group = bosporan_group }
+				trait = sympathy_hypsistarian
 			}
 			
 			# Personal
@@ -4028,6 +4084,11 @@ character_event = {
 				factor = 3  # Powerful rulers want a modern religion
 				tier = KING
 				realm_size = 12
+			}
+			modifier = {
+				factor = 6
+				tier = EMPEROR
+				realm_size = 24
 			}
 			modifier = {
 				factor = 5
@@ -4185,7 +4246,7 @@ character_event = {
 				age = 12
 			}
 			random = {
-				chance = 60
+				chance = 100
 				add_trait = sympathy_pagans
 			}
 		}
@@ -4198,7 +4259,7 @@ character_event = {
 				age = 12
 			}
 			random = {
-				chance = 50
+				chance = 75
 				add_trait = sympathy_pagans
 			}
 		}		
@@ -4223,7 +4284,7 @@ character_event = {
 		create_random_priest = {
 			random_traits = yes
 			dynasty = none
-			culture = ROOT
+			culture = FROM # Converter gives you a missionary who came with him
 			religion = FROM
 			female = no
 			age = 32
@@ -4430,7 +4491,7 @@ character_event = {
 				age = 12
 			}
 			random = {
-				chance = 60
+				chance = 100
 				add_trait = sympathy_pagans
 			}
 		}
@@ -4443,7 +4504,7 @@ character_event = {
 				age = 12
 			}
 			random = {
-				chance = 50
+				chance = 75
 				add_trait = sympathy_pagans
 			}
 		}
@@ -6020,6 +6081,12 @@ character_event = {
 				religion_group = indian_group
 			}
 			add_trait = sympathy_indian
+		}
+		if = {
+			limit = {
+				religion_group = bosporan_group
+			}
+			add_trait = sympathy_hypsistarian
 		}
 
 		clr_religion_char_flag_effect = yes #Must clear all old flags to avoid double traits

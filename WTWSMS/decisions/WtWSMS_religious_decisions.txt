@@ -407,7 +407,6 @@ decisions = {
 	create_priscillian_patriarchy = {
 		only_playable = yes
 		is_high_prio = yes
-	
 		potential = {
 			religion = priscillianism
 			NOT = { is_title_active = d_priscillianism }
@@ -415,49 +414,65 @@ decisions = {
 			prisoner = no
 			NOT = { trait = incapable }
 		}
-		
 		allow = {
-			is_heretic = no
 			piety = 1000
+			trait = vegetarian
+			martial = 8
+			learning = 8
 			OR = {
 				owns = 198 # Valladolid
 				any_realm_lord = {
-					owns = 198
+					owns = 198 # Valladolid
 				}
 			}
 		}
-		
 		effect = {
 			give_nickname = nick_with_immortal_soul
+			set_global_flag = veggiepriest
 			activate_title = { title = d_priscillianism status = yes }
 			hidden_tooltip = {
-				create_random_priest = {
+				create_character = {
+					name = "Priscillian"
 					dynasty = none
-					random_traits = yes
-				}
-				new_character = {
-					d_priscillianism = {
-						grant_title = PREV
+					trait = humble
+					trait = vegetarian
+					trait = zealous
+					trait = mystic
+					race = egyptian_arabic
+					religion = priscillianism
+					culture = ROOT
+					female = no
+					attributes = {
+						martial = 8
+						intrigue = 10
+						learning = 10
 					}
-					wealth = 500
-					opinion = {
-						who = ROOT
-						modifier = opinion_creator_of_rel_heal
-					}
+					historical = yes
 				}
-				
-				religion_authority = {
-					modifier = patriarchy_instituted
-					years = 20
+			}
+			new_character = {
+				d_priscillianism = {
+					grant_title = PREV
 				}
+				b_avila = {
+					grant_title = PREV
+					make_capital_holding = yes
+				}
+				wealth = 0
+				opinion = {
+					who = ROOT
+					modifier = opinion_creator_of_rel_heal
+				}
+			}
+			religion_authority = {
+				modifier = patriarchy_instituted
+				years = 20
 			}
 			piety = 1000
 		}
-		
 		revoke_allowed = {
 			always = no
 		}
-		
 		ai_will_do = {
 			factor = 1
 		}
@@ -476,7 +491,13 @@ decisions = {
  		}
  	
  		allow = {
-			is_heretic = no
+			OR = {
+				is_heretic = no
+				AND = {
+					higher_real_tier_than = KING
+					realm_size = 90
+				}
+			}
  			piety = 1000
 			OR = {
 				owns = 802 # Alexandria
@@ -492,7 +513,8 @@ decisions = {
  				create_random_priest = {
  					dynasty = none
  					random_traits = yes
-					female = no	
+					female = no
+					add_trait = mystic	
  				}
  				new_character = {
  					d_sethian = {
@@ -704,7 +726,6 @@ decisions = {
 			religion = melchisedechianism
 			independent = yes
 			NOT = { is_title_active = k_melchisedechianism }
-			always = no # missing event
 		}
 		
 		allow = {
@@ -724,7 +745,7 @@ decisions = {
 				status = yes
 			}
 			hidden_tooltip = {
-				grant_title =  ROOT	
+				grant_title =  PREV	
 				religion_authority = {
 					modifier = patriarchy_instituted
 					years = 20
@@ -735,7 +756,7 @@ decisions = {
 			set_global_flag = here_come_dat_priest_king
 			add_trait = newsalem
 			ROOT = { 
-				narrative_event = { id = spirit.41 }
+				narrative_event = { id = spirit.40 }
 			}
 		}
 		
@@ -1051,4 +1072,47 @@ decisions = {
 		}
 	}
 
+
+	restore_mimamsa = {
+		is_high_prio = yes
+
+		potential = {
+			religion = mimamsa
+			higher_real_tier_than = KING
+		}
+
+		allow = {
+			NOT = { trait = cynical }
+			piety = 750
+		}
+
+		effect = {
+			activate_title = { title = k_mimamsa status = yes }
+			hidden_tooltip = {
+				create_random_priest = {
+					dynasty = none
+					random_traits = yes
+					add_trait = imposing
+					add_trait = brahmin
+					female = no
+					culture = ROOT
+				}
+				new_character = {
+					d_mimamsa = {
+						grant_title = PREV
+					}
+					wealth = 500
+					opinion = {
+						who = ROOT
+						modifier = opinion_creator_of_rel_heal
+					}
+				}
+				
+				religion_authority = {
+					modifier = patriarchy_instituted
+					years = 20
+				}
+			}
+		}
+	}
 }
