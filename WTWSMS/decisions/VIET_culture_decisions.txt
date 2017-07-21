@@ -1006,17 +1006,6 @@ decisions = {
 		is_high_prio = yes
 		potential = {
 			NOT = { religion_group = muslim }
-			OR = {
-				NOT = { religion_group = pagan_group }
-				AND = {
-					religion_group = pagan_group
-					realm_size = 50
-				}
-				religion = zun_pagan
-				religion = zun_pagan_reformed
-				culture = sogdian
-				culture = mongol
-			}
 			NOT = { has_global_flag = sogdian_merchants_supported }
 			OR = { 
 				tier = emperor 
@@ -1057,8 +1046,34 @@ decisions = {
 				trait = sartapaw
 				culture = sogdian
 			}
+			OR = {
+				NOT = { religion_group = pagan_group }
+				religion = zun_pagan
+				religion = zun_pagan_reformed
+				culture = sogdian
+				culture = mongol
+				custom_tooltip = { 
+
+					text = TT_NOT_UNREFORMED_PAGAN
+
+					hidden_tooltip = {
+
+						OR = {
+
+							NOT = { religion_group = pagan_group }
+
+							is_reformed_religion = yes
+
+							ancestral_religion_trigger = no
+							bastion_of_faith_religion_trigger = yes
+						}
+
+					}
+
+				}
+				realm_size = 80
+			}
 			prestige = 250
-			realm_size = 30
 			scaled_wealth = 0.5
 		}
 		effect = {
