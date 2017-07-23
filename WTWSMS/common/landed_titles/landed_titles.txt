@@ -24,6 +24,36 @@ e_pirates = {
 	color2={ 0 0 0 }
 }
 
+e_landless = { # Used for legions to circumvent the bug which prevents county-level titles from being deactivated
+	color = { 0 0 0 }
+	color2 = { 255 255 255 }
+
+	# Always exists
+	landless = yes
+	
+	allow = {
+		always = no
+	}
+	
+	culture = roman
+	tribe = yes
+
+	religion = nicene
+
+	title = LANDLESS_HOLDER
+	title_female = LANDLESS_HOLDER
+
+	title_prefix = LANDLESS_PREFIX
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	# Cannot be vassalized
+	independent = yes
+
+	name_tier = BARON
+}
+
 # SPECIAL TITLES
 
 k_papal_state = {
@@ -5298,6 +5328,8 @@ e_byzantium = {
 				turkish = "Batum"
 				armenian = "Yeger"
 				
+				holy_site = tzadikite
+				
 				b_bukistsikhe = {
 				}
 				b_batum = {
@@ -5724,6 +5756,7 @@ e_byzantium = {
 				holy_site = ebionites
 				holy_site = samaritan
 				holy_site = karaite
+				holy_site = tzadikite
 			
 				b_attur = {
 				}
@@ -5981,6 +6014,7 @@ e_byzantium = {
 				holy_site = abadites
 				holy_site = donatism
 				holy_site = islamic
+				holy_site = tzadikite
 		
 				b_mirabel = {
 				}
@@ -12122,7 +12156,7 @@ e_tartaria = {
 		
 		culture = mongol
 		
-		uyghur = Uyghur
+		uyghur = Uyghurstan
 		kirghiz = Kirghiz
 		
 		d_altay = {
@@ -12846,7 +12880,7 @@ e_tartaria = {
 			hidden_tooltip = {
 				OR = {
 					ai = no
-					culture = cuman
+					culture_group = altaic
 				}
 			}
 		}
@@ -14004,6 +14038,7 @@ e_tartaria = {
 				OR = {
 					ai = no
 					culture = alan
+					culture_group = altaic
 				}
 			}
 		}
@@ -14253,8 +14288,8 @@ e_arabia = {
 
 		nabatean = Nabatea
 		aramean = Jordan
-        adnanite = Jordan
-        khalan = Jordan
+		adnanite = Jordan
+		khalan = Jordan
 		bedouin_arabic = Jordan
 		tashellhit = Jordan
 		levantine_arabic = Jordan
@@ -14263,6 +14298,8 @@ e_arabia = {
 		ashkenazi = Transjordan
 		sephardi = Transjordan
 		hebrew = Transjordan
+		juhuro = Transjordan
+		yiddish = Transjordan
 		
 		muslim = 25 # Crusade target weight
 		zoroastrian_group = 150 # Crusade target weight
@@ -15696,6 +15733,7 @@ e_armenia = {
 		culture = georgian
 		
 		georgian = "Kartli"
+		juhuro = "Kavkaz" # Caucasus
 		
 		d_iberia = {
 			color={ 0 155 205 }
@@ -15704,6 +15742,7 @@ e_armenia = {
 			capital = 679 #	Kartli
 			
 			georgian = "Kartli"
+			juhuro = "Kavkaz" # Caucasus
 
 			c_kartli = {
 				color={ 196 121 121 }
@@ -15756,9 +15795,18 @@ e_armenia = {
 				color={ 202 147 147 }
 				color2={ 255 255 255 }
 				
+				holy_site = tzadikite
+
+				juhuro = "Kavkaz Gorsky"
+				
 				b_zedazaden = {
 				}
 				b_telavi = {
+					juhuro = "Yevreskaya Sloboda" # "Jewish Village", today this name actually refers to a city east of here, in modern Azerbaijan, where the 
+#					# worlds's largest concentration of Juhurim live
+				}
+				
+				b_zedazaden = {
 				}
 				b_sighnaghi = {
 				}
@@ -15776,6 +15824,8 @@ e_armenia = {
 			c_lori = {
 				color={ 142 70 45 }
 				color2={ 255 255 255 }
+				
+				holy_site = tzadikite
 			
 				b_lori_berd = {}
 				b_dzegh = {}
@@ -46365,26 +46415,4 @@ d_rajput_band = {
 	strength_growth_per_century = 1.0
 	
 	mercenary_type = rajput_band_composition	
-}
-
-e_landless = { # Used for legions to circumvent the bug which prevents county-level titles from being deactivated
-	color = { 170 50 0 }
-	color2 = { 255 255 255 }
-
-	# Always exists
-	landless = yes
-	
-	allow = {
-		always = no
-	}
-	
-	culture = roman
-	
-	religion = nicene
-	
-	# Cannot be held as a secondary title
-	primary = yes
-	
-	# Cannot be vassalized
-	independent = yes
 }

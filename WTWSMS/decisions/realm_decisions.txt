@@ -1258,13 +1258,35 @@ decisions = {
 		potential = {
 			has_dlc = "Sons of Abraham"
 			is_playable = yes
-			religion_group = jewish_group
+			OR = {
+				religion_group = jewish_group
+				religion = ebionites
+			}
 			k_israel = {
 				has_holder = no
 			}
 		}
 		allow = {
-			completely_controls = k_oriens
+			completely_controls = d_iudea # K_ORIENS IS TOO BIG, THIS IS WHAT ISRAEL HAD IN RL
+			custom_tooltip = {
+				text = JEW_ACRE_TIBERIAS				
+				hidden_tooltip = {
+					OR = {
+						AND = {
+							any_realm_lord = { has_landed_title = c_tiberias }
+							any_realm_lord = { has_landed_title = c_acre }
+						}
+						AND = {
+							has_landed_title = c_acre
+							has_landed_title = c_tiberias
+						}
+						AND = {
+							completely_controls = c_tiberias
+							completely_controls = c_acre
+						}
+					}
+				}
+			}
 			774 = {
 				religion = ROOT
 			}
@@ -1274,6 +1296,7 @@ decisions = {
 		effect = {
 			narrative_event = { id = SoA.102 tooltip = EVTTOOLTIP_SoA_102 }
 			prestige = 1000
+			piety = 1000
 		}
 		ai_will_do = {
 			factor = 1
@@ -1284,7 +1307,7 @@ decisions = {
 		only_playable = yes
 		
 		potential = {
-			#has_dlc = "Sons of Abraham"
+#			has_dlc = "Sons of Abraham"
 			is_playable = yes
 			NOR = {
 				religion_group = jewish_group 
@@ -1305,7 +1328,7 @@ decisions = {
 					NOT = { trait = sympathy_judaism }
 				}
 				random = {
-					chance = 50
+					chance = 75
 					add_trait = sympathy_judaism
 				}
 			}
@@ -1329,6 +1352,18 @@ decisions = {
 			modifier = {
 				factor = 0
 				religion = marcionism
+			}
+			modifier = {
+				factor = 2
+				trait = kind
+			}
+			modifier = {
+				factor = 100
+				trait = sympathy_judaism
+			}
+			modifer = {
+				factor = 5
+				trait = tolerant_ruler
 			}
 		}
 	}
@@ -1359,6 +1394,8 @@ decisions = {
 				secret_religion = jewish
 				secret_religion = samaritan
 				secret_religion = karaite
+				secret_religion = tzadikite
+				secret_religion = ebionites
 			}
 			age = 16
 		}
@@ -1387,11 +1424,7 @@ decisions = {
 		effect = {
 			prestige = -100
 			scaled_wealth = 2
-			banish_religion = jewish
-			banish_religion = ebionites
-			banish_religion = karaite
-			banish_religion = samaritan
-			banish_religion = tzadikite
+
 			if = {
 				limit = { trait = sympathy_judaism }
 				remove_trait = sympathy_judaism
@@ -1414,6 +1447,13 @@ decisions = {
 			}
 			custom_tooltip = {
 				text = jews_are_expelled
+				hidden_tooltip = {
+					banish_religion = jewish
+					banish_religion = ebionites
+					banish_religion = karaite
+					banish_religion = samaritan
+					banish_religion = tzadikite
+				}
 			}
 			hidden_tooltip = {
 				character_event = { id = SoA.105 }
@@ -1438,6 +1478,10 @@ decisions = {
 			
 			modifier = {
 				factor = 0.001 # Less likely to do it
+			}
+			modifier = {
+				factor = 0
+				trait = tolerant_ruler
 			}
 			modifier = {
 				factor = 0
@@ -1483,6 +1527,10 @@ decisions = {
 				has_character_modifier = borrowed_from_jews
 			}
 			modifier = {
+				factor = 0.15
+				trait = just
+			}
+			modifier = {
 				factor = 1.2
 				trait = zealous
 				trait = arbitrary
@@ -1507,6 +1555,14 @@ decisions = {
 			modifier = {
 				factor = 0
 				religion = ebionites
+			}
+			modifier = {
+				factor = 0
+				trait = sympathy_judaism
+			}
+			modifier = {
+				factor = 0
+				religion = bosporan_faith
 			}
 		}
 	}
@@ -2015,26 +2071,6 @@ decisions = {
 					value = off
 				}
 			}
-			
-			OR = {
-				ai = no
-				AND = {
-					trait = proud
-					prestige = 5000
-				}
-				AND = {
-					trait = ambitious
-					prestige = 5000
-				}
-				AND = {
-					realm_size = 70
-					any_demesne_title = {
-						count = 4
-						tier = DUKE
-					}
-				}
-				prestige = 15000
-			}
 		}
 		allow = {
 			is_adult = yes
@@ -2042,6 +2078,7 @@ decisions = {
 			NOT = { trait = incapable }
 			independent = yes
 			prestige = 1000
+			wealth = 300
 			OR = {
 				realm_size = 35
 				custom_tooltip = {
@@ -2054,7 +2091,52 @@ decisions = {
 					}
 				}
 			}
-			wealth = 300
+			hidden_tooltip = {
+				OR = { 	
+					ai = no
+					AND = {	
+						has_game_rule = {
+							name = dynamic_custom_realms
+							value = dcr_restricted
+						}
+						trait = proud
+						prestige = 5000 	
+					} 	
+					AND = {
+						has_game_rule = {
+							name = dynamic_custom_realms
+							value = dcr_restricted
+						}
+						trait = ambitious 	
+						prestige = 5000 	
+					}
+					AND = {
+						has_game_rule = {
+							name = dynamic_custom_realms
+							value = dcr_restricted
+						}
+						realm_size = 40 	
+						any_demesne_title = { 	
+							count = 4 	
+							tier = DUKE 	
+						} 	
+					}
+					AND = {
+						has_game_rule = {
+							name = dynamic_custom_realms
+							value = dcr_restricted
+						}		
+						prestige = 10000
+					}
+					AND = {
+						has_game_rule = {
+							name = dynamic_custom_realms
+							value = dcr_unrestricted
+						}
+						ai = yes
+					}
+				}
+			}
 		}
 		effect = {
 			primary_title = {
@@ -2146,18 +2228,6 @@ decisions = {
 			holy_order = no
 			
 			NOT = { tier = EMPEROR }
-			OR = {
-				ai = no
-				AND = {
-					trait = proud
-					prestige = 40000
-				}
-				AND = {
-					trait = ambitious
-					prestige = 40000
-				}
-				prestige = 120000
-			}
 			
 			NOT = {
 				has_game_rule = {
@@ -2166,12 +2236,14 @@ decisions = {
 				}
 			}
 		}
+
 		allow = {
 			is_adult = yes
 			prisoner = no
 			NOT = { trait = incapable }
 			independent = yes
 			prestige = 8000
+			wealth = 1500
 			OR = {
 				realm_size = 180
 				custom_tooltip = {
@@ -2184,7 +2256,41 @@ decisions = {
 					}
 				}
 			}
-			wealth = 1000
+			hidden_tooltip = {
+				OR = { 	
+					ai = no 	
+					AND = {
+						has_game_rule = {
+							name = dynamic_custom_realms
+							value = dcr_restricted
+						}
+						trait = proud
+						prestige = 20000 	
+					} 	
+					AND = {
+						has_game_rule = {
+							name = dynamic_custom_realms
+							value = dcr_restricted
+						}
+						trait = ambitious 	
+						prestige = 20000 	
+					}
+					AND = {
+						has_game_rule = {
+							name = dynamic_custom_realms
+							value = dcr_restricted
+						}
+						prestige = 40000
+					}
+					AND = {
+						has_game_rule = {
+							name = dynamic_custom_realms
+							value = dcr_unrestricted
+						}
+						ai = yes
+					}
+				}
+			}
 		}
 		effect = {
 			primary_title = {
@@ -2220,7 +2326,6 @@ decisions = {
 												empire = {
 													has_holder = no
 												}
-												
 												NOT = { de_jure_liege_or_above = PREVPREVPREVPREV }
 												ROOT = {
 													completely_controls = PREV
