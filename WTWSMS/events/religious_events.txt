@@ -1998,6 +1998,9 @@ character_event = {
 				OR = {
 					religion_group = muslim
 					religion_group = pagan_group
+					religion_group = bosporan_group
+					religion_group = zoroastrian_group
+					religion_group = indian_group
 				}
 				OR = {
 					has_job_title = job_chancellor
@@ -2029,10 +2032,13 @@ character_event = {
 
 				any_courtier = {
 					prisoner = no
-					OR = {
-						religion_group = muslim
-						religion_group = pagan_group
-					}
+				OR = {
+					religion_group = muslim
+					religion_group = pagan_group
+					religion_group = bosporan_group
+					religion_group = zoroastrian_group
+					religion_group = indian_group
+				}
 					OR = {
 						has_job_title = job_chancellor
 						has_job_title = job_marshal
@@ -2073,6 +2079,9 @@ character_event = {
 				OR = {
 					religion_group = muslim
 					religion_group = pagan_group
+					religion_group = bosporan_group
+					religion_group = zoroastrian_group
+					religion_group = indian_group
 				}
 				OR = {
 					has_job_title = job_chancellor
@@ -2205,6 +2214,9 @@ character_event = {
 				OR = {
 					religion_group = muslim
 					religion_group = pagan_group
+					religion_group = bosporan_group
+					religion_group = zoroastrian_group
+					religion_group = indian_group
 				}
 				OR = {
 					has_job_title = job_chancellor
@@ -2236,10 +2248,13 @@ character_event = {
 
 				any_courtier = {
 					prisoner = no
-					OR = {
-						religion_group = muslim
-						religion_group = pagan_group
-					}
+				OR = {
+					religion_group = muslim
+					religion_group = pagan_group
+					religion_group = bosporan_group
+					religion_group = zoroastrian_group
+					religion_group = indian_group
+				}
 					OR = {
 						has_job_title = job_chancellor
 						has_job_title = job_marshal
@@ -2280,6 +2295,9 @@ character_event = {
 				OR = {
 					religion_group = muslim
 					religion_group = pagan_group
+					religion_group = bosporan_group
+					religion_group = zoroastrian_group
+					religion_group = indian_group
 				}
 				OR = {
 					has_job_title = job_chancellor
@@ -3351,6 +3369,10 @@ character_event = {
 		NOT = { trait = wroth }
 		NOT = { trait = proud }
 		NOT = { trait = cruel }
+		NOT = { trait = cannibal }
+		NOT = { trait = impaler }
+		NOT = { trait = schemer }
+		NOT = { trait = drunkard }
 		
 		martial = 8
 		trait = humble
@@ -3602,6 +3624,11 @@ character_event = {
 				FROM = { religion_group = indian_group }
 				trait = sympathy_indian
 			}
+			modifier = {
+				factor = 0
+				FROM = { religion_group = bosporan_group }
+				trait = sympathy_hypsistarian
+			}
 		}
 		
 		FROM = {
@@ -3768,6 +3795,11 @@ character_event = {
 				realm_size = 12
 			}
 			modifier = {
+				factor = 4
+				tier = EMPEROR
+				realm_size = 30
+			}
+			modifier = {
 				factor = 5
 				is_reformed_religion = no
 				primary_title = { has_law = tribal_organization_4 }  # Need it to reform government
@@ -3908,6 +3940,11 @@ character_event = {
 				FROM = { religion_group = indian_group }
 				trait = sympathy_indian
 			}
+			modifier = {
+				factor = 3
+				FROM = { religion_group = bosporan_group }
+				trait = sympathy_hypsistarian
+			}
 			
 			# Personal
 			modifier = {
@@ -4028,6 +4065,11 @@ character_event = {
 				factor = 3  # Powerful rulers want a modern religion
 				tier = KING
 				realm_size = 12
+			}
+			modifier = {
+				factor = 6
+				tier = EMPEROR
+				realm_size = 24
 			}
 			modifier = {
 				factor = 5
@@ -4223,7 +4265,7 @@ character_event = {
 		create_random_priest = {
 			random_traits = yes
 			dynasty = none
-			culture = ROOT
+			culture = FROM # Converter gives you a missionary who came with him
 			religion = FROM
 			female = no
 			age = 32
@@ -6020,6 +6062,12 @@ character_event = {
 				religion_group = indian_group
 			}
 			add_trait = sympathy_indian
+		}
+		if = {
+			limit = {
+				religion_group = bosporan_group
+			}
+			add_trait = sympathy_hypsistarian
 		}
 
 		clr_religion_char_flag_effect = yes #Must clear all old flags to avoid double traits
