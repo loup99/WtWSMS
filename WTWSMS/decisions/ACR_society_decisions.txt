@@ -1,0 +1,736 @@
+targeted_decisions = {
+	#Action: unseelie_petitioners_recruit
+	unseelie_petitioners_recruit = {
+		is_in_society = yes
+
+		ai_target_filter = realm
+
+		from_potential = {
+			is_adult = yes
+			prisoner = no
+			NOT = { trait = incapable }
+			NOT = { has_character_modifier = recruitment_timer }
+			society_member_of = unseelie_petitioners
+			OR = {
+				ai = no
+				society_rank = {
+					society = unseelie_petitioners
+					rank == 2
+				}
+				society_rank = {
+					society = unseelie_petitioners
+					rank == 3
+				}
+			}
+		}
+		potential = {
+			OR = {
+				FROM = { ai = no }
+				ai = no
+			}
+			OR = {
+				FROM = { ai = yes } # Only checks realm, so by definition in range
+				is_within_diplo_range = FROM
+			}
+			is_adult = yes
+			prisoner = no
+			NOT = { trait = incapable }
+			is_in_society = no
+
+			#Can't invite someone who recently left due to fear of persecution
+			OR = {
+				had_character_flag = { flag = ancrel_left_secret_society days = 1825 }
+				NOT = { has_character_flag = ancrel_left_secret_society }
+			}
+
+			#AI cannot invite other AIs when society is full
+			NAND = {
+				ai = yes
+				FROM = { ai = yes }
+				NOT = { can_join_society = unseelie_petitioners }
+			}
+
+			#Blocks so AI recruits sensible people (who might say no)
+			OR = {
+				FROM = { ai = no }
+				is_friend = FROM
+				is_lover = FROM
+				is_close_relative = FROM
+				trait = trusting
+				has_impious_trait_trigger = yes
+				trait = drunkard
+				trait = possessed
+				trait = lunatic
+				interested_in_society = unseelie_petitioners
+			}
+
+			NAND = {
+				FROM = { ai = yes }
+				trait = zealous
+			}
+		}
+		allow = {
+			religion_openly_celtic_or_reformed_trigger = yes
+			is_inaccessible_trigger = no
+			custom_tooltip = {
+				text = unseelie_recruit_block_tooltip
+				OR = {
+					NOT = { has_character_flag = unseelie_attempted_recruitment }
+					interested_in_society = unseelie_petitioners
+				}
+				NOT = { has_character_flag = being_recruited_by_the_unseelie }
+			}
+			has_unseelie_prerequisites = yes
+			FROM = {
+				is_inaccessible_trigger = no
+				custom_tooltip = {
+					text = recruit_delay_timer_tooltip
+					NOT = { has_character_modifier = recruitment_delay_timer }
+				}
+			}
+		}
+		effect = {
+			set_character_flag = unseelie_attempted_recruitment
+			set_character_flag = being_recruited_by_the_unseelie
+			FROM = {
+				save_event_target_as = satanists_recruiter
+			}
+			hidden_effect = { 
+				character_event = { id = MNM.7001 days = 3 } # recruitment chain
+				character_event = { id = MNM.7030 days = 365 } # sends delayed back up, in case recruitment fails somehow
+				FROM = {
+					if = {
+						limit = { ai = yes }
+						add_character_modifier = {
+							name = recruitment_timer
+							days = 730
+							hidden = yes
+						}
+					}
+					add_character_modifier = {
+						name = recruitment_delay_timer
+						days = 90
+						hidden = yes
+					}
+				}
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.01 # slow down
+			}
+			modifier = {
+				factor = 10 # recruit interested parties
+				interested_in_society = unseelie_petitioners
+			}
+			modifier = {
+				factor = 0 # don't recruit characters interested in something else
+				NOT = { interested_in_society = unseelie_petitioners }
+				is_interested_in_any_society = yes
+			}
+		}
+	}
+	#Action: the_coven_recruit
+	the_coven_recruit = {
+		is_in_society = yes
+
+		ai_target_filter = realm
+
+		from_potential = {
+			is_adult = yes
+			prisoner = no
+			NOT = { trait = incapable }
+			NOT = { has_character_modifier = recruitment_timer }
+			society_member_of = the_coven
+			OR = {
+				ai = no
+				society_rank = {
+					society = the_coven
+					rank == 2
+				}
+				society_rank = {
+					society = the_coven
+					rank == 3
+				}
+			}
+		}
+		potential = {
+			OR = {
+				FROM = { ai = no }
+				ai = no
+			}
+			OR = {
+				FROM = { ai = yes } # Only checks realm, so by definition in range
+				is_within_diplo_range = FROM
+			}
+			is_adult = yes
+			prisoner = no
+			NOT = { trait = incapable }
+			is_in_society = no
+
+			#Can't invite someone who recently left due to fear of persecution
+			OR = {
+				had_character_flag = { flag = ancrel_left_secret_society days = 1825 }
+				NOT = { has_character_flag = ancrel_left_secret_society }
+			}
+
+			#AI cannot invite other AIs when society is full
+			NAND = {
+				ai = yes
+				FROM = { ai = yes }
+				NOT = { can_join_society = the_coven }
+			}
+
+			#Blocks so AI recruits sensible people (who might say no)
+			OR = {
+				FROM = { ai = no }
+				is_friend = FROM
+				is_lover = FROM
+				is_close_relative = FROM
+				trait = trusting
+				has_impious_trait_trigger = yes
+				trait = drunkard
+				trait = possessed
+				trait = lunatic
+				interested_in_society = the_coven
+			}
+
+			NAND = {
+				FROM = { ai = yes }
+				trait = zealous
+			}
+		}
+		allow = {
+			religion_openly_in_hellenic_subgroup_trigger = yes
+			is_inaccessible_trigger = no
+			custom_tooltip = {
+				text = plaguebringers_recruit_block_tooltip
+				OR = {
+					NOT = { has_character_flag = coven_attempted_recruitment }
+					interested_in_society = the_coven
+				}
+				NOT = { has_character_flag = being_recruited_by_the_coven }
+			}
+			has_coven_prerequisites = yes
+			FROM = {
+				is_inaccessible_trigger = no
+				custom_tooltip = {
+					text = recruit_delay_timer_tooltip
+					NOT = { has_character_modifier = recruitment_delay_timer }
+				}
+			}
+		}
+		effect = {
+			set_character_flag = coven_attempted_recruitment
+			set_character_flag = being_recruited_by_the_coven
+			FROM = {
+				save_event_target_as = satanists_recruiter
+			}
+			hidden_effect = { 
+				character_event = { id = MNM.7001 days = 3 } # recruitment chain
+				character_event = { id = MNM.7030 days = 365 } # sends delayed back up, in case recruitment fails somehow
+				FROM = {
+					if = {
+						limit = { ai = yes }
+						add_character_modifier = {
+							name = recruitment_timer
+							days = 730
+							hidden = yes
+						}
+					}
+					add_character_modifier = {
+						name = recruitment_delay_timer
+						days = 90
+						hidden = yes
+					}
+				}
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.01 # slow down
+			}
+			modifier = {
+				factor = 10 # recruit interested parties
+				interested_in_society = the_coven
+			}
+			modifier = {
+				factor = 0 # don't recruit characters interested in something else
+				NOT = { interested_in_society = the_coven }
+				is_interested_in_any_society = yes
+			}
+		}
+	}
+	#Action: the_sand_snakes_recruit
+	the_sand_snakes_recruit = {
+		is_in_society = yes
+
+		ai_target_filter = realm
+
+		from_potential = {
+			is_adult = yes
+			prisoner = no
+			NOT = { trait = incapable }
+			NOT = { has_character_modifier = recruitment_timer }
+			society_member_of = the_sand_snakes
+			OR = {
+				ai = no
+				society_rank = {
+					society = the_sand_snakes
+					rank == 2
+				}
+				society_rank = {
+					society = the_sand_snakes
+					rank == 3
+				}
+			}
+		}
+		potential = {
+			OR = {
+				FROM = { ai = no }
+				ai = no
+			}
+			OR = {
+				FROM = { ai = yes } # Only checks realm, so by definition in range
+				is_within_diplo_range = FROM
+			}
+			is_adult = yes
+			prisoner = no
+			NOT = { trait = incapable }
+			is_in_society = no
+
+			#Can't invite someone who recently left due to fear of persecution
+			OR = {
+				had_character_flag = { flag = ancrel_left_secret_society days = 1825 }
+				NOT = { has_character_flag = ancrel_left_secret_society }
+			}
+
+			#AI cannot invite other AIs when society is full
+			NAND = {
+				ai = yes
+				FROM = { ai = yes }
+				NOT = { can_join_society = the_sand_snakes }
+			}
+
+			#Blocks so AI recruits sensible people (who might say no)
+			OR = {
+				FROM = { ai = no }
+				is_friend = FROM
+				is_lover = FROM
+				is_close_relative = FROM
+				trait = trusting
+				has_impious_trait_trigger = yes
+				trait = drunkard
+				trait = possessed
+				trait = lunatic
+				interested_in_society = the_sand_snakes
+			}
+
+			NAND = {
+				FROM = { ai = yes }
+				trait = zealous
+			}
+		}
+		allow = {
+			religion_openly_in_egyptian_subgroup_trigger = yes
+			is_inaccessible_trigger = no
+			custom_tooltip = {
+				text = the_sand_snakes_recruit_block_tooltip
+				OR = {
+					NOT = { has_character_flag = sand_snakes_attempted_recruitment }
+					interested_in_society = the_sand_snakes
+				}
+				NOT = { has_character_flag = being_recruited_by_the_sand_snakes }
+			}
+			has_sand_snakes_prerequisites = yes
+			FROM = {
+				is_inaccessible_trigger = no
+				custom_tooltip = {
+					text = recruit_delay_timer_tooltip
+					NOT = { has_character_modifier = recruitment_delay_timer }
+				}
+			}
+		}
+		effect = {
+			set_character_flag = sand_snakes_attempted_recruitment
+			set_character_flag = being_recruited_by_the_sand_snakes
+			FROM = {
+				save_event_target_as = satanists_recruiter
+			}
+			hidden_effect = { 
+				character_event = { id = MNM.7001 days = 3 } # recruitment chain
+				character_event = { id = MNM.7030 days = 365 } # sends delayed back up, in case recruitment fails somehow
+				FROM = {
+					if = {
+						limit = { ai = yes }
+						add_character_modifier = {
+							name = recruitment_timer
+							days = 730
+							hidden = yes
+						}
+					}
+					add_character_modifier = {
+						name = recruitment_delay_timer
+						days = 90
+						hidden = yes
+					}
+				}
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.01 # slow down
+			}
+			modifier = {
+				factor = 10 # recruit interested parties
+				interested_in_society = the_sand_snakes
+			}
+			modifier = {
+				factor = 0 # don't recruit characters interested in something else
+				NOT = { interested_in_society = the_sand_snakes }
+				is_interested_in_any_society = yes
+			}
+		}
+	}
+}
+
+title_decisions = {
+	secretly_convert_to_celtic_pagan_holy_site = {
+		filter = demesne
+		ai_target_filter = self
+	
+		only_playable = yes
+		
+		from_potential = {
+			ai = no
+			NOT = { trait = incapable }
+			NOT = { secret_religion = celtic_pagan }
+			NOT = { has_global_flag = celtic_pagan_reformation }
+			NOT = { religion = celtic_pagan }
+			NOT = { controls_religion = yes }
+		}
+		
+		potential = {
+			tier = COUNT
+			NOT = {
+				location = { religion = celtic_pagan }
+			}
+			OR = {
+				is_holy_site = celtic_pagan
+				any_de_jure_vassal_title = {
+					is_holy_site = celtic_pagan
+				}
+			}
+			OR = {
+				holder_scope = {
+					character = FROM
+				}
+				AND = {
+					tier = BARON
+					holder_scope = {
+						liege = {
+							character = FROM
+						}
+					}
+				}
+			}
+		}
+		
+		allow = {
+			FROM = {
+				piety = 250
+				prisoner = no
+				NOT = { trait = incapable }
+				NOT = { is_inaccessible_trigger = yes }
+			}
+		}
+		
+		effect = {
+			FROM = {
+				piety = -250
+				set_secret_religion = celtic_pagan
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	secretly_convert_to_celtic_pagan_reformed_holy_site = {
+		filter = demesne
+		ai_target_filter = self
+	
+		only_playable = yes
+		
+		from_potential = {
+			ai = no
+			NOT = { trait = incapable }
+			NOT = { secret_religion = celtic_pagan_reformed }
+			NOT = { religion = celtic_pagan_reformed }
+			NOT = { controls_religion = yes }
+			has_global_flag = celtic_pagan_reformation
+		}
+		
+		potential = {
+			tier = COUNT
+			NOT = {
+				location = { religion = celtic_pagan_reformed }
+			}
+			OR = {
+				is_holy_site = celtic_pagan_reformed
+				any_de_jure_vassal_title = {
+					is_holy_site = celtic_pagan_reformed
+				}
+			}
+			OR = {
+				holder_scope = {
+					character = FROM
+				}
+				AND = {
+					tier = BARON
+					holder_scope = {
+						liege = {
+							character = FROM
+						}
+					}
+				}
+			}
+		}
+		
+		allow = {
+			FROM = {
+				piety = 250
+				prisoner = no
+				NOT = { trait = incapable }
+				NOT = { is_inaccessible_trigger = yes }
+			}
+		}
+		
+		effect = {
+			FROM = {
+				piety = -250
+				set_secret_religion = celtic_pagan_reformed
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	secretly_convert_to_hellenic_pagan_holy_site = {
+		filter = demesne
+		ai_target_filter = self
+	
+		only_playable = yes
+		
+		from_potential = {
+			ai = no
+			NOT = { trait = incapable }
+			NOT = { secret_religion = hellenic_pagan }
+			NOT = { religion = hellenic_pagan }
+			NOT = { controls_religion = yes }
+		}
+		
+		potential = {
+			tier = COUNT
+			NOT = {
+				location = { religion = hellenic_pagan }
+			}
+			OR = {
+				is_holy_site = hellenic_pagan
+				any_de_jure_vassal_title = {
+					is_holy_site = hellenic_pagan
+				}
+			}
+			OR = {
+				holder_scope = {
+					character = FROM
+				}
+				AND = {
+					tier = BARON
+					holder_scope = {
+						liege = {
+							character = FROM
+						}
+					}
+				}
+			}
+		}
+		
+		allow = {
+			FROM = {
+				piety = 250
+				prisoner = no
+				NOT = { trait = incapable }
+				NOT = { is_inaccessible_trigger = yes }
+			}
+		}
+		
+		effect = {
+			FROM = {
+				piety = -250
+				set_secret_religion = hellenic_pagan
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	secretly_convert_to_egyptian_pagan_holy_site = {
+		filter = demesne
+		ai_target_filter = self
+	
+		only_playable = yes
+		
+		from_potential = {
+			ai = no
+			NOT = { trait = incapable }
+			NOT = { secret_religion = egyptian_pagan }
+			NOT = { religion = egyptian_pagan }
+			NOT = { controls_religion = yes }
+		}
+		
+		potential = {
+			tier = COUNT
+			NOT = {
+				location = { religion = egyptian_pagan }
+			}
+			OR = {
+				is_holy_site = egyptian_pagan
+				any_de_jure_vassal_title = {
+					is_holy_site = egyptian_pagan
+				}
+			}
+			OR = {
+				holder_scope = {
+					character = FROM
+				}
+				AND = {
+					tier = BARON
+					holder_scope = {
+						liege = {
+							character = FROM
+						}
+					}
+				}
+			}
+		}
+		
+		allow = {
+			FROM = {
+				piety = 250
+				prisoner = no
+				NOT = { trait = incapable }
+				NOT = { is_inaccessible_trigger = yes }
+			}
+		}
+		
+		effect = {
+			FROM = {
+				piety = -250
+				set_secret_religion = egyptian_pagan
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	secretly_convert_to_aten_pagan_holy_site = {
+		filter = demesne
+		ai_target_filter = self
+	
+		only_playable = yes
+		
+		from_potential = {
+			ai = no
+			NOT = { trait = incapable }
+			NOT = { secret_religion = aten_pagan }
+			NOT = { religion = aten_pagan }
+			NOT = { controls_religion = yes }
+		}
+		
+		potential = {
+			tier = COUNT
+			NOT = {
+				location = { religion = aten_pagan }
+			}
+			OR = {
+				is_holy_site = aten_pagan
+				any_de_jure_vassal_title = {
+					is_holy_site = aten_pagan
+				}
+			}
+			OR = {
+				holder_scope = {
+					character = FROM
+				}
+				AND = {
+					tier = BARON
+					holder_scope = {
+						liege = {
+							character = FROM
+						}
+					}
+				}
+			}
+		}
+		
+		allow = {
+			FROM = {
+				piety = 250
+				prisoner = no
+				NOT = { trait = incapable }
+				NOT = { is_inaccessible_trigger = yes }
+			}
+		}
+		
+		effect = {
+			FROM = {
+				piety = -250
+				set_secret_religion = aten_pagan
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}

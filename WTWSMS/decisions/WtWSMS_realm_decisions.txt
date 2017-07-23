@@ -209,6 +209,33 @@ decisions = {
 		}
 	}
 	
+	build_hagia_sophia = {
+		only_playable = yes
+		is_high_prio = yes
+		potential = {
+			religion_group = christian 
+			has_landed_title = c_byzantion
+			NOT = { has_global_flag = hagia_sophia_built }
+			NOT = { has_global_flag = building_hagia_sophia }
+		}
+		allow = {
+			wealth = 1500
+		}
+		effect = {
+			hidden_tooltip = {
+				character_event = { id = imperial_legacy.40 }
+				narrative_event = { id = imperial_legacy.41 days = 2100 random = 50 }
+			}
+			set_global_flag = building_hagia_sophia
+			wealth = -1500
+			prestige = 500
+			piety = 500
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
 	organize_excubitors = {
 		only_playable = yes
 		is_high_prio = yes
@@ -525,7 +552,11 @@ decisions = {
 				piety = 1500
 				abdicate = yes
 				add_trait = monk
+				add_trait = wandering_hermit
+				current_heir = {
+					inherit = ROOT
 				}
+			}
 		}
 		revoke_allowed = {
 			always = no
@@ -687,6 +718,7 @@ decisions = {
 				culture = romano_british
 				religion = insular
 				religion = celtic_pagan
+				religion = celtic_pagan_reformed
 			}
 		}
 		allow = {
@@ -780,12 +812,12 @@ decisions = {
 	assign_poet = { # For the AI, because they are dumb enough not to hand out minor titles
 		potential = {
 			ai = yes
-			NOT = { year = 1066 }
 			OR = {
 				culture_group = celtic
 				culture = romano_british
 				religion = insular
 				religion = celtic_pagan
+				religion = celtic_pagan_reformed
 			}
 			NOT = { 
 				any_courtier = {
@@ -830,7 +862,7 @@ decisions = {
 				trait = incapable
 				trait = infirm
 				trait = possessed 
-				}
+			}
 			NOT = {
 				has_character_modifier = patron_peter
 				has_character_modifier = patron_george
@@ -880,5 +912,4 @@ decisions = {
 			}
 		}
 	}
-
 }

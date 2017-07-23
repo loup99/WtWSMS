@@ -1,0 +1,762 @@
+# Merged from PB_employment_decisions and employment_decisions from VIET into WtWSMS_employment_decisions
+# Warning: do not add vanilla employment decision, as they would conflict and be broken !
+decisions = {
+
+	employ_diplomat = {
+		only_playable = yes
+		potential = {
+			is_ruler = yes
+			OR = {
+				ai = no
+				higher_tier_than = count
+			}
+		}
+		allow = {
+			prestige = 25
+			scaled_wealth = 0.25
+			NOT = {
+				has_character_modifier = in_seclusion
+			}
+		}
+		effect = {
+			prestige = -25
+			scaled_wealth = -0.25
+			create_random_diplomat = {
+				random_traits = yes
+				dynasty = random
+				female = no
+				attributes = {
+					diplomacy = 8
+					learning = 2
+					stewardship = 2
+					intrigue = 2
+					martial = 2
+				}
+			}
+			new_character = {
+				remove_trait = weak
+				remove_trait = slow
+				remove_trait = imbecile
+				remove_trait = dull
+				
+				remove_trait = mystic
+				remove_trait = socializer
+				remove_trait = gamer
+				remove_trait = hedonist
+				remove_trait = duelist
+				remove_trait = hunter
+				remove_trait = strategist
+				remove_trait = administrator
+				remove_trait = architect
+				remove_trait = gardener
+				remove_trait = schemer
+				remove_trait = impaler
+				remove_trait = seducer
+				remove_trait = seductress
+				remove_trait = theologian
+				remove_trait = scholar
+				
+				random_list = { # Flavor Randomization
+					35 = { 
+						# Nothing
+					}
+					20 = {
+						change_diplomacy = 2
+					}
+					10 = {
+						add_trait = socializer
+					}
+					10 = {
+						add_trait = hedonist
+					}
+					10 = {
+						add_trait = gamer
+					}
+					5 = {
+						add_trait = strategist
+					}
+					5 = {
+						change_diplomacy = 4
+					}
+					5 = { 
+						add_trait = shrewd
+					}
+				}
+				hidden_tooltip = {
+					if = {
+						limit = {
+							religion_group = indian_group
+						}
+						add_trait = kshatriya
+						character_event = { id = RoI.30121 }
+					}
+				}
+				save_event_target_as = invited_character
+			}
+			character_event = { id = NE.1 }
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { scaled_wealth = 0.6 }
+			}
+			modifier = {
+				factor = 0
+				job_chancellor = {
+					diplomacy = 10
+				}
+			}
+			modifier = {
+				factor = 0
+				any_vassal = {
+					diplomacy = 10
+					OR = {
+						is_female = no
+						liege = {
+							primary_title = {
+								has_law = true_cognatic_succession
+							}
+						}
+					}
+					age = 16
+					prisoner = no
+					NOT = { trait = incapable }
+				}
+			}
+			modifier = {
+				factor = 0
+				any_courtier = {
+					diplomacy = 10
+					OR = {
+						is_female = no
+						liege = {
+							primary_title = {
+								has_law = true_cognatic_succession
+							}
+						}
+					}
+					age = 16
+					prisoner = no
+					NOT = { trait = incapable }
+				}
+			}
+		}
+	}
+
+	employ_spy = {
+		only_playable = yes
+		potential = {
+			is_ruler = yes
+			OR = {
+				ai = no
+				higher_tier_than = count
+			}
+		}
+		allow = {
+			prestige = 25
+			scaled_wealth = 0.25
+			NOT = {
+				has_character_modifier = in_seclusion
+			}
+		}
+		effect = {
+			prestige = -25
+			scaled_wealth = -0.25
+			create_random_intriguer = {
+				random_traits = yes
+				dynasty = random
+				female = no
+				attributes = {
+					diplomacy = 2
+					learning = 2
+					stewardship = 2
+					intrigue = 8
+					martial = 2
+				}
+			}
+			new_character = {
+				remove_trait = weak
+				remove_trait = slow
+				remove_trait = imbecile
+				remove_trait = dull
+				
+				remove_trait = mystic
+				remove_trait = socializer
+				remove_trait = gamer
+				remove_trait = hedonist
+				remove_trait = duelist
+				remove_trait = hunter
+				remove_trait = strategist
+				remove_trait = administrator
+				remove_trait = architect
+				remove_trait = gardener
+				remove_trait = schemer
+				remove_trait = impaler
+				remove_trait = seducer
+				remove_trait = seductress
+				remove_trait = theologian
+				remove_trait = scholar
+				
+				random_list = { # Flavor Randomization
+					35 = { 
+						# Nothing
+					}
+					20 = {
+						change_intrigue = 2
+					}
+					10 = {
+						add_trait = schemer
+					}
+					10 = {
+						add_trait = impaler
+					}
+					10 = {
+						if = {
+							limit = {
+								is_female = yes
+							}
+							add_trait = seductress
+						}
+						if = {
+							limit = {
+								is_female = no
+							}
+							add_trait = seducer
+						}
+					}
+					5 = {
+						add_trait = paranoid
+					}
+					5 = {
+						change_intrigue = 4
+					}
+					5 = { 
+						add_trait = shrewd
+					}
+				}
+				hidden_tooltip = {
+					if = {
+						limit = {
+							religion_group = indian_group
+						}
+						add_trait = kshatriya
+						character_event = { id = RoI.30121 }
+					}
+				}
+				save_event_target_as = invited_character
+			}
+			character_event = { id = NE.1 }
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { scaled_wealth = 0.6 }
+			}
+			modifier = {
+				factor = 0
+				job_spymaster = {
+					intrigue = 10
+				}
+			}
+			modifier = {
+				factor = 0
+				any_vassal = {
+					intrigue = 10
+					age = 16
+					prisoner = no
+					NOT = { trait = incapable }
+				}
+			}
+			modifier = {
+				factor = 0
+				any_courtier = {
+					intrigue = 10
+					age = 16
+					prisoner = no
+					NOT = { trait = incapable }
+				}
+			}
+		}
+	}
+
+	employ_eunuch = { #Employ eunuch
+		only_playable = yes
+		potential = {
+			is_ruler = yes
+			OR = {
+				ai = no
+				higher_tier_than = count
+			}
+			OR = {
+				religion_group = muslim
+				culture_group = iranian
+				culture_group = altaic
+				culture_group = byzantine
+				culture_group = south_semitic
+				culture_group = east_african
+				culture_group = west_african
+			}
+		}
+		allow = {
+			prestige = 25
+			scaled_wealth = 0.25
+			NOT = {
+				has_character_modifier = in_seclusion
+			}
+		}
+		effect = {
+			prestige = -25
+			scaled_wealth = -0.25
+			random_list = {
+				20 = {
+					create_random_steward = {
+						random_traits = yes
+						trait = eunuch
+						dynasty = random
+						female = no
+					}
+					new_character = {
+						hidden_tooltip = {
+							if = {
+								limit = {
+									religion_group = indian_group
+								}
+								add_trait = kshatriya
+								character_event = { id = RoI.30121 }
+							}
+						}
+
+						save_event_target_as = invited_character
+					}
+				}
+				20 = {
+					create_random_diplomat = {
+						random_traits = yes
+						trait = eunuch
+						dynasty = random
+						female = no
+					}
+					new_character = {
+						hidden_tooltip = {
+							if = {
+								limit = {
+									religion_group = indian_group
+								}
+								add_trait = kshatriya
+								character_event = { id = RoI.30121 }
+							}
+						}
+						
+						save_event_target_as = invited_character
+					}
+				}
+				20 = {
+					create_random_soldier = {
+						random_traits = yes
+						trait = eunuch
+						dynasty = random
+						female = no
+					}
+					new_character = {
+						hidden_tooltip = {
+							if = {
+								limit = {
+									religion_group = indian_group
+								}
+								add_trait = kshatriya
+								character_event = { id = RoI.30121 }
+							}
+						}
+						
+						save_event_target_as = invited_character
+					}
+				}
+				20 = {
+					create_random_intriguer = {
+						random_traits = yes
+						trait = eunuch
+						dynasty = random
+						female = no
+					}
+					new_character = {
+						hidden_tooltip = {
+							if = {
+								limit = {
+									religion_group = indian_group
+								}
+								add_trait = kshatriya
+								character_event = { id = RoI.30121 }
+							}
+						}
+
+						save_event_target_as = invited_character
+					}					
+				}
+				20 = {
+					create_random_priest = {
+						random_traits = yes
+						trait = eunuch
+						dynasty = random
+						female = no
+					}
+					new_character = {
+						hidden_tooltip = {
+							if = {
+								limit = {
+									religion_group = indian_group
+								}
+								add_trait = brahmin
+								character_event = { id = RoI.30121 }
+							}
+						}
+
+						save_event_target_as = invited_character
+					}					
+				}
+				
+			}
+			character_event = { id = NE.1 }
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { scaled_wealth = 0.6 }
+			}
+			modifier = {
+				factor = 0
+				any_courtier = {
+					trait = eunuch
+				}
+			}
+			modifier = {
+				factor = 0
+				job_marshal = {
+					martial = 13
+				}
+			}
+			modifier = {
+				factor = 0
+				any_vassal = {
+					martial = 13
+					is_female = no
+					age = 16
+					prisoner = no
+					NOT = { trait = incapable }
+				}
+			}
+			modifier = {
+				factor = 0
+				any_courtier = {
+					martial = 13
+					is_female = no
+					age = 16
+					prisoner = no
+					NOT = { trait = incapable }
+				}
+			}
+			modifier = {
+				factor = 0
+				job_spymaster = {
+					intrigue = 13
+				}
+			}
+			modifier = {
+				factor = 0
+				any_vassal = {
+					intrigue = 13
+					age = 16
+					prisoner = no
+					NOT = { trait = incapable }
+				}
+			}
+			modifier = {
+				factor = 0
+				any_courtier = {
+					intrigue = 13
+					age = 16
+					prisoner = no
+					NOT = { trait = incapable }
+				}
+			}
+			modifier = {
+				factor = 0
+				job_chancellor = {
+					diplomacy = 13
+				}
+			}
+			modifier = {
+				factor = 0
+				any_vassal = {
+					diplomacy = 13
+					OR = {
+						is_female = no
+						liege = {
+							primary_title = {
+								has_law = true_cognatic_succession
+							}
+						}
+					}
+					age = 16
+					prisoner = no
+					NOT = { trait = incapable }
+				}
+			}
+			modifier = {
+				factor = 0
+				any_courtier = {
+					diplomacy = 13
+					OR = {
+						is_female = no
+						liege = {
+							primary_title = {
+								has_law = true_cognatic_succession
+							}
+						}
+					}
+					age = 16
+					prisoner = no
+					NOT = { trait = incapable }
+				}
+			}
+		}
+	}	
+	
+	take_courtier_as_concubine = { # AI Pagan rulers get concubines
+		only_playable = yes
+		potential = {
+			is_ruler = yes
+			higher_tier_than = baron
+			is_adult = yes
+			is_female = no
+			NOT = { trait = incapable }
+			OR = {
+				religion_group = pagan_group
+				religion_group = zoroastrian_group
+				religion_group = indian_group
+			}
+		}
+		allow = {
+			#any_courtier = {
+			#	is_consort = no
+			#}
+		}
+		effect = {
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				female = yes
+			}
+			new_character = {
+				add_consort = ROOT
+			}
+			set_character_flag = concubine_decision_taken
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.2
+			}
+			modifier = {
+				factor = 0
+				any_courtier = {
+					is_consort = yes
+				}
+			}
+			modifier = {
+				factor = 0
+				has_character_flag = concubine_decision_taken
+			}
+			modifier = {
+				factor = 2
+				trait = lustful
+			}
+			modifier = {
+				factor = 2
+				trait = gregarious
+			}
+			modifier = {
+				factor = 0.5
+				trait = chaste
+			}
+			modifier = {
+				factor = 0.5
+				trait = celibate
+			}
+			modifier = {
+				factor = 2
+				trait = hedonist
+			}
+			modifier = {
+				factor = 0.5
+				trait = incapable
+			}
+		}
+	}
+	
+	employ_poet = {
+		only_rulers = yes
+		potential = {
+			is_ruler = yes
+			OR = {
+				ai = no
+				higher_tier_than = count
+			}
+			OR = { 
+				culture_group = celtic
+				culture = romano_british
+				religion = insular
+				religion = celtic_pagan
+				religion = celtic_pagan_reformed
+			}
+		}
+		allow = {
+			scaled_wealth = 0.20
+			NOT = {
+				has_character_modifier = in_seclusion
+			}
+		}
+		effect = {
+			treasury = -20
+			create_character = {
+				random_traits = no
+				dynasty = random
+				culture = ROOT
+				female = no
+				age = 30
+				trait = poet
+			}
+			new_character = {
+				religion = ROOT
+				change_diplomacy = 5
+				change_learning = 4
+				random_list = {
+					10 = { add_trait = naive_appeaser }
+					25 = { add_trait = underhanded_rogue }
+					40 = { add_trait = charismatic_negotiator }
+					40 = { add_trait = grey_eminence }
+					15 = { add_trait = scholarly_theologian }
+					15 = { add_trait = mastermind_theologian }
+				}
+				random_list = {
+					10 = { add_trait = slothful }
+					20 = { add_trait = mystic }
+					30 = { add_trait = zealous }
+					30 = { add_trait = diligent }
+				}
+				random_list = {
+					3 = { add_trait = genius }
+					15 = { add_trait = quick }
+					2 = { add_trait = hunchback }
+					10 = { add_trait = temperate }
+					20 = { add_trait = patient }
+					30 = { add_trait = wroth }
+					25 = { add_trait = scholar }
+				}
+				random_list = {
+					30 = { add_trait = deceitful }
+					30 = { add_trait = honest }
+					10 = { add_trait = cynical }
+					45 = { add_trait = ambitious }
+					15 = { add_trait = content }
+				}
+				random_list = {
+					30 = { add_trait = just }
+					30 = { add_trait = brave }
+					30 = { add_trait = chaste }
+					30 = { add_trait = lustful }
+					30 = { add_trait = cruel }
+					30 = { add_trait = kind }
+					30 = { add_trait = envious }
+				}
+				random_list = {
+					30 = { add_trait = gluttonous }
+					30 = { add_trait = zealous }
+					30 = { add_trait = greedy }
+					30 = { add_trait = charitable }
+					30 = { add_trait = proud }
+					30 = { add_trait = trusting }
+				}
+				set_character_flag = invited_court_celtic_poet
+				save_event_target_as = invited_character
+			}
+			character_event = { id = NE.1 }
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+				OR = {
+					any_vassal = { trait = poet }
+					any_courtier = { trait = poet }
+				}
+			}
+			modifier = {
+				factor = 0.3 #Decrease chance AI will do this
+				always = yes
+			}
+			modifier = {
+				factor = 0.1
+				any_courtier = {
+					trait = poet
+				}
+			}
+			modifier = {
+				factor = 0.1
+				OR = {
+					any_courtier = {
+						has_minor_title = title_court_celtic_poet
+					}
+					any_vassal = {
+						has_minor_title = title_court_celtic_poet
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = diligent
+			}	
+			modifier = {
+				factor = 0.5
+				trait = slothful
+			}	
+			modifier = {
+				factor = 2
+				trait = ambitious
+			}	
+			modifier = {
+				factor = 0.5
+				is_dumb_trigger = yes
+			}		
+			modifier = {
+				factor = 2
+				trait = zealous
+			}	
+			modifier = {
+				factor = 0.5
+				trait = cynical
+			}			
+			modifier = {
+				factor = 2
+				primary_title = { higher_tier_than = DUKE }
+			}
+		}
+	}
+}

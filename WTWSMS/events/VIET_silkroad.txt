@@ -1,4 +1,3 @@
-# Audax Validator "!" Ignore_NEXT
 #####################################################################
 #
 # silkroad #0-9999 reserved
@@ -685,8 +684,6 @@ narrative_event = {
 				religion_group = indian_group
 				religion = nestorian
 				religion = messalian
-				religion = arkagun
-				religion = chaldean
 				religion = tengri_pagan
 				religion = zun_pagan
 				religion = tengri_pagan_reformed
@@ -705,8 +702,6 @@ narrative_event = {
 			NOT = { religion_group = indian_group }
 			NOT = { religion = nestorian }
 			NOT = { religion = messalian }
-			NOT = { religion = arkagun }
-			NOT = { religion = chaldean }
 			NOT = { religion = tengri_pagan }
 			NOT = { religion = zun_pagan }
 			NOT = { religion = tengri_pagan_reformed }		
@@ -763,8 +758,6 @@ narrative_event = {
 				religion_group = indian_group
 				religion = nestorian
 				religion = messalian
-				religion = arkagun
-				religion = chaldean
 				religion = tengri_pagan
 				religion = tengri_pagan_reformed
 				religion = zun_pagan
@@ -783,8 +776,6 @@ narrative_event = {
 			NOT = { religion_group = indian_group }
 			NOT = { religion = nestorian }
 			NOT = { religion = messalian }
-			NOT = { religion = arkagun }
-			NOT = { religion = chaldean }
 			NOT = { religion = tengri_pagan }
 			NOT = { religion = tengri_pagan_reformed }
 			NOT = { religion = zun_pagan }
@@ -840,8 +831,6 @@ narrative_event = {
 				religion_group = indian_group
 				religion = nestorian
 				religion = messalian
-				religion = arkagun
-				religion = chaldean
 				religion = tengri_pagan
 				religion = tengri_pagan_reformed
 				religion = zun_pagan
@@ -860,8 +849,6 @@ narrative_event = {
 			NOT = { religion_group = indian_group }
 			NOT = { religion = nestorian }
 			NOT = { religion = messalian }
-			NOT = { religion = arkagun }
-			NOT = { religion = chaldean }
 			NOT = { religion = tengri_pagan }
 			NOT = { religion = tengri_pagan_reformed }
 			NOT = { religion = zun_pagan }
@@ -883,13 +870,10 @@ narrative_event = {
 # 202 - Nestorian Sogdians
 # 203 - Zoroastrian Sogdians
 # 204 - Khurramite Sogdians
-# 205 - Denawar Sogdians
-# 206 - Buddhist Uighurs
-# 207 - Manichean Uighurs
-# 208 - Denawar Uighurs
+# 206 - Buddhist Uyghurs
+# 207 - Manichean Uyghurs
 # 209 - Khotanese
 # 210 - Crimean Goths
-# 211 - Parsis
 # 212 - Assyrians
 # 213 - Copts
 # 214 - Japanese
@@ -2503,321 +2487,7 @@ character_event = {
 	
 }
 
-
-# denawar sogdian
-character_event = {
-	id = silkroad.205
-	desc = silkroad.200.desc
-	picture = GFX_evt_silk_road
-	
-	prisoner = no
-	only_rulers = yes
-	capable_only = yes
-	
-	trigger = {
-		NOT = { has_global_flag = silk_road_level_0 }
-		NOT = { culture = sogdian }
-		NOT = {
-			any_courtier = {
-				culture = sogdian
-			}
-		}
-		NOT = {
-			any_courtier = {
-				culture = sogdian
-				has_character_flag = VIET_spawned_courtier
-			}
-		}
-		capital_scope = {
-			OR = {
-				empire = { title = e_tartaria }
-				empire = { title = e_persia }
-				empire = { title = e_rajastan }
-			}
-		}
-		OR = {
-			has_global_flag = silk_road_level_3
-			any_demesne_province = {
-				OR = {
-					has_province_modifier = VIET_sogdian_colony
-					culture = sogdian
-				}
-			}
-		}
-	}
-	
-	mean_time_to_happen = {
-		months = 1000
-
-		modifier = { #Should appear mostly in Khiva, Turkestan, or Sogdiana
-			factor = 2
-			NOT = {
-				capital_scope = {
-					kingdom = { title = k_khiva }
-				}			
-			}
-			NOT = {
-				capital_scope = {
-					kingdom = { title = k_transoxiana }
-				}			
-			}
-			NOT = {
-				capital_scope = {
-					kingdom = { title = k_sogdiana }
-				}			
-			}
-		}
-		
-		modifier = {
-			factor = 3
-			has_global_flag = silk_road_level_1
-		}
-		
-		modifier = {
-			factor = 2
-			trait = cruel
-		}
-
-		modifier = {
-			factor = 1.5
-			trait = envious
-		}
-		
-		modifier = {
-			factor = 1.5
-			trait = arbitrary
-		}
-		
-		modifier = {
-			factor = 0.9
-			trait = cynical
-		}
-		
-		modifier = {
-			factor = 0.9
-			trait = kind
-		}
-		
-		modifier = {
-			factor = 0.9
-			trait = diligent
-		}		
-		
-		modifier = {
-			factor = 0.9
-			trait = scholar
-		}
-		
-		modifier = {
-			factor = 0.9
-			trait = ambitious
-		}
-		
-		modifier = {
-			factor = 0.9
-			trait = charitable
-		}
-		
-		modifier = {
-			factor = 0.9
-			trait = trusting
-		}
-		
-		modifier = {
-			factor = 0.9
-			trait = greedy
-		}
-		
-	}
-	
-	option = {
-		name = "silkroad.200.a"
-
-		create_character = {
-			random_traits = yes
-			dynasty = culture
-			religion = denawar
-			culture = sogdian
-			attributes = {
-				diplomacy = 3
-				martial = 3
-				stewardship = 5
-				intrigue = 3
-				learning = 3
-			}
-			flag = ai_flag_refuse_conversion
-		}
-		new_character = {
-			set_character_flag = VIET_spawned_courtier
-			opinion = {
-				modifier = opinion_patron
-				who = ROOT
-				years = 20
-			}
-			reverse_opinion = {
-				modifier = opinion_new_courtier
-				who = ROOT
-				years = 5
-			}
-			# Traits aren't that random
-			random = {
-				chance = 25
-				add_trait = sartapaw
-			}				
-		}
-		create_character = {
-			random_traits = yes
-			dynasty = culture
-			religion = denawar
-			culture = sogdian
-			attributes = {
-				diplomacy = 5
-				martial = 5
-				stewardship = 7
-				intrigue = 5
-				learning = 5
-			}
-			flag = ai_flag_refuse_conversion
-		}
-		new_character = {
-			set_character_flag = VIET_spawned_courtier
-			opinion = {
-				modifier = opinion_patron
-				who = ROOT
-				years = 20
-			}
-			reverse_opinion = {
-				modifier = opinion_new_courtier
-				who = ROOT
-				years = 5
-			}
-			# Traits aren't that random
-			random = {
-				chance = 25
-				add_trait = sartapaw
-			}				
-		}
-		random_list = {
-			30 = {}
-			70 = {
-				create_character = {
-					random_traits = yes
-					dynasty = culture
-					religion = denawar
-					culture = sogdian
-					attributes = {
-						diplomacy = 7
-						martial = 7
-						stewardship = 9
-						intrigue = 7
-						learning = 7
-					}
-					flag = ai_flag_refuse_conversion
-				}
-				new_character = {
-					set_character_flag = VIET_spawned_courtier
-					opinion = {
-						modifier = opinion_patron
-						who = ROOT
-						years = 20
-					}
-					reverse_opinion = {
-						modifier = opinion_new_courtier
-						who = ROOT
-						years = 5
-					}
-					# Traits aren't that random
-					random = {
-						chance = 25
-						add_trait = sartapaw
-					}					
-				}
-			}
-		}
-		random_list = {
-			70 = {}
-			30 = {
-				create_character = {
-					random_traits = yes
-					dynasty = culture
-					religion = denawar
-					culture = sogdian
-					attributes = {
-						diplomacy = 8
-						martial = 8
-						stewardship = 10
-						intrigue = 8
-						learning = 8
-					}
-					flag = ai_flag_refuse_conversion
-				}
-				new_character = {
-					set_character_flag = VIET_spawned_courtier
-					opinion = {
-						modifier = opinion_patron
-						who = ROOT
-						years = 20
-					}
-					reverse_opinion = {
-						modifier = opinion_new_courtier
-						who = ROOT
-						years = 5
-					}
-					# Traits aren't that random
-					random = {
-						chance = 25
-						add_trait = sartapaw
-					}											
-				}
-			}
-		}
-		random_list = {
-			95 = {}
-			5 = {
-				create_character = {
-					random_traits = yes
-					dynasty = culture
-					religion = denawar
-					culture = sogdian
-					attributes = {
-						diplomacy = 10
-						martial = 10
-						stewardship = 12
-						intrigue = 10
-						learning = 10
-					}
-					flag = ai_flag_refuse_conversion
-				}
-				new_character = {
-					set_character_flag = VIET_spawned_courtier
-					opinion = {
-						modifier = opinion_patron
-						who = ROOT
-						years = 20
-					}
-					reverse_opinion = {
-						modifier = opinion_new_courtier
-						who = ROOT
-						years = 5
-					}
-					# Traits aren't that random
-					random = {
-						chance = 25
-						add_trait = sartapaw
-					}						
-				}
-			}
-		}
-	}
-	
-	option = {
-		name = "reject.VIET.courtiers"
-	}	
-	
-}
-
-
-# buddhist uighurs
+# buddhist uyghurs
 character_event = {
 	id = silkroad.206
 	desc = silkroad.206.desc
@@ -2828,15 +2498,15 @@ character_event = {
 	capable_only = yes
 	
 	trigger = {
-		NOT = { culture = uighur }
+		NOT = { culture = uyghur }
 		NOT = {
 			any_courtier = {
-				culture = uighur
+				culture = uyghur
 			}
 		}
 		NOT = {
 			any_courtier = {
-				culture = uighur
+				culture = uyghur
 				has_character_flag = VIET_spawned_courtier
 			}
 		}
@@ -2952,7 +2622,7 @@ character_event = {
 			random_traits = yes
 			dynasty = culture
 			religion = buddhist
-			culture = uighur
+			culture = uyghur
 			attributes = {
 				diplomacy = 3
 				martial = 3
@@ -2979,7 +2649,7 @@ character_event = {
 			random_traits = yes
 			dynasty = culture
 			religion = buddhist
-			culture = uighur
+			culture = uyghur
 			attributes = {
 				diplomacy = 5
 				martial = 5
@@ -3009,7 +2679,7 @@ character_event = {
 					random_traits = yes
 					dynasty = culture
 					religion = buddhist
-					culture = uighur
+					culture = uyghur
 					attributes = {
 						diplomacy = 7
 						martial = 7
@@ -3041,7 +2711,7 @@ character_event = {
 					random_traits = yes
 					dynasty = culture
 					religion = buddhist
-					culture = uighur
+					culture = uyghur
 					attributes = {
 						diplomacy = 8
 						martial = 8
@@ -3073,7 +2743,7 @@ character_event = {
 					random_traits = yes
 					dynasty = culture
 					religion = buddhist
-					culture = uighur
+					culture = uyghur
 					attributes = {
 						diplomacy = 10
 						martial = 10
@@ -3107,7 +2777,7 @@ character_event = {
 }
 
 
-# manichean uighurs
+# manichean uyghurs
 character_event = {
 	id = silkroad.207
 	desc = silkroad.206.desc
@@ -3118,15 +2788,15 @@ character_event = {
 	capable_only = yes
 	
 	trigger = {
-		NOT = { culture = uighur }
+		NOT = { culture = uyghur }
 		NOT = {
 			any_courtier = {
-				culture = uighur
+				culture = uyghur
 			}
 		}
 		NOT = {
 			any_courtier = {
-				culture = uighur
+				culture = uyghur
 				has_character_flag = VIET_spawned_courtier
 			}
 		}
@@ -3149,7 +2819,7 @@ character_event = {
 		}
 		OR = {
 			has_global_flag = silk_road_level_3
-			NOT = { year = 1000 } #Uighurs converting to Buddhism
+			NOT = { year = 1000 } #uyghurs converting to Buddhism
 		}
 	}
 	
@@ -3246,7 +2916,7 @@ character_event = {
 			random_traits = yes
 			dynasty = culture
 			religion = manichean
-			culture = uighur
+			culture = uyghur
 			attributes = {
 				diplomacy = 3
 				martial = 3
@@ -3273,7 +2943,7 @@ character_event = {
 			random_traits = yes
 			dynasty = culture
 			religion = manichean
-			culture = uighur
+			culture = uyghur
 			attributes = {
 				diplomacy = 5
 				martial = 5
@@ -3303,7 +2973,7 @@ character_event = {
 					random_traits = yes
 					dynasty = culture
 					religion = manichean
-					culture = uighur
+					culture = uyghur
 					attributes = {
 						diplomacy = 7
 						martial = 7
@@ -3335,7 +3005,7 @@ character_event = {
 					random_traits = yes
 					dynasty = culture
 					religion = manichean
-					culture = uighur
+					culture = uyghur
 					attributes = {
 						diplomacy = 8
 						martial = 8
@@ -3367,301 +3037,7 @@ character_event = {
 					random_traits = yes
 					dynasty = culture
 					religion = manichean
-					culture = uighur
-					attributes = {
-						diplomacy = 10
-						martial = 10
-						stewardship = 10
-						intrigue = 10
-						learning = 10
-					}
-					flag = ai_flag_refuse_conversion
-				}
-				new_character = {
-					set_character_flag = VIET_spawned_courtier
-					opinion = {
-						modifier = opinion_patron
-						who = ROOT
-						years = 20
-					}
-					reverse_opinion = {
-						modifier = opinion_new_courtier
-						who = ROOT
-						years = 5
-					}				
-				}
-			}
-		}
-	}
-	
-	option = {
-		name = "reject.VIET.courtiers"
-	}	
-	
-}
-
-
-# denawar uighurs
-character_event = {
-	id = silkroad.208
-	desc = silkroad.206.desc
-	picture = GFX_evt_silk_road
-	
-	prisoner = no
-	only_rulers = yes
-	capable_only = yes
-	
-	trigger = {
-		NOT = { culture = uighur }
-		NOT = {
-			any_courtier = {
-				culture = uighur
-			}
-		}
-		NOT = {
-			any_courtier = {
-				culture = uighur
-				has_character_flag = VIET_spawned_courtier
-			}
-		}
-		OR = {
-			culture = mongol
-			AND = {
-				OR = {
-					has_global_flag = silk_road_level_2
-					has_global_flag = silk_road_level_3
-				}
-				capital_scope = {
-					OR = {
-						kingdom = { title = k_khiva }
-						kingdom = { title = k_transoxiana }
-						kingdom = { title = k_sogdiana }
-						kingdom = { title = k_afghanistan }
-					}
-				}
-			}
-		}
-		OR = {
-			has_global_flag = silk_road_level_3
-			NOT = { year = 1000 } #Uighurs converting to Buddhism
-		}
-	}
-	
-	mean_time_to_happen = {
-		months = 1000
-		
-		modifier = {
-			factor = 2
-			NOT = { year = 840 }
-		}		
-
-		modifier = { #Shouldn't appear after 1400 in Mongol territories
-			factor = 10
-			AND = {
-				culture = mongol
-				year = 1400
-			}
-		}
-		
-		modifier = { #Shouldn't appear in large numbers after 1300 in Mongol territories
-			factor = 2
-			AND = {
-				culture = mongol
-				year = 1300
-			}
-		}
-		
-		modifier = {
-			factor = 3
-			has_global_flag = silk_road_level_1
-		}
-		
-		modifier = {
-			factor = 2
-			trait = cruel
-		}
-
-		modifier = {
-			factor = 1.5
-			trait = envious
-		}
-		
-		modifier = {
-			factor = 1.5
-			trait = arbitrary
-		}
-		
-		modifier = {
-			factor = 0.9
-			trait = cynical
-		}
-		
-		modifier = {
-			factor = 0.9
-			trait = kind
-		}
-		
-		modifier = {
-			factor = 0.9
-			trait = diligent
-		}		
-		
-		modifier = {
-			factor = 0.9
-			trait = scholar
-		}
-		
-		modifier = {
-			factor = 0.9
-			trait = ambitious
-		}
-		
-		modifier = {
-			factor = 0.9
-			trait = charitable
-		}
-		
-		modifier = {
-			factor = 0.9
-			trait = trusting
-		}
-		
-		modifier = {
-			factor = 0.9
-			trait = greedy
-		}
-		
-	}
-	
-	option = {
-		name = "silkroad.206.a"
-
-		create_character = {
-			random_traits = yes
-			dynasty = culture
-			religion = denawar
-			culture = uighur
-			attributes = {
-				diplomacy = 3
-				martial = 3
-				stewardship = 3
-				intrigue = 3
-				learning = 3
-			}
-			flag = ai_flag_refuse_conversion
-		}
-		new_character = {
-			set_character_flag = VIET_spawned_courtier
-			opinion = {
-				modifier = opinion_patron
-				who = ROOT
-				years = 20
-			}
-			reverse_opinion = {
-				modifier = opinion_new_courtier
-				who = ROOT
-				years = 5
-			}				
-		}
-		create_character = {
-			random_traits = yes
-			dynasty = culture
-			religion = denawar
-			culture = uighur
-			attributes = {
-				diplomacy = 5
-				martial = 5
-				stewardship = 5
-				intrigue = 5
-				learning = 5
-			}
-			flag = ai_flag_refuse_conversion
-		}
-		new_character = {
-			set_character_flag = VIET_spawned_courtier
-			opinion = {
-				modifier = opinion_patron
-				who = ROOT
-				years = 20
-			}
-			reverse_opinion = {
-				modifier = opinion_new_courtier
-				who = ROOT
-				years = 5
-			}				
-		}
-		random_list = {
-			30 = {}
-			70 = {
-				create_character = {
-					random_traits = yes
-					dynasty = culture
-					religion = denawar
-					culture = uighur
-					attributes = {
-						diplomacy = 7
-						martial = 7
-						stewardship = 7
-						intrigue = 7
-						learning = 7
-					}
-					flag = ai_flag_refuse_conversion
-				}
-				new_character = {
-					set_character_flag = VIET_spawned_courtier
-					opinion = {
-						modifier = opinion_patron
-						who = ROOT
-						years = 20
-					}
-					reverse_opinion = {
-						modifier = opinion_new_courtier
-						who = ROOT
-						years = 5
-					}				
-				}
-			}
-		}
-		random_list = {
-			70 = {}
-			30 = {
-				create_character = {
-					random_traits = yes
-					dynasty = culture
-					religion = denawar
-					culture = uighur
-					attributes = {
-						diplomacy = 8
-						martial = 8
-						stewardship = 8
-						intrigue = 8
-						learning = 8
-					}
-					flag = ai_flag_refuse_conversion
-				}
-				new_character = {
-					set_character_flag = VIET_spawned_courtier
-					opinion = {
-						modifier = opinion_patron
-						who = ROOT
-						years = 20
-					}
-					reverse_opinion = {
-						modifier = opinion_new_courtier
-						who = ROOT
-						years = 5
-					}				
-				}
-			}
-		}
-		random_list = {
-			95 = {}
-			5 = {
-				create_character = {
-					random_traits = yes
-					dynasty = culture
-					religion = denawar
-					culture = uighur
+					culture = uyghur
 					attributes = {
 						diplomacy = 10
 						martial = 10
@@ -4214,302 +3590,6 @@ character_event = {
 						intrigue = 10
 						learning = 10
 					}
-				}
-				new_character = {
-					set_character_flag = VIET_spawned_courtier
-					opinion = {
-						modifier = opinion_patron
-						who = ROOT
-						years = 20
-					}
-					reverse_opinion = {
-						modifier = opinion_new_courtier
-						who = ROOT
-						years = 5
-					}				
-				}
-			}
-		}
-	}
-	
-	option = {
-		name = "reject.VIET.courtiers"
-	}	
-	
-}
-
-# Parsi
-character_event = {
-	id = silkroad.211
-	desc = silkroad.211.desc
-	picture = GFX_evt_indian_market
-	
-	prisoner = no
-	only_rulers = yes
-	capable_only = yes
-	
-	trigger = {
-		NOT = { culture_group = iranian }
-		NOT = { religion_group = zoroastrian_group }
-		NOT = {
-			any_courtier = {
-				culture = parsi
-			}
-		}
-		NOT = {
-			any_courtier = {
-				culture = parsi
-				has_character_flag = VIET_spawned_courtier
-			}
-		}
-		capital_scope = {
-			NOT = { culture_group = iranian }
-			NOT = { religion_group = zoroastrian_group }
-			OR = {
-				empire = { title = e_rajastan }
-				empire = { title = e_deccan }
-			}
-			port = yes
-		}
-		year = 950
-		NOT = {
-			e_persia = {
-				holder_scope = {
-					religion_group = zoroastrian_group
-				}
-			}
-		}
-		NOT = {
-			k_persia = {
-				holder_scope = {
-					religion_group = zoroastrian_group
-				}
-			}
-		}
-	}
-	
-	mean_time_to_happen = {
-		months = 1300
-		
-		
-		modifier = {
-			factor = 4
-			religion_group = muslim
-		}
-		
-		modifier = { #Should appear mostly in northeastern coastal India
-			factor = 2
-			NOT = {
-				capital_scope = {
-					kingdom = { title = k_sindh }
-				}			
-			}
-			NOT = {
-				capital_scope = {
-					kingdom = { title = k_gujarat }
-				}			
-			}
-			NOT = {
-				capital_scope = {
-					kingdom = { title = k_rajputana }
-				}			
-			}
-		}
-		
-		modifier = {
-			factor = 2
-			trait = cruel
-		}
-
-		modifier = {
-			factor = 1.5
-			trait = envious
-		}
-		
-		modifier = {
-			factor = 1.5
-			trait = arbitrary
-		}
-		
-		modifier = {
-			factor = 0.9
-			trait = cynical
-		}
-		
-		modifier = {
-			factor = 0.9
-			trait = kind
-		}
-		
-		modifier = {
-			factor = 0.9
-			trait = diligent
-		}		
-		
-		modifier = {
-			factor = 0.9
-			trait = scholar
-		}
-		
-		modifier = {
-			factor = 0.9
-			trait = ambitious
-		}
-		
-		modifier = {
-			factor = 0.9
-			trait = charitable
-		}
-		
-		modifier = {
-			factor = 0.9
-			trait = trusting
-		}
-		
-		modifier = {
-			factor = 0.9
-			trait = greedy
-		}
-		
-	}
-	
-	option = {
-		name = "silkroad.211.a"
-
-		create_character = {
-			random_traits = yes
-			dynasty = culture
-			religion = zoroastrian
-			culture = parsi
-			attributes = {
-				diplomacy = 3
-				martial = 3
-				stewardship = 3
-				intrigue = 3
-				learning = 3
-			}
-			flag = ai_flag_refuse_conversion
-		}
-		new_character = {
-			set_character_flag = VIET_spawned_courtier
-			opinion = {
-				modifier = opinion_patron
-				who = ROOT
-				years = 20
-			}
-			reverse_opinion = {
-				modifier = opinion_new_courtier
-				who = ROOT
-				years = 5
-			}				
-		}
-		create_character = {
-			random_traits = yes
-			dynasty = culture
-			religion = zoroastrian
-			culture = parsi
-			attributes = {
-				diplomacy = 5
-				martial = 5
-				stewardship = 5
-				intrigue = 5
-				learning = 5
-			}
-			flag = ai_flag_refuse_conversion
-		}
-		new_character = {
-			set_character_flag = VIET_spawned_courtier
-			opinion = {
-				modifier = opinion_patron
-				who = ROOT
-				years = 20
-			}
-			reverse_opinion = {
-				modifier = opinion_new_courtier
-				who = ROOT
-				years = 5
-			}				
-		}
-		random_list = {
-			30 = {}
-			70 = {
-				create_character = {
-					random_traits = yes
-					dynasty = culture
-					religion = zoroastrian
-					culture = parsi
-					attributes = {
-						diplomacy = 7
-						martial = 7
-						stewardship = 7
-						intrigue = 7
-						learning = 7
-					}
-					flag = ai_flag_refuse_conversion
-				}
-				new_character = {
-					set_character_flag = VIET_spawned_courtier
-					opinion = {
-						modifier = opinion_patron
-						who = ROOT
-						years = 20
-					}
-					reverse_opinion = {
-						modifier = opinion_new_courtier
-						who = ROOT
-						years = 5
-					}				
-				}
-			}
-		}
-		random_list = {
-			70 = {}
-			30 = {
-				create_character = {
-					random_traits = yes
-					dynasty = culture
-					religion = zoroastrian
-					culture = parsi
-					attributes = {
-						diplomacy = 8
-						martial = 8
-						stewardship = 8
-						intrigue = 8
-						learning = 8
-					}
-					flag = ai_flag_refuse_conversion
-				}
-				new_character = {
-					set_character_flag = VIET_spawned_courtier
-					opinion = {
-						modifier = opinion_patron
-						who = ROOT
-						years = 20
-					}
-					reverse_opinion = {
-						modifier = opinion_new_courtier
-						who = ROOT
-						years = 5
-					}				
-				}
-			}
-		}
-		random_list = {
-			95 = {}
-			5 = {
-				create_character = {
-					random_traits = yes
-					dynasty = culture
-					religion = zoroastrian
-					culture = parsi
-					attributes = {
-						diplomacy = 10
-						martial = 10
-						stewardship = 10
-						intrigue = 10
-						learning = 10
-					}
-					flag = ai_flag_refuse_conversion
 				}
 				new_character = {
 					set_character_flag = VIET_spawned_courtier
@@ -11449,7 +10529,6 @@ character_event = {
 		name = "silkroad.407.c"
 		if = {
 			limit = {
-				NOT = { trait = sympathy_gnostic }
 				NOT = { trait = sympathy_indian }
 				NOT = { trait = sympathy_judaism }
 				NOT = { trait = sympathy_zoroastrianism }
@@ -11458,13 +10537,6 @@ character_event = {
 				NOT = { trait = sympathy_christendom }
 			}
 			random_list = {
-				10 = {
-					add_trait = sympathy_gnostic
-					modifier = {
-						factor = 0
-						religion_group = gnostic_group
-					}
-				}
 				10 = {
 					add_trait = sympathy_indian
 					modifier = {
@@ -11497,14 +10569,14 @@ character_event = {
 					add_trait = sympathy_islam  
 					modifier = {
 						factor = 0
-						religion_group = muslim_group
+						religion_group = muslim
 					}
 				}
 				10 = {
 					add_trait = sympathy_christendom  
 					modifier = {
 						factor = 0
-						religion_group = christian_group
+						religion_group = christian
 					}
 				}
 				150 = { }
@@ -11528,7 +10600,6 @@ character_event = {
 		}
 		if = {
 			limit = {
-				NOT = { trait = sympathy_gnostic }
 				NOT = { trait = sympathy_indian }
 				NOT = { trait = sympathy_judaism }
 				NOT = { trait = sympathy_zoroastrianism }
@@ -11537,13 +10608,6 @@ character_event = {
 				NOT = { trait = sympathy_christendom }
 			}
 			random_list = {
-				10 = {
-					add_trait = sympathy_gnostic
-					modifier = {
-						factor = 0
-						religion_group = gnostic_group
-					}
-				}
 				10 = {
 					add_trait = sympathy_indian
 					modifier = {
@@ -11576,14 +10640,14 @@ character_event = {
 					add_trait = sympathy_islam  
 					modifier = {
 						factor = 0
-						religion_group = muslim_group
+						religion_group = muslim
 					}
 				}
 				10 = {
 					add_trait = sympathy_christendom  
 					modifier = {
 						factor = 0
-						religion_group = christian_group
+						religion_group = christian
 					}
 				}
 				150 = { }
@@ -12101,37 +11165,8 @@ character_event = {
 						female = yes
 						random_traits = yes
 						dynasty = culture
-						religion = zoroastrian
-						culture = khorasani
-					}
-					new_character = {
-						add_consort = ROOT
-						# Her traits aren't that random (they had to choose someone worthwhile for the whole bear hunt thingy, after all)
-						random = {
-							chance = 33
-							add_trait = fair
-						}
-						random = {
-							chance = 10
-							add_trait = tall
-						}
-						random = {
-							chance = 10
-							add_trait = fertile
-						}
-						random = {
-							chance = 10
-							add_trait = strong
-						}
-					}				
-				}
-				5 = {
-					create_character = {
-						female = yes
-						random_traits = yes
-						dynasty = culture
 						religion = manichean
-						culture = uighur
+						culture = uyghur
 					}
 					new_character = {
 						add_consort = ROOT
@@ -12160,7 +11195,7 @@ character_event = {
 						random_traits = yes
 						dynasty = culture
 						religion = buddhist
-						culture = uighur
+						culture = uyghur
 					}
 					new_character = {
 						add_consort = ROOT
@@ -12604,37 +11639,8 @@ character_event = {
 						female = yes
 						random_traits = yes
 						dynasty = culture
-						religion = zoroastrian
-						culture = khorasani
-					}
-					new_character = {
-						add_spouse = ROOT
-						# Her traits aren't that random (they had to choose someone worthwhile for the whole bear hunt thingy, after all)
-						random = {
-							chance = 33
-							add_trait = fair
-						}
-						random = {
-							chance = 10
-							add_trait = tall
-						}
-						random = {
-							chance = 10
-							add_trait = fertile
-						}
-						random = {
-							chance = 10
-							add_trait = strong
-						}
-					}				
-				}
-				5 = {
-					create_character = {
-						female = yes
-						random_traits = yes
-						dynasty = culture
 						religion = manichean
-						culture = uighur
+						culture = uyghur
 					}
 					new_character = {
 						add_spouse = ROOT
@@ -12663,7 +11669,7 @@ character_event = {
 						random_traits = yes
 						dynasty = culture
 						religion = buddhist
-						culture = uighur
+						culture = uyghur
 					}
 					new_character = {
 						add_spouse = ROOT
@@ -13212,37 +12218,8 @@ character_event = {
 						female = yes
 						random_traits = yes
 						dynasty = culture
-						religion = zoroastrian
-						culture = khorasani
-					}
-					new_character = {
-						add_consort = ROOT
-						# Her traits aren't that random (they had to choose someone worthwhile for the whole bear hunt thingy, after all)
-						random = {
-							chance = 33
-							add_trait = fair
-						}
-						random = {
-							chance = 10
-							add_trait = tall
-						}
-						random = {
-							chance = 10
-							add_trait = fertile
-						}
-						random = {
-							chance = 10
-							add_trait = strong
-						}
-					}				
-				}
-				5 = {
-					create_character = {
-						female = yes
-						random_traits = yes
-						dynasty = culture
 						religion = manichean
-						culture = uighur
+						culture = uyghur
 					}
 					new_character = {
 						add_consort = ROOT
@@ -13271,7 +12248,7 @@ character_event = {
 						random_traits = yes
 						dynasty = culture
 						religion = buddhist
-						culture = uighur
+						culture = uyghur
 					}
 					new_character = {
 						add_consort = ROOT
@@ -13715,37 +12692,8 @@ character_event = {
 						female = yes
 						random_traits = yes
 						dynasty = culture
-						religion = zoroastrian
-						culture = khorasani
-					}
-					new_character = {
-						add_spouse = ROOT
-						# Her traits aren't that random (they had to choose someone worthwhile for the whole bear hunt thingy, after all)
-						random = {
-							chance = 33
-							add_trait = fair
-						}
-						random = {
-							chance = 10
-							add_trait = tall
-						}
-						random = {
-							chance = 10
-							add_trait = fertile
-						}
-						random = {
-							chance = 10
-							add_trait = strong
-						}
-					}				
-				}
-				5 = {
-					create_character = {
-						female = yes
-						random_traits = yes
-						dynasty = culture
 						religion = manichean
-						culture = uighur
+						culture = uyghur
 					}
 					new_character = {
 						add_spouse = ROOT
@@ -13774,7 +12722,7 @@ character_event = {
 						random_traits = yes
 						dynasty = culture
 						religion = buddhist
-						culture = uighur
+						culture = uyghur
 					}
 					new_character = {
 						add_spouse = ROOT
@@ -14454,59 +13402,6 @@ character_event = {
 
 
 
-# Manicheans
-character_event = {
-	id = silkroad.421
-	desc = silkroad.421.desc
-	picture = GFX_evt_bishop_pagan_group
-	
-	is_triggered_only = yes
-	
-	option = { #talk
-		name = "silkroad.421.a"
-		if = {
-			limit = {
-				NOT = { trait = sympathy_gnostic }
-				NOT = { religion_group = gnostic_group }
-			}
-			random = {
-				add_trait = sympathy_gnostic
-				chance = 25
-			}
-		}
-		if = {
-			limit = {
-				trait = sympathy_gnostic
-			}
-			prestige = 5
-		}
-		if = {
-			limit = {
-				religion_group = gnostic_group
-			}
-			piety = 5
-		}
-	}	
-	option = { #ignore
-		name = "silkroad.421.b"
-		if = {
-			limit = {
-				NOT = { religion_group = gnostic_group }
-			}
-			piety = 5
-		}
-		if = {
-			limit = {
-				religion_group = gnostic_group
-			}
-			random = {
-				add_trait = cynical
-				chance = 20
-			}
-		}
-	}
-}
-
 # Buddhist monks
 character_event = {
 	id = silkroad.422
@@ -14573,7 +13468,7 @@ character_event = {
 		if = {
 			limit = {
 				NOT = { trait = sympathy_indian }
-				NOT = { religion_group = hindu }
+				NOT = { religion_group = indian_group }
 			}
 			random = {
 				add_trait = sympathy_indian

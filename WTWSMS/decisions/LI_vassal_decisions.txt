@@ -22,7 +22,7 @@ targetted_decisions = {
 		from_potential = {
 			is_playable = yes
 			has_regent = no
-			proselyte_religion_trigger = yes #Only proselyte religions may do this	
+			proselyte_religion_trigger = yes #Only proselyte religions may do this freely
 		}
 		potential = {
 			NOR = {
@@ -40,6 +40,155 @@ targetted_decisions = {
 					character = FROM
 				}
 			}
+		}
+		allow = {
+			OR = {
+				AND = {
+					NOT = {
+						has_opinion_modifier = {	#Can not try to convert if recently failed to convert
+							who = FROM
+							modifier = tried_to_convert_me
+						}
+					}
+					FROM = {
+						war = no
+					}
+					opinion = { who = FROM value = 35}
+				}
+				AND = {
+					prisoner = yes
+					host = {
+						character = FROM
+					}
+					custom_tooltip = {
+						text = third_conversion_attempt
+						hidden_tooltip = {
+							NOT = { has_character_flag = third_conversion_attempt }
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			ROOT = {
+				letter_event = {
+					id = demand_conversion.1
+					days = 3
+					random = 7
+				}
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.001	#slow it down
+			}
+		}
+	}	
+	demand_religious_conversion_2 = { # Bastion of Faith towards Ancestral
+		filter = sub_realm
+		ai_target_filter = sub_realm
+		
+		from_potential = {
+			is_playable = yes
+			has_regent = no
+			bastion_of_faith_religion_trigger = yes 
+		}
+		potential = {
+			NOR = {
+				character = FROM
+				religion = FROM
+				trait = incapable
+			}
+			is_adult = yes
+			liege = {
+				character = FROM
+			}
+			OR = {
+				prisoner = no
+				host = {
+					character = FROM
+				}
+			}
+			ancestral_religion_trigger = yes 
+		}
+		allow = {
+			OR = {
+				AND = {
+					NOT = {
+						has_opinion_modifier = {	#Can not try to convert if recently failed to convert
+							who = FROM
+							modifier = tried_to_convert_me
+						}
+					}
+					FROM = {
+						war = no
+					}
+					opinion = { who = FROM value = 35}
+				}
+				AND = {
+					prisoner = yes
+					host = {
+						character = FROM
+					}
+					custom_tooltip = {
+						text = third_conversion_attempt
+						hidden_tooltip = {
+							NOT = { has_character_flag = third_conversion_attempt }
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			ROOT = {
+				letter_event = {
+					id = demand_conversion.1
+					days = 3
+					random = 7
+				}
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.001	#slow it down
+			}
+		}
+	}	
+	
+	demand_religious_conversion_3 = { # Ancestral towards religion with low moral authority 
+		filter = sub_realm
+		ai_target_filter = sub_realm
+		
+		from_potential = {
+			is_playable = yes
+			has_regent = no
+			offensive_ancestral_religion_trigger = yes
+		}
+		potential = {
+			NOR = {
+				character = FROM
+				religion = FROM
+				trait = incapable
+			}
+			is_adult = yes
+			liege = {
+				character = FROM
+			}
+			OR = {
+				prisoner = no
+				host = {
+					character = FROM
+				}
+			}
+			NOT = { religion_authority = 0.2 } 
 		}
 		allow = {
 			OR = {

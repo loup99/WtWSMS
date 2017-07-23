@@ -1,5 +1,14 @@
 # Religion-specific opinion can be added to modifiers (E.G., norse_pagan_opinion = 5), but the modifier *has* to be defined in 00_modifier_definitions.txt as well. It also needs localisation. Works for groups as well
 
+# This trigger defines who can see a character's secret religion. The character with the secret religion is FROM, while the viewer is ROOT
+# Characters can always see their own secret religion. The observer can see all secret religions
+secret_religion_visibility_trigger = {
+	secret_religion = FROM
+	FROM = {
+		has_character_flag = confessed_secret_religion_to_@ROOT
+	}
+}
+
 christian = {
 	has_coa_on_barony_only = yes
 	graphical_culture = westerngfx
@@ -108,7 +117,7 @@ christian = {
 		feminist = yes      # Nullifies the negative opinion modifier that vassals normally get if ruler is female or has female heir
 		
 		religious_clothing_head = 0
-		religious_clothing_priest = 1
+		religious_clothing_priest = 0
 		
 		general_opinion = -20
 		same_opinion_if_same_religion = 40
@@ -177,8 +186,8 @@ christian = {
 		can_retire_to_monastery = yes
 		priests_can_inherit = no
 		
-		religious_clothing_head = 0
-		religious_clothing_priest = 1
+		religious_clothing_head = 5 # Lollards would not have worn anything beyond basic robes due to asceticism
+		religious_clothing_priest = 5
 	}
 	
 	orthodox = {
@@ -393,17 +402,20 @@ christian = {
 		can_retire_to_monastery = yes
 		female_temple_holders = no
 		
-		religious_clothing_head = 2
-		religious_clothing_priest = 2
+		religious_clothing_head = 1
+		religious_clothing_priest = 1
 		
 		general_opinion = -10
 		same_opinion_if_same_religion = 20
 		infidel_opinion = -20
+
+		intermarry = celtic_pagan
+		intermarry = celtic_pagan_reformed
+		intermarry = germanic_pagan
+		intermarry = germanic_pagan_reformed
 	}
 	antinomianism = {
 		graphical_culture = westerngfx
-		
-		ai_peaceful = no
 
 		icon = 129
 		heresy_icon = 130
@@ -419,11 +431,10 @@ christian = {
 		religious_clothing_priest = 5
 
 		character_modifier = { ### If Antinomians can sin without consequence, few other Christians will like them and they'll sin a ton. ###
-			same_religion_opinion = 25
+			same_religion_opinion = 30
 			fertility = 0.3
-			add_piety_midifier = -0.25
 			sex_appeal_opinion = 5
-			christian_opinion = -15
+			christian_opinion = -30
 		}
 
 		high_god_name = { 
@@ -464,10 +475,9 @@ christian = {
 			GOD_GOD GOD_THE_LORD GOD_YESHUA
 		}
 		evil_god_names = {
-			SATAN
+			SATAN THE_DEVIL
 		}
 
-		autocephaly = yes
 		can_grant_divorce = yes
 		can_call_crusade = yes
 		can_grant_invasion_cb = invasion
@@ -522,7 +532,7 @@ christian = {
 
 		
 		character_modifier = {
-			global_tax_modifier = 0.1
+			global_tax_modifier = 0.20
 			fertility = -0.2
 		}
 
@@ -612,8 +622,8 @@ christian = {
 		pc_marriage = yes
 		bs_marriage = yes
 
-		religious_clothing_head = 2
-		religious_clothing_priest = 2
+		religious_clothing_head = 0
+		religious_clothing_priest = 0
 		
 		general_opinion = -10
 		same_opinion_if_same_religion = 20
@@ -720,6 +730,8 @@ christian = {
 		evil_god_names = {
 			SATAN THE_DEVIL THE_DARKNESS THE_DARK_SPIRITS
 		}
+
+		dislike_tribal_organization = no
 
 		can_retire_to_monastery = yes
 		female_temple_holders = no
@@ -871,6 +883,9 @@ christian = {
 	donatism = {
 		graphical_culture = westerngfx
 
+		ai_convert_same_group = 2
+		ai_convert_other_group = 2
+
 		icon = 106
 		heresy_icon = 130
 		
@@ -902,12 +917,13 @@ christian = {
 		can_call_crusade = yes
 		can_retire_to_monastery = yes
 		priests_can_inherit = no
-		autocephalacy = no
+		autocephaly = no
 		
 		general_opinion = -20
 		same_opinion_if_same_religion = 40
 		infidel_opinion = -40
 	}
+
 	priscillianism = {
 		graphical_culture = southerngfx # This, alongside the "occitangfx" unit, is the Iberian GFX
 		secondary_event_pictures = manichean
@@ -922,11 +938,9 @@ christian = {
 		
 		color = { 0.5 0.7 0.5 }
 		parent = nicene
-		allow_looting = no
-		autocephalacy = no
+
 		female_temple_holders = yes
 		can_grant_invasion_cb = invasion
-		investiture = yes
 		can_have_antipopes = no
 		raised_vassal_opinion_loss = no
 		can_excommunicate = yes
@@ -940,7 +954,7 @@ christian = {
 		can_call_crusade = yes
 
 		high_god_name = {
-			GOD_TWELVE_PATRIARCHS
+			GOD_GOD
 		}
 
 		god_names = {
@@ -975,6 +989,7 @@ christian = {
 
 		intermarry = manichean
 	}
+
 	monophysite = {
 		graphical_culture = westerngfx
 
@@ -1063,8 +1078,8 @@ christian = {
 		can_retire_to_monastery = yes
 		priests_can_inherit = no
 		
-		religious_clothing_head = 2
-		religious_clothing_priest = 2
+		religious_clothing_head = 5
+		religious_clothing_priest = 5
 		
 		general_opinion = -10
 		same_opinion_if_same_religion = 20
@@ -1141,8 +1156,8 @@ christian = {
 		religious_clothing_head = 2
 		religious_clothing_priest = 2
 
-		intermarry = zoroastrian
-		intermarry = islamic
+		intermarry = zoroastrian_group
+		intermarry = muslim
 		
 		general_opinion = -10
 		same_opinion_if_same_religion = 20
@@ -1333,6 +1348,15 @@ muslim = {
 		can_hold_temples = no
 		defensive_attrition = yes #Yazidi originated deep in the mountains and hostile terrain
 
+		unit_modifier = {
+			global_supply_limit = 0.25
+			global_winter_supply = 0.25
+			siege_defence = 0.5
+			#global_defensive = 0.3
+			
+			key = "DEF_RELIGION"
+		}
+
 		religious_clothing_head = 5 #The Sheikh wears white but can wear a pink headdress
 		religious_clothing_priest = 5 #Different orders of Yazidi clergy wear different colors (lowest rank wears black), but white is considered universally accepted
 
@@ -1517,9 +1541,9 @@ muslim = {
 		max_wives = 4
 		matrilineal_marriages = no
 		landed_kin_prestige_bonus = yes
- 		attacking_same_religion_piety_loss = yes
 		uses_decadence = yes
 		uses_jizya_tax = yes
+		hostile_within_group = yes # All other Muslims (especially non-Sunnis) were seen as "impure" and to be murdered, and still are to this day
 
 		religious_clothing_head = 5 #They actually wear black, but there is no black model that looks like number five
 		religious_clothing_priest = 5
@@ -1629,6 +1653,9 @@ muslim = {
 		general_opinion = -10
 		same_opinion_if_same_religion = 20
 		infidel_opinion = -20
+
+		religious_clothing_head = 5
+		religious_clothing_priest = 5
 	}
 	hurufi = {
 		graphical_culture = muslimgfx
@@ -1758,8 +1785,8 @@ muslim = {
 		religious_clothing_priest = 5
 
 		landed_kin_prestige_bonus = yes
-		}
 	}
+}
 	
 pagan_group = {
 	has_coa_on_barony_only = yes
@@ -3419,6 +3446,8 @@ pagan_group = {
 		
 		dislike_tribal_organization = yes
 	}
+
+
 	
 	west_african_pagan_reformed = {
 		graphical_culture = africangfx
@@ -3673,7 +3702,7 @@ pagan_group = {
 		
 		high_god_name = GOD_GURZIL
 		god_names = {
-			GOD_AMUN GOD_GURZIL
+			THE_BULL GOD_AMUN GOD_GURZIL THE_BULL_GOD
 		}
 		evil_god_names = {
 			THE_DARK_SPIRITS
@@ -3697,7 +3726,7 @@ pagan_group = {
 		
 		independence_war_score_bonus = 30 # Overrides define CONTESTED_TITLE_OCCUPIED_WARSCORE_BONUS_INDEP
 		
-		aggression = 2 # AI Aggression
+		aggression = 4 # AI Aggression
 		
 		religious_clothing_head = 3
 		religious_clothing_priest = 3
@@ -3976,7 +4005,6 @@ pagan_group = {
 		religious_clothing_priest = 3
 	}
 
-
 	east_african_pagan = {
 		graphical_culture = africangfx
 
@@ -4034,13 +4062,14 @@ pagan_group = {
 	
 	assyrian_pagan = { # Ashurism, LONG LIVE ENLIL!
 		graphical_culture = persiangfx
-		secondary_event_pictures = sunni
+		secondary_event_pictures = zoroastrian
 		
 		ai_peaceful = no
 
 		pre_reformed = yes
 
 		ai_convert_other_group = 2 # always try to convert
+		ai_convert_same_group = 2 # always try to convert
 		
 		icon = 79
 		heresy_icon = 80
@@ -4054,6 +4083,26 @@ pagan_group = {
 		evil_god_names = {
 			HUMBABA ASAG PAZUZU HANBI KUR LAMASHTU NAMTAR
 		}
+
+		character_modifier = {
+			martial = 4
+			#commander_limit = 3
+			short_reign_length = 0 # Assyrians worshipped their rulers as a direct connection to the Ashur and the gods (if they were not gods themselves)
+			#ai_ambition = 5 # Causes Assyrian characters to be more likely to go to war, compunds with aggression
+		}
+
+		unit_modifier = {
+			#camel_calvary_offensive = 0.5 # The Assyrian Empire mastered the use of the camel
+			land_morale = 0.66
+			light_infantry_offensive= 0.1
+			heavy_infantry_offensive = 0.1
+			knights_offensive = 0.1
+			archers_offensive = 0.1
+			garrison_size = 0.20
+			#winter_supply = -0.1 # The Assyrian Empire failed to withstand the cold and never expanded northward in that way
+
+			key = "OFF_RELIGION"
+		}
 		
 		crusade_name = GREAT_HOLY_WAR
 		scripture_name = THE_EPICS
@@ -4063,14 +4112,20 @@ pagan_group = {
 		priests_can_marry = yes
 		female_temple_holders = yes
 		max_consorts = 3 #Mesopotamian culture was highly sexualised
+		hostile_within_group = yes
+		dislike_tribal_organization = no
+		ignores_defensive_attrition = yes
 		
-		aggression = 10 # The Ancient assyrians believed that if they stopped conquering it would literally be the end of the world
+		aggression = 10 # The Ancient Assyrians believed that if they stopped conquering it would literally be the end of the world
 		raised_vassal_opinion_loss = no
 		peace_piety_gain = -1.0
 
 		religious_clothing_head = 5
 		religious_clothing_priest = 5
+
+		intermarry = zoroastrian_group
 	}
+	
 	zun_pagan_reformed = {
 		graphical_culture = indiangfx
 		secondary_event_pictures = zoroastrian
@@ -4162,44 +4217,139 @@ pagan_group = {
 		dislike_tribal_organization = yes
 	}
 	
-	vasconic = { # Basques
-        graphical_culture = southerngfx
+	vasconic_pagan_reformed = { # Basques
+		graphical_culture = southerngfx
 		
-		pre_reformed = yes
-		
+		ai_convert_same_group = 2 # always try to convert
 		ai_convert_other_group = 2 # always try to convert
 
-        icon = 153
+		icon = 153
 		heresy_icon = 154
 		
-        color = { 0.0 0.3 0.3 }
+		color = { 0.2 0.3 0.2 }
 		
-        high_god_name = GOD_URTZI
-        god_names = {
+		high_god_name = GOD_URTZI
+		god_names = {
 			GOD_MARI GOD_LAMIA GOD_BASAJAUN GOD_SUGAAR GOD_ATARRABI GOD_AMALUR  GOD_EGUZKIA GOD_ILARGIA
-       	}
+		}
     
 		evil_god_names = {
-            GOD_JENTILAK GOD_TARTALO GOD_MIKELATS GOD_AKERBELTZ	
+			GOD_JENTILAK GOD_TARTALO GOD_MIKELATS GOD_AKERBELTZ	
+		}
+		
+		unit_modifier = {		
+			garrison_size = 0.3
+			levy_size = 0.1
+			
+			key = "DEF_RELIGION"
+		}
+
+		unit_home_modifier = {
+			land_morale = 0.8
+			light_infantry_defensive = 0.8
+			heavy_infantry_defensive = 0.8
+			pikemen_defensive = 0.8
+			light_cavalry_defensive = 0.8
+			knights_defensive = 0.8
+			archers_defensive = 0.8
+			horse_archers_defensive = 0.8
+			camel_cavalry_defensive = 0.8
+			war_elephants_defensive = 0.8
+			
+			garrison_size = 0.4
+			
+			key = "DEF_RELIGION_HOME_TERRITORY"
 		}
 		
 		crusade_name = GUDA_SANTUA
-        scripture_name = EUSKAL_BIBLIA		
-        priest_title = ZAI
-      	priests_can_marry = yes
-        female_temple_holders = yes
-        feminist = yes
-        defensive_attrition = yes
-        max_consorts = 3
-        peace_prestige_loss = no 
-        raised_vassal_opinion_loss = no
-        allow_looting = yes	
-        aggression = 1.5 # AI aggression factor
-        dislike_tribal_organization = yes
-        short_reign_opinion_year_mult = 2
+		scripture_name = EUSKAL_BIBLIA		
+		priest_title = ZAI
 		
-        religious_clothing_head = 3
-        religious_clothing_priest = 3
+		priests_can_marry = yes
+		female_temple_holders = yes
+		feminist = yes
+		defensive_attrition = yes
+		max_consorts = 3
+		
+		peace_prestige_loss = no 
+		raised_vassal_opinion_loss = no
+		allow_looting = yes	
+		aggression = 1.5 # AI aggression factor
+		short_reign_opinion_year_mult = 2
+		
+		religious_clothing_head = 3
+		religious_clothing_priest = 3
+		
+		dislike_tribal_organization = yes
+		
+		allow_in_ruler_designer = no
+	}
+	
+	vasconic_pagan = { # Basques
+		graphical_culture = southerngfx
+		
+		ai_convert_other_group = 2 # always try to convert
+
+		icon = 153
+		heresy_icon = 154
+		
+		color = { 0.2 0.3 0.2 }
+		
+		high_god_name = GOD_URTZI
+
+		god_names = {
+			GOD_MARI GOD_LAMIA GOD_BASAJAUN GOD_SUGAAR GOD_ATARRABI GOD_AMALUR  GOD_EGUZKIA GOD_ILARGIA
+		}
+    
+		evil_god_names = {
+			GOD_JENTILAK GOD_TARTALO GOD_MIKELATS GOD_AKERBELTZ	
+		}
+		
+		unit_modifier = {		
+			garrison_size = 0.3
+			levy_size = 0.1
+			
+			key = "DEF_RELIGION"
+		}
+		unit_home_modifier = {
+			land_morale = 0.8
+			light_infantry_defensive = 0.8
+			heavy_infantry_defensive = 0.8
+			pikemen_defensive = 0.8
+			light_cavalry_defensive = 0.8
+			knights_defensive = 0.8
+			archers_defensive = 0.8
+			horse_archers_defensive = 0.8
+			camel_cavalry_defensive = 0.8
+			war_elephants_defensive = 0.8
+			
+			garrison_size = 0.4
+			
+			key = "DEF_RELIGION_HOME_TERRITORY"
+		}
+
+		
+		crusade_name = GUDA_SANTUA
+       		scripture_name = EUSKAL_BIBLIA		
+		priest_title = ZAI
+
+	      	priests_can_marry = yes
+		female_temple_holders = yes
+		feminist = yes
+		defensive_attrition = yes
+		max_consorts = 3
+		reformed = vasconic_pagan_reformed
+		
+		peace_prestige_loss = no 
+		raised_vassal_opinion_loss = no
+		allow_looting = yes	
+		aggression = 1.5 # AI aggression factor
+		short_reign_opinion_year_mult = 2
+		
+		religious_clothing_head = 3
+		religious_clothing_priest = 3
+		
+		dislike_tribal_organization = yes
 	}
 	
 	hellenic_pagan = {
@@ -4214,16 +4364,17 @@ pagan_group = {
 		
 		color = { 0.5 0.5 1.0  }
 		
-		high_god_name = GOD_SATURN
+		high_god_name = GOD_JUPITER
 		god_names = {
-			GOD_JUNO GOD_VESTA GOD_MINERVA GOD_CERES GOD_DIANA GOD_VENUS GOD_MARS GOD_MERCURY GOD_JUPITER GOD_NEPTUNE GOD_VULCAN GOD_APOLLO
+			GOD_JUNO GOD_VESTA GOD_MINERVA GOD_CERES GOD_DIANA GOD_VENUS GOD_MARS GOD_MERCURY GOD_SATURN GOD_NEPTUNE GOD_VULCAN GOD_APOLLO
 		}
 		evil_god_names = {
-			GOD_PLUTO
+			GOD_PLUTO GOD_HECATE
 		}
-		
 		unit_modifier = {
 			levy_size = 0.3
+			
+			retinuesize_perc = 0.5
 			
 			key = "OFF_RELIGION"
 		}
@@ -4243,6 +4394,9 @@ pagan_group = {
 		
 		religious_clothing_head = 5
 		religious_clothing_priest = 5
+		
+		dynamic_cult = yes
+		secret_religion = yes
 	}
 	cybelian_pagan = {
 		graphical_culture = persiangfx
@@ -4286,14 +4440,14 @@ pagan_group = {
 		heresy_icon = 85
 		
 		color = { 0.5 0.05 0.0 }
-		#parent = hellenic_pagan
+#		parent = hellenic_pagan
 		
 		high_god_name = GOD_MASTIMAN
 		god_names = {
 			GOD_MASTIMAN GOD_SATURN
 		}
 		evil_god_names = {
-			GOD_MASTIMAN GOD_SATURN
+			THE_DARK_SPIRITS
 		}
 		
 		crusade_name = GREAT_HOLY_WAR
@@ -4359,7 +4513,7 @@ pagan_group = {
 		
 		high_god_name = GOD_MITHRAS
 		god_names = {
-			GOD_MITHRAS GOD_SOL_INVICTUS GOD_INVINCIBLE_SUN
+			GOD_MITHRAS GOD_SOL_INVICTUS GOD_INVINCIBLE_SUN GOD_THE_SUN
 		}
 		evil_god_names = {
 			AHRIMAN ANGRA_MAINYU
@@ -4815,6 +4969,8 @@ jewish_group = {
 		religious_clothing_priest = 7
 		
 		expel_modifier = expelled_jewish
+
+		intermarry = ebionites
 		
 		general_opinion = -10
 		same_opinion_if_same_religion = 20
@@ -4823,6 +4979,9 @@ jewish_group = {
 	tzadikite = {
 		graphical_culture = jewishgfx
 		secondary_event_pictures = buddhist
+
+		ai_convert_same_group = 1
+		ai_convert_other_group = 2
 		
 		icon = 38
 		heresy_icon = 39
@@ -4843,28 +5002,49 @@ jewish_group = {
 		}
 		
 		unit_modifier = {
-			levy_size = 0.3
+			levy_size = 0.35
 			
 			retinuesize_perc = 0.5
 			
 			key = "OFF_RELIGION"
 		}
+
+		unit_home_modifier = {
+			land_morale = 0.66
+			light_infantry_defensive = 0.3
+			heavy_infantry_defensive = 0.4
+			knights_defensive = 0.3
+			archers_defensive = 0.2
+			garrison_size = 0.25
+			#winter_supply = 0.05 # Mountainous nature
+
+			key = "DEF_RELIGION_HOME_TERRITORY"
+		}
 		
 		character_modifier = {
-			martial  = 2
+			martial  = 3
+			combat_rating = 1
+			#commander_limit = 1
+			#ai_ambition = 1
+			#ai_zeal = 2
 		}
 
 		can_grant_divorce = yes
 		can_call_crusade = yes
 		can_grant_invasion_cb = invasion
+		allow_looting = yes
+		raised_vassal_opinion_loss = yes
+		defensive_attrition = yes
 		
 		priests_can_marry = yes
 		
-		aggression = 2.0 # Offensive Religion 
+		aggression = 2 # Offensive Religion 
 		religious_clothing_head = 7
 		religious_clothing_priest = 7
 		
 		expel_modifier = expelled_jewish
+
+		intermarry = ebionites
 		
 		general_opinion = -20
 		same_opinion_if_same_religion = 40
@@ -4892,6 +5072,8 @@ jewish_group = {
 		religious_clothing_priest = 7
 		
 		expel_modifier = expelled_jewish
+
+		intermarry = ebionites
 		
 		general_opinion = -10
 		same_opinion_if_same_religion = 20
@@ -4930,7 +5112,7 @@ bosporan_group = {
 			GOD_BOSPORAN GOD_THE_HERO GOD_THE_THREE_MOTHERS GOD_HYPSISTOS
 		}
 		evil_god_names = {
-			SATAN
+			THE_DARKNESS
 		}
 		
 		can_grant_divorce = yes
@@ -4952,6 +5134,15 @@ bosporan_group = {
  		
 		religious_clothing_head = 7
 		religious_clothing_priest = 7
+
+		intermarry = jewish_group
+		intermarry = christian
+		intermarry = germanic_pagan
+		intermarry = germanic_pagan_reformed
+		intermarry = tengri_pagan
+		intermarry = tengri_pagan_reformed
+		intermarry = scythian_pagan
+		intarmarry = scythian_pagan_reformed
 		
 		general_opinion = -10
 		same_opinion_if_same_religion = 20
@@ -5112,7 +5303,7 @@ indian_group = {
 		intermarry = buddhist
 	}
 	mimamsa = {
-		has_coa_on_barony_only = yes
+#		has_coa_on_barony_only = yes
 
 		ai_convert_same_group = 2 # always
 		ai_convert_other_group = 1 # only when zealous
@@ -5134,9 +5325,9 @@ indian_group = {
 			THE_VINAYAKAS
 		}
 		
-		autocephalacy = no
+#		autocephaly = yes
 		can_grant_divorce = yes
-		priests_can_inherit = yes
+		priests_can_inherit = no
 		priests_can_marry = yes
 		allow_looting = yes
 		max_consorts = 3

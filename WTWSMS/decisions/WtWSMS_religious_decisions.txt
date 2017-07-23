@@ -407,7 +407,6 @@ decisions = {
 	create_priscillian_patriarchy = {
 		only_playable = yes
 		is_high_prio = yes
-	
 		potential = {
 			religion = priscillianism
 			NOT = { is_title_active = d_priscillianism }
@@ -415,49 +414,63 @@ decisions = {
 			prisoner = no
 			NOT = { trait = incapable }
 		}
-		
 		allow = {
-			is_heretic = no
 			piety = 1000
+			trait = vegetarian
 			OR = {
 				owns = 198 # Valladolid
 				any_realm_lord = {
-					owns = 198
+					owns = 198 # Valladolid
 				}
 			}
 		}
-		
 		effect = {
 			give_nickname = nick_with_immortal_soul
+			set_global_flag = veggiepriest
 			activate_title = { title = d_priscillianism status = yes }
 			hidden_tooltip = {
 				create_random_priest = {
+					name = "Priscillian"
 					dynasty = none
-					random_traits = yes
-				}
-				new_character = {
-					d_priscillianism = {
-						grant_title = PREV
+					trait = humble
+					trait = vegetarian
+					trait = zealous
+					trait = mystic
+					race = coptic
+					religion = priscillianism
+					culture = ROOT
+					female = no
+					attributes = {
+						martial = 8
+						intrigue = 10
+						learning = 10
 					}
-					wealth = 500
-					opinion = {
-						who = ROOT
-						modifier = opinion_creator_of_rel_heal
-					}
+					historical = yes
 				}
-				
-				religion_authority = {
-					modifier = patriarchy_instituted
-					years = 20
+			}
+			new_character = {
+				d_priscillianism = {
+					grant_title = PREV
 				}
+				b_avila = {
+					grant_title = PREV
+					make_capital_holding = yes
+				}
+				wealth = 0
+				opinion = {
+					who = ROOT
+					modifier = opinion_creator_of_rel_heal
+				}
+			}
+			religion_authority = {
+				modifier = patriarchy_instituted
+				years = 20
 			}
 			piety = 1000
 		}
-		
 		revoke_allowed = {
 			always = no
 		}
-		
 		ai_will_do = {
 			factor = 1
 		}
@@ -476,7 +489,13 @@ decisions = {
  		}
  	
  		allow = {
-			is_heretic = no
+			OR = {
+				is_heretic = no
+				AND = {
+					higher_real_tier_than = KING
+					realm_size = 90
+				}
+			}
  			piety = 1000
 			OR = {
 				owns = 802 # Alexandria
@@ -492,7 +511,8 @@ decisions = {
  				create_random_priest = {
  					dynasty = none
  					random_traits = yes
-					female = no	
+					female = no
+					add_trait = mystic	
  				}
  				new_character = {
  					d_sethian = {
@@ -703,8 +723,7 @@ decisions = {
 		potential = {
 			religion = melchisedechianism
 			independent = yes
-			NOT = { is_title_active = d_melchisedechianism }
-			always = no # missing event
+			NOT = { is_title_active = k_melchisedechianism }
 		}
 		
 		allow = {
@@ -720,11 +739,11 @@ decisions = {
 		effect = {
 			give_nickname = nick_the_anointed
 			activate_title = { 
-				title = d_melchisedechianism
+				title = k_melchisedechianism
 				status = yes
 			}
 			hidden_tooltip = {
-				grant_title =  PREV	
+				grant_title = ROOT
 				religion_authority = {
 					modifier = patriarchy_instituted
 					years = 20
@@ -735,7 +754,7 @@ decisions = {
 			set_global_flag = here_come_dat_priest_king
 			add_trait = newsalem
 			ROOT = { 
-				narrative_event = { id = spirit.41 }
+				narrative_event = { id = spirit.40 }
 			}
 		}
 		
@@ -777,8 +796,91 @@ decisions = {
 		}
 	}
 	
+	recruit_donatist_bands = {
+		only_playable = yes
+		is_high_prio = yes
+		is_mercenary = yes
+		potential = {
+			is_playable = yes
+			is_tribal = no
+			is_landed = yes
+			religion = donatism
+			capital_scope = {
+				region = world_africa_north #These bands lived in Northern Africa where there were sizeable Donatist minorities
+			}
+			OR = {
+				ai = no
+				any_war = {
+					OR = {
+						any_defender = {
+							character = ROOT
+							is_primary_war_defender = yes
+						}
+						any_attacker = {
+							character = ROOT
+							is_primary_war_attacker = yes
+						}
+					}
+				}
+			}
+		}
+		
+		allow = {
+			war = yes
+			piety = 500
+			age = 16
+		}
+		
+		effect = {
+			custom_tooltip = { text = recruit_donatist_bands_tooltip }
+			piety = -500
+			
+			hidden_tooltip = {
+				capital_scope = {
+					PREV = {
+						spawn_unit = {
+							owner = ROOT
+							province = PREV
+							home = PREV
+							troops = {
+								light_infantry = { 250 250 }
+							}
+							attrition = 1.0
+							disband_on_peace = yes
+							maintenance_multiplier = 0.5
+						}
+					}
+				}
+				capital_scope = {
+					PREV = {
+						spawn_unit = {
+							owner = ROOT
+							province = PREV
+							home = PREV
+							troops = {
+								light_infantry = { 250 250 }
+							}
+							attrition = 1.0
+							disband_on_peace = yes
+							maintenance_multiplier = 0.5
+						}
+					}
+				}
+			}
+		}
+		
+		revoke_allowed = {
+			always = no #Not used in vanilla
+		}
+		
+		ai_will_do = {
+			factor = 0 # decisions with the "is_mercenary" will not be calculated from the script
+		}
+	}
+	
 	choose_sanamahi_patron_deity = {
 		potential = {
+			always = no # Missing event
 			has_dlc = "Rajas of India"
 			is_playable = yes
 			age = 16
@@ -957,7 +1059,7 @@ decisions = {
 							light_infantry = { 1000 1000 }
 						}
 						attrition = 1.0
-						morale = -.20 
+						morale = -0.20 
 						disband_on_peace = yes
 						maintenance_multiplier = 0.5
 					}
@@ -969,4 +1071,47 @@ decisions = {
 		}
 	}
 
+
+	restore_mimamsa = {
+		is_high_prio = yes
+
+		potential = {
+			religion = mimamsa
+			higher_real_tier_than = KING
+		}
+
+		allow = {
+			NOT = { trait = cynical }
+			piety = 750
+		}
+
+		effect = {
+			activate_title = { title = k_mimamsa status = yes }
+			hidden_tooltip = {
+				create_random_priest = {
+					dynasty = none
+					random_traits = yes
+					add_trait = imposing
+					add_trait = brahmin
+					female = no
+					culture = ROOT
+				}
+				new_character = {
+					d_mimamsa = {
+						grant_title = PREV
+					}
+					wealth = 500
+					opinion = {
+						who = ROOT
+						modifier = opinion_creator_of_rel_heal
+					}
+				}
+				
+				religion_authority = {
+					modifier = patriarchy_instituted
+					years = 20
+				}
+			}
+		}
+	}
 }

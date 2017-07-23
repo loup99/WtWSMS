@@ -1274,7 +1274,7 @@ narrative_event = {
 	title = spirit.40.name
 	desc = spirit.40.desc
 	picture = GFX_evt_gnostics_rising
-	border = GFX_event_narrative_frame_learning
+	border = GFX_event_narrative_frame_religion
 	
 	is_triggered_only = yes
 	
@@ -1293,8 +1293,10 @@ character_event = {
 		OR = {
 			AND = {
 				has_global_flag = here_come_dat_priest_king
-				has_landed_title = d_melchisedechianism
-				controls_religion = melchisedechianism
+				OR = {
+					has_landed_title = k_melchisedechianism
+					controls_religion = melchisedechianism
+				}
 			}
 			is_theocracy = yes
 			has_job_title = job_spiritual
@@ -1333,13 +1335,12 @@ character_event = {
 		religion = priscillianism
 		OR = {
 			government = theocracy_government
-			AND = {
-				controls_religion = priscillianism
-				has_landed_title = d_priscillianism
-			}
+			controls_religion = priscillianism
+			has_landed_title = d_priscillianism
 			has_job_title = job_spiritual
 			trait = nun
 			trait = monk
+			trait = wandering_hermit
 		}
 		NOT = {
 			trait = vegetarian
@@ -1371,25 +1372,19 @@ character_event = {
 	hide_window = yes
 
 	trigger = {
+       	religion = tzadikite
+		age = 16
 		OR = {
-			AND = {
-				has_landed_title = d_tzadikite
-				controls_religion = d_tzadikite
-			}
+			controls_religion = tzadikite
 			is_theocracy = yes
 			has_job_title = job_spiritual
 		}
-       	religion = tzadikite
 		NOT = {
 			trait = mystic
-			trait = cruel
-			trait = bad_priest_christian
+			trait = bad_priest_jewish
 			trait = impaler
-			trait = hunter
-			trait = falconer
 			trait = cannibal_trait
 			trait = arbitrary
-			trait = excommunicated
 		}
 	}
 	
@@ -1487,11 +1482,102 @@ narrative_event = {
 	}
 }
 
+character_event = { # Donatist Tratidores get their own special Trait, because being a "bad priest" in that religion is far worse than others
+	id = spirit.46
+	
+	hide_window = yes
+	religion = donatism
+
+	trigger = {
+       		religion = donatism
+		OR = {
+			is_theocracy = yes
+			has_job_title = job_spiritual
+		}
+		has_character_modifier = defiance_of_asceticism
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = spirit.44.c
+		add_trait = bad_priest_donatism
+		remove_trait = bad_priest_christian
+		add_character_modifier = {
+			name = traditor_donatism
+			duration = -1
+		}
+		if = {
+			limit = {
+#				# Conditions
+				is_ruler = yes
+			}
+#			# Commands to execute if the conditions match
+			abdicate = yes # The Donatist denomination required all open Traditores to immediately vacate their office
+		}
+	}
+}
+
+character_event = { # A Donatist Tratidor has repented and everyone celebrates his change
+	id = spirit.47
+
+	hide_window = yes
+	religion = donatism
+
+	trigger = {
+		religion = donatism
+		OR = {
+			trait = bad_priest_donatism
+			has_character_modifier = traditor_donatism
+		}
+		NOT = { has_character_modifier = defiance_of_asceticism }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = spirit.44.a
+		remove_trait = bad_priest_donatism
+		remove_trait = bad_priest_christian
+		remove_character_modifier = traditor_donatism
+		add_character_modifier = {
+			name = donatist_redeemed
+			duration = 24 # Months
+		}
+	}
+}
+
+character_event = { # Ebionites, being Jews themselves, will obviously tolerate any and all Jews
+	id = spirit.48
+	
+	hide_window = yes
+	
+	religion = ebionites
+
+	trigger = {
+		religion = ebionites
+		NOT = { trait = sympathy_judaism }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = spirit.48.a
+		add_trait = sympathy_judaism
+	}
+}
+
 
 ##################################################################
-#
-# Sanamahi Events
-#
+#								 #
+# 			Sanamahi Events				 #
+#								 #
 ##################################################################
 
 namespace = sanamahi

@@ -465,7 +465,11 @@ targetted_decisions = {
 			OR = {
 				NOT = { religion_group = indian_group }
 				capital_scope = {
-					NOT = { religion_group = indian_group }
+					NOT = { 
+						religion = hindu
+						religion = jain
+						religion = buddhist
+					}
 				}
 			}
 			
@@ -601,6 +605,19 @@ targetted_decisions = {
 				random = {
 					chance = 60
 					add_trait = sympathy_indian
+				}
+			}
+			if = {
+				limit = {
+					religion_group = bosporan_group
+					NOT = { trait = sympathy_hypsistarian }
+					capital_scope = {
+						NOT = { religion_group = ROOT }
+					}
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_hypsistarian
 				}
 			}
 			capital_scope = {
@@ -1766,7 +1783,7 @@ targetted_decisions = {
 		}
 	}
 	
-	# Arabic or Visigothic character may convert to Andalusian
+	# Arabic (in mod central_semitic) or Visigothic character may convert to Andalusian
 	convert_to_andalusian = {
 		only_playable = yes
 		
@@ -1777,7 +1794,7 @@ targetted_decisions = {
 			is_playable = yes
 			OR = {
 				culture = visigothic
-				culture_group = arabic
+				culture_group = central_semitic
 			}
 			OR = {
 				religion_group = muslim

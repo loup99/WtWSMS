@@ -21,7 +21,7 @@ character_event = {
 		is_landed = no
 		religion = nicene
 		NOT = {
-			year = 1000
+			year = 700
 			liege = {
 				religion_group = christian
 				NOT = { religion = arian }
@@ -160,7 +160,7 @@ character_event = {
 		is_landed = no
 		religion = nicene
 		NOT = {
-			year = 1000
+			year = 700
 			liege = {
 				religion_group = christian
 				NOT = { religion = arian }
@@ -295,7 +295,7 @@ character_event = {
 		is_landed = no
 		religion = nicene
 		NOT = {
-			year = 1000
+			year = 700
 			liege = {
 				religion_group = christian
 				NOT = { religion = arian }
@@ -431,11 +431,14 @@ province_event = {
 				culture_group = east_germanic
 				culture_group = west_germanic
 			}
+			any_realm_province = { 
+				region = custom_imperium_romanum 
+			}
         }
     }
 	
 	mean_time_to_happen = {
-		years = 1000
+		years = 600
 	}
 	
 	option = {
@@ -514,30 +517,48 @@ character_event = {
 	min_age = 16
 	
 	trigger = {
-	    NOT = { year = 1200 }
-        NOT = { trait = roman_nostalgia }
-		OR = {
-			culture_group = central_germanic
-			culture_group = east_germanic
-			culture_group = west_germanic
-			culture_group = latin
-			culture = romano_british
+		NOT = { year = 1200 }
+		NOT = { trait = roman_nostalgia }
+		NOT = {
+			religion = assyrian_pagan
+			religion = egyptian_pagan
+			religion = aten_pagan
+			religion = sanamahi
+			religion = sanamahi_reformed
+			religion = tengri_pagan
+			religion = tengri_pagan_reformed
+			religion = scythian_pagan
+			religion = scythian_pagan_reformed
+			religion = root_west_pagan
+			religion = root_west_pagan_reformed
+			religion = zun_pagan
+			religion = zun_pagan_reformed
 		}
+		OR = {
+			religion_group = christian
+			religion_group = pagan_group
+		}
+		OR = {
+			is_republic = no
+			has_landed_title = d_senate
+			has_landed_title = k_republic
+		}
+		is_nomad = no
 	}
 	
 	mean_time_to_happen = {
-		years = 2000
+		years = 1000
 
-        modifier = {
+		modifier = {
 			factor = 0.9
 			trait = just
 		}
-        modifier = {
+		modifier = {
 			factor = 0.9
 			trait = sympathy_christendom
 		}
-        modifier = {
-			factor = 5
+		modifier = {
+			factor = 1.05
 			NOT = { religion_group = christian }
 			NOT = { religion = hellenic_pagan }
 		}
@@ -555,29 +576,40 @@ character_event = {
 				culture_group = central_germanic
 		        culture_group = east_germanic
 		        culture_group = west_germanic
+				culture_group = byzantine
 			}
 			OR = {
 				tier = emperor
 				tier = king
 			}
 		}
-        modifier = {
+		modifier = {
+				factor = 0.2
+				culture_group = latin
+		}
+		modifier = {
 			factor = 0.5
-			religion = hellenic_pagan
+			OR = {
+				religion = hellenic_pagan
+				is_heresy_of = hellenic_pagan
+				religion = mastimani
+				religion = latin_solar_pagan
+				religion = latin_solar_pagan_reformed
+			}
 		}
-        modifier = {
+		modifier = {
 			factor = 2
-			year = 800
+			year = 700
 		}
-        modifier = {
+		modifier = {
 			factor = 5
 			year = 900
 		}
-        modifier = {
+		modifier = {
 			factor = 10
 			year = 1000
 		}
-        modifier = {
+		modifier = {
 			factor = 20
 			year = 1100
 		}
@@ -606,7 +638,7 @@ character_event = {
 	hide_window = yes
 	
 	min_age = 6
-	max_age = 10
+	max_age = 15
 	prisoner = no
 	capable_only = yes
 	

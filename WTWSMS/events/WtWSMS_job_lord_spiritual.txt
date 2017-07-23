@@ -1,0 +1,191 @@
+###########################################################################
+#
+#  Bastion of Faith version of Lord Spiritual Events
+#
+##########################################################################
+
+namespace = WtWSMS_lord_spiritual
+
+# 901: The Lord Spiritual converts a subject character
+character_event = {
+	id = WtWSMS_lord_spiritual.1
+	title = "EVTNAME901"
+	desc = "EVTDESC901"
+	picture = GFX_evt_heretic
+	border = GFX_event_normal_frame_religion
+
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		NOT = {
+			trait = tolerant_ruler
+		}
+		bastion_of_faith_religion_trigger = yes 
+		liege = {
+			NOT = {
+				trait = tolerant_ruler
+			}
+		}
+		top_liege = {
+			NAND = {
+				trait = tolerant_ruler
+				religion_group = ROOT
+			}
+		}
+		has_job_action = action_inquisition
+		NOT = { has_character_modifier = in_seclusion }
+		location = {
+			any_province_character = {
+				ancestral_religion_trigger = yes
+				is_adult = yes
+				NOT = { character = ROOT }
+				NOT = { is_liege_of = ROOT }
+				NOT = { religion = ROOT }
+				OR = {
+					is_ruler = no
+					primary_title = {
+						controls_religion = no
+						mercenary = no
+						holy_order = no
+					}
+				}
+				same_realm = ROOT
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 120
+	
+		modifier = {
+			factor = 1.25
+			NOT = { learning = 2 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { learning = 3 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { learning = 4 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { learning = 5 }
+		}
+		modifier = {
+			factor = 0.75
+			learning = 10
+		}
+		modifier = {
+			factor = 0.75
+			learning = 11
+		}
+		modifier = {
+			factor = 0.75
+			learning = 12
+		}
+		modifier = {
+			factor = 0.75
+			learning = 13
+		}
+		modifier = {
+			factor = 2.0
+			NOT = { religion_authority = 0.4 }
+		}
+		modifier = {
+			factor = 2.0
+			NOT = { religion_authority = 0.2 }
+		}
+		modifier = {
+			factor = 0.75
+			religion_authority = 0.6
+		}
+		modifier = {
+			factor = 0.75
+			religion_authority = 0.8
+		}
+		modifier = {
+			factor = 3.0
+			is_reformed_religion = no
+		}
+		modifier = { # Conversion bonus
+			factor = 0.5
+			proselyte_religion_trigger = yes
+		}
+		modifier = { # Resistance bonus
+			factor = 1.5
+			location = {
+				bastion_of_faith_religion_trigger = yes
+			}
+		}
+		modifier = { # Resistance malus
+			factor = 0.25
+			location = {
+				ancestral_religion_trigger = yes
+			}
+		}
+		modifier = {
+			factor = 0.75
+			proselyte_religion_trigger = yes
+		}
+		modifier = {
+			factor = 2.0
+			location = {
+				any_province_character = {
+					NOR = {
+						character = ROOT
+						is_liege_of = ROOT
+						religion = ROOT
+					}
+					same_realm = ROOT
+					bastion_of_faith_religion_trigger = yes
+				}
+			}
+		}
+		modifier = {
+			factor = 1.8  
+			liege = { 
+				primary_title = {
+					has_law = tolerance_0
+				}
+			}
+		}
+		modifier = {
+			factor = 0.3   
+			liege = { 
+				primary_title = {
+					has_law = tolerance_2
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA901"
+		piety = 5
+		location = {
+			random_province_character = {
+				limit = {
+					ancestral_religion_trigger = yes
+					is_adult = yes
+					NOT = { character = ROOT }
+					NOT = { is_liege_of = ROOT }
+					NOT = { religion = ROOT }
+					OR = {
+						is_ruler = no
+						primary_title = {
+							controls_religion = no
+							mercenary = no
+							holy_order = no
+						}
+					}
+					same_realm = ROOT
+				}
+				letter_event = { id = 20010 tooltip = "EVTTOOLTIP20010" }
+			}
+		}
+	}
+}

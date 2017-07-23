@@ -1,0 +1,662 @@
+# Audax Validator "!" Ignore_NEXT
+#####################################################################
+#
+# VIETmisc #200-299 reserved
+#
+# 200-220 Shiite Schools
+# 221-230 Bad Priests
+# 231-240 Tolerance
+# 241-xxx Holy Orders
+#
+#####################################################################
+
+namespace = VIETmisc
+
+#################################################
+# SHIITE SCHOOLS
+#################################################
+
+
+# Adopt twelver Shiism
+character_event = {
+	id = VIETmisc.201
+	desc = "VIETmisc.201.desc"
+	picture = GFX_evt_kaaba
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = { #Boys
+		name = "VIETmisc.201.a"
+		add_trait = twelver
+	}
+}
+# Adopt sevener Shiism
+character_event = {
+	id = VIETmisc.202
+	desc = "VIETmisc.202.desc"
+	picture = GFX_evt_kaaba
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = { #Boys
+		name = "VIETmisc.202.a"
+		add_trait = sevener
+	}
+}
+# Adopt fiver Shiism
+character_event = {
+	id = VIETmisc.203
+	desc = "VIETmisc.203.desc"
+	picture = GFX_evt_kaaba
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = { #Boys
+		name = "VIETmisc.203.a"
+		add_trait = fiver
+	}
+}
+
+# Twelver liege has Sevener or Fiver vassal (Hidden)
+character_event = {
+	id = VIETmisc.204
+	
+	min_age = 16
+	only_rulers = yes
+	
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "Sons of Abraham"
+		OR = {
+			trait = sevener
+			trait = fiver
+		}
+		liege = { 
+			trait = twelver 
+			NOT = {
+				has_opinion_modifier = { who = ROOT modifier = opinion_rejected_school }
+			}
+		}
+	}
+	
+	immediate = {
+		liege = {
+			character_event = { id = VIETmisc.200 }
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 320
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Twelver liege has Sevener or Fiver vassal
+character_event = {
+	id = VIETmisc.200
+	desc = VIETmisc.200.desc
+	picture = GFX_evt_kaaba
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_SoA_603
+		FROM = { 
+			letter_event = { id = VIETmisc.205 days = 3 tooltip = EVTTOOLTIP_SoA_604 }
+		}
+	}
+	option = {
+		name = EVTOPTB_SoA_603
+	}
+}
+
+# Non-Twelver vassal receives letter
+letter_event = {
+	id = VIETmisc.205
+	desc = VIETmisc.205.desc
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_SoA_604
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = cynical
+			}
+			modifier = {
+				factor = 2
+				trait = trusting
+			}
+			modifier = {
+				factor = 2
+				trait = craven
+			}
+		}
+		FROM = { 
+			letter_event = { id = VIETmisc.206 days = 3 tooltip = VIETmisc.206.tooltip }
+		}
+		remove_trait = fiver
+		remove_trait = sevener
+		add_trait = twelver
+	}
+	option = {
+		name = VIETmisc.205.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 5
+				trait = zealous
+			}
+		}
+		FROM = { 
+			opinion = {
+				modifier = opinion_rejected_school
+				who = ROOT
+			}
+			letter_event = { id = VIETmisc.207 days = 3 tooltip = VIETmisc.207.tooltip }
+		}
+	}
+}
+
+# Non-Twelver vassal complies
+letter_event = {
+	id = VIETmisc.206
+	desc = VIETmisc.206.desc
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_SoA_605
+	}
+}
+
+# Non-Twelver vassal refuses
+letter_event = {
+	id = VIETmisc.207
+	desc = VIETmisc.207.desc
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_SoA_606
+	}
+}
+
+# Sevener liege has Twelver or Fiver vassal (Hidden)
+character_event = {
+	id = VIETmisc.208
+	
+	min_age = 16
+	only_rulers = yes
+	
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "Sons of Abraham"
+		OR = {
+			trait = twelver
+			trait = fiver
+		}
+		liege = { 
+			trait = sevener 
+			NOT = {
+				has_opinion_modifier = { who = ROOT modifier = opinion_rejected_school }
+			}
+		}
+	}
+	
+	immediate = {
+		liege = {
+			character_event = { id = VIETmisc.209 }
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 320
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Sevener liege has Twelver or Fiver vassal
+character_event = {
+	id = VIETmisc.209
+	desc = VIETmisc.209.desc
+	picture = GFX_evt_kaaba
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_SoA_603
+		FROM = { 
+			letter_event = { id = VIETmisc.210 days = 3 tooltip = EVTTOOLTIP_SoA_604 }
+		}
+	}
+	option = {
+		name = EVTOPTB_SoA_603
+	}
+}
+
+# Non-Sevener vassal receives letter
+letter_event = {
+	id = VIETmisc.210
+	desc = VIETmisc.210.desc
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_SoA_604
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = cynical
+			}
+			modifier = {
+				factor = 2
+				trait = trusting
+			}
+			modifier = {
+				factor = 2
+				trait = craven
+			}
+		}
+		FROM = { 
+			letter_event = { id = VIETmisc.211 days = 3 tooltip = VIETmisc.211.tooltip }
+		}
+		remove_trait = fiver
+		remove_trait = twelver
+		add_trait = sevener
+	}
+	option = {
+		name = VIETmisc.210.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 5
+				trait = zealous
+			}
+		}
+		FROM = { 
+			opinion = {
+				modifier = opinion_rejected_school
+				who = ROOT
+			}
+			letter_event = { id = VIETmisc.212 days = 3 tooltip = VIETmisc.212.tooltip }
+		}
+	}
+}
+
+# Non-Sevener vassal complies
+letter_event = {
+	id = VIETmisc.211
+	desc = VIETmisc.211.desc
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_SoA_605
+	}
+}
+
+# Non-Sevener vassal refuses
+letter_event = {
+	id = VIETmisc.212
+	desc = VIETmisc.212.desc
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_SoA_606
+	}
+}
+
+# Fiver liege has Twelver or Sevener vassal (Hidden)
+character_event = {
+	id = VIETmisc.213
+	
+	min_age = 16
+	only_rulers = yes
+	
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "Sons of Abraham"
+		OR = {
+			trait = twelver
+			trait = sevener
+		}
+		liege = { 
+			trait = fiver 
+			NOT = {
+				has_opinion_modifier = { who = ROOT modifier = opinion_rejected_school }
+			}
+		}
+	}
+	
+	immediate = {
+		liege = {
+			character_event = { id = VIETmisc.214 }
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 320
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Fiver liege has Twelver or Sevener vassal
+character_event = {
+	id = VIETmisc.214
+	desc = VIETmisc.214.desc
+	picture = GFX_evt_kaaba
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_SoA_603
+		FROM = { 
+			letter_event = { id = VIETmisc.215 days = 3 tooltip = EVTTOOLTIP_SoA_604 }
+		}
+	}
+	option = {
+		name = EVTOPTB_SoA_603
+	}
+}
+
+# Non-Fiver vassal receives letter
+letter_event = {
+	id = VIETmisc.215
+	desc = VIETmisc.215.desc
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_SoA_604
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = cynical
+			}
+			modifier = {
+				factor = 2
+				trait = trusting
+			}
+			modifier = {
+				factor = 2
+				trait = craven
+			}
+		}
+		FROM = { 
+			letter_event = { id = VIETmisc.216 days = 3 tooltip = VIETmisc.216.tooltip }
+		}
+		remove_trait = sevener
+		remove_trait = twelver
+		add_trait = fiver
+	}
+	option = {
+		name = VIETmisc.215.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 5
+				trait = zealous
+			}
+		}
+		FROM = { 
+			opinion = {
+				modifier = opinion_rejected_school
+				who = ROOT
+			}
+			letter_event = { id = VIETmisc.217 days = 3 tooltip = VIETmisc.217.tooltip }
+		}
+	}
+}
+
+# Non-Fiver vassal complies
+letter_event = {
+	id = VIETmisc.216
+	desc = VIETmisc.216.desc
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_SoA_605
+	}
+}
+
+# Non-Fiver vassal refuses
+letter_event = {
+	id = VIETmisc.217
+	desc = VIETmisc.217.desc
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_SoA_606
+	}
+}
+
+
+
+#################################################
+# BAD PRIESTS
+#################################################
+
+
+# Indian becoming a wicked priest
+character_event = {
+
+	id = VIETmisc.221
+
+	hide_window = yes
+
+	trigger = {
+		has_dlc = "Sons of Abraham"
+		NOT = { intrigue = 3 }
+		NOT = { diplomacy = 3 }
+		is_priest = yes
+		religion_group = indian_group
+		OR = {
+			trait = cynical
+			trait = lustful
+			trait = gluttonous
+			trait = greedy
+			trait = slothful
+			trait = envious
+			trait = wroth
+			trait = proud
+			trait = lunatic
+			trait = possessed
+			trait = homosexual
+			trait = hedonist
+		}
+		NOT = { trait = kind }
+		NOT = { trait = charitable }
+		NOT = { trait = chaste }
+		NOT = { trait = patient }
+		NOT = { trait = temperate }
+		NOT = { trait = diligent }
+		NOT = { trait = humble }
+		NOT = { trait = bad_priest_indian }
+	}
+
+	mean_time_to_happen = {
+		months = 24
+	}
+
+	immediate = {
+		add_trait = bad_priest_indian
+		if = {
+			limit = {
+				is_ruler = yes
+				has_nickname = no
+				NOT = { trait = possessed }
+				NOT = { trait = lunatic }
+			}
+			give_nickname = nick_the_wicked
+		}
+		if = {
+			limit = {
+				is_ruler = yes
+				has_nickname = no
+				trait = possessed
+			}
+			give_nickname = nick_the_bewitched
+		}
+		if = {
+			limit = {
+				is_ruler = yes
+				has_nickname = no
+				trait = lunatic
+			}
+			give_nickname = nick_the_mad
+		}
+	}
+}
+
+# Jewish priest becoming an unworthy priest
+character_event = {
+	
+	id = VIETmisc.226
+
+	hide_window = yes
+
+	trigger = {
+		has_dlc = "Sons of Abraham"
+		NOT = { intrigue = 3 }
+		NOT = { diplomacy = 3 }
+		is_priest = yes
+		religion_group = jewish_group
+		NOT = { trait = incapable }
+		NOT = { trait = bad_priest_jewish }
+		OR = {
+			trait = cynical
+			trait = lustful
+			trait = gluttonous
+			trait = greedy
+			trait = slothful
+			trait = envious
+			trait = wroth
+			trait = proud
+			trait = lunatic
+			trait = possessed
+			trait = homosexual
+			trait = hedonist
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 24
+	}
+
+	immediate = {
+		add_trait = bad_priest_jewish
+		if = {
+			limit = {
+				is_ruler = yes
+				has_nickname = no
+				NOT = { trait = possessed }
+				NOT = { trait = lunatic }
+			}
+			give_nickname = nick_the_wicked
+		}
+		if = {
+			limit = {
+				is_ruler = yes
+				has_nickname = no
+				trait = possessed
+			}
+			give_nickname = nick_the_bewitched
+		}
+		if = {
+			limit = {
+				is_ruler = yes
+				has_nickname = no
+				trait = lunatic
+			}
+			give_nickname = nick_the_mad
+		}
+	}
+}
+
+# Wicked Jewish Religious Head!
+character_event = {
+	id = VIETmisc.227
+	
+	hide_window = yes
+
+	trigger = {
+		has_dlc = "Sons of Abraham"
+		OR = {
+			has_landed_title = d_jewish
+			has_landed_title = d_kohen_gadol_samaritan
+		}
+		trait = bad_priest_jewish
+		NOT = { has_character_modifier = bad_rel_head }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		add_character_modifier = {
+			name = bad_rel_head
+			duration = -1
+			hidden = yes
+		}
+		any_playable_ruler = {
+			limit = {
+				ai = no
+				religion_head = {
+					character = ROOT
+				}
+			}
+			character_event = { id = VIETmisc.228 days = 8 random = 7 }         # Notify player
+		}
+	}
+}
+
+# Wicked Jewish Religious Head player notification
+character_event = {
+	id = VIETmisc.228
+	desc = EVTDESC_SoA_5312
+	picture = GFX_evt_pope_feast
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+
+	option = {
+		name = EVTOPTA_SoA_5312
+	}
+}
+
