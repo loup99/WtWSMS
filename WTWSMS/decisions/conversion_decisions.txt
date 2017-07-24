@@ -1,9 +1,11 @@
-decisions = {
-
-# Moved convert_to_attacker_religion, convert_to_spouse_religion and convert_to_consort_religion to LI_target_decisions.txt 
+targetted_decisions = {
 	
 	convert_to_liege_religion = {
 		only_playable = yes
+		
+		filter = self
+		ai_target_filter = self
+		
 		potential = {
 			ai = no
 			is_playable = yes
@@ -85,8 +87,129 @@ decisions = {
 		}
 	}
 	
+	convert_to_liege_religion_on_liege = {
+		only_playable = yes
+		
+		filter = liege
+		ai_target_filter = liege
+		
+		from_potential = {
+			ai = no
+			is_playable = yes
+			controls_religion = no
+		}
+		potential = {
+			NOT = { character = FROM }
+			NOT = { religion = FROM }
+			religion_group = FROM
+		}
+		
+		allow = {
+			FROM = { NOT = { trait = zealous } }
+		}
+		
+		effect = {
+			FROM = {
+				prestige = -500
+				piety = 250
+				if = {
+					limit = { higher_tier_than = BARON }
+					religion_authority = {
+						modifier = ruler_converted_from
+					}
+				}
+				religion = ROOT
+				if = {
+					limit = { higher_tier_than = BARON }
+					hidden_tooltip = {
+						religion_authority = {
+							modifier = ruler_converted_to
+						}
+					}
+				}
+				if = {
+					limit = { ROOT = { trait = shaivist_hindu } }
+					add_trait = shaivist_hindu
+				}
+				if = {
+					limit = { ROOT = { trait = vaishnavist_hindu } }
+					add_trait = vaishnavist_hindu
+				}
+				if = {
+					limit = { ROOT = { trait = shaktist_hindu } }
+					add_trait = shaktist_hindu
+				}
+				if = {
+					limit = { ROOT = { trait = smartist_hindu } }
+					add_trait = smartist_hindu
+				}
+				if = {
+					limit = { ROOT = { trait = mahayana_buddhist } }
+					add_trait = mahayana_buddhist
+				}
+				if = {
+					limit = { ROOT = { trait = vajrayana_buddhist } }
+					add_trait = vajrayana_buddhist
+				}
+				if = {
+					limit = { ROOT = { trait = theravada_buddhist } }
+					add_trait = theravada_buddhist
+				}
+				if = {
+					limit = { ROOT = { trait = digambara_jain } }
+					add_trait = digambara_jain
+				}
+				if = {
+					limit = { ROOT = { trait = svetambara_jain } }
+					add_trait = svetambara_jain
+				}
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	convert_to_liege_culture_on_liege = {
+		only_playable = yes
+		
+		filter = liege
+		ai_target_filter = liege
+		
+		from_potential = {
+			is_playable = yes
+		}
+		
+		potential = {
+			NOT = { character = FROM }
+			NOT = { culture = FROM }
+		}
+		allow = {
+			FROM = { prestige = 200 }
+		}
+		effect = {
+			FROM = {
+				prestige = -200
+				culture = ROOT
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
 	convert_to_liege_culture = {
 		only_playable = yes
+		
+		filter = self
+		ai_target_filter = self
+		
 		potential = {
 			is_playable = yes
 			liege = {
@@ -113,6 +236,10 @@ decisions = {
 	
 	convert_to_local_culture = {
 		only_playable = yes
+		
+		filter = self
+		ai_target_filter = self
+		
 		potential = {
 			is_playable = yes
 			is_nomadic = no
@@ -307,11 +434,19 @@ decisions = {
 					}
 				}
 			}
+			modifier = {
+				factor = 0
+				culture = nahuatl
+			}
 		}
 	}
 	
 	convert_to_local_religion = {
 		only_playable = yes
+		
+		filter = self
+		ai_target_filter = self
+		
 		potential = {
 			ai = no
 			is_playable = yes
@@ -330,7 +465,11 @@ decisions = {
 			OR = {
 				NOT = { religion_group = indian_group }
 				capital_scope = {
-					NOT = { religion_group = indian_group }
+					NOT = { 
+						religion = hindu
+						religion = jain
+						religion = buddhist
+					}
 				}
 			}
 			
@@ -350,9 +489,7 @@ decisions = {
 			}
 		}
 		allow = {
-			NOT = {
-				trait = zealous
-			}
+			NOT = { trait = zealous }
 			OR = {
 				AND = {
 					prestige = 500
@@ -392,6 +529,97 @@ decisions = {
 			religion_authority = {
 				modifier = ruler_converted_from
 			}
+			if = {
+				limit = {
+					religion_group = christian
+					NOT = { trait = sympathy_christendom }
+					capital_scope = {
+						NOT = { religion_group = ROOT }
+					}
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_christendom
+				}
+			}
+			if = {
+				limit = {
+					religion_group = muslim
+					NOT = { trait = sympathy_islam }
+					capital_scope = {
+						NOT = { religion_group = ROOT }
+					}
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_islam
+				}
+			}
+			if = {
+				limit = {
+					religion_group = pagan_group
+					NOT = { trait = sympathy_pagans }
+					capital_scope = {
+						NOT = { religion_group = ROOT }
+					}
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_pagans
+				}
+			}
+			if = {
+				limit = {
+					religion_group = zoroastrian_group
+					NOT = { trait = sympathy_zoroastrianism }
+					capital_scope = {
+						NOT = { religion_group = ROOT }
+					}
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_zoroastrianism
+				}
+			}
+			if = {
+				limit = {
+					religion_group = jewish_group
+					NOT = { trait = sympathy_judaism }
+					capital_scope = {
+						NOT = { religion_group = ROOT }
+					}
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_judaism
+				}
+			}
+			if = {
+				limit = {
+					religion_group = indian_group
+					NOT = { trait = sympathy_indian }
+					capital_scope = {
+						NOT = { religion_group = ROOT }
+					}
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_indian
+				}
+			}
+			if = {
+				limit = {
+					religion_group = bosporan_group
+					NOT = { trait = sympathy_hypsistarian }
+					capital_scope = {
+						NOT = { religion_group = ROOT }
+					}
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_hypsistarian
+				}
+			}
 			capital_scope = {
 				reverse_religion = ROOT
 			}
@@ -411,6 +639,10 @@ decisions = {
 	
 	convert_to_parent_religion = {
 		only_playable = yes
+		
+		filter = self
+		ai_target_filter = self
+		
 		potential = {
 			ai = no
 			is_playable = yes
@@ -461,9 +693,13 @@ decisions = {
 			factor = 0
 		}
 	}
-		
+	
 	convert_to_swedish = {
 		only_playable = yes
+		
+		filter = self
+		ai_target_filter = self
+		
 		potential = {
 			is_playable = yes
 			culture = norse
@@ -567,6 +803,10 @@ decisions = {
 	}
 	convert_to_norwegian = {
 		only_playable = yes
+		
+		filter = self
+		ai_target_filter = self
+		
 		potential = {
 			is_playable = yes
 			culture = norse
@@ -671,6 +911,10 @@ decisions = {
 	}
 	convert_to_danish = {
 		only_playable = yes
+		
+		filter = self
+		ai_target_filter = self
+		
 		potential = {
 			is_playable = yes
 			culture = norse
@@ -774,6 +1018,10 @@ decisions = {
 	}
 	convert_to_norman = {
 		only_playable = yes
+		
+		filter = self
+		ai_target_filter = self
+		
 		potential = {
 			is_playable = yes
 			culture = norse
@@ -876,6 +1124,10 @@ decisions = {
 	
 	convert_to_reformed = {
 		only_playable = yes
+		
+		filter = self
+		ai_target_filter = self
+		
 		potential = {
 			is_playable = yes
 			is_heretic = yes
@@ -923,10 +1175,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0.5
-				OR = {
-					trait = slow
-					trait = dull
-				}
+				is_dumb_trigger = yes
 			}
 			modifier = {
 				factor = 0.1
@@ -938,13 +1187,10 @@ decisions = {
 			}
 			modifier = {
 				factor = 2.0
-				OR = {
-					trait = quick
-					trait = shrewd
-				}
-			}
+				is_smart_trigger = yes
+			} # \/ These two /\ stack to give genius x4
 			modifier = {
-				factor = 4.0
+				factor = 2.0
 				trait = genius
 			}
 			modifier = {
@@ -968,6 +1214,9 @@ decisions = {
 	convert_to_hinduism = {
 		only_playable = yes
 		icon_religion = hindu
+		
+		filter = self
+		ai_target_filter = self
 	
 		potential = {
 			ai = no
@@ -1081,6 +1330,9 @@ decisions = {
 	convert_to_buddhism = {
 		only_playable = yes
 		icon_religion = buddhist
+		
+		filter = self
+		ai_target_filter = self
 	
 		potential = {
 			ai = no
@@ -1194,6 +1446,9 @@ decisions = {
 	convert_to_jainism = {
 		only_playable = yes
 		icon_religion = jain
+		
+		filter = self
+		ai_target_filter = self
 	
 		potential = {
 			ai = no
@@ -1306,6 +1561,10 @@ decisions = {
 
 	convert_indian_branch = {
 		only_playable = yes
+		
+		filter = self
+		ai_target_filter = self
+		
 		potential = {
 			ai = no
 			is_playable = yes
@@ -1349,6 +1608,9 @@ decisions = {
 	# Carolingian renaissance - Old Frankish conversion to French
 	convert_to_french = {
 		only_playable = yes
+		
+		filter = self
+		ai_target_filter = self
 	
 		potential = {
 			is_playable = yes
@@ -1435,6 +1697,10 @@ decisions = {
 	# Pictish character may convert to Scottish
 	convert_to_scottish = {
 		only_playable = yes
+		
+		filter = self
+		ai_target_filter = self
+		
 		potential = {
 			is_playable = yes
 			culture = pictish
@@ -1517,14 +1783,18 @@ decisions = {
 		}
 	}
 	
-	# Arabic or Visigothic character may convert to Andalusian
+	# Arabic (in mod central_semitic) or Visigothic character may convert to Andalusian
 	convert_to_andalusian = {
 		only_playable = yes
+		
+		filter = self
+		ai_target_filter = self
+		
 		potential = {
 			is_playable = yes
 			OR = {
 				culture = visigothic
-				culture_group = arabic
+				culture_group = central_semitic
 			}
 			OR = {
 				religion_group = muslim
@@ -1612,6 +1882,10 @@ decisions = {
 	# Visigothic character may convert to Castillan
 	convert_to_castillan = {
 		only_playable = yes
+		
+		filter = self
+		ai_target_filter = self
+		
 		potential = {
 			is_playable = yes
 			culture = visigothic
@@ -1698,6 +1972,10 @@ decisions = {
 	# Visigothic character may convert to catalan
 	convert_to_catalan = {
 		only_playable = yes
+		
+		filter = self
+		ai_target_filter = self
+		
 		potential = {
 			is_playable = yes
 			culture = visigothic
@@ -1784,6 +2062,10 @@ decisions = {
 	# Suebi or Visigothic character may convert to Portuguese
 	convert_to_portuguese = {
 		only_playable = yes
+		
+		filter = self
+		ai_target_filter = self
+		
 		potential = {
 			is_playable = yes
 			OR = {
@@ -1876,6 +2158,10 @@ decisions = {
 	# Old Frankish or Old Saxon character may convert to dutch
 	convert_to_dutch = {
 		only_playable = yes
+		
+		filter = self
+		ai_target_filter = self
+		
 		potential = {
 			is_playable = yes
 			OR = {
@@ -1965,6 +2251,10 @@ decisions = {
 	# Lombard character may convert to italian
 	convert_to_italian = {
 		only_playable = yes
+		
+		filter = self
+		ai_target_filter = self
+		
 		potential = {
 			is_playable = yes
 			culture = lombard
@@ -2070,6 +2360,10 @@ decisions = {
 	# Visigothic character may convert to occitan
 	convert_to_occitan = {
 		only_playable = yes
+		
+		filter = self
+		ai_target_filter = self
+		
 		potential = {
 			is_playable = yes
 			culture = visigothic
@@ -2156,6 +2450,10 @@ decisions = {
 	# East Slavic character may convert to Russian
 	convert_to_russian = {
 		only_playable = yes
+		
+		filter = self
+		ai_target_filter = self
+		
 		potential = {
 			is_playable = yes
 			culture_group = east_slavic

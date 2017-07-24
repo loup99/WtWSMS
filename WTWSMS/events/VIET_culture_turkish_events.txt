@@ -1,0 +1,1427 @@
+################################################################
+#
+# Events for the Turks (and Byzantines)
+#
+################################################################
+
+namespace = ottoman
+
+#Character conquers Constantinople
+narrative_event = {
+	id = ottoman.1
+	title = ottoman.1.name
+	desc = ottoman.1.desc
+	picture = GFX_evt_fetih
+	border = GFX_event_narrative_frame_war
+	
+	only_rulers = yes
+	
+	is_triggered_only = yes
+
+	option = {
+		trigger = { character = ROOT }
+		name = ottoman.1.a
+		set_dynasty_flag = the_ottomans
+		set_global_flag = fall_of_constantinople
+		prestige = 300
+		piety = 300
+		give_nickname = nick_fetih
+		add_trait = kayser_i_rum
+		if = {
+			limit = {
+				NOT = { has_landed_title = c_byzantion }
+			}
+			c_byzantion = {
+				usurp_title_plus_barony_if_unlanded_and_vassals = PREV
+			}
+		}		
+		e_turkish = {
+			grant_title = ROOT
+		}
+		hidden_tooltip = {
+			any_playable_ruler = {
+				limit = {
+					ai = no
+				}
+				narrative_event = { id = ottoman.6 }
+			}
+		}
+	}
+}
+
+#Rumelia gains all de jure territories of the Byzantine Empire
+character_event = {
+	id = ottoman.2
+	desc = "ottoman.2.desc"
+	picture = GFX_evt_tughra
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_global_flag = fall_of_constantinople
+		NOT = { has_global_flag = byzantium_eliminated }
+		is_adult = yes
+		culture = turkish
+		religion_group = muslim
+		independent = yes
+		has_landed_title = e_turkish
+		prisoner = no
+		war = no
+		e_byzantium = {
+			owner = {
+				war = no
+			}
+		}
+		OR = {
+			e_byzantium = { has_holder = no }
+			e_byzantium = {
+				holder_scope = {
+					NOT = { realm_size = 20 }
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = "ottoman.2.a"
+		set_global_flag = byzantium_eliminated
+		if = {
+			limit = {
+				e_byzantium = { has_holder = no }
+			}
+			e_byzantium = {
+				any_direct_de_jure_vassal_title = {
+					de_jure_liege = e_turkish
+				}
+			}
+			e_byzantium = {
+				destroy_landed_title = THIS
+			}
+		}
+		if = {
+			limit = {
+				e_byzantium = { has_holder = yes }
+			}
+			e_byzantium = {
+				holder_scope = {
+					letter_event = { id = ottoman.8 tooltip = ottoman.8.tt }
+				}
+			}
+		}
+	}
+}
+
+#Turkish Conquest CB gets free troops event removed
+
+#Turkish Muslim ruler of Rumelia becomes Kayser-i-Rum
+character_event = {
+	id = ottoman.4
+	desc = "ottoman.4.desc"
+	picture = GFX_evt_turkish_sultan
+	
+	only_rulers = yes
+	
+	trigger = {
+		culture = turkish
+		religion_group = muslim
+		has_landed_title = e_turkish
+		NOT = { trait = kayser_i_rum }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = "ottoman.4.a"
+		add_trait = kayser_i_rum
+		prestige = 25
+		piety = 25
+	}
+}
+
+
+#Character who is Kaysar-i-Rum loses title
+character_event = {
+	id = ottoman.5
+	desc = "ottoman.5.desc"
+	picture = GFX_evt_turkish_sultan
+	
+	only_rulers = yes
+	
+	trigger = {
+		NOT = { has_landed_title = e_turkish }
+		trait = kayser_i_rum
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = "ottoman.5.a"
+		remove_trait = kayser_i_rum
+		prestige = -50
+		piety = -50
+	}
+}
+
+
+#Fall of Constantinople
+narrative_event = {
+	id = ottoman.6
+	title = "ottoman.6.name"
+	desc = "ottoman.6.desc"
+	
+	picture = "GFX_evt_fetih"
+	border = "GFX_event_narrative_frame_war"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "ottoman.6.a"
+		trigger = { 
+			NOT = { religion_group = muslim } 
+			NOT = { religion_group = christian } 
+		}
+	}
+	option = {
+		name = "ottoman.6.b"
+		trigger = { religion_group = muslim }
+	}	
+	option = {
+		name = "ottoman.6.c"
+		trigger = { religion_group = christian }
+	}
+}
+
+
+#Free Eunuchs
+character_event = {
+	id = ottoman.7
+	desc = "ottoman.7.desc"
+	picture = GFX_evt_turkish_sultan
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_landed_title = e_turkish
+		religion_group = muslim
+		culture = turkish
+	}	
+	
+	mean_time_to_happen = { 
+		months = 1000
+		modifier = {
+			factor = 3
+			has_character_flag = ottoman_eunuch
+		}
+		modifier = {
+			factor = 2
+			any_courtier = {
+				trait = eunuch
+			}
+		}
+	}
+	
+	option = {
+		name = "ottoman.7.a"
+		scaled_wealth = -0.1
+		prestige = 10
+		set_character_flag = ottoman_eunuch
+		random_list = {
+			10 = {
+				create_character = {
+					trait = eunuch
+					random_traits = yes
+					dynasty = none
+					religion = ROOT
+					culture = ethiopian
+					female = no
+				}
+			}			
+			10 = {
+				create_character = {
+					trait = eunuch
+					random_traits = yes
+					dynasty = none
+					religion = ROOT
+					culture = nubian
+					female = no
+				}
+			}
+			10 = {
+				create_character = {
+					trait = eunuch
+					random_traits = yes
+					dynasty = none
+					religion = ROOT
+					culture = somali
+					female = no
+				}
+			}
+			10 = {
+				create_character = {
+					trait = eunuch
+					random_traits = yes
+					dynasty = none
+					religion = ROOT
+					culture = egyptian_arabic
+					female = no
+				}
+			}
+			10 = {
+				create_character = {
+					trait = eunuch
+					random_traits = yes
+					dynasty = none
+					religion = ROOT
+					culture = armenian
+					female = no
+				}
+			}
+			10 = {
+				create_character = {
+					trait = eunuch
+					random_traits = yes
+					dynasty = none
+					religion = ROOT
+					culture = serbian
+					female = no
+				}
+			}
+			10 = {
+				create_character = {
+					trait = eunuch
+					random_traits = yes
+					dynasty = none
+					religion = ROOT
+					culture = greek
+					female = no
+				}
+			}
+			10 = {
+				create_character = {
+					trait = eunuch
+					random_traits = yes
+					dynasty = none
+					religion = ROOT
+					culture = bulgarian
+					female = no
+				}
+			}
+			10 = {
+				create_character = {
+					trait = eunuch
+					random_traits = yes
+					dynasty = none
+					religion = ROOT
+					culture = russian
+					female = no
+				}
+			}
+			10 = {
+				create_character = {
+					trait = eunuch
+					random_traits = yes
+					dynasty = none
+					religion = ROOT
+					culture = cuman
+					female = no
+				}
+			}
+			10 = {
+				create_character = {
+					trait = eunuch
+					random_traits = yes
+					dynasty = none
+					religion = ROOT
+					culture = georgian
+					female = no
+				}
+			}
+		}
+	}	
+	option = {
+		name = "ottoman.7.b"
+	}
+}
+
+# Inform Byzantine Emperor of his title loss
+letter_event = {
+	id = ottoman.8
+	desc = ottoman.8.desc
+	picture = GFX_evt_emissary
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ottoman.8.a
+		e_byzantium = {
+			any_direct_de_jure_vassal_title = {
+				de_jure_liege = e_turkish
+			}
+		}
+		e_byzantium = {
+			destroy_landed_title = THIS
+		}
+	}
+}
+
+
+#Concubine promoted to Wife for the Harem?
+character_event = {
+	id = ottoman.9
+	desc = "ottoman.9.desc"
+	picture = GFX_evt_maiden_muslim
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = e_turkish
+			father = { has_landed_title = e_turkish }
+			any_sibling = { has_landed_title = e_turkish }
+		}
+		religion_group = muslim
+		culture = turkish
+		NOT = { num_of_spouses = 4 }
+	}	
+	
+	immediate = {
+		if = {
+			limit = {
+				NOT = { has_character_flag = ottoman_wifey_harem_done_once }
+			}
+			set_character_flag = ottoman_wifey_harem_done_once
+		}
+	}
+	
+	option = {
+		name = "ottoman.9.a"
+		prestige = 10
+		clr_character_flag = ottoman_wifey_harem
+		add_character_modifier = {
+			name = VIET_virile_ottoman
+			duration = 730
+		}
+		##########################		
+		#15 Circassian
+		#10 Turks
+		#10 Greeks
+		#5 Italian
+		#5 Serbian
+		#5 Croatian
+		#5 Hungarian
+		#5 Bulgarian
+		#5 Sicilian
+		#5 Russian
+		#5 Armenian
+		#5 Levantine
+		#4 Egyptian
+		#3 Kurdish
+		#2 Occitan
+		#2 Catalan
+		#2 frankish
+		#2 Irish
+		#2 Nubian
+		##########################
+		hidden_tooltip = {
+			random_list = { #Who's the lucky girl?
+				15 = { #Circassian beauties
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = ROOT
+						culture = georgian
+						female = yes
+					}
+					new_character = {
+						add_spouse = ROOT
+						# Her traits aren't that random (otherwise why would le Sultan notice her?)
+						random = {
+							chance = 30
+							add_trait = fair
+						}
+						random = {
+							chance = 10
+							add_trait = tall
+						}
+						random = {
+							chance = 5
+							add_trait = quick
+						}
+						random = {
+							chance = 5
+							add_trait = genius
+						}
+						remove_trait = ugly
+						remove_trait = incapable
+						remove_trait = inbred
+						remove_trait = hunchback
+					}
+				}
+				10 = { #Turks
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = ROOT
+						culture = turkish
+						female = yes
+					}
+					new_character = {
+						add_spouse = ROOT
+						# Her traits aren't that random (otherwise why would le Sultan notice her?)
+						random = {
+							chance = 20
+							add_trait = fair
+						}
+						random = {
+							chance = 10
+							add_trait = tall
+						}
+						random = {
+							chance = 5
+							add_trait = quick
+						}
+						random = {
+							chance = 5
+							add_trait = genius
+						}
+						remove_trait = ugly
+						remove_trait = incapable
+						remove_trait = inbred
+						remove_trait = hunchback
+					}
+				}
+				10 = { #Greeks
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = ROOT
+						culture = greek
+						female = yes
+					}
+					new_character = {
+						add_spouse = ROOT
+						# Her traits aren't that random (otherwise why would le Sultan notice her?)
+						random = {
+							chance = 20
+							add_trait = fair
+						}
+						random = {
+							chance = 10
+							add_trait = tall
+						}
+						random = {
+							chance = 5
+							add_trait = quick
+						}
+						random = {
+							chance = 5
+							add_trait = genius
+						}
+						remove_trait = ugly
+						remove_trait = incapable
+						remove_trait = inbred
+						remove_trait = hunchback
+					}
+				}
+				5 = { #Italianos
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = ROOT
+						culture = italian
+						female = yes
+					}
+					new_character = {
+						add_spouse = ROOT
+						# Her traits aren't that random (otherwise why would le Sultan notice her?)
+						random = {
+							chance = 20
+							add_trait = fair
+						}
+						random = {
+							chance = 10
+							add_trait = tall
+						}
+						random = {
+							chance = 5
+							add_trait = quick
+						}
+						random = {
+							chance = 5
+							add_trait = genius
+						}
+						remove_trait = ugly
+						remove_trait = incapable
+						remove_trait = inbred
+						remove_trait = hunchback
+					}
+				}
+				5 = { #serbian
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = ROOT
+						culture = serbian
+						female = yes
+					}
+					new_character = {
+						add_spouse = ROOT
+						# Her traits aren't that random (otherwise why would le Sultan notice her?)
+						random = {
+							chance = 20
+							add_trait = fair
+						}
+						random = {
+							chance = 10
+							add_trait = tall
+						}
+						random = {
+							chance = 5
+							add_trait = quick
+						}
+						random = {
+							chance = 5
+							add_trait = genius
+						}
+						remove_trait = ugly
+						remove_trait = incapable
+						remove_trait = inbred
+						remove_trait = hunchback
+					}
+				}
+				5 = { #croatian
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = ROOT
+						culture = croatian
+						female = yes
+					}
+					new_character = {
+						add_spouse = ROOT
+						# Her traits aren't that random (otherwise why would le Sultan notice her?)
+						random = {
+							chance = 20
+							add_trait = fair
+						}
+						random = {
+							chance = 10
+							add_trait = tall
+						}
+						random = {
+							chance = 5
+							add_trait = quick
+						}
+						random = {
+							chance = 5
+							add_trait = genius
+						}
+						remove_trait = ugly
+						remove_trait = incapable
+						remove_trait = inbred
+						remove_trait = hunchback
+					}
+				}
+				5 = { #hungarian
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = ROOT
+						culture = hungarian
+						female = yes
+					}
+					new_character = {
+						add_spouse = ROOT
+						# Her traits aren't that random (otherwise why would le Sultan notice her?)
+						random = {
+							chance = 20
+							add_trait = fair
+						}
+						random = {
+							chance = 10
+							add_trait = tall
+						}
+						random = {
+							chance = 5
+							add_trait = quick
+						}
+						random = {
+							chance = 5
+							add_trait = genius
+						}
+						remove_trait = ugly
+						remove_trait = incapable
+						remove_trait = inbred
+						remove_trait = hunchback
+					}
+				}
+				5 = { #Bulgarian
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = ROOT
+						culture = bulgarian
+						female = yes
+					}
+					new_character = {
+						add_spouse = ROOT
+						# Her traits aren't that random (otherwise why would le Sultan notice her?)
+						random = {
+							chance = 20
+							add_trait = fair
+						}
+						random = {
+							chance = 10
+							add_trait = tall
+						}
+						random = {
+							chance = 5
+							add_trait = quick
+						}
+						random = {
+							chance = 5
+							add_trait = genius
+						}
+						remove_trait = ugly
+						remove_trait = incapable
+						remove_trait = inbred
+						remove_trait = hunchback
+					}
+				}
+				5 = { #Sicilian
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = ROOT
+						culture = sicilian
+						female = yes
+					}
+					new_character = {
+						add_spouse = ROOT
+						# Her traits aren't that random (otherwise why would le Sultan notice her?)
+						random = {
+							chance = 20
+							add_trait = fair
+						}
+						random = {
+							chance = 10
+							add_trait = tall
+						}
+						random = {
+							chance = 5
+							add_trait = quick
+						}
+						random = {
+							chance = 5
+							add_trait = genius
+						}
+						remove_trait = ugly
+						remove_trait = incapable
+						remove_trait = inbred
+						remove_trait = hunchback
+					}
+				}
+				5 = { #Russian
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = ROOT
+						culture = russian
+						female = yes
+					}
+					new_character = {
+						add_spouse = ROOT
+						# Her traits aren't that random (otherwise why would le Sultan notice her?)
+						random = {
+							chance = 20
+							add_trait = fair
+						}
+						random = {
+							chance = 10
+							add_trait = tall
+						}
+						random = {
+							chance = 5
+							add_trait = quick
+						}
+						random = {
+							chance = 5
+							add_trait = genius
+						}
+						remove_trait = ugly
+						remove_trait = incapable
+						remove_trait = inbred
+						remove_trait = hunchback
+					}
+				}
+				5 = { #armenian
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = ROOT
+						culture = armenian
+						female = yes
+					}
+					new_character = {
+						add_spouse = ROOT
+						# Her traits aren't that random (otherwise why would le Sultan notice her?)
+						random = {
+							chance = 20
+							add_trait = fair
+						}
+						random = {
+							chance = 10
+							add_trait = tall
+						}
+						random = {
+							chance = 5
+							add_trait = quick
+						}
+						random = {
+							chance = 5
+							add_trait = genius
+						}
+						remove_trait = ugly
+						remove_trait = incapable
+						remove_trait = inbred
+						remove_trait = hunchback
+					}
+				}
+				5 = { #Arabic
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = ROOT
+						culture = levantine_arabic
+						female = yes
+					}
+					new_character = {
+						add_spouse = ROOT
+						# Her traits aren't that random (otherwise why would le Sultan notice her?)
+						random = {
+							chance = 20
+							add_trait = fair
+						}
+						random = {
+							chance = 10
+							add_trait = tall
+						}
+						random = {
+							chance = 5
+							add_trait = quick
+						}
+						random = {
+							chance = 5
+							add_trait = genius
+						}
+						remove_trait = ugly
+						remove_trait = incapable
+						remove_trait = inbred
+						remove_trait = hunchback
+					}
+				}
+				4 = { #arabic
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = ROOT
+						culture = egyptian_arabic
+						female = yes
+					}
+					new_character = {
+						add_spouse = ROOT
+						# Her traits aren't that random (otherwise why would le Sultan notice her?)
+						random = {
+							chance = 20
+							add_trait = fair
+						}
+						random = {
+							chance = 10
+							add_trait = tall
+						}
+						random = {
+							chance = 5
+							add_trait = quick
+						}
+						random = {
+							chance = 5
+							add_trait = genius
+						}
+						remove_trait = ugly
+						remove_trait = incapable
+						remove_trait = inbred
+						remove_trait = hunchback
+					}
+				}
+				3 = { #Kurdish
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = ROOT
+						culture = kurdish
+						female = yes
+					}
+					new_character = {
+						add_spouse = ROOT
+						# Her traits aren't that random (otherwise why would le Sultan notice her?)
+						random = {
+							chance = 20
+							add_trait = fair
+						}
+						random = {
+							chance = 10
+							add_trait = tall
+						}
+						random = {
+							chance = 5
+							add_trait = quick
+						}
+						random = {
+							chance = 5
+							add_trait = genius
+						}
+						remove_trait = ugly
+						remove_trait = incapable
+						remove_trait = inbred
+						remove_trait = hunchback
+					}
+				}
+				2 = { #Occitan
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = ROOT
+						culture = occitan
+						female = yes
+					}
+					new_character = {
+						add_spouse = ROOT
+						# Her traits aren't that random (otherwise why would le Sultan notice her?)
+						random = {
+							chance = 20
+							add_trait = fair
+						}
+						random = {
+							chance = 10
+							add_trait = tall
+						}
+						random = {
+							chance = 5
+							add_trait = quick
+						}
+						random = {
+							chance = 5
+							add_trait = genius
+						}
+						remove_trait = ugly
+						remove_trait = incapable
+						remove_trait = inbred
+						remove_trait = hunchback
+					}
+				}
+				2 = { #catalan
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = ROOT
+						culture = catalan
+						female = yes
+					}
+					new_character = {
+						add_spouse = ROOT
+						# Her traits aren't that random (otherwise why would le Sultan notice her?)
+						random = {
+							chance = 20
+							add_trait = fair
+						}
+						random = {
+							chance = 10
+							add_trait = tall
+						}
+						random = {
+							chance = 5
+							add_trait = quick
+						}
+						random = {
+							chance = 5
+							add_trait = genius
+						}
+						remove_trait = ugly
+						remove_trait = incapable
+						remove_trait = inbred
+						remove_trait = hunchback
+					}
+				}
+				2 = { #frankish
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = ROOT
+						culture = frankish
+						female = yes
+					}
+					new_character = {
+						add_spouse = ROOT
+						# Her traits aren't that random (otherwise why would le Sultan notice her?)
+						random = {
+							chance = 20
+							add_trait = fair
+						}
+						random = {
+							chance = 10
+							add_trait = tall
+						}
+						random = {
+							chance = 5
+							add_trait = quick
+						}
+						random = {
+							chance = 5
+							add_trait = genius
+						}
+						remove_trait = ugly
+						remove_trait = incapable
+						remove_trait = inbred
+						remove_trait = hunchback
+					}
+				}
+				2 = { #Irish
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = ROOT
+						culture = irish
+						female = yes
+					}
+					new_character = {
+						add_spouse = ROOT
+						# Her traits aren't that random (otherwise why would le Sultan notice her?)
+						random = {
+							chance = 20
+							add_trait = fair
+						}
+						random = {
+							chance = 10
+							add_trait = tall
+						}
+						random = {
+							chance = 5
+							add_trait = quick
+						}
+						random = {
+							chance = 5
+							add_trait = genius
+						}
+						remove_trait = ugly
+						remove_trait = incapable
+						remove_trait = inbred
+						remove_trait = hunchback
+					}
+				}
+				2 = { #Nubian
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = ROOT
+						culture = nubian
+						female = yes
+					}
+					new_character = {
+						add_spouse = ROOT
+						# Her traits aren't that random (otherwise why would le Sultan notice her?)
+						random = {
+							chance = 20
+							add_trait = fair
+						}
+						random = {
+							chance = 10
+							add_trait = tall
+						}
+						random = {
+							chance = 5
+							add_trait = quick
+						}
+						random = {
+							chance = 5
+							add_trait = genius
+						}
+						remove_trait = ugly
+						remove_trait = incapable
+						remove_trait = inbred
+						remove_trait = hunchback
+					}
+				}
+			}
+		}
+	}	
+	option = {
+		name = "ottoman.9.b"
+		trigger = {
+			ai = no
+		}
+	}
+}
+
+
+# Ottoman Sultans are supposed to have lots and lots of sexy times, whether they like it or not
+character_event = {
+	id = ottoman.10
+	desc = "ottoman.10.desc"
+	picture = GFX_evt_maiden_muslim
+	
+	min_age = 16
+	only_men = yes
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		OR = {
+			has_landed_title = e_turkish
+			father = { has_landed_title = e_turkish }
+			any_sibling = { has_landed_title = e_turkish }
+		}
+		religion_group = muslim
+		culture = turkish
+		is_married = yes
+		any_spouse = {
+			NOT = { age = 35 }
+			NOT = { trait = incapable }
+			is_pregnant = no
+		}
+	}	
+	
+	mean_time_to_happen = { 
+		months = 1000
+		modifier = {
+			factor = 2
+			has_character_flag = ottoman_enough_sex_already
+		}
+		modifier = {
+			factor = 0.8
+			trait = homosexual
+		}
+		modifier = {
+			factor = 0.8
+			trait = chaste
+		}
+		modifier = {
+			factor = 1.25
+			trait = lustful
+		}
+		modifier = {
+			factor = 0.8
+			trait = shy
+		}
+		modifier = {
+			factor = 1.25
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.8
+			trait = scholar
+		}
+		modifier = {
+			factor = 1.25
+			trait = poet
+		}
+	}
+	
+	option = {
+		name = "ottoman.10.a"
+		set_character_flag = ottoman_enough_sex_already
+		random_spouse = {
+			limit = {
+				NOT = { age = 35 }
+				NOT = { trait = incapable }
+				is_pregnant = no
+			}
+			opinion = {
+				modifier = opinion_happy
+				who = ROOT
+				years = 1
+			}
+			random = {
+				chance = 20
+				impregnate = ROOT
+			}			
+		}
+		random_list = {
+			70 = { add_trait = stressed }
+			20 = { add_trait = depressed }
+			10 = { }
+		}
+		add_character_modifier = {
+			name = VIET_virile_ottoman
+			duration = 365
+		}
+	}	
+	option = {
+		name = "ottoman.10.b"
+		set_character_flag = ottoman_enough_sex_already
+		random_spouse = {
+			limit = {
+				NOT = { age = 35 }
+				NOT = { trait = incapable }
+			}
+			opinion = {
+				modifier = opinion_sad
+				who = ROOT
+				years = 1
+			}		
+		}
+		prestige = -20
+		if = {
+			limit = {
+				trait = lustful
+			}
+			remove_trait = lustful
+		}
+	}
+}
+
+
+#ottoman.11
+
+
+# Ottoman lord considers petitioning the Sultan for Muafname exemption
+character_event = {
+	id = ottoman.12
+	desc = "ottoman.12.desc"
+	picture = GFX_evt_turkish_sultan
+	
+	min_age = 16
+	only_rulers = yes
+	only_playable = yes
+	capable_only = yes
+	prisoner = no	
+	
+	trigger = {
+		OR = {
+			top_liege = {
+				has_landed_title = e_turkish
+				NOT = { trait = incapable }
+				is_adult = yes			
+			}
+			has_landed_title = e_turkish
+		}
+		capital_scope = {
+			OR = {
+					NOT = { religion_group = muslim }
+					NOT = { culture = turkish }
+			}
+		}
+		NOT = {
+			any_demesne_province = {
+				has_province_modifier = VIET_muafname_granted
+			}
+		}				
+	}
+	
+	mean_time_to_happen = { 
+		months = 2000
+	}
+	
+	option = {
+		name = "ottoman.12.a" #yes let's do this
+		trigger = {
+			NOT = { has_landed_title = e_turkish }
+		}
+		top_liege = {
+			character_event = { id = ottoman.13 days = 5 random = 5 tooltip = ottoman.13.tooltip }
+		}
+	}	
+	option = {
+		name = "ottoman.12.b" #No
+		trigger = {
+			has_landed_title = e_turkish
+		}
+		capital_scope = {
+			add_province_modifier = {
+				name = VIET_muafname_granted
+				duration = 3650
+			}
+		}
+	}	
+	option = {
+		name = "ottoman.12.c" #No
+		trigger = {
+			has_landed_title = e_turkish
+		}
+		capital_scope = {
+			add_province_modifier = {
+				name = VIET_muafname_granted
+				duration = 1095
+			}
+		}		
+	}	
+	option = {
+		name = "ottoman.12.d" #No
+	}
+}
+
+# Sultan considers whether to accept or not
+letter_event = {
+	id = ottoman.13
+	desc = ottoman.13.desc
+	border = GFX_event_letter_frame_economy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ottoman.13.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = charitable
+			}
+			modifier = {
+				factor = 2
+				trait = trusting
+			}
+			modifier = {
+				factor = 2
+				trait = craven
+			}
+		}
+		FROM = {
+			opinion = {
+				modifier = VIET_opinion_granted_big_muafname
+				who = ROOT
+				years = 5
+			}
+			capital_scope = {
+				add_province_modifier = {
+					name = VIET_muafname_granted
+					duration = 7300
+				}			
+			}
+			letter_event = { id = ottoman.14 days = 5 random = 5 tooltip = ottoman.14.tooltip }
+		}
+	}	
+	option = {
+		name = ottoman.13.b
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = content
+			}
+			modifier = {
+				factor = 2
+				trait = patient
+			}
+			modifier = {
+				factor = 2
+				trait = kind
+			}
+		}
+		FROM = {
+			opinion = {
+				modifier = VIET_opinion_granted_small_muafname
+				who = ROOT
+				years = 5
+			}
+			capital_scope = {
+				add_province_modifier = {
+					name = VIET_muafname_granted
+					duration = 1095
+				}				
+			}
+			letter_event = { id = ottoman.15 days = 5 random = 5 tooltip = ottoman.15.tooltip }
+		}
+	}
+	option = {
+		name = ottoman.13.c
+		ai_chance = {
+			factor = 5
+			modifier = {
+				factor = 2
+				trait = greedy
+			}
+			modifier = {
+				factor = 2
+				trait = paranoid
+			}
+			modifier = {
+				factor = 2
+				trait = arbitrary
+			}
+			modifier = {
+				factor = 2
+				trait = cruel
+			}
+		}
+		FROM = {
+			opinion = {
+				modifier = VIET_opinion_refused_muafname
+				who = ROOT
+				years = 5
+			}
+			letter_event = { id = ottoman.16 days = 5 random = 5 tooltip = ottoman.16.tooltip }
+		}
+	}
+}
+
+# Sultan grants long muafname
+letter_event = {
+	id = ottoman.14
+	desc = ottoman.14.desc
+	border = GFX_event_letter_frame_economy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ottoman.14.a
+		prestige = 20
+	}
+}
+
+# Sultan grants short muafname
+letter_event = {
+	id = ottoman.15
+	desc = ottoman.15.desc
+	border = GFX_event_letter_frame_economy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ottoman.15.a
+		prestige = 10
+	}
+}
+
+# Sultan refuses
+letter_event = {
+	id = ottoman.16
+	desc = ottoman.16.desc
+	border = GFX_event_letter_frame_economy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ottoman.16.a
+		prestige = -15
+	}	
+	option = {
+		name = ottoman.16.b
+		prestige = -15
+	}
+}
+
+
+
+
+
+
+
+

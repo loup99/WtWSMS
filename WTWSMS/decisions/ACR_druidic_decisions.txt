@@ -3,9 +3,7 @@ decisions = {
 		only_playable = yes
 		is_high_prio = yes
 		potential = {
-			NOT = {
-				has_character_flag = aonach_tailteann
-			}
+			NOT = {	has_character_flag = aonach_tailteann }
 			OR = {
 				religion = celtic_pagan
 				religion = celtic_pagan_reformed
@@ -54,16 +52,28 @@ decisions = {
 					character_event = { id = ancrel.1190 }
 				}
 			}
+
+			if = {
+				limit = {
+					has_dlc = "Reapers"
+				}
+				custom_tooltip = {
+					text = capital_prospers_custom_tooltip
+					hidden_tooltip = {
+						capital_scope = {
+							change_variable = { which = prosperity_value value = 12 }
+						}
+					}
+				}
+			}
 		}
 		ai_will_do = {
 			factor = 1
 			modifier = {
 				factor = 0
-				NOT = {
-					OR = {
-						wealth = 1000
-						scaled_wealth = 3.0
-					}
+				NOR = {
+					wealth = 1000
+					scaled_wealth = 3.0
 				}
 			}
 		}
@@ -87,7 +97,9 @@ decisions = {
 		allow = {
 			war = no
 			any_demesne_title = {
-				is_occupied = no
+				location = {
+					any_province_holding = { is_occupied = no }
+				}
 			}
 			OR = {
 				any_vassal = {
@@ -112,7 +124,21 @@ decisions = {
 				hidden_tooltip = {
 					character_event = { id = ancrel.0020 }
 				}
-			}	
+			}
+
+			if = {
+				limit = {
+					has_dlc = "Reapers"
+				}
+				custom_tooltip = {
+					text = capital_prospers_custom_tooltip
+					hidden_tooltip = {
+						capital_scope = {
+							change_variable = { which = prosperity_value value = 6 }
+						}
+					}
+				}
+			}
 		}
 		revoke_allowed = {
 			always = no
@@ -131,67 +157,6 @@ decisions = {
 				NOT = {
 					martial = 8
 				}
-			}
-		}
-	}
-
-	reinstate_celtic_rites = {
-		only_playable = yes
-		is_high_prio = yes
-		potential = {
-			has_dlc = "The Old Gods"
-			is_ruler = yes
-			age = 16
-			prisoner = no
-			culture_group = celtic
-			NOT = {
-				has_character_flag = adopted_celtic_rites
-				OR = {
-					religion = celtic_pagan
-					religion = celtic_pagan_reformed
-				}
-			}
-			any_courtier = {
-				religion = celtic_pagan
-			}
-		}
-		allow = {
-			war = no
-			scaled_wealth = 0.10
-			prisoner = no
-			learning = 8
-			NOT = { trait = zealous }
-			any_courtier = {
-				religion = celtic_pagan
-				prisoner = no
-			}
-		}
-		effect = {
-			custom_tooltip = {
-				text = adopt_celtic_rites
-				
-				scaled_wealth = -0.10
-				set_character_flag = adopted_celtic_rites
-				hidden_tooltip = {
-					character_event = { id = ancrel.0001 }
-				}
-			}
-
-			chronicle = {
-				entry = CHRONICLE_CELTIC_RITES
-				portrait = [Root.GetID]
-			}
-		}
-		ai_will_do = {
-			factor = 1
-			
-			modifier = {
-				factor = 0
-				trait = zealous
-			}
-			modifier = {
-				factor = 0
-				NOT = { learning = 6 }
 			}
 		}
 	}
@@ -320,6 +285,10 @@ decisions = {
 					}					
 				}
 			}
+			religion_authority = {
+				modifier = religious_order_formed
+				years = 10
+			}
 		}
 		ai_will_do = {
 			factor = 1
@@ -378,7 +347,10 @@ decisions = {
 					}
 				}
 			}
-
+			religion_authority = {
+				modifier = religious_order_formed
+				years = 10
+			}
 			chronicle = {
 				entry = CHRONICLE_FIANNA
 				portrait = [Root.GetID]
@@ -547,6 +519,7 @@ decisions = {
 			factor = 1
 			modifier = {
 				factor = 0.3 #Decrease chance AI will do this
+				always = yes
 			}
 			modifier = {
 				factor = 0.1
@@ -689,6 +662,7 @@ decisions = {
 			factor = 1
 			modifier = {
 				factor = 0.3 #Decrease chance AI will do this
+				always = yes
 			}
 			modifier = {
 				factor = 0.1
@@ -769,6 +743,7 @@ decisions = {
 			factor = 1
 			modifier = {
 				factor = 0.75 #Decrease chance AI will do this - they'll still do it eventually anyways, this will just prevent them from doing it immediately
+				always = yes
 			}
 		}
 	}
@@ -809,6 +784,7 @@ decisions = {
 			factor = 1
 			modifier = {
 				factor = 0.75 #Decrease chance AI will do this - they'll still do it eventually anyways, this will just prevent them from doing it immediately
+				always = yes
 			}
 		}
 	}
@@ -837,7 +813,9 @@ decisions = {
 		allow = {
 			war = no
 			any_demesne_title = {
-				is_occupied = no
+				location = {
+					any_province_holding = { is_occupied = no }
+				}
 			}
 			OR = {
 				any_vassal = {
@@ -908,6 +886,15 @@ decisions = {
 		effect = {
 			custom_tooltip = {
 				text = gaelic_abdication
+				any_vassal = {
+					limit = { among_most_powerful_vassals = 5 }
+
+					ROOT = {
+						primary_title = {
+							add_weak_claim = PREVPREV
+						}
+					}
+				}
 				abdicate = yes
 			}
 		}
@@ -934,6 +921,14 @@ decisions = {
 			modifier = {
 				factor = 0
 				trait = paranoid
+			}
+			modifier = {
+				factor = 0
+				trait = proud
+			}
+			modifier = {
+				factor = 0
+				trait = ambitious
 			}
 		}
 	}
@@ -1066,6 +1061,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0.002 # Slow it down
+				always = yes
 			}
 		}
 	}

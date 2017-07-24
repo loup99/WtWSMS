@@ -1,0 +1,593 @@
+################################################################
+#
+# Flavor Events for the Greek culture or its subdivisions
+#
+# VIETmisc.9000-9999 reserved
+#
+################################################################
+
+namespace = VIETmisc
+
+##############################################################
+#CRETE
+##############################################################
+
+#Cretan wine festival
+character_event = {
+	id = VIETmisc.9000
+	desc = VIETmisc.9000.desc
+	picture = GFX_evt_skyrim_forest_greek
+	
+	is_triggered_only = yes
+	
+	option = { # ok
+		name = VIETmisc.9000.a
+		character_event = { id = VIETmisc.9001 tooltip = VIETmisc.9001.tooltip days = 3 random = 3 }
+	}
+}
+
+narrative_event = {
+	id = VIETmisc.9001
+	title = VIETmisc.9001.title
+	desc = VIETmisc.9001.desc
+	picture = GFX_evt_small_town
+	
+	is_triggered_only = yes
+	
+	option = { # ok
+		name = VIETmisc.9001.a
+		custom_tooltip = { text = cretan_festival_next }
+		hidden_tooltip = {
+			random_list = {
+				40 = { character_event = { id = VIETmisc.9002 days = 2 } } #Too many wines
+				30 = { character_event = { id = VIETmisc.9003 days = 2 } } #Dancing
+				30 = { character_event = { id = VIETmisc.9004 days = 2 } } #Song
+			}
+		}
+	}
+}
+
+character_event = {
+	id = VIETmisc.9002
+	desc = VIETmisc.9002.desc
+	picture = GFX_evt_jugglers
+	
+	is_triggered_only = yes
+	
+	option = { # ok
+		name = VIETmisc.9002.a
+		character_event = { id = VIETmisc.9005 tooltip = VIETmisc.9002.tooltip days = 3 random = 2 }
+	}	
+	option = { # ok
+		name = VIETmisc.9002.b
+		random = {
+			chance = 5
+			add_trait = drunkard
+		}
+		random_list = {
+			50 = { }
+			50 = { prestige = 3 }
+		}
+		character_event = { id = VIETmisc.9005 tooltip = VIETmisc.9002.tooltip days = 3 random = 2 }
+	}
+}
+
+character_event = {
+	id = VIETmisc.9003
+	desc = VIETmisc.9003.desc
+	picture = GFX_evt_jugglers
+	
+	is_triggered_only = yes
+	
+	option = { # ok
+		name = VIETmisc.9003.a
+		random = {
+			chance = 5
+			add_trait = gregarious
+		}
+		prestige = 1
+		character_event = { id = VIETmisc.9005 tooltip = VIETmisc.9003.tooltip days = 3 random = 2 }
+	}
+}
+
+character_event = {
+	id = VIETmisc.9004
+	desc = VIETmisc.9004.desc
+	picture = GFX_evt_jugglers
+	
+	is_triggered_only = yes
+	
+	option = { # ok
+		name = VIETmisc.9004.a
+		add_character_modifier = {
+			name = eating_good_food
+			duration = 365
+		}
+		character_event = { id = VIETmisc.9005 tooltip = VIETmisc.9004.tooltip days = 3 random = 2 }
+	}
+}
+
+character_event = {
+	id = VIETmisc.9005
+	desc = VIETmisc.9005.desc
+	picture = GFX_evt_small_town
+	
+	is_triggered_only = yes
+	
+	option = { # ok
+		name = VIETmisc.9005.a
+		clr_character_flag = do_not_disturb
+		add_character_modifier = {
+			name = VIET_attended_cretan_feast
+			duration = 365
+		}
+		if = {
+			limit = {
+				NOT = { has_global_flag = VIET_Crete_into_the_horizon }
+			}
+			hidden_tooltip = {
+				random_list = {
+					70 = { }
+					30 = { character_event = { id = VIETmisc.9006 days = 1 } }
+				}
+			}
+		}
+	}
+}
+
+character_event = {
+	id = VIETmisc.9006
+	desc = VIETmisc.9006.desc
+	picture = GFX_evt_skyrim_forest_greek
+	
+	is_triggered_only = yes
+	
+	option = { # ok
+		name = VIETmisc.9006.a
+		set_global_flag = VIET_Crete_into_the_horizon
+		prestige = 1
+		if = {
+			limit = {
+				trait = stressed
+			}
+			random = {
+				chance = 50
+				remove_trait = stressed
+			}
+		}
+		if = {
+			limit = {
+				trait = depressed
+			}
+			random = {
+				chance = 50
+				remove_trait = depressed
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = humble }
+			}
+			random = {
+				chance = 20
+				add_trait = humble
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = kind }
+			}
+			random = {
+				chance = 20
+				add_trait = kind
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = gregarious }
+			}
+			random = {
+				chance = 20
+				add_trait = gregarious
+			}
+		}
+	}
+}
+
+
+
+# free stuff for Cretan "Republic"
+character_event = {
+	id = VIETmisc.9007
+	desc = VIETmisc.9007.desc
+	picture = GFX_evt_doge_republic_muslim
+
+	min_age = 16
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+
+	trigger = { 
+		war = no 
+		in_command = no 
+		is_abroad = no
+		OR = {
+			is_merchant_republic = yes
+			is_patrician = yes
+		}
+		capital_scope = {
+			OR = {
+				province_id = 479
+				province_id = 480
+			}
+		}
+		NOT = { year = 950 }
+		AND = {
+			religion_group = muslim
+			OR = {
+				has_landed_title = d_krete
+				liege = { has_landed_title = d_krete }
+				top_liege = { has_landed_title = d_krete }
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 750
+	}
+
+	option = {#bah
+		name = VIETmisc.9007.a
+		random_list = {
+			70 = {
+				create_character = {
+					random_traits = yes
+					culture = andalusian_arabic
+					dynasty = culture
+					religion = ROOT
+					female = no
+					flag = ai_flag_refuse_conversion
+				}			
+			}
+			10 = {
+				create_character = {
+					random_traits = yes
+					culture = egyptian_arabic
+					dynasty = culture
+					religion = ROOT
+					female = no
+					flag = ai_flag_refuse_conversion
+				}			
+			}
+			5 = {
+				create_character = {
+					random_traits = yes
+					culture = maghreb_arabic
+					dynasty = culture
+					religion = ROOT
+					female = no
+					flag = ai_flag_refuse_conversion
+				}			
+			}
+			5 = {
+				create_character = {
+					random_traits = yes
+					culture = levantine_arabic
+					dynasty = culture
+					religion = ROOT
+					female = no
+					flag = ai_flag_refuse_conversion
+				}			
+			}
+			5 = {
+				create_character = {
+					random_traits = yes
+					culture = bedouin_arabic
+					dynasty = culture
+					religion = ROOT
+					female = no
+					flag = ai_flag_refuse_conversion
+				}			
+			}
+		}
+	}
+	option = {#stop this!
+		name = VIETmisc.9006.b
+	}
+}
+
+
+# Byzantine renegades join - 50 percent chance they won't want to convert
+character_event = {
+	id = VIETmisc.9008
+	desc = VIETmisc.9008.desc
+	picture = GFX_evt_doge_republic_muslim
+
+	min_age = 16
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+
+	trigger = { 
+		war = no 
+		in_command = no 
+		is_abroad = no
+		OR = {
+			is_merchant_republic = yes
+			is_patrician = yes
+		}
+		capital_scope = {
+			OR = {
+				province_id = 479
+				province_id = 480
+			}
+		}
+		e_byzantium = { has_holder = yes }
+		AND = {
+			religion_group = muslim
+			OR = {
+				has_landed_title = d_krete
+				liege = { has_landed_title = d_krete }
+				top_liege = { has_landed_title = d_krete }
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 1582
+	}
+
+	option = {#bah
+		name = VIETmisc.9008.a
+		random_list = {
+			10 = {
+				create_random_soldier = {
+					random_traits = yes
+					culture = greek
+					dynasty = culture
+					religion = nicene
+					female = no
+					attributes = {
+						martial = 4
+					}
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}				
+			}
+			10 = {
+				create_random_soldier = {
+					random_traits = yes
+					culture = greek
+					dynasty = culture
+					religion = nicene
+					female = no
+					attributes = {
+						martial = 6
+					}
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}				
+			}
+			10 = {
+				create_random_soldier = {
+					random_traits = yes
+					culture = greek
+					dynasty = culture
+					religion = nicene
+					female = no
+					attributes = {
+						martial = 8
+					}
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}				
+			}
+			10 = {
+				create_random_soldier = {
+					random_traits = yes
+					culture = greek
+					dynasty = culture
+					religion = nicene
+					female = no
+					attributes = {
+						martial = 10
+					}
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}				
+			}
+			10 = {
+				create_random_soldier = {
+					random_traits = yes
+					culture = greek
+					dynasty = culture
+					religion = nicene
+					female = no
+					attributes = {
+						martial = 12
+					}
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}				
+			}
+			10 = {
+				create_random_soldier = {
+					random_traits = yes
+					culture = greek
+					dynasty = culture
+					religion = nicene
+					female = no
+					attributes = {
+						martial = 4
+					}
+					flag = ai_flag_refuse_conversion
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}				
+			}
+			10 = {
+				create_random_soldier = {
+					random_traits = yes
+					culture = greek
+					dynasty = culture
+					religion = nicene
+					female = no
+					attributes = {
+						martial = 6
+					}
+					flag = ai_flag_refuse_conversion
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}				
+			}
+			10 = {
+				create_random_soldier = {
+					random_traits = yes
+					culture = greek
+					dynasty = culture
+					religion = nicene
+					female = no
+					attributes = {
+						martial = 8
+					}
+					flag = ai_flag_refuse_conversion
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}				
+			}
+			10 = {
+				create_random_soldier = {
+					random_traits = yes
+					culture = greek
+					dynasty = culture
+					religion = nicene
+					female = no
+					attributes = {
+						martial = 10
+					}
+					flag = ai_flag_refuse_conversion
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}				
+			}
+			10 = {
+				create_random_soldier = {
+					random_traits = yes
+					culture = greek
+					dynasty = culture
+					religion = nicene
+					female = no
+					attributes = {
+						martial = 12
+					}
+					flag = ai_flag_refuse_conversion
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}				
+			}
+		}
+	}
+	option = {#stop this!
+		name = VIETmisc.9008.b
+	}
+}

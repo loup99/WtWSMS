@@ -280,11 +280,26 @@ narrative_event = {
 	option = {
 		name = imperial_legacy.11.a
 		
+		primary_title = {
+			save_event_target_as = target_primary_title
+		}
+		
 		e_wre = {
 			grant_title = ROOT
 			hidden_tooltip = { 
 				make_primary_title = yes 
-				set_title_flag = wre_restored # For bureaucratic government
+				if = {
+					limit = {
+						NOT = { government = bureaucratic_government }
+					}
+					set_title_flag = wre_restored # For bureaucratic government
+				}
+			}
+			event_target:target_primary_title = {
+				e_wre = {
+					copy_title_laws = PREV
+					copy_title_history = PREV
+				}
 			}
 		}
 		prestige = 1000
@@ -335,16 +350,16 @@ narrative_event = {
 		name = imperial_legacy.12.a # Recognise the new ruler, should do unless ambitious or hates WRE ruler and has picked picked "Sole Roman Empire" decision
 		ai_chance = {
 			factor = 10
-			additive_modifier = {
-				value = -10
+			modifier = {
+				factor = 0
 				trait = ambitious
 			}
-			additive_modifier = {
-				value = -5
+			modifier = {
+				factor = 0.5
 				trait = proud
 			}
-			additive_modifier = {
-				value = -10
+			modifier = {
+				factor = 0
 				opinion_diff = { 
 					first = FROM
 					second = ROOT 
@@ -378,18 +393,18 @@ narrative_event = {
 		name = imperial_legacy.12.b # Refuse to recognise the new ruler, shouldn't do unless ambitious, proud or hates WRE ruler and in all cases need to have picked "Sole Roman Empire" decision
 		ai_chance = {
 			factor = 0
-			additive_modifier = {
-				value = 10
+			modifier = {
+				factor = 10
 				has_weak_claim  = e_roman_empire
 				trait = ambitious
 			}
-			additive_modifier = {
-				value = 5
+			modifier = {
+				factor = 5
 				has_weak_claim  = e_roman_empire
 				trait = proud
 			}
-			additive_modifier = {
-				value = 10
+			modifier = {
+				factor = 10
 				opinion_diff = { 
 					first = FROM
 					second = ROOT 
@@ -459,16 +474,16 @@ narrative_event = {
 		
 		ai_chance = {
 			factor = 10
-			additive_modifier = {
-				value = -10
+			modifier = {
+				factor = 0
 				trait = ambitious
 			}
-			additive_modifier = {
-				value = -5
+			modifier = {
+				factor = 0.5
 				trait = proud
 			}
-			additive_modifier = {
-				value = -10
+			modifier = {
+				factor = 0
 				opinion_diff = { 
 					first = FROM
 					second = ROOT 
@@ -502,20 +517,20 @@ narrative_event = {
 		
 		ai_chance = {
 			factor = 0
-			additive_modifier = {
-				value = 10
+			modifier = {
+				factor = 10
 				opinion_diff = { 
 					first = FROM
 					second = ROOT 
 					value = 50  
 				}	
 			}
-			additive_modifier = {
-				value = 10
+			modifier = {
+				factor = 10
 				trait = ambitious
 			}
-			additive_modifier = {
-				value = 5
+			modifier = {
+				factor = 5
 				trait = proud
 			}
 		}
@@ -599,12 +614,12 @@ narrative_event = {
 		
 		ai_chance = {
 			factor = 10
-			additive_modifier = {
-				value = 10
+			modifier = {
+				factor = 10
 				trait = zealous
 			}
-			additive_modifier = {
-				value = -10
+			modifier = {
+				factor = 0
 				opinion_diff = { 
 					first = FROM
 					second = ROOT 
@@ -635,12 +650,12 @@ narrative_event = {
 		
 		ai_chance = {
 			factor = 0
-			additive_modifier = {
-				value = -10
+			modifier = {
+				factor = 0
 				trait = zealous
 			}
-			additive_modifier = {
-				value = 10
+			modifier = {
+				factor = 10
 				opinion_diff = { 
 					first = FROM
 					second = ROOT 
@@ -798,11 +813,26 @@ narrative_event = {
 	option = {
 		name = imperial_legacy.25.a
 		
+		primary_title = {
+			save_event_target_as = target_primary_title
+		}
+		
 		e_byzantium = {
 			grant_title = ROOT
 			hidden_tooltip = { 
 				make_primary_title = yes
-				set_title_flag = ere_restored # For bureaucratic government
+				if = {
+					limit = {
+						NOT = { government = bureaucratic_government }
+					}
+					set_title_flag = ere_restored # For bureaucratic government
+				}
+			}
+			event_target:target_primary_title = {
+				e_byzantium = {
+					copy_title_laws = PREV
+					copy_title_history = PREV
+				}
 			}
 		}
 		prestige = 1000
@@ -853,16 +883,16 @@ narrative_event = {
 		name = imperial_legacy.26.a # Recognise the new ruler, should do unless ambitious or hates WRE ruler and has picked picked "Sole Roman Empire" decision
 		ai_chance = {
 			factor = 10
-			additive_modifier = {
-				value = -10
+			modifier = {
+				factor = 0
 				trait = ambitious
 			}
-			additive_modifier = {
-				value = -5
+			modifier = {
+				factor = 0.5
 				trait = proud
 			}
-			additive_modifier = {
-				value = -10
+			modifier = {
+				factor = 0
 				opinion_diff = { 
 					first = FROM
 					second = ROOT 
@@ -896,18 +926,18 @@ narrative_event = {
 		name = imperial_legacy.26.b # Refuse to recognise the new ruler, shouldn't do unless ambitious, proud or hates ERE ruler and in all cases need to have picked "Sole Roman Empire" decision
 		ai_chance = {
 			factor = 0
-			additive_modifier = {
-				value = 10
+			modifier = {
+				factor = 10
 				has_weak_claim  = e_roman_empire
 				trait = ambitious
 			}
-			additive_modifier = {
-				value = 5
+			modifier = {
+				factor = 5
 				has_weak_claim  = e_roman_empire
 				trait = proud
 			}
-			additive_modifier = {
-				value = 10
+			modifier = {
+				factor = 10
 				opinion_diff = { 
 					first = FROM
 					second = ROOT 
@@ -977,16 +1007,16 @@ narrative_event = {
 		
 		ai_chance = {
 			factor = 10
-			additive_modifier = {
-				value = -10
+			modifier = {
+				factor = 0
 				trait = ambitious
 			}
-			additive_modifier = {
-				value = -5
+			modifier = {
+				factor = 0.5
 				trait = proud
 			}
-			additive_modifier = {
-				value = -10
+			modifier = {
+				factor = 0
 				opinion_diff = { 
 					first = FROM
 					second = ROOT 
@@ -1020,20 +1050,20 @@ narrative_event = {
 		
 		ai_chance = {
 			factor = 0
-			additive_modifier = {
-				value = 10
+			modifier = {
+				factor = 10
 				opinion_diff = { 
 					first = FROM
 					second = ROOT 
 					value = 50  
 				}	
 			}
-			additive_modifier = {
-				value = 10
+			modifier = {
+				factor = 10
 				trait = ambitious
 			}
-			additive_modifier = {
-				value = 5
+			modifier = {
+				factor = 5
 				trait = proud
 			}
 		}
@@ -1117,12 +1147,12 @@ narrative_event = {
 		
 		ai_chance = {
 			factor = 10
-			additive_modifier = {
-				value = 10
+			modifier = {
+				factor = 10
 				trait = zealous
 			}
-			additive_modifier = {
-				value = -10
+			modifier = {
+				factor = 0
 				opinion_diff = { 
 					first = FROM
 					second = ROOT 
@@ -1153,12 +1183,12 @@ narrative_event = {
 		
 		ai_chance = {
 			factor = 0
-			additive_modifier = {
-				value = -10
+			modifier = {
+				factor = 0
 				trait = zealous
 			}
-			additive_modifier = {
-				value = 10
+			modifier = {
+				factor = 10
 				opinion_diff = { 
 					first = FROM
 					second = ROOT 
@@ -1316,9 +1346,8 @@ narrative_event = {
  		name = imperial_legacy.39.a
  		
  		add_character_modifier = {
- 			modifier = bureaucratic_government_adoption
- 			who = ROOT
- 			years = 10
+ 			name = bureaucratic_government_adoption
+ 			duration = 3650 # 10 years 
  		}
  		set_government_type = bureaucratic_government
 		hidden_tooltip = { 
@@ -1330,4 +1359,366 @@ narrative_event = {
 			}
 		}
  	}
- }
+}
+
+# Hagia Sophia Construction Begun
+character_event = {
+	id = imperial_legacy.40
+	desc = imperial_legacy.40.desc
+	picture = GFX_evt_castle_construction
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	hide_from = yes
+	
+	option = {
+		name = imperial_legacy.40.a
+		set_global_flag = building_hagia_sophia
+	}
+}
+
+# Hagia Sophia Built 
+narrative_event = {
+	id = imperial_legacy.41
+	title = imperial_legacy.41.name
+	desc = imperial_legacy.41.desc
+	picture = GFX_evt_hagia_sofia
+	border = GFX_event_narrative_frame_religion
+	major = yes
+	
+	is_triggered_only = yes
+	
+	hide_from = yes
+	
+	major_trigger = {
+		ai = no
+	}
+	
+	immediate = {
+		set_global_flag = hagia_sophia_built
+		clr_global_flag = building_hagia_sophia
+		b_hagiasophia = {
+			add_building = tp_hagiasophia
+		}
+	}
+	
+	option = {
+		name = imperial_legacy.41.a
+	}
+}
+
+# Handling the Western Imperial Regalia after the Fall of Rome
+character_event = {
+	id = imperial_legacy.42
+	desc = imperial_legacy.42.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_normal_frame_diplomacy
+
+	is_triggered_only = yes # Triggered by the Fall of Rome event (zusk_event.30)
+	
+	option = { 
+		name = imperial_legacy.42.a # Keep them
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 10
+				trait = ambitious
+			}
+			modifier = {
+				factor = 5
+				trait = proud
+			}
+			modifier = {
+				factor = 0
+				trait = content
+			}
+		}
+	}
+	
+	option = {
+		name = imperial_legacy.42.b # Send them to the ERE emperor
+		trigger = {
+			is_title_active = e_byzantium
+		}
+		ai_chance = {
+			factor = 60 
+			modifier = {
+				factor = 10
+				trait = content
+			}
+			modifier = {
+				factor = 10
+				trait = roman_nostalgia
+			}
+			modifier = {
+				factor = 0
+				e_byzantium = {
+					holder_scope = {
+						is_foe = ROOT
+					} 
+				}
+			}
+		}
+		
+		e_byzantium = {
+			holder_scope = {
+				narrative_event = { id = imperial_legacy.43 days = 10 }
+				ROOT = {
+					any_artifact = {
+					limit = { has_artifact_flag = western_regalia } # it's kind of a workaround
+						transfer_artifact = {
+							from = ROOT 
+							to = PREVPREV
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = imperial_legacy.42.c # Send them to the remaining WRE emperor
+		trigger = {
+			is_title_active = e_wre
+		}
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 0
+				e_wre = {
+					holder_scope = {
+						is_foe = ROOT
+					} 
+				}
+			}
+		}
+		e_wre = {
+			holder_scope = {
+				narrative_event = { id = imperial_legacy.43 days = 10 }
+				ROOT = {
+					any_artifact = {
+					limit = { has_artifact_flag = western_regalia } # it's kind of a workaround
+						transfer_artifact = {
+							from = ROOT 
+							to = PREVPREV
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = imperial_legacy.42.d # Send them to Soissons
+		trigger = {
+			is_title_active = k_soissons
+		}
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 0
+				k_soissons = {
+					holder_scope = {
+						is_foe = ROOT
+					} 
+				}
+			}
+		}
+		k_soissons = {
+			holder_scope = {
+				narrative_event = { id = imperial_legacy.43 days = 10 }
+				ROOT = {
+					any_artifact = {
+					limit = { has_artifact_flag = western_regalia } # it's kind of a workaround
+						transfer_artifact = {
+							from = ROOT 
+							to = PREVPREV
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# Receiving the Western Imperial Regalia based upon the choice of the conqueror of Rome
+narrative_event = {
+	id = imperial_legacy.43
+	title = imperial_legacy.43.name
+	desc = imperial_legacy.43.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes 
+
+	option = { 
+		name = imperial_legacy.43.a # Recognise conqueror
+		ai_chance = {
+			factor = 100
+		}
+		custom_tooltip = { 
+			text = imperial_legacy.43.a.tooltip
+		}
+		c_roma = {
+			holder_scope = {
+				top_liege = {
+					narrative_event = { id = imperial_legacy.44 days = 10 }
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = imperial_legacy.43.b # Thank vaguely without making any firm commitments
+		ai_chance = {
+			factor = 0
+		}
+		custom_tooltip = { 
+			text = imperial_legacy.43.b.tooltip
+		}
+	}
+	
+	option = {
+		name = imperial_legacy.43.c # Refuse the Western Imperial Regalia sent by the conqueror
+		ai_chance = {
+			factor = 0
+		}
+		custom_tooltip = { 
+			text = imperial_legacy.43.c.tooltip
+		}
+		c_roma = {
+			holder_scope = {
+				top_liege = {
+					any_artifact = {
+						limit = { has_artifact_flag = western_regalia } # it's kind of a workaround
+						transfer_artifact = {
+							from = ROOT 
+							to = PREVPREV
+						}
+					}
+					narrative_event = { id = imperial_legacy.45 days = 10 }
+				}
+			}
+		}
+	}
+}
+
+# Conqueror having sent the Western Imperial Regalia gets recognition in return
+narrative_event = {
+	id = imperial_legacy.44
+	title = imperial_legacy.44.name
+	desc = imperial_legacy.44.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = imperial_legacy.44.a
+		
+		prestige = 100
+	}
+}
+
+# Conqueror having sent the Western Imperial Regalia gets it refused
+narrative_event = {
+	id = imperial_legacy.45
+	title = imperial_legacy.45.name
+	desc = imperial_legacy.45.desc
+	picture = GFX_evt_fall_of_rome
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = imperial_legacy.45.a
+		
+		prestige = -100
+	}
+} 
+
+# Latin remembering the legacy of the Romans
+character_event = {
+	id = imperial_legacy.46
+	desc = imperial_legacy.46.desc
+	picture = GFX_evt_monk
+	border = GFX_event_normal_frame_religion
+	
+	capable_only = yes
+	prisoner = no
+	min_age = 16
+	
+	trigger = {
+	    NOT = { year = 1200 }
+        NOT = { trait = roman_nostalgia }
+		OR = {
+			culture_group = latin
+			culture = romano_british
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1000
+
+		modifier = {
+			factor = 0.9
+			trait = just
+		}
+        modifier = {
+			factor = 0.9
+			trait = sympathy_christendom
+		}
+        modifier = {
+			factor = 5
+			NOT = { religion_group = christian }
+			NOT = { religion = hellenic_pagan }
+			NOT = { is_heresy_of = hellenic_pagan }
+		}
+		modifier = {
+		    factor = 0.2
+			OR = {
+				tier = emperor
+				tier = king
+			}
+		}
+        modifier = {
+			factor = 0.5
+			OR = {
+				religion = hellenic_pagan
+				is_heresy_of = hellenic_pagan
+			}		}
+        modifier = {
+			factor = 2
+			year = 800
+		}
+        modifier = {
+			factor = 5
+			year = 900
+		}
+        modifier = {
+			factor = 10
+			year = 1000
+		}
+        modifier = {
+			factor = 20
+			year = 1100
+		}
+	}
+	
+	option = {
+		ai_chance = {
+			factor = 50
+		}
+		name = imperial_legacy.46.a
+		add_trait = roman_nostalgia
+	}
+
+    option = {
+		ai_chance = {
+			factor = 50
+		}
+		name = imperial_legacy.46.b
+	}
+
+}

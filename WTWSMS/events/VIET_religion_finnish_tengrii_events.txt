@@ -1,0 +1,1485 @@
+################################################################
+#
+# Shaman/Ask Ancestors for Advice Event Chain (for Finnish and Tengri Pagans)
+#
+################################################################
+
+namespace = shaman
+
+# Character gets Shaman
+character_event = {
+	id = shaman.34
+	desc = shaman.34.desc
+	picture = GFX_evt_shaman
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = shaman.34.a
+		clr_character_flag = inviting_shaman_over
+		random_list = {
+			30 = {
+				create_character = {
+					female = no
+					random_traits = yes
+					culture = ROOT
+					dynasty = culture
+					trait = sacred_reindeer
+					attributes = {
+						learning = 3
+					}
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}			
+			}
+			20 = {
+				create_character = {
+					female = no
+					random_traits = yes
+					culture = ROOT
+					dynasty = culture
+					trait = sacred_reindeer
+					attributes = {
+						learning = 6
+					}
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}			
+			}
+			10 = {
+				create_character = {
+					female = no
+					random_traits = yes
+					culture = ROOT
+					dynasty = culture
+					trait = sacred_reindeer
+					attributes = {
+						learning = 9
+					}
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}			
+			}
+			7 = {
+				create_character = {
+					female = no
+					random_traits = yes
+					culture = ROOT
+					dynasty = culture
+					trait = sacred_reindeer
+					attributes = {
+						learning = 12
+					}
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}			
+			}
+			3 = {
+				create_character = {
+					female = no
+					random_traits = yes
+					culture = ROOT
+					dynasty = culture
+					trait = sacred_reindeer
+					attributes = {
+						learning = 15
+					}
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}			
+			}
+			10 = {
+				create_character = {
+					female = yes
+					random_traits = yes
+					culture = ROOT
+					dynasty = culture
+					trait = sacred_reindeer
+					attributes = {
+						learning = 3
+					}
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}			
+			}
+			8 = {
+				create_character = {
+					female = yes
+					random_traits = yes
+					culture = ROOT
+					dynasty = culture
+					trait = sacred_reindeer
+					attributes = {
+						learning = 6
+					}
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}			
+			}
+			6 = {
+				create_character = {
+					female = yes
+					random_traits = yes
+					culture = ROOT
+					dynasty = culture
+					trait = sacred_reindeer
+					attributes = {
+						learning = 9
+					}
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}			
+			}
+			4 = {
+				create_character = {
+					female = yes
+					random_traits = yes
+					culture = ROOT
+					dynasty = culture
+					trait = sacred_reindeer
+					attributes = {
+						learning = 12
+					}
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}			
+			}
+			2 = {
+				create_character = {
+					female = yes
+					random_traits = yes
+					culture = ROOT
+					dynasty = culture
+					trait = sacred_reindeer
+					attributes = {
+						learning = 15
+					}
+				}
+				new_character = {
+					opinion = {
+						modifier = opinion_patron
+						who = ROOT
+						years = 20
+					}
+					reverse_opinion = {
+						modifier = opinion_new_courtier
+						who = ROOT
+						years = 5
+					}				
+				}			
+			}
+		}
+	}
+}
+
+
+#liege doesn't have a Shaman - fired on a yearly basis to remind players - event removed
+
+##################################################################
+#
+# Ask Ancestors for Advice Event Chain
+#
+##################################################################
+
+# Ask Ancestors Advice Start
+character_event = {
+	id = shaman.1
+	desc = shaman.1.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	#trigger = {
+	#	has_character_flag = hosting_griot_performance
+	#}
+	option = {
+		name = shaman.1.a
+		narrative_event = { id = shaman.2 days = 3 tooltip = "shaman.2.tooltip" }
+		if = {
+			limit = {
+				NOT = { learning = 8 }
+			}
+			set_character_flag = shaman_low_spirituality
+		}
+		if = {
+			limit = {
+				learning = 8
+				NOT = { learning = 16 }
+			}
+			set_character_flag = shaman_medium_spirituality
+		}
+		if = {
+			limit = {
+				learning = 16
+			}
+			set_character_flag = shaman_high_spirituality
+		}
+		#clr_character_flag = hosting_griot_performance
+	}
+	
+}
+
+# AAA What are you worried about?
+narrative_event = {
+	id = shaman.2
+	title = shaman.2.name
+	desc = shaman.2.desc
+	picture = GFX_evt_shaman
+	
+	is_triggered_only = yes
+	
+	option = { #Family problems
+		name = shaman.2.a
+		set_character_flag = shaman_family_problems
+		narrative_event = { id = shaman.3 days = 5 tooltip = "shaman.3a.tooltip" }
+	}	
+	option = { #Realm problems
+		name = shaman.2.b
+		set_character_flag = shaman_realm_problems
+		narrative_event = { id = shaman.3 days = 5 tooltip = "shaman.3b.tooltip" }
+	}	
+	option = { #Personal problems
+		name = shaman.2.c
+		set_character_flag = shaman_personal_problems
+		narrative_event = { id = shaman.3 days = 5 tooltip = "shaman.3c.tooltip" }
+	}
+	
+}
+
+# Trance Begins
+narrative_event = {
+	id = shaman.3
+	title = shaman.3.name
+	desc = shaman.3.desc
+	picture = GFX_evt_shaman
+	
+	is_triggered_only = yes
+	
+	option = { # ok
+		name = shaman.3.a
+		narrative_event = { id = shaman.4 days = 2 tooltip = "shaman.4.tooltip" }
+		if = {
+			limit = {
+				has_character_flag = shaman_family_problems
+			}
+			hidden_tooltip = {
+				random_list = {
+					40 = { set_character_flag = shaman_marriage_advice }
+					40 = { set_character_flag = shaman_children_advice }
+					20 = { set_character_flag = shaman_distant_relatives_advice }
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = shaman_realm_problems
+			}
+			hidden_tooltip = {
+				random_list = {
+					20 = { set_character_flag = shaman_diplomacy_advice }
+					20 = { set_character_flag = shaman_martial_advice }
+					20 = { set_character_flag = shaman_stewardship_advice }
+					20 = { set_character_flag = shaman_intrigue_advice }
+					20 = { set_character_flag = shaman_learning_advice }
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = shaman_personal_problems
+			}
+			hidden_tooltip = {
+				random_list = {
+					40 = { set_character_flag = shaman_personality_advice }
+					30 = { set_character_flag = shaman_health_advice }
+					30 = { set_character_flag = shaman_age_advice }
+				}
+			}
+		}
+		
+	}	
+	
+}
+
+# Patience
+narrative_event = {
+	id = shaman.4
+	title = shaman.4.name
+	desc = shaman.4.desc
+	picture = GFX_evt_shaman
+	
+	is_triggered_only = yes
+	
+	option = { # ok
+		name = shaman.4.a
+		narrative_event = { id = shaman.5 days = 1 tooltip = "shaman.5.tooltip" }
+		#Has spouse
+		if = {
+			limit = {
+				has_character_flag = shaman_low_spirituality
+				has_character_flag = shaman_marriage_advice
+				is_married = yes
+			}
+			hidden_tooltip = {
+				random_list = {
+					40 = {  character_event = { id = shaman.6 days = 2 random = 3 } } #Good marriage
+					60 = {  character_event = { id = shaman.7 days = 2 random = 3 } } #Bad marriage
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = shaman_medium_spirituality
+				has_character_flag = shaman_marriage_advice
+				is_married = yes
+			}
+			hidden_tooltip = {
+				random_list = {
+					50 = {  character_event = { id = shaman.6 days = 2 random = 3 } } #Good marriage
+					50 = {  character_event = { id = shaman.7 days = 2 random = 3 } } #Bad marriage
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = shaman_high_spirituality
+				has_character_flag = shaman_marriage_advice
+				is_married = yes
+			}
+			hidden_tooltip = {
+				random_list = {
+					65 = {  character_event = { id = shaman.6 days = 2 random = 3 } } #Good marriage
+					35 = {  character_event = { id = shaman.7 days = 2 random = 3 } } #Bad marriage
+				}
+			}
+		}
+		#Doesn't have spouse
+		if = {
+			limit = {
+				has_character_flag = shaman_low_spirituality
+				has_character_flag = shaman_marriage_advice
+				is_married = no
+			}
+			hidden_tooltip = {
+				random_list = {
+					40 = {  character_event = { id = shaman.8 days = 2 random = 3 } } #Good marriage
+					60 = {  character_event = { id = shaman.9 days = 2 random = 3 } } #Bad marriage
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = shaman_medium_spirituality
+				has_character_flag = shaman_marriage_advice
+				is_married = no
+			}
+			hidden_tooltip = {
+				random_list = {
+					50 = {  character_event = { id = shaman.8 days = 2 random = 3 } } #Good marriage
+					50 = {  character_event = { id = shaman.9 days = 2 random = 3 } } #Bad marriage
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = shaman_high_spirituality
+				has_character_flag = shaman_marriage_advice
+				is_married = no
+			}
+			hidden_tooltip = {
+				random_list = {
+					65 = {  character_event = { id = shaman.8 days = 2 random = 3 } } #Good marriage
+					35 = {  character_event = { id = shaman.9 days = 2 random = 3 } } #Bad marriage
+				}
+			}
+		}
+		#Has children
+		if = {
+			limit = {
+				has_character_flag = shaman_low_spirituality
+				has_character_flag = shaman_children_advice
+				num_of_children = 1
+			}
+			hidden_tooltip = {
+				random_list = {
+					40 = {  character_event = { id = shaman.10 days = 2 random = 3 } } #Good children
+					60 = {  character_event = { id = shaman.11 days = 2 random = 3 } } #Bad children
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = shaman_medium_spirituality
+				has_character_flag = shaman_children_advice
+				num_of_children = 1
+			}
+			hidden_tooltip = {
+				random_list = {
+					50 = {  character_event = { id = shaman.10 days = 2 random = 3 } } #Good children
+					50 = {  character_event = { id = shaman.11 days = 2 random = 3 } } #Bad children
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = shaman_high_spirituality
+				has_character_flag = shaman_children_advice
+				num_of_children = 1
+			}
+			hidden_tooltip = {
+				random_list = {
+					65 = {  character_event = { id = shaman.10 days = 2 random = 3 } } #Good children
+					35 = {  character_event = { id = shaman.11 days = 2 random = 3 } } #Bad children
+				}
+			}
+		}
+		#Has no children
+		if = {
+			limit = {
+				has_character_flag = shaman_low_spirituality
+				has_character_flag = shaman_children_advice
+				NOT = {
+					num_of_children = 1
+				}
+			}
+			hidden_tooltip = {
+				random_list = {
+					40 = {  character_event = { id = shaman.12 days = 2 random = 3 } } #Good children
+					60 = {  character_event = { id = shaman.13 days = 2 random = 3 } } #Bad children
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = shaman_medium_spirituality
+				has_character_flag = shaman_children_advice
+				NOT = {
+					num_of_children = 1
+				}
+			}
+			hidden_tooltip = {
+				random_list = {
+					50 = {  character_event = { id = shaman.12 days = 2 random = 3 } } #Good children
+					50 = {  character_event = { id = shaman.13 days = 2 random = 3 } } #Bad children
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = shaman_high_spirituality
+				has_character_flag = shaman_children_advice
+				NOT = {
+					num_of_children = 1
+				}
+			}
+			hidden_tooltip = {
+				random_list = {
+					65 = {  character_event = { id = shaman.12 days = 2 random = 3 } } #Good children
+					35 = {  character_event = { id = shaman.13 days = 2 random = 3 } } #Bad children
+				}
+			}
+		}
+		#Distant relatives
+		if = {
+			limit = {
+				has_character_flag = shaman_low_spirituality
+				has_character_flag = shaman_distant_relatives_advice
+			}
+			hidden_tooltip = {
+				random_list = {
+					40 = {  character_event = { id = shaman.14 days = 2 random = 3 } } #Good
+					60 = {  character_event = { id = shaman.15 days = 2 random = 3 } } #Bad
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = shaman_medium_spirituality
+				has_character_flag = shaman_distant_relatives_advice
+			}
+			hidden_tooltip = {
+				random_list = {
+					50 = {  character_event = { id = shaman.14 days = 2 random = 3 } } #Good
+					50 = {  character_event = { id = shaman.15 days = 2 random = 3 } } #Bad
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = shaman_high_spirituality
+				has_character_flag = shaman_distant_relatives_advice
+			}
+			hidden_tooltip = {
+				random_list = {
+					65 = {  character_event = { id = shaman.14 days = 2 random = 3 } } #Good
+					35 = {  character_event = { id = shaman.15 days = 2 random = 3 } } #Bad
+				}
+			}
+		}
+		#Diplomacy
+		if = {
+			limit = {
+				has_character_flag = shaman_low_spirituality
+				has_character_flag = shaman_diplomacy_advice
+			}
+			hidden_tooltip = {
+				random_list = {
+					40 = {  character_event = { id = shaman.16 days = 2 random = 3 } } #Good
+					60 = {  character_event = { id = shaman.17 days = 2 random = 3 } } #Bad
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = shaman_medium_spirituality
+				has_character_flag = shaman_diplomacy_advice
+			}
+			hidden_tooltip = {
+				random_list = {
+					50 = {  character_event = { id = shaman.16 days = 2 random = 3 } } #Good
+					50 = {  character_event = { id = shaman.17 days = 2 random = 3 } } #Bad
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = shaman_high_spirituality
+				has_character_flag = shaman_diplomacy_advice
+			}
+			hidden_tooltip = {
+				random_list = {
+					65 = {  character_event = { id = shaman.16 days = 2 random = 3 } } #Good
+					35 = {  character_event = { id = shaman.17 days = 2 random = 3 } } #Bad
+				}
+			}
+		}
+		#Martial
+		if = {
+			limit = {
+				has_character_flag = shaman_low_spirituality
+				has_character_flag = shaman_martial_advice
+			}
+			hidden_tooltip = {
+				random_list = {
+					40 = {  character_event = { id = shaman.18 days = 2 random = 3 } } #Good
+					60 = {  character_event = { id = shaman.19 days = 2 random = 3 } } #Bad
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = shaman_medium_spirituality
+				has_character_flag = shaman_martial_advice
+			}
+			hidden_tooltip = {
+				random_list = {
+					50 = {  character_event = { id = shaman.18 days = 2 random = 3 } } #Good
+					50 = {  character_event = { id = shaman.19 days = 2 random = 3 } } #Bad
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = shaman_high_spirituality
+				has_character_flag = shaman_martial_advice
+			}
+			hidden_tooltip = {
+				random_list = {
+					65 = {  character_event = { id = shaman.18 days = 2 random = 3 } } #Good
+					35 = {  character_event = { id = shaman.19 days = 2 random = 3 } } #Bad
+				}
+			}
+		}
+		#Stewardship
+		if = {
+			limit = {
+				has_character_flag = shaman_low_spirituality
+				has_character_flag = shaman_stewardship_advice
+			}
+			hidden_tooltip = {
+				random_list = {
+					40 = {  character_event = { id = shaman.20 days = 2 random = 3 } } #Good
+					60 = {  character_event = { id = shaman.21 days = 2 random = 3 } } #Bad
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = shaman_medium_spirituality
+				has_character_flag = shaman_stewardship_advice
+			}
+			hidden_tooltip = {
+				random_list = {
+					50 = {  character_event = { id = shaman.20 days = 2 random = 3 } } #Good
+					50 = {  character_event = { id = shaman.21 days = 2 random = 3 } } #Bad
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = shaman_high_spirituality
+				has_character_flag = shaman_stewardship_advice
+			}
+			hidden_tooltip = {
+				random_list = {
+					65 = {  character_event = { id = shaman.20 days = 2 random = 3 } } #Good
+					35 = {  character_event = { id = shaman.21 days = 2 random = 3 } } #Bad
+				}
+			}
+		}
+		#Intrigue
+		if = {
+			limit = {
+				has_character_flag = shaman_low_spirituality
+				has_character_flag = shaman_intrigue_advice
+			}
+			hidden_tooltip = {
+				random_list = {
+					40 = {  character_event = { id = shaman.22 days = 2 random = 3 } } #Good
+					60 = {  character_event = { id = shaman.23 days = 2 random = 3 } } #Bad
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = shaman_medium_spirituality
+				has_character_flag = shaman_intrigue_advice
+			}
+			hidden_tooltip = {
+				random_list = {
+					50 = {  character_event = { id = shaman.22 days = 2 random = 3 } } #Good
+					50 = {  character_event = { id = shaman.23 days = 2 random = 3 } } #Bad
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = shaman_high_spirituality
+				has_character_flag = shaman_intrigue_advice
+			}
+			hidden_tooltip = {
+				random_list = {
+					65 = {  character_event = { id = shaman.22 days = 2 random = 3 } } #Good
+					35 = {  character_event = { id = shaman.23 days = 2 random = 3 } } #Bad
+				}
+			}
+		}
+		#Learning
+		if = {
+			limit = {
+				has_character_flag = shaman_low_spirituality
+				has_character_flag = shaman_learning_advice
+			}
+			hidden_tooltip = {
+				random_list = {
+					40 = {  character_event = { id = shaman.24 days = 2 random = 3 } } #Good
+					60 = {  character_event = { id = shaman.25 days = 2 random = 3 } } #Bad
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = shaman_medium_spirituality
+				has_character_flag = shaman_learning_advice
+			}
+			hidden_tooltip = {
+				random_list = {
+					50 = {  character_event = { id = shaman.24 days = 2 random = 3 } } #Good
+					50 = {  character_event = { id = shaman.25 days = 2 random = 3 } } #Bad
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = shaman_high_spirituality
+				has_character_flag = shaman_learning_advice
+			}
+			hidden_tooltip = {
+				random_list = {
+					65 = {  character_event = { id = shaman.24 days = 2 random = 3 } } #Good
+					35 = {  character_event = { id = shaman.25 days = 2 random = 3 } } #Bad
+				}
+			}
+		}
+		#Personality
+		if = {
+			limit = {
+				has_character_flag = shaman_low_spirituality
+				has_character_flag = shaman_personality_advice
+			}
+			hidden_tooltip = {
+				random_list = {
+					40 = {  character_event = { id = shaman.26 days = 2 random = 3 } } #Good
+					60 = {  character_event = { id = shaman.27 days = 2 random = 3 } } #Bad
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = shaman_medium_spirituality
+				has_character_flag = shaman_personality_advice
+			}
+			hidden_tooltip = {
+				random_list = {
+					50 = {  character_event = { id = shaman.26 days = 2 random = 3 } } #Good
+					50 = {  character_event = { id = shaman.27 days = 2 random = 3 } } #Bad
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = shaman_high_spirituality
+				has_character_flag = shaman_personality_advice
+			}
+			hidden_tooltip = {
+				random_list = {
+					65 = {  character_event = { id = shaman.26 days = 2 random = 3 } } #Good
+					35 = {  character_event = { id = shaman.27 days = 2 random = 3 } } #Bad
+				}
+			}
+		}
+		#Health
+		if = {
+			limit = {
+				#has_character_flag = shaman_low_spirituality
+				has_character_flag = shaman_health_advice
+				NOT = { health = 3 }
+			}
+			hidden_tooltip = {
+				random_list = {
+					40 = {  character_event = { id = shaman.28 days = 2 random = 3 } } #Good
+					60 = {  character_event = { id = shaman.29 days = 2 random = 3 } } #Bad
+				}
+			}
+		}
+		if = {
+			limit = {
+				#has_character_flag = shaman_medium_spirituality
+				has_character_flag = shaman_health_advice
+				health = 3
+				NOT = { health = 6 }
+			}
+			hidden_tooltip = {
+				random_list = {
+					50 = {  character_event = { id = shaman.28 days = 2 random = 3 } } #Good
+					50 = {  character_event = { id = shaman.29 days = 2 random = 3 } } #Bad
+				}
+			}
+		}
+		if = {
+			limit = {
+				#has_character_flag = shaman_high_spirituality
+				has_character_flag = shaman_health_advice
+				health = 6
+			}
+			hidden_tooltip = {
+				random_list = {
+					65 = {  character_event = { id = shaman.28 days = 2 random = 3 } } #Good
+					35 = {  character_event = { id = shaman.29 days = 2 random = 3 } } #Bad
+				}
+			}
+		}
+		#Age
+		if = {
+			limit = {
+				#has_character_flag = shaman_low_spirituality
+				has_character_flag = shaman_age_advice
+				NOT = { age = 30 }
+			}
+			hidden_tooltip = {
+					character_event = { id = shaman.30 days = 2 random = 3 } #Good
+			}
+		}
+		if = {
+			limit = {
+				#has_character_flag = shaman_medium_spirituality
+				has_character_flag = shaman_age_advice
+				age = 30
+				NOT = { age = 55 }
+			}
+			hidden_tooltip = {
+					character_event = { id = shaman.31 days = 2 random = 3 } #Good
+			}
+		}
+		if = {
+			limit = {
+				#has_character_flag = shaman_high_spirituality
+				has_character_flag = shaman_age_advice
+				age = 55
+			}
+			hidden_tooltip = {
+					character_event = { id = shaman.33 days = 2 random = 3 } #Good
+			}
+		}
+	}	
+	
+}
+
+# Shaman finished
+narrative_event = {
+	id = shaman.5
+	title = shaman.5.name
+	desc = shaman.5.desc
+	picture = GFX_evt_shaman
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		hidden_tooltip = {
+			character_event = { id = shaman.32 days = 11 }
+		}
+	}
+	
+	option = { # ok
+		name = shaman.5.a
+	}	
+	
+}
+
+# Shaman finished finally
+narrative_event = {
+	id = shaman.32
+	title = shaman.32.name
+	desc = shaman.32.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	option = { # ok
+		name = shaman.32.a
+		piety = 20
+		add_character_modifier = {
+			name = "ask_ancestors_for_advice_timer"
+			duration = 1460
+			hidden = yes
+		}
+		clr_character_flag = asking_ancestors_for_advice
+		clr_character_flag = shaman_low_spirituality
+		clr_character_flag = shaman_medium_spirituality
+		clr_character_flag = shaman_high_spirituality
+		clr_character_flag = shaman_family_problems
+		clr_character_flag = shaman_realm_problems
+		clr_character_flag = shaman_personal_problems
+		clr_character_flag = shaman_marriage_advice
+		clr_character_flag = shaman_children_advice
+		clr_character_flag = shaman_distant_relatives_advice
+		clr_character_flag = shaman_diplomacy_advice
+		clr_character_flag = shaman_martial_advice
+		clr_character_flag = shaman_stewardship_advice
+		clr_character_flag = shaman_intrigue_advice
+		clr_character_flag = shaman_learning_advice
+		clr_character_flag = shaman_personality_advice
+		clr_character_flag = shaman_health_advice
+		clr_character_flag = shaman_age_advice
+		clr_character_flag = do_not_disturb
+	}	
+	
+}
+
+##################################################################
+# Shaman Advice Proper
+##################################################################
+
+
+# Good Marriage
+character_event = {
+	id = shaman.6
+	desc = shaman.6.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	
+	option = { # Advice given
+		name = shaman.6.a
+		add_character_modifier = {
+			name = shaman_good_marriage
+			duration = 365
+		}
+	}
+	
+}
+
+# Bad Marriage
+character_event = {
+	id = shaman.7
+	desc = shaman.7.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	
+	option = { # Advice given
+		name = shaman.7.a
+		add_character_modifier = {
+			name = shaman_bad_marriage
+			duration = 365
+		}
+	}
+	
+}
+
+# Good No Spouse
+character_event = {
+	id = shaman.8
+	desc = shaman.8.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	
+	option = { # Advice given
+		name = shaman.8.a
+		add_character_modifier = {
+			name = shaman_good_no_spouse
+			duration = 365
+		}
+	}
+	
+}
+
+# Bad No Spouse
+character_event = {
+	id = shaman.9
+	desc = shaman.9.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	
+	option = { # Advice given
+		name = shaman.9.a
+		add_character_modifier = {
+			name = shaman_bad_no_spouse
+			duration = 365
+		}
+	}
+	
+}
+
+# Good Children
+character_event = {
+	id = shaman.10
+	desc = shaman.10.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	
+	option = { # Advice given
+		name = shaman.10.a
+		add_character_modifier = {
+			name = shaman_good_children
+			duration = 365
+		}
+	}
+	
+}
+
+# Bad Children
+character_event = {
+	id = shaman.11
+	desc = shaman.11.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	
+	option = { # Advice given
+		name = shaman.11.a
+		add_character_modifier = {
+			name = shaman_bad_children
+			duration = 365
+		}
+	}
+	
+}
+
+# Good No Children
+character_event = {
+	id = shaman.12
+	desc = shaman.12.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	
+	option = { # Advice given
+		name = shaman.12.a
+		add_character_modifier = {
+			name = shaman_good_no_children
+			duration = 365
+		}
+	}
+	
+}
+
+# Bad No Children
+character_event = {
+	id = shaman.13
+	desc = shaman.13.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	
+	option = { # Advice given
+		name = shaman.13.a
+		add_character_modifier = {
+			name = shaman_bad_no_children
+			duration = 365
+		}
+	}
+	
+}
+
+# Good Distant Relative
+character_event = {
+	id = shaman.14
+	desc = shaman.14.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	
+	option = { # Advice given
+		name = shaman.14.a
+		add_character_modifier = {
+			name = shaman_good_distant_relative
+			duration = 365
+		}
+	}
+	
+}
+
+# Bad Distant Relative
+character_event = {
+	id = shaman.15
+	desc = shaman.15.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	
+	option = { # Advice given
+		name = shaman.15.a
+		add_character_modifier = {
+			name = shaman_bad_distant_relative
+			duration = 365
+		}
+	}
+	
+}
+
+# Good Diplomacy
+character_event = {
+	id = shaman.16
+	desc = shaman.16.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	
+	option = { # Advice given
+		name = shaman.16.a
+		add_character_modifier = {
+			name = shaman_good_diplomacy
+			duration = 365
+		}
+	}
+	
+}
+
+# Bad Diplomacy
+character_event = {
+	id = shaman.17
+	desc = shaman.17.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	
+	option = { # Advice given
+		name = shaman.17.a
+		add_character_modifier = {
+			name = shaman_bad_diplomacy
+			duration = 365
+		}
+	}
+	
+}
+
+# Good martial
+character_event = {
+	id = shaman.18
+	desc = shaman.18.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	
+	option = { # Advice given
+		name = shaman.18.a
+		add_character_modifier = {
+			name = shaman_good_martial
+			duration = 365
+		}
+	}
+	
+}
+
+# Bad martial
+character_event = {
+	id = shaman.19
+	desc = shaman.19.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	
+	option = { # Advice given
+		name = shaman.19.a
+		add_character_modifier = {
+			name = shaman_bad_martial
+			duration = 365
+		}
+	}
+	
+}
+
+# Good stewardship
+character_event = {
+	id = shaman.20
+	desc = shaman.20.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	
+	option = { # Advice given
+		name = shaman.20.a
+		add_character_modifier = {
+			name = shaman_good_stewardship
+			duration = 365
+		}
+	}
+	
+}
+
+# Bad stewardship
+character_event = {
+	id = shaman.21
+	desc = shaman.21.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	
+	option = { # Advice given
+		name = shaman.21.a
+		add_character_modifier = {
+			name = shaman_bad_stewardship
+			duration = 365
+		}
+	}
+	
+}
+
+# Good intrigue
+character_event = {
+	id = shaman.22
+	desc = shaman.22.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	
+	option = { # Advice given
+		name = shaman.22.a
+		add_character_modifier = {
+			name = shaman_good_intrigue
+			duration = 365
+		}
+	}
+	
+}
+
+# Bad intrigue
+character_event = {
+	id = shaman.23
+	desc = shaman.23.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	
+	option = { # Advice given
+		name = shaman.23.a
+		add_character_modifier = {
+			name = shaman_bad_intrigue
+			duration = 365
+		}
+	}
+	
+}
+
+# Good learning
+character_event = {
+	id = shaman.24
+	desc = shaman.24.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	
+	option = { # Advice given
+		name = shaman.24.a
+		add_character_modifier = {
+			name = shaman_good_learning
+			duration = 365
+		}
+	}
+	
+}
+
+# Bad learning
+character_event = {
+	id = shaman.25
+	desc = shaman.25.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	
+	option = { # Advice given
+		name = shaman.25.a
+		add_character_modifier = {
+			name = shaman_bad_learning
+			duration = 365
+		}
+	}
+	
+}
+
+# Good personality
+character_event = {
+	id = shaman.26
+	desc = shaman.26.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	
+	option = { # Advice given
+		name = shaman.26.a
+		add_character_modifier = {
+			name = shaman_good_personality
+			duration = 365
+		}
+	}
+	
+}
+
+# Bad personality
+character_event = {
+	id = shaman.27
+	desc = shaman.27.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	
+	option = { # Advice given
+		name = shaman.27.a
+		add_character_modifier = {
+			name = shaman_bad_personality
+			duration = 365
+		}
+	}
+	
+}
+
+# Good health
+character_event = {
+	id = shaman.28
+	desc = shaman.28.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	
+	option = { # Advice given
+		name = shaman.28.a
+		add_character_modifier = {
+			name = shaman_good_health
+			duration = 365
+		}
+	}
+	
+}
+
+# Bad health
+character_event = {
+	id = shaman.29
+	desc = shaman.29.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	
+	option = { # Advice given
+		name = shaman.29.a
+		add_character_modifier = {
+			name = shaman_bad_health
+			duration = 365
+		}
+	}
+	
+}
+
+# young age
+character_event = {
+	id = shaman.30
+	desc = shaman.30.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	
+	option = { # Advice given
+		name = shaman.30.a
+		add_character_modifier = {
+			name = shaman_young_age
+			duration = 365
+		}
+	}
+	
+}
+
+# medium age
+character_event = {
+	id = shaman.31
+	desc = shaman.31.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	
+	option = { # Advice given
+		name = shaman.31.a
+		add_character_modifier = {
+			name = shaman_medium_age
+			duration = 365
+		}
+	}
+	
+}
+
+# old age
+character_event = {
+	id = shaman.33
+	desc = shaman.33.desc
+	picture = GFX_evt_journey_to_spirit_world
+	
+	is_triggered_only = yes
+	
+	
+	option = { # Advice given
+		name = shaman.33.a
+		add_character_modifier = {
+			name = shaman_old_age
+			duration = 365
+		}
+	}
+	
+}

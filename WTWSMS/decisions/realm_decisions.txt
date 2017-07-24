@@ -77,13 +77,15 @@ decisions = {
 	buy_indulgence_for_sins = {
 		only_playable = yes
 		potential = {
-			is_playable = yes
 			religion = catholic
 			age = 16
 			demesne_size = 1
 			NOT = { has_character_flag = ask_for_indulgence }
 		}
 		allow = {
+			prisoner = no
+			NOT = { trait = incapable }
+			NOT = { is_inaccessible_trigger = yes }
 			scaled_wealth = 1.0
 			wealth = 25
 			is_heretic = no
@@ -371,62 +373,87 @@ decisions = {
 			religion_authority = 0.9
 			completely_controls = c_byzantion
 			b_hagiasophia = {
-				holder_scope = {
-					OR = {
-						religion = orthodox
-						religion = paulician
-						religion = monothelite
-						religion = iconoclast
+				custom_tooltip = { # Custom tooltip to shorten the in-game tooltip
+					text = mend_the_schism_holder_religion
+					hidden_tooltip = {
+						holder_scope = {
+							OR = {
+								religion = orthodox
+								religion = paulician
+								religion = monothelite
+								religion = iconoclast
+							}
+							is_heretic = no
+						}
 					}
-					is_heretic = no
 				}
 			}
 			completely_controls = c_antiocheia
 			b_antiocheia = {
-				holder_scope = {
-					OR = {
-						religion = orthodox
-						religion = paulician
-						religion = monothelite
-						religion = iconoclast
+				custom_tooltip = {
+					text = mend_the_schism_holder_religion
+					hidden_tooltip = {
+						holder_scope = {
+							OR = {
+								religion = orthodox
+								religion = paulician
+								religion = monothelite
+								religion = iconoclast
+							}
+							is_heretic = no
+						}
 					}
-					is_heretic = no
 				}
 			}
 			completely_controls = c_jerusalem
 			b_jerusalem = {
-				holder_scope = {
-					OR = {
-						religion = orthodox
-						religion = paulician
-						religion = monothelite
-						religion = iconoclast
+				custom_tooltip = {
+					text = mend_the_schism_holder_religion
+					hidden_tooltip = {
+						holder_scope = {
+							OR = {
+								religion = orthodox
+								religion = paulician
+								religion = monothelite
+								religion = iconoclast
+							}
+							is_heretic = no
+						}
 					}
-					is_heretic = no
 				}
 			}
 			completely_controls = c_alexandria
 			b_alexandria = {
-				holder_scope = {
-					OR = {
-						religion = orthodox
-						religion = paulician
-						religion = monothelite
-						religion = iconoclast
+				custom_tooltip = {
+					text = mend_the_schism_holder_religion
+					hidden_tooltip = {
+						holder_scope = {
+							OR = {
+								religion = orthodox
+								religion = paulician
+								religion = monothelite
+								religion = iconoclast
+							}
+							is_heretic = no
+						}
 					}
-					is_heretic = no
 				}
 			}
 			completely_controls = c_roma
 			b_roma = {
-				holder_scope = {
-					OR = {
-						religion = orthodox
-						religion = paulician
-						religion = monothelite
-						religion = iconoclast
+				custom_tooltip = {
+					text = mend_the_schism_holder_religion
+					hidden_tooltip = {
+						holder_scope = {
+							OR = {
+								religion = orthodox
+								religion = paulician
+								religion = monothelite
+								religion = iconoclast
+							}
+							is_heretic = no
+						}
 					}
-					is_heretic = no
 				}
 			}
 		}
@@ -479,7 +506,10 @@ decisions = {
 			is_playable = yes
 			ai = no
 			has_dlc = "Legacy of Rome"
-			has_landed_title = e_roman_empire
+			OR = { 
+				has_landed_title = e_roman_empire
+				has_landed_title = e_wre
+			}
 			capital_scope = {
 				NOT = { province_id = 333 }
 			}
@@ -795,28 +825,7 @@ decisions = {
 		}
 		allow = {
 			has_landed_title = e_persia	
-			completely_controls = d_fars
-			completely_controls = d_khiva
-			completely_controls = d_merv
-			completely_controls = d_esfahan
-			completely_controls = d_hamadan
-			completely_controls = d_mazandaran
-			completely_controls = d_kermanshah
-			completely_controls = d_tigris
-			completely_controls = d_basra
-			completely_controls = d_baghdad
-			completely_controls = d_mosul
-			completely_controls = d_jazira			
-			completely_controls = d_kerman
-			completely_controls = d_khorasan
-			completely_controls = d_tabriz
-			completely_controls = d_azerbaijan
-			completely_controls = d_baluchistan
-			completely_controls = d_sistan
-			completely_controls = d_kabul
-			completely_controls = d_zabulistan
-			completely_controls = d_samarkand
-			completely_controls = d_dihistan
+			completely_controls = e_persia
 			piety = 1500
 		}
 		effect = {
@@ -855,6 +864,7 @@ decisions = {
 			primary_title = { title = k_asturias }
 			completely_controls = d_leon
 			completely_controls = d_asturias
+			is_vice_royalty = no
 		}
 		effect = {
 			activate_title = { title = k_leon status = yes }
@@ -1045,7 +1055,12 @@ decisions = {
 		
 		potential = {
 			is_playable = yes
-			has_landed_title = d_aragon
+			OR = {
+				has_landed_title = c_alto_aragon
+				has_landed_title = c_zaragoza
+				has_landed_title = c_albarracin
+				has_landed_title = c_calatayud
+			}
 			independent = yes
 			NOT = { tier = KING }
 			k_aragon = {
@@ -1056,7 +1071,10 @@ decisions = {
 		allow = {
 			war = no
 			NOT = { trait = incapable }
-			completely_controls = d_aragon
+			completely_controls = c_alto_aragon
+			completely_controls = c_zaragoza
+			completely_controls = c_albarracin
+			completely_controls = c_calatayud
 			prestige = 1000
 			wealth = 100
 		}
@@ -1240,13 +1258,35 @@ decisions = {
 		potential = {
 			has_dlc = "Sons of Abraham"
 			is_playable = yes
-			religion_group = jewish_group
+			OR = {
+				religion_group = jewish_group
+				religion = ebionites
+			}
 			k_israel = {
 				has_holder = no
 			}
 		}
 		allow = {
-			completely_controls = k_oriens
+			completely_controls = d_iudea # K_ORIENS IS TOO BIG, THIS IS WHAT ISRAEL HAD IN RL
+			custom_tooltip = {
+				text = JEW_ACRE_TIBERIAS				
+				hidden_tooltip = {
+					OR = {
+						AND = {
+							any_realm_lord = { has_landed_title = c_tiberias }
+							any_realm_lord = { has_landed_title = c_acre }
+						}
+						AND = {
+							has_landed_title = c_acre
+							has_landed_title = c_tiberias
+						}
+						AND = {
+							completely_controls = c_tiberias
+							completely_controls = c_acre
+						}
+					}
+				}
+			}
 			774 = {
 				religion = ROOT
 			}
@@ -1256,6 +1296,7 @@ decisions = {
 		effect = {
 			narrative_event = { id = SoA.102 tooltip = EVTTOOLTIP_SoA_102 }
 			prestige = 1000
+			piety = 1000
 		}
 		ai_will_do = {
 			factor = 1
@@ -1312,6 +1353,18 @@ decisions = {
 				factor = 0
 				religion = marcionism
 			}
+			modifier = {
+				factor = 2
+				trait = kind
+			}
+			modifier = {
+				factor = 50
+				trait = sympathy_judaism
+			}
+			modifier = {
+				factor = 5
+				trait = tolerant_ruler
+			}
 		}
 	}
 	
@@ -1338,6 +1391,11 @@ decisions = {
 				has_character_modifier = expelled_jewish
 				is_nomadic = yes
 				religion = ebionites
+				secret_religion = jewish
+				secret_religion = samaritan
+				secret_religion = karaite
+				secret_religion = tzadikite
+				secret_religion = ebionites
 			}
 			age = 16
 		}
@@ -1364,13 +1422,9 @@ decisions = {
 			NOT = { religion_group = jewish_group }
 		}
 		effect = {
-			prestige = -300
+			prestige = -100
 			scaled_wealth = 2
-			banish_religion = jewish
-			banish_religion = ebionites
-			banish_religion = karaite
-			banish_religion = samaritan
-			banish_religion = tzadikite
+
 			if = {
 				limit = { trait = sympathy_judaism }
 				remove_trait = sympathy_judaism
@@ -1393,6 +1447,13 @@ decisions = {
 			}
 			custom_tooltip = {
 				text = jews_are_expelled
+				hidden_tooltip = {
+					banish_religion = jewish
+					banish_religion = ebionites
+					banish_religion = karaite
+					banish_religion = samaritan
+					banish_religion = tzadikite
+				}
 			}
 			hidden_tooltip = {
 				character_event = { id = SoA.105 }
@@ -1417,6 +1478,10 @@ decisions = {
 			
 			modifier = {
 				factor = 0.001 # Less likely to do it
+			}
+			modifier = {
+				factor = 0
+				trait = tolerant_ruler
 			}
 			modifier = {
 				factor = 0
@@ -1462,6 +1527,10 @@ decisions = {
 				has_character_modifier = borrowed_from_jews
 			}
 			modifier = {
+				factor = 0.15
+				trait = just
+			}
+			modifier = {
 				factor = 1.2
 				trait = zealous
 				trait = arbitrary
@@ -1487,118 +1556,13 @@ decisions = {
 				factor = 0
 				religion = ebionites
 			}
-		}
-	}
-	
-	embrace_mutazila = {
-		only_playable = yes
-		
-		potential = {
-			has_dlc = "Sons of Abraham"
-			is_playable = yes
-			religion = sunni
-			NOT = { 
-				OR = {
-					trait = mutazilite
-					trait = ashari
-				}
-			}
-			is_adult = yes
-			prisoner = no
-		}
-		
-		allow = {
-			piety = 50
-		}
-		
-		effect = {
-			add_trait = mutazilite
-			character_event = { id = SoA.600 tooltip = EVTTOOLTIP_SoA_600 }
-		}
-		
-		revoke_allowed = {
-			always = no
-		}
-		
-		ai_will_do = {
-			factor = 1
-			
 			modifier = {
 				factor = 0
-				trait = zealous
+				trait = sympathy_judaism
 			}
-			modifier = {
-				factor = 1.2
-				trait = cynical
-			}
-			modifier = {
-				factor = 1.2
-				liege = { trait = mutazilite }
-			}
-			modifier = {
-				factor = 0.005 # Slow it down
-			}
-		}
-	}
-	embrace_ashari = {
-		only_playable = yes
-		
-		potential = {	
-			has_dlc = "Sons of Abraham"
-			is_playable = yes
-			religion = sunni
-			NOT = { 
-				OR = {
-					trait = mutazilite
-					trait = ashari
-				}
-			}
-			is_adult = yes
-			prisoner = no
-		}
-		
-		allow = {
-			piety = 50
-		}
-		
-		effect = {
-			add_trait = ashari
-			character_event = { id = SoA.601 tooltip = EVTTOOLTIP_SoA_601 }
-		}
-		
-		revoke_allowed = {
-			always = no
-		}
-		
-		ai_will_do = {
-			factor = 1
-			
 			modifier = {
 				factor = 0
-				trait = cynical
-			}
-			modifier = {
-				factor = 1.2
-				trait = zealous
-			}
-			modifier = {
-				factor = 1.2
-				liege = { trait = ashari }
-			}
-			modifier = {
-				factor = 1.2
-				decadence = 40
-			}
-			modifier = {
-				factor = 1.2
-				decadence = 60
-			}
-			modifier = {
-				factor = 1.2
-				decadence = 80
-			}
-			modifier = {
-				factor = 0.005 # Slow it down
+				religion = bosporan_faith
 			}
 		}
 	}
@@ -1821,7 +1785,7 @@ decisions = {
 					any_demesne_title = {
 						OR = {
 							title = e_france
-							title = e_germany
+							title = e_germania
 							title = e_britannia
 							title = e_spain
 							AND = {
@@ -1829,7 +1793,7 @@ decisions = {
 								NOT = {	title = k_italy	}
 								OR = {
 									empire = { title = e_france }
-									empire = { title = e_germany }
+									empire = { title = e_germania }
 									empire = { title = e_britannia }
 									empire = { title = e_spain }
 								}
@@ -1847,9 +1811,9 @@ decisions = {
 						e_italy = { holder_scope = { NOT = { religion_group = christian } } }
 					}
 					OR = {
-						has_landed_title = e_germany
-						e_germany = {	has_holder = no	}
-						e_germany = { holder_scope = { NOT = { religion_group = christian } } }
+						has_landed_title = e_germania
+						e_germania = {	has_holder = no	}
+						e_germania = { holder_scope = { NOT = { religion_group = christian } } }
 					}
 					OR = {
 						has_landed_title = e_france
@@ -2109,6 +2073,10 @@ decisions = {
 			}
 			
 			OR = {
+				has_game_rule = {
+					name = dynamic_custom_realms
+					value = custom_realms_unrestricted
+				}
 				ai = no
 				AND = {
 					trait = proud
@@ -2237,8 +2205,12 @@ decisions = {
 			
 			holy_order = no
 			
-			NOT = { tier = EMPEROR }
+			NOT = { tier = EMPEROR }		
 			OR = {
+				has_game_rule = {
+					name = dynamic_custom_realms
+					value = custom_realms_unrestricted
+				}
 				ai = no
 				AND = {
 					trait = proud
@@ -2258,6 +2230,7 @@ decisions = {
 				}
 			}
 		}
+
 		allow = {
 			is_adult = yes
 			prisoner = no
@@ -2312,7 +2285,6 @@ decisions = {
 												empire = {
 													has_holder = no
 												}
-												
 												NOT = { de_jure_liege_or_above = PREVPREVPREVPREV }
 												ROOT = {
 													completely_controls = PREV
@@ -2943,6 +2915,126 @@ decisions = {
 			factor = 0
 		}
 	}
-	
+}
+
+targetted_decisions = {
+	embrace_mutazila = {
+		only_playable = yes
+		
+		filter = self
+		ai_target_filter = self
+		
+		potential = {
+			has_dlc = "Sons of Abraham"
+			is_playable = yes
+			religion = sunni
+			NOT = { 
+				OR = {
+					trait = mutazilite
+					trait = ashari
+				}
+			}
+			is_adult = yes
+			prisoner = no
+		}
+		
+		allow = {
+			piety = 50
+		}
+		
+		effect = {
+			add_trait = mutazilite
+			character_event = { id = SoA.600 tooltip = EVTTOOLTIP_SoA_600 }
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0
+				trait = zealous
+			}
+			modifier = {
+				factor = 1.2
+				trait = cynical
+			}
+			modifier = {
+				factor = 1.2
+				liege = { trait = mutazilite }
+			}
+			modifier = {
+				factor = 0.005 # Slow it down
+			}
+		}
+	}
+	embrace_ashari = {
+		only_playable = yes
+		
+		filter = self
+		ai_target_filter = self
+		
+		potential = {	
+			has_dlc = "Sons of Abraham"
+			is_playable = yes
+			religion = sunni
+			NOT = { 
+				OR = {
+					trait = mutazilite
+					trait = ashari
+				}
+			}
+			is_adult = yes
+			prisoner = no
+		}
+		
+		allow = {
+			piety = 50
+		}
+		
+		effect = {
+			add_trait = ashari
+			character_event = { id = SoA.601 tooltip = EVTTOOLTIP_SoA_601 }
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0
+				trait = cynical
+			}
+			modifier = {
+				factor = 1.2
+				trait = zealous
+			}
+			modifier = {
+				factor = 1.2
+				liege = { trait = ashari }
+			}
+			modifier = {
+				factor = 1.2
+				decadence = 40
+			}
+			modifier = {
+				factor = 1.2
+				decadence = 60
+			}
+			modifier = {
+				factor = 1.2
+				decadence = 80
+			}
+			modifier = {
+				factor = 0.005 # Slow it down
+			}
+		}
+	}
 }
 

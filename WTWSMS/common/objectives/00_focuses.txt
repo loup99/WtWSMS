@@ -92,7 +92,6 @@ focus_business = {
 		is_adult = yes
 		NOT = { trait = incapable }
 		prisoner = no
-		NOT = { religion = priscillianism }
 	}
 	
 	# AI Pick chance
@@ -165,8 +164,7 @@ focus_seduction = {
 		is_adult = yes
 		NOT = { trait = incapable }
 		NOT = { trait = celibate }
-		NOT = { trait = monk }
-		NOT = { trait = nun }
+		NOT = { is_ascetic_trigger = yes }
 		NOT = { trait = eunuch }
 		NOT = { trait = chaste }
 		NOT = { religion = montanist }
@@ -174,7 +172,7 @@ focus_seduction = {
 		NOT = { religion = priscillianism }
 		NOT = {
 			AND = {	
-				religion_group = christian_group
+				religion_group = christian
 				trait = zealous
 			}
 			AND = {
@@ -209,7 +207,7 @@ focus_seduction = {
 		}
 		
 		modifier = {
-			factor = 0.01 # Faithful spouse/consort
+			factor = 0 # Faithful spouse/consort
 			OR = {
 				AND = {
 					is_married = yes
@@ -295,7 +293,7 @@ focus_seduction = {
 			}
 		}
 		modifier = { 
-			factor = 2.0
+			factor = 5.0
 			religion = antinomianism
 		}
 	}
@@ -311,9 +309,11 @@ focus_seduction = {
 			is_playable = no
 			trait = eunuch
 			trait = celibate
+			is_ascetic_trigger = yes
 			religion = montanist
-			religion = donatistism
+			religion = donatism
 			religion = priscillianism
+			trait = chaste
 		}
 	}
 	
@@ -440,7 +440,6 @@ focus_hunting = {
 		is_adult = yes
 		NOT = { trait = incapable }
 		NOT = { religion = jain }
-		NOT = { religion = taoism }
 		NOT = { trait = vegetarian }
 		NOT = {
 			AND = {
@@ -491,12 +490,11 @@ focus_hunting = {
 			prisoner = yes
 			trait = incapable
 			is_playable = no
-			religion = taoist
 			religion = jain
 			trait = vegetarian
 			AND = {
 				religion = priscillianism
-				goverment = theocracy_government
+				government = theocracy_government
 			}
 		}
 	}
@@ -516,6 +514,7 @@ focus_war = {
 	
 	potential = {
 		is_playable = yes
+		NOT = { religion = jain }
 	}
 	
 	allow = {
@@ -590,6 +589,7 @@ focus_war = {
 			prisoner = yes
 			trait = incapable
 			is_playable = no
+			religion = jain
 		}
 	}
 	
@@ -613,6 +613,7 @@ focus_carousing = {
 		NOT = { religion = montanist }
 		NOT = { religion = donatism }
 		NOT = { religion = priscillianism }
+		NOT = { is_ascetic_trigger = yes }
 		is_adult = yes
 		NOT = { trait = incapable }
 		prisoner = no
@@ -621,6 +622,7 @@ focus_carousing = {
 			trait = decadent
 			trait = hedonist
 			trait = drunkard
+			trait = gluttonous
 		}
 		custom_tooltip = {
 			text = is_not_ascetic
@@ -664,7 +666,7 @@ focus_carousing = {
 			trait = drunkard
 		}
 		modifier = {
-			factor = 2
+			factor = 4
 			religion = antinomianism
 		}
 	}
@@ -900,6 +902,7 @@ focus_theology = {
 	allow = {
 		is_adult = yes
 		NOT = { trait = incapable }
+		NOT = { religion = antinomianism }
 	}
 	
 	# AI Pick chance
@@ -972,6 +975,12 @@ focus_theology = {
 	# Focuses have no success conditions
 	success = {
 		always = no
+	}
+	creation_effect = {
+		if = {
+			limit = { has_quest = quest_monastic_order_theology_focus }
+			character_event = { id = MNM.4016 }
+		}
 	}
 	
 	abort = {

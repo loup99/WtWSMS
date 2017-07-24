@@ -85,6 +85,14 @@ character_event = {
 			}
 			set_province_flag = migration_give_away
 		}
+		# Sets the flag for the timer to prevent migration within 10 years
+		ROOT = { 
+			add_character_modifier = { 
+				modifier = launched_migration_war
+				duration = 3650
+			}
+		}
+
 	}
 	
 	option = {
@@ -169,7 +177,6 @@ character_event = {
 	id = zusk_event.14
 	hide_window = yes
 	
-	
 	is_triggered_only = yes
 	
 	immediate = {
@@ -190,6 +197,10 @@ character_event = {
 				new_character = {
 					usurp_title_plus_barony_if_unlanded = PREV
 					set_defacto_liege = THIS
+					set_truce = {
+						who = ROOT
+						years = 10
+					}
 				}
 			}
 			clr_province_flag = migration_give_away
@@ -343,6 +354,7 @@ province_event = {
 	picture = GFX_evt_tribal_life
 	
 	trigger = {
+		always = no # Disabled until further notice, pending either help from Zusk or another change
         NOT = { year = 800 }
         NOT = { has_province_flag = no_slavs }
         NOT = { top_liege = { religion = slavic_pagan } }
@@ -450,7 +462,7 @@ province_event = {
 					martial = 5
 				}
 			
-				trait = peasent_leader
+				trait = peasant_leader
 			}
 
 			new_character = {
@@ -570,9 +582,9 @@ province_event = {
                             OR = { 
                                 culture = romano_british
                                 culture = romano_gallic
-                                culture = french
-                                culture = norman
                                 culture = frankish
+                                culture = norman
+                                culture = old_frankish
                                 culture_group = west_germanic
                                 culture_group = celtic
                                 culture_group = latin
@@ -606,7 +618,7 @@ province_event = {
                             OR = {
                                 culture_group = byzantine
                                 culture_group = proto_carpathian
-                                culture_group = phyrygian_group
+                                culture_group = phrygian_group
                             }
                         }
                     }                                  
@@ -680,7 +692,7 @@ province_event = {
 				martial = 5
 			}
 			
-			trait = peasent_leader
+			trait = peasant_leader
 		}
 		new_character = {
 			create_character = {
@@ -694,7 +706,7 @@ province_event = {
 					martial = 5
 				}
 			
-				trait = peasent_leader
+				trait = peasant_leader
 			}
 
 			new_character = {
@@ -814,9 +826,9 @@ province_event = {
                         OR = { 
                             culture = romano_british
                             culture = romano_gallic
-                            culture = french
-                            culture = norman
                             culture = frankish
+                            culture = norman
+                            culture = old_frankish
                             culture_group = west_germanic
                             culture_group = celtic
                             culture_group = latin
@@ -850,7 +862,7 @@ province_event = {
                         OR = {
                             culture_group = byzantine
                             culture_group = proto_carpathian
-                            culture_group = phyrygian_group
+                            culture_group = phrygian_group
                         }
                     }
                 }                                  

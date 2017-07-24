@@ -657,6 +657,26 @@ narrative_event = {
 
 	immediate = {
 		set_global_flag = fall_of_rome
+		if = {
+			limit = {
+				NOT = {
+					has_global_flag = western_regalia_transferred
+				}
+			}
+			any_character = {
+				limit = { has_artifact = western_regalia }
+				any_artifact = {
+					limit = { has_artifact_flag = western_regalia } # it's kind of a workaround
+					transfer_artifact = {
+						from = PREV
+						to = ROOT
+					}
+				}
+			}
+			ROOT = {
+				character_event = { id = imperial_legacy.42 days = 2 } # Delay to ensure that e_wre has been granted beforehand
+			}
+		}
 	}
 	
 	option = {
@@ -985,6 +1005,10 @@ character_event = {
 	mean_time_to_happen = {
 		years = 1
 	}
+	
+	immediate = {
+		set_global_flag = ostrogoths_arrived
+	}
 
 	option = {
 		name = ZUSK37OP1
@@ -996,8 +1020,7 @@ character_event = {
 		ai_chance = {
 			factor = 90
 		}
-	 	treasury = -50
-	 	set_global_flag = ostrogoths_arrived 
+	 	treasury = -50		
 		custom_tooltip = { 
 			text = ostrogoth_attack_tooltip
 			hidden_tooltip = {
@@ -1016,7 +1039,6 @@ character_event = {
 		ai_chance = {
 			factor = 10
 		}
-		set_global_flag = ostrogoths_arrived 
 	}
 }
 
@@ -1444,26 +1466,26 @@ province_event = {
 	border = GFX_event_normal_frame_war
 
 	trigger = {
-				year = 700
+		year = 700
 		NOT = { has_global_flag = uyghur_arrived }
-				province_id = 1423
+		province_id = 1423
 	}
 	
 	mean_time_to_happen = {
 		years = 20
 	}
 	
-		immediate = {
-		set_global_flag = gokturk_arrived
+	immediate = {
+		set_global_flag = uyghur_arrived
 
-		 	activate_title = { title = e_uyghur status = yes }
+		activate_title = { title = e_uyghur status = yes }
 
 		create_character = {
-						name = Qutlugh
+			name = Qutlugh
 			random_traits = no
 			dynasty = random
 			religion = manichean
-						culture = uyghur
+			culture = uyghur
 			female = no
 			age = 45
 		}
@@ -1471,18 +1493,18 @@ province_event = {
 		new_character = {
 			save_event_target_as = target_uyghur
 
-						wealth = 500
+			wealth = 500
 
-						e_uyghur = {
-			grant_title = PREV
+			e_uyghur = {
+				grant_title = PREV
 			}
-						set_defacto_liege = THIS
+			set_defacto_liege = THIS
 
-						c_fergana = {
-			grant_title = PREV
+			c_fergana = {
+				grant_title = PREV
 			}
 
-						add_claim = e_tartaria
+			add_claim = e_tartaria
 					   
 			create_character = {
 				random_traits = yes
@@ -1498,20 +1520,19 @@ province_event = {
 			}
 			new_character = {
 				spawn_unit = {
-				province = ROOT
-				home = ROOT
-				owner = PREV
-				troops =
-				{
-					horse_archers = { 2700 2700 }
-					light_cavalry = { 1600 1600 }
-					light_infantry = { 541 541 }
-					heavy_infantry = { 210 210 }
-					knights = { 47 47 }
-				}
-				attrition = 0.25
-							 }
+					province = ROOT
+					home = ROOT
+					owner = PREV
+					troops = {
+						horse_archers = { 2700 2700 }
+						light_cavalry = { 1600 1600 }
+						light_infantry = { 541 541 }
+						heavy_infantry = { 210 210 }
+						knights = { 47 47 }
 					}
+				attrition = 0.25
+				}
+			}
 			create_character = {
 				random_traits = yes
 				dynasty = random
@@ -1526,20 +1547,19 @@ province_event = {
 			}
 			new_character = {
 				spawn_unit = {
-				province = ROOT
-				home = ROOT
-				owner = PREV
-				troops =
-				{
-					horse_archers = { 2700 2700 }
-					light_cavalry = { 1600 1600 }
-					light_infantry = { 541 541 }
-					heavy_infantry = { 210 210 }
-					knights = { 47 47 }
-				}
-				attrition = 0.25
-							 }
+					province = ROOT
+					home = ROOT
+					owner = PREV
+					troops = {
+						horse_archers = { 2700 2700 }
+						light_cavalry = { 1600 1600 }
+						light_infantry = { 541 541 }
+						heavy_infantry = { 210 210 }
+						knights = { 47 47 }
 					}
+				attrition = 0.25
+				}
+			}
 			create_character = {
 				random_traits = yes
 				dynasty = random
@@ -1554,20 +1574,19 @@ province_event = {
 			}
 			new_character = {
 				spawn_unit = {
-				province = ROOT
-				home = ROOT
-				owner = PREV
-				troops =
-				{
-					horse_archers = { 2700 2700 }
-					light_cavalry = { 1600 1600 }
-					light_infantry = { 541 541 }
-					heavy_infantry = { 210 210 }
-					knights = { 47 47 }
-				}
-				attrition = 0.25
-							 }
+					province = ROOT
+					home = ROOT
+					owner = PREV
+					troops = {
+						horse_archers = { 2700 2700 }
+						light_cavalry = { 1600 1600 }
+						light_infantry = { 541 541 }
+						heavy_infantry = { 210 210 }
+						knights = { 47 47 }
 					}
+				attrition = 0.25
+				}
+			}
 			create_character = {
 				random_traits = yes
 				dynasty = random
@@ -1582,20 +1601,19 @@ province_event = {
 			}
 			new_character = {
 				spawn_unit = {
-				province = ROOT
-				home = ROOT
-				owner = PREV
-				troops =
-				{
-					horse_archers = { 2700 2700 }
-					light_cavalry = { 1600 1600 }
-					light_infantry = { 541 541 }
-					heavy_infantry = { 210 210 }
-					knights = { 47 47 }
-				}
-				attrition = 0.25
-							 }
+					province = ROOT
+					home = ROOT
+					owner = PREV
+					troops = {
+						horse_archers = { 2700 2700 }
+						light_cavalry = { 1600 1600 }
+						light_infantry = { 541 541 }
+						heavy_infantry = { 210 210 }
+						knights = { 47 47 }
 					}
+				attrition = 0.25
+				}
+			}
 			create_character = {
 				random_traits = yes
 				dynasty = random
@@ -1610,37 +1628,36 @@ province_event = {
 			}
 			new_character = {
 				spawn_unit = {
-				province = ROOT
-				home = ROOT
-				owner = PREV
-				troops =
-				{
-					horse_archers = { 2700 2700 }
-					light_cavalry = { 1600 1600 }
-					light_infantry = { 541 541 }
-					heavy_infantry = { 210 210 }
-					knights = { 47 47 }
-				}
-				attrition = 0.25
-							 }
+					province = ROOT
+					home = ROOT
+					owner = PREV
+					troops = {
+						horse_archers = { 2700 2700 }
+						light_cavalry = { 1600 1600 }
+						light_infantry = { 541 541 }
+						heavy_infantry = { 210 210 }
+						knights = { 47 47 }
 					}
+				attrition = 0.25
+				}
+			}
 			
 			# DoW on the province top liege
-					1425 = {
-			empire = {
-				event_target:target_uyghur = {
-					war = {
-						casus_belli = unification
-						target = PREVPREV # The top liege of the owner
-						thirdparty_title = PREV # The de jure kingdom
+			1425 = {
+				empire = {
+					event_target:target_uyghur = {
+						war = {
+							casus_belli = unification
+							target = PREVPREV # The top liege of the owner
+							thirdparty_title = PREV # The de jure kingdom
+						}
 					}
 				}
 			}
 		}
-	}
 	
 
-		}
+	}
 
 	option = {
 		name = "EVTOPTA_TOG_1000"
@@ -3288,11 +3305,14 @@ character_event = {
 }
 
 # Zeno has won the war for the ERE against Basiliscus
-character_event = {
+narrative_event = {
 	id = historical_wtwsms.1
 	title = historical_wtwsms.1.name
 	desc = historical_wtwsms.1.desc
 	picture = GFX_evt_victory_arch_byzantine
+	
+	only_rulers = yes
+	only_independent = yes
 	
 	trigger = { 
 		start_date = 476.2.2
@@ -3325,6 +3345,7 @@ character_event = {
 		}
 		d_europa = { 
 			holder_scope = {
+				abdicate_to = ROOT
 				imprison = ROOT
 			}
 		}
@@ -3355,14 +3376,17 @@ narrative_event = {
 }
 
 # Theodoric has won the Invasion of Italy against Odoacer
-character_event = {
+narrative_event = {
 	id = historical_wtwsms.3
 	title = historical_wtwsms.3.name
 	desc = historical_wtwsms.3.desc
 	picture = GFX_evt_heretic
 	
+	only_rulers = yes
+	only_independent = yes
+	
 	trigger = {
-		start_date = 476.2.2
+		has_global_flag = ostrogoths_arrived		
 		ROOT = { 
 			has_landed_title = k_ostrogoths
 		}
@@ -3432,3 +3456,131 @@ narrative_event = {
 		name = OK
 	}
 }
+
+# Nepos reconquers Italy
+narrative_event = {
+	id = historical_wtwsms.5
+	title = historical_wtwsms.5.name
+	desc = historical_wtwsms.5.desc
+	picture = GFX_evt_heretic
+	
+	only_rulers = yes
+	only_independent = yes
+	
+	trigger = {
+		has_global_flag = julis_nepos_wre
+		OR = {
+			start_date = 476.2.2
+			start_date = 480.5.1
+		}
+		ROOT = { 
+			has_landed_title = e_wre
+		}
+		OR = { 
+			k_italy = { 
+				any_previous_holder = { 
+					ROOT = { has_truce = PREV}
+				}
+			}
+			k_ostrogoths = { 
+				any_previous_holder = { 
+					ROOT = { has_truce = PREV}
+				}
+			}
+		}
+		OR = {
+			c_roma = {
+				holder_scope = {
+					top_liege = {
+						character = ROOT
+					}
+				}
+			}
+			c_ravenna = {
+				holder_scope = {
+					top_liege = {
+						character = ROOT
+					}
+				}
+			}
+		}
+		NOT = { has_global_flag = nepos_return_italy }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_global_flag = nepos_return_italy
+	}
+
+	option = {
+		name = historical_wtwsms.5.a
+
+		prestige = 100 
+		if = {
+			limit = {
+				k_ostrogoths = { 
+					holder_scope = { 
+						vassal_of = ROOT
+					}
+				}
+			}
+			k_ostrogoths = { 
+				holder_scope = {
+					imprison = ROOT				
+					abdicate_to = ROOT
+				}
+			}
+			k_ostrogoths = { 
+				destroy_landed_title = THIS
+			}
+		}
+		if = {
+			limit = {
+				k_italy = { 
+					holder_scope = { 
+						vassal_of = ROOT
+					}
+				}
+			}
+			k_italy = { 
+				holder_scope = { 
+					imprison = ROOT
+					abdicate_to = ROOT 
+				}
+			}
+			k_italy = { 
+				destroy_landed_title = THIS
+			}
+		}
+		change_infamy = { # To avoid huge coalition
+			value = -100 
+			localisation = CHANGE_INFAMY_EFFECT
+		}
+		hidden_tooltip = {
+			any_playable_ruler = {
+				narrative_event = { id = historical_wtwsms.6 }
+				limit = {
+					NOT = { has_landed_title = e_wre }
+				}
+			}
+		}
+	}
+}
+
+# INFO - Nepos reconquers Italy
+narrative_event = {
+	id = historical_wtwsms.6
+	title = historical_wtwsms.6.name
+	desc = historical_wtwsms.6.desc
+	picture = GFX_evt_heretic
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = { 
+		name = historical_wtwsms.6.a
+	}
+} 

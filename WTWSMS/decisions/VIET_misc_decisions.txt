@@ -1,6 +1,7 @@
 decisions = {
 	
 	perform_sacrifice = {
+		only_playable = yes
 		potential = {
 			OR = {
 				religion_group = pagan_group
@@ -12,13 +13,14 @@ decisions = {
 		allow = {
 			war = no
 			wealth = 20
-			NOT = { has_character_modifier = performed_sacrifice }
-			NOT = { has_character_modifier = holding_large_feast }
-			NOT = { has_character_modifier = holding_summer_fair }
-			NOT = { has_character_flag = holding_grand_hunt }
-			NOT = { has_character_flag = epic_tournament }
-			NOT = { trait = traveling }
-			NOT = { has_character_modifier = performed_sacrifice }
+			NOR = { 
+				has_character_modifier = performed_sacrifice 
+				has_character_modifier = holding_large_feast 
+				has_character_modifier = holding_summer_fair 
+				has_character_flag = holding_grand_hunt 
+				has_character_flag = epic_tournament 
+				trait = traveling 
+			}
 		}
 		effect = {
 			scaled_wealth = -0.4
@@ -87,10 +89,10 @@ decisions = {
 	}
 	
 	adopt_local_pagan_beliefs = { # Adopt local pagan beliefs
+		only_independent = yes
 		potential = {
 			is_ruler = yes
 			independent = yes
-			lower_tier_than = KING
 			is_adult = yes
 			religion_group = pagan_group
 			is_reformed_religion = no
@@ -556,6 +558,5 @@ decisions = {
 			factor = 1
 		}
 	}
-	
 }
 
