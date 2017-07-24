@@ -1,0 +1,178 @@
+# Audax Validator "!" Ignore_NEXT
+#############################################
+#
+# Maintainence events to give spawned couriters wives
+#
+# ordepmarriage.9000-9999 is reserved
+#
+#
+#############################################
+namespace = ordepmarriage
+
+#############################################
+
+
+
+#Courtier about to get married
+character_event = {
+	id = ordepmarriage.9000
+	desc = ordepmarriage.9000.desc
+	picture = GFX_evt_marriage
+	
+	min_age = 16
+	max_age = 60
+	capable_only = yes
+	prisoner = no
+	only_men = yes
+	
+	trigger = {
+		is_married = no
+		is_female = no
+		is_adult = yes
+		is_ruler = no
+		has_character_flag = VIET_spawned_courtier
+		NOT = {
+			liege = { culture = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		years = 20
+		
+		modifier = {
+			factor = 0.7
+			ROOT = {
+				age = 16
+				NOT = { age = 25 }
+			}
+		}
+		
+		modifier = {
+			factor = 0.8
+			ROOT = {
+				age = 25
+				NOT = { age = 32 }
+			}
+		}
+		
+		modifier = {
+			factor = 1.2
+			ROOT = {
+				age = 32
+				NOT = { age = 40 }
+			}
+		}
+		
+		modifier = {
+			factor = 1.5
+			ROOT = {
+				age = 40
+			}
+		}
+		
+		modifier = {
+			factor = 10
+			ROOT = { trait = celibate }
+		}
+		
+		modifier = {
+			factor = 0.9
+			ROOT = { trait = lustful }
+		}
+		
+		modifier = {
+			factor = 0.9
+			ROOT = { trait = fair }
+		}	
+		
+		modifier = {
+			factor = 0.9
+			ROOT = { trait = genius }
+		}
+		
+		modifier = {
+			factor = 0.9
+			ROOT = { trait = quick }
+		}	
+		
+		modifier = {
+			factor = 0.9
+			ROOT = { trait = zealous }
+		}
+
+		modifier = {
+			factor = 0.9
+			ROOT = { trait = charitable }
+		}	
+		
+		modifier = {
+			factor = 0.9
+			ROOT = { trait = greedy }
+		}
+		
+		modifier = {
+			factor = 0.9
+			ROOT = { trait = gregarious }
+		}	
+		
+		modifier = {
+			factor = 1.1
+			ROOT = { trait = cynical }
+		}
+		
+		modifier = {
+			factor = 1.1
+			ROOT = { trait = ugly }
+		}	
+		
+		modifier = {
+			factor = 1.1
+			ROOT = { trait = chaste }
+		}
+				
+		modifier = {
+			factor = 1.1
+			ROOT = { trait = homosexual }
+		}
+		
+		modifier = {
+			factor = 1.1
+			ROOT = { trait = shy }
+		}			
+	}
+	
+	option = {
+		name = ordepmarriage.9000.a  # inform liege
+		liege = {
+			character_event = { id = ordepmarriage.9001 }
+		}
+	}
+	
+}
+
+#liege informed of courtier's marriage
+character_event = {
+	id = ordepmarriage.9001
+	desc = ordepmarriage.9001.desc
+	picture = GFX_evt_marriage
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ordepmarriage.9001.a
+		create_character = {
+			female = yes
+			random_traits = yes
+			dynasty = random
+			religion = FROM
+			culture = FROM
+		}
+		new_character = {
+			add_spouse = FROM
+		}
+		FROM = {
+			prestige = 10
+			piety = 10
+		}
+	}
+}
