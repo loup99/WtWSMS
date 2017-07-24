@@ -1,0 +1,453 @@
+#################################################################
+#								#
+#	TURTLESHROOM PRODUCTIONS PROUDLY PRESENTS	#
+#		THE PENULTIMATE SPARTAAAAA MOD		#
+#								#
+#################################################################
+
+#This is blasphemy!#
+#This is madness!#
+
+# ...
+
+# Madness? #
+
+# .........
+
+namespace = this_is_sparta
+
+narrative_event = { # Announcement of the ressurection of SPARTA
+	id = this_is_sparta.1
+
+	title = this_is_sparta.1_TITLE
+	desc = this_is_sparta.2
+	picture = GFX_evt_sparta
+	border = GFX_event_narrative_frame_war
+	
+	is_triggered_only = yes
+
+	major = yes
+
+	option = { # SPARTAAAAAAAAAAAAA
+		name = this_is_sparta.3
+		trigger = {
+			OR = {
+				culture = spartan
+				culture = tsakonian
+				religion = hellenic_pagan
+				religion = cybelian_pagan
+				religion = neoplatonist
+				religion = mithraic_pagan
+				religion = mastimani
+			}
+			NOT = {
+				religion_group = christian
+				trait = secret_zoroastrian
+			}
+		}
+	}
+
+
+	option = { # Greek/Byzantine/Modern Spartan Christian laughs at their ambition
+		name = this_is_sparta.4
+		trigger = {
+			OR = {
+				culture = tsakonian
+				culture_group = byzantine
+			}
+			NOT = { culture = spartan }
+			religion_group = christian
+		}
+	}
+
+	option = { # Romance culture reaction
+		name = this_is_sparta.5
+		trigger = {
+			has_romance_culture_trigger = yes
+			NOT = {
+				culture = tsakonian
+				culture = spartan
+			}
+		}
+
+	option = { # Persian/Iranian/Zoroastrian/etc. reaction and reaction of cravens
+		name = this_is_sparta.6
+		trigger = {
+			OR = {
+				religion = zoroastrian
+				culture = persian
+				culture = romano_persian
+				culture_group = iranian
+				has_landed_title = e_persia
+				has_landed_title = k_persia
+				trait = sympathy_zoroastrians
+				trait = secret_zoroastrian
+			}
+			NOT = {
+				religion = hellenic_pagan
+				religion = cybelian_pagan
+				religion = neoplatonist
+				religion = mithraic_pagan
+				religion = mastimani
+			}
+		}
+	}
+
+	option = { # Everyone else
+		name = this_is_sparta.7
+		trigger = {
+			NOT = {
+				religion = hellenic_pagan
+				religion = cybelian_pagan
+				religion = neoplatonist
+				religion = mithraic_pagan
+				religion = mastimani
+				culture = spartan
+				culture = tsakonian
+				trait = secret_zoroastrian
+				culture = romano_persian
+				culture_group = iranian
+				religion_group = christian
+			}
+		}
+	}
+}
+
+narrative_event = { # Spartan Brigades
+	id = this_is_sparta.2
+
+	title = this_is_sparta.2_TITLE
+	desc = this_is_sparta.9
+	picture = GFX_evt_sparta
+	border = GFX_event_narrative_frame_war
+	
+	is_triggered_only = yes
+
+	major = yes
+
+	option = { # SPARTAAAAAAAAAAAAA
+		name = this_is_sparta.3
+		trigger = {
+			OR = {
+				culture = spartan
+				culture = tsakonian
+				religion = hellenic_pagan
+				religion = cybelian_pagan
+				religion = neoplatonist
+				religion = mithraic_pagan
+				religion = mastimani
+			}
+			NOT = {
+				religion_group = christian
+				trait = secret_zoroastrian
+			}
+		}
+	}
+
+
+	option = { # Christian laughs at their ambition
+		name = this_is_sparta.4
+		trigger = {
+			NOT = { culture = spartan }
+			religion_group = christian
+		}
+	}
+
+	option = { # Romance culture reaction
+		name = this_is_sparta.5
+		trigger = {
+			has_romance_culture_trigger = yes
+			NOT = {
+				culture = tsakonian
+				culture = spartan
+			}
+		}
+
+	option = { # Persian/Iranian/Zoroastrian/etc. reaction and reaction of cravens
+		name = this_is_sparta.6
+		trigger = {
+			OR = {
+				religion = zoroastrian
+				culture = persian
+				culture = romano_persian
+				culture_group = iranian
+				has_landed_title = e_persia
+				has_landed_title = k_persia
+				trait = sympathy_zoroastrians
+				trait = secret_zoroastrian
+				trait = craven
+			}
+			NOT = {
+				culture = spartan
+				religion = hellenic_pagan
+				religion = cybelian_pagan
+				religion = neoplatonist
+				religion = mithraic_pagan
+				religion = mastimani
+			}
+		}
+	}
+
+	option = { # Everyone else
+		name = this_is_sparta.7
+		trigger = {
+			NOT = {
+				religion = hellenic_pagan
+				religion = cybelian_pagan
+				religion = neoplatonist
+				religion = mithraic_pagan
+				religion = mastimani
+				culture = spartan
+				culture = tsakonian
+				trait = secret_zoroastrian
+				trait = craven
+				culture = romano_persian
+				culture_group = iranian
+				religion_group = christian
+			}
+		}
+	}
+}
+
+character_event = { # Penalty for Spartan with Craven trait
+	id = this_is_sparta.3
+	hide_window = yes
+
+	potential = {
+		culture = spartan
+		religion_group = pagan_group
+	}
+
+	trigger = {
+		is_adult = yes
+		trait = craven
+	}
+
+	option = {
+		name = this_is_sparta.8
+	}
+}
+
+character_event = { # Removal of penalty if Spartan is no longer a chicken
+	id = this_is_sparta.4
+	hide_window = yes
+
+	potential = {
+		culture = spartan
+		has_character_modifier = this_is_not_sparta
+	}
+
+	trigger = {
+		is_adult = yes
+		NOT = { trait = craven }
+	}
+
+	option = {
+		name = this_is_sparta.8
+		remove_character_modifier = this_is_not_sparta
+	}
+}
+
+character_event = { 
+# In this Event, a Spartan with defect who has survived the infancy challenge gets the special Lame Spartan Trait, which hurts his Martial but ups his other talents.
+# It should be noted that a Spartan who survives infancy and the challenge with a defect, or manifests one later in life, would still be accepted as a Spartan.
+# Spartans who could not fight were put to work as Sparta's bureaucrats, artists, governors, stewards, farmers, and so on to support the warriors.
+# In fact, King Agesilaos II of Sparta was a cripple and ended up being a Spartan King!
+
+	id = this_is_sparta.5
+	hide_window = yes
+
+	potential = {
+		culture = spartan
+		religion_group = pagan_group
+	}
+
+	trigger = {
+		OR = {
+			has_character_flag = survived_spartan_hill
+			has_character_modifier = inferior_spartan_child
+		}
+		age = 6
+	}
+
+	option = {
+		name = this_is_sparta.8
+		add_trait = lame_spartan
+		remove_trait = inferior_spartan_child
+		set_character_flag = once_inferior_child_accepted
+	}
+}
+
+narrative_event = { # Fall of Sparta: Holder of Sparta "goes soft" and abandons paganism OR non-Spartan/Tsakonian takes Sparta
+
+	id = this_is_sparta.6
+	title = this_is_sparta.6_TITLE
+	desc = this_is_sparta.10
+	picture = GFX_evt_deca_romana
+	border = GFX_event_narrative_frame_war
+
+	major = yes
+	
+
+	potential = {
+		has_landed_title = k_sparta
+		NOT = { 
+			religion_group = pagan_group
+			religion = hellenic_pagan
+			religion = cybelian_pagan
+			religion = neoplatonist
+			religion = mithraic_pagan
+			religion = mastimani
+		}
+	}
+
+	trigger = {
+		has_landed_title = k_sparta
+		NOT = { 
+			culture = spartan
+			culture = tsakonian
+			religion = hellenic_pagan
+			religion = cybelian_pagan
+			religion = neoplatonist
+			religion = mithraic_pagan
+			religion = mastimani
+			religion_group = pagan_group
+		}
+	}
+
+	option = {
+		name = this_is_sparta.11 # ONLY the controller of Sparta can take this Event, as it dismantles Sparta itself and replaces the titles
+		trigger = {
+			has_landed_title = k_sparta
+			NOT = { has_global_flag = THIS_IS_NOT_SPARTA }
+			NOT = { has_landed_title = k_byzantium }
+			NOT = {
+				k_byzantium = {
+					has_holder = yes
+				}
+			}
+		}
+
+		ROOT = {
+			k_byzantium = {
+				activate_title = { title = THIS status = yes } # Otherwise grant_title doesn't work
+				grant_title = PREV
+			}
+		}
+		k_byzantium = { 
+			set_name = Hellenes
+			set_coa = d_athens
+		} 
+		k_sparta = { 
+			unsafe_destroy_landed_title = THIS
+		}
+		clr_global_flag = THIS_IS_SPARTA
+		set_global_flag = THIS_IS_NOT_SPARTA
+	}
+
+	option = {
+		name = this_is_sparta.11 # Pagans and Spartans mourn
+		trigger = {
+			OR = {
+				culture = spartan
+				religion_group = pagan_group
+				trait = sympathy_pagans
+			}
+			NOT = { has_landed_title = k_sparta }
+		}
+		k_sparta = { 
+			unsafe_destroy_landed_title = THIS
+		}
+		clr_global_flag = THIS_IS_SPARTA
+	}
+
+	option = { # Everyone else
+		name = this_is_sparta.12
+		trigger = {
+			OR = {
+				NOT = {
+					religion_group = pagan_group
+					culture = spartan
+					has_landed_title = k_sparta
+				}
+				has_landed_title = k_byzantium
+			}
+		}
+		k_sparta = { 
+			unsafe_destroy_landed_title = THIS
+		}
+		clr_global_flag = THIS_IS_SPARTA
+	}
+}
+
+long_character_event = { # Spartan goes soft
+	id = this_is_sparta.7
+	desc = this_is_sparta.13
+	picture = GFX_evt_deca_romana
+
+	potential = {
+		culture = spartan
+		NOT = {
+			religion_group = pagan_group
+			religion = hellenic_pagan
+			religion = cybelian_pagan
+			religion = neoplatonist
+			religion = mithraic_pagan
+			religion = mastimani			
+		}
+	}
+
+	trigger = {
+		is_adult = yes
+		culture = spartan
+		NOT = {
+			religion = hellenic_pagan
+			religion = cybelian_pagan
+			religion = neoplatonist
+			religion = mithraic_pagan
+			religion = mastimani
+			religion_group = pagan_group
+		}
+	}
+
+	option = {
+		name = this_is_sparta.11
+		culture = tsakonian
+		hidden_tooltip = {
+			remove_character_modifier = this_is_not_sparta
+			remove_character_modifier = inferior_spartan_child
+			remove_character_modifier = spartan_warrior
+			remove_trait = lame_spartan
+		}
+	}
+}
+
+character_event = { # Maintenance and clean up should Sparta cease to exist, that the Decision may be taken again
+	id = this_is_sparta.8
+	hide_window = yes
+
+	potential = {
+		has_landed_title = b_sparta
+		has_global_flag = THIS_IS_SPARTA
+		NOT = { has_global_flag = THIS_IS_NOT_SPARTA }
+	}
+
+	trigger = {
+		k_sparta = {
+			has_holder = no
+		}
+	}
+
+	option = {
+		name = this_is_sparta.11
+		ROOT = {
+			character_event = { this_is_sparta.6 }
+		}
+
+		clr_global_flag = THIS_IS_SPARTA
+		set_global_flag = THIS_IS_NOT_SPARTA
+	}
+}
+
+
+# I've chosen my code carefully, Persian. #
