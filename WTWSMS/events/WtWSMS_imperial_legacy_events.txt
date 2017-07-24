@@ -1590,12 +1590,13 @@ narrative_event = {
 		c_roma = {
 			holder_scope = {
 				top_liege = {
-					#western_regalia = { 
-						#transfer_artifact = {
-							#from = ROOT 
-							#to = FROM	
-						#}
-					#}
+					any_artifact = {
+						limit = { has_artifact_flag = western_regalia } # it's kind of a workaround
+						transfer_artifact = {
+							from = ROOT 
+							to = PREVPREV
+						}
+					}
 					narrative_event = { id = imperial_legacy.45 days = 10 }
 				}
 			}
@@ -1636,3 +1637,88 @@ narrative_event = {
 		prestige = -100
 	}
 } 
+
+# Latin remembering the legacy of the Romans
+character_event = {
+	id = imperial_legacy.46
+	desc = imperial_legacy.46.desc
+	picture = GFX_evt_monk
+	border = GFX_event_normal_frame_religion
+	
+	capable_only = yes
+	prisoner = no
+	min_age = 16
+	
+	trigger = {
+	    NOT = { year = 1200 }
+        NOT = { trait = roman_nostalgia }
+		OR = {
+			culture_group = latin
+			culture = romano_british
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1000
+
+		modifier = {
+			factor = 0.9
+			trait = just
+		}
+        modifier = {
+			factor = 0.9
+			trait = sympathy_christendom
+		}
+        modifier = {
+			factor = 5
+			NOT = { religion_group = christian }
+			NOT = { religion = hellenic_pagan }
+			NOT = { is_heresy_of = hellenic_pagan }
+		}
+		modifier = {
+		    factor = 0.2
+			OR = {
+				tier = emperor
+				tier = king
+			}
+		}
+        modifier = {
+			factor = 0.5
+			OR = {
+				religion = hellenic_pagan
+				is_heresy_of = hellenic_pagan
+			}		}
+        modifier = {
+			factor = 2
+			year = 800
+		}
+        modifier = {
+			factor = 5
+			year = 900
+		}
+        modifier = {
+			factor = 10
+			year = 1000
+		}
+        modifier = {
+			factor = 20
+			year = 1100
+		}
+	}
+	
+	option = {
+		ai_chance = {
+			factor = 50
+		}
+		name = imperial_legacy.46.a
+		add_trait = roman_nostalgia
+	}
+
+    option = {
+		ai_chance = {
+			factor = 50
+		}
+		name = imperial_legacy.46.b
+	}
+
+}
