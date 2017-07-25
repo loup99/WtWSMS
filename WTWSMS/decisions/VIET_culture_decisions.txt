@@ -39,11 +39,13 @@ decisions = {
 		}
 		allow = {
 			independent = yes
-			NOT = { tier = emperor }
-			realm_size = 80			
+	
 			OR = {
+				AND = {
+					realm_size = 80
+					has_landed_title = k_england
+				}
 				completely_controls = k_england
-				has_landed_title = k_england
 			}
 			OR = {
 				AND = {
@@ -55,13 +57,13 @@ decisions = {
 						has_landed_title = k_dumnonia					
 					}
 				}
-				OR = {
+				AND = {
 					completely_controls = k_brittany
-					has_landed_title = k_brittany	
+					has_landed_title = k_brittany
 				}
 			}
 			piety = 200
-			prestige = 500
+			prestige = 1000
 		}
 		effect = {
 			set_global_flag = VIET_britain_restored
@@ -198,15 +200,18 @@ decisions = {
 			age = 16
 			scaled_wealth = 0.5
 			prisoner = no
-			religion_group = christian
-			NOT = { has_character_flag = VIET_celtic_high_cross }
 			OR = {
-				culture = saxon
+				religion = insular
+				religion = pelagianism
 				AND = {
-					culture_group = celtic
-					NOT = { culture = breton }
+					religion_group = christian
+					OR = {
+						culture = saxon
+						culture = old_saxon
+					}
 				}
 			}
+			NOT = { has_character_flag = VIET_celtic_high_cross }
 		}
 		allow = {
 			war = no
@@ -318,6 +323,7 @@ decisions = {
 			war = no
 			in_command = no
 			any_demesne_title = {
+				NOT = { higher_tier_than = count }
 				is_occupied = no
 			}
 			prisoner = no
@@ -465,6 +471,7 @@ decisions = {
 				culture_group = celtic
 				culture_group = continental_celtic
 				culture_group = west_germanic
+				religion = insular
 			}
 			NOT = { has_character_modifier = VIET_visited_holy_well }
 			any_demesne_province = {
@@ -659,6 +666,11 @@ decisions = {
 						province_id = 480
 					}
 				}
+				AND = {
+					any_realm_lord = { has_landed_title = c_kaneia }
+					any_realm_lord = { has_landed_title = c_chandax }
+				}
+				completely_controls = d_krete
 			}
 			NOT = { has_character_modifier = VIET_cretan_feast_timer }
 			NOT = { has_character_flag = do_not_disturb }
@@ -679,11 +691,17 @@ decisions = {
 			scaled_wealth = 0.01
 			age = 16
 			NOT = { has_character_modifier = VIET_attended_cretan_feast }
-			NOT = {
-				AND = {
-					religion_group = muslim
-					trait = zealous
+			OR = {
+				NOT = {
+					AND = {
+						religion_group = muslim
+						trait = zealous
+					}
 				}
+				trait = decadent
+				trait = hedonist
+				trait = drunkard
+				trait = gluttonous
 			}
 			custom_tooltip = {
 				text = health_travel_condition
@@ -723,10 +741,19 @@ decisions = {
 			modifier = {
 				factor = 0.001
 				NOT = {
-					OR = {
-						culture = greek
-						trait = drunkard
-					}
+					trait = gregarious
+					trait = drunkard
+					trait = hedonist
+					trait = decadent
+					trait = gluttonous
+					has_focus = focus_carousing
+				}
+			}
+			modifier = {
+				factor = 0.9
+				NOT = { 
+					culture = greek 
+					culture_group = byzantine
 				}
 			}
 			modifier = {
@@ -983,16 +1010,6 @@ decisions = {
 		is_high_prio = yes
 		potential = {
 			NOT = { religion_group = muslim }
-			OR = {
-				NOT = { religion_group = pagan_group }
-				religion = zun_pagan
-				religion = zun_pagan_reformed
-				AND = {
-					religion_group = pagan_group
-					realm_size = 80
-				}
-				culture = sogdian
-			}
 			NOT = { has_global_flag = sogdian_merchants_supported }
 			OR = { 
 				tier = emperor 
@@ -1007,6 +1024,13 @@ decisions = {
 					kingdom = { title = k_baluchistan }
 					kingdom = { title = k_persia }
 					empire = { title = e_persia }
+					empire = { title = e_tartaria }
+					kingdom = { title = k_mongolia }
+					kingdom = { title = k_khotan }
+					kingdom = { title = k_cuman }
+					kingdom = { title = k_transoxiana }
+					kingdom = { title = k_alania }
+					county = { title = c_antiocheia }
 				}
 			} #change for SWMH
 		}
@@ -1018,10 +1042,32 @@ decisions = {
 				has_landed_title = k_afghanistan
 				has_landed_title = k_baluchistan
 				has_landed_title = e_persia
+				has_landed_title = k_mongolia
+				has_landed_title = k_khotan
+				has_landed_title = k_cuman
+				has_landed_title = k_transoxiana
+				has_landed_title = k_alania
+				trait = sartapaw
 				culture = sogdian
-			} #change for SWMH
+			}
+			OR = {
+				NOT = { religion_group = pagan_group }
+				religion = zun_pagan
+				religion = zun_pagan_reformed
+				culture = sogdian
+				culture = mongol
+				custom_tooltip = { 
+
+					text = TT_NOT_UNREFORMED_PAGAN
+
+					hidden_tooltip = {
+						ancestral_religion_trigger = no
+					}
+
+				}
+				realm_size = 80
+			}
 			prestige = 250
-			realm_size = 60
 			scaled_wealth = 0.5
 		}
 		effect = {
@@ -1046,6 +1092,7 @@ decisions = {
 					trait = arbitrary
 					trait = imbecile
 					trait = slow
+					trait = greedy
 				}
 			}
 		}
@@ -1061,6 +1108,7 @@ decisions = {
 			ai = no
 			OR = {
 				culture_group = sinic
+				religion = confucianism
 				has_landed_title = e_khitan
 			}
 		}
@@ -1074,6 +1122,7 @@ decisions = {
 				random_traits = yes
 				dynasty = random
 				female = no
+				religion = confucianism
 			}
 		}
 		revoke_allowed = {

@@ -825,28 +825,7 @@ decisions = {
 		}
 		allow = {
 			has_landed_title = e_persia	
-			completely_controls = d_fars
-			completely_controls = d_khiva
-			completely_controls = d_merv
-			completely_controls = d_esfahan
-			completely_controls = d_hamadan
-			completely_controls = d_mazandaran
-			completely_controls = d_kermanshah
-			completely_controls = d_tigris
-			completely_controls = d_basra
-			completely_controls = d_baghdad
-			completely_controls = d_mosul
-			completely_controls = d_jazira			
-			completely_controls = d_kerman
-			completely_controls = d_khorasan
-			completely_controls = d_tabriz
-			completely_controls = d_azerbaijan
-			completely_controls = d_baluchistan
-			completely_controls = d_sistan
-			completely_controls = d_kabul
-			completely_controls = d_zabulistan
-			completely_controls = d_samarkand
-			completely_controls = d_dihistan
+			completely_controls = e_persia
 			piety = 1500
 		}
 		effect = {
@@ -1279,13 +1258,35 @@ decisions = {
 		potential = {
 			has_dlc = "Sons of Abraham"
 			is_playable = yes
-			religion_group = jewish_group
+			OR = {
+				religion_group = jewish_group
+				religion = ebionites
+			}
 			k_israel = {
 				has_holder = no
 			}
 		}
 		allow = {
-			completely_controls = k_oriens
+			completely_controls = d_iudea # K_ORIENS IS TOO BIG, THIS IS WHAT ISRAEL HAD IN RL
+			custom_tooltip = {
+				text = JEW_ACRE_TIBERIAS				
+				hidden_tooltip = {
+					OR = {
+						AND = {
+							any_realm_lord = { has_landed_title = c_tiberias }
+							any_realm_lord = { has_landed_title = c_acre }
+						}
+						AND = {
+							has_landed_title = c_acre
+							has_landed_title = c_tiberias
+						}
+						AND = {
+							completely_controls = c_tiberias
+							completely_controls = c_acre
+						}
+					}
+				}
+			}
 			774 = {
 				religion = ROOT
 			}
@@ -1295,6 +1296,7 @@ decisions = {
 		effect = {
 			narrative_event = { id = SoA.102 tooltip = EVTTOOLTIP_SoA_102 }
 			prestige = 1000
+			piety = 1000
 		}
 		ai_will_do = {
 			factor = 1
@@ -1351,6 +1353,18 @@ decisions = {
 				factor = 0
 				religion = marcionism
 			}
+			modifier = {
+				factor = 2
+				trait = kind
+			}
+			modifier = {
+				factor = 50
+				trait = sympathy_judaism
+			}
+			modifier = {
+				factor = 5
+				trait = tolerant_ruler
+			}
 		}
 	}
 	
@@ -1380,6 +1394,8 @@ decisions = {
 				secret_religion = jewish
 				secret_religion = samaritan
 				secret_religion = karaite
+				secret_religion = tzadikite
+				secret_religion = ebionites
 			}
 			age = 16
 		}
@@ -1408,11 +1424,7 @@ decisions = {
 		effect = {
 			prestige = -100
 			scaled_wealth = 2
-			banish_religion = jewish
-			banish_religion = ebionites
-			banish_religion = karaite
-			banish_religion = samaritan
-			banish_religion = tzadikite
+
 			if = {
 				limit = { trait = sympathy_judaism }
 				remove_trait = sympathy_judaism
@@ -1435,6 +1447,13 @@ decisions = {
 			}
 			custom_tooltip = {
 				text = jews_are_expelled
+				hidden_tooltip = {
+					banish_religion = jewish
+					banish_religion = ebionites
+					banish_religion = karaite
+					banish_religion = samaritan
+					banish_religion = tzadikite
+				}
 			}
 			hidden_tooltip = {
 				character_event = { id = SoA.105 }
@@ -1459,6 +1478,10 @@ decisions = {
 			
 			modifier = {
 				factor = 0.001 # Less likely to do it
+			}
+			modifier = {
+				factor = 0
+				trait = tolerant_ruler
 			}
 			modifier = {
 				factor = 0
@@ -1504,6 +1527,10 @@ decisions = {
 				has_character_modifier = borrowed_from_jews
 			}
 			modifier = {
+				factor = 0.15
+				trait = just
+			}
+			modifier = {
 				factor = 1.2
 				trait = zealous
 				trait = arbitrary
@@ -1528,6 +1555,14 @@ decisions = {
 			modifier = {
 				factor = 0
 				religion = ebionites
+			}
+			modifier = {
+				factor = 0
+				trait = sympathy_judaism
+			}
+			modifier = {
+				factor = 0
+				religion = bosporan_faith
 			}
 		}
 	}
@@ -1777,8 +1812,8 @@ decisions = {
 					}
 					OR = {
 						has_landed_title = e_germania
-						e_germany = {	has_holder = no	}
-						e_germany = { holder_scope = { NOT = { religion_group = christian } } }
+						e_germania = {	has_holder = no	}
+						e_germania = { holder_scope = { NOT = { religion_group = christian } } }
 					}
 					OR = {
 						has_landed_title = e_france
@@ -2038,6 +2073,10 @@ decisions = {
 			}
 			
 			OR = {
+				has_game_rule = {
+					name = dynamic_custom_realms
+					value = custom_realms_unrestricted
+				}
 				ai = no
 				AND = {
 					trait = proud
@@ -2166,8 +2205,12 @@ decisions = {
 			
 			holy_order = no
 			
-			NOT = { tier = EMPEROR }
+			NOT = { tier = EMPEROR }		
 			OR = {
+				has_game_rule = {
+					name = dynamic_custom_realms
+					value = custom_realms_unrestricted
+				}
 				ai = no
 				AND = {
 					trait = proud
@@ -2187,6 +2230,7 @@ decisions = {
 				}
 			}
 		}
+
 		allow = {
 			is_adult = yes
 			prisoner = no
@@ -2241,7 +2285,6 @@ decisions = {
 												empire = {
 													has_holder = no
 												}
-												
 												NOT = { de_jure_liege_or_above = PREVPREVPREVPREV }
 												ROOT = {
 													completely_controls = PREV
