@@ -440,7 +440,7 @@ character_event = { # Maintenance and clean up should Sparta cease to exist, tha
 	hide_window = yes
 
 	potential = {
-		has_landed_title = b_sparta
+		has_landed_title = c_monemvasia
 		has_global_flag = THIS_IS_SPARTA
 		NOT = { has_global_flag = THIS_IS_NOT_SPARTA }
 	}
@@ -459,6 +459,89 @@ character_event = { # Maintenance and clean up should Sparta cease to exist, tha
 
 		clr_global_flag = THIS_IS_SPARTA
 		set_global_flag = THIS_IS_NOT_SPARTA
+	}
+}
+
+# Spartan Construction Begun
+character_event = {
+	id = this_is_sparta.9
+	desc = this_is_sparta.14
+	picture = GFX_evt_castle_construction
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = this_is_sparta.13
+		set_global_flag = rebuilding_sparta_city
+	}
+}
+
+# City of Sparta Rebuilt! 
+narrative_event = {
+	id = this_is_sparta.10
+	title = this_is_sparta.10_TITLE
+	desc = this_is_sparta.15
+	picture = GFX_evt_sparta
+	border = GFX_event_narrative_frame_war
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = { # ONLY the holder of Sparta can take this Option, as it activates and gives him the City of Sparta
+		name = this_is_sparta.8
+
+		trigger = { has_landed_title = k_sparta }
+
+		b_sparta = {
+			activate_title = { title = THIS status = yes } # Otherwise grant_title doesn't work
+			grant_title = ROOT
+		}
+
+		478 = { # Sparta/Monemvasia
+			build_holding = { title = b_sparta type = city holder = ROOT }
+		}
+
+		set_global_flag = sparta_city_rebuilt
+		clr_global_flag = rebuilding_sparta_city
+	}
+
+	option = {
+		name = this_is_sparta.8
+		trigger = {
+			OR = {
+				religion = hellenic_pagan
+				religion = cybelian_pagan
+				religion = neoplatonist
+				religion = mithraic_pagan
+				religion = mastimani
+				culture = tsakonian
+			}
+			religion_group = pagan_group
+
+			NOT = { has_landed_title = k_sparta }
+		}
+
+		set_global_flag = sparta_city_rebuilt
+		clr_global_flag = rebuilding_sparta_city
+	}
+
+	option = {
+		name = this_is_sparta.6
+		trigger = {
+			NOT = {
+				has_landed_title = k_sparta
+				religion = hellenic_pagan
+				religion = cybelian_pagan
+				religion = neoplatonist
+				religion = mithraic_pagan
+				religion = mastimani
+				culture = tsakonian
+				religion_group = pagan_group
+			}
+		}
+
+		set_global_flag = sparta_city_rebuilt
+		clr_global_flag = rebuilding_sparta_city
 	}
 }
 

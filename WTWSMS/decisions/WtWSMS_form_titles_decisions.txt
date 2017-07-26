@@ -428,7 +428,11 @@ decisions = {
 				prestige = 8000
 			}
 
-			completely_controls = c_monemvasia
+			OR = {
+				has_landed_title = c_monemvasia
+				any_realm_lord = { has_landed_title = c_monemvasia }
+			}
+
 			martial = 12
 
 			OR = {
@@ -786,6 +790,40 @@ decisions = {
 				limit = { religion_group = pagan_group }
 				culture = spartan
 			}
+		}
+	}
+
+	rebuild_sparta = {
+		only_playable = yes
+		is_high_prio = yes
+
+		potential = {
+			has_landed_title = k_sparta
+			religion_group = pagan_group
+			NOT = { has_global_flag = sparta_city_rebuilt }
+			NOT = { has_global_flag = rebuilding_sparta_city }
+		}
+		allow = {
+			wealth = 500
+		}
+		effect = {
+			character_event = { 
+				id = this_is_sparta.9
+			}
+			hidden_tooltip = {
+				narrative_event = { 
+					id = this_is_sparta.10
+					days = 1300
+					random = 50
+				}
+			}
+			set_global_flag = rebuilding_sparta_city
+			wealth = -500
+			prestige = 300
+			piety = 300
+		}
+		ai_will_do = {
+			factor = 1
 		}
 	}
 }
