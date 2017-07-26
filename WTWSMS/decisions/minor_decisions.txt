@@ -4,17 +4,19 @@ decisions = {
 		only_playable = yes
 		potential = {
 			is_playable = yes
-			OR = {
-				is_feudal = yes
-				is_tribal = yes
-				is_nomadic = yes
-			}
 			prisoner = no
-			OR = {
-				religion_group = christian
+			NOR = { 
+				religion_group = indian_group # They have their own Duwali Feasts
+				religion = zun_pagan # They have their own Sun Feasts
+				religion = zun_pagan_reformed # They have their own Sun Feasts
 				religion_group = zoroastrian_group
-				religion_group = jewish_group
 			}
+			NOR = {
+				has_landed_title = d_senate
+				has_landed_title = k_republic
+				has_landed_title = d_quraysh
+			}
+			NOT = { is_theocracy = yes }
 			NOT = {
 				has_character_modifier = holding_large_feast
 			}
@@ -34,7 +36,10 @@ decisions = {
 				liege = {
 					has_character_modifier = holding_large_feast
 				}
-			}			
+			}
+			NOT = {
+				is_nomad = yes
+			}
 			num_of_vassals = 1
 		}
 		allow = {
@@ -240,18 +245,25 @@ decisions = {
 			OR = {
 				religion_group = christian
 				religion_group = pagan_group
+				religion = tzadikite # Martial prowess and hunting was critical
+				culture_group = altaic
+				is_nomadic = yes # Nomads lived for this kind of thing
 			}
-			NOT = {
-				OR = {
-					has_landed_title = e_mongol_empire
-					has_landed_title = e_golden_horde
-					has_landed_title = e_il-khanate
+			NOR = {
+				has_landed_title = e_mongol_empire
+				has_landed_title = e_golden_horde
+				has_landed_title = e_il-khanate
+				religion = jain
+				AND = {
+					culture = mongol
+					higher_real_tier_than = KING # Mongol Khagans can Nerge instead
 				}
 			}
 			NOT = {	has_character_modifier = holding_grand_hunt }
 			OR = {
 				NOT = { has_dlc = "Way of Life" }
 				has_focus = focus_hunting
+				trait = hunter
 			}
 		}
 		allow = {
@@ -862,6 +874,7 @@ decisions = {
 				has_landed_title = e_il-khanate
 				has_landed_title = e_golden_horde
 				has_landed_title = e_mongol_empire
+				higher_real_tier_than = KING
 			}
 			NOT = { has_character_modifier = morale_from_nerge }
 			NOT = {	has_character_flag = holding_nerge }
@@ -872,7 +885,7 @@ decisions = {
 				text = UNOCCUPIED_DEMESNE_TITLE
 				hidden_tooltip = {
 					any_demesne_title = {
-						NOT = { higher_tier_than = count }
+						NOT = { higher_tier_than = COUNT }
 						is_occupied = no
 					}
 				}
@@ -894,7 +907,7 @@ decisions = {
 			set_character_flag = do_not_disturb
 			hidden_tooltip = { 
 				character_event = { id = TOG.299 days = 150 }  # Safety catch flag clearing
-				}
+			}
 			custom_tooltip = {
 				text = prepare_nerge
 				hidden_tooltip = { 
@@ -960,6 +973,8 @@ decisions = {
 			OR = {
 				religion = norse_pagan
 				religion = norse_pagan_reformed
+				religion = germanic_pagan
+				religion = germanic_pagan_reformed
 			}
 			NOT = { has_character_modifier = held_blot_timer }
 			NOT = {	has_character_flag = holding_blot }
@@ -1069,6 +1084,28 @@ decisions = {
 				religion = slavic_pagan_reformed
 				religion = tengri_pagan
 				religion = tengri_pagan_reformed
+				religion = scythian_pagan
+				religion = scythian_pagan_reformed
+				religion = african_solar_pagan
+				religion = african_solar_pagan_reformed
+				religion = east_african_pagan
+				religion = root_west_pagan
+				religion = root_west_pagan_reformed
+				religion = egyptian_pagan
+				religion = aten_pagan
+				religion_group = chinese_group
+				hidden_tooltip = {
+					text = SINICIDOLS
+
+					AND = {
+						culture_group = sinic # All Chinamen (as well as many Manchurians, steppe nomads near China, etc.) see ancestor worship as essential to their culture
+						NOT = {
+							religion_group = christian
+							religion_group = muslim
+							religion_group = jewish_group
+						}
+					}
+				}
 			}
 		}
 
@@ -1568,7 +1605,6 @@ decisions = {
 			OR = { 
 				religion_group = jewish_group
 				religion = audianistic
-				religion = bosporan_faith
 				religion = ebionites
 			}
 			NOT = { has_character_modifier = held_passover_timer }
@@ -1670,6 +1706,7 @@ decisions = {
 				secret_religion = jewish
 				secret_religion = karaite
 				secret_religion = samaritan
+				secret_religion = tzadikite
 			}
 		}
 		
@@ -2447,7 +2484,10 @@ decisions = {
 	find_guru = {
 		only_playable = yes
 		potential = {
-			religion_group = indian_group
+			OR = {
+				religion_group = indian_group
+				religion = melchisedechianism
+			}
 			is_playable = yes
 			is_adult = yes
 			OR = {
@@ -2624,11 +2664,25 @@ decisions = {
 			NOT = { has_character_flag = performed_sky_burial }
 			OR = {
 				religion_group = zoroastrian_group
+				religion = tengri_pagan
+				religion = tengri_pagan_reformed
+				culture = mongol
+				AND = {
+					religion = buddhist
+					OR = {
+						culture_group = altaic # Tibetan Buddhism practices sky burial
+						culture_group = sinic
+					}
+				}
 				AND = {
 					government = nomadic_government
 					OR = {
 						religion = tengri_pagan
 						religion = tengri_pagan_reformed
+						religion = scythian_pagan
+						religion = scythian_pagan_reformed
+						religion = root_west_pagan
+						religion = root_west_pagan_reformed
 						religion_group = zoroastrian_group
 						religion_group = indian_group
 					}

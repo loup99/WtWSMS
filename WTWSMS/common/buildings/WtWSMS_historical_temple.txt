@@ -3,7 +3,7 @@ temple = {
 	tp_hagiasophia = {  # Hagia Sophia
 		potential = {
 			FROMFROM = { title = b_hagiasophia }
-			FROM = { had_global_flag = { flag = hagia_sophia_built days = 0 } }
+			FROM = { has_global_flag = hagia_sophia_built }
 		}
 		desc = tp_hagiasophia_desc
 		trigger = { TECH_TEMPLE_CONSTRUCTION = 3 }
@@ -44,10 +44,43 @@ temple = {
 		upgrades_from = tp_wall_5
 		gold_cost = 200
 		build_time = 1460
-		convert_to_castle = ca_aurelian_walls
+		convert_to_castle = ca_wall_5 # can't have 6-level walls other then Theodosian Walls
 		
 		fort_level = 3.0
 		ai_creation_factor = 86
+
+		extra_tech_building_start = 0.0
+	}
+	
+	tp_rome_panth = { # Pantheon, credits to Morloran
+		potential = {
+			FROMFROM = { title = b_roma }
+		}
+		desc = tp_rome_panth_desc
+		gold_cost = 0
+		build_time = 0
+
+		culture_techpoints = 0.1
+		liege_piety = 0.5
+		monthly_character_piety = 0.5
+
+		ai_creation_factor = 100
+
+		extra_tech_building_start = 0.0
+	}
+	
+	tp_rome_angel = { # Castel Sant'Angelo, credits to Morloran
+		potential = {
+			FROMFROM = { title = b_roma }
+		}
+		desc = tp_rome_angel_desc
+		gold_cost = 0
+		build_time = 0
+
+		fort_level = 2.0
+		garrison_size = 0.1
+
+		ai_creation_factor = 100
 
 		extra_tech_building_start = 0.0
 	}
@@ -179,5 +212,103 @@ temple = {
 		ai_creation_factor = 5
 
 		extra_tech_building_start = 1.0
+	}
+	
+	tp_jeru_zion = {
+		potential = {
+			FROMFROM = { title = b_jerusalem }
+		}
+		desc = tp_jeru_zion_desc
+		gold_cost = 0
+		build_time = 0
+
+		culture_techpoints = 0.1
+		liege_piety = 0.5
+		monthly_character_piety = 0.5
+
+		ai_creation_factor = 100
+
+		extra_tech_building_start = 0.0
+	}
+
+	tp_jeru_wall1 = {
+		potential = {
+			FROMFROM = { title = b_jerusalem }
+		}
+		desc = tp_jeru_wall1_desc
+		gold_cost = 0
+		build_time = 0
+
+		culture_techpoints = 0.05
+		liege_piety = 0.25
+		monthly_character_piety = 0.25
+
+		ai_creation_factor = 100
+
+		extra_tech_building_start = 0.0
+	}
+
+	tp_jeru_wall2 = {
+		potential = {
+			AND = {
+				FROM = { religion = jewish }
+				FROMFROM = { title = b_jerusalem }
+			}
+		}
+		desc = tp_jeru_wall2_desc
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 0 }
+		prerequisites = { tp_jeru_wall1 }
+		upgrades_from = tp_jeru_wall1
+		gold_cost = 200
+		build_time = 1460
+
+		culture_techpoints = 0.05
+		liege_piety = 0.25
+		monthly_character_piety = 0.25
+
+		ai_creation_factor = 86
+
+		extra_tech_building_start = 10.0
+	}
+	
+	tp_memphis_necropolis = {
+		potential = {
+			FROMFROM = { title = b_memphis }
+		}
+		desc = tp_memphis_necropolis_desc
+		gold_cost = 0
+		build_time = 0
+
+		culture_techpoints = 0.1
+		liege_piety = 0.5
+		monthly_character_piety = 0.5
+
+		ai_creation_factor = 100
+
+		extra_tech_building_start = 0.0
+	}
+	
+	tp_kemetic_pyramid = {
+		potential = {
+			FROM = {
+				higher_tier_than = duke
+				OR = {
+					religion = egyptian_pagan
+					religion = aten_pagan
+				}
+			}
+		}
+		trigger = { always = no }
+		desc = ca_kemetic_pyramid_desc
+		gold_cost = 600
+		build_time = 3650
+
+		culture_techpoints = 0.1
+		liege_piety = 0.5
+		monthly_character_piety = 0.5
+
+		ai_creation_factor = 100
+
+		extra_tech_building_start = 0.0
 	}
 }

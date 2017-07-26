@@ -650,7 +650,11 @@ succession_laws = {
 	
 	succ_open_elective = {
 		potential = {
-			NOT = { title = k_papal_state }
+			NOR = { 
+				title = k_papal_state
+				title = d_celtic_pagan_reformed
+				title = d_manichean_archegos
+			}
 			temporary = no
 			OR = {
 				is_primary_type_title = yes
@@ -661,7 +665,14 @@ succession_laws = {
 						is_republic = yes
 						AND = {
 							is_theocracy = yes
-							NOT = { holder_scope = { religion_group = muslim } }
+							NOT = { 
+								holder_scope = {
+									OR = {
+										religion_group = muslim
+										religion = lollard
+									}
+								} 
+							}
 						}
 					}
 				}
@@ -670,7 +681,10 @@ succession_laws = {
 						is_republic = yes
 						AND = {
 							is_theocracy = yes
-							NOT = { religion_group = muslim }
+							NOT = { 
+								religion_group = muslim 
+								religion = lollard
+							}
 						}
 					}
 				}
@@ -822,6 +836,8 @@ gender_laws = {
 								is_nomadic = no
 							}
 							is_feminist_religion_trigger = yes
+							culture_group = vasconic # Basque
+							culture = spartan
 						}
 						is_merchant_republic = no
 						is_patrician = no
@@ -829,8 +845,9 @@ gender_laws = {
 					AND = {
 						has_dlc = "Zeus"
 						OR = {
-							is_feminist_religion_trigger = true
-							culture = basque
+							is_feminist_religion_trigger = yes
+							culture_group = vasconic # Basque
+							culture = spartan
 							ROOT = { holder_scope = { primary_title = { has_law = status_of_women_3 } } }
 							ROOT = { holder_scope = { primary_title = { has_law = status_of_women_4 } } }
 							has_game_rule = {
@@ -930,7 +947,10 @@ gender_laws = {
 					AND = {
 						NOT = { has_dlc = "Zeus" }
 						is_feminist_religion_trigger = yes
-						culture = basque
+						OR = {
+							culture_group = vasconic # Basque
+							culture = spartan
+						}
 					}
 					AND = {
 						NOT = { religion_group = muslim }
@@ -950,9 +970,10 @@ gender_laws = {
 								primary_title = { has_law = status_of_women_2 }
 								OR = {
 									is_feminist_religion_trigger = yes
-									culture = basque
+									culture_group = vasconic # Basque
 									culture = old_frisian
 									culture = tuareg
+									culture = spartan
 								}
 							}
 						}
@@ -996,11 +1017,10 @@ gender_laws = {
 				holder_scope = {
 					OR = {
 						is_feminist_religion_trigger = yes
-						OR = {
-							culture = basque
-							culture = old_frisian
-							culture = tuareg
-						}
+						culture_group = vasconic # Basque
+						culture = old_frisian
+						culture = tuareg
+						culture = spartan
 					}
 				}
 				OR = {
@@ -1056,5 +1076,4 @@ gender_laws = {
 			always = no
 		}			
 	}
-	
 }
