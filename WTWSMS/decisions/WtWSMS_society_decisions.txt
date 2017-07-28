@@ -5589,4 +5589,134 @@ title_decisions = {
 			factor = 0
 		}
 	}
+	secretly_convert_to_dacian_pagan_holy_site = {
+		filter = demesne
+		ai_target_filter = self
+	
+		only_playable = yes
+		
+		from_potential = {
+			ai = no
+			NOT = { trait = incapable }
+			NOT = { secret_religion = dacian_pagan }
+			NOT = { religion = dacian_pagan }
+			NOT = { controls_religion = yes }
+		}
+		
+		potential = {
+			tier = COUNT
+			NOT = {
+				location = { religion = dacian_pagan }
+			}
+			OR = {
+				is_holy_site = dacian_pagan
+				any_de_jure_vassal_title = {
+					is_holy_site = dacian_pagan
+				}
+			}
+			OR = {
+				holder_scope = {
+					character = FROM
+				}
+				AND = {
+					tier = BARON
+					holder_scope = {
+						liege = {
+							character = FROM
+						}
+					}
+				}
+			}
+		}
+		
+		allow = {
+			FROM = {
+				piety = 250
+				prisoner = no
+				NOT = { trait = incapable }
+				NOT = { is_inaccessible_trigger = yes }
+				NOT = { society_member_of = secret_religious_cult }
+			}
+		}
+		
+		effect = {
+			FROM = {
+				piety = -250
+				set_secret_religion = dacian_pagan
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	secretly_convert_to_dacian_pagan_reformed_holy_site = {
+		filter = demesne
+		ai_target_filter = self
+	
+		only_playable = yes
+		
+		from_potential = {
+			ai = no
+			NOT = { trait = incapable }
+			NOT = { secret_religion = dacian_pagan_reformed }
+			NOT = { religion = dacian_pagan_reformed }
+			NOT = { controls_religion = yes }
+		}
+		
+		potential = {
+			tier = COUNT
+			NOT = {
+				location = { religion = dacian_pagan_reformed }
+			}
+			OR = {
+				is_holy_site = dacian_pagan_reformed
+				any_de_jure_vassal_title = {
+					is_holy_site = dacian_pagan_reformed
+				}
+			}
+			OR = {
+				holder_scope = {
+					character = FROM
+				}
+				AND = {
+					tier = BARON
+					holder_scope = {
+						liege = {
+							character = FROM
+						}
+					}
+				}
+			}
+		}
+		
+		allow = {
+			FROM = {
+				piety = 250
+				prisoner = no
+				NOT = { trait = incapable }
+				NOT = { is_inaccessible_trigger = yes }
+				NOT = { society_member_of = secret_religious_cult }
+			}
+		}
+		
+		effect = {
+			FROM = {
+				piety = -250
+				set_secret_religion = dacian_pagan_reformed
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
 }
