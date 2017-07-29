@@ -1994,3 +1994,168 @@ character_event = {
 	}
 }
 
+########################## Zalmoxism Events ################################
+
+### Rite-of-passage ceremony
+
+# Rite-of-passage ceremony
+character_event = {
+	id = WtWSMS_flavour.31
+	title = WtWSMS_flavour.31.name
+	desc = WtWSMS_flavour.31.desc
+	picture = GFX_evt_child_bully
+		
+	only_playable = yes # Not necessarily the case, but for performance reasons and because a ruler ceremony is more important
+		
+	min_age = 6
+	max_age = 16
+
+	trigger = {
+		OR = {
+			religion = dacian_pagan
+			religion = dacian_pagan_reformed
+		}
+		NOT = {
+			has_character_flag = had_zalmoxism_rite_of_passage
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+		
+	option = {
+		name = WtWSMS_flavour.31.a 
+		set_character_flag = had_zalmoxism_rite_of_passage
+		random_list = {
+			50 = {
+				modifier = {
+					factor = 1.5
+					trait = idolizer
+				}
+				modifier = {
+					factor = 1.5
+					trait = brooding
+				}
+				modifier = {
+					factor = 2
+					trait = conscientious	
+				}
+				modifier = {
+					factor = 1.25
+					trait = affectionate
+				}
+				ROOT = {
+					character_event = {
+						id = WtWSMS_flavour.32 # Sucessful ceremony
+						days = 3
+					}
+				}
+			}
+			50 = {
+				modifier = {
+					factor = 1.5
+					trait = indolent
+				}
+				modifier = {
+					factor = 1.5
+					trait = willful
+				}
+				modifier = {
+					factor = 1.25
+					trait = haughty
+				}
+				modifier = {
+					factor = 1.1
+					trait = curious
+				}
+				ROOT = {
+					character_event = {
+						id = WtWSMS_flavour.34 # Failed ceremony
+						days = 3
+					}
+				}
+			}
+		}
+	}
+}
+
+# Successful rite-of-passage ceremony
+character_event = {
+	id = WtWSMS_flavour.32
+	title = WtWSMS_flavour.31.name # Same title 
+	desc = WtWSMS_flavour.32.desc
+	picture = GFX_evt_child_bully
+
+	is_triggered_only = yes
+	
+	immediate = {
+		father = {
+			character_event = {
+				id = WtWSMS_flavour.33
+				days = 3
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_flavour.32.a
+		piety = 50
+	}
+}
+
+# Father sees successful rite-of-passage ceremony
+character_event = {
+	id = WtWSMS_flavour.33
+	title = WtWSMS_flavour.31.name # Same title 
+	desc = WtWSMS_flavour.33.desc
+	picture = GFX_evt_guardian
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_flavour.33.a
+		piety = 25
+		prestige = 10
+	}
+}
+
+# Failed rite-of-passage ceremony
+character_event = {
+	id = WtWSMS_flavour.34
+	title = WtWSMS_flavour.31.name # Same title 
+	desc = WtWSMS_flavour.34.desc
+	picture = GFX_evt_child_bully
+
+	is_triggered_only = yes
+	
+	immediate = {
+		father = {
+			character_event = {
+				id = WtWSMS_flavour.35
+				days = 3
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_flavour.34.a
+		piety = -50
+	}
+}
+
+# Father sees failed rite-of-passage ceremony
+character_event = {
+	id = WtWSMS_flavour.35
+	title = WtWSMS_flavour.31.name # Same title 
+	desc = WtWSMS_flavour.35.desc
+	picture = GFX_evt_guardian
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_flavour.35.a
+		piety = -50
+		prestige = -25
+	}
+}
