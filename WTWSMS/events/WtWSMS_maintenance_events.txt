@@ -11,10 +11,6 @@ character_event	= {
 	ai = yes
 	only_rulers = yes
 	
-	mean_time_to_happen = {
-		days = 1
-	}
-	
 	trigger = {
 		has_landed_title = d_bagaudae
 		ROOT = { 
@@ -25,6 +21,11 @@ character_event	= {
 			}
 		}
 	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
 	
 	option = {
 		name = OK
@@ -45,10 +46,6 @@ character_event	= {
 	ai = yes
 	only_rulers = yes
 	
-	mean_time_to_happen = {
-		days = 1
-	}
-	
 	trigger = {
 		OR = {
 			has_landed_title = d_papal_state
@@ -56,6 +53,11 @@ character_event	= {
 		}
 		NOT = { religion = nicene }
 	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
 	
 	option = {
 		name = OK
@@ -75,16 +77,17 @@ character_event	= {
 	
 	only_rulers = yes
 	
-	mean_time_to_happen = {
-		days = 1
-	}
-	
 	trigger = {
 		OR = {
 			has_landed_title = d_senate
 		}
 		NOT = { government = merchant_republic_government }
 	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
 	
 	option = {
 		name = OK
@@ -206,27 +209,24 @@ character_event = {
 	}
 }
 
-# Maintain Tzadikite and Melchisedechian Toddlers from becoming Mystics when their parents or courtiers receive the Trait
-# character_event = {
-#	id = misc_event.5
-#
-#	hide_window = yes
-#	only_rulers = no
-#
-#	mean_time_to_happen = {
-#		days = 1
-#	}
-#
-#	trigger = {
-#		NOT = { age = 5 }
-#		trait = mystic
-#		is_landed = no
-#	}
-#
-#	option = {
-#		name = Okay
-#		ROOT = {
-#			remove_trait = mystic
-#		}
-#	}
-# }
+# Primogeniture for the Roman Empire
+character_event = {
+	id = misc_event.5
+		
+	hide_window = yes
+	
+	trigger = {
+		has_law = succ_open_elective
+		has_landed_title = e_roman_empire
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		e_roman_empire = {
+			succession = primogeniture
+		}
+	}
+}
