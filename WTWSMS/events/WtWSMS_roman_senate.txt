@@ -835,3 +835,182 @@ character_event = {
 	}
 }
 
+# Ask for Senate approval after ascension to throne in Italy or WRE
+narrative_event = {
+	id = SENATE.10000
+	title = SENATE.10000.name
+	desc = SENATE.10000.desc
+	picture = GFX_evt_throne_room_roman
+	border = GFX_event_narrative_frame_religion 
+		
+	only_playable = yes
+	only_rulers = yes
+	only_independent = yes
+	
+	trigger = {
+		OR = {
+			AND = {
+				has_landed_title = e_wre
+				e_wre = {
+					has_title_flag = not_recognised_senate
+				}
+			}
+			AND = {
+				has_landed_title = k_italy
+				k_italy = {
+					has_title_flag = not_recognised_senate
+				}
+			}
+		}
+		is_title_active	= d_senate 
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				has_landed_title = e_wre
+			}
+			e_wre = {
+				clr_title_flag = not_recognised_senate
+			}
+		}
+		if = {
+			limit = {
+				has_landed_title = k_italy
+			}
+			k_italy = {
+				clr_title_flag = not_recognised_senate
+			}
+		}
+		set_character_flag = had_senate_recognition_event 
+	}
+	
+	option = { # Ask to get Senate approval
+		name = SENATE.10000.a
+		
+		custom_tooltip = { 
+			text = SENATE.10000.a.tooltip
+		}
+		
+		wealth = -10 # Some money will facilitate 
+		
+		d_senate = {
+			holder_scope = {
+				character_event = { 
+					id = SENATE.10001 
+					days = 3
+				}
+				opinion = {
+					modifier = opinion_senate_approval
+					who = ROOT
+					years = 100
+				}	
+			}
+		}
+	}
+	
+	option = { # Ignore
+		name = SENATE.10000.b
+		
+		custom_tooltip = { 
+			text = SENATE.10000.b.tooltip
+		}
+		
+		d_senate = {
+			holder_scope = {
+				opinion = {
+					modifier = opinion_no_senate_approval
+					who = ROOT
+					years = 100
+				}	
+			}
+		}
+	}
+}
+
+# Senate approves or rejects new ruler
+character_event = {
+	id = SENATE.10001
+	desc = SENATE.10001.desc
+	picture = GFX_evt_throne_room_roman
+	
+	is_triggered_only = yes
+
+	option = { # Approve
+		name = SENATE.10001.a
+		
+		custom_tooltip = { 
+			text = SENATE.10001.a.tooltip
+		}
+		
+		FROM = {
+			character_event = { 
+				id = SENATE.10002
+				days = 3
+			}
+		}
+	}
+	
+	option = { # Reject
+		name = SENATE.10001.b
+		
+		custom_tooltip = { 
+			text = SENATE.10001.b.tooltip
+		}
+
+		trigger = {
+			ai = no # Todo ai likelihood
+		}
+		
+		FROM = {
+			character_event = { 
+				id = SENATE.10003
+				days = 3
+			}
+		}
+	}
+}
+
+# New ruler approved by Senate
+character_event = {
+	id = SENATE.10002
+	desc = SENATE.10002.desc
+	picture = GFX_evt_throne_room_roman
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		add_character_modifier = { 
+			name = approved_senate 
+			duration = -1 
+		}	 
+	}
+	
+	option = {
+		name = SENATE.10002.a
+	}
+}
+
+# New ruler rejected by senate
+character_event = {
+	id = SENATE.10003
+	desc = SENATE.10003.desc
+	picture = GFX_evt_throne_room_roman
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		add_character_modifier = { 
+			name = rejected_senate 
+			duration = -1 
+		}	 
+	}
+
+	option = {
+		name = SENATE.10003.a
+	}
+}
