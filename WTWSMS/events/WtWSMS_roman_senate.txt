@@ -849,10 +849,40 @@ narrative_event = {
 	
 	trigger = {
 		OR = {
-			has_landed_title = e_wre
-			has_landed_title = k_italy
+			AND = {
+				has_landed_title = e_wre
+				e_wre = {
+					has_title_flag = not_recognised_senate
+				}
+			}
+			AND = {
+				has_landed_title = k_italy
+				k_italy = {
+					has_title_flag = not_recognised_senate
+				}
+			}
 		}
 		is_title_active	= d_senate 
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				has_landed_title = e_wre
+			}
+			e_wre = {
+				clr_title_flag = not_recognised_senate
+			}
+		}
+		if = {
+			limit = {
+				has_landed_title = k_italy
+			}
+			k_italy = {
+				clr_title_flag = not_recognised_senate
+			}
+		}
+		set_character_flag = had_senate_recognition_event 
 	}
 	
 	option = { # Ask to get Senate approval

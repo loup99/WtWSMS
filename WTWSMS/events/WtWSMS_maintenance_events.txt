@@ -215,6 +215,8 @@ character_event = {
 		
 	hide_window = yes
 	
+	only_playable = yes
+	
 	trigger = {
 		has_law = succ_open_elective
 		has_landed_title = e_roman_empire
@@ -230,3 +232,47 @@ character_event = {
 		}
 	}
 }
+
+# Adds not recognised by Senate modifier to all new independent holders of the WRE or Italy
+character_event = { 
+	id = misc_event.6
+	
+	hide_window = yes
+	
+	only_playable = yes
+	only_rulers = yes
+	only_independent = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = e_wre
+			has_landed_title = k_italy
+		}
+		is_title_active	= d_senate 
+		NOT = { has_character_flag = had_senate_recognition_event }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				has_landed_title = e_wre
+			}
+			e_wre = {
+				set_title_flag = not_recognised_senate
+			}
+		}
+		if = {
+			limit = {
+				has_landed_title = k_italy
+			}
+			k_italy = {
+				set_title_flag = not_recognised_senate
+			}
+		}
+	}
+}
+
