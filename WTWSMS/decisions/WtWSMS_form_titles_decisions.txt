@@ -390,7 +390,7 @@ decisions = {
 }
 
 decisions = {
-	this_is_sparta = {
+	this_is_sparta = { # Edits and commentary courtesy of Loup
 		is_high_prio = yes
 		only_playable = yes
 
@@ -408,13 +408,18 @@ decisions = {
 								religion = cybelian_pagan
 								religion = neoplatonist
 								religion = mithraic_pagan
-								religion = mastimani
+								# Here I removed Mastimani
 							}
 						}
 					}
 				}
 			}
 			NOT = { has_global_flag = THIS_IS_SPARTA }
+			NOT = {
+				has_landed_title = e_byzantium
+				has_landed_title = e_wre
+				has_landed_title = e_roman_empire
+			}
 		}
 
 		allow = {
@@ -427,37 +432,18 @@ decisions = {
 				}
 				prestige = 8000
 			}
-
 			OR = {
 				has_landed_title = c_monemvasia
-				any_realm_lord = { has_landed_title = c_monemvasia }
-			}
-
-			martial = 12
-
-			OR = {
-				culture = spartan
-				culture = tsakonian
-				custom_tooltip = {
-					name = is_greek_and_hellenic
-					hidden_tooltip = {
-						AND = {
-							culture = greek
-							OR = {
-								religion = hellenic_pagan
-								religion = cybelian_pagan
-								religion = neoplatonist
-								religion = mithraic_pagan
-								religion = mastimani
-							}
-						}
-					}
+				# Here I removed the any_realm_lord so that the ruler has to actually hold Sparta 
+				AND = {
+					any_realm_lord = { has_landed_title = c_monemvasia }
+					has_landed_title = d_achaia
 				}
 			}
 
+			martial = 12
+			# Here I removed the duplicate 
 			religion_group = pagan_group
-
-			NOT = { tier = EMPEROR }
 			NOT = { trait = craven }
 		}
 
@@ -475,25 +461,26 @@ decisions = {
 					}
 					ROOT = { 
 						narrative_event = { id = this_is_sparta.1 }
-					}
-					c_monemvasia = {
-						culture = spartan
-						gender_succ = true_cognatic
-					}
-					c_monemvasia = { 
-						set_name = Sparta
-						set_coa = k_sparta
-					}
-					b_sparta = {
-						set_coa = k_sparta
-					}
-					give_nickname = nick_the_great
-					ROOT = {
 						c_monemvasia = {
 							usurp_title_plus_barony_if_unlanded_and_vassals = PREV
 						}
 						capital = c_monemvasia
 					}
+					c_monemvasia = {
+						culture = spartan
+						gender_succ = true_cognatic
+						set_name = Sparta
+						set_coa = k_sparta
+					}
+					if = {
+						limit = {
+							is_title_active = b_sparta
+						}
+					  	b_sparta = {
+							set_coa = k_sparta
+						}
+					}
+					give_nickname = nick_the_great
 				}
 			}
 			clr_global_flag = THIS_IS_NOT_SPARTA
@@ -538,7 +525,6 @@ decisions = {
 								religion = cybelian_pagan
 								religion = neoplatonist
 								religion = mithraic_pagan
-								religion = mastimani
 							}
 						}
 					}
@@ -762,7 +748,6 @@ decisions = {
 								religion = cybelian_pagan
 								religion = neoplatonist
 								religion = mithraic_pagan
-								religion = mastimani
 							}
 						}
 					}
