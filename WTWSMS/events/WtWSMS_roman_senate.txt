@@ -995,7 +995,7 @@ character_event = {
 	}
 }
 
-# New ruler rejected by senate
+# New ruler rejected by Senate
 character_event = {
 	id = SENATE.10003
 	desc = SENATE.10003.desc
@@ -1012,5 +1012,57 @@ character_event = {
 
 	option = {
 		name = SENATE.10003.a
+	}
+}
+
+# Senate no longer exists
+narrative_event = {
+	id = SENATE.10004
+	title = SENATE.10004.name
+	desc = SENATE.10004.desc
+	picture = GFX_evt_roman_decadence
+	border = GFX_event_narrative_frame_religion 
+	
+	only_playable = yes
+	only_rulers = yes
+	only_independent = yes
+	
+	trigger = {
+		religion = miaphysite
+		controls_religion = yes
+		NOT = { is_title_active = d_senate } 
+		NOT = { has_global_flag = senate_not_active }
+	}
+	
+	major = yes
+	
+	major_trigger = {
+		OR = {
+			any_realm_province = { region = world_europe }
+			any_realm_province = { region = world_africa }
+			any_realm_province = { region = world_africa }
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 1
+	}
+	
+	immediate = {
+		set_global_flag = senate_not_active
+	}
+	
+	option = {
+		name = SENATE.10004.a
+		trigger = {
+			has_romance_culture_trigger = yes
+		}
+	}
+	
+	option = {
+		name = SENATE.10004.a
+		trigger = {
+			has_romance_culture_trigger = no
+		}
 	}
 }
