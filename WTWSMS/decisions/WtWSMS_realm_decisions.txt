@@ -393,6 +393,7 @@ decisions = {
 	}
 	
 	adopt_bureaucratic_government = {
+		only_independent = yes
 		is_high_prio = yes
 		potential = {
 			higher_tier_than = king
@@ -467,7 +468,7 @@ decisions = {
 			capital_scope = {
 				province = 333 # Roma
 			}
-					
+			
 			# Rome's glory
 			custom_tooltip = { 
 				hidden_tooltip = {
@@ -520,7 +521,7 @@ decisions = {
 			capital_scope = {
 				province = 496 # Constantinople
 			}
-					
+			
 			# Rome's glory
 			is_title_active = c_legio_i_flavia_constantia
 			is_title_active = c_legio_i_isaura_sagittaria
@@ -536,6 +537,76 @@ decisions = {
 		effect = {
 			hidden_tooltip = {
 				narrative_event = { id = imperial_legacy.12 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	reform_roman_senate = {
+		only_playable = yes
+		is_high_prio = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			NOT = { is_title_active = d_senate }
+			OR = {
+				religion_group = christian
+				religion_group = pagan_group
+			}
+			OR = {
+				has_landed_title = e_byzantium
+				has_landed_title = e_wre
+				has_landed_title = e_roman_empire
+			}
+			age = 16
+			prisoner = no
+			NOT = { trait = incapable }
+		}
+		allow = {
+			# Controls Rome
+			OR = { 
+				has_landed_title = c_roma
+				any_realm_lord = { 
+					has_landed_title = c_roma 
+				}
+			}
+			
+			# Rome's glory
+			custom_tooltip = { 
+				hidden_tooltip = {
+					has_global_flag = circus_maximus_built
+				}
+				text = restore_western_roman_empire
+			}
+			
+			# Ostia, the holding of the Senate, is active
+			is_title_active = b_ostia 
+			
+			# Prestige
+			prestige = 1500
+		}
+		effect = {
+			activate_title = { title = d_senate status = yes }
+			hidden_tooltip = {
+				narrative_event = { id = SENATE.10005 }
+				create_random_diplomat = {
+					random_traits = yes
+					religion = ROOT
+					culture = roman
+					dynasty = culture
+					female = no
+					age = 34
+				}
+				new_character = {
+					b_ostia = {
+						grant_title = PREV
+					}
+					d_senate = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+				}
 			}
 		}
 		ai_will_do = {

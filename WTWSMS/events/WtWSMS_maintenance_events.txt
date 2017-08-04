@@ -5,11 +5,11 @@ namespace = misc_event
 # Destroy Bagaude
 character_event	= {
 	id = misc_event.1
-	desc = misc_event.1.desc
+
 	hide_window = yes	
 	
-	ai = yes
 	only_rulers = yes
+	ai = yes
 	
 	trigger = {
 		has_landed_title = d_bagaudae
@@ -26,10 +26,7 @@ character_event	= {
 		days = 1
 	}
 	
-	
-	option = {
-		name = OK
-		
+	immediate = {
 		activate_title	= { 
 			title = d_bagaudae 
 			status = no 
@@ -40,11 +37,11 @@ character_event	= {
 # Maintain Pope Nicene
 character_event	= {
 	id = misc_event.2
-	desc = misc_event.2.desc
+
 	hide_window = yes	
 	
-	ai = yes
 	only_rulers = yes
+	ai = yes
 	
 	trigger = {
 		OR = {
@@ -58,10 +55,7 @@ character_event	= {
 		days = 1
 	}
 	
-	
-	option = {
-		name = OK
-		
+	immediate = {
 		ROOT = {
 			abandon_heresy = yes
 			religion = nicene 
@@ -72,14 +66,14 @@ character_event	= {
 # Maintain Senate as Republic
 character_event	= {
 	id = misc_event.3
-	desc = misc_event.3.desc
+
 	hide_window = yes	
 	
 	only_rulers = yes
 	
 	trigger = {
-		OR = {
-			has_landed_title = d_senate
+		primary_title = {
+			title = d_senate
 		}
 		NOT = { government = merchant_republic_government }
 	}
@@ -88,10 +82,7 @@ character_event	= {
 		days = 1
 	}
 	
-	
-	option = {
-		name = OK
-		
+	immediate = {		
 		ROOT = {
 			set_government_type = merchant_republic_government
 		}
@@ -237,9 +228,9 @@ character_event = {
 character_event = { 
 	id = misc_event.6
 	
-	is_triggered_only = yes
-	
 	hide_window = yes
+	
+	is_triggered_only = yes
 	
 	only_playable = yes
 	only_rulers = yes
@@ -274,3 +265,35 @@ character_event = {
 	}
 }
 
+# Destroy Senate 
+character_event = {
+	id = misc_event.7
+
+	hide_window = yes	
+	
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = d_senate
+		NOT = { is_title_active = k_republic } 
+		ROOT = { 
+			NOT = { 
+				primary_title = {
+					title = d_senate
+				}
+			}
+		}
+		NOT = { government = merchant_republic_government }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		activate_title	= { 
+			title = d_senate 
+			status = no 
+		}
+	}
+}
