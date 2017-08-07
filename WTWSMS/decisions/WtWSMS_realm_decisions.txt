@@ -188,11 +188,14 @@ decisions = {
 		potential = {
 			religion_group = christian 
 			has_landed_title = c_roma
+			prisoner = no
+			age = 16
 			NOT = { has_global_flag = circus_maximus_built }
 			NOT = { has_global_flag = building_circus_maximus }
 		}
 		allow = {
 			wealth = 1500
+			prestige = 1000
 		}
 		effect = {
 			hidden_tooltip = {
@@ -215,11 +218,26 @@ decisions = {
 		potential = {
 			religion_group = christian 
 			has_landed_title = c_byzantion
+			has_romance_culture_trigger = yes # Particular architecture
+			independent = yes
+			OR = { # Symbol of power
+				has_landed_title = e_byzantium
+				has_landed_title = e_roman_empire
+				AND = {
+					capital_scope = {
+						province = 496 # Constantinople
+					}
+					higher_tier_than = duke
+				}
+			}
+			prisoner = no
+			age = 16
 			NOT = { has_global_flag = hagia_sophia_built }
 			NOT = { has_global_flag = building_hagia_sophia }
 		}
 		allow = {
-			wealth = 1500
+			wealth = 2500
+			prestige = 1000
 		}
 		effect = {
 			hidden_tooltip = {
@@ -227,12 +245,16 @@ decisions = {
 				narrative_event = { id = imperial_legacy.41 days = 2100 random = 50 }
 			}
 			set_global_flag = building_hagia_sophia
-			wealth = -1500
+			wealth = -2500
 			prestige = 500
 			piety = 500
 		}
 		ai_will_do = {
 			factor = 1
+			modifier = {
+				factor = 0.5 # Decrease the chance that the AI will do this unless they hold an empire
+				NOT = { tier = emperor }
+			}
 		}
 	}
 	
