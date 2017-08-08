@@ -98,7 +98,6 @@ narrative_event = {
 				culture = random
 				female = no
 				age = 18
-				add_trait = lustful
 			}
 			create_character = {
 				random_traits = yes
@@ -403,7 +402,6 @@ character_event = {
 		name = holy.2006.a
 	}
 }
-
 
 ########################################
 # The Fist of Hubal
@@ -772,7 +770,7 @@ character_event = {
 	}
 }
 
-# Notification event when donating money to the Lords of the Sky
+# Notification event when donating money to the Fist of Hubal
 letter_event = {
 	id = holy.2041
 	desc = EVTDESC_holy_2041
@@ -985,7 +983,7 @@ province_event = {
 	}
 }
 
-# Ping event when expelling the Lords of the Sky
+# Ping event when expelling the Fist of Hubal
 character_event = {
 	id = holy.2060
 	desc = OK
@@ -1029,10 +1027,647 @@ character_event = {
 	}
 }
 
-# Notification event when expelling the Lords of the Sky
+# Notification event when expelling the Fist of Hubal
 letter_event = {
 	id = holy.2061
 	desc = EVTDESC_holy_2061
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTB_holy_1061
+	}
+}
+
+########################################
+# The Guardians of Zalmoxis
+########################################
+
+# The birth of the Guardians of Zalmoxis 
+narrative_event = {
+	id = holy.2062
+	title = holy.2062.name
+	desc = holy.2062.desc
+	major = yes
+	
+	picture = GFX_evt_mongols_pillage_oldgods
+	
+	only_playable = yes
+	hide_from = yes
+	
+	trigger = {
+		has_dlc = "Sons of Abraham"
+		has_global_flag = dacian_reformation
+		religion = miaphysite 
+		NOT = {
+			is_title_active = d_guardians_zalmoxis
+		}
+		controls_religion = yes # Let it happen for the Coptic Pope - he's always around
+	}
+	
+	mean_time_to_happen = {
+		months = 36
+	}
+	
+	immediate = {
+		activate_title = { title = d_guardians_zalmoxis status = yes }
+		create_character = {
+			random_traits = no
+			dynasty = random
+			religion = dacian_pagan_reformed
+			culture = dacian
+			female = no
+			age = 28
+		}
+		new_character = {
+			wealth = 500
+			d_fist_hubal = {
+				grant_title = PREV
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				religion = dacian_pagan_reformed
+				culture = dacian
+				female = no
+				age = 16
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				religion = dacian_pagan_reformed
+				culture = dacian
+				female = no
+				age = 18
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				religion = dacian_pagan_reformed
+				culture = dacian
+				female = no
+				age = 18
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				religion = dacian_pagan_reformed
+				culture = dacian
+				female = no
+				age = 20
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				religion = dacian_pagan_reformed
+				culture = dacian
+				female = no
+				age = 25
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				religion = dacian_pagan_reformed
+				culture = dacian
+				female = no
+				age = 26
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				religion = dacian_pagan_reformed
+				culture = dacian
+				female = no
+				age = 28
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				religion = dacian_pagan_reformed
+				culture = dacian
+				female = yes
+				age = 16
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				religion = dacian_pagan_reformed
+				culture = dacian
+				female = yes
+				age = 17
+			}
+		}
+	}
+	
+	option = {
+		name = holy.2062.a
+		trigger = {
+			religion = dacian_pagan_reformed
+		}
+	}
+	option = {
+		name = holy.2062.b
+		trigger = {
+			NOT = { religion = dacian_pagan_reformed }
+		}
+	}
+}
+
+# The son of a ruler volunteers to join the Guardians of Zalmoxis
+character_event = {
+	id = holy.2063
+	desc = holy.2063.desc
+	picture = GFX_evt_throne_room_altaic
+	border = GFX_event_normal_frame_religion
+	
+	only_men = yes
+	min_age = 16
+	max_age = 45
+	only_capable = yes
+	prisoner = no
+	
+	trigger = {
+		is_ruler = no
+		religion = dacian_pagan_reformed
+		
+		martial = 5
+		
+		is_title_active = d_guardians_zalmoxis
+		
+		OR = {
+			father_even_if_dead = {
+				primary_title = { higher_tier_than = BARON }
+			}
+			mother_even_if_dead = {
+				primary_title = { higher_tier_than = BARON }
+			}
+		}
+		
+		liege = {
+			holy_order = no
+			liege = {
+				holy_order = no
+			}
+		}
+		
+		has_dlc = "Sons of Abraham"
+		
+		NOT = { has_character_modifier = expelled_d_guardians_zalmoxis }
+		NOT = {
+			any_liege = {
+				has_character_modifier = expelled_d_guardians_zalmoxis
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 100
+		modifier = {
+			factor = 0.25
+			trait = zealous
+		}
+		modifier = {
+			factor = 0.5
+			trait = celibate
+		}
+		modifier = {
+			factor = 0.5
+			trait = homosexual
+		}
+		modifier = {
+			factor = 0.7
+			trait = content
+		}
+		modifier = {
+			factor = 0.75
+			trait = chaste
+		}
+		modifier = {
+			factor = 0.75
+			NOT = { age = 25 }
+		}
+		modifier = {
+			factor = 1.5
+			trait = slothful
+		}
+		modifier = {
+			factor = 2.0
+			trait = lustful
+		}
+		modifier = {
+			factor = 2.0
+			trait = cynical
+		}
+		modifier = {
+			factor = 2.0
+			trait = hedonist
+		}
+		modifier = {
+			factor = 2.0
+			trait = ambitious
+		}
+		modifier = {
+			factor = 2.0
+			any_heir_title = {
+				always = yes
+			}
+		}
+		modifier = {
+			factor = 2.0
+			is_primary_heir = yes
+		}
+	}
+	
+	option = {
+		name = EVTOPTA_SOA_1030 # Ask to go
+		ai_chance = {
+			factor = 100
+		}
+		liege = {
+			character_event = {
+				id = holy.2064
+			}
+		}
+	}
+	option = {
+		name = EVTOPTB_SOA_1030 # It's a bad idea
+	}
+}
+
+# Son or brother asks to join the Guardians of Zalmoxis
+character_event = {
+	id = holy.2064
+	desc = holy.2064.desc
+	picture = GFX_evt_throne_room_altaic
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_SOA_1031 # Agree
+		ai_chance = {
+			factor = 100
+		}
+		
+		piety = 100
+		
+		FROM = {
+			character_event = {
+				id = holy.2065
+				tooltip = holy.2065.tooltip
+			}
+		}
+	}
+	
+	option = {
+		name = EVTOPTB_SOA_1031 # Refuse
+		
+		piety = -100
+		
+		FROM = {
+			character_event = {
+				id = holy.2066
+				tooltip = EVTTOOLTIP_SOA_1033
+			}
+		}
+	}
+}
+
+# Son or brother joins the Guardians of Zalmoxis
+character_event = {
+	id = holy.2065
+	desc = holy.2065.desc
+	picture = GFX_evt_throne_room_altaic
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EXCELLENT
+		
+		d_guardians_zalmoxis = {
+			holder_scope = {
+				ROOT = {
+					move_character = PREV
+					hidden_tooltip = {
+						clear_wealth = PREV
+					}
+				}
+			}
+		}
+	}
+}
+
+# Liege refuses request to join the Guardians of Zalmoxis
+character_event = {
+	id = holy.2066
+	desc = holy.2066.desc
+	picture = GFX_evt_throne_room_altaic
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_holy_1033
+		
+		opinion = {
+			who = FROM
+			modifier = opinion_refused_request_holy_order
+		}
+	}
+}
+
+# Ping event when donating money to the Guardians of Zalmoxis
+character_event = {
+	id = holy.2067
+	desc = OK
+	picture = GFX_evt_throne_room_altaic
+	border = GFX_event_normal_frame_religion
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		wealth = 300
+		FROM = {
+			letter_event = {
+				id = holy.2068
+			}
+		}
+		opinion = {
+			who = FROM
+			modifier = opinion_generous_donation
+		}
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Notification event when donating money to the Guardians of Zalmoxis
+letter_event = {
+	id = holy.2068
+	desc = holy.2068.desc
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EXCELLENT
+	}
+}
+
+# The Grand Master humbly requests the right to build a castle in your demesne
+character_event = {
+	id = holy.2069
+	desc = OK
+	picture = GFX_evt_throne_room_altaic
+	border = GFX_event_normal_frame_religion
+	
+	hide_window = yes
+	
+	only_playable = yes
+	
+	trigger = {
+		religion = dacian_pagan_reformed
+		
+		d_guardians_zalmoxis = {
+			holder_scope = {
+				wealth = 300
+				NOT = {
+					realm_size = 10
+				}
+			}
+		}
+		
+		any_demesne_province = {
+			has_empty_holding = yes
+		}
+		
+		has_dlc = "Sons of Abraham"
+		
+		NOT = { has_character_modifier = expelled_d_guardians_zalmoxis }
+		NOT = {
+			any_liege = {
+				has_character_modifier = expelled_d_guardians_zalmoxis
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 240
+		modifier = {
+			factor = 0.5
+			d_guardians_zalmoxis = {
+				holder_scope = {
+					NOT = { demesne_size = 1 }
+				}
+			}
+		}
+		modifier = {
+			factor = 0.5
+			d_guardians_zalmoxis = {
+				holder_scope = {
+					NOT = { demesne_size = 2 }
+				}
+			}
+		}
+		modifier = {
+			factor = 2.0
+			d_guardians_zalmoxis = {
+				holder_scope = {
+					num_of_count_titles = 1
+				}
+			}
+		}
+		modifier = {
+			factor = 2.0
+			d_guardians_zalmoxis = {
+				holder_scope = {
+					realm_size = 5
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		random_demesne_province = {
+			limit = {
+				has_empty_holding = yes
+			}
+			province_event = {
+				id = holy.2070
+			}
+		}
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+province_event = {
+	id = holy.2070
+	desc = OK
+	picture = GFX_evt_throne_room_altaic
+	border = GFX_event_normal_frame_religion
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		d_guardians_zalmoxis = {
+			holder_scope = {
+				character_event = {
+					id = holy.2071
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+character_event = {
+	id = holy.2071
+	desc = OK
+	picture = GFX_evt_throne_room_altaic
+	border = GFX_event_normal_frame_religion
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		FROMFROM = {
+			character_event = {
+				id = holy.2072
+			}
+		}
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+character_event = {
+	id = holy.2072
+	desc = holy.2072.desc
+	picture = GFX_evt_throne_room_altaic
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_holy_1023 # Agree
+		ai_chance = {
+			factor = 80
+			modifier = {
+				factor = 0
+				has_character_modifier = expelled_d_guardians_zalmoxis
+			}
+		}
+		
+		hidden_tooltip = {
+			FROMFROM = {
+				province_event = { id = holy.2073 }
+			}
+			remove_character_modifier = expelled_d_guardians_zalmoxis
+		}
+		
+		piety = 200
+		wealth = 100
+	}
+	
+	option = {
+		name = EVTOPTB_holy_1153 # Refuse
+		ai_chance = {
+			factor = 20
+		}
+		
+		piety = -100
+	}
+}
+
+# Castle has been erected
+province_event = {
+	id = holy.2073
+	desc = holy.2073.desc
+	picture = GFX_evt_castle_construction
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		FROMFROM = {
+			wealth = -300
+		}
+	}
+	
+	option = {
+		name = EVTOPTA_holy_1024
+		build_holding = {
+		   type = castle
+		   holder = FROMFROM
+		}
+	}
+}
+
+# Ping event when expelling the Guardians of Zalmoxis
+character_event = {
+	id = holy.2074
+	desc = OK
+	picture = GFX_evt_throne_room_altaic
+	border = GFX_event_normal_frame_religion
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		any_title_under = {
+			limit = {
+				tier = BARON
+				location = {
+					owner = {
+						OR = {
+							character = FROM
+							is_liege_or_above = FROM
+						}
+					}
+				}
+			}
+			usurp_title = FROM
+		}
+	
+		FROM = {
+			letter_event = {
+				id = holy.2075
+			}
+		}
+		
+		opinion = {
+			who = FROM
+			modifier = opinion_expelled_from_realm
+		}
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Notification event when expelling the Guardians of Zalmoxis
+letter_event = {
+	id = holy.2075
+	desc = holy.2075.desc
 	border = GFX_event_letter_frame_religion
 	
 	is_triggered_only = yes
@@ -1047,9 +1682,9 @@ letter_event = {
 ##############################################################
 
 narrative_event = { #Announcement of the Melchisechianism Holy Order
-	id = holy.2062
-	title = holy.2062.title
-	desc = holy.2062.desc
+	id = holy.2076
+	title = holy.2076.title
+	desc = holy.2076.desc
 	major = yes
 	
 	picture = GFX_evt_gnostics_rising
@@ -1057,20 +1692,20 @@ narrative_event = { #Announcement of the Melchisechianism Holy Order
 	is_triggered_only = yes
 	
 	option = { # Melchizidek's followers rejoice
-		name = holy.2062.a.name
+		name = holy.2076.a.name
 		trigger = {
 			religion = melchisedechianism
 		}
 	}
 	option = { # Non-Melch Christians are horrified
-		name = holy.2062.b.name
+		name = holy.2076.b.name
 		trigger = {
 			religion_group = christian
 			NOT = { religion = melchisedechianism }
 		}
 	}
 	option = { # All other characters' reactions
-		name = holy.2062.c.name
+		name = holy.2076.c.name
 		trigger = {
 			NOT = { 
 				religion = melchisedechianism
@@ -1081,9 +1716,9 @@ narrative_event = { #Announcement of the Melchisechianism Holy Order
 }
 
 narrative_event = { #Announcement of the Priscillianist Holy Order
-	id = holy.2063
-	title = holy.2063.title
-	desc = holy.2063.desc
+	id =  holy.2077
+	title = holy.2077.title
+	desc = holy.2077.desc
 	major = yes
 	
 	picture = GFX_evt_gnostics_rising
@@ -1091,20 +1726,20 @@ narrative_event = { #Announcement of the Priscillianist Holy Order
 	is_triggered_only = yes
 
 	option = { # Priscillianists rejoice
-		name = holy.2063.a.name
+		name = holy.2077.a.name
 		trigger = {
 			religion = priscillianism
 		}
 	}
 	option = { # Non-Priscillians Christians are horrified
-		name = holy.2063.b.name
+		name = holy.2077.b.name
 		trigger = {
 			religion_group = christian
 			NOT = { religion = priscillianism }
 		}
 	}
 	option = { # All others that eat meat react
-		name = holy.2063.c.name
+		name = holy.2077.c.name
 		trigger = {
 			NOT = { 
 				religion = priscillianism
@@ -1114,7 +1749,7 @@ narrative_event = { #Announcement of the Priscillianist Holy Order
 		}
 	}
 	option = { # All others that don't eat meat react
-		name = holy.2063.d.name
+		name = holy.2077.d.name
 		trigger = {
 			trait = vegetarian
 			NOT = { 
