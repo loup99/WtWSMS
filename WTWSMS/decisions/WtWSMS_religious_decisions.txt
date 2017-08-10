@@ -1071,7 +1071,6 @@ decisions = {
 		}
 	}
 
-
 	restore_mimamsa = {
 		is_high_prio = yes
 
@@ -1112,6 +1111,266 @@ decisions = {
 					years = 20
 				}
 			}
+		}
+	}
+	
+	embrace_apellian = {
+		potential = {
+			religion = marcionism
+			NOT = { 
+				OR = {
+					trait = apellian
+					trait = potitian
+					trait = synerian
+				}
+			}
+			is_ruler = yes
+			age = 16
+			prisoner = no
+		}
+		
+		allow = {
+			piety = 50
+		}
+		
+		effect = {
+			add_trait = apellian
+			character_event = { id = spirit.26 tooltip = EVTTOOLTIP_SPIRIT_26 }
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = .1
+				trait = zealous
+				NOT = { trait = mystic }
+				}
+
+			modifier = {
+				factor = 4
+				trait = mystic
+			}
+			modifier = {
+				factor = .2
+				trait = cynical
+			}
+			modifier = {
+				factor = 1.2
+				liege = { trait = apellian }
+			}
+			modifier = {
+				factor = 3
+				liege = { religion_group = zoroastrian_group }
+			}
+		}
+	}
+	
+	embrace_potitian = {
+		potential = {
+			religion = marcionism
+			NOT = { 
+				OR = {
+					trait = apellian
+					trait = potitian
+					trait = synerian
+				}
+			}
+			is_ruler = yes
+			age = 16
+			prisoner = no
+		}
+		
+		allow = {
+			piety = 50
+		}
+		
+		effect = {
+			add_trait = potitian
+			character_event = { id = spirit.27 tooltip = EVTTOOLTIP_SPIRIT_27 }
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 3
+				trait = scholar
+			}
+			modifier = {
+				factor = .3
+				trait = craven
+			}
+			modifier = {
+				factor = .3
+				trait = arbitrary
+			}
+			modifier = {
+				factor = 3
+				trait = zealous
+			}
+			modifier = {
+				factor = 1.2
+				liege = { trait = potitian }
+			}
+		}
+	}
+	
+	embrace_synerian = {
+		potential = {
+			religion = marcionism
+			NOT = { 
+				OR = {
+					trait = apellian
+					trait = potitian
+					trait = synerian
+				}
+			}
+			is_ruler = yes
+			age = 16
+			prisoner = no
+		}
+		
+		allow = {
+			piety = 50
+		}
+		
+		effect = {
+			add_trait = synerian
+			character_event = { id = spirit.28 tooltip = EVTTOOLTIP_SPIRIT_28 }
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 3
+				trait = craven
+			}
+			modifier = {
+				factor = 3
+				trait = content
+			}
+			modifier = {
+				factor = .1
+				trait = zealous
+			}
+			modifier = {
+				factor = 1.2
+				liege = { trait = synerian }
+			}
+			modifier = {
+				factor = 3
+				liege = { religion = nicene }
+			}
+		}
+	}
+	
+	#denounce_three_chapters = {
+	#	potential = {
+	#		religion = nicene
+	#		has_landed_title = e_byzantium 
+	#		age = 16
+	#		prisoner = no
+	#		year=500
+	#		NOT = { year = 600 } 
+	#	}
+	#	
+	#	allow = {
+	#		piety = 50
+	#	}
+	#	
+	#	effect = {
+	#		narrative_event = { id = syn.9 tooltip = EVTTOOLTIP_SYN_9 }
+	#	}
+	#	
+	#	revoke_allowed = {
+	#		always = no
+	#	}
+	#	
+	#	ai_will_do = {
+	#		factor = 5
+	#		}
+	#}
+	
+	rejoin_church_aquileian = {
+		potential = {
+			always = no # TODO Event syn.11 does not exist !
+			controls_religion = aquileian
+			NOT = { has_global_flag = the_aquileian_capture }
+			age = 16
+			prisoner = no
+		}
+		
+		allow = {
+			piety = 50
+			controls_religion = aquileian
+			NOT = { has_global_flag = the_aquileian_capture }
+		}
+		
+		effect = {
+			narrative_event = { id = syn.11 }
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = .5
+			
+			modifier = {
+				factor = 3
+				trait = craven
+			}
+			modifier = {
+				factor = 3
+				trait = content
+			}
+			modifier = {
+				factor = .1
+				trait = zealous
+			}
+		}
+	}
+	
+	take_over_aquileian_church = {
+		potential = {
+			always = no # TODO Event syn.9 does not exist !
+			religion_group = pagan_group 
+			has_landed_title = c_aquileia
+			has_global_flag = aquileian_schism
+			age = 16
+			prisoner = no
+		}
+		
+		allow = {
+			prestige = 500
+		}
+		
+		effect = {
+			religion = aquileian
+			narrative_event = { id = syn.9 tooltip = EVTTOOLTIP_SYN_9 }
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 5
 		}
 	}
 }
