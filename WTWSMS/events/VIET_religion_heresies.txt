@@ -205,7 +205,7 @@ character_event = {
 }
 
 
-# Fraticelli becomes wandering hermit
+# Ascetic becomes wandering hermit
 character_event = {
 	id = VIETmisc.10005
 	desc = VIETmisc.10005.desc
@@ -215,7 +215,16 @@ character_event = {
 	only_rulers = yes
 
 	trigger = {
-		religion = fraticelli
+		OR = {
+			religion = fraticelli
+			religion = insular  # Monasticism and radical asceticism were prominent
+			religion = pelagianism
+			religion_group = indian_group # Jain nudists, Buddhist monks, etc.
+			has_character_modifier = jain_naked_ascetic
+			has_character_modifier = hindu_ascetic
+			has_character_modifier = buddhist_ascetic
+			is_ascetic_trigger = yes
+		}
 		NOT = {
 			any_courtier = {
 				trait = wandering_hermit
@@ -223,7 +232,16 @@ character_event = {
 		}
 		any_courtier = {
 			is_adult = yes
-			religion = fraticelli
+			OR = {
+				religion = fraticelli
+				religion = insular # Monasticism and radical asceticism were prominent
+				religion = pelagianism
+				religion_group = indian_group # Jain nudists, Buddhist monks, etc.
+				has_character_modifier = jain_naked_ascetic
+				has_character_modifier = hindu_ascetic
+				has_character_modifier = buddhist_ascetic
+				is_ascetic_trigger = yes
+			}
 			learning = 8
 			OR = {
 				trait = monk
@@ -302,7 +320,16 @@ character_event = {
 			limit = {
 				learning = 8
 				is_adult = yes
-				religion = fraticelli
+				OR = {
+					religion = fraticelli
+					religion = insular  # Monasticism and radical asceticism were prominent
+					religion = pelagianism
+					religion_group = indian_group # Jain nudists, Buddhist monks, etc.
+					has_character_modifier = jain_naked_ascetic
+					has_character_modifier = hindu_ascetic
+					has_character_modifier = buddhist_ascetic
+					is_ascetic_trigger = yes
+				}
 				OR = {
 					trait = monk
 					trait = nun
