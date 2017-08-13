@@ -1,11 +1,18 @@
 decisions = {
 
 	end_quarantine = {
+		only_rulers = yes
+		is_high_prio = yes
+		
+		filter = realm
+		
 		potential = {
+			is_ruler = yes
 			has_character_modifier = quarantiner
 			primary_title = { higher_tier_than = DUKE }
 		}
 		allow = {
+			has_character_modifier = quarantiner
 		}
 		effect = {
 			remove_character_modifier = quarantiner
@@ -30,16 +37,53 @@ decisions = {
 	}
 	
 	establish_quarantine = {
+		only_rulers = yes
+		is_high_prio = yes
+		
+		filter = realm
+		ai_target_filter = realm
+
 		potential = {	
 			health_traits = 1
 			independent = yes
 			is_playable = yes
-			NOT = { has_character_modifier = quarantiner }
 			primary_title = { higher_tier_than = DUKE }
 			age = 16
-			prisoner = no
 		}
 		allow = {
+			prisoner = no
+			custom_tooltip = {
+				text = is_not_busy_trigger_tooltip
+				hidden_tooltip = { NOT = { has_character_flag = do_not_disturb } }
+			}
+			custom_tooltip = {
+				text = epidemic_present_tooltip
+				hidden_tooltip = {
+					OR = {
+						ai = no
+						capital_scope = { has_epidemic = yes }
+					}
+					OR = {
+						capital_scope = {
+							OR = {
+								has_epidemic = yes
+								any_neighbor_province = {
+									has_epidemic = yes
+								}
+							}
+						}
+						AND = {
+							ai = no
+							top_liege = {
+								any_realm_province = {
+									has_epidemic = yes
+								}
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_character_modifier = quarantiner }
 		}
 		effect = {
 			add_character_modifier = {
@@ -77,11 +121,18 @@ decisions = {
 	}
 
 	end_republic_quarantine = {
+		only_rulers = yes
+		is_high_prio = yes
+		
+		filter = realm
+		
 		potential = {
-			has_character_modifier = boat_checker 
+			is_ruler = yes
+			has_character_modifier = boat_checker
 			primary_title = { higher_tier_than = DUKE }
 		}
 		allow = {
+			has_character_modifier = boat_checker
 		}
 		effect = {
 			remove_character_modifier = boat_checker 
@@ -106,17 +157,54 @@ decisions = {
 	}
 	
 	establish_republic_quarantine = {
+		only_rulers = yes
+		is_high_prio = yes
+		
+		filter = realm
+		ai_target_filter = realm
+
 		potential = {	
 			health_traits = 1
 			independent = yes
 			is_merchant_republic = yes
 			is_playable = yes
-			NOT = { has_character_modifier = boat_checker }
 			primary_title = { higher_tier_than = DUKE }
 			age = 16
-			prisoner = no
 		}
 		allow = {
+			prisoner = no
+			custom_tooltip = {
+				text = is_not_busy_trigger_tooltip
+				hidden_tooltip = { NOT = { has_character_flag = do_not_disturb } }
+			}
+			custom_tooltip = {
+				text = epidemic_present_tooltip
+				hidden_tooltip = {
+					OR = {
+						ai = no
+						capital_scope = { has_epidemic = yes }
+					}
+					OR = {
+						capital_scope = {
+							OR = {
+								has_epidemic = yes
+								any_neighbor_province = {
+									has_epidemic = yes
+								}
+							}
+						}
+						AND = {
+							ai = no
+							top_liege = {
+								any_realm_province = {
+									has_epidemic = yes
+								}
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_character_modifier = boat_checker }
 		}
 		effect = {
 			add_character_modifier = {
@@ -149,7 +237,7 @@ decisions = {
 			modifier = {
 				factor = 0 # 1.2
 				trait = cruel
-				}
+			}
 		}
 	}
 }
