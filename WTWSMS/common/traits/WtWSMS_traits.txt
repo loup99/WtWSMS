@@ -100,6 +100,7 @@ convict = {
 
 corrupt = {
 	opposites =  {
+		legendary_leader
 		honest
 	}
 	diplomacy = -3
@@ -114,7 +115,7 @@ corrupt = {
 }
 
 legendary_leader = {
-	opposites =  {
+	opposites = {
 		corrupt
 	}
 
@@ -160,8 +161,11 @@ the_prophet = {
 }
 
 servant_of_assur = {
-	
-	same_religion_opinion = 15
+	potential = {
+		religion = assyrian_pagan
+	}
+
+	same_religion_opinion = 25
  
 	ai_zeal = 25
 	ai_ambition = 15
@@ -189,6 +193,10 @@ roman_nostalgia = {
 }
 
 nasrani = {
+	potential = {
+		religion_group = christian
+	}
+
 	opposites = {
 		kshatriya
 		vaishya
@@ -202,12 +210,20 @@ nasrani = {
 
 	monthly_character_piety = 0.1
 
+	christian_opinion = 5
+
 	ai_zeal = 0.1
 
 	learning = 1
 
 	customizer = no
 	random = no
+
+	male_insult = INSULT_LOVER_OF_HEATHENS
+	female_insult = INSULT_LOVER_OF_HEATHENS
+	male_insult_adj = INSULT_UNPRINCIPLED
+	female_insult_adj = INSULT_UNPRINCIPLED
+	child_insult_adj = INSULT_STUPID
 }
 
 newsalem = {
@@ -215,9 +231,7 @@ newsalem = {
 	monthly_character_piety = 2
 	customizer = no
 	random = no
-	agnatic = yes
-	enatic = yes
-	religious = yes
+	priest = yes
 
 	learning = 4
 
@@ -225,38 +239,29 @@ newsalem = {
 		religion = melchisedechianism
 	}
 
-	male_compliment_adj = COMPL_MELCH_HOLYMYSTIC
-	female_compliment_adj = COMPL_MELCH_HOLYMYSTIC
 	male_compliment = COMPL_MELCH_EARTH
 	female_compliment = COMPL_MELCH_EARTH
 	
 	male_insult_adj = INSULT_MELCH_CAWING
 	female_insult_adj = INSULT_MELCH_CAWING
-	male_insult_adj = INSULT_WICKED
-	female_insult_adj = INSULT_WICKED
-	male_insult = INSULT_DESERT_RAT
-	female_insult = INSULT_DESERT_RAT
+
 	male_insult = INSULT_HERESIARCH
 	female_insult = INSULT_HERESIARCH
 
-	child_insult = INSULT_MELCH_KID
+	child_insult = INSULT_DESERT_RAT
 
 	same_religion_opinion = 35
-
-	customizer = no
 }
 
-spawn_of_newsalem = {  ## all kids of restorer of K_MELCHISIDECHIANISM gets it
+spawn_of_newsalem = {  ## all kids of restorer of K_MELCHISIDECHIANISM get it
 	monthly_character_prestige = 0.25
 	monthly_character_piety = 0.25
 	customizer = no
 	random = no
 	agnatic = yes
-	##	enatic = yes #trying to make like Saoyshant's Kid Trait
+	enatic = yes #trying to make like Saoyshant's Kid Trait
 
-	opposites = {
-		mystic
-	}
+	learning = 1
 
 	male_compliment = SALEMITE
 	female_compliment = SALEMITE
@@ -269,12 +274,11 @@ spawn_of_newsalem = {  ## all kids of restorer of K_MELCHISIDECHIANISM gets it
 
 	child_insult = INSULT_MELCH_KID
 
-	same_religion_opinion = 10
-
-	opposite_opinion = 10
+	same_religion_opinion = 5
 
 	customizer = no
 }
+
 enarei = {
 	monthly_character_piety = 0.10
 	learning = 1
@@ -300,14 +304,16 @@ sympathy_hypsistarian = {
 
 	same_opinion_if_same_religion = 5
 
-	customizer = no
-	random = no
+	customizer = yes
+	random = yes
 
 	male_insult = INSULT_LOVER_OF_HEATHENS
 	female_insult = INSULT_LOVER_OF_HEATHENS
 	male_insult_adj = INSULT_UNPRINCIPLED
 	female_insult_adj = INSULT_UNPRINCIPLED
 	child_insult_adj = INSULT_STUPID
+
+	ruler_designer_cost = 3
 }
 
 bad_priest_donatism = {
@@ -320,9 +326,14 @@ bad_priest_donatism = {
 	can_hold_titles = no
 	same_religion_opinion = -100
 	church_opinion = -100
+	religious = yes
+	priest = yes
 	vice = yes
 
 	monthly_character_piety = -2
+
+	ai_honor = -5
+	ai_zeal = -10
 
 	customizer = no
 	random = no
@@ -333,4 +344,46 @@ bad_priest_donatism = {
 	male_insult_adj = INSULT_DECADENT
 	female_insult_adj = INSULT_CORRUPT
 	child_insult_adj = INSULT_STUPID
+}
+
+lame_spartan = {
+	potential = {
+		culture = spartan
+	}
+
+	martial = -4
+	diplomacy = 2
+	stewardship = 2
+	learning = 2
+
+	male_insult = INSULT_CRIPPLE
+	female_insult = INSULT_CRIPPLE
+
+	customizer = no
+}
+
+inferior_spartan_child = {
+	potential = {
+		culture = spartan
+	}
+
+	cached = yes
+	incapacitating = yes
+	is_health = yes
+	is_illness = yes # It is "cured" by having the child survive it
+
+	diplomacy_penalty = -8
+	martial_penalty = -8
+	health_penalty = -2
+	fertility_penalty = -1
+	
+	combat_rating = -8
+	
+	customizer = no
+	random = no
+
+	male_insult = INSULT_CRIPPLE
+	female_insult = INSULT_USELESS
+	male_insult_adj = INSULT_USELESS
+	female_insult_adj = INSULT_USELESS
 }

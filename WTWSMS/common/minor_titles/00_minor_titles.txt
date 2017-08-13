@@ -180,10 +180,10 @@ title_commander = {
 					is_female = no
 					AND = {
 						OR = {
-							religion = messalian
-							religion = cathar
+							is_feminist_religion_trigger = yes
+							culture_group = vasconic
 						}
-						liege = { religion = ROOT }
+						liege = { is_feminist_religion_trigger = yes }
 					}
 					liege = {
 						OR = {
@@ -210,6 +210,8 @@ title_commander = {
 		NOT = { trait = incapable }
 		NOT = { is_inaccessible_trigger = yes }
 		NOT = { has_character_flag = guru }
+		NOT = { has_character_modifier = this_is_not_sparta }
+		NOT = { trait = lame_spartan }
 	}
 	
 	gain_effect = {
@@ -1477,9 +1479,17 @@ title_patrician_heir = {
 		dynasty = FROM
 		NOT = { trait = incapable }
 		NOT = { trait = bastard }
-		NOT = { is_ascetic_trigger = yes }
+		custom_tooltip = {
+			text = is_not_ascetic
+			hidden_tooltip = {
+				NOT = { is_ascetic_trigger = yes }
+				NOT = { has_character_modifier = hindu_ascetic }
+				NOT = { has_character_modifier = buddhist_ascetic }
+				NOT = { has_character_modifier = jain_naked_ascetic }
+				NOT = { trait = celibate }
+			}
+		}
 		NOT = { trait = eunuch }
-		NOT = { trait = celibate }
 	}
 
 	allowed_to_grant = {

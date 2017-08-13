@@ -3430,7 +3430,7 @@ e_roman_empire = {
 	
 	dynasty_title_names = no
 
-	dignity = 100
+	dignity = 200
 
 	allow = {
 		always = no # Only created through special event
@@ -3455,7 +3455,7 @@ e_byzantium = {
 	
 	purple_born_heirs = yes
 	
-	dignity = 100
+	dignity = 200
 	
 	allow = {
 		always = no #Will have to be more complex with decision, I tried something earlier, but it didn't really work. 
@@ -4518,13 +4518,20 @@ e_byzantium = {
 				b_nikli = {
 				}
 				b_sparta = {
+					culture = spartan
+					religion = hellenic_pagan
+
+					primary = yes
+
+					title = EPHOROI
+					foa = "WARCHIEF_FOA"			
 				}
 				b_lacedaemonia = {
 				}
 				b_gythio = {
 				}
 				b_elos = {
-				}
+				}				
 			}
 			c_cephalonia = {
 				color={ 146 75 121 }
@@ -40392,20 +40399,33 @@ e_latin_empire = {
 	
 	capital = 496 # Byzantion
 	
-	short_name = yes
-	
+	short_name = yes	
 	
 	allow = {
 		OR = {
 			religion = catholic
 			is_heresy_of = catholic
 		}
-		e_byzantium = {
-			has_holder = no
-		}
+
 		e_roman_empire = {
 			has_holder = no
 		}
+
+		e_byzantium = {
+			has_holder = no
+		}
+
+		NOT = { has_landed_title = e_byzantium }
+
+		496 = { # Constantinople
+			owner = {
+				OR = {
+					is_liege_or_above = ROOT
+					character = ROOT
+				}
+			}
+		}
+
 		custom_tooltip = {
 			text = controls_kaliopolis_thrake
 			hidden_tooltip = {

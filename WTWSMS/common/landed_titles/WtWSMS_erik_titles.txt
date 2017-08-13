@@ -42,21 +42,59 @@ k_sparta = {
 	creation_requires_capital = yes
 
 	allow = {
-		AND = {
-			independent = yes
-			culture = tsakonian
-			is_adult = yes
-			prestige = 10000
-			realm_size = 10
+		always = no # Requires Special Decision
+	}
+
+	d_three_hundred = {
+		color = { 55 40 50 }
+		color2 = { 99 39 49 }
+
+		capital = 478 # Sparta
+
+		allow = {
 			OR = {
-				religion = hellenic_pagan
-				religion = cybelian_pagan
-				religion = neoplatonist
+				culture = spartan
+				culture = tsakonian
+				custom_tooltip = {
+					name = is_greek_and_hellenic
+					hidden_tooltip = {
+						AND = {
+							culture = greek
+							OR = {
+								religion = hellenic_pagan
+								religion = cybelian_pagan
+								religion = neoplatonist
+								religion = mithraic_pagan
+								religion = mastimani
+							}
+						}
+					}
+				}
 			}
-			NOT = {
-				tier = emperor
-			}
+			
+			religion_group = pagan_group
+			always = no # Requires special Decision
 		}
+
+		culture = spartan
+
+		mercenary = yes
+
+		title = "THREE_HUNDRED_TITLE"
+		foa = "WARCHIEF_FOA"
+
+		landless = yes
+		primary = yes
+
+		dignity = 300
+
+		independent = no
+
+		strength_growth_per_century = 1.5
+
+		income = 1.5
+
+		mercenary_type = hellenic_composition
 	}
 }
 
