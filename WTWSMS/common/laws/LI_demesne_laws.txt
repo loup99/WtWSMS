@@ -408,6 +408,44 @@ laws = {
 					}
 				}
 			}
+			OR = {
+				AND = { # Doesn't have Conclave and isn't tribe, so law requires at least crown_authority_1 granting set_allow_title_revokation = yes
+					NOT = { has_dlc = "Zeus" }
+					holder_scope = {
+						is_tribal = no
+						is_nomadic = no
+						is_republic = no 
+					}
+					crownlaw_title = {
+						OR = { 
+							has_law = crown_authority_1
+							has_law = crown_authority_2
+							has_law = crown_authority_3
+							has_law = crown_authority_4
+						}
+					}
+				}
+				AND = { # Is tribe, so law requires at least tribal_organization_1 granting set_allow_title_revokation = yes
+					holder_scope = {
+						is_tribal = yes
+					}
+					crownlaw_title = {
+						OR = { 
+							has_law = tribal_organization_1
+							has_law = tribal_organization_2
+							has_law = tribal_organization_3
+							has_law = tribal_organization_4
+						}
+					}
+				}
+				AND = { # Has Conclave, so law requires revoke_title_law_1 granting set_allow_title_revokation = yes
+					has_dlc = "Zeus"
+					NOT = { holder_scope = { is_nomadic = yes } }
+					crownlaw_title = {
+						has_law = revoke_title_law_1
+					}
+				}
+			}
 		}
 		revoke_allowed = {
 			always = no
