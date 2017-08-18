@@ -668,7 +668,7 @@ society_decisions = {
 				}
 			}
 			detract_society_currency_major_effect = yes
-			sound_effect = genericclick1
+			sound_effect = generic_click_01
 		}
 
 		revoke_allowed = {
@@ -715,7 +715,7 @@ society_decisions = {
 				}
 			}
 			detract_society_currency_medium_effect = yes
-			sound_effect = genericclick1
+			sound_effect = generic_click_01
 		}
 
 		revoke_allowed = {
@@ -2495,6 +2495,13 @@ targeted_decisions = {
 			host = { character = FROM }
 			NOT = { has_character_flag = demon_child_non_pagan }
 			prisoner = yes
+			NOT = {
+				has_character_flag = being_sacrificed
+			}
+		}
+		
+		allow = {
+			NOT = { diplomatic_immunity = yes }
 		}
 		
 		ai_will_do = {
@@ -2513,6 +2520,8 @@ targeted_decisions = {
 		
 		effect = {
 			hidden_effect = {
+				set_character_flag = being_sacrificed
+				diplomatic_immunity = yes
 				FROM = { #get events based on outcome: for dwarf, virgin, child, holy person, head of religion
 					if = {
 						limit = { 
