@@ -9,13 +9,25 @@ has_justinian_plague = {
 	is_epidemic = yes
 	is_illness = yes
 	
-	health = -7
+	diplomacy_penalty = -2
+	martial_penalty = -3
+	stewardship_penalty = -2
+	intrigue_penalty = -3
+	learning_penalty = -2
+	
+	health_penalty = -7
+	
+	fertility_penalty = -0.50
+	
+	combat_rating = -10
 	
 	customizer = no
-	
+
 	male_insult_adj = INSULT_DECAYING
 	female_insult_adj = INSULT_DECAYING
 	child_insult_adj = INSULT_SMELLY
+	
+	succession_gfx = yes
 }
 
 greens_supporter = {
@@ -157,7 +169,7 @@ corrupt = {
 }
 
 legendary_leader = {
-	opposites =  {
+	opposites = {
 		corrupt
 	}
 
@@ -245,8 +257,6 @@ nasrani = {
 
 	monthly_character_piety = 0.1
 
-	ai_zeal = 0.1
-
 	learning = 1
 
 	customizer = no
@@ -258,9 +268,7 @@ newsalem = {
 	monthly_character_piety = 2
 	customizer = no
 	random = no
-	agnatic = yes
-	enatic = yes
-	religious = yes
+	#priest = yes
 
 	learning = 4
 
@@ -268,34 +276,29 @@ newsalem = {
 		religion = melchisedechianism
 	}
 
-	male_compliment_adj = COMPL_MELCH_HOLYMYSTIC
-	female_compliment_adj = COMPL_MELCH_HOLYMYSTIC
 	male_compliment = COMPL_MELCH_EARTH
 	female_compliment = COMPL_MELCH_EARTH
 	
 	male_insult_adj = INSULT_MELCH_CAWING
 	female_insult_adj = INSULT_MELCH_CAWING
-	male_insult_adj = INSULT_WICKED
-	female_insult_adj = INSULT_WICKED
-	male_insult = INSULT_DESERT_RAT
-	female_insult = INSULT_DESERT_RAT
+
 	male_insult = INSULT_HERESIARCH
 	female_insult = INSULT_HERESIARCH
 
-	child_insult = INSULT_MELCH_KID
+	child_insult = INSULT_DESERT_RAT
 
 	same_religion_opinion = 35
 
 	customizer = no
 }
 
-spawn_of_newsalem = {  ## all kids of restorer of K_MELCHISIDECHIANISM gets it
+spawn_of_newsalem = {  ## all kids of restorer of K_MELCHISIDECHIANISM get it
 	monthly_character_prestige = 0.25
 	monthly_character_piety = 0.25
 	customizer = no
 	random = no
 	agnatic = yes
-	##	enatic = yes #trying to make like Saoyshant's Kid Trait
+	enatic = yes #trying to make like Saoyshant's Kid Trait
 
 	opposites = {
 		mystic
@@ -312,12 +315,11 @@ spawn_of_newsalem = {  ## all kids of restorer of K_MELCHISIDECHIANISM gets it
 
 	child_insult = INSULT_MELCH_KID
 
-	same_religion_opinion = 10
-
-	opposite_opinion = 10
+	same_religion_opinion = 5
 
 	customizer = no
 }
+
 enarei = {
 	monthly_character_piety = 0.10
 	learning = 1
@@ -357,15 +359,24 @@ bad_priest_donatism = {
 	religious = yes
 
 	potential = {
+		OR = {
+			is_theocracy = yes
+			is_ruler = no
+		}
 		religion = donatism
 	}
 
 	can_hold_titles = no
+	
 	same_religion_opinion = -100
 	church_opinion = -100
+	
 	vice = yes
 
 	monthly_character_piety = -2
+
+	ai_honor = -5
+	ai_zeal = -10
 
 	customizer = no
 	random = no
