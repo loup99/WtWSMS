@@ -1,0 +1,244 @@
+decisions = {
+
+	end_quarantine = {
+		only_rulers = yes
+		is_high_prio = yes
+		
+		filter = realm
+		
+		potential = {
+			is_ruler = yes
+			has_character_modifier = quarantiner
+			primary_title = { higher_tier_than = DUKE }
+		}
+		allow = {
+			has_character_modifier = quarantiner
+		}
+		effect = {
+			remove_character_modifier = quarantiner
+			custom_tooltip = {
+				text = end_quarantine
+			}
+			hidden_tooltip = {
+				character_event = { id = ds.2 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0.1 # Less likely to do it
+			}
+			modifier = {
+				factor = 0
+				trait = zealous
+			}
+		}
+	}
+	
+	establish_quarantine = {
+		only_rulers = yes
+		is_high_prio = yes
+		
+		filter = realm
+		ai_target_filter = realm
+
+		potential = {	
+			health_traits = 1
+			independent = yes
+			is_playable = yes
+			primary_title = { higher_tier_than = DUKE }
+			age = 16
+		}
+		allow = {
+			prisoner = no
+			custom_tooltip = {
+				text = is_not_busy_trigger_tooltip
+				hidden_tooltip = { NOT = { has_character_flag = do_not_disturb } }
+			}
+			custom_tooltip = {
+				text = epidemic_present_tooltip
+				hidden_tooltip = {
+					OR = {
+						ai = no
+						capital_scope = { has_epidemic = yes }
+					}
+					OR = {
+						capital_scope = {
+							OR = {
+								has_epidemic = yes
+								any_neighbor_province = {
+									has_epidemic = yes
+								}
+							}
+						}
+						AND = {
+							ai = no
+							top_liege = {
+								any_realm_province = {
+									has_epidemic = yes
+								}
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_character_modifier = quarantiner }
+		}
+		effect = {
+			add_character_modifier = {
+				name = quarantiner
+				duration = -1
+				inherit = yes
+			}
+			hidden_tooltip = {
+				character_event = { id = ds.1 }
+			}
+			custom_tooltip = {
+				text = quarantine_placed
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0.001 # Less likely to do it
+			}
+			modifier = {
+				factor = 0
+				trait = kind
+			}
+			modifier = {
+				factor = 0 # 1.2 
+				trait = zealous
+				trait = arbitrary
+			}
+			modifier = {
+				factor = 0 # 1.2
+				trait = cruel
+			}
+		}
+	}
+
+	end_republic_quarantine = {
+		only_rulers = yes
+		is_high_prio = yes
+		
+		filter = realm
+		
+		potential = {
+			is_ruler = yes
+			has_character_modifier = boat_checker
+			primary_title = { higher_tier_than = DUKE }
+		}
+		allow = {
+			has_character_modifier = boat_checker
+		}
+		effect = {
+			remove_character_modifier = boat_checker 
+			custom_tooltip = {
+				text = end_republic_quarantine
+			}
+			hidden_tooltip = {
+				character_event = { id = ds.6 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0.1 # Less likely to do it
+			}
+			modifier = {
+				factor = 0
+				trait = zealous
+			}
+		}
+	}
+	
+	establish_republic_quarantine = {
+		only_rulers = yes
+		is_high_prio = yes
+		
+		filter = realm
+		ai_target_filter = realm
+
+		potential = {	
+			health_traits = 1
+			independent = yes
+			is_merchant_republic = yes
+			is_playable = yes
+			primary_title = { higher_tier_than = DUKE }
+			age = 16
+		}
+		allow = {
+			prisoner = no
+			custom_tooltip = {
+				text = is_not_busy_trigger_tooltip
+				hidden_tooltip = { NOT = { has_character_flag = do_not_disturb } }
+			}
+			custom_tooltip = {
+				text = epidemic_present_tooltip
+				hidden_tooltip = {
+					OR = {
+						ai = no
+						capital_scope = { has_epidemic = yes }
+					}
+					OR = {
+						capital_scope = {
+							OR = {
+								has_epidemic = yes
+								any_neighbor_province = {
+									has_epidemic = yes
+								}
+							}
+						}
+						AND = {
+							ai = no
+							top_liege = {
+								any_realm_province = {
+									has_epidemic = yes
+								}
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_character_modifier = boat_checker }
+		}
+		effect = {
+			add_character_modifier = {
+				name = boat_checker
+				duration = -1
+				inherit = yes
+			}
+			hidden_tooltip = {
+				character_event = { id = ds.5 }
+			}
+			custom_tooltip = {
+				text = republic_quarantine_placed
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0.001 # Less likely to do it
+			}
+			modifier = {
+				factor = 0
+				trait = kind
+			}
+			modifier = {
+				factor = 0 # 1.2 
+				trait = zealous
+				trait = arbitrary
+			}
+			modifier = {
+				factor = 0 # 1.2
+				trait = cruel
+			}
+		}
+	}
+}
+

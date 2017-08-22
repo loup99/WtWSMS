@@ -511,8 +511,7 @@ laws = {
 	revoke_title_law_0 = {
 		group = revoke_title_law
 		default = yes
-		allow = { 
-			NOT = { has_law = revoke_title_law_2 } }
+		allow = { }
 		potential = {
 			has_dlc = "Zeus"
 			NOT = { holder_scope = { is_nomadic = yes } }
@@ -526,7 +525,6 @@ laws = {
 			set_allow_free_infidel_revokation = no
 			hidden_tooltip = {
 				revoke_law = revoke_title_law_1
-				revoke_law = revoke_title_law_2
 			}
 		}
 	}
@@ -545,10 +543,6 @@ laws = {
 				factor = 0.05
 				has_law = revoke_title_law_0
 			}
-			modifier = {
-				factor = 0
-				has_law = revoke_title_law_2
-			}
 		}
 		ai_will_revoke = { factor = 0 }
 		pass_effect = { }
@@ -557,39 +551,6 @@ laws = {
 			set_allow_free_infidel_revokation = no
 			hidden_tooltip = {
 				revoke_law = revoke_title_law_0
-				revoke_law = revoke_title_law_2
-			}
-		}
-	}
-	revoke_title_law_2 = {
-		group = revoke_title_law
-		allow = {
-			NOT = { has_law = revoke_title_law_0 }
-		}
-		potential = {
-			has_dlc = "Zeus"
-			NOT = { holder_scope = { is_nomadic = yes } }
-			NOT = { holder_scope = { government = sassanid_government } }
-		}
-		revoke_allowed = { always = no }
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 0.01
-			}
-			modifier = {
-				factor = 10
-				holder_scope = { trait = zealous }
-			}
-		}
-		ai_will_revoke = { factor = 0 }
-		pass_effect = { }
-		effect = {
-			set_allow_title_revokation = yes
-			set_allow_free_infidel_revokation = yes
-			hidden_tooltip = {
-				revoke_law = revoke_title_law_0
-				revoke_law = revoke_title_law_1
 			}
 		}
 	}
@@ -599,6 +560,8 @@ laws = {
 		default = yes
 		allow = {
 			NOT = { has_law = ze_administration_laws_2 }
+			NOT = { government = bureaucratic_government }
+			NOT = { government = sassanid_government }
 		}
 		potential = {
 			has_dlc = "Zeus"
@@ -632,7 +595,8 @@ laws = {
 	ze_administration_laws_1 = {
 		group = ze_administration_laws
 		allow = {
-			
+			NOT = { government = bureaucratic_government }
+			NOT = { government = sassanid_government }
 		}
 		potential = {
 			has_dlc = "Zeus"
@@ -688,8 +652,10 @@ laws = {
 			has_law = grant_title_voting_power_0
 			has_law = banish_voting_power_0
 			has_law = execution_voting_power_0
-			has_law = revoke_title_law_2
+			has_law = revoke_title_law_1
 			has_law = out_of_realm_inheritance_law_1
+			NOT = { government = bureaucratic_government }
+			NOT = { government = sassanid_government }
 		}
 		potential = {
 			has_dlc = "Zeus"
