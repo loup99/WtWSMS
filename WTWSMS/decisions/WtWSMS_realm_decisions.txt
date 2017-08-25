@@ -1,4 +1,114 @@
 decisions = {
+	ask_for_hre = {
+		only_playable = yes
+		is_high_prio = yes
+		potential = {
+			religion = nicene
+			age = 16
+			prisoner = no
+			NOT = { trait = incapable }
+			demesne_size = 225
+			tier = emperor
+			NOT = { culture = roman }
+			NOT = { has_landed_title = e_wre } 
+			NOT = { has_landed_title = e_roman_empire }
+			NOT = { has_landed_title = e_axum }
+			NOT = { has_landed_title = e_italy } 
+			NOT = { has_landed_title = e_byzantium } 
+			NOT = { has_character_flag = asked_for_hre }
+			NOT = { has_global_flag = hre_formed }
+		}
+		allow = {
+			scaled_wealth = 2.0
+			is_heretic = no
+		}
+		effect = {
+			set_character_flag = asked_for_hre
+			hidden_tooltip = {
+				d_papal_state = {
+					holder_scope = {
+						character_event = { id = spirit.3 days = 5 random = 12 tooltip = "hre_ask" }
+					}
+				} 
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = {
+					scaled_wealth = 10.0
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+			modifier = {
+				factor = 2
+				trait = ambitious
+			}
+		}
+	}
+	
+	ask_for_wre = {
+		only_playable = yes
+		is_high_prio = yes
+		potential = {
+			OR = {
+				religion_group = christian
+				religion_group = pagan_group
+			}
+			age = 16
+			prisoner = no
+			NOT = { trait = incapable }
+			demesne_size = 225
+			tier = king
+			e_wre = {
+				has_holder = no
+			}
+			e_byzantium = {
+				has_holder = yes
+			}
+			NOT = { culture = roman }
+			NOT = { has_landed_title = e_wre } 
+			NOT = { has_landed_title = e_roman_empire }
+			NOT = { has_landed_title = e_byzantium } 
+			NOT = { has_character_flag = asked_for_wre }
+			NOT = { has_global_flag = wre_reformed }
+		}
+		allow = {
+			scaled_wealth = 2.0
+		}
+		effect = {
+			set_character_flag = asked_for_wre
+			hidden_tooltip = {
+				e_byzantium = {
+					holder_scope = {
+						character_event = { id = spirit.3 days = 5 random = 12 tooltip = "wre_ask" }
+					}
+				} 
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = {
+					scaled_wealth = 10.0
+				}
+			}
+			modifier = {
+				factor = 5
+				trait = cynical
+			}
+			modifier = {
+				factor = 5
+				trait = ambitious
+			}
+		}
+	}
+
 	organize_scholae_palatinae = {
 		only_playable = yes
 		is_high_prio = yes
