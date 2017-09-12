@@ -608,15 +608,15 @@ decisions = {
 		}
 	}
 	
-	employ_poet = {
-		only_rulers = yes
+	invite_poet_to_court = { #Invite a Poet to court
+		only_playable = yes
 		potential = {
 			is_ruler = yes
 			OR = {
 				ai = no
 				higher_tier_than = count
 			}
-			OR = { 
+			OR = {
 				culture_group = celtic
 				culture = romano_british
 				religion = insular
@@ -629,9 +629,17 @@ decisions = {
 			NOT = {
 				has_character_modifier = in_seclusion
 			}
+			NOR = {
+				any_vassal = {
+					has_minor_title = title_court_celtic_poet
+				}
+				any_courtier = {
+					has_minor_title = title_court_celtic_poet
+				}
+			}
 		}
 		effect = {
-			treasury = -20
+			scaled_wealth = -0.25
 			create_character = {
 				random_traits = no
 				dynasty = random
@@ -702,15 +710,14 @@ decisions = {
 		ai_will_do = {
 			factor = 1
 			modifier = {
+				factor = 0.3 #Decrease chance AI will do this
+			}
+			modifier = {
 				factor = 0.1
 				OR = {
 					any_vassal = { trait = poet }
 					any_courtier = { trait = poet }
 				}
-			}
-			modifier = {
-				factor = 0.3 #Decrease chance AI will do this
-				always = yes
 			}
 			modifier = {
 				factor = 0.1
@@ -719,7 +726,7 @@ decisions = {
 				}
 			}
 			modifier = {
-				factor = 0.1
+				factor = 0
 				OR = {
 					any_courtier = {
 						has_minor_title = title_court_celtic_poet
