@@ -1,0 +1,69 @@
+namespace = WtWSMS_pots
+
+# New Pagan, Tribal and Germanic ruler holding a Christian, sub-Roman and Feudal province
+province_event = {
+	id = WtWSMS_pots.1
+
+	hide_window = yes	
+	
+	only_rulers = yes
+
+	trigger = {
+		owner = { 
+			religion_group = pagan_group
+			is_tribal = yes
+			has_germanic_culture_trigger = yes 
+		}
+		religion_group = christian
+		is_feudal = yes
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		set_province_flag = melting_pot_target
+	}
+}
+
+province_event = {
+	id = WtWSMS_pots.2
+
+	hide_window = yes	
+	
+	only_rulers = yes
+
+	trigger = {
+		has_province_flag = melting_pot_target
+		NAND = { 
+			owner = { 
+				religion_group = pagan_group
+				is_tribal = yes
+				has_germanic_culture_trigger = yes 
+			}
+			religion_group = christian
+			is_feudal = yes
+			has_romance_culture_trigger = yes
+			NOR = { 
+				any_province_holding = {
+					has_holding_modifier = recently_conquered
+				} 
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		clr_province_flag = melting_pot_target
+	}
+}
