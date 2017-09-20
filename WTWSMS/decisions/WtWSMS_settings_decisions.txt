@@ -18,5 +18,101 @@ decisions = {
 			factor = 0
 		}
 	}
+	
+	change_name = {
+		only_playable = yes
+		potential = {
+			has_romance_culture_trigger = yes
+			prisoner = no
+			ai = no
+			NOT = { has_character_flag = change_name_check }
+			OR = {
+				AND = {
+					character = 1000023
+					has_landed_title = e_byzantium
+				}
+				AND = {
+					character = 1000023
+					has_landed_title = e_wre
+				}
+				AND = {
+					dynasty = 1022191
+					has_landed_title = e_wre
+					is_female = no
+					NOT = { character = 1000023 }
+				}
+				AND = {
+					dynasty = 1022191
+					has_landed_title = e_byzantium
+					is_female = no
+					NOT = { character = 1000023 }
+				}
+				AND = {
+					character = 1102680
+					has_landed_title = d_carthago_inferior
+				}
+			}
 
+		}
+		allow = {
+			prestige = 1000
+		}
+		effect = {
+			if = {
+				limit = {
+					character = 1000023
+					has_landed_title = e_byzantium
+				}
+				character_event = {
+					id = imperial_names.1
+				}
+			}
+			if = {
+				limit = {
+					character = 1000023
+					has_landed_title = e_wre
+				}
+				character_event = {
+					id = imperial_names.2
+				}
+			}
+			if = {
+				limit = {
+					dynasty = 1022191
+					has_landed_title = e_wre
+					is_female = no
+					NOT = { character = 1000023 }
+				}
+				character_event = {
+					id = imperial_names.3
+				}
+			}
+			if = {
+				limit = {
+					dynasty = 1022191
+					has_landed_title = e_byzantium
+					is_female = no
+					NOT = { character = 1000023 }
+				}
+				character_event = {
+					id = imperial_names.4
+				}
+			}
+			if = {
+				limit = {
+					character = 1102680
+					has_landed_title = d_carthago_inferior
+				}
+				character_event = {
+					id = imperial_names.7
+				}
+			}
+		}
+		revoke_allowed = {
+			always = no #Not used in vanilla
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
 }
