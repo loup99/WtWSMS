@@ -24,9 +24,12 @@ character_event = {
 	
 	hide_from = yes
 	
+	immediate = {
+		333 = { set_province_flag = building_circus_maximus }
+	}	
+	
 	option = {
 		name = EVTOPTA_SENATE_100
-		set_global_flag = building_circus_maximus
 		custom_tooltip = { text = circus_maximus_construction }
 	}
 }
@@ -38,11 +41,15 @@ narrative_event = {
 	desc = EVTDESC_SENATE_101
 	picture = GFX_evt_hippodrome_byzantine
 	border = GFX_event_narrative_frame_religion
+	
+	trigger = {
+		333 = {
+			had_province_flag = { flag = building_circus_maximus days = 3650 }
+		}
+		NOT = { has_global_flag = circus_maximus_built }
+	}
+	
 	major = yes
-	
-	is_triggered_only = yes
-	
-	hide_from = yes
 	
 	major_trigger = {
 		ai = no
@@ -51,6 +58,7 @@ narrative_event = {
 	immediate = {
 		set_global_flag = circus_maximus_built
 		clr_global_flag = building_circus_maximus
+		333 = { clr_province_flag = building_circus_maximus }
 	}
 	
 	option = {
