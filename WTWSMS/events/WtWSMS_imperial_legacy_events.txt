@@ -1372,9 +1372,12 @@ character_event = {
 	
 	hide_from = yes
 	
+	immediate = {
+		496 = { set_province_flag = building_hagia_sophia }
+	}	
+	
 	option = {
 		name = imperial_legacy.40.a
-		set_global_flag = building_hagia_sophia
 	}
 }
 
@@ -1385,11 +1388,15 @@ narrative_event = {
 	desc = imperial_legacy.41.desc
 	picture = GFX_evt_hagia_sofia
 	border = GFX_event_narrative_frame_religion
+	
+	trigger = {
+		496 = {
+			had_province_flag = { flag = building_hagia_sophia days = 2100 }
+		}
+		NOT = { has_global_flag = hagia_sophia_built }
+	}
+	
 	major = yes
-	
-	is_triggered_only = yes
-	
-	hide_from = yes
 	
 	major_trigger = {
 		ai = no
@@ -1398,6 +1405,7 @@ narrative_event = {
 	immediate = {
 		set_global_flag = hagia_sophia_built
 		clr_global_flag = building_hagia_sophia
+		496 = { clr_province_flag = building_circus_maximus }
 		b_hagiasophia = {
 			add_building = tp_hagiasophia
 		}
