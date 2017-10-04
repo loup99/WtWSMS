@@ -151,6 +151,49 @@ decisions = {
 			factor = 1
 		}
 	}
+	
+	organize_western_scholae_palatinae = {
+		only_playable = yes
+		is_high_prio = yes
+		potential = {
+			has_landed_title = e_wre
+			is_female = no
+			prisoner = no
+			age = 16
+			NOT = { has_global_flag = western_scholae_palatinae_reformed }
+		}
+		allow = {
+			prestige = 300
+			wealth = 300
+		}
+		effect = {
+			set_global_flag = western_scholae_palatinae_reformed
+			prestige = -300
+			wealth = -300
+			activate_title = { title = d_western_scholae_palatinae status = yes }
+			hidden_tooltip = {
+				narrative_event = { id = guard.3100 }
+				create_random_soldier = {
+					random_traits = yes
+					religion = nicene
+					culture = greek
+					dynasty = NONE
+					female = no
+					age = 34
+					trait = skilled_tactician
+				}
+				new_character = {
+					d_western_scholae_palatinae = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
 
 	restore_italia = {
 		only_playable = yes
