@@ -1098,7 +1098,7 @@ narrative_event = {
 						culture_group = east_germanic
 					}
 				}
-				narrative_event = { id = guard.3101 }
+				narrative_event = { id = guard.31011 }
 			}
 		}
 	}
@@ -2143,6 +2143,83 @@ character_event = {
 		add_trait = varangian
 		clr_character_flag = wants_excubitors
 		clr_character_flag = serving_excubitors
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Western Roman guards
+
+# Scholae Palatinae Founded (Emperor)
+narrative_event = {
+	id = guard.3135
+	title = EVTNAME_guard_3135
+	desc = EVTDESC_guard_3135
+	picture = GFX_evt_battle_roman
+	border = GFX_event_narrative_frame_war
+	
+	is_triggered_only = yes
+	
+	hide_from = yes
+	
+	option = {
+		name = EVTOPTA_guard_3135
+		hidden_tooltip = {
+			any_playable_ruler = {
+				limit = {
+					ai = no
+					OR = {
+						culture_group = latin
+						culture_group = byzantine
+						culture_group = east_germanic
+					}
+				}
+				narrative_event = { id = guard.3101 }
+			}
+		}
+	}
+}
+
+# Scholae Palatinae Founded (Non-Emperors)
+narrative_event = {
+	id = guard.3136
+	title = EVTNAME_guard_3135
+	desc = EVTDESC_guard_3136
+	picture = GFX_evt_battle_roman
+	border = GFX_event_narrative_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_guard_3136
+		custom_tooltip = { text = scholae_organized }
+	}
+}
+
+# Scholae Palatinae Captain gets Guard trait
+character_event = {
+	id = guard.3137
+	hide_window = yes
+	
+	min_age = 16
+	only_men = yes
+	capable_only = yes
+	prisoner = no
+	only_rulers = yes
+	
+	trigger = {
+		has_landed_title = d_western_scholae_palatinae
+		NOT = { trait = varangian }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		add_trait = varangian
 	}
 	
 	option = {
