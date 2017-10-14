@@ -8,6 +8,8 @@
 
 namespace = WtWSMS_pots
 
+## Initial melting-pot target flag
+
 # New Pagan, Tribal and Germanic ruler holding a Christian, sub-Roman and Feudal province, making it a melting-pot target
 province_event = {
 	id = WtWSMS_pots.1
@@ -95,4 +97,102 @@ province_event = {
 	}
 }
 
+## Conversion to Christianity
 
+# Spread of Christianity
+province_event = {
+	id = WtWSMS_pots.3
+	title = WtWSMS_pots.3.name
+	desc = WtWSMS_pots.3.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
+	
+	only_rulers = yes
+	
+	trigger = { 
+		owner = { 
+			religion_group = pagan_group
+			is_tribal = yes
+			has_germanic_culture_trigger = yes 
+		}
+		religion_group = christian
+		is_feudal = yes
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+	}
+
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		set_province_flag = spread_of_christianity
+	}
+	
+	option = {
+		name = WtWSMS_pots.3.a # OK
+	}
+}
+
+# Mighty Christian landed vassal
+
+# Bishop from the realm visits your court
+
+# Wife is a Christian
+
+# Concubine is a Christian
+
+# Courtier speaks to you about Christianity
+
+# Christian Councillour
+
+# Christian missionary from foreign realm travels to your court
+
+# Insists after first step
+
+# Won major battle with the "help" of the Christian god
+
+# Conversion to Christianity
+province_event = {
+	id = WtWSMS_pots.4
+	title = WtWSMS_pots.4.name
+	desc = WtWSMS_pots.4.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
+	
+	only_rulers = yes
+	
+	trigger = { 
+		owner = { 
+			religion_group = christian
+			is_tribal = yes
+			has_germanic_culture_trigger = yes 
+		}
+		religion_group = christian
+		is_feudal = yes
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+	}
+
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		clr_province_flag = spread_of_christianity
+	}
+	
+	option = {
+		name = WtWSMS_pots.4.a # OK
+	}
+}
