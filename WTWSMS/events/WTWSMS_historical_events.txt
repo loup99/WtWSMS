@@ -919,27 +919,41 @@ narrative_event = {
 	option = {
 		name = hist.22.a
 		if = {
-			limit = { c_1000052051 = { is_alive = yes } }
+			limit = {
+				c_1000052051 = {
+					is_alive = yes
+					is_adult = yes
+				}
+			}
 			c_1000052051 = { #found the ID character scope
 				d_exilarch_karaite = {
-					grant_title = THIS
+					grant_title = PREV
 				}
 			}
 		}
 		if = {
-			limit = { c_1000052051 = { is_alive = no } }
-			create_character = {
-				random_traits = yes
-				dynasty = 1000061250
-				religion = karaite
-				culture = mizrahi
-				female = no
-				age = 45
-				trait = house_of_david
+			limit = {
+				c_1000052051 = {
+					OR = {
+						is_alive = no
+						is_adult = no
+					}
+				}
+			}
+			hidden_tooltip = {
+				create_character = {
+					random_traits = yes
+					dynasty = 1042550 # Davidic
+					religion = karaite
+					culture = aramaic
+					female = no
+					age = 45
+					trait = house_of_david
+				}
 			}
 			new_character = {
 				d_exilarch_karaite = {
-					grant_title = THIS
+					grant_title = PREV
 				}
 			}
 		}
