@@ -21,7 +21,18 @@ character_event = {
 	}
 	
 	immediate = {
-		give_nickname = nick_caesar_augustus
+		if = {
+			limit = {
+				is_female = no
+			}
+			give_nickname = nick_caesar_augustus # Augustus for male character
+		}
+		if = {
+			limit = {
+				is_female = yes
+			}
+			give_nickname = nick_caesar_augusta # Augusta for female character
+		}
 	}
 		
 	option = {
@@ -36,7 +47,10 @@ character_event = {
 	
 	trigger = {
 	    AND = {
-			has_nickname = nick_caesar_augustus
+			OR = {
+				has_nickname = nick_caesar_augustus
+				has_nickname = nick_caesar_augusta
+			}
 			NOT = {
 				has_landed_title = e_wre
 			}
@@ -48,11 +62,22 @@ character_event = {
 	}
 	
 	immediate = {
-		remove_nickname = nick_caesar_augustus
+		if = {
+			limit = {
+				has_nickname = nick_caesar_augustus
+			}
+			remove_nickname = nick_caesar_augustus
+		}
+		if = {
+			limit = {
+				has_nickname = nick_caesar_augusta
+			}
+			remove_nickname = nick_caesar_augusta
+		}
 	}
 		
 	option = {
-	name = OK
+		name = OK
 	}
 }
 
