@@ -1,0 +1,391 @@
+namespace = syn
+
+# Second Council of Constantinople
+character_event = {
+	id = syn.1
+	desc = syn.1.desc
+	picture = GFX_evt_nicene_preacher
+	border = GFX_event_normal_frame_religion
+	
+	only_playable = yes
+	
+	trigger = {
+		year = 500
+		has_landed_title = e_byzantium
+		has_global_flag = three_chapter_controversy
+		NOT = { year = 600 }
+		NOT = { has_global_flag = great_schism }
+		NOT = { has_global_flag = second_council }
+		NOT = { has_global_flag = golden_horde_arrival }
+	}
+	
+	mean_time_to_happen = {
+		months = 4
+	}
+	
+	option = {
+		name = syn.1.a
+		d_orthodox = { holder_scope = { character_event = { id = syn.2 } } }
+	}
+}
+
+# Patriarchs Decide 
+character_event = {
+	id = syn.2
+	desc = syn.2.desc
+	picture = GFX_evt_nicene_preacher
+	border = GFX_event_normal_frame_religion
+	
+	only_playable = yes
+	
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {
+		months = 1
+	}
+	
+	option = { # Denounce the Three Chapters 
+		name = syn.2.a
+		ai_chance = {
+			factor = 6
+			modifier = {
+				factor = 10
+				monophysite = religion_authority = 0.9
+			}
+		}
+		hidden_tooltip = {
+			any_playable_ruler = {
+				limit = { 
+					ai = no 
+					NOT = { character = ROOT }
+				}
+				narrative_event = { id = syn.3 }
+			}
+		}
+	}
+	
+	option = { # Rescind the Condemnation 
+		name = syn.2.b
+		hidden_tooltip = {
+			any_playable_ruler = {
+				limit = { 
+					ai = no 
+					NOT = { character = ROOT }
+				}
+				narrative_event = { id = syn.4 }
+			}
+		}
+	}
+}
+
+# The Patriarchs Agree on Condemnation
+narrative_event = {
+	id = syn.3 
+	title = syn.3.name 
+	desc = syn.3.desc  
+	picture = GFX_evt_nicene_preacher
+
+	major = yes
+	
+	is_triggered_only = yes
+
+	immediate = {
+		set_parent_religion = { religion = nestorian parent = nicene }
+		d_papal_states = { holder_scope = { character_event = { id = syn.5 days = 10 } } }
+		d_monophysite = { holder_scope = { letter_event = { id = syn.7 days = 5 } } }
+	}
+	
+	option = {
+		name = syn.3.a
+  	}
+}
+	
+# The Patriarchs Agree on Rescinding the Condemnation 
+narrative_event = {
+	id = syn.4 
+	title = syn.4.name 
+	desc = syn.4.desc
+	picture = GFX_evt_nicene_preacher
+
+	major = yes 
+		
+	is_triggered_only = yes
+	
+	option = {
+		name = syn.3.a
+	}
+}
+
+# Pope Decides
+character_event = {
+	id = syn.5
+	desc = syn.5.desc
+	picture = GFX_evt_nicene_preacher
+	border = GFX_event_normal_frame_religion
+	
+	only_playable = yes
+	
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {
+		months = 6
+	}
+	
+	option = { # Accept
+		name = syn.5.a
+		ai_chance = { factor = 3 }
+		hidden_tooltip = {
+			any_playable_ruler = {
+				limit = { 
+					religion = nicene
+					NOT = { character = ROOT }
+				}
+				charater_event = { id = syn.6 }
+			}
+		}
+	}
+	
+	option = { # Refuse
+		name = syn.5.b
+		hidden_tooltip = {
+			any_playable_ruler = {
+				narrative_event = { id = HRE.5}
+			}
+		}
+	}
+}
+
+# The Aquileian Schism
+character_event = {
+	id = syn.6
+	title = syn.6.name
+	desc = syn.6.desc
+	picture = GFX_evt_nicene_preacher
+	
+	major = yes
+	religion = nicene
+	is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = aquileian_schism
+		b_aquileia = {
+			holder_scope = {
+				d_aquileia_church = {
+					grant_title = PREV
+				}
+			}
+		}
+	}
+	
+	option = { # Aquileian 
+		name = syn.6.a
+		trigger = {
+			religion = nicene
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				culture = roman # Milan, Aquileia 
+			}
+			modifier = {
+				factor = 20
+				any_vassal = { has_landed_title = d_aquileia_church }
+			}
+			modifier = {
+				factor = 50
+				has_landed_title = d_aquileia_church
+			}
+			modifier = {
+				factor = 10
+				any_vassal = { has_landed_title = b_monza }
+			}
+			modifier = {
+				factor = .01
+				culture_group = greek # Agreed with Second Council
+			}
+		}
+		religion = aquileian
+		capital_scope = {
+			if = {
+				limit = { religion = nicene }
+			}
+			religion = aquileian
+		}
+		any_realm_province = {
+			limit = { 
+				religion = nicene
+          	}
+			religion = aquileian
+		}
+		any_realm_character = {
+			limit = { religion = nicene }
+			religion = aquileian
+		}
+	}
+	option = { # Stay
+		name = syn.6.b
+		ai_chance = { factor = 6 }
+		trigger = {
+			religion = nicene
+		}
+	}
+	option = { # Non-Nicene
+		name = syn.6.c
+		trigger = {
+			NOT = { religion = nicene }
+		}
+	}
+}	
+
+# Monophysite Patriarch Decides 
+character_event = {
+	id = syn.7
+	desc = syn.7.desc
+	picture = GFX_evt_nicene_preacher
+	border = GFX_event_normal_frame_religion
+	
+	only_playable = yes
+	
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {
+		months = 4
+	}
+	
+	option = { # Accept
+		name = syn.7.a
+		hidden_tooltip = {
+			any_playable_ruler = {
+				narrative_event = { id = syn.8 }
+			}
+		}
+	}
+	option = { # Refuse
+		name = syn.7.b
+		ai_chance = { factor = 5 }
+		hidden_tooltip = {
+			any_playable_ruler = {
+				narrative_event = { id = syn.9 }
+			}
+		}
+	}
+}
+
+# The Monophysites Rejoin.
+narrative_event = {
+	id = syn.8 
+	title = syn.8.name
+	desc = syn.8.desc 
+	picture = GFX_evt_nicene_preacher
+	
+	major = yes 
+	is_triggered_only = yes
+
+	immediate = {
+		set_parent_religion = { religion = monophysite parent = 0 }
+	}
+	
+	option = {
+		name = syn.8.a
+		trigger = {
+			religion = monophysite 
+		}
+		religion = nicene
+		capital_scope = {
+			if = {
+				limit = { religion = monophysite }
+			}
+			religion = nicene
+		}
+		any_realm_province = {
+			limit = { 
+				religion = monophysite 
+          	}
+			religion = nicene
+		}
+		any_realm_character = {
+			limit = { religion = monophysite }
+			religion = nicene
+		}
+	}
+	option = { # Stay
+		name = syn.8.b
+		trigger = {
+			NOT = { religion = monophysite }
+		}
+	}
+}
+# The Three Chapters Controversy 
+narrative_event = {
+	id = syn.9
+	title = syn.9.name
+	desc = syn.9.desc
+	picture = GFX_evt_nicene_preacher
+	
+	major = yes 
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = syn.9.a
+		set_global_flag = three_chapter_controversy
+	}
+}
+	
+# The Council of Aquileia 
+narrative_event = {
+	id = syn.10 
+	title = syn.10.name 
+	desc = syn.10.desc
+	picture = GFX_evt_nicene_preacher
+	
+	major = yes 
+	is_triggered_only = yes
+	
+	option = {
+		name = syn.10.a
+		set_global_flag = the_aquileian_capture
+	}
+}
+	
+# End of Aquileian Schism
+narrative_event = {
+	id = syn.11 
+	title = syn.11.name 
+	desc = syn.11.desc
+	picture = GFX_evt_nicene_preacher
+
+	major = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = syn.11.a
+		trigger = {
+			religion = aquileian
+		}
+		religion = nicene
+		capital_scope = {
+			if = {
+				limit = { religion = aquileian}
+			}
+			religion = nicene
+		}
+		any_realm_province = {
+			limit = { 
+				religion = aquileian
+          	}
+			religion = nicene
+		}
+		any_realm_character = {
+			limit = { religion = aquileian }
+			religion = nicene
+		}
+	}
+	option = { # Okay 
+		name = syn.11.b
+		trigger = {
+			NOT = { religion = aquileian }
+		}
+	}
+}
