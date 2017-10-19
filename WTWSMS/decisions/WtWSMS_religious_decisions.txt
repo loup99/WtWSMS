@@ -512,7 +512,7 @@ decisions = {
  					dynasty = none
  					random_traits = yes
 					female = no
-					add_trait = mystic	
+					trait = mystic	
  				}
  				new_character = {
  					d_sethian = {
@@ -880,7 +880,7 @@ decisions = {
 	
 	choose_sanamahi_patron_deity = {
 		potential = {
-			always = no # Missing event
+			always = no # TODO event spirit.34 does not exist !
 			has_dlc = "Rajas of India"
 			is_playable = yes
 			age = 16
@@ -1059,7 +1059,7 @@ decisions = {
 							light_infantry = { 1000 1000 }
 						}
 						attrition = 1.0
-						morale = -0.20 
+						#morale = -0.20 
 						disband_on_peace = yes
 						maintenance_multiplier = 0.5
 					}
@@ -1090,13 +1090,13 @@ decisions = {
 				create_random_priest = {
 					dynasty = none
 					random_traits = yes
-					add_trait = imposing
-					add_trait = brahmin
+					trait = imposing
+					trait = brahmin
 					female = no
 					culture = ROOT
 				}
 				new_character = {
-					d_mimamsa = {
+					k_mimamsa = {
 						grant_title = PREV
 					}
 					wealth = 500
@@ -1281,38 +1281,39 @@ decisions = {
 		}
 	}
 	
-	#denounce_three_chapters = {
-	#	potential = {
-	#		religion = nicene
-	#		has_landed_title = e_byzantium 
-	#		age = 16
-	#		prisoner = no
-	#		year=500
-	#		NOT = { year = 600 } 
-	#	}
-	#	
-	#	allow = {
-	#		piety = 50
-	#	}
-	#	
-	#	effect = {
-	#		narrative_event = { id = syn.9 tooltip = EVTTOOLTIP_SYN_9 }
-	#	}
-	#	
-	#	revoke_allowed = {
-	#		always = no
-	#	}
-	#	
-	#	ai_will_do = {
-	#		factor = 5
-	#		}
-	#}
+	denounce_three_chapters = {
+		only_playable = yes
+		is_high_prio = yes
+		potential = {
+			religion = nicene
+			has_landed_title = e_byzantium 
+			age = 16
+			prisoner = no
+			year = 500
+			NOT = { year = 600 } 
+		}
+		
+		allow = {
+			piety = 50
+		}
+		
+		effect = {
+			narrative_event = { id = syn.9 tooltip = syn.9.tooltip }
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 5
+		}
+	}
 	
 	rejoin_church_aquileian = {
 		only_playable = yes
 		is_high_prio = yes
 		potential = {
-			always = no # TODO Event syn.11 does not exist !
 			controls_religion = aquileian
 			NOT = { has_global_flag = the_aquileian_capture }
 			age = 16
@@ -1355,7 +1356,6 @@ decisions = {
 		only_playable = yes
 		is_high_prio = yes
 		potential = {
-			always = no # TODO Event syn.9 does not exist !
 			religion_group = pagan_group 
 			has_landed_title = c_aquileia
 			has_global_flag = aquileian_schism
@@ -1369,7 +1369,7 @@ decisions = {
 		
 		effect = {
 			religion = aquileian
-			narrative_event = { id = syn.9 tooltip = EVTTOOLTIP_SYN_9 }
+			narrative_event = { id = syn.10 tooltip = syn.10.tooltip }
 		}
 		
 		revoke_allowed = {
