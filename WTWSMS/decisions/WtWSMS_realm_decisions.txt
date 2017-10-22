@@ -195,77 +195,73 @@ decisions = {
 		}
 	}
 	
-	reform_imperial_fleet_byzantium = {
-		is_high_prio = yes
-		potential = {
-            #realm_size = 80
-            has_landed_title = e_byzantium
-		    NOT = { is_title_active = d_imperial_fleet_byzantium }
-		}
-		allow = {
-			prestige = 300
-			wealth = 1000
-		}
-		effect = {
-			prestige = -300
-			wealth = -1000
-			activate_title = { title = d_imperial_fleet_byzantium status = yes }
-			hidden_tooltip = {
-				create_character = {
-					random_traits = yes
-					religion = ROOT
-					culture = ROOT
-					dynasty = NONE
-					female = no
-					age = 34
-					trait = skilled_tactician
-				}
-				new_character = {
-					d_imperial_fleet_byzantium = {
-						grant_title = PREV
-					}
-					set_defacto_liege = ROOT
-				}
-			}
-		}
-		ai_will_do = {
-			factor = 1
-		}
-	}
-	
 	reform_imperial_fleet_wre = {
 		is_high_prio = yes
+		only_playable = yes
 		potential = {
-            #realm_size = 80
-            has_landed_title = e_wre
-		    NOT = { is_title_active = d_imperial_fleet_wre }
+			prisoner = no
+			age = 16
+			has_landed_title = e_wre
+			NOT = { is_title_active = d_imperial_fleet_wre } 
 		}
 		allow = {
-			prestige = 300
-			wealth = 1000
+			wealth = 2000
+			completely_controls = d_flaminia # Ravenna was an important port
+			d_flaminia = {
+				has_holder = yes
+			}
 		}
 		effect = {
-			prestige = -300
-			wealth = -1000
+			wealth = -2000
 			activate_title = { title = d_imperial_fleet_wre status = yes }
 			hidden_tooltip = {
-				create_character = {
-					random_traits = yes
-					religion = ROOT
-					culture = ROOT
-					dynasty = NONE
-					female = no
-					age = 34
-					trait = skilled_tactician
-				}
+				create_legion_commander_effect = yes
 				new_character = {
 					d_imperial_fleet_wre = {
 						grant_title = PREV
 					}
 					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
 				}
 			}
 		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	reform_imperial_fleet_ere = {
+		is_high_prio = yes
+		only_playable = yes
+		potential = {
+			prisoner = no
+			age = 16
+			has_landed_title = e_byzantium
+			NOT = { is_title_active = d_imperial_fleet_ere } 
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = d_europa # Constantinople was the main port of the imperial navy
+			d_europa = {
+				has_holder = yes
+			}
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = d_imperial_fleet_ere status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					d_imperial_fleet_ere = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		
 		ai_will_do = {
 			factor = 1
 		}

@@ -1755,3 +1755,115 @@ character_event = {
 	}
 
 }
+
+# Western Imperial Navy without Flaminia
+character_event = {
+	id = imperial_legacy.47
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = d_imperial_fleet_wre
+		d_flaminia = {
+			has_holder = no
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = imperial_legacy.48 }
+		}
+	}
+}
+
+# Eastern Imperial Navy without Europa
+character_event = {
+	id = imperial_legacy.47
+	
+	hide_window = yes
+	only_rulers = yes
+
+	trigger = {
+		has_landed_title = d_imperial_fleet_ere
+		d_europa = {
+			has_holder = no
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = OK
+		liege = {
+			narrative_event = { id = imperial_legacy.48 }
+		}
+	}
+}
+
+# Notify the owner that the imperial navy is disbanding
+# FROM is the navy commander
+# ROOT is the liege
+narrative_event = {
+	id = imperial_legacy.48
+	title = imperial_legacy.48.name
+	desc = imperial_legacy.48.desc
+	picture = GFX_evt_battle_roman # Maybe naval battle picture
+		
+	is_triggered_only = yes
+	
+	option = {
+		name= {
+			text = EVTOPTALEG.3
+			trigger = {
+				OR = { 
+					has_landed_title = e_byzantium
+					has_landed_title = e_wre
+				}
+			}
+		}
+		name= {
+			text = EVTOPTBLEG.3
+			trigger = {
+				NOR = { 
+					has_landed_title = e_byzantium
+					has_landed_title = e_wre
+				}
+			}
+
+		}
+		
+		FROM = {
+			# any_demesne_title mercenary = yes doesn't work
+			any_mercenary_band = {
+				limit = {
+					holder_scope = {
+						character = FROM
+					}
+				}
+
+				activate_title = { title = THIS status = no }
+				unsafe_destroy_landed_title = THIS
+			}
+		}
+		
+		if = {
+			limit = {
+				OR = { 
+					has_landed_title = e_byzantium
+					has_landed_title = e_wre
+				}
+			}
+			prestige = -100
+		}
+	}
+	
+}
+
