@@ -151,6 +151,121 @@ decisions = {
 			factor = 1
 		}
 	}
+	
+	reorganize_western_scholae_palatinae = {
+		only_playable = yes
+		is_high_prio = yes
+		potential = {
+			has_landed_title = e_wre
+			is_female = no
+			prisoner = no
+			age = 16
+			NOT = { has_global_flag = western_scholae_palatinae_reorganized }
+		}
+		allow = {
+			prestige = 300
+			wealth = 300
+		}
+		effect = {
+			set_global_flag = western_scholae_palatinae_reorganized
+			prestige = -300
+			wealth = -300
+			activate_title = { title = d_western_scholae_palatinae status = yes }
+			hidden_tooltip = {
+				narrative_event = { id = guard.31352 }
+				create_random_soldier = {
+					random_traits = yes
+					religion = nicene
+					culture = roman
+					dynasty = NONE
+					female = no
+					age = 34
+					trait = skilled_tactician
+				}
+				new_character = {
+					d_western_scholae_palatinae = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	reform_imperial_fleet_wre = {
+		is_high_prio = yes
+		only_playable = yes
+		potential = {
+			prisoner = no
+			age = 16
+			has_landed_title = e_wre
+			NOT = { is_title_active = d_imperial_fleet_wre } 
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = c_ravenna # Ravenna was an important port
+			any_realm_lord = { 
+				has_landed_title = c_ravenna 
+			}
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = d_imperial_fleet_wre status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					d_imperial_fleet_wre = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	reform_imperial_fleet_ere = {
+		is_high_prio = yes
+		only_playable = yes
+		potential = {
+			prisoner = no
+			age = 16
+			has_landed_title = e_byzantium
+			NOT = { is_title_active = d_imperial_fleet_ere } 
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = c_byzantion # Constantinople was the main port of the imperial navy
+			any_realm_lord = { 
+				has_landed_title = c_byzantion 
+			}
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = d_imperial_fleet_ere status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					d_imperial_fleet_ere = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
 
 	restore_italia = {
 		only_playable = yes
@@ -310,7 +425,6 @@ decisions = {
 		effect = {
 			hidden_tooltip = {
 				character_event = { id = SENATE.100 }
-				narrative_event = { id = SENATE.101 days = 1460 random = 50 }
 			}
 			set_global_flag = building_circus_maximus
 			wealth = -1500
@@ -352,7 +466,6 @@ decisions = {
 		effect = {
 			hidden_tooltip = {
 				character_event = { id = imperial_legacy.40 }
-				narrative_event = { id = imperial_legacy.41 days = 2100 random = 50 }
 			}
 			set_global_flag = building_hagia_sophia
 			wealth = -2500
