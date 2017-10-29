@@ -1283,35 +1283,28 @@ narrative_event = {
 	}
 }
 
-# Priest-King of Salem or Melchisidechian clergyman is annointed as mystic
+# Clergyman of mystic religion gets mystic trait
 character_event = { 
 	id = spirit.41
 	
 	hide_window = yes
+	
+	only_playable = yes
 
 	trigger = {
+		AND = { 
+			mystic_religion_trigger = yes
+			age = 16
+		}
 		OR = {
-			AND = {
-				has_global_flag = here_come_dat_priest_king
-				OR = {
-					has_landed_title = k_melchisedechianism
-					controls_religion = melchisedechianism
-				}
-			}
+			has_landed_title = k_melchisedechianism
+			controls_religion = melchisedechianism
+			controls_religion = tzadikite
 			is_theocracy = yes
 			has_job_title = job_spiritual
 		}
-		religion = melchisedechianism
 		NOT = {
 			trait = mystic
-			trait = cruel
-			trait = bad_priest_christian
-			trait = impaler
-			trait = hunter
-			trait = falconer
-			trait = cannibal_trait
-			trait = arbitrary
-			trait = excommunicated
 		}
 	}
 	
@@ -1367,42 +1360,49 @@ character_event = {
 	}
 }
 
-# Tzadikite Rabbis are annointed as Khaballistic clergymen
-character_event = { 
+# Shown when a Donatist restores the Bishop of Carthage
+narrative_event = { 
 	id = spirit.43
+	title = spirit.43.title
+	desc = spirit.43.desc
+	picture = GFX_evt_pope_feast
+	border = GFX_event_narrative_frame_war
 	
-	hide_window = yes
+	major = yes
 
-	religion = tzadikite
-	
-	trigger = {
-       	religion = tzadikite
-		age = 16
-		OR = {
-			controls_religion = tzadikite
-			is_theocracy = yes
-			has_job_title = job_spiritual
-		}
-		NOT = {
-			trait = mystic
-			trait = bad_priest_jewish
-			trait = impaler
-			trait = cannibal_trait
-			trait = arbitrary
-		}
-	}
-	
-	mean_time_to_happen = {
-		days = 1
-	}
+	is_triggered_only = yes
 	
 	option = {
-		name = spirit.44.a
-		add_trait = mystic
+		name = spirit.43.a
+		trigger = {
+			religion = donatism
+		}
+		piety = 50
+	}
+
+	option = {
+		name = spirit.43.b
+		trigger = {
+			AND = {
+				religion_group = christian
+				NOT = {
+					religion = donatism
+				}
+			}
+		}
+	}
+	option = {
+		name = spirit.43.c
+		trigger = {
+			NOT = { 
+				religion_group = christian 
+				religion = donatism
+			}	
+		}
 	}
 }
 
-# Shown when a Donatist restores the Bishop of Carthage
+# Create Arian Papacy
 narrative_event = { 
 	id = spirit.44
 	title = spirit.44.title
@@ -1417,7 +1417,7 @@ narrative_event = {
 	option = {
 		name = spirit.44.a
 		trigger = {
-			religion = donatism
+			religion = arian
 		}
 		piety = 50
 	}
@@ -1428,7 +1428,7 @@ narrative_event = {
 			AND = {
 				religion_group = christian
 				NOT = {
-					religion = donatism
+					religion = arian
 				}
 			}
 		}
@@ -1444,50 +1444,9 @@ narrative_event = {
 	}
 }
 
-# Create Arian Papacy
-narrative_event = { 
+# Donatist Tratidores get their own special Trait, because being a "bad priest" in that religion is far worse than others
+character_event = { 
 	id = spirit.45
-	title = spirit.45.title
-	desc = spirit.45.desc
-	picture = GFX_evt_pope_feast
-	border = GFX_event_narrative_frame_war
-	
-	major = yes
-
-	is_triggered_only = yes
-	
-	option = {
-		name = spirit.45.a
-		trigger = {
-			religion = arian
-		}
-		piety = 50
-	}
-
-	option = {
-		name = spirit.45.b
-		trigger = {
-			AND = {
-				religion_group = christian
-				NOT = {
-					religion = arian
-				}
-			}
-		}
-	}
-	option = {
-		name = spirit.45.c
-		trigger = {
-			NOT = { 
-				religion_group = christian 
-				religion = donatism
-			}	
-		}
-	}
-}
-
-character_event = { # Donatist Tratidores get their own special Trait, because being a "bad priest" in that religion is far worse than others
-	id = spirit.46
 	
 	hide_window = yes
 	religion = donatism
@@ -1524,8 +1483,9 @@ character_event = { # Donatist Tratidores get their own special Trait, because b
 	}
 }
 
-character_event = { # A Donatist Tratidor has repented and everyone celebrates his change
-	id = spirit.47
+# A Donatist Tratidor has repented and everyone celebrates his change
+character_event = { 
+	id = spirit.46
 
 	hide_window = yes
 	religion = donatism
@@ -1555,8 +1515,9 @@ character_event = { # A Donatist Tratidor has repented and everyone celebrates h
 	}
 }
 
-character_event = { # Ebionites, being Jews themselves, will obviously tolerate any and all Jews
-	id = spirit.48
+# Ebionites, being Jews themselves, will obviously tolerate any and all Jews
+character_event = { 
+	id = spirit.47
 	
 	hide_window = yes
 	
@@ -1572,7 +1533,7 @@ character_event = { # Ebionites, being Jews themselves, will obviously tolerate 
 	}
 	
 	option = {
-		name = spirit.48.a
+		name = spirit.44.a
 		add_trait = sympathy_judaism
 	}
 }
