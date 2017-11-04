@@ -1,9 +1,25 @@
 namespace = syn
 
+# The Three Chapters Controversy 
+narrative_event = {
+	id = syn.1
+	title = syn.1.name
+	desc = syn.1.desc
+	picture = GFX_evt_nicene_preacher
+	
+	major = yes 
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = syn.1.a
+	}
+}
+
 # Second Council of Constantinople
 character_event = {
-	id = syn.1
-	desc = syn.1.desc
+	id = syn.2
+	desc = syn.2.desc
 	picture = GFX_evt_nicene_preacher
 	border = GFX_event_normal_frame_religion
 	
@@ -29,24 +45,22 @@ character_event = {
 	}
 	
 	option = {
-		name = syn.1.a
-		d_orthodox = { holder_scope = { character_event = { id = syn.2 } } }
+		name = syn.2.a
+		d_orthodox = { holder_scope = { character_event = { id = syn.3 } } } # Patriarchs Decide 
 	}
 }
 
 # Patriarchs Decide 
 character_event = {
-	id = syn.2
-	desc = syn.2.desc
+	id = syn.3
+	desc = syn.3.desc
 	picture = GFX_evt_nicene_preacher
 	border = GFX_event_normal_frame_religion
-	
-	only_playable = yes
 	
 	is_triggered_only = yes
 	
 	option = { # Denounce the Three Chapters 
-		name = syn.2.a
+		name = syn.3.a
 		ai_chance = {
 			factor = 6
 			modifier = {
@@ -60,20 +74,20 @@ character_event = {
 					ai = no 
 					NOT = { character = ROOT }
 				}
-				narrative_event = { id = syn.3 }
+				narrative_event = { id = syn.4 } # The Patriarchs Agree on Condemnation
 			}
 		}
 	}
 	
 	option = { # Rescind the Condemnation 
-		name = syn.2.b
+		name = syn.3.b
 		hidden_tooltip = {
 			any_playable_ruler = {
 				limit = { 
 					ai = no 
 					NOT = { character = ROOT }
 				}
-				narrative_event = { id = syn.4 }
+				narrative_event = { id = syn.5 } # The Patriarchs Agree on Rescinding the Condemnation 
 			}
 		}
 	}
@@ -81,9 +95,9 @@ character_event = {
 
 # The Patriarchs Agree on Condemnation
 narrative_event = {
-	id = syn.3 
-	title = syn.3.name
-	desc = syn.3.desc  
+	id = syn.4
+	title = syn.4.name
+	desc = syn.4.desc  
 	picture = GFX_evt_nicene_preacher
 
 	major = yes
@@ -92,61 +106,58 @@ narrative_event = {
 
 	immediate = {
 		set_parent_religion = { religion = nestorian parent = nicene }
-		d_papal_state = { holder_scope = { character_event = { id = syn.5 days = 10 } } }
-		d_monophysite = { holder_scope = { character_event = { id = syn.7 days = 5 } } }
+		d_papal_state = { holder_scope = { character_event = { id = syn.6 days = 10 } } } # Pope Decides
+		d_monophysite = { holder_scope = { character_event = { id = syn.8 days = 5 } } } # Monophysite Patriarch Decides 
 	}
 	
 	option = {
-		name = syn.3.a
+		name = syn.4.a
   	}
 }
 	
 # The Patriarchs Agree on Rescinding the Condemnation 
 narrative_event = {
-	id = syn.4 
-	title = syn.3.name 
-	desc = syn.4.desc
+	id = syn.5
+	title = syn.4.name 
+	desc = syn.5.desc
 	picture = GFX_evt_nicene_preacher
 
 	major = yes 
-		
+
 	is_triggered_only = yes
 	
 	option = {
-		name = syn.3.a
+		name = syn.4.a
 	}
 }
 
 # Pope Decides
 character_event = {
-	id = syn.5
-	desc = syn.5.desc
+	id = syn.6
+	desc = syn.6.desc
 	picture = GFX_evt_nicene_preacher
 	border = GFX_event_normal_frame_religion
-	
-	only_playable = yes
-	
+
 	is_triggered_only = yes
 	
 	option = { # Accept
-		name = syn.5.a
+		name = syn.6.a
 		ai_chance = { factor = 3 }
 		hidden_tooltip = {
 			any_playable_ruler = {
 				limit = { 
-					religion = nicene
 					NOT = { character = ROOT }
 				}
-				character_event = { id = syn.6 }
+				character_event = { id = syn.7 } # The Aquileian Schism
 			}
 		}
 	}
 	
 	option = { # Refuse
-		name = syn.5.b
+		name = syn.6.b
 		hidden_tooltip = {
 			any_playable_ruler = {
-				narrative_event = { id = HRE.5}
+				narrative_event = { id = HRE.5 }
 			}
 		}
 	}
@@ -154,13 +165,11 @@ character_event = {
 
 # The Aquileian Schism
 character_event = {
-	id = syn.6
-	title = syn.6.name
-	desc = syn.6.desc
+	id = syn.7
+	title = syn.7.name
+	desc = syn.7.desc
 	picture = GFX_evt_nicene_preacher
-	
-	major = yes
-	religion = nicene
+
 	is_triggered_only = yes
 
 	immediate = {
@@ -175,7 +184,7 @@ character_event = {
 	}
 	
 	option = { # Aquileian 
-		name = syn.6.a
+		name = syn.7.a
 		trigger = {
 			religion = nicene
 		}
@@ -221,14 +230,14 @@ character_event = {
 		}
 	}
 	option = { # Stay
-		name = syn.6.b
+		name = syn.7.b
 		ai_chance = { factor = 6 }
 		trigger = {
 			religion = nicene
 		}
 	}
 	option = { # Non-Nicene
-		name = syn.6.c
+		name = syn.7.c
 		trigger = {
 			NOT = { religion = nicene }
 		}
@@ -237,42 +246,34 @@ character_event = {
 
 # Monophysite Patriarch Decides 
 character_event = {
-	id = syn.7
-	desc = syn.7.desc
+	id = syn.8
+	desc = syn.8.desc
 	picture = GFX_evt_nicene_preacher
 	border = GFX_event_normal_frame_religion
-	
-	only_playable = yes
 	
 	is_triggered_only = yes
 	
 	option = { # Accept
-		name = syn.7.a
-		hidden_tooltip = {
-			any_playable_ruler = {
-				narrative_event = { id = syn.8 }
-			}
-		}
-	}
-	option = { # Refuse
-		name = syn.7.b
-		ai_chance = { factor = 5 }
+		name = syn.8.a
 		hidden_tooltip = {
 			any_playable_ruler = {
 				narrative_event = { id = syn.9 }
 			}
 		}
 	}
+	option = { # Refuse
+		name = syn.8.b
+		ai_chance = { factor = 5 }
+	}
 }
 
-# The Monophysites Rejoin.
+# The Monophysites Rejoin
 narrative_event = {
-	id = syn.8 
-	title = syn.8.name
-	desc = syn.8.desc 
+	id = syn.9
+	title = syn.9.name
+	desc = syn.9.desc 
 	picture = GFX_evt_nicene_preacher
 	
-	major = yes 
 	is_triggered_only = yes
 
 	immediate = {
@@ -280,7 +281,7 @@ narrative_event = {
 	}
 	
 	option = {
-		name = syn.8.a
+		name = syn.9.a
 		trigger = {
 			religion = monophysite 
 		}
@@ -303,28 +304,13 @@ narrative_event = {
 		}
 	}
 	option = { # Stay
-		name = syn.8.b
+		name = syn.9.b
 		trigger = {
 			NOT = { religion = monophysite }
 		}
 	}
 }
-# The Three Chapters Controversy 
-narrative_event = {
-	id = syn.9
-	title = syn.9.name
-	desc = syn.9.desc
-	picture = GFX_evt_nicene_preacher
-	
-	major = yes 
-	
-	is_triggered_only = yes
-	
-	option = {
-		name = syn.9.a
-	}
-}
-	
+
 # The Council of Aquileia 
 narrative_event = {
 	id = syn.10 
@@ -333,6 +319,7 @@ narrative_event = {
 	picture = GFX_evt_nicene_preacher
 	
 	major = yes 
+	
 	is_triggered_only = yes
 	
 	option = {
@@ -349,6 +336,7 @@ narrative_event = {
 	picture = GFX_evt_nicene_preacher
 
 	major = yes
+	
 	is_triggered_only = yes
 	
 	option = {
@@ -359,7 +347,7 @@ narrative_event = {
 		religion = nicene
 		capital_scope = {
 			if = {
-				limit = { religion = aquileian}
+				limit = { religion = aquileian }
 			}
 			religion = nicene
 		}
@@ -378,6 +366,22 @@ narrative_event = {
 		name = syn.11.b
 		trigger = {
 			NOT = { religion = aquileian }
+		}
+		capital_scope = {
+			if = {
+				limit = { religion = aquileian }
+			}
+			religion = nicene
+		}
+		any_realm_province = {
+			limit = { 
+				religion = aquileian
+          	}
+			religion = nicene
+		}
+		any_realm_character = {
+			limit = { religion = aquileian }
+			religion = nicene
 		}
 	}
 }
