@@ -916,12 +916,12 @@ narrative_event = {
 		activate_title = { title = d_exilarch_karaite status = yes }
 		if = {
 			limit = {
-				c_1000052051 = {
+				c_1300076 = {
 					is_alive = yes
 					is_adult = yes
 				}
 			}
-			c_1000052051 = { #first historical Karaite Exilarch
+			c_1300076 = { #first historical Karaite Exilarch
 				d_exilarch_karaite = {
 					grant_title = PREV
 				}
@@ -929,7 +929,7 @@ narrative_event = {
 		}
 		if = {
 			limit = {
-				c_1000052051 = {
+				c_1300076 = {
 					OR = {
 						is_alive = no
 						is_adult = no
@@ -957,4 +957,31 @@ narrative_event = {
 	option = {
 		name = hist.22.a
 	}
+}
+
+# Domuit Vascones
+narrative_event = {
+	id = hist.23
+	title = hist.23.name
+	desc = hist.23.desc
+	picture = GFX_evt_battle_visigothic
+	border = GFX_event_narrative_frame_war
+	
+	ai = no
+
+	trigger = {
+		completely_controls = d_vasconia
+		has_landed_title = k_visigoths
+		NOT = { has_global_flag = domuit_vascones }
+    }
+	
+    mean_time_to_happen = {
+        days = 1
+    }
+	
+    option = {
+		name = hist.23.a
+		set_global_flag = domuit_vascones
+		prestige = 150
+    }
 }
