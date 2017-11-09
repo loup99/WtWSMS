@@ -31,6 +31,7 @@ has_romance_culture_trigger = {
 	}
 }
 # The Bureaucratic government type is used for the WRE and ERE
+# trigger has title scope
 bureaucratic_government_trigger = {
 	OR = {
 		title = e_wre
@@ -49,23 +50,20 @@ bureaucratic_government_trigger = {
 	}
 }
 # The Sassanid government type is used for Persia
+# trigger has title scope
 sassanid_government_trigger = {
 	OR = {
 		top_liege = {
 			title = e_persia
 		}
 		title = e_persia
-		culture = persian
-		culture = parthian
-	}
-	NOR = {
-		religion_group = christian
-		religion_group = muslim
-		religion_group = pagan_group
-		religion_group = jewish_group
-		religion_group = bosporan_group
-		religion_group = indian_group
-		religion_group = chinese_group
+		holder_scope = { 
+			OR = { 
+				culture = persian
+				culture = parthian
+				religion = zoroastrian
+			}
+		}
 	}
 }
 # The Legion government type is used for the Roman legions
