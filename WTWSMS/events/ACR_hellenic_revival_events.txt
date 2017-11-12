@@ -1,0 +1,592 @@
+#######################################
+#
+# ANCIENT RELIGIONS
+# - Revival of the Hellenic religion
+#
+# Event ID ancrel.2000 - ancrel.2109 reserved
+#
+#######################################
+
+# Written by Jon Severinsson
+# and Adam Chevalier
+
+namespace = ancrel
+
+#######################################
+#
+# - A Philosopher Joins the Court
+# 		ancrel.2000 - ancrel.2035
+#
+#######################################
+
+# ancrel.2000 - ancrel.2035 # Removed WtWSMS
+
+#######################################
+#
+# - Myrmidons
+#
+#######################################
+
+# Thessalonike is solidly Hellenic, and the Myrmidons are formed!
+# (Pope)
+# [on_yearly_pulse]
+character_event = {
+	id = ancrel.2050
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		religion = catholic
+		controls_religion = yes # papas catholicos
+		489 = {
+			religion = hellenic_pagan
+		}
+		490 = {
+			religion = hellenic_pagan
+		}
+		491 = {
+			religion = hellenic_pagan
+		}
+		d_myrmidons = { has_holder = no	}
+	}
+
+	immediate = {
+		set_global_flag = myrmidons_founded
+		activate_title = { title = d_myrmidons status = yes }
+		hidden_tooltip = {
+			create_character = {
+				random_traits = yes
+				religion = hellenic_pagan
+				culture = greek
+				dynasty = random
+				female = no
+				age = 29
+				trait = skilled_tactician
+				trait = zealous
+			}
+			new_character = {
+				wealth = 100
+				prestige = 100
+				piety = 50
+				d_myrmidons = {
+					grant_title = PREV
+				}
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = hellenic_pagan
+					culture = greek
+					female = no
+					age = 16
+				}
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = hellenic_pagan
+					culture = greek
+					female = no
+					age = 18
+				}
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = hellenic_pagan
+					culture = greek
+					female = no
+					age = 18
+				}
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = hellenic_pagan
+					culture = greek
+					female = no
+					age = 20
+				}
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = hellenic_pagan
+					culture = greek
+					female = no
+					age = 25
+				}
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = hellenic_pagan
+					culture = greek
+					female = no
+					age = 26
+				}
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = hellenic_pagan
+					culture = greek
+					female = no
+					age = 28
+				}
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = hellenic_pagan
+					culture = greek
+					female = yes
+					age = 16
+				}
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					religion = hellenic_pagan
+					culture = greek
+					female = yes
+					age = 17
+				}	
+				any_playable_ruler = {
+					limit = { ai = no }
+
+					narrative_event = { id = ancrel.2051 }
+				}
+			}
+		}
+	}
+}
+
+narrative_event = {
+	id = ancrel.2051
+	title = ancrel.2051.title
+	desc = ancrel.2051.desc
+	picture = GFX_evt_battle_hellenic_pagan
+
+	is_triggered_only = yes
+
+	option = {
+		name = ancrel.2051.a
+		trigger = {
+			NOT = { religion = hellenic_pagan }
+		}
+	}
+
+	option = {
+		name = ancrel.2051.b
+		trigger = {
+			religion = hellenic_pagan
+		}
+	}
+}
+
+#######################################
+#
+# - Courtier Studies the Classics
+#
+#######################################
+
+# ancrel.2100 - ancrel.2101 # Removed WtWSMS
+
+# Make Hellenic Paganism the state religion?
+# Fired on creation of the Pontificate Maxima for Roman/Latin/Byzantine empire
+character_event = {
+	id = ancrel.2102
+	desc = EVTDESCancrel.2102
+	picture = GFX_evt_roman_temple
+	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+	hide_from = yes
+
+	option = {
+		name = EVTOPTAancrel.2102
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 1.25
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.8
+				trait = cynical
+			}
+			modifier = {
+				factor = 1.25
+				trait = proud
+			}
+			modifier = {
+				factor = 0.8
+				trait = humble
+			}
+			modifier = {
+				factor = 0.8
+				OR = {
+					trait = mastermind_theologian
+					trait = scholarly_theologian
+					trait = scholar
+					trait = mystic
+				}
+			}
+		}
+		piety = 50
+		if = {
+			limit = { NOT = { trait = zealous } }
+			random = {
+				chance = 50
+				add_trait = zealous
+			}
+		}
+		custom_tooltip = {
+			text = EVTTOOLTIPAancrel.2102
+			give_nickname = nick_the_apostate
+			hidden_tooltip = {
+				any_realm_character  = {
+					limit = {
+						is_adult = yes
+						religion = hellenic_pagan
+					}
+					opinion = { modifier = opinion_hellenic_state_religion who = ROOT }
+				}
+				any_realm_character  = {
+					limit = {
+						is_adult = yes
+						NOT = { religion_group = pagan_group }
+					}
+					opinion = { modifier = opinion_forced_hellenic_state_religion who = ROOT }
+				}
+				capital_scope = {
+					religion = ROOT
+				}
+				any_courtier = {
+					limit = { employer = { character = ROOT } }
+					religion = ROOT
+				}
+				any_vassal = {
+					limit = { is_playable = no }
+					religion = ROOT
+				}
+				any_vassal = {
+					limit = {
+						is_playable = yes
+						NOT = { religion = ROOT }
+					}
+					character_event = { id = ancrel.2103 }
+				}
+			}
+		}
+	}
+
+	option = {
+		name = EVTOPTBancrel.2102
+		ai_chance = {
+			factor = 50
+		}
+		if = {
+			limit = { trait = zealous }
+			remove_trait = zealous
+		}
+		hidden_tooltip = {
+			any_realm_character  = {
+				limit = {
+					is_adult = yes
+					religion = hellenic_pagan
+				}
+				opinion = { modifier = opinion_no_hellenic_state_religion who = ROOT }
+			}
+			any_realm_character  = {
+				limit = {
+					is_adult = yes
+					NOT = { religion = hellenic_pagan }
+				}
+				opinion = { modifier = opinion_no_forced_hellenic_state_religion who = ROOT }
+			}
+		}
+	}
+}
+
+# Adopt the new Hellenic state religion?
+character_event = {
+	id = ancrel.2103
+	desc = EVTDESCancrel.2103
+	picture = GFX_evt_roman_temple
+	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+
+	option = {
+		name = EVTOPTAancrel.2103
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 0.5
+				trait = zealous
+			}
+			modifier = {
+				factor = 2
+				trait = cynical
+			}
+			modifier = {
+				factor = 0.8
+				trait = proud
+			}
+			modifier = {
+				factor = 1.25
+				trait = humble
+			}
+			modifier = {
+				factor = 0.8
+				religion_authority = 0.8
+			}
+			modifier = {
+				factor = 0.8
+				religion_authority = 0.6
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { religion_authority = 0.4 }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { religion_authority = 0.2 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 75 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = 25 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = 0 } }
+			}
+			modifier = {
+				factor = 0.5
+				religion_group = pagan_group
+			}
+			modifier = {
+				factor = 2.0
+				OR = {
+					culture = roman
+					culture = italian
+					culture = greek
+					culture = sicilian_greek # SWMH
+					culture_group = italian_group # SWMH
+				}
+			}
+			modifier = {
+				factor = 2.0
+				liege = { character = FROM }
+			}
+			modifier = {
+				factor = 2.0
+				crownlaw_title = {
+					OR = {
+						# free infidel revokation
+						has_law = centralization_2
+						has_law = centralization_3
+						has_law = centralization_4
+					}
+				}
+			}
+		}
+		if = {
+			limit = { religion_group = christian }
+			add_trait = sympathy_christendom
+		}
+		religion = FROM
+		if = {
+			limit = { trait = zealous }
+			remove_trait = zealous
+		}
+		hidden_tooltip = {
+			capital_scope = {
+				religion = FROM
+			}
+			any_courtier = {
+				limit = { employer = { character = ROOT } }
+				religion = FROM
+			}
+			any_vassal = {
+				limit = { is_playable = no }
+				religion = FROM
+			}
+			any_vassal = {
+				limit = {
+					is_playable = yes
+					NOT = { religion = FROM }
+				}
+				character_event = { id = ancrel.2103 }
+			}
+		}
+		reverse_opinion = { modifier = opinion_adopted_hellenic_state_religion who = FROM }
+	}
+
+	option = {
+		name = EVTOPTBancrel.2103
+		ai_chance = { factor = 80 }
+		piety = 10
+		reverse_opinion = { modifier = opinion_rejected_hellenic_state_religion who = FROM }
+	}
+}
+
+# The Pontifex Maximus is restored!
+narrative_event = {
+	id = ancrel.2104
+	title = EVTNAMEancrel.2104
+	desc = EVTDESCancrel.2104
+	picture = GFX_evt_roman_temple
+	border = GFX_event_narrative_frame_religion
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAancrel.2104
+		trigger = {
+			true_religion = hellenic_pagan
+		}
+	}
+	
+	option = {
+		name = EVTOPTBancrel.2104
+		trigger = {
+			NOT = { true_religion = hellenic_pagan }
+		}
+	}
+}
+
+#######################################
+#
+# - Journey to the Mani Penninsula
+#
+#######################################
+
+# ancrel.2105 - ancrel.2107 # Removed WtWSMS
+
+#######################################
+#
+# - Hellenic Legion/Sacred Band
+#
+#######################################
+
+# Hellenic Legion forms
+narrative_event = {
+	id = ancrel.2109
+	title = EVTTITLEancrel.2109
+	desc = EVTDESCancrel.2109
+	picture = GFX_evt_crusaders
+	border = GFX_event_narrative_frame_religion
+	
+	major = yes
+	only_playable = yes
+	
+	trigger = {
+		religion = hellenic_pagan
+		is_heretic = no
+		NOT = { is_title_active = d_legio_hellenica }
+		OR = {
+			e_byzantium = {
+				holder_scope = {
+					religion = hellenic_pagan
+				}
+			}
+			e_roman_empire = {
+				holder_scope = {
+					religion = hellenic_pagan
+				}
+			}
+			496 = { # Constantinople
+				owner = { religion = hellenic_pagan }
+			}
+			333 = { # Rome
+				owner = { religion = hellenic_pagan }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 4
+	}
+	
+	immediate = {
+		activate_title = { title = d_legio_hellenica status = yes }
+		create_random_soldier = {
+			dynasty = none
+			random_traits = yes
+			culture = roman
+			religion = hellenic_pagan
+		}
+		new_character = {
+			d_legio_hellenica = {
+				grant_title = PREV
+			}
+			set_defacto_liege = THIS
+			wealth = 500
+		}
+		
+		religion_authority = {
+			modifier = religious_order_formed
+			years = 10
+		}
+	}
+	option = {
+		name = EVTOPTAancrel.2109
+	}
+}
+
+# The Sacred Band founded
+narrative_event = {
+	id = ancrel.2036
+	title = ancrel.2036.title
+	desc = ancrel.2036.desc
+	picture = GFX_evt_roman_temple
+	border = GFX_event_narrative_frame_war
+	
+	is_triggered_only = yes
+	
+	hide_from = yes
+	
+	option = {
+		name = ancrel.2036.a
+		hidden_tooltip = {
+			any_playable_ruler = {
+				limit = {
+					ai = no
+				}
+				narrative_event = { id = ancrel.2037 }
+			}
+		}
+	}
+}
+
+# The player is informed of the Sacred Band
+narrative_event = {
+	id = ancrel.2037
+	title = ancrel.2037.title
+	desc = ancrel.2037.desc
+	picture = GFX_evt_roman_temple
+	border = GFX_event_narrative_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ancrel.2037.a
+		trigger = {
+			religion = hellenic_pagan
+		}
+	}
+	
+	option = {
+		name = ancrel.2037.b
+		trigger = {
+			NOT = {
+				religion = hellenic_pagan
+			}
+		}
+	}
+}
