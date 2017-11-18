@@ -2160,6 +2160,7 @@ faction_succ_feudal_elective = {
 		}
 		NOT = { trait = incapable }
 		liege = {
+			NOT = { government = chinese_imperial_government }
 			primary_title = {
 				has_law = law_voting_power_1
 				has_law = banish_voting_power_1
@@ -4068,6 +4069,7 @@ faction_independence = {
 				OR = {
 					is_council_content = no
 					NOT = { primary_title = { has_law = war_voting_power_1 } }
+					has_landed_title = e_china_west_governor
 					#has_council = no
 				}
 			}
@@ -4185,6 +4187,7 @@ faction_independence = {
 					OR = {
 						is_council_content = no
 						NOT = { primary_title = { has_law = war_voting_power_1 } }
+						has_landed_title = e_china_west_governor
 						#has_council = no
 					}
 				}
@@ -4510,6 +4513,18 @@ faction_independence = {
 			OR = {
 				has_opinion_modifier = { who = LIEGE modifier = opinion_evil_tyrant }
 				has_opinion_modifier = { who = LIEGE modifier = opinion_tyrant }
+			}
+		}
+		modifier = { # More likely to want to go independent from the WP if China is unstable
+			factor = 10.0
+			liege = {
+				government = confucian_bureaucracy
+			}
+			offmap_china = {
+				NOR = {
+					has_status = china_stable
+					has_status = china_golden_age
+				}
 			}
 		}
 	}
@@ -4940,6 +4955,18 @@ faction_independence = {
 			OR = {
 				has_opinion_modifier = { who = LIEGE modifier = opinion_evil_tyrant }
 				has_opinion_modifier = { who = LIEGE modifier = opinion_tyrant }
+			}
+		}
+		modifier = { # More likely to want to go independent from the WP if China is unstable
+			factor = 10.0
+			liege = {
+				government = confucian_bureaucracy
+			}
+			offmap_china = {
+				NOR = {
+					has_status = china_stable
+					has_status = china_golden_age
+				}
 			}
 		}
 	}
@@ -8442,6 +8469,7 @@ faction_powerful_vassal_takeover = {
 		NOT = { trait = incapable }
 		liege = {
 			is_feudal = yes
+			NOT = { government = chinese_imperial_government }
 			NOT = { controls_religion = yes }
 			NOT = {
 				any_demesne_title = {

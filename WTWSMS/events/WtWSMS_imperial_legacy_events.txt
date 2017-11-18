@@ -354,7 +354,7 @@ narrative_event = {
 			}
 			ROOT = { narrative_event = { id = imperial_legacy.18 } }
 		}
-					
+		
 		custom_tooltip = { 
 			text = imperial_legacy.11.a.tooltip
 		}
@@ -509,11 +509,11 @@ narrative_event = {
 			}
 			modifier = {
 				factor = 0
-				opinion_diff = { 
+				opinion_diff = {
 					first = FROM
-					second = ROOT 
-					value = 50  
-				}	
+					second = ROOT
+					value = 50
+				}
 			}
 		}
 		if = {
@@ -522,15 +522,15 @@ narrative_event = {
 			}
 			hidden_tooltip = {
 				any_playable_ruler = {
-					character_event = { id = HRE.4 } # Fires schism
-				} 
+					narrative_event = { id = HRE.5 } # Fires the Great Schism
+				}
 			}
 		
 		}
 		
 		e_wre = {
 			holder_scope = {
-				narrative_event = { id = imperial_legacy.16 }		
+				narrative_event = { id = imperial_legacy.16 }
 			}
 		}
 		
@@ -544,11 +544,11 @@ narrative_event = {
 			factor = 0
 			modifier = {
 				factor = 10
-				opinion_diff = { 
+				opinion_diff = {
 					first = FROM
-					second = ROOT 
-					value = 50  
-				}	
+					second = ROOT
+					value = 50
+				}
 			}
 			modifier = {
 				factor = 10
@@ -562,7 +562,7 @@ narrative_event = {
 		
 		e_wre = {
 			holder_scope = {
-				narrative_event = { id = imperial_legacy.17 }		
+				narrative_event = { id = imperial_legacy.17 }
 			}
 		}
 		
@@ -620,7 +620,7 @@ narrative_event = {
 		war = { 
 			target = FROM 
 			casus_belli = overthrow_ruler 
-		}	
+		}
 	}
 }
 
@@ -1042,11 +1042,11 @@ narrative_event = {
 			}
 			modifier = {
 				factor = 0
-				opinion_diff = { 
+				opinion_diff = {
 					first = FROM
-					second = ROOT 
-					value = 50  
-				}	
+					second = ROOT
+					value = 50
+				}
 			}
 		}
 		if = {
@@ -1055,8 +1055,8 @@ narrative_event = {
 			}
 			hidden_tooltip = {
 				any_playable_ruler = {
-					character_event = { id = HRE.4 } # Fires schism
-				} 
+					narrative_event = { id = HRE.5 } # Fires the Great Schism
+				}
 			}
 		
 		}
@@ -1068,7 +1068,6 @@ narrative_event = {
 		}
 		
 		set_global_flag = nicene_patriarch_recognised_ere
-
 	}
 	option = {
 		name = OK # Refuse to recognise the new ruler, shouldn't do unless hates ERE ruler 
@@ -1101,7 +1100,6 @@ narrative_event = {
 		
 		set_global_flag = nicene_patriarch_not_recognised_ere
 	}
-
 }
 
 #  Nicene Patriarch recognises ERE
@@ -1150,10 +1148,10 @@ narrative_event = {
 		
 		piety = -100
 		
-		war = { 
-			target = FROM 
+		war = {
+			target = FROM
 			casus_belli = overthrow_ruler 
-		}	
+		}
 	}
 }
 
@@ -1228,7 +1226,6 @@ narrative_event = {
 			}
 		}
 	}
-
 }
 
 # Orthodox Patriarch gets Hagia Sophia from ERE
@@ -1338,7 +1335,7 @@ narrative_event = {
 		
 		piety = -100
 	}
-}	
+}
 	
 #  INFO - Orthodox Patriarch does not recognise ERE
 narrative_event = {
@@ -1378,6 +1375,7 @@ narrative_event = {
 				primary_title = {
 					clr_title_flag = ere_restored
 					clr_title_flag = wre_restored
+					set_title_flag = adopted_bureaucratic # For bureaucratic government
 				}
 			}
 		}
@@ -1397,7 +1395,7 @@ character_event = {
 	
 	immediate = {
 		496 = { set_province_flag = building_hagia_sophia }
-	}	
+	}
 	
 	option = {
 		name = imperial_legacy.40.a
@@ -1417,6 +1415,10 @@ narrative_event = {
 			had_province_flag = { flag = building_hagia_sophia days = 2100 }
 		}
 		NOT = { has_global_flag = hagia_sophia_built }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
 	}
 	
 	major = yes
@@ -1487,7 +1489,7 @@ character_event = {
 				e_byzantium = {
 					holder_scope = {
 						is_foe = ROOT
-					} 
+					}
 				}
 			}
 		}
@@ -1552,7 +1554,7 @@ character_event = {
 				k_soissons = {
 					holder_scope = {
 						is_foe = ROOT
-					} 
+					}
 				}
 			}
 		}
@@ -1588,7 +1590,7 @@ narrative_event = {
 		ai_chance = {
 			factor = 100
 		}
-		custom_tooltip = { 
+		custom_tooltip = {
 			text = imperial_legacy.43.a.tooltip
 		}
 		c_roma = {
@@ -1752,7 +1754,6 @@ character_event = {
 		}
 		name = imperial_legacy.46.b
 	}
-
 }
 
 # Western Imperial Navy without Ravenna
@@ -1764,9 +1765,9 @@ character_event = {
 
 	trigger = {
 		has_landed_title = d_imperial_fleet_wre
-		NOT = { 
-			any_realm_lord = { 
-				has_landed_title = c_ravenna 
+		NOT = {
+			any_liege = {
+				has_landed_title = c_ravenna
 			}
 		}
 	}
@@ -1778,23 +1779,23 @@ character_event = {
 	option = {
 		name = OK
 		liege = {
-			narrative_event = { id = imperial_legacy.48 }
+			narrative_event = { id = imperial_legacy.49 }
 		}
 	}
 }
 
 # Eastern Imperial Navy without Constantinople
 character_event = {
-	id = imperial_legacy.47
+	id = imperial_legacy.48
 	
 	hide_window = yes
 	only_rulers = yes
 
 	trigger = {
 		has_landed_title = d_imperial_fleet_ere
-		NOT = { 
-			any_realm_lord = { 
-				has_landed_title = c_byzantion 
+		NOT = {
+			any_liege = {
+				has_landed_title = c_byzantion
 			}
 		}
 	}
@@ -1806,7 +1807,7 @@ character_event = {
 	option = {
 		name = OK
 		liege = {
-			narrative_event = { id = imperial_legacy.48 }
+			narrative_event = { id = imperial_legacy.49 }
 		}
 	}
 }
@@ -1815,9 +1816,9 @@ character_event = {
 # FROM is the navy commander
 # ROOT is the liege
 narrative_event = {
-	id = imperial_legacy.48
-	title = imperial_legacy.48.name
-	desc = imperial_legacy.48.desc
+	id = imperial_legacy.49
+	title = imperial_legacy.49.name
+	desc = imperial_legacy.49.desc
 	picture = GFX_evt_navy_roman
 		
 	is_triggered_only = yes
@@ -1826,7 +1827,7 @@ narrative_event = {
 		name= {
 			text = EVTOPTALEG.3
 			trigger = {
-				OR = { 
+				OR = {
 					has_landed_title = e_byzantium
 					has_landed_title = e_wre
 				}
