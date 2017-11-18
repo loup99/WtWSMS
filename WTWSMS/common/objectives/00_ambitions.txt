@@ -112,7 +112,7 @@ obj_become_chancellor = {
 		opinion = {
 			who = liege
 			modifier = opinion_ambition_fulfilled
-			months = 24
+			years = 5
 		}
 		set_character_flag = successful_council_ambition
 	}
@@ -222,7 +222,7 @@ obj_become_marshal = {
 		opinion = {
 			who = liege
 			modifier = opinion_ambition_fulfilled
-			months = 24
+			years = 5
 		}
 		set_character_flag = successful_council_ambition
 	}
@@ -340,7 +340,7 @@ obj_become_treasurer = {
 		opinion = {
 			who = liege
 			modifier = opinion_ambition_fulfilled
-			months = 24
+			years = 5
 		}
 		set_character_flag = successful_council_ambition
 	}
@@ -459,7 +459,7 @@ obj_become_spymaster = {
 		opinion = {
 			who = liege
 			modifier = opinion_ambition_fulfilled
-			months = 24
+			years = 5
 		}
 		set_character_flag = successful_council_ambition
 	}
@@ -561,7 +561,7 @@ obj_become_spiritual = {
 		opinion = {
 			who = liege
 			modifier = opinion_ambition_fulfilled
-			months = 24
+			years = 5
 		}
 		set_character_flag = successful_council_ambition
 	}
@@ -887,11 +887,11 @@ obj_get_married = {
 	effect = {
 		piety = 10
 		if = {
-			limit = { independent = no }
+			limit = { is_ruler = no }
 			opinion = {
 				who = liege
 				modifier = opinion_fulfilled_marriage_wish
-				months = 24
+				years = 5
 			}
 		}
 		hidden_tooltip = {
@@ -956,6 +956,10 @@ obj_marry_ruler = {
 	}
 	abort = {
 		OR = {
+			AND = {
+				is_married = yes
+				is_ruler = yes
+			}
 			AND = {
 				is_priest = yes
 				can_marry = no
@@ -1237,7 +1241,7 @@ obj_wants_landed_title = {
 		opinion = {
 			who = liege
 			modifier = opinion_generous_relative
-			months = 60
+			years = 10
 		}
 		hidden_tooltip = {
 			clr_character_flag = flag_denied_title
@@ -2384,7 +2388,7 @@ obj_gain_any_title = {
 		is_adult = yes
 		is_playable = yes
 		independent = no
-		liege = { independent = yes }
+		#liege = { independent = yes }
 		is_nomadic = no
 		liege = { is_nomadic = no }
 		NOT = { has_character_flag = gain_any_title_ambition_success }
