@@ -37,7 +37,9 @@ decisions = {
 				narrative_event = { id = ancrel.2104 }
 			}
 		}
-		
+		revoke_allowed = {
+			always = no
+		}
 		ai_will_do = {
 			factor = 1
 			
@@ -52,7 +54,7 @@ decisions = {
 				NOT = {
 					piety = 700
 				}
-			}
+			}			
 			modifier = {
 				factor = 0
 				trait = content
@@ -60,7 +62,7 @@ decisions = {
 			modifier = {
 				factor = 0
 				NOT = { diplomacy = 10 }
-			}
+			}			
 		}
 	}
 
@@ -110,6 +112,79 @@ decisions = {
 		}
 		ai_will_do = {
 			factor = 1
+		}
+	}
+	
+	hold_tristeria = { # secret rites of dionysus
+		only_playable = yes
+
+		potential = {
+			tier = COUNT
+			NOT = { has_character_modifier = ancrel_holding_tristeria }
+			society_rank = {
+				society = mysteries_dionysus
+				rank = 2
+			}
+		}
+
+		allow = {
+			society_currency >= 100
+		}
+
+		effect = {
+			change_society_currency = {
+				value = -100
+			}
+			set_character_flag = ancrel_hodling_tristeria
+		}
+
+		revoke_allowed = {
+			always = no
+		}
+
+		ai_will_do = {
+			factor = 0 # TODO: proper ai weighting
+		}
+	}
+
+	hold_dionysia = { # public rites of dionysus
+		only_playable = yes
+		is_high_prio = yes
+
+		potential = {
+			tier = COUNT
+			
+			society_rank = {
+				society = mysteries_dionysus
+				rank = 3
+			}
+		}
+
+		allow = {
+			society_currency >= 500
+			OR = {
+				AND = {
+					month = 3
+					NOT = { month = 4 }
+				}
+				month = 12
+			}
+		}
+
+		effect = {
+			change_society_currency = {
+				value = -500
+				scales_with_influence = yes
+			}
+			set_character_flag = ancrel_holding_dionysia
+		}
+
+		revoke_allowed = {
+			always = no
+		}
+
+		ai_will_do = {
+			factor = 0 # TODO: proper ai weighting
 		}
 	}
 }
