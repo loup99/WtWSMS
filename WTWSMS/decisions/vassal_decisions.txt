@@ -19,6 +19,7 @@ targetted_decisions = {
 		only_playable = yes
 		filter = vassals				# Only those under me
 		ai_target_filter = vassals		# Only those under me
+		ai_check_interval = 6
 
 		from_potential = {
 			is_playable = yes
@@ -64,7 +65,9 @@ targetted_decisions = {
 				}
 			}
 		}
-		
+		revoke_allowed = {
+			always = no
+		}
 		ai_will_do = {
 			factor = 1
 			modifier = {
@@ -78,11 +81,15 @@ targetted_decisions = {
 		only_playable = yes
 		filter = court
 		ai_target_filter = court
+		ai_check_interval = 6
 
 		from_potential = {
 			has_dlc = "Legacy of Rome"
 			is_playable = yes
-			culture_group = byzantine
+			OR = {
+				culture_group = byzantine
+				culture_group = chinese_group
+			}
 		}
 	
 		potential = {
@@ -112,7 +119,7 @@ targetted_decisions = {
 			character_event = { id = LoR.833 tooltip = "EVTTOOLTIPLoR.833" }
 			add_trait = eunuch
 			if = {
-				limit = {
+				limit = { 
 					has_game_rule = {
 						name = punishment_release_prisoner
 						value = on
@@ -189,7 +196,9 @@ targetted_decisions = {
 				}
 			}
 		}
-		
+		revoke_allowed = {
+			always = no
+		}
 		ai_will_do = {
 			factor = 1
 			
@@ -198,7 +207,7 @@ targetted_decisions = {
 				OR = {
 					reverse_opinion = { who = FROM value = 40 }
 					FROM = { NOT = { piety = 100 } }
-					FROM = { liege = { dynasty = ROOT } }
+					FROM = { LIEGE = { dynasty = ROOT } }
 				}
 			}
 			modifier = {
@@ -206,7 +215,7 @@ targetted_decisions = {
 				FROM = { trait = kind }
 			}
 			modifier = {
-				factor = 0.2 # Less likely to do it
+				factor = 0.5 # Less likely to do it
 			}
 			modifier = {
 				factor = 1.2
@@ -224,6 +233,7 @@ targetted_decisions = {
 		only_playable = yes
 		filter = court
 		ai_target_filter = court
+		ai_check_interval = 6
 	
 		from_potential = {
 			has_dlc = "Legacy of Rome"
@@ -331,7 +341,9 @@ targetted_decisions = {
 				}
 			}
 		}
-		
+		revoke_allowed = {
+			always = no
+		}
 		ai_will_do = {
 			factor = 1
 			
@@ -344,7 +356,7 @@ targetted_decisions = {
 				OR = {
 					reverse_opinion = { who = FROM value = 40 }
 					FROM = { NOT = { piety = 100 } }
-					FROM = { liege = { dynasty = ROOT } }
+					FROM = { LIEGE = { dynasty = ROOT } }
 				}
 			}
 			modifier = {
@@ -352,7 +364,7 @@ targetted_decisions = {
 				FROM = { trait = kind }
 			}
 			modifier = {
-				factor = 0.4 # Less likely to do it
+				factor = 0.5 # Less likely to do it
 			}
 			modifier = {
 				factor = 2
@@ -372,6 +384,7 @@ targetted_decisions = {
 		only_playable = yes
 		filter = court
 		ai_target_filter = court
+		ai_check_interval = 6
 	
 		from_potential = {
 			is_playable = yes
@@ -393,7 +406,9 @@ targetted_decisions = {
 		effect = {
 			character_event = { id = CM.15000 days = 1 }
 		}
-		
+		revoke_allowed = {
+			always = no
+		}
 		ai_will_do = {
 			factor = 1
 			
@@ -410,7 +425,7 @@ targetted_decisions = {
 				FROM = { trait = cruel }
 			}
 			modifier = {
-				factor = 0.4 # Less likely to do it
+				factor = 0.5 # Less likely to do it
 			}
 			modifier = {
 				factor = 2
@@ -452,6 +467,10 @@ targetted_decisions = {
 			}
 		}
 		
+		revoke_allowed = {
+			always = no
+		}
+		
 		ai_will_do = {
 			factor = 0
 		}
@@ -487,6 +506,10 @@ targetted_decisions = {
 			}
 		}
 		
+		revoke_allowed = {
+			always = no
+		}
+		
 		ai_will_do = {
 			factor = 0
 		}
@@ -518,6 +541,10 @@ targetted_decisions = {
 				remove_character_modifier = the_dungeon
 				character_event = { id = ZE.12219 } # Loses pet rat
 			}
+		}
+		
+		revoke_allowed = {
+			always = no
 		}
 		
 		ai_will_do = {

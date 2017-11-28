@@ -37,6 +37,12 @@ targeted_decisions = {
 			NOT = { trait = incapable }
 			is_in_society = no
 
+			#Can't invite someone who recently left due to fear of persecution
+			OR = {
+				had_character_flag = { flag = ancrel_left_secret_society days = 1825 }
+				NOT = { has_character_flag = ancrel_left_secret_society }
+			}
+
 			#AI cannot invite other AIs when society is full
 			NAND = {
 				ai = yes
@@ -64,7 +70,7 @@ targeted_decisions = {
 			}
 		}
 		allow = {
-			religion_openly_celtic_or_reformed_trigger = yes
+			religion_openly_in_celtic_subgroup_trigger = yes
 			is_inaccessible_trigger = no
 			custom_tooltip = {
 				text = unseelie_recruit_block_tooltip
@@ -109,7 +115,9 @@ targeted_decisions = {
 				}
 			}
 		}
-		
+		revoke_allowed = {
+			always = no
+		}
 		ai_will_do = {
 			factor = 1
 			modifier = {
@@ -164,6 +172,12 @@ targeted_decisions = {
 			NOT = { trait = incapable }
 			is_in_society = no
 
+			#Can't invite someone who recently left due to fear of persecution
+			OR = {
+				had_character_flag = { flag = ancrel_left_secret_society days = 1825 }
+				NOT = { has_character_flag = ancrel_left_secret_society }
+			}
+
 			#AI cannot invite other AIs when society is full
 			NAND = {
 				ai = yes
@@ -216,7 +230,7 @@ targeted_decisions = {
 			FROM = {
 				save_event_target_as = satanists_recruiter
 			}
-			hidden_effect = {
+			hidden_effect = { 
 				character_event = { id = MNM.7001 days = 3 } # recruitment chain
 				character_event = { id = MNM.7030 days = 365 } # sends delayed back up, in case recruitment fails somehow
 				FROM = {
@@ -236,7 +250,9 @@ targeted_decisions = {
 				}
 			}
 		}
-		
+		revoke_allowed = {
+			always = no
+		}
 		ai_will_do = {
 			factor = 1
 			modifier = {
@@ -290,6 +306,12 @@ targeted_decisions = {
 			prisoner = no
 			NOT = { trait = incapable }
 			is_in_society = no
+
+			#Can't invite someone who recently left due to fear of persecution
+			OR = {
+				had_character_flag = { flag = ancrel_left_secret_society days = 1825 }
+				NOT = { has_character_flag = ancrel_left_secret_society }
+			}
 
 			#AI cannot invite other AIs when society is full
 			NAND = {
@@ -363,7 +385,9 @@ targeted_decisions = {
 				}
 			}
 		}
-		
+		revoke_allowed = {
+			always = no
+		}
 		ai_will_do = {
 			factor = 1
 			modifier = {
@@ -440,6 +464,10 @@ title_decisions = {
 			}
 		}
 		
+		revoke_allowed = {
+			always = no
+		}
+		
 		ai_will_do = {
 			factor = 0
 		}
@@ -502,7 +530,9 @@ title_decisions = {
 			}
 		}
 		
-		
+		revoke_allowed = {
+			always = no
+		}
 		
 		ai_will_do = {
 			factor = 0
@@ -565,6 +595,9 @@ title_decisions = {
 			}
 		}
 		
+		revoke_allowed = {
+			always = no
+		}
 		
 		
 		ai_will_do = {
@@ -628,7 +661,9 @@ title_decisions = {
 			}
 		}
 		
-		
+		revoke_allowed = {
+			always = no
+		}
 		
 		ai_will_do = {
 			factor = 0
@@ -691,8 +726,49 @@ title_decisions = {
 			}
 		}
 		
+		revoke_allowed = {
+			always = no
+		}
 		
-		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}
+
+decisions = {
+	hold_tristeria = { # secret rites of dionysus
+		only_playable = yes
+
+		potential = {
+			tier = COUNT
+			society_member_of = mysteries_dionysus
+			has_global_flag = ancrel_debug
+		}
+
+		allow = {
+			wealth = 10
+			custom_tooltip = {
+				text = not_already_holding_tristeria
+				hidden_tooltip = {
+					NOT = {
+						has_character_flag = ancrel_holding_tristeria
+					}
+				}
+			}
+		}
+
+		effect = {
+			set_character_flag = ancrel_holding_tristeria
+			wealth = -10
+			# fire starting event (sends invites)
+			# pre-fire emergency cleanup event
+		}
+
+		revoke_allowed = {
+			always = no
+		}
+
 		ai_will_do = {
 			factor = 0
 		}
