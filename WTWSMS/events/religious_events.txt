@@ -3610,6 +3610,20 @@ character_event = {
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
+	trigger = {
+		NOT = { has_character_flag = flag_converting_baptism }
+		NOT = { has_character_modifier = baptism_request_cooldown }
+		OR = {
+			ai = yes
+			FROMs_religion_is_playable_trigger = yes
+		}
+	}
+	
+	fail_trigger_effect = {
+		FROM = {
+			clr_character_flag = preacher_arrives
+		}
+	}
 	
 	option = {
 		name = EVTOPTA39600 # Throw the preacher in jail
@@ -3913,10 +3927,21 @@ character_event = {
 	picture = GFX_evt_heretic
 	border = GFX_event_normal_frame_religion
 	
+ 	trigger = {
+		OR = {
+			ai = yes
+			FROMs_religion_is_playable_trigger = yes
+		}
+	}
+	
 	is_triggered_only = yes
 	
 	option = {
 		name = EVTOPTA39601
+		if = {
+			limit = { FROMs_religion_is_playable_trigger = no }
+			custom_tooltip = { text = you_will_game_over_tt }
+		}
 		ai_chance = {
 			factor = 1
 			# Traits
