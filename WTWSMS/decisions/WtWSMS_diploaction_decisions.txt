@@ -85,7 +85,7 @@ targetted_decisions = {
 			custom_tooltip = {
 				text = "demand_religious_conversion_tooltip"
 				hidden_tooltip = {
-					FROM = { 
+					FROM = {
 						character_event = { id = WtWSMSconv.1 }
 					}
 				}
@@ -94,6 +94,81 @@ targetted_decisions = {
 		
 		ai_will_do = {
 			factor = 1
+		}
+	}
+	
+	# TODO: ask_to_become_foederati_emperor  (Empire->barbarians)
+	
+	become_foederati_barbarian = { # barbarians->Empire
+		only_independent = yes
+		ai_check_interval = 12
+
+		potential = {
+			AND = {
+				primary_title = { higher_tier_than = DUKE }
+				has_romance_culture_trigger = yes
+			}
+		}
+		
+		from_potential = {
+			independent = yes
+			mercenary = no
+			holy_order = no
+			is_landed = yes
+		}
+		
+		allow = {
+			FROM = {
+				show_scope_change = no
+				war = no
+				OR = {
+					custom_tooltip = { #Borders the Roman Empire
+						text = become_foederati_barbarian_allow_borders_roman_realm_tt
+						any_neighbor_independent_ruler = {
+							AND = {
+								primary_title = { higher_tier_than = DUKE }
+								has_romance_culture_trigger = yes
+							}
+						}
+					}
+				}
+				NOT = {
+					is_tributary = yes
+				}
+				NOT = { tier = emperor }
+				custom_tooltip = {
+					text = become_foederati_barbarian_cooldown_tt
+					NOT = { has_character_modifier = become_foederati_timer }
+				}
+				prisoner = no
+				NOT = { trait = incapable }
+				is_inaccessible_trigger = no
+			}
+		}
+		
+		effect = {
+			make_tributary = {
+				who = FROM
+				tributary_type = foederati
+			}
+			custom_tooltip = { text = become_foederati_barbarian_effect_TT }
+			FROM = {
+				sound_effect = grace_gain
+				add_character_modifier = {
+					name = become_foederati_timer
+					duration = 3600
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				factor = 0.1 # slow down
+			}
+			modifier = { trait = roman_nostalgia factor = 1.5 }
+			modifier = { realm_levy_diff = { who = FROM value = 2000 } factor = 1.5 }
+			modifier = { realm_levy_diff = { who = FROM value = 5000 } factor = 3 }
 		}
 	}
 }
