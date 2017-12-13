@@ -1,0 +1,333 @@
+###############################
+# Foederati events
+#
+# 
+###############################
+
+namespace = WtWSMS_foederati
+
+# Romans accept or refuse to start negotiating with barbarian
+character_event = {
+	id = WtWSMS_foederati.1
+	desc = WtWSMS_foederati.1.desc
+	picture = GFX_evt_emissary
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		FROM = {
+			save_event_target_as = barbarian_negotiator
+		}
+		ROOT = {
+			save_event_target_as = roman_negotiator
+		}
+	}
+	
+	option = { # Yes
+		name = WtWSMS_foederati.1.a
+		ai_chance = {
+			#Option A modifiers
+		}
+		event_target:barbarian_negotiator = {
+			character_event = { 
+				id = WtWSMS_foederati.2 # Negotiations begin - settle in empire or not?
+				days = 7
+				random = 3
+			}
+		}
+	}
+    option = { # No, negotiations break
+		name = WtWSMS_foederati.1.b
+		ai_chance = {
+			#Option B modifiers
+		}
+		# Negotiations break event for event_target:barbarian_negotiator
+	}
+}
+
+# Negotiations begin - settle in empire or not?
+character_event = {
+    id = WtWSMS_foederati.2
+	desc = WtWSMS_foederati.2.desc
+	picture = GFX_evt_emissary
+	
+    is_triggered_only = yes
+
+	option = { # Yes
+		name = WtWSMS_foederati.2.a
+		ai_chance = {
+			#Option A modifiers
+		}
+		event_target:roman_negotiator = {
+			character_event = { 
+				id = WtWSMS_foederati.3 # Barbarian negotiator wishes to settle in the empire
+				days = 7
+				random = 3
+			}
+		}
+	}
+	option = { # No
+		name = WtWSMS_foederati.2.b
+		ai_chance = {
+			#Option B modifiers
+		}
+		event_target:roman_negotiator = {
+			make_tributary = {
+				who = FROM
+				tributary_type = foederati
+			}
+			custom_tooltip = { text = become_foederati_barbarian_effect_TT }
+			FROM = {
+				sound_effect = grace_gain
+				add_character_modifier = {
+					name = become_foederati_timer
+					duration = 3600
+				}
+			}
+		}
+	}
+}	
+
+# Barbarian negotiator wishes to settle in the empire
+character_event = {
+    id = WtWSMS_foederati.3
+	desc = WtWSMS_foederati.3.desc
+	picture = GFX_evt_emissary
+	
+    is_triggered_only = yes
+
+	option = { # Accept it and offer a territory
+		name = WtWSMS_foederati.3.a
+		ai_chance = {
+			#Option A modifiers
+		}
+		event_target:roman_negotiator = {
+			character_event = { 
+				id = WtWSMS_foederati.4 # Pick a territory to offer
+			}
+		}
+		# Flag that it is an offer
+	}
+	option = { # Accept it and promise a territory
+		name = WtWSMS_foederati.3.b
+		ai_chance = {
+			#Option B modifiers
+		}
+		# Flag that it is a promise
+	}
+	option = { # Refuse to grant territory within the empire, offer to settle outside it
+		name = WtWSMS_foederati.3.c
+		ai_chance = {
+			#Option C modifiers
+		}
+		# Flag that it is settling outside it
+	}
+}	
+
+# Pick a territory to offer
+character_event = {
+    id = WtWSMS_foederati.4
+	desc = WtWSMS_foederati.4.desc
+	picture = GFX_evt_emissary
+	
+    is_triggered_only = yes
+	
+	immediate = {
+		random_realm_title = {
+		    limit = {
+				tier = duke
+				is_titular = no # Dejure duchy
+				any_de_jure_vassal = { # Vassal county of the duchy
+					is_capital = no # Don't want to hand out the capital duchy
+					location = {
+						any_neighbor_province = {
+							holder_scope = {
+								OR = { 
+									character = event_target:barbarian_negotiator # Any dejure vassal county of the duchy has a neighbouring county which is held by event_target:barbarian_negotiator
+									AND = { # Any dejure vassal county of the duchy has a neighbouring county which is not held by event_target:barbarian_negotiator but still not in the realm
+										NOT = { character = event_target:barbarian_negotiator } 
+										NOT = { same_realm = event_target:roman_negotiator } 	
+									}
+								}
+							}
+						}
+					}
+				}
+    		}
+			save_event_target_as = offered_territory
+		} 
+	}
+
+	option = { # Pick suggested territory
+		name = WtWSMS_foederati.4.a
+		ai_chance = {
+			#Option A modifiers
+		}
+		event_target:barbarian_negotiator = {
+			character_event = { 
+				id = WtWSMS_foederati.5 # Makes the offer
+				days = 7
+				random = 3
+			}
+		}
+	}
+	option = { # Find another one than the suggested, reloads same event
+		name = WtWSMS_foederati.4.b
+		ai_chance = {
+			#Option B modifiers
+		}
+		event_target:roman_negotiator = {
+			character_event = { 
+				id = WtWSMS_foederati.4 # Pick a territory to offer
+			}
+		}
+		clear_event_target = offered_territory
+	}
+}
+
+# Makes the offer
+character_event = {
+    id = WtWSMS_foederati.5
+	desc = WtWSMS_foederati.5.desc
+	picture = GFX_evt_emissary
+	
+    is_triggered_only = yes
+
+	option = { # Accept the offer
+		name = WtWSMS_foederati.5.a
+		ai_chance = {
+			#Option A modifiers
+		}
+		# Negotiations successful, with both parties having accepted
+	}
+	option = { # Refuse the offer
+		name = WtWSMS_foederati.5.b
+		ai_chance = {
+			#Option B modifiers
+		}
+		clear_event_target = offered_territory
+		event_target:roman_negotiator = {
+			character_event = { 
+				id = WtWSMS_foederati.6 # Barbarian refuses province offer
+				days = 7
+				random = 3
+			}
+		}
+	}
+}	
+
+# Barbarian refuses province offer
+character_event = {
+    id = WtWSMS_foederati.6
+	desc = WtWSMS_foederati.6.desc
+	picture = GFX_evt_emissary
+	
+    is_triggered_only = yes
+
+	option = { # Pick another territory to offer
+		name = WtWSMS_foederati.6.a
+		ai_chance = {
+			#Option A modifiers
+		}
+		event_target:roman_negotiator = {
+			character_event = { 
+				id = WtWSMS_foederati.4 # Pick a territory to offer
+			}
+		}
+	}
+	option = { 	# Break negotiations
+		name = WtWSMS_foederati.6.b
+		ai_chance = {
+			#Option B modifiers
+		}
+		# Negotiations break
+	}
+}
+
+# Pick a territory to promise
+character_event = {
+    id = WtWSMS_foederati.7
+	desc = WtWSMS_foederati.7.desc
+	picture = GFX_evt_emissary
+	
+    is_triggered_only = yes
+	
+	immediate = {
+		random_realm_title = {
+		    limit = {
+				tier = duke
+				is_titular = no # Dejure duchy
+				any_de_jure_vassal = { # Vassal county of the duchy
+					is_capital = no # Don't want to hand out the capital duchy
+					location = {
+						any_neighbor_province = {
+							holder_scope = {
+								OR = { 
+									character = event_target:barbarian_negotiator # Any dejure vassal county of the duchy has a neighbouring county which is held by event_target:barbarian_negotiator
+									AND = { # Any dejure vassal county of the duchy has a neighbouring county which is not held by event_target:barbarian_negotiator but still not in the realm
+										NOT = { character = event_target:barbarian_negotiator } 
+										NOT = { same_realm = event_target:roman_negotiator } 	
+									}
+								}
+							}
+						}
+					}
+				}
+    		}
+			save_event_target_as = promised_territory
+		} 
+	}
+
+	option = { # Pick suggested territory
+		name = WtWSMS_foederati.7.a
+		ai_chance = {
+			#Option A modifiers
+		}
+		event_target:barbarian_negotiator = {
+			character_event = { 
+				id = WtWSMS_foederati.8 # Makes the promise
+				days = 7
+				random = 3
+			}
+		}
+	}
+	option = { # Find another one than the suggested, reloads same event
+		name = WtWSMS_foederati.7.b
+		ai_chance = {
+			#Option B modifiers
+		}
+		event_target:roman_negotiator = {
+			character_event = { 
+				id = WtWSMS_foederati.7 # Pick a territory to promise
+			}
+		}
+		clear_event_target = promised_territory
+	}
+}
+
+	# Pick suggested territory
+	# Find another one than the suggested
+
+# Makes the offer
+	# Barbarian accepts -> Negotiations successful
+	# Barbarian refuses -> back to picking territory
+
+# Make the offer to settle outside it
+	# Barbarian accepts -> Negotiations successful
+	# Barbarian refuses -> Negotiations break
+	
+# Barbarian negotiator does not wish to settle in the empire
+	
+# Negotiations break
+	# Negative opinion modifier 
+
+# Negotiations successful, with both parties having accepted
+
+# Becomes foederati after sucessful negotiations and gets land
+
+# Pick province through adventurer logic, create new titular duchy?	
+
+# Event for Romans upon enforcing demands on the barbarians to force them into foederati status
+
+# Event for Barbarians upon white peace with Romans to allow for opening negotiations
+	# In this case the Barbarians aren't necessarily neighbours with the Romans, could that pose a problem?
