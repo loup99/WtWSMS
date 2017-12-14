@@ -41,7 +41,13 @@ character_event = {
 		ai_chance = {
 			#Option B modifiers
 		}
-		# Negotiations break event for event_target:barbarian_negotiator
+		event_target:barbarian_negotiator = {
+			character_event = { 
+				id = WtWSMS_foederati.12 # Negotiations break
+				days = 7
+				random = 3
+			}
+		}
 	}
 }
 
@@ -71,13 +77,14 @@ character_event = {
 		ai_chance = {
 			#Option B modifiers
 		}
+		# Barbarian negotiator does not wish to settle in the empire for event_target:barbarian_negotiator
 		event_target:roman_negotiator = {
 			make_tributary = {
-				who = FROM
+				who = event_target:barbarian_negotiator
 				tributary_type = foederati
 			}
 			custom_tooltip = { text = become_foederati_barbarian_effect_TT }
-			FROM = {
+			event_target:barbarian_negotiator = {
 				sound_effect = grace_gain
 				add_character_modifier = {
 					name = become_foederati_timer
@@ -113,12 +120,22 @@ character_event = {
 		ai_chance = {
 			#Option B modifiers
 		}
+		event_target:roman_negotiator = {
+			character_event = { 
+				id = WtWSMS_foederati.7 # Pick a territory to promise
+			}
+		}
 		# Flag that it is a promise
 	}
 	option = { # Refuse to grant territory within the empire, offer to settle outside it
 		name = WtWSMS_foederati.3.c
 		ai_chance = {
 			#Option C modifiers
+		}
+		event_target:barbarian_negotiator = {
+			character_event = { 
+				id = WtWSMS_foederati.10 # Makes the offer to settle outside it
+			}
 		}
 		# Flag that it is settling outside it
 	}
@@ -240,7 +257,18 @@ character_event = {
 		ai_chance = {
 			#Option B modifiers
 		}
-		# Negotiations break
+		event_target:barbarian_negotiator = {
+			character_event = { 
+				id = WtWSMS_foederati.12 # Negotiations break
+				days = 7
+				random = 3
+			}
+		}
+		event_target:roman_negotiator = {
+			character_event = { 
+				id = WtWSMS_foederati.12 # Negotiations break
+			}
+		}
 	}
 }
 
@@ -305,27 +333,203 @@ character_event = {
 	}
 }
 
-	# Pick suggested territory
-	# Find another one than the suggested
+# Makes the promise
+character_event = {
+    id = WtWSMS_foederati.8
+	desc = WtWSMS_foederati.8.desc
+	picture = GFX_evt_emissary
+	
+    is_triggered_only = yes
 
-# Makes the offer
-	# Barbarian accepts -> Negotiations successful
-	# Barbarian refuses -> back to picking territory
+	option = { # Accept the promise
+		name = WtWSMS_foederati.8.a
+		ai_chance = {
+			#Option A modifiers
+		}
+		# Negotiations successful, with both parties having accepted
+	}
+	option = { # Refuse the promise
+		name = WtWSMS_foederati.8.b
+		ai_chance = {
+			#Option B modifiers
+		}
+		clear_event_target = promised_territory
+		event_target:roman_negotiator = {
+			character_event = {
+				id = WtWSMS_foederati.9 # Barbarian refuses province promise
+				days = 7
+				random = 3
+			}
+		}
+	}
+}	
 
-# Make the offer to settle outside it
-	# Barbarian accepts -> Negotiations successful
-	# Barbarian refuses -> Negotiations break
+# Barbarian refuses province promise
+character_event = {
+    id = WtWSMS_foederati.9
+	desc = WtWSMS_foederati.9.desc
+	picture = GFX_evt_emissary
+	
+    is_triggered_only = yes
+
+	option = { # Pick another territory to promise
+		name = WtWSMS_foederati.9.a
+		ai_chance = {
+			#Option A modifiers
+		}
+		event_target:roman_negotiator = {
+			character_event = { 
+				id = WtWSMS_foederati.7 # Pick a territory to promise
+			}
+		}
+	}
+	option = { 	# Break negotiations
+		name = WtWSMS_foederati.9.b
+		ai_chance = {
+			#Option B modifiers
+		}
+		event_target:barbarian_negotiator = {
+			character_event = { 
+				id = WtWSMS_foederati.12 # Negotiations break
+				days = 7
+				random = 3
+			}
+		}
+		event_target:roman_negotiator = {
+			character_event = { 
+				id = WtWSMS_foederati.12 # Negotiations break
+			}
+		}
+	}
+}
+	
+# Makes the offer to settle outside it
+character_event = {
+    id = WtWSMS_foederati.10
+	desc = WtWSMS_foederati.10.desc
+	picture = GFX_evt_emissary
+	
+    is_triggered_only = yes
+
+	option = { # Barbarian accepts
+		name = WtWSMS_foederati.10.a
+		ai_chance = {
+			#Option A modifiers
+		}
+		# Negotiations successful
+	}
+	option = { # Barbarian refuses
+		name = WtWSMS_foederati.10.b
+		ai_chance = {
+			#Option B modifiers
+		}
+		event_target:barbarian_negotiator = {
+			character_event = { 
+				id = WtWSMS_foederati.12 # Negotiations break
+			}
+		}
+		event_target:roman_negotiator = {
+			character_event = { 
+				id = WtWSMS_foederati.12 # Negotiations break
+				days = 7
+				random = 3
+			}
+		}
+	}
+}
 	
 # Barbarian negotiator does not wish to settle in the empire
+character_event = {
+    id = WtWSMS_foederati.11
+	desc = WtWSMS_foederati.11.desc
+	picture = GFX_evt_emissary
 	
+    is_triggered_only = yes
+
+	option = { # Accept it 
+		name = WtWSMS_foederati.11.a
+		ai_chance = {
+			#Option A modifiers
+		}
+		# Flag that it is settling outside it
+		# Negotiations successful
+	}
+	option = { # Refuse it, offer a territory to settle within the empire
+		name = WtWSMS_foederati.11.b
+		ai_chance = {
+			#Option B modifiers
+		}
+		event_target:roman_negotiator = {
+			character_event = { 
+				id = WtWSMS_foederati.4 # Pick a territory to offer
+			}
+		}
+		# Flag that it is an offer
+	}
+	option = { # Refuse it, promise a territory to settle within the empire
+		name = WtWSMS_foederati.11.c
+		ai_chance = {
+			#Option C modifiers
+		}
+		event_target:roman_negotiator = {
+			character_event = { 
+				id = WtWSMS_foederati.7 # Pick a territory to promise
+			}
+		}
+		# Flag that it is a promise
+	}
+}
+
+# Allow barbarian to ask for a particular province
+
 # Negotiations break
-	# Negative opinion modifier 
+character_event = {
+    id = WtWSMS_foederati.12
+	desc = WtWSMS_foederati.12.desc
+	picture = GFX_evt_emissary
+	
+    is_triggered_only = yes
+	
+	immediate = {
+		# Negative opinion modifier 
+		# Clear flags
+	}
+
+	option = { # OK
+		name = WtWSMS_foederati.12.a
+		ai_chance = {
+			#Option A modifiers
+		}
+		# Nothing in particular for now
+	}
+	option = { # Romans declare war upon Barbarians impose their demands after failed negotiations
+		name = WtWSMS_foederati.12.b
+		trigger = {
+			#Option B eligibility condition block
+		}
+		ai_chance = {
+			#Option B modifiers
+		}
+		# War with Barbarians
+	}
+	option = { # Barbarians declare war upon Romans to impose their demands after failed negotiations
+		name = WtWSMS_foederati.12.c		
+		trigger = {
+			#Option C eligibility condition block
+		}
+		ai_chance = {
+			#Option C modifiers
+		}
+		# War with Romans
+	}
+}
 
 # Negotiations successful, with both parties having accepted
 
 # Becomes foederati after sucessful negotiations and gets land
+	# If promise new event in a few years
 
-# Pick province through adventurer logic, create new titular duchy?	
+# Create new titular duchy?	
 
 # Event for Romans upon enforcing demands on the barbarians to force them into foederati status
 
