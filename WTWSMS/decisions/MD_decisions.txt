@@ -1,0 +1,152 @@
+targetted_decisions = {
+	convert_to_nasrani = {
+		only_playable = yes
+		
+		filter = self
+		ai_target_filter = self
+		
+		potential = {
+			is_playable = yes
+			OR = {
+				culture_group = indo_aryan_group
+				culture_group = dravidian_group
+				culture = indo_scythian
+			}
+			religion_group = christian
+			NOT = { culture = nasrani }
+			any_realm_province = {
+				culture = nasrani
+			}
+			NOT = { government = chinese_imperial_government }
+		}
+		allow = {
+			OR = {
+				culture_group = indo_aryan_group
+				culture_group = dravidian_group
+				culture = indo_scythian
+			}
+			NOT = { culture = nasrani }
+		}
+		effect = {
+			culture = nasrani
+			remove_trait = brahmin
+			remove_trait = kshatriya
+			remove_trait = vaishya
+			add_trait = nasrani
+			any_courtier = {
+				limit = {
+					OR = {
+						culture_group = indo_aryan_group
+						culture_group = dravidian_group
+						culture = indo_scythian
+					}
+					NOT = { culture = nasrani }
+					employer = { character = ROOT }
+					dynasty = ROOT
+				}
+				culture = nasrani
+				remove_trait = brahmin
+				remove_trait = kshatriya
+				remove_trait = vaishya
+				add_trait = nasrani
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0.2 # Slow it down a bit
+			}
+			
+			modifier = {
+				factor = 0.01
+				capital_scope = {
+					NOT = { culture = nasrani }
+				}
+			}
+			modifier = {
+				factor = 2.0
+				liege = { culture = nasrani }
+			}
+			modifier = {
+				factor = 1.1
+				num_culture_realm_provs = {
+					value = 2
+					culture = nasrani
+				}
+			}
+			modifier = {
+				factor = 1.1
+				num_culture_realm_provs = {
+					value = 4
+					culture = nasrani
+				}
+			}
+			modifier = {
+				factor = 1.1
+				num_culture_realm_provs = {
+					value = 6
+					culture = nasrani
+				}
+			}
+			modifier = {
+				factor = 1.1
+				num_culture_realm_provs = {
+					value = 8
+					culture = nasrani
+				}
+			}
+			modifier = {
+				factor = 1.1
+				num_culture_realm_provs = {
+					value = 10
+					culture = nasrani
+				}
+			}
+		}
+	}
+}
+
+decisions = {
+
+	submit_propthet = {
+		potential = {
+			independent = yes
+			capital_scope = {
+				region = world_middle_east_arabia
+			}
+			NOT = { religion_group = muslim }
+			OR = {
+				culture_group = south_semitic
+				culture_group = northwest_semitic
+				culture_group = central_semitic
+			}
+			e_arabia = {
+				holder_scope = {
+					trait = the_prophet 
+				}
+			}
+		}
+		allow = {
+			NOT = { trait = zealous }
+			war = no
+		}
+		effect = {
+			hidden_tooltip = {
+				e_arabia = {
+					holder_scope = {
+						save_event_target_as = theprophet
+					}
+				}
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			religion = islamic
+			set_defacto_liege = event_target:theprophet
+		}
+	}
+}
