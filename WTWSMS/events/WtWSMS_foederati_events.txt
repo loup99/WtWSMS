@@ -116,7 +116,7 @@ character_event = {
 			character_event = { 
 				id = WtWSMS_foederati.7 # Pick a territory to promise
 			}
-			set_character_flag = promised_territory_flag
+			set_character_flag = promised_territory_to_@FROM_flag
 		}
 	}
 	option = { # Refuse to grant territory within the empire, offer to settle outside it
@@ -212,6 +212,12 @@ character_event = {
 		event_target:barbarian_negotiator = {
 			character_event = { 				
 				id = WtWSMS_foederati.13 # Negotiations successful, with both parties having accepted
+			}
+			any_realm_province = { # Set flag to give away land
+				limit = {
+					NOT = { has_province_flag = foederati_give_away }
+				}
+				set_province_flag = foederati_give_away
 			}
 		}
 		event_target:roman_negotiator = {
@@ -354,6 +360,12 @@ character_event = {
 		event_target:barbarian_negotiator = {
 			character_event = { 				
 				id = WtWSMS_foederati.13 # Negotiations successful, with both parties having accepted
+			}
+			any_realm_province = { # Set flag to give away land
+				limit = {
+					NOT = { has_province_flag = foederati_give_away }
+				}
+				set_province_flag = foederati_give_away
 			}
 		}
 		event_target:roman_negotiator = {
@@ -515,7 +527,7 @@ character_event = {
 			character_event = { 
 				id = WtWSMS_foederati.7 # Pick a territory to promise
 			}
-			set_character_flag = promised_territory_flag
+			set_character_flag = promised_territory_to_@FROM_flag
 		}
 	}
 }
@@ -549,9 +561,15 @@ character_event = {
 		}
 		if = { 
 			limit = { 
-				has_character_flag = promised_territory_flag
+				has_character_flag = promised_territory_to_@FROM_flag
 			}
-			clr_character_flag = promised_territory_flag
+			clr_character_flag = promised_territory_to_@FROM_flag
+		}
+		if = { 
+			limit = { 
+				has_character_flag = promised_territory_to_@ROOT_flag
+			}
+			clr_character_flag = promised_territory_to_@ROOT_flag
 		}
 		if = { 
 			limit = { 
@@ -664,20 +682,81 @@ character_event = {
 		ai_chance = {
 			#Option A modifiers
 		}
-		# Grant offered land
-		# Create new titular duchy?	
-		# Give away old land (migration)
-		# Change government type if tribal
+		event_target:barbarian_negotiator = {
+			any_realm_province = { # Give away old lands
+				limit = {
+					has_province_flag = foederati_give_away
+				}
+				county = {
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = PREV
+						culture = PREV
+						female = no
+						age = 25
+						trait = peasant_leader
+					}
+					new_character = {
+						usurp_title_plus_barony_if_unlanded = PREV
+						set_defacto_liege = THIS
+						set_truce = {
+							who = ROOT
+							years = 10
+						}
+						ROOT = {
+							set_truce = {
+								who = PREV
+								years = 10
+							}
+						}
+					}
+				}
+				clr_province_flag = foederati_give_away
+			}
+			event_target:offered_territory = { # Grant offered land
+				any_de_jure_vassal_title = { # Vassal county of the duchy
+					limit = {
+						tier = COUNT
+					}
+					grant_title	= event_target:barbarian_negotiator
+				}
+			}
+			create_title = { # Create new titular duchy
+				tier = DUKE
+				landless = no
+				temporary = no
+				custom_created = yes
+				culture = event_target:barbarian_negotiator
+				holder = event_target:barbarian_negotiator
+				name = "FOEDERATI_DUCHY"
+				base_title = PREV
+			}
+			if = { # Change government from tribal to feudal
+				limit = {
+					is_tribal = yes
+				}
+				set_government_type	= feudal_government
+			}
+			clr_character_flag = offered_territory_flag
+			clear_event_target = offered_territory
+		}
 	}
 	option = { # All in due time...
 		name = WtWSMS_foederati.14.b
 		trigger = {
-			has_character_flag = promised_territory_flag
+			has_character_flag = promised_territory_to_@barbarian_negotiator_flag # Use event target in dynamic flag
 		}
 		ai_chance = {
 			#Option B modifiers
 		}
-		# New event in a few years to follow up the promise
+		event_target:barbarian_negotiator = { 
+			character_event = { 				
+				id = WtWSMS_foederati.15 # Barbarian reminded of promise
+				days = 1825 # Five years
+			}
+		}
+		# Custom tooltip to explain new event in a few years to follow up the promise
 	}
 	option = { # Protect the border
 		name = WtWSMS_foederati.14.c
@@ -687,9 +766,146 @@ character_event = {
 		ai_chance = {
 			#Option C modifiers
 		}
-		# Nothing for now
+		clr_character_flag = settling_outside_empire_flag
+		# Nothing else for now
+		# Change government?
 	}
 }
+
+# Barbarian reminded of promise
+character_event = {
+    id = WtWSMS_foederati.15
+	desc = WtWSMS_foederati.15.desc
+	picture = GFX_evt_emissary
+
+    is_triggered_only = yes
+	
+	option = { # Ask for promised territory
+		name = WtWSMS_foederati.15.a
+		ai_chance = {
+			#Option A modifiers
+		}
+		event_target:roman_negotiator = {
+			character_event = { 				
+				id = WtWSMS_foederati.16 # Negotiations successful, with both parties having accepted
+				days = 7
+				random = 3
+			}
+		}
+		#Option A effects
+	}
+	option = { # Wait more, reloads same event after five years
+		name = WtWSMS_foederati.15.b
+		trigger = {
+			ai = no # Too easy otherwise to trick AI
+		}
+		ai_chance = {
+			#Option B modifiers
+		}
+		event_target:barbarian_negotiator = { 
+			character_event = { 				
+				id = WtWSMS_foederati.15 # Barbarian reminded of promise
+				days = 1825 # Five years
+			}
+		}
+	}
+}
+
+# Barbarian reminds Roman of promise
+character_event = {
+    id = WtWSMS_foederati.16
+	desc = WtWSMS_foederati.16.desc
+	picture = GFX_evt_emissary
+	
+    is_triggered_only = yes
+
+	option = { # Grant promised territory
+		name = WtWSMS_foederati.16.a
+		ai_chance = {
+			#Option A modifiers
+		}
+		event_target:barbarian_negotiator = {
+			any_realm_province = { # Give away old lands
+				limit = {
+					has_province_flag = foederati_give_away
+				}
+				county = {
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = PREV
+						culture = PREV
+						female = no
+						age = 25
+						trait = peasant_leader
+					}
+					new_character = {
+						usurp_title_plus_barony_if_unlanded = PREV
+						set_defacto_liege = THIS
+						set_truce = {
+							who = ROOT
+							years = 10
+						}
+						ROOT = {
+							set_truce = {
+								who = PREV
+								years = 10
+							}
+						}
+					}
+				}
+				clr_province_flag = foederati_give_away
+			}
+			event_target:offered_territory = { # Grant offered land
+				any_de_jure_vassal_title = { # Vassal county of the duchy
+					limit = {
+						tier = COUNT
+					}
+					grant_title	= event_target:barbarian_negotiator
+				}
+			}
+			create_title = { # Create new titular duchy
+				tier = DUKE
+				landless = no
+				temporary = no
+				custom_created = yes
+				culture = event_target:barbarian_negotiator
+				holder = event_target:barbarian_negotiator
+				name = "FOEDERATI_DUCHY"
+				base_title = PREV
+			}
+			if = { # Change government from tribal to feudal
+				limit = {
+					is_tribal = yes
+				}
+				set_government_type	= feudal_government
+			}
+			clr_character_flag = promised_territory_to_@FROM_flag
+			clear_event_target = promised_territory
+		}
+	}
+	option = { # Attempt to delay further
+		name = WtWSMS_foederati.16.b
+		ai_chance = {
+			#Option B modifiers
+		}
+		# Barbarian gets to react 
+	}
+	option = { # War to impose concessions
+		name = WtWSMS_foederati.X.c
+		ai_chance = {
+			#Option C modifiers
+		}
+		#Option C effects
+		# War with Barbarian
+	}
+}
+
+# Liberate tributary CB
+# Make tributary
+# Migratory invasion
+# New specific make foederati CB?
+# Make sure to destroy existant title
 
 # Event for Romans upon enforcing demands on the barbarians to force them into foederati status
 
