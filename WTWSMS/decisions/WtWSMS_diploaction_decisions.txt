@@ -97,9 +97,9 @@ targetted_decisions = {
 		}
 	}
 	
-	# TODO: ask_to_become_foederati_emperor  (Empire->barbarians)
+	# TODO: begin_foederati_negotiations_roman  (Roman ->barbarians)
 	
-	begin_foederati_negotiations_barbarian = { # "Barbarian" bordering Rome initiates negotiations
+	begin_foederati_negotiations_barbarian = { # "Barbarian" bordering Roman initiates negotiations
 		only_independent = yes
 		ai_check_interval = 12
 
@@ -115,20 +115,24 @@ targetted_decisions = {
 			mercenary = no
 			holy_order = no
 			is_landed = yes
+			NOR = {
+				primary_title = { higher_tier_than = KING }
+				has_romance_culture_trigger = yes
+				bureaucratic_government_trigger = yes
+				sassanid_government_trigger = yes
+			}
 		}
 		
 		allow = {
 			FROM = {
 				show_scope_change = no
 				war = no # I'm not sure on whether this should be a general FROM one or just with ROOT?
-				OR = {
-					custom_tooltip = { #Borders the Roman Empire
-						text = become_foederati_barbarian_allow_borders_roman_realm_tt
-						any_neighbor_independent_ruler = {
-							AND = {
-								primary_title = { higher_tier_than = DUKE }
-								has_romance_culture_trigger = yes
-							}
+				custom_tooltip = { #Borders Roman
+					text = become_foederati_barbarian_allow_borders_roman_realm_tt
+					any_neighbor_independent_ruler = {
+						AND = {
+							primary_title = { higher_tier_than = DUKE }
+							has_romance_culture_trigger = yes
 						}
 					}
 				}
