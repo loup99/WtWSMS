@@ -116,7 +116,7 @@ character_event = {
 			character_event = { 
 				id = WtWSMS_foederati.7 # Pick a territory to promise
 			}
-			set_character_flag = promised_territory_to_@FROM_flag
+			set_character_flag = promised_territory_to_@event_target:barbarian_negotiator_flag
 		}
 	}
 	option = { # Refuse to grant territory within the empire, offer to settle outside it
@@ -527,7 +527,7 @@ character_event = {
 			character_event = { 
 				id = WtWSMS_foederati.7 # Pick a territory to promise
 			}
-			set_character_flag = promised_territory_to_@FROM_flag
+			set_character_flag = promised_territory_to_@event_target:barbarian_negotiator_flag
 		}
 	}
 }
@@ -553,25 +553,19 @@ character_event = {
 				who = event_target:roman_negotiator
 			}
 		}
-		if = { 
+		if = {
 			limit = { 
 				has_character_flag = offered_territory_flag
 			}
 			clr_character_flag = offered_territory_flag
 		}
-		if = { 
+		if = {
 			limit = { 
-				has_character_flag = promised_territory_to_@FROM_flag
+				has_character_flag = promised_territory_to_@event_target:barbarian_negotiator_flag
 			}
-			clr_character_flag = promised_territory_to_@FROM_flag
+			clr_character_flag = promised_territory_to_@event_target:barbarian_negotiator_flag
 		}
-		if = { 
-			limit = { 
-				has_character_flag = promised_territory_to_@ROOT_flag
-			}
-			clr_character_flag = promised_territory_to_@ROOT_flag
-		}
-		if = { 
+		if = {
 			limit = { 
 				has_character_flag = settling_outside_empire_flag
 			}
@@ -594,7 +588,11 @@ character_event = {
 		ai_chance = {
 			#Option B modifiers
 		}
-		# War with Barbarian
+		war = {
+			target = event_target:barbarian_negotiator 
+			casus_belli = tributary_foederati_cb 
+			infamy = 0
+		}
 	}
 	option = { # Barbarians declare war upon Romans to impose their demands after failed negotiations
 		name = WtWSMS_foederati.12.c		
@@ -609,7 +607,42 @@ character_event = {
 		ai_chance = {
 			#Option C modifiers
 		}
-		# War with Romans
+		if = {
+			limit = {
+				AND = {
+					NOT = { year = 800 } # The migration period ended around 800
+					event_target:barbarian_negotiator = {
+						OR = {
+							religion = tengri_pagan
+							religion = slavic_pagan
+							religion = germanic_pagan
+							culture = alan
+						}
+						NOT = { has_character_modifier = launched_migration_war }
+						NOT = { higher_tier_than = KING } # No Emperors
+						NOT = { culture = FROM }
+						independent = yes # No vassals
+						war = no # Ensures that the events activate correctly  
+					}
+					event_target:roman_negotiator = {
+						independent = yes
+						war = no
+					}
+				}
+			}
+			war = {
+				target = event_target:roman_negotiator
+				casus_belli = migration
+				infamy = 0
+			}
+		}
+		else = {
+			war = {
+				target = event_target:roman_negotiator
+				casus_belli = tribal_invasion
+				infamy = 0
+			}
+		}
 	}
 }
 
@@ -649,7 +682,7 @@ character_event = {
 	}
 }
 
-# Becomes foederati after sucessful negotiations and gets land
+# Becomes foederati after successful negotiations and gets land
 character_event = {
     id = WtWSMS_foederati.14
 	desc = WtWSMS_foederati.14.desc
@@ -745,7 +778,7 @@ character_event = {
 	option = { # All in due time...
 		name = WtWSMS_foederati.14.b
 		trigger = {
-			has_character_flag = promised_territory_to_@barbarian_negotiator_flag # Use event target in dynamic flag
+			has_character_flag = promised_territory_to_@event_target:barbarian_negotiator_flag
 		}
 		ai_chance = {
 			#Option B modifiers
@@ -767,8 +800,6 @@ character_event = {
 			#Option C modifiers
 		}
 		clr_character_flag = settling_outside_empire_flag
-		# Nothing else for now
-		# Change government?
 	}
 }
 
@@ -787,20 +818,16 @@ character_event = {
 		}
 		event_target:roman_negotiator = {
 			character_event = { 				
-				id = WtWSMS_foederati.16 # Negotiations successful, with both parties having accepted
+				id = WtWSMS_foederati.16 # Barbarian reminds Roman of promise
 				days = 7
 				random = 3
 			}
 		}
-		#Option A effects
 	}
-	option = { # Wait more, reloads same event after five years
+	option = { # Wait more without asking, reloads same event after five years
 		name = WtWSMS_foederati.15.b
 		trigger = {
 			ai = no # Too easy otherwise to trick AI
-		}
-		ai_chance = {
-			#Option B modifiers
 		}
 		event_target:barbarian_negotiator = { 
 			character_event = { 				
@@ -880,7 +907,7 @@ character_event = {
 				}
 				set_government_type	= feudal_government
 			}
-			clr_character_flag = promised_territory_to_@FROM_flag
+			clr_character_flag = promised_territory_to_@event_target:barbarian_negotiator_flag
 			clear_event_target = promised_territory
 		}
 	}
@@ -889,23 +916,143 @@ character_event = {
 		ai_chance = {
 			#Option B modifiers
 		}
-		# Barbarian gets to react 
+		# Postponed territory promise
+	}
+	option = { # Break promise
+		name = WtWSMS_foederati.16.b
+		ai_chance = {
+			#Option B modifiers
+		}
+		# Broken territory promise
 	}
 	option = { # War to impose concessions
-		name = WtWSMS_foederati.X.c
+		name = WtWSMS_foederati.16.d
 		ai_chance = {
 			#Option C modifiers
 		}
-		#Option C effects
-		# War with Barbarian
+		war = {
+			target = event_target:barbarian_negotiator 
+			casus_belli = tributary_foederati_cb 
+			infamy = 0
+		}
 	}
 }
 
-# Liberate tributary CB
-# Make tributary
-# Migratory invasion
-# New specific make foederati CB?
+# Broken territory promise
+character_event = {
+    id = WtWSMS_foederati.17
+	desc = WtWSMS_foederati.17.desc
+	picture = GFX_evt_emissary
+	
+    is_triggered_only = yes
+
+	option = { # Then war it is
+		name = WtWSMS_foederati.17.a
+		if = {
+			limit = {
+				AND = {
+					NOT = { year = 800 } # The migration period ended around 800
+					event_target:barbarian_negotiator = {
+						OR = {
+							religion = tengri_pagan
+							religion = slavic_pagan
+							religion = germanic_pagan
+							culture = alan
+						}
+						NOT = { has_character_modifier = launched_migration_war }
+						NOT = { higher_tier_than = KING } # No Emperors
+						NOT = { culture = FROM }
+						independent = yes # No vassals
+						war = no # Ensures that the events activate correctly  
+					}
+					event_target:roman_negotiator = {
+						independent = yes
+						war = no
+					}
+				}
+			}
+			war = {
+				target = event_target:roman_negotiator
+				casus_belli = migration
+				infamy = 0
+			}
+		}
+		else = {
+			war = {
+				target = event_target:roman_negotiator
+				casus_belli = tribal_invasion
+				infamy = 0
+			}
+		}
+	}
+}
+
+# Postponed territory promise
+character_event = {
+    id = WtWSMS_foederati.18
+	desc = WtWSMS_foederati.18.desc
+	picture = GFX_evt_emissary
+	
+    is_triggered_only = yes
+
+	option = { # Then war it is
+		name = WtWSMS_foederati.18.a
+		ai_chance = {
+			#Option A modifiers
+		}
+		if = {
+			limit = {
+				AND = {
+					NOT = { year = 800 } # The migration period ended around 800
+					event_target:barbarian_negotiator = {
+						OR = {
+							religion = tengri_pagan
+							religion = slavic_pagan
+							religion = germanic_pagan
+							culture = alan
+						}
+						NOT = { has_character_modifier = launched_migration_war }
+						NOT = { higher_tier_than = KING } # No Emperors
+						NOT = { culture = FROM }
+						independent = yes # No vassals
+						war = no # Ensures that the events activate correctly  
+					}
+					event_target:roman_negotiator = {
+						independent = yes
+						war = no
+					}
+				}
+			}
+			war = {
+				target = event_target:roman_negotiator
+				casus_belli = migration
+				infamy = 0
+			}
+		}
+		else = {
+			war = {
+				target = event_target:roman_negotiator
+				casus_belli = tribal_invasion
+				infamy = 0
+			}
+		}
+	}
+	option = { # Wait and see
+		name = WtWSMS_foederati.18.b
+		ai_chance = {
+			#Option A modifiers
+		}
+		event_target:barbarian_negotiator = { 
+			character_event = { 				
+				id = WtWSMS_foederati.15 # Barbarian reminded of promise
+				days = 1825 # Five years
+			}
+		}
+	}
+}
+
 # Make sure to destroy existant title
+# Turn foederati into vassal by force
 
 # Event for Romans upon enforcing demands on the barbarians to force them into foederati status
 
