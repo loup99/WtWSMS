@@ -3607,27 +3607,27 @@ narrative_event = {
 	picture = GFX_evt_victory_arch_byzantine
 	
 	only_rulers = yes
-	#only_independent = yes
+	only_independent = yes
 	
 	is_triggered_only = yes
 	
 	trigger = {
-		#start_date = 492.1.1
-		#NOT = { year = 520 } # the war should be ended by this year
-		#ROOT = {
-		#	has_landed_title = e_byzantium
-		#}
-		#d_isauria = {
-		#	holder_scope = {
-		#		ROOT = { has_truce = PREV}
-		#	}
-		#}
+		start_date = 492.1.1
+		NOT = { year = 520 } # the war should be ended by this year
+		ROOT = {
+			has_landed_title = e_byzantium
+		}
+		d_isauria = {
+			holder_scope = {
+				ROOT = { has_truce = PREV}
+			}
+		}
 		NOT = { has_global_flag = isaurian_war_ended }
 	}
 	
-	#mean_time_to_happen = {
-	#	days = 1
-	#}
+	mean_time_to_happen = {
+		days = 0 #intended, delay may cause ways to avoid the effects of defeat
+	}
 	
 	immediate = {
 		set_global_flag = isaurian_war_ended
@@ -3642,53 +3642,35 @@ narrative_event = {
 				abdicate_to = ROOT
 			}
 		}
-		hidden_tooltip = {
-			any_playable_ruler = {
-				narrative_event = { id = historical_wtwsms.8 }
-				limit = {
-					NOT = { has_landed_title = e_byzantium }
-				}
-			}
-		}
 	}
 }
 
-# INFO - Empire has won the Isaurian War
-narrative_event = {
-	id = historical_wtwsms.8
-	title = historical_wtwsms.7.name
-	desc = historical_wtwsms.8.desc
-	picture = GFX_evt_victory_arch_byzantine
-	border = GFX_event_narrative_frame_diplomacy
-	
-	is_triggered_only = yes
-	
-	option = {
-		name = OK
-	}
-}
 # Isaurians have won the Isaurian War
 narrative_event = {
-	id = historical_wtwsms.9
-	title = historical_wtwsms.9.name
-	desc = historical_wtwsms.9.desc
+	id = historical_wtwsms.8
+	title = historical_wtwsms.8.name
+	desc = historical_wtwsms.8.desc
 	picture = GFX_evt_victory_arch_byzantine #TODO: other picture
 	
 	only_rulers = yes
-	#only_independent = yes
+	only_independent = yes
 	
 	trigger = {
-		#start_date = 492.1.1
-		#NOT = { year = 520 } # the war should be ended by this year
-		#ROOT = {
-		#	has_landed_title = d_isauria
-		#}
-		#e_byzantium = {
-		#	holder_scope = {
-		#		ROOT = { has_truce = PREV}
-		#	}
-		#}
+		start_date = 492.1.1
+		NOT = { year = 520 } # the war should be ended by this year
+		ROOT = {
+			has_landed_title = d_isauria
+		}
+		e_byzantium = {
+			holder_scope = {
+				ROOT = { has_truce = PREV}
+			}
+		}
 		NOT = { has_global_flag = isaurian_war_ended }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
 	}
 	
 	immediate = {
@@ -3699,29 +3681,5 @@ narrative_event = {
 		name = OK
 		
 		prestige = 100
-		
-		hidden_tooltip = {
-			any_playable_ruler = {
-				narrative_event = { id = historical_wtwsms.10 }
-				limit = {
-					NOT = { has_landed_title = d_isauria }
-				}
-			}
-		}
-	}
-}
-
-# INFO - Isaurians have won the Isaurian War
-narrative_event = {
-	id = historical_wtwsms.10
-	title = historical_wtwsms.9.name
-	desc = historical_wtwsms.10.desc
-	picture = GFX_evt_victory_arch_byzantine #TODO: other picture
-	border = GFX_event_narrative_frame_diplomacy
-	
-	is_triggered_only = yes
-	
-	option = {
-		name = OK
 	}
 }
