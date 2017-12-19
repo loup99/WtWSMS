@@ -3599,7 +3599,8 @@ narrative_event = {
 		name = historical_wtwsms.6.a
 	}
 }
-# Empire has won the Isaurian War
+
+# Emperor has won the Isaurian Wars
 narrative_event = {
 	id = historical_wtwsms.7
 	title = historical_wtwsms.7.name
@@ -3616,21 +3617,25 @@ narrative_event = {
 		NOT = { year = 520 } # the war should be ended by this year
 		ROOT = {
 			has_landed_title = e_byzantium
-			any_realm_title = {
-				title = k_asia
+			OR = { 
+				has_landed_title = c_ephesos # Capital of Asia
+				has_landed_title = c_ikonion # Capital of Pisidia
+				any_realm_lord = {
+					has_landed_title = c_ephesos # Capital of Asia
+					has_landed_title = c_ikonion # Capital of Pisidia
+				}
 			}
 		}
-		
 		d_isauria = {
 			holder_scope = {
-				ROOT = { has_truce = PREV}
+				ROOT = { has_truce = PREV }
 			}
 		}
 		NOT = { has_global_flag = isaurian_war_ended }
 	}
 	
 	mean_time_to_happen = {
-		days = 0 #intended, delay may cause ways to avoid the effects of defeat
+		days = 1
 	}
 	
 	immediate = {
@@ -3644,12 +3649,13 @@ narrative_event = {
 		d_isauria = {
 			holder_scope = {
 				abdicate_to = ROOT
+				imprison = ROOT
 			}
 		}
 	}
 }
 
-# Isaurians have won the Isaurian War
+# Isaurians have won the Isaurian Wars
 narrative_event = {
 	id = historical_wtwsms.8
 	title = historical_wtwsms.8.name
@@ -3664,13 +3670,18 @@ narrative_event = {
 		NOT = { year = 520 } # the war should be ended by this year
 		ROOT = {
 			has_landed_title = d_isauria
-			any_realm_title = {
-				title = k_asia
+			OR = {
+				has_landed_title = c_ephesos # Capital of Asia
+				has_landed_title = c_ikonion # Capital of Pisidia
+				any_realm_lord = {
+					has_landed_title = c_ephesos # Capital of Asia
+					has_landed_title = c_ikonion # Capital of Pisidia
+				}
 			}
 		}
 		e_byzantium = {
 			holder_scope = {
-				ROOT = { has_truce = PREV}
+				ROOT = { has_truce = PREV }
 			}
 		}
 		NOT = { has_global_flag = isaurian_war_ended }
