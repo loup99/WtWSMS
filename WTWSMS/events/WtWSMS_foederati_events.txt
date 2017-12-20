@@ -171,6 +171,11 @@ character_event = {
 
 	option = { # Pick suggested territory
 		name = WtWSMS_foederati.4.a
+		trigger = {
+			NOT = {
+				has_character_flag = enforcing_demands
+			}
+		}
 		ai_chance = {
 			#Option A modifiers
 		}
@@ -182,10 +187,24 @@ character_event = {
 			}
 		}
 	}
-	option = { # Find another one than the suggested, reloads same event
+	option = { # Enforcing demands
 		name = WtWSMS_foederati.4.b
+		trigger = {
+			has_character_flag = enforcing_demands
+		}
 		ai_chance = {
 			#Option B modifiers
+		}
+		event_target:roman_negotiator = {
+			character_event = { 
+				id = WtWSMS_foederati.21 # Victorious Roman enforcing demands upon barbarian
+			}
+		}
+	}
+	option = { # Find another one than the suggested, reloads same event
+		name = WtWSMS_foederati.4.c
+		ai_chance = {
+			#Option C modifiers
 		}
 		event_target:roman_negotiator = {
 			character_event = { 
@@ -598,10 +617,10 @@ character_event = {
 		name = WtWSMS_foederati.12.c		
 		trigger = {
 			any_neighbor_independent_ruler = { # Is Barbarian
-				AND = {
-					primary_title = { higher_tier_than = DUKE }
-					has_romance_culture_trigger = yes
-				}
+				primary_title = { higher_tier_than = DUKE }
+				has_romance_culture_trigger = yes
+				mercenary = no
+				holy_order = no
 			}
 		}
 		ai_chance = {
@@ -755,6 +774,15 @@ character_event = {
 					grant_title	= event_target:barbarian_negotiator
 				}
 			}
+			any_demesne_title = {
+				limit = {
+					OR = { 
+						tier = DUKE
+						tier = KING
+					}
+				}
+				destroy_landed_title = THIS
+			}
 			create_title = { # Create new titular duchy
 				tier = DUKE
 				landless = no
@@ -890,6 +918,15 @@ character_event = {
 					}
 					grant_title	= event_target:barbarian_negotiator
 				}
+			}			
+			any_demesne_title = {
+				limit = {
+					OR = { 
+						tier = DUKE
+						tier = KING
+					}
+				}
+				destroy_landed_title = THIS
 			}
 			create_title = { # Create new titular duchy
 				tier = DUKE
@@ -916,14 +953,26 @@ character_event = {
 		ai_chance = {
 			#Option B modifiers
 		}
-		# Postponed territory promise
+		event_target:barbarian_negotiator = {
+			character_event = { 				
+				id = WtWSMS_foederati.18 # Postponed territory promise
+				days = 7
+				random = 3
+			}
+		}
 	}
 	option = { # Break promise
 		name = WtWSMS_foederati.16.b
 		ai_chance = {
 			#Option B modifiers
 		}
-		# Broken territory promise
+		event_target:barbarian_negotiator = {
+			character_event = { 				
+				id = WtWSMS_foederati.17 # Broken territory promise
+				days = 7
+				random = 3
+			}
+		}
 	}
 	option = { # War to impose concessions
 		name = WtWSMS_foederati.16.d
@@ -1051,10 +1100,545 @@ character_event = {
 	}
 }
 
-# Make sure to destroy existant title
-# Turn foederati into vassal by force
+# Barbarian accept or refuse to start negotiating with Roman
+character_event = {
+	id = WtWSMS_foederati.19
+	desc = WtWSMS_foederati.19.desc
+	picture = GFX_evt_emissary
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		FROM = {
+			save_event_target_as = roman_negotiator
+		}
+		ROOT = {
+			save_event_target_as = barbarian_negotiator
+		}
+	}
+	
+	option = { # Yes
+		name = WtWSMS_foederati.19.a
+		ai_chance = {
+			#Option A modifiers
+		}
+		event_target:barbarian_negotiator = {
+			character_event = { 
+				id = WtWSMS_foederati.2 # Negotiations begin - settle in empire or not?
+			}
+		}
+	}
+    option = { # No, negotiations break
+		name = WtWSMS_foederati.19.b
+		ai_chance = {
+			#Option B modifiers
+		}
+		event_target:roman_negotiator = {
+			character_event = { 
+				id = WtWSMS_foederati.12 # Negotiations break
+				days = 7
+				random = 3
+			}
+		}
+	}
+}
 
-# Event for Romans upon enforcing demands on the barbarians to force them into foederati status
+# Victorious Roman force barbarians into foederati status after enforcing demands
+character_event = {
+    id = WtWSMS_foederati.20
+	desc = WtWSMS_foederati.20.desc
+	picture = GFX_evt_emissary
+	
+	is_triggered_only = yes # On_actions event
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		FROM = { # Attacker
+			independent = yes
+			mercenary = no
+			holy_order = no
+			is_landed = yes
+			NOR = {
+				primary_title = { higher_tier_than = KING }
+				has_romance_culture_trigger = yes
+				bureaucratic_government_trigger = yes
+				sassanid_government_trigger = yes
+			}
+		}
+		ROOT = { # Defender
+			independent = yes
+			mercenary = no
+			holy_order = no
+			is_landed = yes
+			primary_title = { higher_tier_than = DUKE }
+			has_romance_culture_trigger = yes
+		}
+	}
+	
+	immediate = {
+		FROM = {
+			save_event_target_as = barbarian_negotiator
+		}
+		ROOT = {
+			save_event_target_as = roman_negotiator
+			set_character_flag = enforcing_demands
+		}
+	}
 
-# Event for Barbarians upon white peace with Romans to allow for opening negotiations
-	# In this case the Barbarians aren't necessarily neighbours with the Romans, could that pose a problem?
+	option = { # Settle in the empire
+		name = WtWSMS_foederati.20.a
+		ai_chance = {
+			#Option A modifiers
+		}
+		event_target:roman_negotiator = {
+			character_event = {
+				id = WtWSMS_foederati.4 # Pick a territory to offer
+			}
+			set_character_flag = offered_territory_flag
+		}
+	}
+	option = { # Settle outside the empire
+		name = WtWSMS_foederati.20.b
+		ai_chance = {
+			#Option B modifiers
+		}
+		event_target:roman_negotiator = {
+			character_event = {
+				id = WtWSMS_foederati.21 # Victorious Roman enforcing demands upon barbarian
+			}
+			set_character_flag = settling_outside_empire_flag
+		}
+	}
+	option = { # Let them be for now
+		name = WtWSMS_foederati.20.c
+		ai_chance = {
+			#Option C modifiers
+		}
+	}
+}
+
+# Victorious Roman enforcing demands upon barbarian
+character_event = {
+    id = WtWSMS_foederati.21
+	desc = WtWSMS_foederati.21.desc
+	picture = GFX_evt_emissary
+	
+    is_triggered_only = yes
+
+	immediate = {
+		event_target:roman_negotiator = {
+			make_tributary = {
+				who = event_target:barbarian_negotiator
+				tributary_type = foederati
+			}
+			custom_tooltip = { text = become_foederati_barbarian_effect_TT }
+			event_target:barbarian_negotiator = {
+				sound_effect = grace_gain
+				add_character_modifier = {
+					name = become_foederati_timer
+					duration = 3600
+				}
+			}
+		}
+	}
+
+	option = { # Welcome!
+		name = WtWSMS_foederati.21.a
+		trigger = {
+			has_character_flag = offered_territory_flag
+		}
+		ai_chance = {
+			#Option A modifiers
+		}
+		event_target:barbarian_negotiator = {
+			any_realm_province = { # Give away old lands
+				limit = {
+					has_province_flag = foederati_give_away
+				}
+				county = {
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = PREV
+						culture = PREV
+						female = no
+						age = 25
+						trait = peasant_leader
+					}
+					new_character = {
+						usurp_title_plus_barony_if_unlanded = PREV
+						set_defacto_liege = THIS
+						set_truce = {
+							who = ROOT
+							years = 10
+						}
+						ROOT = {
+							set_truce = {
+								who = PREV
+								years = 10
+							}
+						}
+					}
+				}
+				clr_province_flag = foederati_give_away
+			}
+			event_target:offered_territory = { # Grant offered land
+				any_de_jure_vassal_title = { # Vassal county of the duchy
+					limit = {
+						tier = COUNT
+					}
+					grant_title	= event_target:barbarian_negotiator
+				}
+			}
+			any_demesne_title = {
+				limit = {
+					OR = { 
+						tier = DUKE
+						tier = KING
+					}
+				}
+				destroy_landed_title = THIS
+			}
+			create_title = { # Create new titular duchy
+				tier = DUKE
+				landless = no
+				temporary = no
+				custom_created = yes
+				culture = event_target:barbarian_negotiator
+				holder = event_target:barbarian_negotiator
+				name = "FOEDERATI_DUCHY"
+				base_title = PREV
+			}
+			if = { # Change government from tribal to feudal
+				limit = {
+					is_tribal = yes
+				}
+				set_government_type	= feudal_government
+			}
+			clr_character_flag = offered_territory_flag
+			clear_event_target = offered_territory
+		}
+	}
+	option = { # Protect the border
+		name = WtWSMS_foederati.21.b
+		trigger = {
+			has_character_flag = settling_outside_empire_flag
+		}
+		ai_chance = {
+			#Option C modifiers
+		}
+		clr_character_flag = settling_outside_empire_flag
+	}
+}
+
+# Barbarians can open foederati negotiations with the Romans after white peace
+character_event = {
+    id = WtWSMS_foederati.22
+	desc = WtWSMS_foederati.22.desc
+	picture = GFX_evt_emissary
+	
+	is_triggered_only = yes # On_actions event
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		FROM = { # Attacker
+			independent = yes
+			mercenary = no
+			holy_order = no
+			is_landed = yes
+			NOR = {
+				primary_title = { higher_tier_than = KING }
+				has_romance_culture_trigger = yes
+				bureaucratic_government_trigger = yes
+				sassanid_government_trigger = yes
+			}
+		}
+		ROOT = { # Defender
+			independent = yes
+			mercenary = no
+			holy_order = no
+			is_landed = yes
+			primary_title = { higher_tier_than = DUKE }
+			has_romance_culture_trigger = yes
+		}
+		independent = yes
+		mercenary = no
+		holy_order = no
+		is_landed = yes
+		NOR = {
+			primary_title = { higher_tier_than = KING }
+			has_romance_culture_trigger = yes
+			bureaucratic_government_trigger = yes
+			sassanid_government_trigger = yes
+		}
+	}
+	
+	immediate = {
+		FROM = {
+			save_event_target_as = barbarian_negotiator
+		}
+		ROOT = {
+			save_event_target_as = roman_negotiator
+		}
+	}
+
+	option = { # Open negotiations
+		name = WtWSMS_foederati.22.a
+		ai_chance = {
+			#Option A modifiers
+		}
+		event_target:roman_negotiator = {
+			character_event = { 
+				id = id = WtWSMS_foederati.1 # Romans accept or refuse to start negotiating with barbarian
+				days = 7
+				random = 3
+			}
+		}
+	}
+	option = { # Refuse to open negotiations
+		name = WtWSMS_foederati.22.b
+		ai_chance = {
+			#Option B modifiers
+		}
+	}
+}
+	
+# Following the death of the foederati ruler, the new one has the choice to leave
+character_event = {
+    id = WtWSMS_foederati.23
+	desc = WtWSMS_foederati.23.desc
+	picture = GFX_evt_emissary
+	
+	is_triggered_only = yes # On_actions event
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		is_playable = yes
+		is_tributary = {
+			type = foederati
+		}
+	}
+	
+	option = { # Remain foederati
+		name = WtWSMS_foederati.23.a
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 3
+				war = yes
+				any_war = { defender = { character = ROOT } }
+			}
+			modifier = {
+				factor = 1.5
+				suzerain = {
+					any_realm_province = { any_neighbor_province = { owner = { same_realm = ROOT } } }
+				}
+			}
+			modifier = {
+				factor = 1.5
+				trait = craven
+			}
+			modifier = {
+				factor = 1.5
+				trait = content
+			}
+			modifier = {
+				factor = 1.5
+				trait = humble
+			}
+			modifier = {
+				factor = 2
+				suzerain = {
+					OR = {
+						dynasty = ROOT
+						is_allied_with = ROOT
+						is_friend = ROOT
+					}
+				}
+			}
+		}
+	}
+	option = { # Leave
+		name = WtWSMS_foederati.23.b
+		trigger = {
+			is_adult = yes
+			NOT = { trait = incapable }
+			prisoner = no
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0
+				suzerain = {
+					any_realm_province = { any_neighbor_province = { owner = { same_realm = ROOT } } }
+					realm_levy_diff = { who = ROOT value = 5000 }
+				}
+			}
+			modifier = {
+				factor = 2
+				suzerain = {
+					is_rival = ROOT
+				}
+			}
+			modifier = {
+				factor = 1.5
+				suzerain = {
+					NOT = {
+						any_realm_province = { any_neighbor_province = { owner = { same_realm = ROOT } } }
+					}
+				}
+			}
+			modifier = {
+				factor = 1.5
+				trait = brave
+			}
+			modifier = {
+				factor = 1.5
+				trait = ambitious
+			}
+			modifier = {
+				factor = 1.5
+				trait = proud
+			}
+			modifier = {
+				factor = 1.5
+				suzerain = { reverse_realm_levy_diff = { who = ROOT value = 10000 } }
+			}
+			modifier = {
+				factor = 1.5
+				suzerain = { reverse_realm_levy_diff = { who = ROOT value = 7500 } }
+			}
+			modifier = {
+				factor = 1.5
+				suzerain = { reverse_realm_levy_diff = { who = ROOT value = 5000 } }
+			}
+			modifier = {
+				factor = 1.25
+				suzerain = { reverse_realm_levy_diff = { who = ROOT value = 1000 } }
+			}
+			modifier = {
+				factor = 0.5
+				suzerain = { realm_levy_diff = { who = ROOT value = 5000 } }
+			}
+			modifier = {
+				factor = 0.5
+				suzerain = { realm_levy_diff = { who = ROOT value = 7500 } }
+			}
+			modifier = {
+				factor = 0.5
+				suzerain = { realm_levy_diff = { who = ROOT value = 10000 } }
+			}
+		}
+		suzerain = { 
+			remove_tributary = PREV
+			character_event = { 
+				id = id = WtWSMS_foederati.24 
+				days = 7
+				random = 3
+			}
+		}
+	}
+}
+
+# Foederati decides to not renew the contract
+character_event = {
+	id = WtWSMS_foederati.24
+	desc = WtWSMS_foederati.24.desc
+	picture = GFX_evt_emissary
+
+	is_triggered_only = yes
+	
+	option = {
+		name = WtWSMS_foederati.24.a # Let them go
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 3
+				war = yes
+			}
+			modifier = {
+				factor = 2
+				NOT = { any_realm_province = { any_neighbor_province = { owner = { same_realm = FROM } } } }
+			}
+			modifier = {
+				factor = 2
+				reverse_realm_levy_diff = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 2
+				reverse_realm_levy_diff = { who = FROM value = 2500 }
+			}
+			modifier = {
+				factor = 1.25
+				trait = patient
+			}
+			modifier = {
+				factor = 1.25
+				trait = humble
+			}
+			modifier = {
+				factor = 1.25
+				trait = content
+			}
+			modifier = {
+				factor = 1.25
+				trait = kind
+			}
+			modifier = {
+				factor = 1.25
+				trait = craven
+			}
+		}
+		opinion = { who = FROM modifier = opinion_outraged years = 10 }
+	}
+	option = {
+		name = WtWSMS_foederati.24.b # Attack them
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 1.5
+				realm_levy_diff = { who = FROM value = 2500 }
+			}
+			modifier = {
+				factor = 1.5
+				realm_levy_diff = { who = FROM value = 5000 }
+			}
+			modifier = {
+				factor = 2
+				realm_levy_diff = { who = FROM value = 10000 }
+			}
+			modifier = {
+				factor = 0
+				reverse_realm_levy_diff = { who = FROM value = 5000 }
+			}
+			modifier = {
+				factor = 1.25
+				trait = wroth
+			}
+			modifier = {
+				factor = 1.25
+				trait = proud
+			}
+			modifier = {
+				factor = 1.25
+				trait = ambitious
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { any_realm_province = { any_neighbor_province = { owner = { same_realm = FROM } } } }
+			}
+		}
+		war = {
+			target = FROM
+			casus_belli = tributary_foederati_cb
+		}
+	}
+}
+
+# Turn foederati into vassal by force diploaction
