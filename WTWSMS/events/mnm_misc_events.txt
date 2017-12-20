@@ -86,8 +86,10 @@ letter_event = {
 
 	#Yes
 	option = {
-		name = EVTOPTA_10001
-		if = { limit = { society_rank < 4 } #todo: Remember you can rankup to 4 in some societies
+		name = {
+			text = EVTOPTA_10001
+		}
+		if = { limit = { society_rank < 4 } #Reminder: Remember you can rankup to 4 in some societies
 			society_rank_up = 1
 		}
 		clr_character_flag = has_sent_request_to_rank_up
@@ -150,6 +152,11 @@ character_event = {
 	}
 
 	immediate = {
+		if = {
+			limit = { prisoner = yes }
+			repeat_event = { id = MNM.10011 days = 90 random = 640 }
+			break = yes
+		}
 		#Assassins
 		if = {
 			limit = {
@@ -529,10 +536,43 @@ character_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		society = {
-			random_society_member = { 
-				limit = { is_society_grandmaster = yes } 
-				character_event = { id = MNM.10022 }
+		if = {
+			limit = { #If YOU are the grandmaster and there are others in the society...
+				OR = {
+					is_society_grandmaster = yes
+					society_rank == 4
+				}
+				any_society_member = {
+					NOT = { character = ROOT }
+					same_society_as = ROOT
+				}
+			}
+			society = {
+				random_society_member = {
+					limit = { NOT = { character = ROOT } }
+					character_event = { id = MNM.10022 } #Have some rando send the kick-out letter!
+				}
+			}
+		}
+		if = {
+			limit = { #If you are NOT the grandmaster/a leader...
+				NOT = { society_rank == 4 }
+			}
+			society = {
+				random_society_member = {
+					limit = {
+						OR = {
+							is_society_grandmaster = yes
+							society_rank == 4
+						}
+					}
+					character_event = { id = MNM.10022 } #Have the Grand Master send the kick-out letter!
+				}
+			}
+		}
+		else = { #If you are the last of your kind...
+			ROOT = {
+				leave_society = yes
 			}
 		}
 	}
@@ -1855,64 +1895,6 @@ character_event = {
 					}
 					200 = {
 						trigger = {
-							can_join_society = secret_religious_society_promethean_pagan
-						}
-						join_society = secret_religious_society_promethean_pagan
-						random_list = { # Artificially increase society influence for balance purposes
-							75 = {
-								modifier = {
-									factor = 0
-									society_influence >= 30
-								}
-								add_mission_succeed_influence_effect = yes
-							}
-							25 = {
-							}
-						}
-						if = {
-							limit = {
-								NOT = {
-									society = {
-										any_society_member = {
-											is_society_grandmaster = yes
-										}
-									}
-								}
-							}
-							set_society_grandmaster = yes
-						}
-					}
-					200 = {
-						trigger = {
-							can_join_society = secret_religious_society_titan_pagan
-						}
-						join_society = secret_religious_society_titan_pagan
-						random_list = { # Artificially increase society influence for balance purposes
-							75 = {
-								modifier = {
-									factor = 0
-									society_influence >= 30
-								}
-								add_mission_succeed_influence_effect = yes
-							}
-							25 = {
-							}
-						}
-						if = {
-							limit = {
-								NOT = {
-									society = {
-										any_society_member = {
-											is_society_grandmaster = yes
-										}
-									}
-								}
-							}
-							set_society_grandmaster = yes
-						}
-					}
-					200 = {
-						trigger = {
 							can_join_society = secret_religious_society_egyptian_pagan
 						}
 						join_society = secret_religious_society_egyptian_pagan
@@ -2100,6 +2082,7 @@ character_event = {
     id = MNM.10040
     hide_window = yes
     is_triggered_only = yes
+    capable_only = yes
     trigger = {
     	society = {
     		any_society_member = {
@@ -2206,6 +2189,7 @@ character_event = {
     id = MNM.10043
     hide_window = yes
     is_triggered_only = yes
+    capable_only = yes
     trigger = {
     	society = {
     		any_society_member = {
@@ -2558,9 +2542,25 @@ character_event = {
 
 	is_triggered_only = yes
 
-	trigger = { is_quest_target = yes }
+	trigger = { 
+		OR = {
+			is_quest_target = yes 
+			any_opinion_modifier_target = {
+				reverse_has_opinion_modifier = { who = ROOT modifier = opinion_infiltration_companion }
+				has_quest = quest_hermetics_infiltrate_laboratory
+			}
+		}
+	}
 
 	immediate = {
+		any_opinion_modifier_target = {
+			limit = {
+				reverse_has_opinion_modifier = { who = ROOT modifier = opinion_infiltration_companion }
+				has_quest = quest_hermetics_infiltrate_laboratory
+			}
+			reverse_remove_opinion = { who = ROOT modifier = opinion_infiltration_companion }
+			character_event = { id = MNM.6992 days = 2 }
+		}
 		any_quester_targeting_this = {
 			limit = {
 				has_character_flag = training_protege
@@ -2606,10 +2606,12 @@ character_event = {
 			has_quest = quest_the_assassins_collect_debt
 			has_quest = quest_the_devil_worshipers_demonic_possession
 			has_quest = quest_hermetic_gather_ingredients
-			has_quest = quest_hermetics_infiltrate_laboratory
 			has_quest = quest_devil_worshipers_corrupt_priest
-			has_quest = quest_the_assassins_protege
+			has_quest = quest_hermetics_infiltrate_laboratory
 			has_quest = quest_hermetics_find_text
+			has_quest = quest_devil_worshipers_corrupt_priest
+			has_quest = quest_the_devil_worshipers_demonic_possession
+			has_quest = quest_the_assassins_protege
 			has_quest = quest_secret_religious_societies_induct_ruler
 			has_quest = quest_secret_religious_societies_sympathy_ruler
 			has_quest = quest_the_devil_worshipers_demonic_impregnation
@@ -2630,7 +2632,6 @@ character_event = {
 			quest_devil_worshipers_corrupt_priest =			{ clr_quest = { id = quest_devil_worshipers_corrupt_priest failure = yes } }
 			quest_the_devil_worshipers_demonic_possession = { clr_quest = { id = quest_the_devil_worshipers_demonic_possession failure = yes } }
 			quest_the_assassins_protege = 					{ clr_quest = { id = quest_the_assassins_protege failure = yes } }
-			quest_hermetics_find_text =						{ clr_quest = { id = quest_hermetics_find_text failure = yes } }
 			quest_secret_religious_societies_induct_ruler = { clr_quest = { id = quest_secret_religious_societies_induct_ruler failure = yes } }
 			quest_secret_religious_societies_sympathy_ruler = { clr_quest = { id = quest_secret_religious_societies_sympathy_ruler failure = yes } }
 			quest_the_devil_worshipers_demonic_impregnation = { clr_quest = { id = quest_the_devil_worshipers_demonic_impregnation failure = yes } }
@@ -2691,7 +2692,6 @@ character_event = {
     desc = EVTDESC_MNM_10024
     picture = GFX_evt_ritual_scroll
     border = GFX_event_normal_frame_religion
-    
     is_triggered_only = yes
 	
     trigger = {
@@ -2821,7 +2821,6 @@ character_event = { #Save game conversion of secret_traits to secret religions
 				secretly_bhakti = { set_secret_religion = bhakti remove_trait = secretly_bhakti }
 				secretly_sramanic = { set_secret_religion = sramanic remove_trait = secretly_sramanic }
 				secretly_confucianism = { set_secret_religion = confucianism remove_trait = secretly_confucianism }
-				secretly_taoism = { set_secret_religion = taoism remove_trait = secretly_taoism }
 				secretly_vasconic_pagan = { set_secret_religion = vasconic_pagan remove_trait = secretly_vasconic_pagan }
 				secretly_vasconic_pagan_reformed = { set_secret_religion = vasconic_pagan_reformed remove_trait = secretly_vasconic_pagan_reformed }
 				secretly_dacian_pagan = { set_secret_religion = dacian_pagan remove_trait = secretly_dacian_pagan }

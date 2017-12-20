@@ -12,7 +12,6 @@ hellenic_county_liberation = {
 	allow_distant = yes
 
 	allowed_to_target_tributaries = no
-	allowed_to_target_suzerains = no
 	
 	infamy_modifier = 0.75
 
@@ -71,6 +70,16 @@ hellenic_county_liberation = {
 			}
 			holder_scope = {
 				is_liege_or_above = FROM
+			}
+		}
+	}
+
+	on_add = {
+		if = {
+			limit = { defender = { is_offmap_governor = offmap_china } }
+			attacker = {  
+				sound_effect = china_angered_emperor
+				detract_grace_super_huge_effect = yes 
 			}
 		}
 	}
@@ -170,6 +179,7 @@ hellenic_county_liberation = {
 		factor = 100
 	}
 }
+
 hellenic_reconquest = {
 	name = CB_NAME_IMPERIAL
 	war_name = WAR_NAME_IMPERIAL
@@ -179,7 +189,6 @@ hellenic_reconquest = {
 	check_de_jure_tier = DUKE # this scans all dejure duchies for the counties which are held by or vassals(or below) of selected character. Only valid if is_permanent = yes
 
 	allowed_to_target_tributaries = no
-	allowed_to_target_suzerains = no
 
 	can_use = {
 		ROOT = {
@@ -282,7 +291,7 @@ hellenic_reconquest = {
 			NOT = { same_realm = FROM }
 		}
 	}
-	
+
 	on_add = {
 		ROOT = {
 			add_character_modifier = { 
@@ -291,15 +300,19 @@ hellenic_reconquest = {
 				hidden = yes
 			}
 		}
+		if = {
+			limit = { defender = { is_offmap_governor = offmap_china } }
+			attacker = {  
+				sound_effect = china_angered_emperor
+				detract_grace_super_huge_effect = yes 
+			}
+		}
 	}
 
 	on_success = {
 		ROOT = {
 			clr_character_flag = called_imperial_reconquest
 			set_character_flag = called_imperial_reconquest
-		}
-		any_attacker = {
-			limit = { character = ROOT }
 			participation_scaled_prestige = 100
 		}
 		any_attacker = {
@@ -328,7 +341,7 @@ hellenic_reconquest = {
 			limit = {
 				holder_scope = { character = FROM }
 			}
-			usurp_title_only = ROOT
+			usurp_title_only = { target = ROOT type = invasion }
 		}
 	}
 
@@ -356,7 +369,7 @@ hellenic_reconquest = {
 			participation_scaled_prestige = 200
 			if = {
 				limit = {
-					religion_group = muslim
+					uses_decadence = yes
 				}
 				participation_scaled_decadence = -10
 			}
@@ -368,7 +381,7 @@ hellenic_reconquest = {
 				participation_scaled_prestige = 200
 				if = {
 					limit = {
-						religion_group = muslim
+						uses_decadence = yes
 					}
 					participation_scaled_decadence = -10
 				}

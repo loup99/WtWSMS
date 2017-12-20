@@ -38,7 +38,7 @@ character_event	= {
 character_event	= {
 	id = misc_event.2
 
-	hide_window = yes	
+	hide_window = yes
 	
 	only_rulers = yes
 	ai = yes
@@ -200,30 +200,6 @@ character_event = {
 	}
 }
 
-# Primogeniture for the Roman Empire
-character_event = {
-	id = misc_event.5
-		
-	hide_window = yes
-	
-	only_playable = yes
-	
-	trigger = {
-		has_law = succ_open_elective
-		has_landed_title = e_roman_empire
-	}
-	
-	mean_time_to_happen = {
-		days = 1
-	}
-	
-	immediate = {
-		e_roman_empire = {
-			succession = primogeniture
-		}
-	}
-}
-
 # Adds not recognised by Senate modifier to all new independent holders of the WRE or Italy
 character_event = {
 	id = misc_event.6
@@ -294,6 +270,43 @@ character_event = {
 		activate_title = {
 			title = d_senate
 			status = no 
+		}
+	}
+}
+
+# Keep Bureaucratic government after switching primary title
+character_event = {
+	id = misc_event.8
+
+	hide_window = yes
+	
+	only_playable = yes
+
+	trigger = {
+		NAND = {
+			controls_religion = yes
+			NOT = {	primary_title = { is_landless_type_title = no }	}
+		}
+		NOT = { religion_group = muslim }
+		NOT = { religion = zoroastrian }
+		is_theocracy = no
+		any_demesne_title = {
+			bureaucratic_government_trigger = yes
+		}
+		any_demesne_title = {
+			sassanid_government_trigger = no
+		}
+		higher_tier_than = duke
+		NOT = { government = bureaucratic_government }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		primary_title = {
+			set_title_flag = adopted_bureaucratic # For bureaucratic government
 		}
 	}
 }

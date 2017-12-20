@@ -217,6 +217,7 @@ decisions = {
 				new_character = {
 					d_imperial_fleet_wre = {
 						grant_title = PREV
+						religion = PREV
 					}
 					set_defacto_liege = ROOT
 					character_event = { id = LEG.1 }
@@ -251,6 +252,7 @@ decisions = {
 				new_character = {
 					d_imperial_fleet_ere = {
 						grant_title = PREV
+						religion = PREV
 					}
 					set_defacto_liege = ROOT
 					character_event = { id = LEG.1 }
@@ -316,9 +318,7 @@ decisions = {
 			character_event = { id = SENATE.600 tooltip = EVTTOOLTIP_SENATE_600 }
 		}
 		
-		revoke_allowed = {
-			always = no
-		}
+		
 		
 		ai_will_do = {
 			factor = 1
@@ -366,9 +366,7 @@ decisions = {
 			character_event = { id = SENATE.601 tooltip = EVTTOOLTIP_SENATE_601 }
 		}
 		
-		revoke_allowed = {
-			always = no
-		}
+		
 		
 		ai_will_do = {
 			factor = 1
@@ -571,6 +569,7 @@ decisions = {
 			NOT = { trait = incapable }
 			NOT = { has_claim = e_roman_empire }
 			has_romance_culture_trigger = yes
+			NOT = { has_global_flag = sole_roman_empire }
 		}
 		allow = {
 			prestige = 1500
@@ -628,8 +627,8 @@ decisions = {
 			set_global_flag = rome_restored
 			narrative_event = { id = ancrel.2220 tooltip = EVTTOOLTIPLoR.20 }
 		}
-		ai_will_do = { 
-			factor = 1 
+		ai_will_do = {
+			factor = 1
 		}
 	}
 	
@@ -643,19 +642,22 @@ decisions = {
 				has_landed_title = e_byzantium
 				has_landed_title = e_roman_empire
 				has_romance_culture_trigger = yes
-			}	
+			}
 			age = 16
 			prisoner = no
 			NOT = { trait = incapable }
 			NOT = { government = bureaucratic_government }
 			NOT = { government = tribal_government }
 			NOT = { government = nomadic_government }
+			primary_title = {
+				NOT = { has_title_flag = adopted_bureaucratic }
+			}
 		}
 		allow = {
 			OR = {
 				primary_title = { has_law = imperial_administration } 
 				primary_title = { has_law = ze_administration_laws_2 } 
-			}	
+			}
 			prestige = 750
 			wealth = 200
 		}
@@ -664,11 +666,11 @@ decisions = {
 			wealth = -200
 			narrative_event = { id = imperial_legacy.39 }
 		}
-		ai_will_do = { 
-			factor = 1 
+		ai_will_do = {
+			factor = 1
 			modifier = {
 				factor = 0.5 # Decrease chance AI will do this unless they hold one of the empires 
-				NOR = { 
+				NOR = {
 					has_landed_title = e_wre
 					has_landed_title = e_byzantium
 					has_landed_title = e_roman_empire
@@ -711,7 +713,7 @@ decisions = {
 			}
 			
 			# Rome's glory
-			custom_tooltip = { 
+			custom_tooltip = {
 				hidden_tooltip = {
 					has_global_flag = circus_maximus_built
 				}
@@ -806,10 +808,10 @@ decisions = {
 		}
 		allow = {
 			# Controls Rome
-			OR = { 
+			OR = {
 				has_landed_title = c_roma
 				any_realm_lord = { 
-					has_landed_title = c_roma 
+					has_landed_title = c_roma
 				}
 			}
 			
@@ -822,7 +824,7 @@ decisions = {
 			}
 			
 			# Ostia, the holding of the Senate, is active
-			is_title_active = b_ostia 
+			is_title_active = b_ostia
 			
 			# Prestige
 			prestige = 1500
@@ -883,9 +885,7 @@ decisions = {
 				}
 			}
 		}
-		revoke_allowed = {
-			always = no
-		}
+		
 		ai_will_do = {
 			factor = 0
 			
@@ -939,9 +939,7 @@ decisions = {
 			character_event = { id = ins.4 days = 2 }
 		}
 		
-		revoke_allowed = {
-			always = no
-		}
+		
 		
 		ai_will_do = {
 			factor = 1
@@ -966,7 +964,7 @@ decisions = {
 	lex_burgundionum = {
 		only_independent = yes
 		
-		is_high_prio = yes 
+		is_high_prio = yes
 		
 		potential = {
 			has_landed_title = k_maxima_sequanorum
@@ -987,7 +985,7 @@ decisions = {
 			narrative_event = { id = hist.14 }
 			set_global_flag = lex_burgundionum
 			religion_authority = {
-				modifier = lex_burgundionum 
+				modifier = lex_burgundionum
 				years = 100
 			}
 		}
@@ -1005,7 +1003,7 @@ decisions = {
 		potential = {
 			OR = {
 				has_landed_title = k_ostrogoths
-				tier = EMPEROR 
+				tier = EMPEROR
 			}
 			OR = {
 				culture = romano_gothic
@@ -1025,10 +1023,8 @@ decisions = {
 			wealth = -100
 			narrative_event = { id = hist.17 }
 			set_global_flag = twothousandth_anniversary_gothic_kingdom
-		}	
-		revoke_allowed = {
-			always = no 
 		}
+
 		ai_will_do = {
 			factor = 1 
 		}
@@ -1107,9 +1103,7 @@ decisions = {
 		effect = {
 			character_event = { id = PATRONS_CHR.1 }
 		}
-		revoke_allowed = {
-			always = no
-		}
+		
 		ai_will_do = {
 			factor = 1
 			modifier = {
