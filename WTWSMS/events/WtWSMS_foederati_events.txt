@@ -27,6 +27,10 @@ character_event = {
 		name = WtWSMS_foederati.1.a
 		ai_chance = {
 			#Option A modifiers
+			# AI should generally accept
+		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.1.a.tooltip # Negotiations begin
 		}
 		event_target:barbarian_negotiator = {
 			character_event = { 
@@ -40,6 +44,10 @@ character_event = {
 		name = WtWSMS_foederati.1.b
 		ai_chance = {
 			#Option B modifiers
+			# In case the Barbarian is menacing or otherwise too hostile
+		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.1.b.tooltip # Negotiations do not start, risk of war
 		}
 		event_target:barbarian_negotiator = {
 			character_event = { 
@@ -63,6 +71,7 @@ character_event = {
 		name = WtWSMS_foederati.2.a
 		ai_chance = {
 			#Option A modifiers
+			# Feeling threatened
 		}
 		event_target:roman_negotiator = {
 			character_event = { 
@@ -76,6 +85,7 @@ character_event = {
 		name = WtWSMS_foederati.2.b
 		ai_chance = {
 			#Option B modifiers
+			# More likely if the Romans are approaching
 		}
 		event_target:roman_negotiator = {
 			character_event = { 
@@ -100,6 +110,9 @@ character_event = {
 		ai_chance = {
 			#Option A modifiers
 		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.3.a.tooltip # Offering territory
+		}
 		event_target:roman_negotiator = {
 			character_event = { 
 				id = WtWSMS_foederati.4 # Pick a territory to offer
@@ -112,6 +125,9 @@ character_event = {
 		ai_chance = {
 			#Option B modifiers
 		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.3.b.tooltip # Promising territory
+		}
 		event_target:roman_negotiator = {
 			character_event = { 
 				id = WtWSMS_foederati.7 # Pick a territory to promise
@@ -123,6 +139,9 @@ character_event = {
 		name = WtWSMS_foederati.3.c
 		ai_chance = {
 			#Option C modifiers
+		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.3.c.tooltip # Settle outside counter-offer
 		}
 		event_target:barbarian_negotiator = {
 			character_event = { 
@@ -176,8 +195,8 @@ character_event = {
 				has_character_flag = enforcing_demands
 			}
 		}
-		ai_chance = {
-			#Option A modifiers
+		custom_tooltip = {
+			text = WtWSMS_foederati.4.a.tooltip # Proposing offered_territory to barbarian_negotiator
 		}
 		event_target:barbarian_negotiator = {
 			character_event = { 
@@ -192,8 +211,8 @@ character_event = {
 		trigger = {
 			has_character_flag = enforcing_demands
 		}
-		ai_chance = {
-			#Option B modifiers
+		custom_tooltip = {
+			text = WtWSMS_foederati.4.b.tooltip # Settle barbarian_negotiator in offered_territory
 		}
 		event_target:roman_negotiator = {
 			character_event = { 
@@ -203,8 +222,11 @@ character_event = {
 	}
 	option = { # Find another one than the suggested, reloads same event
 		name = WtWSMS_foederati.4.c
-		ai_chance = {
-			#Option C modifiers
+		trigger = {
+			ai = no
+		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.4.c.tooltip # Look for another territory
 		}
 		event_target:roman_negotiator = {
 			character_event = { 
@@ -227,6 +249,9 @@ character_event = {
 		name = WtWSMS_foederati.5.a
 		ai_chance = {
 			#Option A modifiers
+		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.5.a.tooltip # Negotiations successful
 		}
 		event_target:barbarian_negotiator = {
 			character_event = { 				
@@ -252,6 +277,9 @@ character_event = {
 		ai_chance = {
 			#Option B modifiers
 		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.5.b.tooltip # Offer refused
+		}
 		clear_event_target = offered_territory
 		event_target:roman_negotiator = {
 			character_event = { 
@@ -276,6 +304,9 @@ character_event = {
 		ai_chance = {
 			#Option A modifiers
 		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.6.a.tooltip # Offer another territory
+		}
 		event_target:roman_negotiator = {
 			character_event = { 
 				id = WtWSMS_foederati.4 # Pick a territory to offer
@@ -286,6 +317,9 @@ character_event = {
 		name = WtWSMS_foederati.6.b
 		ai_chance = {
 			#Option B modifiers
+		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.6.b.tooltip # Negotiations break
 		}
 		event_target:barbarian_negotiator = {
 			character_event = { 
@@ -1464,6 +1498,7 @@ character_event = {
 			}
 		}
 	}
+	# Renegotiate option?
 	option = { # Leave
 		name = WtWSMS_foederati.23.b
 		trigger = {
@@ -1538,7 +1573,7 @@ character_event = {
 		suzerain = { 
 			remove_tributary = PREV
 			character_event = { 
-				id = id = WtWSMS_foederati.24 
+				id = WtWSMS_foederati.24 
 				days = 7
 				random = 3
 			}
@@ -1642,3 +1677,114 @@ character_event = {
 }
 
 # Turn foederati into vassal by force diploaction
+character_event = {
+    id = WtWSMS_foederati.25
+	desc = WtWSMS_foederati.25.desc
+	picture = GFX_evt_emissary
+	
+    is_triggered_only = yes
+
+	option = { # Vassalise
+		name = WtWSMS_foederati.25.a
+		ai_chance = {
+			#Option A modifiers
+		}
+		set_defacto_liege = FROM
+		suzerain = {
+			remove_tributary = PREV
+			character_event = {
+				id = WtWSMS_foederati.26 # Foederati accepts to become vassal
+				days = 7
+				random = 3
+			} 
+		}
+	}
+	option = { # Refuse 
+		name = WtWSMS_foederati.25.b
+		ai_chance = {
+			#Option B modifiers
+		}
+		suzerain = {
+			remove_tributary = PREV
+			character_event = { 
+				id = WtWSMS_foederati.27 # Foederati refuses to accept demands
+				days = 7
+				random = 3
+			} 
+		}
+	}
+}
+
+# Foederati accepts to become vassal
+character_event = {
+    id = WtWSMS_foederati.26
+	desc = WtWSMS_foederati.26.desc
+	picture = GFX_evt_emissary
+	
+    is_triggered_only = yes
+
+	option = { # Excellent!
+		name = WtWSMS_foederati.26.a
+		prestige = 100
+	}
+}
+
+# Foederati refuses to accept demands
+character_event = {
+    id = WtWSMS_foederati.27
+	desc = WtWSMS_foederati.27.desc
+	picture = GFX_evt_emissary
+	
+    is_triggered_only = yes
+
+	option = { # War it is
+		name = WtWSMS_foederati.27.a
+		ai_chance = {
+			#Option A modifiers
+		}
+		if = {
+			limit = {
+				has_dlc = Jade_Dragon
+			}
+			war = {
+				target = FROM
+				casus_belli = force_vassalization
+			}
+		}
+		else = {
+			war = {
+				target = FROM
+				casus_belli = pagan_subjugation # To test
+			}
+		}
+	}
+	option = { # Accept their independence
+		name = WtWSMS_foederati.27.b
+		ai_chance = {
+			#Option B modifiers
+			# If foederati is unusually mighty
+		}
+		prestige = -100
+		FROM = { 
+			character_event = { 
+				id = WtWSMS_foederati.28 # Foederati refuses to accept demands
+				days = 7
+				random = 3
+			}
+		}
+	}
+}
+
+# Former suzerain concedes
+character_event = {
+    id = WtWSMS_foederati.28
+	desc = WtWSMS_foederati.28.desc
+	picture = GFX_evt_emissary
+	
+    is_triggered_only = yes
+
+	option = { # Weaklings!
+		name = WtWSMS_foederati.28.a
+		prestige = 50
+	}
+}

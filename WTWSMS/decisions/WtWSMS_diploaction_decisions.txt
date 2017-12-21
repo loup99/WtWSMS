@@ -111,6 +111,10 @@ targetted_decisions = {
 				has_romance_culture_trigger = yes
 				bureaucratic_government_trigger = yes
 				sassanid_government_trigger = yes
+				is_tributary = { 
+					type = foederati 
+					suzerain = FROM 
+				}
 			}
 		}
 		
@@ -198,6 +202,10 @@ targetted_decisions = {
 				has_romance_culture_trigger = yes
 				bureaucratic_government_trigger = yes
 				sassanid_government_trigger = yes
+				is_tributary = { 
+					type = foederati 
+					suzerain = FROM 
+				}
 			}
 		}
 		
@@ -256,6 +264,45 @@ targetted_decisions = {
 				factor = 3 
 			}
 			# TODO: AI should not start this unless there is pressure from the outside that warrant an alliance with Rome
+		}
+	}
+
+	force_integrate_foederati = { # A diploaction to turn foederati into vassal by force
+		only_independent = yes
+		ai_check_interval = 12
+		from_potential = {
+			independent = yes
+			mercenary = no
+			holy_order = no
+			is_landed = yes
+			primary_title = { higher_tier_than = DUKE }
+			has_romance_culture_trigger = yes
+		}
+		potential = {
+			is_tributary = {
+				type = foederati 
+				suzerain = FROM 
+			}
+		}
+		allow = {
+			ROOT = { 
+				war = no
+				prisoner = no
+				NOT = { trait = incapable }
+				is_inaccessible_trigger = no
+			}
+			FROM = { 
+				war = no 
+				prisoner = no
+				NOT = { trait = incapable }
+				is_inaccessible_trigger = no
+			}
+		}
+		effect = {
+			character_event = { id = WtWSMS_foederati.25 } 
+		}
+		ai_will_do = {
+			factor = 0
 		}
 	}
 }
