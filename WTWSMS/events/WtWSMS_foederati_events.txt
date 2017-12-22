@@ -1,10 +1,16 @@
 ###############################
 # Foederati events
 #
-# 
+# Written by Loup
+#
+# WtWSMS_foederati.1 -> WtWSMS_foederati.28
 ###############################
 
 namespace = WtWSMS_foederati
+
+###############################
+# Foederati negotiations
+###############################
 
 # Romans accept or refuse to start negotiating with barbarian
 character_event = {
@@ -249,6 +255,7 @@ character_event = {
 		name = WtWSMS_foederati.5.a
 		ai_chance = {
 			#Option A modifiers
+			# Less likely to accept if counter-offer
 		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.5.a.tooltip # Negotiations successful
@@ -276,6 +283,7 @@ character_event = {
 		name = WtWSMS_foederati.5.b
 		ai_chance = {
 			#Option B modifiers
+			# More likely to refuse if counter-offer
 		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.5.b.tooltip # Offer refused
@@ -372,8 +380,8 @@ character_event = {
 
 	option = { # Pick suggested territory
 		name = WtWSMS_foederati.7.a
-		ai_chance = {
-			#Option A modifiers
+		custom_tooltip = {
+			text = WtWSMS_foederati.7.a.tooltip # Promising promised_territory to barbarian_negotiator
 		}
 		event_target:barbarian_negotiator = {
 			character_event = { 
@@ -385,8 +393,11 @@ character_event = {
 	}
 	option = { # Find another one than the suggested, reloads same event
 		name = WtWSMS_foederati.7.b
-		ai_chance = {
-			#Option B modifiers
+		trigger = {
+			ai = no
+		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.7.b.tooltip # Look for another territory
 		}
 		event_target:roman_negotiator = {
 			character_event = { 
@@ -409,6 +420,10 @@ character_event = {
 		name = WtWSMS_foederati.8.a
 		ai_chance = {
 			#Option A modifiers
+			# Less likely to accept if counter-offer
+		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.8.a.tooltip # Negotiations successful
 		}
 		event_target:barbarian_negotiator = {
 			character_event = { 				
@@ -433,6 +448,10 @@ character_event = {
 		name = WtWSMS_foederati.8.b
 		ai_chance = {
 			#Option B modifiers
+			# More likely to refuse if counter-offer
+		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.5.b.tooltip # Offer refused
 		}
 		clear_event_target = promised_territory
 		event_target:roman_negotiator = {
@@ -458,6 +477,9 @@ character_event = {
 		ai_chance = {
 			#Option A modifiers
 		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.9.a.tooltip # Promise another territory
+		}
 		event_target:roman_negotiator = {
 			character_event = { 
 				id = WtWSMS_foederati.7 # Pick a territory to promise
@@ -468,6 +490,9 @@ character_event = {
 		name = WtWSMS_foederati.9.b
 		ai_chance = {
 			#Option B modifiers
+		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.9.b.tooltip # Negotiations break
 		}
 		event_target:barbarian_negotiator = {
 			character_event = { 
@@ -497,6 +522,9 @@ character_event = {
 		ai_chance = {
 			#Option A modifiers
 		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.10.a.tooltip # Negotiations successful
+		}
 		event_target:barbarian_negotiator = {
 			character_event = { 				
 				id = WtWSMS_foederati.13 # Negotiations successful, with both parties having accepted
@@ -514,6 +542,9 @@ character_event = {
 		name = WtWSMS_foederati.10.b
 		ai_chance = {
 			#Option B modifiers
+		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.10.b.tooltip # Negotiations break
 		}
 		event_target:barbarian_negotiator = {
 			character_event = { 
@@ -543,6 +574,9 @@ character_event = {
 		ai_chance = {
 			#Option A modifiers
 		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.11.a.tooltip # Settle outside
+		}
 		event_target:roman_negotiator = {
 			set_character_flag = settling_outside_empire_flag
 		}		
@@ -564,11 +598,15 @@ character_event = {
 		ai_chance = {
 			#Option B modifiers
 		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.11.b.tooltip # Offering territory counter-offer
+		}
 		event_target:roman_negotiator = {
 			character_event = { 
 				id = WtWSMS_foederati.4 # Pick a territory to offer
 			}			
 			set_character_flag = offered_territory_flag
+			set_character_flag = counter_offer
 		}
 	}
 	option = { # Refuse it, promise a territory to settle within the empire
@@ -581,6 +619,7 @@ character_event = {
 				id = WtWSMS_foederati.7 # Pick a territory to promise
 			}
 			set_character_flag = promised_territory_to_@event_target:barbarian_negotiator_flag
+			set_character_flag = counter_offer
 		}
 	}
 }
@@ -631,7 +670,7 @@ character_event = {
 		ai_chance = {
 			#Option A modifiers
 		}
-		# Nothing in particular for now
+		prestige = -50
 	}
 	option = { # Romans declare war upon Barbarians impose their demands after failed negotiations
 		name = WtWSMS_foederati.12.b
@@ -640,6 +679,9 @@ character_event = {
 		}
 		ai_chance = {
 			#Option B modifiers
+		}	
+		custom_tooltip = {
+			text = WtWSMS_foederati.12.b.tooltip # War
 		}
 		war = {
 			target = event_target:barbarian_negotiator 
@@ -648,7 +690,7 @@ character_event = {
 		}
 	}
 	option = { # Barbarians declare war upon Romans to impose their demands after failed negotiations
-		name = WtWSMS_foederati.12.c		
+		name = WtWSMS_foederati.12.c
 		trigger = {
 			any_neighbor_independent_ruler = { # Is Barbarian
 				primary_title = { higher_tier_than = DUKE }
@@ -659,6 +701,9 @@ character_event = {
 		}
 		ai_chance = {
 			#Option C modifiers
+		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.12.c.tooltip # War
 		}
 		if = {
 			limit = {
@@ -1440,7 +1485,11 @@ character_event = {
 		}
 	}
 }
-	
+
+###############################
+# Death of foederati
+###############################
+
 # Following the death of the foederati ruler, the new one has the choice to leave
 character_event = {
     id = WtWSMS_foederati.23
@@ -1675,6 +1724,10 @@ character_event = {
 		}
 	}
 }
+
+###############################
+# Foederati vassalisation
+###############################
 
 # Turn foederati into vassal by force diploaction
 character_event = {
