@@ -772,6 +772,7 @@ character_event = {
 		ai_chance = {
 			#Option A modifiers
 		}
+		prestige = 50
 		event_target:roman_negotiator = {
 			character_event = { 
 				id = WtWSMS_foederati.14 # Becomes foederati after sucessful negotiations and gets land
@@ -794,7 +795,6 @@ character_event = {
 				who = event_target:barbarian_negotiator
 				tributary_type = foederati
 			}
-			custom_tooltip = { text = become_foederati_barbarian_effect_TT }
 			event_target:barbarian_negotiator = {
 				sound_effect = grace_gain
 				add_character_modifier = {
@@ -812,6 +812,9 @@ character_event = {
 		}
 		ai_chance = {
 			#Option A modifiers
+		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.14.a.tooltip # Grant land
 		}
 		event_target:barbarian_negotiator = {
 			any_realm_province = { # Give away old lands
@@ -890,6 +893,9 @@ character_event = {
 		ai_chance = {
 			#Option B modifiers
 		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.14.b.tooltip # Promised land
+		}
 		event_target:barbarian_negotiator = { 
 			character_event = { 				
 				id = WtWSMS_foederati.15 # Barbarian reminded of promise
@@ -905,6 +911,9 @@ character_event = {
 		}
 		ai_chance = {
 			#Option C modifiers
+		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.14.c.tooltip # Outside empire
 		}
 		clr_character_flag = settling_outside_empire_flag
 	}
@@ -923,6 +932,9 @@ character_event = {
 		ai_chance = {
 			#Option A modifiers
 		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.15.a.tooltip # Remind Roman
+		}
 		event_target:roman_negotiator = {
 			character_event = { 				
 				id = WtWSMS_foederati.16 # Barbarian reminds Roman of promise
@@ -936,6 +948,10 @@ character_event = {
 		trigger = {
 			ai = no # Too easy otherwise to trick AI
 		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.15.b.tooltip # Wait and see
+		}
+		prestige = -50
 		event_target:barbarian_negotiator = { 
 			character_event = { 				
 				id = WtWSMS_foederati.15 # Barbarian reminded of promise
@@ -957,6 +973,9 @@ character_event = {
 		name = WtWSMS_foederati.16.a
 		ai_chance = {
 			#Option A modifiers
+		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.16.a.tooltip # Grant land
 		}
 		event_target:barbarian_negotiator = {
 			any_realm_province = { # Give away old lands
@@ -1023,14 +1042,19 @@ character_event = {
 				}
 				set_government_type	= feudal_government
 			}
-			clr_character_flag = promised_territory_to_@event_target:barbarian_negotiator_flag
 			clear_event_target = promised_territory
+		}
+		event_target:roman_negotiator = {
+			clr_character_flag = promised_territory_to_@event_target:barbarian_negotiator_flag
 		}
 	}
 	option = { # Attempt to delay further
 		name = WtWSMS_foederati.16.b
 		ai_chance = {
 			#Option B modifiers
+		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.16.b.tooltip # Delay further
 		}
 		event_target:barbarian_negotiator = {
 			character_event = { 				
@@ -1041,9 +1065,12 @@ character_event = {
 		}
 	}
 	option = { # Break promise
-		name = WtWSMS_foederati.16.b
+		name = WtWSMS_foederati.16.c
 		ai_chance = {
 			#Option B modifiers
+		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.16.c.tooltip # Break pledge
 		}
 		event_target:barbarian_negotiator = {
 			character_event = { 				
@@ -1051,6 +1078,10 @@ character_event = {
 				days = 7
 				random = 3
 			}
+			clear_event_target = promised_territory
+		}
+		event_target:roman_negotiator = {
+			clr_character_flag = promised_territory_to_@event_target:barbarian_negotiator_flag
 		}
 	}
 	option = { # War to impose concessions
@@ -1058,10 +1089,16 @@ character_event = {
 		ai_chance = {
 			#Option C modifiers
 		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.16.d.tooltip # War
+		}
 		war = {
 			target = event_target:barbarian_negotiator 
 			casus_belli = tributary_foederati_cb 
 			infamy = 0
+		}
+		event_target:roman_negotiator = {
+			remove_tributary = event_target:barbarian_negotiator
 		}
 	}
 }
@@ -1075,7 +1112,10 @@ character_event = {
     is_triggered_only = yes
 
 	option = { # Then war it is
-		name = WtWSMS_foederati.17.a
+		name = WtWSMS_foederati.17.a		
+		custom_tooltip = {
+			text = WtWSMS_foederati.17.a.tooltip # War
+		}
 		if = {
 			limit = {
 				AND = {
@@ -1111,6 +1151,9 @@ character_event = {
 				casus_belli = tribal_invasion
 				infamy = 0
 			}
+		}
+		event_target:roman_negotiator = {
+			remove_tributary = event_target:barbarian_negotiator
 		}
 	}
 }
@@ -1127,6 +1170,9 @@ character_event = {
 		name = WtWSMS_foederati.18.a
 		ai_chance = {
 			#Option A modifiers
+		}	
+		custom_tooltip = {
+			text = WtWSMS_foederati.18.a.tooltip # War
 		}
 		if = {
 			limit = {
@@ -1164,12 +1210,19 @@ character_event = {
 				infamy = 0
 			}
 		}
+		event_target:roman_negotiator = {
+			remove_tributary = event_target:barbarian_negotiator
+		}
 	}
 	option = { # Wait and see
 		name = WtWSMS_foederati.18.b
 		ai_chance = {
 			#Option A modifiers
 		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.18.b.tooltip # Wait and see
+		}		
+		prestige = -50
 		event_target:barbarian_negotiator = { 
 			character_event = { 				
 				id = WtWSMS_foederati.15 # Barbarian reminded of promise
@@ -1312,7 +1365,6 @@ character_event = {
 				who = event_target:barbarian_negotiator
 				tributary_type = foederati
 			}
-			custom_tooltip = { text = become_foederati_barbarian_effect_TT }
 			event_target:barbarian_negotiator = {
 				sound_effect = grace_gain
 				add_character_modifier = {
