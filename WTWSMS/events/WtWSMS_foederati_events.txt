@@ -34,6 +34,7 @@ character_event = {
 		ai_chance = {
 			#Option A modifiers
 			# AI should generally accept
+			factor = 75
 		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.1.a.tooltip # Negotiations begin
@@ -50,16 +51,29 @@ character_event = {
 		name = WtWSMS_foederati.1.b
 		ai_chance = {
 			# In case the Barbarian is menacing or otherwise too hostile
-			factor = FILLME
+			factor = 25
 			modifier = {
-				factor = FILLME
+				factor = 1.5
 				event_target:barbarian_negotiator = {
-					OR = {
-						trait = cruel
-						trait = impaler
-						trait = zealous
-						infamy = 50
-					}
+					trait = cruel
+				}
+			}
+			modifier = {
+				factor = 1.5
+				event_target:barbarian_negotiator = {
+					trait = impaler
+				}
+			}
+			modifier = {
+				factor = 1.5
+				event_target:barbarian_negotiator = {
+					trait = zealous
+				}
+			}
+			modifier = {
+				factor = 2
+				event_target:barbarian_negotiator = {
+					infamy = 50
 				}
 			}
 		}
@@ -88,21 +102,33 @@ character_event = {
 		name = WtWSMS_foederati.2.a
 		ai_chance = {
 			# Feeling threatened
-			factor = FILLME
+			factor = 75
 			modifier = {
-				factor = FILLME
+				factor = 2
 				event_target:barbarian_negotiator = {
 					any_neighbor_independent_ruler = {
-						OR = {
-							relative_realm_size = {
-								who = PREV
-								size = 2
-							}
-							infamy = 50
-							relative_power_including_allies_attacker = { 
-								who = PREV
-								power = 2
-							}
+						relative_realm_size = {
+							who = PREV
+							size = 2
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				event_target:barbarian_negotiator = {
+					any_neighbor_independent_ruler = {
+						infamy = 50
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				event_target:barbarian_negotiator = {
+					any_neighbor_independent_ruler = {
+						relative_power_including_allies_attacker = { 
+							who = PREV
+							power = 2
 						}
 					}
 				}
@@ -120,6 +146,7 @@ character_event = {
 		name = WtWSMS_foederati.2.b
 		ai_chance = {
 			#Option B modifiers
+			factor = 25
 			# More likely if the Romans are approaching
 		}
 		event_target:roman_negotiator = {
@@ -1874,15 +1901,11 @@ character_event = {
 	option = { # War it is
 		name = WtWSMS_foederati.27.a
 		ai_chance = {
-			factor = FILLME
+			factor = 90
 			modifier = {
-				factor = FILLME
+				factor = 1.5
 				event_target:roman_negotiator = {
-					OR = {
-						trait = cruel
-						trait = impaler
-						trait = arbitrary
-					}
+					trait = ambitious
 				}
 			}
 		}
@@ -1907,20 +1930,25 @@ character_event = {
 		ai_chance = {
 			#Option B modifiers
 			# If foederati is unusually mighty
-			factor = FILLME
+			factor = 10
 			modifier = {
-				factor = FILLME
+				factor = 2
 				event_target:roman_negotiator = {
 					event_target:barbarian_negotiator = {
-						OR = {
-							relative_realm_size = {
-								who = PREV
-								size = 1
-							}
-							relative_power = { 
-								who = PREV
-								power = 1
-							}
+						relative_realm_size = {
+							who = PREV
+							size = 1
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				event_target:roman_negotiator = {
+					event_target:barbarian_negotiator = {
+						relative_power = { 
+							who = PREV
+							power = 1
 						}
 					}
 				}
