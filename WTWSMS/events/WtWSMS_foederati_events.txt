@@ -49,7 +49,6 @@ character_event = {
     option = { # No, negotiations break
 		name = WtWSMS_foederati.1.b
 		ai_chance = {
-			#Option B modifiers
 			# In case the Barbarian is menacing or otherwise too hostile
 			factor = FILLME
 			modifier = {
@@ -88,7 +87,6 @@ character_event = {
 	option = { # Yes
 		name = WtWSMS_foederati.2.a
 		ai_chance = {
-			#Option A modifiers
 			# Feeling threatened
 			factor = FILLME
 			modifier = {
@@ -1876,7 +1874,17 @@ character_event = {
 	option = { # War it is
 		name = WtWSMS_foederati.27.a
 		ai_chance = {
-			#Option A modifiers
+			factor = FILLME
+			modifier = {
+				factor = FILLME
+				event_target:roman_negotiator = {
+					OR = {
+						trait = cruel
+						trait = impaler
+						trait = arbitrary
+					}
+				}
+			}
 		}
 		if = {
 			limit = {
@@ -1899,6 +1907,24 @@ character_event = {
 		ai_chance = {
 			#Option B modifiers
 			# If foederati is unusually mighty
+			factor = FILLME
+			modifier = {
+				factor = FILLME
+				event_target:roman_negotiator = {
+					event_target:barbarian_negotiator = {
+						OR = {
+							relative_realm_size = {
+								who = PREV
+								size = 1
+							}
+							relative_power = { 
+								who = PREV
+								power = 1
+							}
+						}
+					}
+				}
+			}
 		}
 		prestige = -100
 		FROM = { 
