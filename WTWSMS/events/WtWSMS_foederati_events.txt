@@ -51,6 +51,18 @@ character_event = {
 		ai_chance = {
 			#Option B modifiers
 			# In case the Barbarian is menacing or otherwise too hostile
+			factor = FILLME
+			modifier = {
+				factor = FILLME
+				event_target:barbarian_negotiator = {
+					OR = {
+						trait = cruel
+						trait = impaler
+						trait = zealous
+						infamy = 50
+					}
+				}
+			}
 		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.1.b.tooltip # Negotiations do not start, risk of war
@@ -78,6 +90,25 @@ character_event = {
 		ai_chance = {
 			#Option A modifiers
 			# Feeling threatened
+			factor = FILLME
+			modifier = {
+				factor = FILLME
+				event_target:barbarian_negotiator = {
+					any_neighbor_independent_ruler = {
+						OR = {
+							relative_realm_size = {
+								who = PREV
+								size = 2
+							}
+							infamy = 50
+							relative_power_including_allies_attacker = { 
+								who = PREV
+								power = 2
+							}
+						}
+					}
+				}
+			}
 		}
 		event_target:roman_negotiator = {
 			character_event = { 
