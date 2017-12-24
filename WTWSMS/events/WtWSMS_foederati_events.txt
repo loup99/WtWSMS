@@ -377,8 +377,7 @@ character_event = {
 	option = { # Accept the offer
 		name = WtWSMS_foederati.5.a
 		ai_chance = {
-			#Option A modifiers
-			# Less likely to accept if counter-offer
+			factor = 75
 		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.5.a.tooltip # Negotiations successful
@@ -405,8 +404,14 @@ character_event = {
 	option = { # Refuse the offer
 		name = WtWSMS_foederati.5.b
 		ai_chance = {
-			#Option B modifiers
 			# More likely to refuse if counter-offer
+			factor = 25
+			modifier = {
+				factor = 2
+				event_target:roman_negotiator = {
+					has_character_flag = counter_offer
+				}
+			}
 		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.5.b.tooltip # Offer refused
@@ -554,8 +559,7 @@ character_event = {
 	option = { # Accept the promise
 		name = WtWSMS_foederati.8.a
 		ai_chance = {
-			#Option A modifiers
-			# Less likely to accept if counter-offer
+			factor = 60
 		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.8.a.tooltip # Negotiations successful
@@ -582,8 +586,14 @@ character_event = {
 	option = { # Refuse the promise
 		name = WtWSMS_foederati.8.b
 		ai_chance = {
-			#Option B modifiers
+			factor = 40
 			# More likely to refuse if counter-offer
+			modifier = {
+				factor = 2
+				event_target:roman_negotiator = {
+					has_character_flag = counter_offer
+				}
+			}
 		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.5.b.tooltip # Offer refused
@@ -816,6 +826,7 @@ character_event = {
 				who = event_target:barbarian_negotiator
 			}
 			clr_character_flag = roman_initiated_negotiations
+			clr_character_flag = counter_offer
 		}
 		event_target:barbarian_negotiator = {
 			opinion = {
@@ -1000,6 +1011,7 @@ character_event = {
 				}
 			}
 			clr_character_flag = roman_initiated_negotiations
+			clr_character_flag = counter_offer
 		}
 	}
 
@@ -1161,8 +1173,16 @@ character_event = {
 	option = { # Grant promised territory
 		name = WtWSMS_foederati.16.a
 		ai_chance = {
-			#Option A modifiers
-		}
+            factor = 25
+            modifier = {
+                factor = 1.25
+                trait = honest
+            }
+            modifier = {
+                factor = 1.25
+                trait = content
+            }
+        }
 		custom_tooltip = {
 			text = WtWSMS_foederati.16.a.tooltip # Grant land
 		}
@@ -1240,8 +1260,12 @@ character_event = {
 	option = { # Attempt to delay further
 		name = WtWSMS_foederati.16.b
 		ai_chance = {
-			#Option B modifiers
-		}
+            factor = 25
+            modifier = {
+                factor = 1.25
+                trait = socializer
+            }
+        }
 		custom_tooltip = {
 			text = WtWSMS_foederati.16.b.tooltip # Delay further
 		}
@@ -1256,8 +1280,12 @@ character_event = {
 	option = { # Break promise
 		name = WtWSMS_foederati.16.c
 		ai_chance = {
-			#Option B modifiers
-		}
+            factor = 25
+            modifier = {
+                factor = 1.25
+                trait = deceitful
+            }
+        }
 		custom_tooltip = {
 			text = WtWSMS_foederati.16.c.tooltip # Break pledge
 		}
@@ -1276,8 +1304,16 @@ character_event = {
 	option = { # War to impose concessions
 		name = WtWSMS_foederati.16.d
 		ai_chance = {
-			#Option C modifiers
-		}
+            factor = 25
+            modifier = {
+                factor = 1.25
+                trait = brave
+            }
+			modifier = {
+                factor = 1.25
+                trait = wroth
+            }
+        }
 		custom_tooltip = {
 			text = WtWSMS_foederati.16.d.tooltip # War
 		}
@@ -1358,8 +1394,12 @@ character_event = {
 	option = { # Then war it is
 		name = WtWSMS_foederati.18.a
 		ai_chance = {
-			#Option A modifiers
-		}	
+            factor = 45
+            modifier = {
+                factor = 1.25
+                trait = wroth
+            }
+        }	
 		custom_tooltip = {
 			text = WtWSMS_foederati.18.a.tooltip # War
 		}
@@ -1406,8 +1446,12 @@ character_event = {
 	option = { # Wait and see
 		name = WtWSMS_foederati.18.b
 		ai_chance = {
-			#Option A modifiers
-		}
+            factor = 55
+            modifier = {
+                factor = 1.25
+                trait = patient
+            }
+        }
 		custom_tooltip = {
 			text = WtWSMS_foederati.18.b.tooltip # Wait and see
 		}		
@@ -1462,7 +1506,7 @@ character_event = {
 		ai_chance = {
 			factor = 30
             modifier = {
-                factor = 2
+                factor = 1.25
                 trait = proud
             }
 		}
@@ -1526,7 +1570,7 @@ character_event = {
 	option = { # Settle in the empire
 		name = WtWSMS_foederati.20.a
 		ai_chance = {
-			#Option A modifiers
+			factor = 20
 		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.20.a.tooltip # Granting territory
@@ -1541,7 +1585,7 @@ character_event = {
 	option = { # Settle outside the empire
 		name = WtWSMS_foederati.20.b
 		ai_chance = {
-			#Option B modifiers
+			factor = 60
 		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.20.b.tooltip # Settle outside
@@ -1556,7 +1600,7 @@ character_event = {
 	option = { # Let them be for now
 		name = WtWSMS_foederati.20.c
 		ai_chance = {
-			#Option C modifiers
+			factor = 20
 		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.20.c.tooltip # Nothing happens
