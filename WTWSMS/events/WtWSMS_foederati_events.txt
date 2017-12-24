@@ -1966,10 +1966,18 @@ character_event = {
 	
     is_triggered_only = yes
 
+	immediate = {
+		save_event_target_as = foederati # Used for localisation
+	}
+	
 	option = { # Vassalise
 		name = WtWSMS_foederati.25.a
 		ai_chance = {
 			#Option A modifiers
+			# Rather unlikely
+		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.25.a.tooltip # Becomes vassal
 		}
 		set_defacto_liege = FROM
 		suzerain = {
@@ -1985,6 +1993,9 @@ character_event = {
 		name = WtWSMS_foederati.25.b
 		ai_chance = {
 			#Option B modifiers
+		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.25.b.tooltip # Refuses to become vassal
 		}
 		suzerain = {
 			remove_tributary = PREV
@@ -2030,6 +2041,9 @@ character_event = {
 				}
 			}
 		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.27.a.tooltip # War
+		}
 		if = {
 			limit = {
 				has_dlc = Jade_Dragon
@@ -2049,9 +2063,8 @@ character_event = {
 	option = { # Accept their independence
 		name = WtWSMS_foederati.27.b
 		ai_chance = {
-			#Option B modifiers
-			# If foederati is unusually mighty
 			factor = 10
+			# If foederati is unusually mighty
 			modifier = {
 				factor = 2
 				event_target:roman_negotiator = {
@@ -2075,10 +2088,13 @@ character_event = {
 				}
 			}
 		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.27.b.tooltip # Accept independence
+		}
 		prestige = -100
 		FROM = { 
 			character_event = { 
-				id = WtWSMS_foederati.28 # Foederati refuses to accept demands
+				id = WtWSMS_foederati.28 # Former suzerain concedes
 				days = 7
 				random = 3
 			}
