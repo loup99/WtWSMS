@@ -145,16 +145,24 @@ targetted_decisions = {
 				NOT = {
 					is_tributary = yes
 				}
+				custom_tooltip = {
+					text = get_foederati_roman_cooldown_tt
+					NOT = { has_character_modifier = get_foederati_timer }
+				}
 				prisoner = no
 				NOT = { trait = incapable }
 				is_inaccessible_trigger = no
-				NOT = { has_character_flag = sent_begin_foederati_negotiations_to_@ROOT }
 			}
 		}
 		
 		effect = {
 			character_event = { id = WtWSMS_foederati.19 } # Barbarian accept or refuse to start negotiating with Roman
-			FROM = { set_character_flag = sent_begin_foederati_negotiations_to_@ROOT }
+			FROM = {
+				add_character_modifier = {
+					name = get_foederati_timer
+					duration = 3600
+				}
+			}
 		}
 		
 		ai_will_do = {
@@ -231,13 +239,17 @@ targetted_decisions = {
 				prisoner = no
 				NOT = { trait = incapable }
 				is_inaccessible_trigger = no
-				NOT = { has_character_flag = sent_begin_foederati_negotiations_to_@ROOT }
 			}
 		}
 		
 		effect = {
-			character_event = { id = WtWSMS_foederati.1 } # Romans accept or refuse to start negotiating with barbarian
-			FROM = { set_character_flag = sent_begin_foederati_negotiations_to_@ROOT }
+			character_event = { id = WtWSMS_foederati.1 } # Romans accept or refuse to start negotiating with barbarian			
+			FROM = {
+				add_character_modifier = {
+					name = become_foederati_timer
+					duration = 3600
+				}
+			}
 		}
 		
 		ai_will_do = {
