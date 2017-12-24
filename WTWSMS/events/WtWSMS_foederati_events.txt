@@ -32,9 +32,26 @@ character_event = {
 	option = { # Yes
 		name = WtWSMS_foederati.1.a
 		ai_chance = {
-			#Option A modifiers
 			# AI should generally accept
 			factor = 75
+			modifier = {
+				factor = 1.5
+				event_target:barbarian_negotiator = {
+					religion = roman_negotiator
+				}
+			}
+			modifier = {
+				factor = 1.25
+				event_target:roman_negotiator = {
+					trait = trusting
+				}
+			}
+			modifier = {
+				factor = 1.5
+				event_target:roman_negotiator = {
+					trait = grey_eminence
+				}
+			}
 		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.1.a.tooltip # Negotiations begin
@@ -53,27 +70,54 @@ character_event = {
 			# In case the Barbarian is menacing or otherwise too hostile
 			factor = 25
 			modifier = {
-				factor = 1.5
+				factor = 1.25
 				event_target:barbarian_negotiator = {
 					trait = cruel
 				}
 			}
 			modifier = {
-				factor = 1.5
+				factor = 1.25
 				event_target:barbarian_negotiator = {
 					trait = impaler
 				}
 			}
 			modifier = {
-				factor = 1.5
+				factor = 1.25
 				event_target:barbarian_negotiator = {
 					trait = zealous
+					NOT = { religion = roman_negotiator }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				event_target:roman_negotiator = {
+					trait = zealous
+				}
+				event_target:barbarian_negotiator = {
+					NOT = { religion = roman_negotiator }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				event_target:roman_negotiator = {
+					trait = paranoid
 				}
 			}
 			modifier = {
 				factor = 2
 				event_target:barbarian_negotiator = {
 					infamy = 50
+				}
+			}		
+			modifier = {
+				factor = 2
+				event_target:roman_negotiator = {
+					event_target:barbarian_negotiator = {
+						relative_realm_size = {
+							who = PREV
+							size = 1
+						}
+					}
 				}
 			}
 		}
@@ -145,9 +189,14 @@ character_event = {
 	option = { # No
 		name = WtWSMS_foederati.2.b
 		ai_chance = {
-			#Option B modifiers
 			factor = 25
 			# More likely if the Romans are approaching
+			modifier = {
+				factor = 2
+				event_target:roman_negotiator = {
+					has_character_flag = roman_initiated_negotiations
+				}
+			}
 		}
 		event_target:roman_negotiator = {
 			character_event = { 
@@ -170,8 +219,13 @@ character_event = {
 	option = { # Accept it and offer a territory
 		name = WtWSMS_foederati.3.a
 		ai_chance = {
-			#Option A modifiers
 			factor = 30
+			modifier = {
+				factor = 1.25
+				event_target:roman_negotiator = {
+					trait = honest
+				}
+			}
 		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.3.a.tooltip # Offering territory
@@ -186,8 +240,13 @@ character_event = {
 	option = { # Accept it and promise a territory
 		name = WtWSMS_foederati.3.b
 		ai_chance = {
-			#Option B modifiers
 			factor = 30
+			modifier = {
+				factor = 1.25
+				event_target:roman_negotiator = {
+					trait = honest
+				}
+			}
 		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.3.b.tooltip # Promising territory
@@ -202,8 +261,13 @@ character_event = {
 	option = { # Refuse to grant territory within the empire, offer to settle outside it
 		name = WtWSMS_foederati.3.c
 		ai_chance = {
-			#Option C modifiers
 			factor = 40
+			modifier = {
+				factor = 1.25
+				event_target:roman_negotiator = {
+					trait = deceitful
+				}
+			}
 		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.3.c.tooltip # Settle outside counter-offer
@@ -369,9 +433,9 @@ character_event = {
 	option = { # Pick another territory to offer
 		name = WtWSMS_foederati.6.a
 		ai_chance = {
-			factor = 50
+			factor = 25
 			modifier = {
-				factor = FILLME
+				factor = 1.25
 				event_target:roman_negotiator = {
 					trait = patient
 				}
@@ -389,9 +453,9 @@ character_event = {
 	option = { 	# Break negotiations
 		name = WtWSMS_foederati.6.b
 		ai_chance = {
-			factor = 50
+			factor = 75
 			modifier = {
-				factor = FILLME
+				factor = 1.25
 				event_target:roman_negotiator = {
 					trait = proud
 				}
@@ -546,9 +610,9 @@ character_event = {
 	option = { # Pick another territory to promise
 		name = WtWSMS_foederati.9.a
 		ai_chance = {
-			factor = 50
+			factor = 25
 			modifier = {
-				factor = FILLME
+				factor = 1.25
 				event_target:roman_negotiator = {
 					trait = patient
 				}
@@ -566,9 +630,9 @@ character_event = {
 	option = { 	# Break negotiations
 		name = WtWSMS_foederati.9.b
 		ai_chance = {
-			factor = 50
+			factor = 75
 			modifier = {
-				factor = FILLME
+				factor = 1.25
 				event_target:roman_negotiator = {
 					trait = proud
 				}
@@ -603,9 +667,9 @@ character_event = {
 	option = { # Barbarian accepts
 		name = WtWSMS_foederati.10.a
 		ai_chance = {
-			factor = 50
+			factor = 25
 			modifier = {
-				factor = FILLME
+				factor = 1.25
 				event_target:barbarian_negotiator = {
 					trait = content
 				}
@@ -630,9 +694,9 @@ character_event = {
 	option = { # Barbarian refuses
 		name = WtWSMS_foederati.10.b
 		ai_chance = {
-			factor = 50
+			factor = 75
 			modifier = {
-				factor = FILLME
+				factor = 1.25
 				event_target:barbarian_negotiator = {
 					trait = proud
 				}
@@ -669,7 +733,7 @@ character_event = {
 		ai_chance = {
 			factor = 40
 			modifier = {
-				factor = FILLME
+				factor = 1.25
 				event_target:roman_negotiator = {
 					trait = content
 				}
@@ -699,7 +763,7 @@ character_event = {
 		ai_chance = {
 			factor = 30
 			modifier = {
-				factor = FILLME
+				factor = 1.25
 				event_target:roman_negotiator = {
 					trait = stubborn
 				}
@@ -721,7 +785,7 @@ character_event = {
 		ai_chance = {
 			factor = 30
 			modifier = {
-				factor = FILLME
+				factor = 1.25
 				event_target:roman_negotiator = {
 					trait = stubborn
 				}
@@ -782,7 +846,7 @@ character_event = {
 	option = { # OK
 		name = WtWSMS_foederati.12.a
 		ai_chance = {
-			factor = 40
+			factor = 50
 		}
 		prestige = -50
 	}
@@ -792,7 +856,7 @@ character_event = {
 			has_romance_culture_trigger = yes # Is Roman
 		}
 		ai_chance = {
-			factor = 30
+			factor = 50
 			modifier = {
 				factor = 2
 				event_target:barbarian_negotiator = {
@@ -825,7 +889,7 @@ character_event = {
 			}
 		}
 		ai_chance = {
-			factor = 30
+			factor = 50
 			modifier = {
 				factor = 2
 				event_target:roman_negotiator = {
@@ -905,9 +969,6 @@ character_event = {
 
 	option = { # Excellent!
 		name = WtWSMS_foederati.13.a
-		ai_chance = {
-			factor = 100
-		}
 		prestige = 50
 		event_target:roman_negotiator = {
 			character_event = { 
@@ -1060,9 +1121,6 @@ character_event = {
 	
 	option = { # Ask for promised territory
 		name = WtWSMS_foederati.15.a
-		ai_chance = {
-			#Option A modifiers
-		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.15.a.tooltip # Remind Roman
 		}
@@ -1672,14 +1730,26 @@ character_event = {
 	option = { # Open negotiations
 		name = WtWSMS_foederati.22.a
 		ai_chance = {
-			#Option A modifiers
-		}
+            factor = 50
+            modifier = {
+                factor = 1.5
+                event_target:roman_negotiator = {
+                    trait = strategist
+                }
+            }
+            modifier = {
+                factor = 1.5
+                event_target:roman_negotiator = {
+                    trait = trusting
+                }
+            }
+        }
 		custom_tooltip = {
 			text = WtWSMS_foederati.22.a.tooltip # Negotiations begin
 		}
 		event_target:roman_negotiator = {
 			character_event = { 
-				id = id = WtWSMS_foederati.1 # Romans accept or refuse to start negotiating with barbarian
+				id = WtWSMS_foederati.1 # Romans accept or refuse to start negotiating with barbarian
 				days = 7
 				random = 3
 			}
@@ -1688,8 +1758,20 @@ character_event = {
 	option = { # Refuse to open negotiations
 		name = WtWSMS_foederati.22.b
 		ai_chance = {
-			#Option B modifiers
-		}
+            factor = 50
+            modifier = {
+                factor = 1.5
+                event_target:roman_negotiator = {
+                    trait = stubborn
+                }
+            }
+            modifier = {
+                factor = 1.5
+                event_target:roman_negotiator = {
+                    opinion = { who = event_target:barbarian_negotiator value < -20 }
+                }
+            }
+        }
 		custom_tooltip = {
 			text = WtWSMS_foederati.22.b.tooltip # Negotiations do not start
 		}
@@ -1973,8 +2055,19 @@ character_event = {
 	option = { # Vassalise
 		name = WtWSMS_foederati.25.a
 		ai_chance = {
-			#Option A modifiers
 			# Rather unlikely
+            factor = 20
+            modifier = {
+                factor = 2
+                event_target:barbarian_negotiator = {
+                    event_target:roman_negotiator = {
+                        relative_power = { 
+                            who = PREV
+                            power = 2
+                        }
+                    }
+                }
+            }
 		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.25.a.tooltip # Becomes vassal
@@ -1992,8 +2085,12 @@ character_event = {
 	option = { # Refuse 
 		name = WtWSMS_foederati.25.b
 		ai_chance = {
-			#Option B modifiers
-		}
+            factor = 80
+            modifier = {
+                factor = 1.5
+                trait = proud
+            }
+        }
 		custom_tooltip = {
 			text = WtWSMS_foederati.25.b.tooltip # Refuses to become vassal
 		}
@@ -2036,9 +2133,35 @@ character_event = {
 			factor = 90
 			modifier = {
 				factor = 1.5
-				event_target:roman_negotiator = {
-					trait = ambitious
-				}
+				realm_levy_diff = { who = FROM value = 2500 }
+			}
+			modifier = {
+				factor = 1.5
+				realm_levy_diff = { who = FROM value = 5000 }
+			}
+			modifier = {
+				factor = 2
+				realm_levy_diff = { who = FROM value = 10000 }
+			}
+			modifier = {
+				factor = 0
+				reverse_realm_levy_diff = { who = FROM value = 5000 }
+			}
+			modifier = {
+				factor = 1.25
+				trait = wroth
+			}
+			modifier = {
+				factor = 1.25
+				trait = proud
+			}
+			modifier = {
+				factor = 1.25
+				trait = ambitious
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { any_realm_province = { any_neighbor_province = { owner = { same_realm = FROM } } } }
 			}
 		}
 		custom_tooltip = {
@@ -2067,8 +2190,8 @@ character_event = {
 			# If foederati is unusually mighty
 			modifier = {
 				factor = 2
-				event_target:roman_negotiator = {
-					event_target:barbarian_negotiator = {
+				ROOT = {
+					FROM = {
 						relative_realm_size = {
 							who = PREV
 							size = 1
@@ -2078,8 +2201,8 @@ character_event = {
 			}
 			modifier = {
 				factor = 2
-				event_target:roman_negotiator = {
-					event_target:barbarian_negotiator = {
+				ROOT = {
+					FROM = {
 						relative_power = { 
 							who = PREV
 							power = 1
