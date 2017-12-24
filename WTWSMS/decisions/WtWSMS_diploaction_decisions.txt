@@ -99,6 +99,7 @@ targetted_decisions = {
 	
 	begin_foederati_negotiations_roman = { # Roman bordering "Barbarian" initiates negotiations 
 		only_independent = yes
+		ai_target_filter = independent_rulers
 		ai_check_interval = 12
 
 		potential = {
@@ -111,10 +112,7 @@ targetted_decisions = {
 				has_romance_culture_trigger = yes
 				bureaucratic_government_trigger = yes
 				sassanid_government_trigger = yes
-				is_tributary = { 
-					type = foederati 
-					suzerain = FROM 
-				}
+				is_tributary = yes
 			}
 		}
 		
@@ -150,11 +148,13 @@ targetted_decisions = {
 				prisoner = no
 				NOT = { trait = incapable }
 				is_inaccessible_trigger = no
+				NOT = { has_character_flag = sent_begin_foederati_negotiations_to_@ROOT }
 			}
 		}
 		
 		effect = {
 			character_event = { id = WtWSMS_foederati.19 } # Barbarian accept or refuse to start negotiating with Roman
+			FROM = { set_character_flag = sent_begin_foederati_negotiations_to_@ROOT }
 		}
 		
 		ai_will_do = {
@@ -181,6 +181,7 @@ targetted_decisions = {
 	
 	begin_foederati_negotiations_barbarian = { # "Barbarian" bordering Roman initiates negotiations
 		only_independent = yes
+		ai_target_filter = independent_rulers
 		ai_check_interval = 12
 
 		potential = {
@@ -202,10 +203,7 @@ targetted_decisions = {
 				has_romance_culture_trigger = yes
 				bureaucratic_government_trigger = yes
 				sassanid_government_trigger = yes
-				is_tributary = { 
-					type = foederati 
-					suzerain = FROM 
-				}
+				is_tributary = yes
 			}
 		}
 		
@@ -233,11 +231,13 @@ targetted_decisions = {
 				prisoner = no
 				NOT = { trait = incapable }
 				is_inaccessible_trigger = no
+				NOT = { has_character_flag = sent_begin_foederati_negotiations_to_@ROOT }
 			}
 		}
 		
 		effect = {
 			character_event = { id = WtWSMS_foederati.1 } # Romans accept or refuse to start negotiating with barbarian
+			FROM = { set_character_flag = sent_begin_foederati_negotiations_to_@ROOT }
 		}
 		
 		ai_will_do = {
