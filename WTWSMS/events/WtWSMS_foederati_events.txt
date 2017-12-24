@@ -781,7 +781,7 @@ character_event = {
 	option = { # OK
 		name = WtWSMS_foederati.12.a
 		ai_chance = {
-			#Option A modifiers
+			factor = 40
 		}
 		prestige = -50
 	}
@@ -791,8 +791,19 @@ character_event = {
 			has_romance_culture_trigger = yes # Is Roman
 		}
 		ai_chance = {
-			#Option B modifiers
-		}	
+			factor = 30
+			modifier = {
+				factor = 2
+				event_target:barbarian_negotiator = {
+					event_target:roman_negotiator = {
+						relative_power = { 
+							who = PREV
+							power = 2
+						}
+					}
+				}
+			}
+		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.12.b.tooltip # War
 		}
@@ -813,7 +824,18 @@ character_event = {
 			}
 		}
 		ai_chance = {
-			#Option C modifiers
+			factor = 30
+			modifier = {
+				factor = 2
+				event_target:roman_negotiator = {
+					event_target:barbarian_negotiator = {
+						relative_power = { 
+							who = PREV
+							power = 2
+						}
+					}
+				}
+			}
 		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.12.c.tooltip # War
@@ -883,7 +905,7 @@ character_event = {
 	option = { # Excellent!
 		name = WtWSMS_foederati.13.a
 		ai_chance = {
-			#Option A modifiers
+			factor = 100
 		}
 		prestige = 50
 		event_target:roman_negotiator = {
@@ -924,7 +946,13 @@ character_event = {
 			has_character_flag = offered_territory_flag
 		}
 		ai_chance = {
-			#Option A modifiers
+			factor = 40
+			modifier = {
+				factor = FILLME
+				event_target:roman_negotiator = {
+					trait = kind
+				}
+			}
 		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.14.a.tooltip # Grant land
@@ -1004,7 +1032,13 @@ character_event = {
 			has_character_flag = promised_territory_to_@event_target:barbarian_negotiator_flag
 		}
 		ai_chance = {
-			#Option B modifiers
+			factor = 30
+			modifier = {
+				factor = FILLME
+				event_target:roman_negotiator = {
+					trait = deceitful
+				}
+			}
 		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.14.b.tooltip # Promised land
@@ -1023,7 +1057,7 @@ character_event = {
 			has_character_flag = settling_outside_empire_flag
 		}
 		ai_chance = {
-			#Option C modifiers
+			factor = 30
 		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.14.c.tooltip # Outside empire
