@@ -3,7 +3,7 @@
 #
 # Written by Loup
 #
-# WtWSMS_foederati.1 -> WtWSMS_foederati.29
+# WtWSMS_foederati.1 -> WtWSMS_foederati.30
 ###############################
 
 namespace = WtWSMS_foederati
@@ -1606,63 +1606,37 @@ long_character_event = {
 	only_independent = yes
 	
 	trigger = {
-		OR = {
-			FROM = {	
-				has_character_flag = declared_tributary_foederati_cb_war_on_@ROOT_flag
-			}
-			AND = { 
-				FROM = { # Attacker
-					independent = yes
-					mercenary = no
-					holy_order = no
-					is_landed = yes
-					NOR = {
-						primary_title = { 
-							higher_tier_than = KING
-							bureaucratic_government_trigger = yes
-							sassanid_government_trigger = yes
-						}
-						has_romance_culture_trigger = yes
-					}
+		FROM = { # Attacker
+			independent = yes
+			mercenary = no
+			holy_order = no
+			is_landed = yes
+			NOR = {
+				primary_title = { 
+					higher_tier_than = KING
+					bureaucratic_government_trigger = yes
+					sassanid_government_trigger = yes
 				}
-				ROOT = { # Defender
-					independent = yes
-					mercenary = no
-					holy_order = no
-					is_landed = yes
-					primary_title = { higher_tier_than = DUKE }
-					has_romance_culture_trigger = yes
-				}
+				has_romance_culture_trigger = yes
 			}
+		}
+		ROOT = { # Defender
+			independent = yes
+			mercenary = no
+			holy_order = no
+			is_landed = yes
+			primary_title = { higher_tier_than = DUKE }
+			has_romance_culture_trigger = yes
 		}
 	}
 	
 	immediate = {
-		if = {
-			limit = {
-				NOT = {
-					FROM = {	
-						has_character_flag = declared_tributary_foederati_cb_war_on_@ROOT_flag
-					}
-				}
-			}
-			FROM = {
-				save_event_target_as = barbarian_negotiator
-			}
-			ROOT = {
-				save_event_target_as = roman_negotiator
-				set_character_flag = enforcing_demands
-			}
+		FROM = {
+			save_event_target_as = barbarian_negotiator
 		}
-		else = {
-			ROOT = {
-				save_event_target_as = barbarian_negotiator
-			}
-			FROM = {
-				save_event_target_as = roman_negotiator
-				set_character_flag = enforcing_demands
-				clr_character_flag = declared_tributary_foederati_cb_war_on_@ROOT_flag
-			}
+		ROOT = {
+			save_event_target_as = roman_negotiator
+			set_character_flag = enforcing_demands
 		}
 	}
 
@@ -2345,13 +2319,13 @@ long_character_event = {
 			limit = {
 				has_dlc = "Jade Dragon"
 			}
-			war = {
+			unsafe_war = {
 				target = FROM
 				casus_belli = force_vassalization
 			}
 		}
 		else = {
-			war = {
+			unsafe_war = {
 				target = FROM
 				casus_belli = pagan_subjugation # To test
 			}
@@ -2410,5 +2384,69 @@ long_character_event = {
 	option = { # Weaklings!
 		name = WtWSMS_foederati.29.a
 		prestige = 50
+	}
+}
+
+###############################
+# Foederati negotiations
+###############################
+
+# Victorious Roman force barbarians into foederati status after enforcing demands
+long_character_event = {
+    id = WtWSMS_foederati.30
+	desc = WtWSMS_foederati.30.desc
+	picture = GFX_evt_emissary
+	
+	is_triggered_only = yes # CB event
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		ROOT = {	
+			has_character_flag = declared_tributary_foederati_cb_war_on_@event_target:target_loser_flag
+		}
+	}
+	
+	immediate = {
+		event_target:target_loser = {
+			save_event_target_as = barbarian_negotiator
+		}
+		ROOT = {
+			save_event_target_as = roman_negotiator
+			set_character_flag = enforcing_demands
+			clr_character_flag = declared_tributary_foederati_cb_war_on_@event_target:target_loser_flag
+		}
+	}
+
+	option = { # Settle in the empire
+		name = WtWSMS_foederati.30.a
+		ai_chance = {
+			factor = 30
+		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.30.a.tooltip # Granting territory
+		}
+		event_target:roman_negotiator = {
+			long_character_event = {
+				id = WtWSMS_foederati.4 # Pick a territory to offer
+			}
+			set_character_flag = offered_territory_flag
+		}
+	}
+	option = { # Settle outside the empire
+		name = WtWSMS_foederati.30.b
+		ai_chance = {
+			factor = 70
+		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.30.b.tooltip # Settle outside
+		}
+		event_target:roman_negotiator = {
+			long_character_event = {
+				id = WtWSMS_foederati.21 # Victorious Roman enforcing demands upon barbarian
+			}
+			set_character_flag = settling_outside_empire_flag
+		}
 	}
 }
