@@ -3,7 +3,7 @@
 #
 # Written by Loup
 #
-# WtWSMS_foederati.1 -> WtWSMS_foederati.28
+# WtWSMS_foederati.1 -> WtWSMS_foederati.29
 ###############################
 
 namespace = WtWSMS_foederati
@@ -908,7 +908,7 @@ long_character_event = {
 		custom_tooltip = {
 			text = WtWSMS_foederati.12.b.tooltip # War
 		}
-		war = {
+		unsafe_war = { # always = no CB
 			target = event_target:barbarian_negotiator 
 			casus_belli = tributary_foederati_cb 
 			infamy = 0
@@ -1354,7 +1354,7 @@ long_character_event = {
 		custom_tooltip = {
 			text = WtWSMS_foederati.16.d.tooltip # War
 		}
-		war = {
+		unsafe_war = { # always = no CB
 			target = event_target:barbarian_negotiator 
 			casus_belli = tributary_foederati_cb 
 			infamy = 0
@@ -1885,10 +1885,10 @@ long_character_event = {
 # Following the death of the foederati ruler, the new one has the choice to leave
 long_character_event = {
     id = WtWSMS_foederati.23
-	desc = WtWSMS_foederati.23.desc
-	picture = GFX_evt_emissary
 	
 	is_triggered_only = yes # On_actions event
+	
+	hide_window = yes
 	
 	only_playable = yes
 	only_independent = yes
@@ -1903,11 +1903,22 @@ long_character_event = {
 	immediate = {
 		current_heir = { 
 			save_event_target_as = foederati # Used for localisation
+			long_character_event = { 
+				id = WtWSMS_foederati.24 
+			}
 		}
 	}
+}
+
+long_character_event = {
+    id = WtWSMS_foederati.24
+	desc = WtWSMS_foederati.24.desc
+	picture = GFX_evt_emissary
 	
+	is_triggered_only = yes # On_actions event
+
 	option = { # Remain foederati
-		name = WtWSMS_foederati.23.a
+		name = WtWSMS_foederati.24.a
 		ai_chance = {
 			factor = 50
 			modifier = {
@@ -1945,12 +1956,12 @@ long_character_event = {
 			}
 		}
 		custom_tooltip = {
-			text = WtWSMS_foederati.23.a.tooltip # Remains foederati
+			text = WtWSMS_foederati.24.a.tooltip # Remains foederati
 		}
 	}
 	# Renegotiate option?
 	option = { # Leave
-		name = WtWSMS_foederati.23.b
+		name = WtWSMS_foederati.24.b
 		trigger = {
 			is_adult = yes
 			NOT = { trait = incapable }
@@ -2021,12 +2032,12 @@ long_character_event = {
 			}
 		}
 		custom_tooltip = {
-			text = WtWSMS_foederati.23.b.tooltip # Does not renew contract, risk of war
+			text = WtWSMS_foederati.24.b.tooltip # Does not renew contract, risk of war
 		}
 		suzerain = { 
 			remove_tributary = PREV
 			long_character_event = { 
-				id = WtWSMS_foederati.24 
+				id = WtWSMS_foederati.25 
 				days = 7
 				random = 3
 			}
@@ -2036,14 +2047,14 @@ long_character_event = {
 
 # Foederati decides to not renew the contract
 long_character_event = {
-	id = WtWSMS_foederati.24
-	desc = WtWSMS_foederati.24.desc
+	id = WtWSMS_foederati.25
+	desc = WtWSMS_foederati.25.desc
 	picture = GFX_evt_emissary
 
 	is_triggered_only = yes
 	
 	option = { # Let them go
-		name = WtWSMS_foederati.24.a
+		name = WtWSMS_foederati.25.a
 		ai_chance = {
 			factor = 50
 			modifier = {
@@ -2084,13 +2095,13 @@ long_character_event = {
 			}
 		}
 		custom_tooltip = {
-			text = WtWSMS_foederati.24.a.tooltip # Lets the foederati leave
+			text = WtWSMS_foederati.25.a.tooltip # Lets the foederati leave
 		}
 		prestige = -100
 		opinion = { who = FROM modifier = opinion_outraged years = 10 }
 	}
 	option = { # Attack them
-		name = WtWSMS_foederati.24.b
+		name = WtWSMS_foederati.25.b
 		ai_chance = {
 			factor = 50
 			modifier = {
@@ -2127,9 +2138,9 @@ long_character_event = {
 			}
 		}
 		custom_tooltip = {
-			text = WtWSMS_foederati.24.b.tooltip # Declares war
+			text = WtWSMS_foederati.25.b.tooltip # Declares war
 		}
-		war = {
+		unsafe_war = { # always = no CB
 			target = FROM
 			casus_belli = tributary_foederati_cb
 		}
@@ -2142,8 +2153,8 @@ long_character_event = {
 
 # Turn foederati into vassal by force diploaction
 long_character_event = {
-    id = WtWSMS_foederati.25
-	desc = WtWSMS_foederati.25.desc
+    id = WtWSMS_foederati.26
+	desc = WtWSMS_foederati.26.desc
 	picture = GFX_evt_emissary
 	
     is_triggered_only = yes
@@ -2153,7 +2164,7 @@ long_character_event = {
 	}
 	
 	option = { # Vassalise
-		name = WtWSMS_foederati.25.a
+		name = WtWSMS_foederati.26.a
 		ai_chance = {
 			# Rather unlikely
             factor = 20
@@ -2170,20 +2181,20 @@ long_character_event = {
             }
 		}
 		custom_tooltip = {
-			text = WtWSMS_foederati.25.a.tooltip # Becomes vassal
+			text = WtWSMS_foederati.26.a.tooltip # Becomes vassal
 		}
 		set_defacto_liege = FROM
 		suzerain = {
 			remove_tributary = PREV
 			long_character_event = {
-				id = WtWSMS_foederati.26 # Foederati accepts to become vassal
+				id = WtWSMS_foederati.27 # Foederati accepts to become vassal
 				days = 7
 				random = 3
 			} 
 		}
 	}
 	option = { # Refuse 
-		name = WtWSMS_foederati.25.b
+		name = WtWSMS_foederati.26.b
 		ai_chance = {
             factor = 80
             modifier = {
@@ -2192,12 +2203,12 @@ long_character_event = {
             }
         }
 		custom_tooltip = {
-			text = WtWSMS_foederati.25.b.tooltip # Refuses to become vassal
+			text = WtWSMS_foederati.26.b.tooltip # Refuses to become vassal
 		}
 		suzerain = {
 			remove_tributary = PREV
 			long_character_event = { 
-				id = WtWSMS_foederati.27 # Foederati refuses to accept demands
+				id = WtWSMS_foederati.28 # Foederati refuses to accept demands
 				days = 7
 				random = 3
 			} 
@@ -2207,28 +2218,28 @@ long_character_event = {
 
 # Foederati accepts to become vassal
 long_character_event = {
-    id = WtWSMS_foederati.26
-	desc = WtWSMS_foederati.26.desc
-	picture = GFX_evt_emissary
-	
-    is_triggered_only = yes
-
-	option = { # Excellent!
-		name = WtWSMS_foederati.26.a
-		prestige = 100
-	}
-}
-
-# Foederati refuses to accept demands
-long_character_event = {
     id = WtWSMS_foederati.27
 	desc = WtWSMS_foederati.27.desc
 	picture = GFX_evt_emissary
 	
     is_triggered_only = yes
 
-	option = { # War it is
+	option = { # Excellent!
 		name = WtWSMS_foederati.27.a
+		prestige = 100
+	}
+}
+
+# Foederati refuses to accept demands
+long_character_event = {
+    id = WtWSMS_foederati.28
+	desc = WtWSMS_foederati.28.desc
+	picture = GFX_evt_emissary
+	
+    is_triggered_only = yes
+
+	option = { # War it is
+		name = WtWSMS_foederati.28.a
 		ai_chance = {
 			factor = 90
 			modifier = {
@@ -2265,7 +2276,7 @@ long_character_event = {
 			}
 		}
 		custom_tooltip = {
-			text = WtWSMS_foederati.27.a.tooltip # War
+			text = WtWSMS_foederati.28.a.tooltip # War
 		}
 		if = {
 			limit = {
@@ -2284,7 +2295,7 @@ long_character_event = {
 		}
 	}
 	option = { # Accept their independence
-		name = WtWSMS_foederati.27.b
+		name = WtWSMS_foederati.28.b
 		ai_chance = {
 			factor = 10
 			# If foederati is unusually mighty
@@ -2312,12 +2323,12 @@ long_character_event = {
 			}
 		}
 		custom_tooltip = {
-			text = WtWSMS_foederati.27.b.tooltip # Accept independence
+			text = WtWSMS_foederati.28.b.tooltip # Accept independence
 		}
 		prestige = -100
 		FROM = { 
 			long_character_event = { 
-				id = WtWSMS_foederati.28 # Former suzerain concedes
+				id = WtWSMS_foederati.29 # Former suzerain concedes
 				days = 7
 				random = 3
 			}
@@ -2327,14 +2338,14 @@ long_character_event = {
 
 # Former suzerain concedes
 long_character_event = {
-    id = WtWSMS_foederati.28
-	desc = WtWSMS_foederati.28.desc
+    id = WtWSMS_foederati.29
+	desc = WtWSMS_foederati.29.desc
 	picture = GFX_evt_emissary
 	
     is_triggered_only = yes
 
 	option = { # Weaklings!
-		name = WtWSMS_foederati.28.a
+		name = WtWSMS_foederati.29.a
 		prestige = 50
 	}
 }
