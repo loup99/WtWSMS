@@ -841,6 +841,9 @@ long_character_event = {
 				}
 			}
 		}
+		custom_tooltip = {
+			text = WtWSMS_foederati.11.c.tooltip # Promising territory counter-offer
+		}
 		event_target:roman_negotiator = {
 			long_character_event = { 
 				id = WtWSMS_foederati.7 # Pick a territory to promise
@@ -1031,9 +1034,14 @@ long_character_event = {
 	option = { # Excellent!
 		name = WtWSMS_foederati.13.a
 		prestige = 50
-		event_target:roman_negotiator = {
-			long_character_event = { 
-				id = WtWSMS_foederati.14 # Becomes foederati after sucessful negotiations and gets land
+		if = {
+			limit = {
+				has_romance_culture_trigger = yes # Is Roman				
+			}
+			event_target:roman_negotiator = {
+				long_character_event = { 
+					id = WtWSMS_foederati.14 # Becomes foederati after sucessful negotiations and gets land
+				}
 			}
 		}
 	}
@@ -2238,7 +2246,7 @@ long_character_event = {
 		custom_tooltip = {
 			text = WtWSMS_foederati.26.a.tooltip # Becomes vassal
 		}
-		set_defacto_liege = FROM
+		set_defacto_liege = suzerain
 		suzerain = {
 			remove_tributary = PREV
 			long_character_event = {
