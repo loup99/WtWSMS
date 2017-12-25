@@ -279,6 +279,7 @@ long_character_event = {
 		}
 		event_target:roman_negotiator = {
 			set_character_flag = settling_outside_empire_flag
+			set_character_flag = counter_offer
 		}
 	}
 }	
@@ -372,13 +373,17 @@ long_character_event = {
     id = WtWSMS_foederati.5
 	desc = {
 		trigger = {
-			NOT = { has_character_flag = counter_offer }
+			event_target:roman_negotiator = {
+				NOT = { has_character_flag = counter_offer }
+			}
 		}
 		text = WtWSMS_foederati.5.desc.a
 	}
 	desc = {
-		trigger = {
-			has_character_flag = counter_offer
+		trigger = {			
+			event_target:roman_negotiator = {
+				has_character_flag = counter_offer
+			}
 		}
 		text = WtWSMS_foederati.5.desc.b
 	}
@@ -563,20 +568,23 @@ long_character_event = {
 
 # Makes the promise
 long_character_event = {
-    id = WtWSMS_foederati.8
+    id = WtWSMS_foederati.8	
 	desc = {
 		trigger = {
-			NOT = { has_character_flag = counter_offer }
+			event_target:roman_negotiator = {
+				NOT = { has_character_flag = counter_offer }
+			}
 		}
 		text = WtWSMS_foederati.8.desc.a
 	}
 	desc = {
-		trigger = {
-			has_character_flag = counter_offer
+		trigger = {			
+			event_target:roman_negotiator = {
+				has_character_flag = counter_offer
+			}
 		}
 		text = WtWSMS_foederati.8.desc.b
 	}
-	desc = WtWSMS_foederati.8.desc
 	picture = GFX_evt_emissary
 	
     is_triggered_only = yes
@@ -734,6 +742,13 @@ long_character_event = {
 				factor = 1.25
 				event_target:barbarian_negotiator = {
 					trait = proud
+				}
+			}			
+			# More likely to refuse if counter-offer
+			modifier = {
+				factor = 2
+				event_target:roman_negotiator = {
+					has_character_flag = counter_offer
 				}
 			}
 		}
@@ -913,15 +928,25 @@ long_character_event = {
 			casus_belli = tributary_foederati_cb 
 			infamy = 0
 		}
+		event_target:roman_negotiator = {
+			set_character_flag = declared_tributary_foederati_cb_war_on_@event_target:barbarian_negotiator_flag
+		}		
 	}
 	option = { # Barbarians declare war upon Romans to impose their demands after failed negotiations
 		name = WtWSMS_foederati.12.c
-		trigger = {
-			any_neighbor_independent_ruler = { # Is Barbarian
-				primary_title = { higher_tier_than = DUKE }
-				has_romance_culture_trigger = yes
-				mercenary = no
-				holy_order = no
+		trigger = { # Is Barbarian
+			independent = yes
+			mercenary = no
+			holy_order = no
+			is_landed = yes
+			is_tributary = no
+			has_romance_culture_trigger = no
+			NOR = {
+				primary_title = { 
+					higher_tier_than = KING
+					bureaucratic_government_trigger = yes
+					sassanid_government_trigger = yes
+				}
 			}
 		}
 		ai_chance = {
@@ -1360,6 +1385,7 @@ long_character_event = {
 			infamy = 0
 		}
 		event_target:roman_negotiator = {
+			set_character_flag = declared_tributary_foederati_cb_war_on_@event_target:barbarian_negotiator_flag
 			remove_tributary = event_target:barbarian_negotiator
 		}
 	}
@@ -1572,37 +1598,63 @@ long_character_event = {
 	only_independent = yes
 	
 	trigger = {
-		FROM = { # Attacker
-			independent = yes
-			mercenary = no
-			holy_order = no
-			is_landed = yes
-			NOR = {
-				primary_title = { 
-					higher_tier_than = KING
-					bureaucratic_government_trigger = yes
-					sassanid_government_trigger = yes
-				}
-				has_romance_culture_trigger = yes
+		OR = {
+			FROM = {	
+				has_character_flag = declared_tributary_foederati_cb_war_on_@ROOT_flag
 			}
-		}
-		ROOT = { # Defender
-			independent = yes
-			mercenary = no
-			holy_order = no
-			is_landed = yes
-			primary_title = { higher_tier_than = DUKE }
-			has_romance_culture_trigger = yes
+			AND = { 
+				FROM = { # Attacker
+					independent = yes
+					mercenary = no
+					holy_order = no
+					is_landed = yes
+					NOR = {
+						primary_title = { 
+							higher_tier_than = KING
+							bureaucratic_government_trigger = yes
+							sassanid_government_trigger = yes
+						}
+						has_romance_culture_trigger = yes
+					}
+				}
+				ROOT = { # Defender
+					independent = yes
+					mercenary = no
+					holy_order = no
+					is_landed = yes
+					primary_title = { higher_tier_than = DUKE }
+					has_romance_culture_trigger = yes
+				}
+			}
 		}
 	}
 	
 	immediate = {
-		FROM = {
-			save_event_target_as = barbarian_negotiator
+		if = {
+			limit = {
+				NOT = {
+					FROM = {	
+						has_character_flag = declared_tributary_foederati_cb_war_on_@ROOT_flag
+					}
+				}
+			}
+			FROM = {
+				save_event_target_as = barbarian_negotiator
+			}
+			ROOT = {
+				save_event_target_as = roman_negotiator
+				set_character_flag = enforcing_demands
+			}
 		}
-		ROOT = {
-			save_event_target_as = roman_negotiator
-			set_character_flag = enforcing_demands
+		else = {
+			ROOT = {
+				save_event_target_as = barbarian_negotiator
+			}
+			FROM = {
+				save_event_target_as = roman_negotiator
+				set_character_flag = enforcing_demands
+				clr_character_flag = declared_tributary_foederati_cb_war_on_@ROOT_flag
+			}
 		}
 	}
 
@@ -2143,6 +2195,9 @@ long_character_event = {
 		unsafe_war = { # always = no CB
 			target = FROM
 			casus_belli = tributary_foederati_cb
+		}
+		event_target:roman_negotiator = {
+			set_character_flag = declared_tributary_foederati_cb_war_on_@event_target:barbarian_negotiator_flag
 		}
 	}
 }
