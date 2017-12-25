@@ -255,7 +255,7 @@ long_character_event = {
 			long_character_event = { 
 				id = WtWSMS_foederati.7 # Pick a territory to promise
 			}
-			set_character_flag = promised_territory_to_@event_target:barbarian_negotiator_flag
+			set_character_flag = promised_territory_to_@event_target:barbarian_negotiator
 		}
 	}
 	option = { # Refuse to grant territory within the empire, offer to settle outside it
@@ -848,7 +848,7 @@ long_character_event = {
 			long_character_event = { 
 				id = WtWSMS_foederati.7 # Pick a territory to promise
 			}
-			set_character_flag = promised_territory_to_@event_target:barbarian_negotiator_flag
+			set_character_flag = promised_territory_to_@event_target:barbarian_negotiator
 			set_character_flag = counter_offer
 		}
 	}
@@ -885,9 +885,9 @@ long_character_event = {
 		}
 		if = {
 			limit = { 
-				has_character_flag = promised_territory_to_@event_target:barbarian_negotiator_flag
+				has_character_flag = promised_territory_to_@event_target:barbarian_negotiator
 			}
-			clr_character_flag = promised_territory_to_@event_target:barbarian_negotiator_flag
+			clr_character_flag = promised_territory_to_@event_target:barbarian_negotiator
 		}
 		if = {
 			limit = { 
@@ -932,7 +932,7 @@ long_character_event = {
 			infamy = 0
 		}
 		event_target:roman_negotiator = {
-			set_character_flag = declared_tributary_foederati_cb_war_on_@event_target:barbarian_negotiator_flag
+			set_character_flag = declared_tributary_foederati_cb_war_on_@event_target:barbarian_negotiator
 		}		
 	}
 	option = { # Barbarians declare war upon Romans to impose their demands after failed negotiations
@@ -1096,10 +1096,10 @@ long_character_event = {
 						usurp_title_plus_barony_if_unlanded = PREV
 						set_defacto_liege = THIS
 						set_truce = {
-							who = ROOT
+							who = event_target:barbarian_negotiator
 							years = 10
 						}
-						ROOT = {
+						event_target:barbarian_negotiator = {
 							set_truce = {
 								who = PREV
 								years = 10
@@ -1159,7 +1159,7 @@ long_character_event = {
 	option = { # All in due time...
 		name = WtWSMS_foederati.14.b
 		trigger = {
-			has_character_flag = promised_territory_to_@event_target:barbarian_negotiator_flag
+			has_character_flag = promised_territory_to_@event_target:barbarian_negotiator
 		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.14.b.tooltip # Promised land
@@ -1267,10 +1267,10 @@ long_character_event = {
 						usurp_title_plus_barony_if_unlanded = PREV
 						set_defacto_liege = THIS
 						set_truce = {
-							who = ROOT
+							who = event_target:barbarian_negotiator
 							years = 10
 						}
-						ROOT = {
+						event_target:barbarian_negotiator = {
 							set_truce = {
 								who = PREV
 								years = 10
@@ -1320,7 +1320,7 @@ long_character_event = {
 			clear_event_target = promised_territory
 		}
 		event_target:roman_negotiator = {
-			clr_character_flag = promised_territory_to_@event_target:barbarian_negotiator_flag
+			clr_character_flag = promised_territory_to_@event_target:barbarian_negotiator
 			make_tributary = {
 				who = event_target:barbarian_negotiator
 				tributary_type = foederati
@@ -1368,7 +1368,7 @@ long_character_event = {
 			clear_event_target = promised_territory
 		}
 		event_target:roman_negotiator = {
-			clr_character_flag = promised_territory_to_@event_target:barbarian_negotiator_flag
+			clr_character_flag = promised_territory_to_@event_target:barbarian_negotiator
 		}
 	}
 	option = { # War to impose concessions
@@ -1393,7 +1393,7 @@ long_character_event = {
 			infamy = 0
 		}
 		event_target:roman_negotiator = {
-			set_character_flag = declared_tributary_foederati_cb_war_on_@event_target:barbarian_negotiator_flag
+			set_character_flag = declared_tributary_foederati_cb_war_on_@event_target:barbarian_negotiator
 			remove_tributary = event_target:barbarian_negotiator
 		}
 	}
@@ -1729,10 +1729,10 @@ long_character_event = {
 						usurp_title_plus_barony_if_unlanded = PREV
 						set_defacto_liege = THIS
 						set_truce = {
-							who = ROOT
+							who = event_target:barbarian_negotiator
 							years = 10
 						}
-						ROOT = {
+						event_target:barbarian_negotiator = {
 							set_truce = {
 								who = PREV
 								years = 10
@@ -1937,8 +1937,11 @@ long_character_event = {
 			save_event_target_as = foederati # Used for localisation
 			long_character_event = { 
 				id = WtWSMS_foederati.24
-				days = 3
+				days = 1
 			}
+		}
+		suzerain = {
+			save_event_target_as = suzerain # Used for localisation
 		}
 	}
 }
@@ -2178,7 +2181,7 @@ long_character_event = {
 			casus_belli = tributary_foederati_cb
 		}
 		event_target:roman_negotiator = {
-			set_character_flag = declared_tributary_foederati_cb_war_on_@event_target:barbarian_negotiator_flag
+			set_character_flag = declared_tributary_foederati_cb_war_on_@event_target:barbarian_negotiator
 		}
 	}
 }
@@ -2403,7 +2406,7 @@ long_character_event = {
 	
 	trigger = {
 		ROOT = {	
-			has_character_flag = declared_tributary_foederati_cb_war_on_@event_target:target_loser_flag
+			has_character_flag = declared_tributary_foederati_cb_war_on_@event_target:target_loser
 		}
 	}
 	
@@ -2414,7 +2417,7 @@ long_character_event = {
 		ROOT = {
 			save_event_target_as = roman_negotiator
 			set_character_flag = enforcing_demands
-			clr_character_flag = declared_tributary_foederati_cb_war_on_@event_target:target_loser_flag
+			clr_character_flag = declared_tributary_foederati_cb_war_on_@event_target:target_loser
 		}
 	}
 
