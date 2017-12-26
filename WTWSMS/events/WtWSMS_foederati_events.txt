@@ -293,18 +293,40 @@ long_character_event = {
     is_triggered_only = yes
 	
 	immediate = {
-		random_realm_title = {
-		    limit = {
-				tier = duke
-				is_titular = no # Dejure duchy
-				any_direct_de_jure_vassal_title = { # Vassal county of the duchy
-					is_capital = no # Don't want to hand out the capital duchy
-					de_jure_liege = PREV
-					location = {
-						any_neighbor_province = {
-							holder_scope = {
-								OR = { 
+		if = {
+			limit = {
+				NOT = { has_character_flag = picking_another_offer_territory }
+			}
+			random_realm_title = {
+				limit = {
+					tier = duke
+					is_titular = no # Dejure duchy
+					any_direct_de_jure_vassal_title = { # Vassal county of the duchy
+						is_capital = no # Don't want to hand out the capital duchy
+						de_jure_liege = PREV
+						location = {
+							any_neighbor_province = {
+								holder_scope = {
 									character = event_target:barbarian_negotiator # Any dejure vassal county of the duchy has a neighbouring county which is held by event_target:barbarian_negotiator
+								}
+							}
+						}
+					}
+				}
+				save_event_target_as = offered_territory
+			} 
+		}
+		else = { 
+			random_realm_title = {
+				limit = {
+					tier = duke
+					is_titular = no # Dejure duchy
+					any_direct_de_jure_vassal_title = { # Vassal county of the duchy
+						is_capital = no # Don't want to hand out the capital duchy
+						de_jure_liege = PREV
+						location = {
+							any_neighbor_province = {
+								holder_scope = {
 									AND = { # Any dejure vassal county of the duchy has a neighbouring county which is not held by event_target:barbarian_negotiator but still not in the realm
 										NOT = { character = event_target:barbarian_negotiator } 
 										NOT = { same_realm = event_target:roman_negotiator } 	
@@ -314,9 +336,9 @@ long_character_event = {
 						}
 					}
 				}
-    		}
-			save_event_target_as = offered_territory
-		} 
+				save_event_target_as = offered_territory
+			} 
+		}
 	}
 
 	option = { # Pick suggested territory
@@ -336,6 +358,7 @@ long_character_event = {
 				random = 3
 			}
 		}
+		clr_character_flag = picking_another_offer_territory
 	}
 	option = { # Enforcing demands
 		name = WtWSMS_foederati.4.b
@@ -358,6 +381,7 @@ long_character_event = {
 				id = WtWSMS_foederati.21 # Victorious Roman enforcing demands upon barbarian
 			}
 		}
+		clr_character_flag = picking_another_offer_territory
 	}
 	option = { # Find another one than the suggested, reloads same event
 		name = WtWSMS_foederati.4.c
@@ -373,6 +397,7 @@ long_character_event = {
 			}
 		}
 		clear_event_target = offered_territory
+		set_character_flag = picking_another_offer_territory
 	}
 }
 
@@ -478,6 +503,7 @@ long_character_event = {
 			long_character_event = { 
 				id = WtWSMS_foederati.4 # Pick a territory to offer
 			}
+			set_character_flag = picking_another_offer_territory
 		}
 	}
 	option = { 	# Break negotiations
@@ -497,8 +523,6 @@ long_character_event = {
 		event_target:barbarian_negotiator = {
 			long_character_event = { 
 				id = WtWSMS_foederati.12 # Negotiations break
-				days = 7
-				random = 3
 			}
 		}
 		event_target:roman_negotiator = {
@@ -517,19 +541,41 @@ long_character_event = {
 	
     is_triggered_only = yes
 	
-	immediate = {
-		random_realm_title = {
-		    limit = {
-				tier = duke
-				is_titular = no # Dejure duchy
-				any_direct_de_jure_vassal_title = { # Vassal county of the duchy
-					is_capital = no # Don't want to hand out the capital duchy
-					de_jure_liege = PREV
-					location = {
-						any_neighbor_province = {
-							holder_scope = {
-								OR = { 
+	immediate = {		
+		if = {
+			limit = {
+				NOT = { has_character_flag = picking_another_promise_territory }
+			}
+			random_realm_title = {
+				limit = {
+					tier = duke
+					is_titular = no # Dejure duchy
+					any_direct_de_jure_vassal_title = { # Vassal county of the duchy
+						is_capital = no # Don't want to hand out the capital duchy
+						de_jure_liege = PREV
+						location = {
+							any_neighbor_province = {
+								holder_scope = {
 									character = event_target:barbarian_negotiator # Any dejure vassal county of the duchy has a neighbouring county which is held by event_target:barbarian_negotiator
+								}
+							}
+						}
+					}
+				}
+				save_event_target_as = promised_territory
+			} 
+		}
+		else = { 
+			random_realm_title = {
+				limit = {
+					tier = duke
+					is_titular = no # Dejure duchy
+					any_direct_de_jure_vassal_title = { # Vassal county of the duchy
+						is_capital = no # Don't want to hand out the capital duchy
+						de_jure_liege = PREV
+						location = {
+							any_neighbor_province = {
+								holder_scope = {
 									AND = { # Any dejure vassal county of the duchy has a neighbouring county which is not held by event_target:barbarian_negotiator but still not in the realm
 										NOT = { character = event_target:barbarian_negotiator } 
 										NOT = { same_realm = event_target:roman_negotiator } 	
@@ -539,9 +585,9 @@ long_character_event = {
 						}
 					}
 				}
-    		}
-			save_event_target_as = promised_territory
-		} 
+				save_event_target_as = promised_territory
+			} 
+		}
 	}
 
 	option = { # Pick suggested territory
@@ -555,7 +601,8 @@ long_character_event = {
 				days = 7
 				random = 3
 			}
-		}
+		}		
+		clr_character_flag = picking_another_promise_territory
 	}
 	option = { # Find another one than the suggested, reloads same event
 		name = WtWSMS_foederati.7.b
@@ -571,6 +618,7 @@ long_character_event = {
 			}
 		}
 		clear_event_target = promised_territory
+		set_character_flag = picking_another_promise_territory
 	}
 }
 
@@ -676,6 +724,7 @@ long_character_event = {
 			long_character_event = { 
 				id = WtWSMS_foederati.7 # Pick a territory to promise
 			}
+			set_character_flag = picking_another_promise_territory
 		}
 	}
 	option = { 	# Break negotiations
@@ -695,8 +744,6 @@ long_character_event = {
 		event_target:barbarian_negotiator = {
 			long_character_event = { 
 				id = WtWSMS_foederati.12 # Negotiations break
-				days = 7
-				random = 3
 			}
 		}
 		event_target:roman_negotiator = {
@@ -771,8 +818,6 @@ long_character_event = {
 		event_target:roman_negotiator = {
 			long_character_event = { 
 				id = WtWSMS_foederati.12 # Negotiations break
-				days = 7
-				random = 3
 			}
 		}
 	}
@@ -916,6 +961,7 @@ long_character_event = {
 		name = WtWSMS_foederati.12.b
 		trigger = {
 			has_romance_culture_trigger = yes # Is Roman
+			NOT = { war_with = event_target:barbarian_negotiator }
 		}
 		ai_chance = {
 			factor = 50
@@ -959,6 +1005,7 @@ long_character_event = {
 					sassanid_government_trigger = yes
 				}
 			}
+			NOT = { war_with = event_target:roman_negotiator }
 		}
 		ai_chance = {
 			factor = 50
@@ -1007,7 +1054,7 @@ long_character_event = {
 			}
 		}
 		else = {
-			war = {
+			unsafe_war = {
 				target = event_target:roman_negotiator
 				casus_belli = tribal_invasion
 				infamy = 0
@@ -1948,9 +1995,6 @@ long_character_event = {
 				days = 1
 			}
 		}
-		suzerain = {
-			save_event_target_as = suzerain # Used for localisation
-		}
 	}
 }
 
@@ -1960,6 +2004,12 @@ long_character_event = {
 	picture = GFX_evt_emissary
 	
 	is_triggered_only = yes # On_actions event
+	
+	immediate = {
+		suzerain = {
+			save_event_target_as = suzerain # Used for localisation
+		}
+	}
 
 	option = { # Remain foederati
 		name = WtWSMS_foederati.24.a
@@ -2230,9 +2280,11 @@ long_character_event = {
 		custom_tooltip = {
 			text = WtWSMS_foederati.26.a.tooltip # Becomes vassal
 		}
-		set_defacto_liege = suzerain
 		suzerain = {
 			remove_tributary = PREV
+			ROOT = {
+				set_defacto_liege = PREV
+			}
 			long_character_event = {
 				id = WtWSMS_foederati.27 # Foederati accepts to become vassal
 				days = 7
