@@ -111,8 +111,13 @@ targetted_decisions = {
 			OR = {
 				is_tribal = yes
 				is_nomadic = yes
+				primary_title = { title = k_arabia_petraea }
+				primary_title = { title = k_ostrogoths } 
 			}
-			has_romance_culture_trigger = no
+			OR = {
+				has_romance_culture_trigger = no
+				primary_title = { title = k_ostrogoths } 
+			}
 			NOR = {
 				primary_title = { 
 					higher_tier_than = KING
@@ -145,7 +150,10 @@ targetted_decisions = {
 					any_neighbor_independent_ruler = {
 						mercenary = no
 						holy_order = no
-						has_romance_culture_trigger = no
+						OR = {
+							has_romance_culture_trigger = no
+							primary_title = { title = k_ostrogoths } 
+						}
 						NOR = {
 							primary_title = { 
 								higher_tier_than = KING
@@ -178,9 +186,9 @@ targetted_decisions = {
 		}
 		
 		ai_will_do = {
-			factor = 0
+			factor = 1
 			modifier = {
-				factor = 0.1 # slow down
+				factor = 0.01 # slow down
 			}
 			modifier = { 
 				realm_levy_diff = { 
@@ -189,12 +197,20 @@ targetted_decisions = {
 				} 
 				factor = 1.5 
 			}
-			modifier = { 
+			modifier = {
 				realm_levy_diff = { 
 					who = ROOT 
 					value = 5000 
 				} 
 				factor = 3 
+			}
+			modifier = {
+				realm_size < 50
+				factor = 0.5
+			}
+			modifier = { 
+				lower_tier_than = emperor
+				factor = 0.5
 			}
 		}
 	}
@@ -227,8 +243,13 @@ targetted_decisions = {
 			OR = {
 				is_tribal = yes
 				is_nomadic = yes
+				primary_title = { title = k_arabia_petraea }
+				primary_title = { title = k_ostrogoths } 
 			}
-			has_romance_culture_trigger = no
+			OR = {
+				has_romance_culture_trigger = no
+				primary_title = { title = k_ostrogoths } 
+			}
 			NOR = {
 				primary_title = { 
 					higher_tier_than = KING
@@ -280,13 +301,13 @@ targetted_decisions = {
 		}
 		
 		ai_will_do = {
-			factor = 0
+			factor = 1
 			modifier = {
-				factor = 0.1 # slow down
+				factor = 0.01 # slow down
 			}
 			modifier = { 
 				trait = roman_nostalgia 
-				factor = 1.5 
+				factor = 1.5
 			}
 			modifier = { 
 				realm_levy_diff = { 
@@ -302,6 +323,14 @@ targetted_decisions = {
 				} 
 				factor = 3 
 			}
+			modifier = { # Barbarian with a realm size larger than 50 is less likely to start negotiations
+                realm_size > 50
+                factor = 0.5
+            }
+			modifier = { # Barbarian with a realm size larger than 100 is even less likely to start negotiations
+                realm_size > 100
+                factor = 0.25
+            }
 			# TODO: AI should not start this unless there is pressure from the outside that warrant an alliance with Rome
 		}
 	}
