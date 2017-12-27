@@ -954,6 +954,10 @@ long_character_event = {
 		name = WtWSMS_foederati.12.a
 		ai_chance = {
 			factor = 50
+			modifier = {
+				factor = 2
+				war = yes
+			}
 		}
 		prestige = -50
 	}
@@ -1054,12 +1058,30 @@ long_character_event = {
 			}
 		}
 		else = {
-			unsafe_war = {
-				target = event_target:roman_negotiator
-				casus_belli = tribal_invasion
-				infamy = 0
-			}
-		}
+            event_target:roman_negotiator = {
+                random_realm_province = {
+                    limit = {
+                        any_neighbor_province = {
+                            OR = {
+                                owner = { character = event_target:barbarian_negotiator }
+                                owner = { top_liege = { character = event_target:barbarian_negotiator } }
+                            }
+                        }
+                    }
+                    duchy = {
+                        dejure_liege_title { #dejure kingdom
+                            save_event_target_as = tribal_invasion_target
+                        }
+                    }
+                }
+            }
+            unsafe_war = {
+                target = event_target:roman_negotiator
+                casus_belli = tribal_invasion
+                thirdparty_title = event_target:tribal_invasion_target
+                infamy = 0
+            }
+        }
 	}
 }
 
@@ -1438,6 +1460,10 @@ long_character_event = {
                 factor = 1.25
                 trait = wroth
             }
+			modifier = {
+                factor = 2
+                war = no
+            }
         }
 		custom_tooltip = {
 			text = WtWSMS_foederati.16.d.tooltip # War
@@ -1497,12 +1523,30 @@ long_character_event = {
 			}
 		}
 		else = {
-			war = {
-				target = event_target:roman_negotiator
-				casus_belli = tribal_invasion
-				infamy = 0
-			}
-		}
+            event_target:roman_negotiator = {
+                random_realm_province = {
+                    limit = {
+                        any_neighbor_province = {
+                            OR = {
+                                owner = { character = event_target:barbarian_negotiator }
+                                owner = { top_liege = { character = event_target:barbarian_negotiator } }
+                            }
+                        }
+                    }
+                    duchy = {
+                        dejure_liege_title { #dejure kingdom
+                            save_event_target_as = tribal_invasion_target
+                        }
+                    }
+                }
+            }
+            unsafe_war = {
+                target = event_target:roman_negotiator
+                casus_belli = tribal_invasion
+                thirdparty_title = event_target:tribal_invasion_target
+                infamy = 0
+            }
+        }
 		event_target:roman_negotiator = {
 			remove_tributary = event_target:barbarian_negotiator
 		}
@@ -1559,12 +1603,30 @@ long_character_event = {
 			}
 		}
 		else = {
-			war = {
-				target = event_target:roman_negotiator
-				casus_belli = tribal_invasion
-				infamy = 0
-			}
-		}
+            event_target:roman_negotiator = {
+                random_realm_province = {
+                    limit = {
+                        any_neighbor_province = {
+                            OR = {
+                                owner = { character = event_target:barbarian_negotiator }
+                                owner = { top_liege = { character = event_target:barbarian_negotiator } }
+                            }
+                        }
+                    }
+                    duchy = {
+                        dejure_liege_title { #dejure kingdom
+                            save_event_target_as = tribal_invasion_target
+                        }
+                    }
+                }
+            }
+            unsafe_war = {
+                target = event_target:roman_negotiator
+                casus_belli = tribal_invasion
+                thirdparty_title = event_target:tribal_invasion_target
+                infamy = 0
+            }
+        }
 		event_target:roman_negotiator = {
 			remove_tributary = event_target:barbarian_negotiator
 		}
