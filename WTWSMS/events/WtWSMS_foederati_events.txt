@@ -1738,13 +1738,18 @@ long_character_event = {
 			mercenary = no
 			holy_order = no
 			is_landed = yes
+			is_tributary = no			
+			OR = {
+				is_tribal = yes
+				is_nomadic = yes
+			}
+			has_romance_culture_trigger = no
 			NOR = {
 				primary_title = { 
 					higher_tier_than = KING
 					bureaucratic_government_trigger = yes
 					sassanid_government_trigger = yes
 				}
-				has_romance_culture_trigger = yes
 			}
 		}
 		ROOT = { # Defender
@@ -1758,7 +1763,7 @@ long_character_event = {
 				has_landed_title = e_wre
 				has_landed_title = e_byzantium 
 				has_landed_title = e_roman_empire
-			} 
+			}
 		}
 	}
 	
@@ -1936,13 +1941,13 @@ long_character_event = {
 	}
 }
 
-# Barbarians can open foederati negotiations with the Romans after white peace
+# Barbarians can open foederati negotiations with the Romans after white peace (ROOT is Roman here)
 long_character_event = {
     id = WtWSMS_foederati.22
-	desc = WtWSMS_foederati.22.desc 
-	picture = GFX_evt_emissary
 	
 	is_triggered_only = yes # On_actions event
+	
+	hide_window = yes
 	
 	only_playable = yes
 	only_independent = yes
@@ -1953,13 +1958,18 @@ long_character_event = {
 			mercenary = no
 			holy_order = no
 			is_landed = yes
+			is_tributary = no			
+			OR = {
+				is_tribal = yes
+				is_nomadic = yes
+			}
+			has_romance_culture_trigger = no
 			NOR = {
 				primary_title = { 
 					higher_tier_than = KING
 					bureaucratic_government_trigger = yes
 					sassanid_government_trigger = yes
 				}
-				has_romance_culture_trigger = yes
 			}
 		}
 		ROOT = { # Defender
@@ -1973,78 +1983,19 @@ long_character_event = {
 				has_landed_title = e_wre
 				has_landed_title = e_byzantium 
 				has_landed_title = e_roman_empire
-			} 
-		}
-		independent = yes
-		mercenary = no
-		holy_order = no
-		is_landed = yes
-		NOR = {
-			primary_title = { 
-				higher_tier_than = KING
-				bureaucratic_government_trigger = yes
-				sassanid_government_trigger = yes
 			}
-			has_romance_culture_trigger = yes
 		}
 	}
 	
 	immediate = {
 		FROM = {
 			save_event_target_as = barbarian_negotiator
+			long_character_event = { 
+				id = WtWSMS_foederati.31
+			}
 		}
 		ROOT = {
 			save_event_target_as = roman_negotiator
-		}
-	}
-
-	option = { # Open negotiations
-		name = WtWSMS_foederati.22.a
-		ai_chance = {
-            factor = 50
-            modifier = {
-                factor = 1.5
-                event_target:roman_negotiator = {
-                    trait = strategist
-                }
-            }
-            modifier = {
-                factor = 1.5
-                event_target:roman_negotiator = {
-                    trait = trusting
-                }
-            }
-        }
-		custom_tooltip = {
-			text = WtWSMS_foederati.22.a.tooltip # Negotiations begin
-		}
-		event_target:roman_negotiator = {
-			long_character_event = { 
-				id = WtWSMS_foederati.1 # Romans accept or refuse to start negotiating with barbarian
-				days = 7
-				random = 3
-			}
-		}
-	}
-	option = { # Refuse to open negotiations
-		name = WtWSMS_foederati.22.b
-		ai_chance = {
-            factor = 50
-            modifier = {
-                factor = 1.5
-                event_target:roman_negotiator = {
-                    trait = stubborn
-                }
-            }
-            modifier = {
-                factor = 1.5
-                event_target:roman_negotiator = {
-                    opinion = { who = event_target:barbarian_negotiator value < -20 }
-                }
-            }
-        }
-		custom_tooltip = {
-			text = WtWSMS_foederati.22.b.tooltip # Negotiations do not start
 		}
 	}
 }
@@ -2053,7 +2004,7 @@ long_character_event = {
 # Death of foederati
 ###############################
 
-# Following the death of the foederati ruler, the new one has the choice to leave
+# Following the death of the foederati ruler, the new one has the choice to leave (ROOT is the dead ruler)
 long_character_event = {
     id = WtWSMS_foederati.23
 	
@@ -2080,6 +2031,7 @@ long_character_event = {
 	}
 }
 
+# Following the death of the foederati ruler, the new one has the choice to leave (ROOT is the heir of the dead ruler)
 long_character_event = {
     id = WtWSMS_foederati.24
 	desc = WtWSMS_foederati.24.desc
@@ -2532,7 +2484,7 @@ long_character_event = {
 }
 
 ###############################
-# Foederati negotiations
+# More foederati negotiations
 ###############################
 
 # Victorious Roman force barbarians into foederati status after enforcing demands
@@ -2591,6 +2543,65 @@ long_character_event = {
 				id = WtWSMS_foederati.21 # Victorious Roman enforcing demands upon barbarian
 			}
 			set_character_flag = settling_outside_empire_flag
+		}
+	}
+}
+
+# Barbarians can open foederati negotiations with the Romans after white peace (ROOT is Barbarian)
+long_character_event = {
+    id = WtWSMS_foederati.31
+	desc = WtWSMS_foederati.31.desc
+	picture = GFX_evt_emissary
+	
+	is_triggered_only = yes 
+	
+	option = { # Open negotiations
+		name = WtWSMS_foederati.31.a
+		ai_chance = {
+            factor = 50
+            modifier = {
+                factor = 1.5
+                event_target:roman_negotiator = {
+                    trait = strategist
+                }
+            }
+            modifier = {
+                factor = 1.5
+                event_target:roman_negotiator = {
+                    trait = trusting
+                }
+            }
+        }
+		custom_tooltip = {
+			text = WtWSMS_foederati.31.a.tooltip # Negotiations begin
+		}
+		event_target:roman_negotiator = {
+			long_character_event = { 
+				id = WtWSMS_foederati.1 # Romans accept or refuse to start negotiating with barbarian
+				days = 7
+				random = 3
+			}
+		}
+	}
+	option = { # Refuse to open negotiations
+		name = WtWSMS_foederati.31.b
+		ai_chance = {
+            factor = 50
+            modifier = {
+                factor = 1.5
+                event_target:roman_negotiator = {
+                    trait = stubborn
+                }
+            }
+            modifier = {
+                factor = 1.5
+                event_target:roman_negotiator = {
+                    opinion = { who = event_target:barbarian_negotiator value < -20 }
+                }
+            }
+        }
+		custom_tooltip = {
+			text = WtWSMS_foederati.31.b.tooltip # Negotiations do not start
 		}
 	}
 }
