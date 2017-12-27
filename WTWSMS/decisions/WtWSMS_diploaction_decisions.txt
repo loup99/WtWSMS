@@ -191,25 +191,33 @@ targetted_decisions = {
 				factor = 0.01 # slow down
 			}
 			modifier = { 
-				realm_levy_diff = { 
-					who = ROOT 
-					value = 2000 
-				} 
+				FROM = {
+					realm_levy_diff = { 
+						who = ROOT 
+						value = 2000 
+					} 
+				}
 				factor = 1.5 
 			}
 			modifier = {
-				realm_levy_diff = { 
-					who = ROOT 
-					value = 5000 
-				} 
+				FROM = {
+					realm_levy_diff = { 
+						who = ROOT 
+						value = 5000 
+					}
+				}
 				factor = 3 
 			}
 			modifier = {
-				realm_size < 50
+				FROM = { 
+					realm_size < 50
+				}
 				factor = 0.5
 			}
-			modifier = { 
-				lower_tier_than = emperor
+			modifier = { 				
+				FROM = { 
+					lower_tier_than = emperor
+				}
 				factor = 0.5
 			}
 		}
@@ -306,29 +314,39 @@ targetted_decisions = {
 				factor = 0.01 # slow down
 			}
 			modifier = { 
-				trait = roman_nostalgia 
+				FROM = { 
+					trait = roman_nostalgia
+				}
 				factor = 1.5
 			}
 			modifier = { 
-				realm_levy_diff = { 
-					who = FROM 
-					value = 2000 
-				} 
+				ROOT = { 
+					realm_levy_diff = { 
+						who = FROM 
+						value = 2000 
+					} 
+				}
 				factor = 1.5 
 			}
 			modifier = { 
-				realm_levy_diff = { 
-					who = FROM 
-					value = 5000 
-				} 
+				ROOT = { 
+					realm_levy_diff = { 
+						who = FROM 
+						value = 5000 
+					} 
+				}
 				factor = 3 
 			}
 			modifier = { # Barbarian with a realm size larger than 50 is less likely to start negotiations
-                realm_size > 50
+				FROM = { 
+					realm_size > 50
+				}
                 factor = 0.5
             }
 			modifier = { # Barbarian with a realm size larger than 100 is even less likely to start negotiations
-                realm_size > 100
+                FROM = { 
+					realm_size > 100
+				}
                 factor = 0.25
             }
 			# TODO: AI should not start this unless there is pressure from the outside that warrant an alliance with Rome
