@@ -305,9 +305,24 @@ long_character_event = {
     is_triggered_only = yes
 	
 	immediate = {
-		if = {
+		if = { # Pick in priority a neighbouring duvhy
 			limit = {
 				NOT = { has_character_flag = picking_another_offer_territory }
+				any_realm_title = {
+					tier = duke
+					is_titular = no # Dejure duchy
+					any_direct_de_jure_vassal_title = { # Vassal county of the duchy
+						is_capital = no # Don't want to hand out the capital duchy
+						de_jure_liege = PREV
+						location = {
+							any_neighbor_province = {
+								holder_scope = {
+									character = event_target:barbarian_negotiator # Any dejure vassal county of the duchy has a neighbouring county which is held by event_target:barbarian_negotiator
+								}
+							}
+						}
+					}
+				} 
 			}
 			random_realm_title = {
 				limit = {
@@ -328,7 +343,27 @@ long_character_event = {
 				save_event_target_as = offered_territory
 			} 
 		}
-		else = { 
+		else_if	= { # Otherwise other duchies can get selected
+			limit = {
+				any_realm_title = {
+					tier = duke
+					is_titular = no # Dejure duchy
+					any_direct_de_jure_vassal_title = { # Vassal county of the duchy
+						is_capital = no # Don't want to hand out the capital duchy
+						de_jure_liege = PREV
+						location = {
+							any_neighbor_province = {
+								holder_scope = {
+									AND = { # Any dejure vassal county of the duchy has a neighbouring county which is not held by event_target:barbarian_negotiator but still not in the realm
+										NOT = { character = event_target:barbarian_negotiator } 
+										NOT = { same_realm = event_target:roman_negotiator } 	
+									}
+								}
+							}
+						}
+					}
+				} 
+			}
 			random_realm_title = {
 				limit = {
 					tier = duke
@@ -350,6 +385,29 @@ long_character_event = {
 				}
 				save_event_target_as = offered_territory
 			} 
+		}
+		else = { # No such duchies exists, grants a county instead
+			random_realm_title = {
+				limit = {
+					tier = count
+					is_titular = no # Dejure county
+					any_direct_de_jure_vassal_title = { # Vassal barony of the county
+						is_capital = no # Don't want to hand out the capital county
+						de_jure_liege = PREV
+						location = {
+							any_neighbor_province = {
+								holder_scope = {
+									AND = { # Any dejure vassal barony of the county has a neighbouring county which is not held by event_target:barbarian_negotiator but still not in the realm
+										NOT = { character = event_target:barbarian_negotiator } 
+										NOT = { same_realm = event_target:roman_negotiator } 	
+									}
+								}
+							}
+						}
+					}
+				}
+				save_event_target_as = offered_territory
+			}
 		}
 	}
 
@@ -554,9 +612,24 @@ long_character_event = {
     is_triggered_only = yes
 	
 	immediate = {		
-		if = {
+		if = { # Pick in priority a neighbouring duvhy
 			limit = {
 				NOT = { has_character_flag = picking_another_promise_territory }
+				any_realm_title = {
+					tier = duke
+					is_titular = no # Dejure duchy
+					any_direct_de_jure_vassal_title = { # Vassal county of the duchy
+						is_capital = no # Don't want to hand out the capital duchy
+						de_jure_liege = PREV
+						location = {
+							any_neighbor_province = {
+								holder_scope = {
+									character = event_target:barbarian_negotiator # Any dejure vassal county of the duchy has a neighbouring county which is held by event_target:barbarian_negotiator
+								}
+							}
+						}
+					}
+				} 
 			}
 			random_realm_title = {
 				limit = {
@@ -577,7 +650,27 @@ long_character_event = {
 				save_event_target_as = promised_territory
 			} 
 		}
-		else = { 
+		else_if	= { # Otherwise other duchies can get selected
+			limit = {
+				any_realm_title = {
+					tier = duke
+					is_titular = no # Dejure duchy
+					any_direct_de_jure_vassal_title = { # Vassal county of the duchy
+						is_capital = no # Don't want to hand out the capital duchy
+						de_jure_liege = PREV
+						location = {
+							any_neighbor_province = {
+								holder_scope = {
+									AND = { # Any dejure vassal county of the duchy has a neighbouring county which is not held by event_target:barbarian_negotiator but still not in the realm
+										NOT = { character = event_target:barbarian_negotiator } 
+										NOT = { same_realm = event_target:roman_negotiator } 	
+									}
+								}
+							}
+						}
+					}
+				} 
+			}
 			random_realm_title = {
 				limit = {
 					tier = duke
@@ -599,6 +692,29 @@ long_character_event = {
 				}
 				save_event_target_as = promised_territory
 			} 
+		}
+		else = { # No such duchies exists, grants a county instead
+			random_realm_title = {
+				limit = {
+					tier = count
+					is_titular = no # Dejure county
+					any_direct_de_jure_vassal_title = { # Vassal barony of the county
+						is_capital = no # Don't want to hand out the capital county
+						de_jure_liege = PREV
+						location = {
+							any_neighbor_province = {
+								holder_scope = {
+									AND = { # Any dejure vassal barony of the county has a neighbouring county which is not held by event_target:barbarian_negotiator but still not in the realm
+										NOT = { character = event_target:barbarian_negotiator } 
+										NOT = { same_realm = event_target:roman_negotiator } 	
+									}
+								}
+							}
+						}
+					}
+				}
+				save_event_target_as = promised_territory
+			}
 		}
 	}
 
@@ -1241,11 +1357,24 @@ long_character_event = {
 				}
 				clr_province_flag = foederati_give_away
 			}
-			event_target:offered_territory = { # Grant offered land
-				any_de_jure_vassal_title = { # Vassal county of the duchy
-					limit = {
-						tier = COUNT
+			# Grant offered land
+			if = { # Grant offered duchy
+				limit = {
+					event_target:offered_territory = {
+						tier = DUKE
 					}
+				}
+				event_target:offered_territory = { 
+					any_de_jure_vassal_title = { # Vassal county of the duchy
+						limit = {
+							tier = COUNT
+						}
+						grant_title	= event_target:barbarian_negotiator
+					}
+				}
+			}
+			else = { # Grant offered county
+				event_target:offered_territory = { 
 					grant_title	= event_target:barbarian_negotiator
 				}
 			}
@@ -1412,11 +1541,24 @@ long_character_event = {
 				}
 				clr_province_flag = foederati_give_away
 			}
-			event_target:offered_territory = { # Grant offered land
-				any_de_jure_vassal_title = { # Vassal county of the duchy
-					limit = {
-						tier = COUNT
+			# Grant promised land
+			if = { # Grant promised duchy
+				limit = {
+					event_target:promised_territory = {
+						tier = DUKE
 					}
+				}
+				event_target:promised_territory = { 
+					any_de_jure_vassal_title = { # Vassal county of the duchy
+						limit = {
+							tier = COUNT
+						}
+						grant_title	= event_target:barbarian_negotiator
+					}
+				}
+			}
+			else = { # Grant promised county
+				event_target:promised_territory = { 
 					grant_title	= event_target:barbarian_negotiator
 				}
 			}			
@@ -1953,11 +2095,24 @@ long_character_event = {
 				}
 				clr_province_flag = foederati_give_away
 			}
-			event_target:offered_territory = { # Grant offered land
-				any_de_jure_vassal_title = { # Vassal county of the duchy
-					limit = {
-						tier = COUNT
+			# Grant offered land
+			if = { # Grant offered duchy
+				limit = {
+					event_target:offered_territory = {
+						tier = DUKE
 					}
+				}
+				event_target:offered_territory = { 
+					any_de_jure_vassal_title = { # Vassal county of the duchy
+						limit = {
+							tier = COUNT
+						}
+						grant_title	= event_target:barbarian_negotiator
+					}
+				}
+			}
+			else = { # Grant offered county
+				event_target:offered_territory = { 
 					grant_title	= event_target:barbarian_negotiator
 				}
 			}
