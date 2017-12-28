@@ -3,7 +3,7 @@
 #
 # Written by Loup
 #
-# WtWSMS_foederati.1 -> WtWSMS_foederati.30
+# WtWSMS_foederati.1 -> WtWSMS_foederati.31
 ###############################
 
 namespace = WtWSMS_foederati
@@ -27,6 +27,8 @@ long_character_event = {
 		ROOT = {
 			save_event_target_as = roman_negotiator
 		}
+		# Log foederati negotiations to check if ai_will_do is good
+		log = "Foederati Negotiations between [FromFrom.GetTitledName] and [Root.GetTitledName] started."
 	}
 	
 	option = { # Yes
@@ -439,7 +441,7 @@ long_character_event = {
 			text = WtWSMS_foederati.4.b.tooltip # Settle barbarian_negotiator in offered_territory
 		}
 		event_target:barbarian_negotiator = {			
-		any_realm_province = { # Set flag to give away land
+			any_realm_province = { # Set flag to give away land
 				limit = {
 					NOT = { has_province_flag = foederati_give_away }
 				}
@@ -1076,6 +1078,8 @@ long_character_event = {
 			}
 			clr_character_flag = settling_outside_empire_flag
 		}
+		# Log foederati negotiations to check if ai_will_do is good
+		log = "Foederati Negotiations between [barbarian_negotiator.GetTitledName] and [roman_negotiator.GetTitledName] broke."
 	}
 
 	option = { # OK
@@ -1416,7 +1420,7 @@ long_character_event = {
 				tributary_type = foederati
 			}
 		}
-		# Log foederati negotiations for troubleshooting
+		# Log foederati negotiations to check if ai_will_do is good
 		log = "Foederati [barbarian_negotiator.GetTitledName] became a tributary of [roman_negotiator.GetTitledName] and was granted territory."
 	}
 	option = { # All in due time...
@@ -1433,7 +1437,7 @@ long_character_event = {
 				days = 1825 # Five years
 			}
 		}
-		# Log foederati negotiations for troubleshooting
+		# Log foederati negotiations to check if ai_will_do is good
 		log = "Foederati [barbarian_negotiator.GetTitledName] became a tributary of [roman_negotiator.GetTitledName] and was promised territory."
 	}
 	option = { # Protect the border
@@ -1447,7 +1451,7 @@ long_character_event = {
 		event_target:roman_negotiator = {
 			clr_character_flag = settling_outside_empire_flag
 		}		
-		# Log foederati negotiations for troubleshooting
+		# Log foederati negotiations to check if ai_will_do is good
 		log = "Foederati [barbarian_negotiator.GetTitledName] became a tributary of [roman_negotiator.GetTitledName] and will protect the border."
 	}
 }
@@ -1874,6 +1878,8 @@ long_character_event = {
 		ROOT = {
 			save_event_target_as = barbarian_negotiator
 		}
+		# Log foederati negotiations to check if ai_will_do is good
+		log = "Foederati Negotiations between [FromFrom.GetTitledName] and [Root.GetTitledName] started."
 	}
 	
 	option = { # Yes
@@ -1988,6 +1994,7 @@ long_character_event = {
 			save_event_target_as = roman_negotiator
 			set_character_flag = enforcing_demands
 		}
+		# Log foederati negotiations to check if ai_will_do is good
 		log = "[Root.GetTitledName] has enforced demands against the agressor [From.GetTitledName] and will be able to impose foederati status."
 	}
 
@@ -2014,6 +2021,7 @@ long_character_event = {
 		event_target:roman_negotiator = {
 			long_character_event = {
 				id = WtWSMS_foederati.4 # Pick a territory to offer
+				days = 1 # Delay for AI calculation
 			}
 			set_character_flag = offered_territory_flag
 		}
@@ -2029,6 +2037,7 @@ long_character_event = {
 		event_target:roman_negotiator = {
 			long_character_event = {
 				id = WtWSMS_foederati.21 # Victorious Roman enforcing demands upon barbarian
+				days = 1 # Delay for AI calculation
 			}
 			set_character_flag = settling_outside_empire_flag
 		}
@@ -2164,7 +2173,7 @@ long_character_event = {
 				tributary_type = foederati
 			}
 		}
-		# Log foederati negotiations for troubleshooting
+		# Log foederati negotiations to check if ai_will_do is good
 		log = "Foederati [barbarian_negotiator.GetTitledName] became a tributary of [roman_negotiator.GetTitledName] by force and was granted territory."
 	}
 	option = { # Protect the border
@@ -2178,12 +2187,12 @@ long_character_event = {
 		event_target:roman_negotiator = {
 			clr_character_flag = settling_outside_empire_flag
 		}
-		# Log foederati negotiations for troubleshooting
+		# Log foederati negotiations to check if ai_will_do is good
 		log = "Foederati [barbarian_negotiator.GetTitledName] became a tributary of [roman_negotiator.GetTitledName] by force and will protect the border."
 	}
 }
 
-# Barbarians can open foederati negotiations with the Romans after white peace (ROOT is Roman here)
+# Barbarians can open foederati negotiations with the Romans after white peace (ROOT is Roman)
 long_character_event = {
     id = WtWSMS_foederati.22
 	
@@ -2741,14 +2750,14 @@ long_character_event = {
 	desc = WtWSMS_foederati.30.desc
 	picture = GFX_evt_emissary
 	
-	is_triggered_only = yes # CB event
+	is_triggered_only = yes # Triggered by tributary_foederati_cb event
 	
 	only_playable = yes
 	only_independent = yes
 	
 	trigger = {
 		ROOT = {	
-			has_character_flag = declared_tributary_foederati_cb_war_on_@event_target:target_loser
+			has_character_flag = declared_tributary_foederati_cb_war_on_@event_target:target_loser # Event target set in CB
 		}
 	}
 	
@@ -2761,6 +2770,7 @@ long_character_event = {
 			set_character_flag = enforcing_demands
 			clr_character_flag = declared_tributary_foederati_cb_war_on_@event_target:target_loser
 		}
+		# Log foederati negotiations to check if ai_will_do is good
 		log = "[Root.GetTitledName] has won a war to make [target_loser.GetTitledName] a foederatus and will be able to impose foederati status."
 	}
 
