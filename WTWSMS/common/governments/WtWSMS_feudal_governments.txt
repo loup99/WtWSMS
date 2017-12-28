@@ -1,24 +1,28 @@
 feudal_governments = {
 	bureaucratic_government = {
-		preferred_holdings = { CASTLE }
+		preferred_holdings = { CASTLE CITY }
 		allowed_holdings = {
 			CASTLE
-			FORT
 			CITY
+			FORT
 			HOSPITAL
 		}
-		
-		allowed_holdings_culture = { # Will not get the wrong government type penalty for tribes of the same religion
+		allowed_holdings_culture = { # Will not get the wrong government type penalty for tribes of the same culture
 			TRIBAL
 		}
-
-		accepts_liege_governments = {
+		accepts_liege_governments = { # Gets the wrong religion modifier instead
 			feudal_government
-			republic_government
-			merchant_republic_government
-			theocracy_government
+			muslim_government
+			theocratic_feudal_government
+			chinese_imperial_government
+			sassanid_government
 		}
-		
+		free_revoke_on_tiers = {
+			duke
+		}
+		free_revoke_on_governments_religion = { # Tribal vassals of other religions can have their titles revoked for free
+			tribal_government
+		}
 		potential = {
 			NAND = {
 				controls_religion = yes
@@ -39,17 +43,21 @@ feudal_governments = {
 		
 		barons_need_dynasty = no
 		
+		can_build_tribal = no
+		
 		ignore_in_vassal_limit_calculation = {
 			tribal_government
 		}
+		capital_move_delay = 200
 		
-		can_build_tribal = no
-		
-		allow_title_revokation = yes
+		vassal_government_opinion_penalties = no
+		can_grant_kingdoms_and_empires_to_other_government_group = yes
 		free_retract_vassalage = yes
-		can_grant_kingdoms_and_empires_to_other_government = yes
+		allow_title_revokation = yes
 		
-		character_modifier	= {
+		vassal_limit = 10
+		
+		character_modifier = {
 			levy_size = -0.25
 			city_vassal_min_levy = -0.1
 			castle_vassal_min_levy = -0.1
@@ -64,28 +72,31 @@ feudal_governments = {
 			land_morale = 0.1
 			land_organisation = 0.1
 			demesne_size = 5
+			#retinuesize_perc = 2
+		}
+		unit_modifier = {
 			retinuesize_perc = 2
 		}
-		capital_move_delay = 600
 	}
 	
 	sassanid_government = {
-		preferred_holdings = { CASTLE }
+		preferred_holdings = { CASTLE CITY }
 		allowed_holdings = {
-			CASTLE 
-			FORT
+			CASTLE
 			CITY
+			FORT
 			HOSPITAL
 		}
-		
-		allowed_holdings_culture = { # Will not get the wrong government type penalty for tribes of the same religion
+		allowed_holdings_culture = { # Will not get the wrong government type penalty for tribes of the same culture
 			TRIBAL
 		}
-
-		accepts_liege_governments = {
-			sassanid_government
+		accepts_liege_governments = { # Gets the wrong religion modifier instead
+			feudal_government
+			muslim_government
+			theocratic_feudal_government
+			chinese_imperial_government
+			bureaucratic_government
 		}
-		
 		potential = {
 			NAND = {
 				controls_religion = yes
@@ -93,7 +104,7 @@ feudal_governments = {
 			}
 			primary_title = {
 				bureaucratic_government_trigger = no
-			} 
+			}
 			primary_title = {
 				sassanid_government_trigger = yes
 			}
@@ -145,7 +156,7 @@ feudal_governments = {
 				controls_religion = yes
 				OR = {
 					religion_group = christian
-					religion_group = pagan
+					religion_group = pagan_group
 				}
 			}
 			primary_title = {
@@ -163,9 +174,12 @@ feudal_governments = {
 		can_build_forts = no
 		can_build_hospitals = no
 		
-		can_create_kingdoms = no
 		can_be_granted_kingdoms_and_empires_by_other_government = no
 		have_gender_laws = no
+		can_usurp_kingdoms_and_empires = no
+		can_create_kingdoms = no
+		can_create_empires = no
+		can_inherit = no
 		
 		capital_move_delay = 600
 	}
