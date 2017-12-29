@@ -97,16 +97,33 @@ targetted_decisions = {
 		}
 	}
 	
-	# TODO: ask_to_become_foederati_emperor  (Empire->barbarians)
-	
-	become_foederati_barbarian = { # barbarians->Empire
+	begin_foederati_negotiations_roman = { # Roman bordering "Barbarian" initiates negotiations 
 		only_independent = yes
+		ai_target_filter = independent_rulers
 		ai_check_interval = 12
 
 		potential = {
-			AND = {
-				primary_title = { higher_tier_than = DUKE }
-				has_romance_culture_trigger = yes
+			independent = yes
+			mercenary = no
+			holy_order = no
+			is_landed = yes
+			is_tributary = no
+			OR = {
+				is_tribal = yes
+				is_nomadic = yes
+				primary_title = { title = k_arabia_petraea }
+				primary_title = { title = k_ostrogoths } 
+			}
+			OR = {
+				has_romance_culture_trigger = no
+				primary_title = { title = k_ostrogoths } 
+			}
+			NOR = {
+				primary_title = { 
+					higher_tier_than = KING
+					bureaucratic_government_trigger = yes
+					sassanid_government_trigger = yes
+				}
 			}
 		}
 		
@@ -115,26 +132,163 @@ targetted_decisions = {
 			mercenary = no
 			holy_order = no
 			is_landed = yes
+			primary_title = { higher_tier_than = DUKE }
+			OR = { 
+				has_romance_culture_trigger = yes
+				has_landed_title = e_wre
+				has_landed_title = e_byzantium 
+				has_landed_title = e_roman_empire
+			}
+			num_of_count_titles_in_realm = 2 # Needs to be able to grant a county without game-over
 		}
 		
 		allow = {
 			FROM = {
 				show_scope_change = no
-				war = no
-				OR = {
-					custom_tooltip = { #Borders the Roman Empire
-						text = become_foederati_barbarian_allow_borders_roman_realm_tt
-						any_neighbor_independent_ruler = {
-							AND = {
-								primary_title = { higher_tier_than = DUKE }
-								has_romance_culture_trigger = yes
+				war = no # I'm not sure on whether this should be a general FROM one or just with ROOT?
+				custom_tooltip = { # Borders "Barbarian"
+					text = begin_foederati_negotiations_roman_borders_barbarian_realm_tt
+					any_neighbor_independent_ruler = {
+						mercenary = no
+						holy_order = no
+						OR = {
+							has_romance_culture_trigger = no
+							primary_title = { title = k_ostrogoths } 
+						}
+						NOR = {
+							primary_title = { 
+								higher_tier_than = KING
+								bureaucratic_government_trigger = yes
+								sassanid_government_trigger = yes
 							}
 						}
+					}	
+					shares_realm_border_with = ROOT
+				}
+				is_tributary = no
+				custom_tooltip = {
+					text = get_foederati_roman_cooldown_tt
+					NOT = { has_character_modifier = get_foederati_timer }
+				}
+				prisoner = no
+				NOT = { trait = incapable }
+				is_inaccessible_trigger = no
+			}
+		}
+		
+		effect = {
+			long_character_event = { id = WtWSMS_foederati.19 } # Barbarian accept or refuse to start negotiating with Roman
+			FROM = {
+				add_character_modifier = {
+					name = get_foederati_timer
+					duration = 3600
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.001 # slow down
+			}
+			modifier = { 
+				FROM = {
+					realm_levy_diff = { 
+						who = ROOT 
+						value = 2000 
+					} 
+				}
+				factor = 1.5 
+			}
+			modifier = {
+				FROM = {
+					realm_levy_diff = { 
+						who = ROOT 
+						value = 5000 
 					}
 				}
-				NOT = {
-					is_tributary = yes
+				factor = 3 
+			}
+			modifier = {
+				FROM = { 
+					realm_size < 50
 				}
+				factor = 0.5
+			}
+			modifier = { 				
+				FROM = { 
+					lower_tier_than = emperor
+				}
+				factor = 0.5
+			}
+		}
+	}
+	
+	begin_foederati_negotiations_barbarian = { # "Barbarian" bordering Roman initiates negotiations
+		only_independent = yes
+		ai_target_filter = independent_rulers
+		ai_check_interval = 12
+
+		potential = {
+			independent = yes
+			mercenary = no
+			holy_order = no
+			is_landed = yes
+			primary_title = { higher_tier_than = DUKE }
+			OR = { 
+				has_romance_culture_trigger = yes
+				has_landed_title = e_wre
+				has_landed_title = e_byzantium 
+				has_landed_title = e_roman_empire
+			}
+			num_of_count_titles_in_realm = 2 # Needs to be able to grant a county without game-over 
+		}
+		
+		from_potential = {
+			independent = yes
+			mercenary = no
+			holy_order = no
+			is_landed = yes
+			is_tributary = no			
+			OR = {
+				is_tribal = yes
+				is_nomadic = yes
+				primary_title = { title = k_arabia_petraea }
+				primary_title = { title = k_ostrogoths } 
+			}
+			OR = {
+				has_romance_culture_trigger = no
+				primary_title = { title = k_ostrogoths } 
+			}
+			NOR = {
+				primary_title = { 
+					higher_tier_than = KING
+					bureaucratic_government_trigger = yes
+					sassanid_government_trigger = yes
+				}
+			}
+		}
+		
+		allow = {
+			FROM = {
+				show_scope_change = no
+				war = no # I'm not sure on whether this should be a general FROM one or just with ROOT?
+				custom_tooltip = { # Borders Roman
+					text = become_foederati_barbarian_allow_borders_roman_realm_tt
+					any_neighbor_independent_ruler = {
+						primary_title = { higher_tier_than = DUKE }
+						OR = { 
+							has_romance_culture_trigger = yes
+							has_landed_title = e_wre
+							has_landed_title = e_byzantium 
+							has_landed_title = e_roman_empire
+						}
+						mercenary = no
+						holy_order = no
+					}
+					shares_realm_border_with = ROOT
+				}
+				is_tributary = no
 				NOT = { tier = emperor }
 				custom_tooltip = {
 					text = become_foederati_barbarian_cooldown_tt
@@ -147,13 +301,8 @@ targetted_decisions = {
 		}
 		
 		effect = {
-			make_tributary = {
-				who = FROM
-				tributary_type = foederati
-			}
-			custom_tooltip = { text = become_foederati_barbarian_effect_TT }
+			long_character_event = { id = WtWSMS_foederati.1 } # Romans accept or refuse to start negotiating with barbarian			
 			FROM = {
-				sound_effect = grace_gain
 				add_character_modifier = {
 					name = become_foederati_timer
 					duration = 3600
@@ -162,13 +311,93 @@ targetted_decisions = {
 		}
 		
 		ai_will_do = {
-			factor = 0
+			factor = 1
 			modifier = {
-				factor = 0.1 # slow down
+				factor = 0.001 # slow down
 			}
-			modifier = { trait = roman_nostalgia factor = 1.5 }
-			modifier = { realm_levy_diff = { who = FROM value = 2000 } factor = 1.5 }
-			modifier = { realm_levy_diff = { who = FROM value = 5000 } factor = 3 }
+			modifier = { 
+				FROM = { 
+					trait = roman_nostalgia
+				}
+				factor = 1.5
+			}
+			modifier = { 
+				ROOT = { 
+					realm_levy_diff = { 
+						who = FROM 
+						value = 2000 
+					} 
+				}
+				factor = 1.5 
+			}
+			modifier = { 
+				ROOT = { 
+					realm_levy_diff = { 
+						who = FROM 
+						value = 5000 
+					} 
+				}
+				factor = 3 
+			}
+			modifier = { # Barbarian with a realm size larger than 50 is less likely to start negotiations
+				FROM = { 
+					realm_size > 50
+				}
+                factor = 0.5
+            }
+			modifier = { # Barbarian with a realm size larger than 100 is even less likely to start negotiations
+                FROM = { 
+					realm_size > 100
+				}
+                factor = 0.25
+            }
+			# TODO: AI should not start this unless there is pressure from the outside that warrant an alliance with Rome
+		}
+	}
+
+	force_integrate_foederati = { # A diploaction to turn foederati into vassal by force
+		only_independent = yes
+		ai_check_interval = 12
+		from_potential = {
+			independent = yes
+			mercenary = no
+			holy_order = no
+			is_landed = yes
+			primary_title = { higher_tier_than = DUKE }
+			OR = { 
+				has_romance_culture_trigger = yes
+				has_landed_title = e_wre
+				has_landed_title = e_byzantium 
+				has_landed_title = e_roman_empire
+			}
+		}
+		potential = {
+			is_tributary = {
+				type = foederati 
+				suzerain = FROM 
+			}
+		}
+		allow = {
+			ROOT = { 
+				war = no
+				prisoner = no
+				NOT = { trait = incapable }
+				is_inaccessible_trigger = no
+				NOT = { has_truce = FROM }
+			}
+			FROM = { 
+				war = no 
+				prisoner = no
+				NOT = { trait = incapable }
+				is_inaccessible_trigger = no
+				NOT = { has_truce = FROM }
+			}
+		}
+		effect = {
+			long_character_event = { id = WtWSMS_foederati.26 } 
+		}
+		ai_will_do = {
+			factor = 0
 		}
 	}
 }
