@@ -8,8 +8,8 @@ plot_kidnap_character = {
 	potential = {
 		is_ruler = yes
 		prisoner = no
-		age = 16	
-		NOT = { trait = incapable }	
+		age = 16
+		NOT = { trait = incapable }
 		NOT = {
 			AND = {
 				ai = yes
@@ -17,9 +17,9 @@ plot_kidnap_character = {
 					trait = honest
 					trait = kind
 					trait = honorable
-				}	
+				}
 			}
-		}	
+		}
 	}
 
 	# Target allow trigger for when players target a specific character in the GUI
@@ -39,10 +39,10 @@ plot_kidnap_character = {
 		OR = {
 			is_ruler = no
 			any_liege = { character = FROM }
-		}		
+		}
 		prisoner = no
 		#same_realm = FROM	
-		is_within_diplo_range = FROM		
+		is_within_diplo_range = FROM
 	}
 	
 	chance = {
@@ -70,14 +70,14 @@ plot_kidnap_character = {
 								trait = wroth
 								trait = arbitrary
 							}
-							NOT = { trait = just }				
+							NOT = { trait = just }
 						}
 						AND = { #Dangerous Vassal
 							any_vassal = { 
 								character = ROOT 
 								relative_power_to_liege = 0.25
 								NOT = { opinion = { who = FROM value = -50 } }
-							}	
+							}
 							OR = {
 								trait = ruthless
 								trait = paranoid
@@ -85,7 +85,7 @@ plot_kidnap_character = {
 								trait = arbitrary
 							}
 							NOT = { trait = just }
-							NOT = { trait = trusting }							
+							NOT = { trait = trusting }
 						}
 						# Go nuts...
 						AND = {
@@ -94,7 +94,7 @@ plot_kidnap_character = {
 								trait = lunatic
 								trait = possessed
 							}
-						}					
+						}
 					}
 				}
 			}
@@ -105,7 +105,7 @@ plot_kidnap_character = {
 			factor = 0.01
 			FROM = {
 				trait = content
-				NOT = { trait = lunatic } 
+				NOT = { trait = lunatic }
 				NOT = { trait = possessed }
 			}
 		}
@@ -132,7 +132,7 @@ plot_kidnap_character = {
 		modifier = {
 			factor = 3.0
 			FROM = { trait = ambitious }
-		}		
+		}
 		modifier = {
 			factor = 5
 			FROM = { 
@@ -142,11 +142,11 @@ plot_kidnap_character = {
 		modifier = {
 			factor = 0
 			FROM = { opinion = { who = ROOT value = 50 } }
-		}	
+		}
 		modifier = {
 			factor = 0.25
 			FROM = { opinion = { who = ROOT value = 25 } }
-		}	
+		}
 		modifier = {
 			factor = 1.5
 			FROM = { NOT = { opinion = { who = ROOT value = -25 } } }
@@ -162,7 +162,7 @@ plot_kidnap_character = {
 		modifier = {
 			factor = 0.5
 			FROM = { NOT = { intrigue = 5 } }
-		}		
+		}
 		modifier = {
 			factor = 0.5
 			FROM = { NOT = { intrigue = 10 } }
@@ -174,7 +174,7 @@ plot_kidnap_character = {
 		modifier = {
 			factor = 2
 			FROM = { intrigue = 20 }
-		}		
+		}
 		modifier = {
 			factor = 2.0
 			FROM = { trait = lunatic }
@@ -186,7 +186,7 @@ plot_kidnap_character = {
 		host = { character = FROM }
 	}
 	abort = {
-		OR = {	
+		OR = {
 			AND = {
 				prisoner = yes
 				host = { NOT = { character = FROM } }
@@ -247,15 +247,15 @@ plot_kidnap_liege = {
 		OR = {
 			has_opinion_modifier = { who = liege modifier = opinion_denied_title }
 			has_opinion_modifier = { who = liege modifier = opinion_broken_title_promise }
-		}	
+		}
 		NOT = { trait = incapable }
 		NOT = {
 			OR = {
 				trait = honest
 				trait = kind
 				trait = honorable
-			}	
-		}	
+			}
+		}
 	}
 	
 	# Target scope
@@ -271,7 +271,7 @@ plot_kidnap_liege = {
 					tier = count
 					location = {
 						is_capital = yes
-					}						
+					}
 				}
 			}
 		}
@@ -282,14 +282,14 @@ plot_kidnap_liege = {
 		modifier = {
 			factor = 100.0
 			FROM = { ai = no }
-		}	
+		}
 		modifier = {
 			factor = 0.0
 			FROM = {
 				ai = yes
 				war = yes
 			}
-		}	
+		}
 		modifier = {
 			factor = 2
 			FROM = { has_opinion_modifier = { who = liege modifier = opinion_broken_title_promise } }
@@ -320,7 +320,7 @@ plot_kidnap_liege = {
 					FROM = { trait = deceitful }
 					FROM = { trait = ambitious }
 				}
-			}			
+			}
 		}
 		modifier = {
 			factor = 0.25
@@ -331,12 +331,12 @@ plot_kidnap_liege = {
 					FROM = { trait = deceitful }
 					FROM = { trait = ambitious }
 				}
-			}			
-		}		
+			}
+		}
 		modifier = {
 			factor = 0.5
 			FROM = { opinion = { who = liege value = 0 } }
-		}	
+		}
 		modifier = {
 			factor = 1.5
 			NOT = { FROM = { opinion = { who = liege value = -25 } } }
@@ -364,7 +364,7 @@ plot_kidnap_liege = {
 		modifier = {
 			factor = 1.5
 			FROM = { intrigue = 20 }
-		}		
+		}
 		modifier = {
 			factor = 2.0
 			FROM = { trait = envious }
@@ -376,16 +376,16 @@ plot_kidnap_liege = {
 	}
 	
 	success = {
-		FROM = { 
-			has_character_flag = kidnap_attempt		
+		FROM = {
+			has_character_flag = kidnap_attempt
 			is_ruler = yes
 		}
 	}
 	abort = {
-		OR = {	
+		OR = {
 			FROM = { prisoner = yes }
 			is_alive = no
-			FROM = { 			
+			FROM = {
 				is_ruler = yes
 				NOT = {
 					has_character_flag = kidnap_attempt
@@ -446,7 +446,7 @@ plot_instigate_revolt = {
 		OR = { 
 			higher_tier_than = baron 
 			is_patrician = yes 
-		}	
+		}
 		NOT = {
 			AND = {
 				ai = yes
@@ -454,9 +454,9 @@ plot_instigate_revolt = {
 					trait = honest
 					trait = kind
 					trait = honorable
-				}	
+				}
 			}
-		}	
+		}
 	}
 	
 	target_potential = {
@@ -473,13 +473,13 @@ plot_instigate_revolt = {
 		age = 16
 		higher_tier_than = baron
 		independent = no
-		prisoner = no			
+		prisoner = no
 		NOT = { opinion = { who = liege value = 0 } }
 	}
 	
 	# Target scope
 	allow = {
-		NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }	
+		NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
 		age = 16
 		is_ruler = yes
 		is_landed = yes
@@ -488,7 +488,7 @@ plot_instigate_revolt = {
 		same_liege = FROM
 		independent = no
 		prisoner = no	
-		NOT = { opinion = { who = liege value = 0 } }	
+		NOT = { opinion = { who = liege value = 0 } }
 	}
 	
 	chance = {
@@ -500,11 +500,11 @@ plot_instigate_revolt = {
 		modifier = {
 			factor = 0
 			FROM = { ai = yes lower_tier_than = count }
-		}			
+		}
 		modifier = {
 			factor = 0
 			FROM = { ai = no opinion = { who = ROOT value = -50 } }
-		}					
+		}
 		modifier = {
 			factor = 0
 			FROM = {
@@ -525,7 +525,7 @@ plot_instigate_revolt = {
 		modifier = {
 			factor = 0.25
 			FROM = { opinion = { who = liege value = 0 } }
-		}		
+		}
 		modifier = {
 			factor = 1.5
 			FROM = { NOT = { opinion = { who = liege value = -25 } } }
@@ -537,7 +537,7 @@ plot_instigate_revolt = {
 		modifier = {
 			factor = 2.0
 			FROM = { NOT = { opinion = { who = liege value = -75 } } }
-		}			
+		}
 		modifier = {
 			factor = 0
 			FROM = { opinion = { who = ROOT value = 25 } }
@@ -545,7 +545,7 @@ plot_instigate_revolt = {
 		modifier = {
 			factor = 0.25
 			FROM = { opinion = { who = ROOT value = 0 } }
-		}		
+		}
 		modifier = {
 			factor = 1.5
 			FROM = { NOT = { opinion = { who = ROOT value = -25 } } }
@@ -561,7 +561,7 @@ plot_instigate_revolt = {
 		modifier = {
 			factor = 0.5
 			FROM = { NOT = { intrigue = 5 } }
-		}		
+		}
 		modifier = {
 			factor = 0.5
 			FROM = { NOT = { intrigue = 10 } }
@@ -573,7 +573,7 @@ plot_instigate_revolt = {
 		modifier = {
 			factor = 2
 			FROM = { intrigue = 20 }
-		}		
+		}
 		modifier = {
 			factor = 2.0
 			FROM = { trait = paranoid }
@@ -591,7 +591,7 @@ plot_instigate_revolt = {
 		custom_tooltip = { text = CUSTOMTOOLTIP32 }
 	}
 	abort = {
-		OR = {	
+		OR = {
 			opinion = { who = liege value = 25 }
 			independent = yes
 			prisoner = yes
@@ -645,14 +645,14 @@ plot_fabricate_treason = {
 	# Plotter scope
 	potential = {
 		prisoner = no
-		age = 16	
+		age = 16
 		is_ruler = yes
 		NOT = { trait = incapable }
 		OR = { higher_tier_than = baron is_patrician = yes }
 		OR = {
 			intrigue = 12
 			has_job_title = job_chancellor
-		}	
+		}
 		NOT = {
 			AND = {
 				ai = yes
@@ -660,9 +660,9 @@ plot_fabricate_treason = {
 					trait = honest
 					trait = kind
 					trait = honorable
-				}	
+				}
 			}
-		}	
+		}
 	}
 	
 	# Target allow trigger for when players target a specific character in the GUI
@@ -670,8 +670,8 @@ plot_fabricate_treason = {
 		NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
 		age = 16
 		is_ruler = yes
-		prisoner = no	
-		independent = no	
+		prisoner = no
+		independent = no
 		same_liege = FROM
 		NOT = { FROM = { is_liege_of = ROOT } }
 		NOT = {
@@ -681,17 +681,17 @@ plot_fabricate_treason = {
 					value = 25
 				}
 			}
-		}				
+		}
 	}
 	
 	# Target scope
 	allow = {
-		NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }	
+		NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
 		age = 16
 		is_ruler = yes
-		prisoner = no	
+		prisoner = no
 		independent = no
-		OR = { higher_tier_than = baron is_patrician = yes }		
+		OR = { higher_tier_than = baron is_patrician = yes }
 		same_liege = FROM
 		NOT = { FROM = { is_liege_of = ROOT } }
 		NOT = {
@@ -701,7 +701,7 @@ plot_fabricate_treason = {
 					value = 25
 				}
 			}
-		}			
+		}
 	}
 	
 	chance = {
@@ -713,11 +713,11 @@ plot_fabricate_treason = {
 		modifier = {
 			factor = 0
 			FROM = { ai = yes lower_tier_than = count }
-		}			
+		}
 		modifier = {
 			factor = 0
 			FROM = { ai = no opinion = { who = ROOT value = -50 } }
-		}					
+		}
 		modifier = {
 			factor = 0
 			FROM = {
@@ -734,11 +734,11 @@ plot_fabricate_treason = {
 		modifier = {
 			factor = 2.0
 			FROM = { independent = no reverse_opinion = { who = liege value = 100 } }
-		}		
+		}
 		modifier = {
 			factor = 1.5
 			FROM = { independent = no reverse_opinion = { who = liege value = 75 } }
-		}		
+		}
 		modifier = {
 			factor = 1.5
 			FROM = { independent = no reverse_opinion = { who = liege value = 50 } }
@@ -746,7 +746,7 @@ plot_fabricate_treason = {
 		modifier = {
 			factor = 1.5
 			FROM = { independent = no reverse_opinion = { who = liege value = 25 } }
-		}		
+		}
 		modifier = {
 			factor = 0.5
 			FROM = { independent = no NOT = { reverse_opinion = { who = liege value = 0 } } }
@@ -758,7 +758,7 @@ plot_fabricate_treason = {
 		modifier = {
 			factor = 0
 			FROM = { independent = no NOT = { reverse_opinion = { who = liege value = -50 } } }
-		}				
+		}
 		modifier = {
 			factor = 0
 			FROM = { opinion = { who = ROOT value = -25 } }
@@ -774,7 +774,7 @@ plot_fabricate_treason = {
 		modifier = {
 			factor = 0.5
 			FROM = { NOT = { intrigue = 5 } }
-		}		
+		}
 		modifier = {
 			factor = 0.5
 			FROM = { NOT = { intrigue = 10 } }
@@ -786,7 +786,7 @@ plot_fabricate_treason = {
 		modifier = {
 			factor = 2
 			FROM = { intrigue = 20 }
-		}		
+		}
 		modifier = {
 			factor = 2.0
 			FROM = { trait = paranoid }
@@ -804,13 +804,13 @@ plot_fabricate_treason = {
 		custom_tooltip = { text = CUSTOMTOOLTIP31 }
 	}
 	abort = {
-		OR = {	
+		OR = {
 			liege = {
 				opinion = {
 					who = ROOT
 					value = 50
 				}
-			}	
+			}
 			FROM = { is_liege_of = ROOT }
 			NOT = { same_liege = FROM }
 			independent = yes
@@ -865,17 +865,17 @@ plot_fabricate_treason_liege = {
 	# Plotter scope
 	potential = {
 		prisoner = no
-		age = 16	
+		age = 16
 		is_ruler = yes
 		NOT = { trait = incapable }
-		OR = { 
-			higher_tier_than = baron 
+		OR = {
+			higher_tier_than = baron
 			is_patrician = yes 
 		}
 		OR = {
 			intrigue = 12
 			has_job_title = job_chancellor
-		}	
+		}
 		NOT = {
 			AND = {
 				ai = yes
@@ -883,9 +883,9 @@ plot_fabricate_treason_liege = {
 					trait = honest
 					trait = kind
 					trait = honorable
-				}	
+				}
 			}
-		}		
+		}
 	}
 	
 	# Target allow trigger for when players target a specific character in the GUI
@@ -893,20 +893,20 @@ plot_fabricate_treason_liege = {
 		NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
 		age = 16
 		is_ruler = yes
-		prisoner = no	
-		independent = no	
-		FROM = { is_liege_of = ROOT }			
+		prisoner = no
+		independent = no
+		FROM = { is_liege_of = ROOT }
 	}
 	
 	# Target scope
 	allow = {
-		NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }	
+		NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
 		age = 16
 		is_ruler = yes
-		prisoner = no	
+		prisoner = no
 		independent = no
-		OR = { higher_tier_than = baron is_patrician = yes }	
-		FROM = { is_liege_of = ROOT }			
+		OR = { higher_tier_than = baron is_patrician = yes }
+		FROM = { is_liege_of = ROOT }
 	}
 	
 	chance = {
@@ -918,11 +918,11 @@ plot_fabricate_treason_liege = {
 		modifier = {
 			factor = 0
 			FROM = { ai = yes lower_tier_than = count }
-		}			
+		}
 		modifier = {
 			factor = 0
 			FROM = { ai = no opinion = { who = ROOT value = -50 } }
-		}				
+		}
 		modifier = {
 			factor = 0
 			FROM = {
@@ -935,7 +935,7 @@ plot_fabricate_treason_liege = {
 					trait = charitable
 				}
 			}
-		}		
+		}
 		modifier = {
 			factor = 0
 			FROM = { opinion = { who = ROOT value = -25 } }
@@ -951,7 +951,7 @@ plot_fabricate_treason_liege = {
 		modifier = {
 			factor = 0.5
 			FROM = { NOT = { intrigue = 5 } }
-		}		
+		}
 		modifier = {
 			factor = 0.5
 			FROM = { NOT = { intrigue = 10 } }
@@ -963,7 +963,7 @@ plot_fabricate_treason_liege = {
 		modifier = {
 			factor = 2
 			FROM = { intrigue = 20 }
-		}		
+		}
 		modifier = {
 			factor = 2.0
 			FROM = { trait = paranoid }
@@ -981,8 +981,8 @@ plot_fabricate_treason_liege = {
 		custom_tooltip = { text = CUSTOMTOOLTIP31 }
 	}
 	abort = {
-		OR = {	
-			liege = { NOT = { character = FROM } }		
+		OR = {
+			liege = { NOT = { character = FROM } }
 			independent = yes
 			prisoner = yes
 			FROM = { has_character_flag = abort_plot }

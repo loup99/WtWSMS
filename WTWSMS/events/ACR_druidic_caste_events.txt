@@ -330,10 +330,7 @@ character_event = {
 	trigger = {
 		is_ruler = yes
 		is_priest = yes
-		OR = {
-			religion = celtic_pagan
-			religion = celtic_pagan_reformed
-		}
+		religion_openly_in_celtic_subgroup_trigger = yes
 		NOT = { 
 			trait = druid 
 			trait = bad_druid 
@@ -341,7 +338,7 @@ character_event = {
 	}
 	
 	mean_time_to_happen = {
-		days = 1
+		days = 90
 	}
 	
 	immediate = {
@@ -692,10 +689,7 @@ character_event = {
 
 	trigger = {
 		age = 14
-		OR = {
-			religion = celtic_pagan
-			religion = celtic_pagan_reformed
-		}	
+		religion_openly_in_celtic_subgroup_trigger = yes	
 		OR = {
 			father_even_if_dead = { is_alive = yes }
 			mother_even_if_dead = { is_alive = yes }
@@ -726,21 +720,7 @@ character_event = {
 			father = { character_event = { id = ancrel.0183 days = 3 } }
 			break = yes
 		}
-		if = {
-			limit = {
-				mother = {
-					is_alive = yes
-					any_child = {
-						character = ROOT
-						father_even_if_dead = {
-							OR = {
-								is_alive = no
-								NOT = { higher_real_tier_than = PREVPREV }
-							}
-						}
-					}
-				}
-			}
+		else = {
 			mother = { character_event = { id = ancrel.0183 days = 3 } }
 			break = yes
 		}
