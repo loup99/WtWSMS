@@ -10,11 +10,11 @@ decisions = {
 			demesne_size = 225
 			tier = emperor
 			NOT = { culture = roman }
-			NOT = { has_landed_title = e_wre } 
+			NOT = { has_landed_title = e_wre }
 			NOT = { has_landed_title = e_roman_empire }
 			NOT = { has_landed_title = e_axum }
-			NOT = { has_landed_title = e_italy } 
-			NOT = { has_landed_title = e_byzantium } 
+			NOT = { has_landed_title = e_italy }
+			NOT = { has_landed_title = e_byzantium }
 			NOT = { has_character_flag = asked_for_hre }
 			NOT = { has_global_flag = hre_formed }
 		}
@@ -71,9 +71,9 @@ decisions = {
 				has_holder = yes
 			}
 			NOT = { culture = roman }
-			NOT = { has_landed_title = e_wre } 
+			NOT = { has_landed_title = e_wre }
 			NOT = { has_landed_title = e_roman_empire }
-			NOT = { has_landed_title = e_byzantium } 
+			NOT = { has_landed_title = e_byzantium }
 			NOT = { has_character_flag = asked_for_wre }
 			NOT = { has_global_flag = wre_reformed }
 		}
@@ -87,7 +87,7 @@ decisions = {
 					holder_scope = {
 						character_event = { id = spirit.3 days = 5 random = 12 tooltip = "wre_ask" }
 					}
-				} 
+				}
 			}
 		}
 		ai_will_do = {
@@ -216,7 +216,12 @@ decisions = {
 		allow = {
 			wealth = 2000
 			completely_controls = c_ravenna # Ravenna was an important port
-			has_landed_title = c_ravenna
+			OR = {
+				any_realm_lord = { #doesn't include realm head
+					has_landed_title = c_ravenna
+				}
+				has_landed_title = c_ravenna
+			}
 		}
 		effect = {
 			wealth = -2000
@@ -254,7 +259,12 @@ decisions = {
 		allow = {
 			wealth = 2000
 			completely_controls = c_byzantion # Constantinople was the main port of the imperial navy
-			has_landed_title = c_byzantion
+			OR = {
+				any_realm_lord = { #doesn't include realm head
+					has_landed_title = c_byzantion
+				}
+				has_landed_title = c_byzantion
+			}
 		}
 		effect = {
 			wealth = -2000
@@ -310,7 +320,7 @@ decisions = {
 		potential = {
 			has_romance_culture_trigger = yes
 			has_global_flag = circus_maximus_built
-			NOT = { 
+			NOT = {
 				OR = {
 					trait = greens_supporter
 					trait = blues_supporter
@@ -329,8 +339,6 @@ decisions = {
 			add_trait = greens_supporter
 			character_event = { id = SENATE.600 tooltip = EVTTOOLTIP_SENATE_600 }
 		}
-		
-		
 		
 		ai_will_do = {
 			factor = 1
@@ -378,8 +386,6 @@ decisions = {
 			character_event = { id = SENATE.601 tooltip = EVTTOOLTIP_SENATE_601 }
 		}
 		
-		
-		
 		ai_will_do = {
 			factor = 1
 			
@@ -417,7 +423,7 @@ decisions = {
 		only_playable = yes
 		is_high_prio = yes
 		potential = {
-			religion_group = christian 
+			religion_group = christian
 			has_landed_title = c_roma
 			prisoner = no
 			age = 16
@@ -446,7 +452,7 @@ decisions = {
 		only_playable = yes
 		is_high_prio = yes
 		potential = {
-			religion_group = christian 
+			religion_group = christian
 			has_landed_title = c_byzantion
 			has_romance_culture_trigger = yes # Particular architecture
 			independent = yes
@@ -491,7 +497,7 @@ decisions = {
 		only_playable = yes
 		is_high_prio = yes
 		potential = {
-			OR = { 
+			OR = {
 				has_landed_title = e_byzantium
 				has_landed_title = e_roman_empire
 			}
@@ -607,8 +613,8 @@ decisions = {
 				narrative_event = { id = imperial_legacy.10 }
 			}
 		}
-		ai_will_do = { 
-			factor = 1 
+		ai_will_do = {
+			factor = 1
 		}
 	}
 	
@@ -670,8 +676,8 @@ decisions = {
 		}
 		allow = {
 			OR = {
-				primary_title = { has_law = imperial_administration } 
-				primary_title = { has_law = ze_administration_laws_2 } 
+				primary_title = { has_law = imperial_administration }
+				primary_title = { has_law = ze_administration_laws_2 }
 			}
 			prestige = 750
 			wealth = 200
@@ -684,7 +690,7 @@ decisions = {
 		ai_will_do = {
 			factor = 1
 			modifier = {
-				factor = 0.5 # Decrease chance AI will do this unless they hold one of the empires 
+				factor = 0.5 # Decrease chance AI will do this unless they hold one of the empires
 				NOR = {
 					has_landed_title = e_wre
 					has_landed_title = e_byzantium
@@ -721,7 +727,7 @@ decisions = {
 		allow = {
 			# Controls Italia and Roma
 			completely_controls_region = custom_diocese_italia_annonaria
-			completely_controls_region = custom_diocese_italia_suburbicaria	
+			completely_controls_region = custom_diocese_italia_suburbicaria
 			completely_controls_region = custom_diocese_raetia_noricum
 			capital_scope = {
 				province = 333 # Roma
@@ -775,7 +781,7 @@ decisions = {
 		allow = {
 			# Controls Greece, Anatolia and Constantinople
 			completely_controls_region = custom_diocese_thrace
-			completely_controls_region = custom_diocese_asiana	
+			completely_controls_region = custom_diocese_asiana
 			capital_scope = {
 				province = 496 # Constantinople
 			}
@@ -825,13 +831,13 @@ decisions = {
 			# Controls Rome
 			OR = {
 				has_landed_title = c_roma
-				any_realm_lord = { 
+				any_realm_lord = {
 					has_landed_title = c_roma
 				}
 			}
 			
 			# Rome's glory
-			custom_tooltip = { 
+			custom_tooltip = {
 				hidden_tooltip = {
 					has_global_flag = circus_maximus_built
 				}
@@ -871,7 +877,7 @@ decisions = {
 			factor = 1
 		}
 	}
-	
+		
 	peregrinatio = {
 		only_rulers = yes
 		potential = {
@@ -928,7 +934,7 @@ decisions = {
 	call_synod_of_whitby = {
 		only_rulers = yes
 		is_high_prio = yes
-		
+	
 		potential = {
 			always = no # TODO Event ins.4 does not exist !
 			year = 644
@@ -981,7 +987,7 @@ decisions = {
 		
 		potential = {
 			has_landed_title = k_maxima_sequanorum
-			religion = arian 
+			religion = arian
 			culture = burgundian
 			NOT = { has_global_flag = lex_burgundionum }
 			age = 16
@@ -1037,9 +1043,9 @@ decisions = {
 			narrative_event = { id = hist.17 }
 			set_global_flag = twothousandth_anniversary_gothic_kingdom
 		}
-
+		
 		ai_will_do = {
-			factor = 1 
+			factor = 1
 		}
 	}
 
@@ -1053,7 +1059,7 @@ decisions = {
 				religion = celtic_pagan
 				religion = celtic_pagan_reformed
 			}
-			NOT = { 
+			NOT = {
 				any_courtier = {
 					has_minor_title = title_court_celtic_poet
 				}
@@ -1092,7 +1098,7 @@ decisions = {
 			is_playable = yes
 			is_landed = yes
 			age = 16
-			not = {
+			NOT = {
 				trait = incapable
 				trait = infirm
 				trait = possessed
@@ -1141,6 +1147,42 @@ decisions = {
 			modifier = {
 				factor = 1.5
 				age = 60
+			}
+		}
+	}
+	divide_roman_empire = {
+		only_playable = yes
+		is_high_prio = yes
+		potential = {
+			has_landed_title = e_roman_empire
+			age = 16
+			war = no
+			NOT = { trait = incapable }
+			realm_size = 200
+			tier = emperor
+		}
+		allow = {
+			scaled_wealth = 1.0
+			prisoner = no
+			war = no
+			any_dynasty_member = { is_heir = yes }
+			completely_controls = c_byzantion
+			completely_controls = c_roma
+		}
+		effect = {
+			hidden_tooltip = {
+				narrative_event = { id = imperial_legacy.50 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 3
+				trait = lunatic
+			}
+			modifier = {
+				factor = 0
+				trait = ambitious
 			}
 		}
 	}
