@@ -79,7 +79,7 @@ d_knights_hospitaler = {
 	
 	
 	
-	# Parent Religion 
+	# Parent Religion
 	religion = catholic
 	
 	# Cannot be held as a secondary title
@@ -110,7 +110,7 @@ d_hashshashin = {
 	
 	culture = persian
 	
-	# Parent Religion 
+	# Parent Religion
 	religion = shiite
 	
 	# Cannot be held as a secondary title
@@ -144,7 +144,7 @@ d_bektashi = {
 	
 	culture = persian
 	
-	# Parent Religion 
+	# Parent Religion
 	religion = sunni
 	
 	# Cannot be held as a secondary title
@@ -178,7 +178,7 @@ d_haruriyyah = {
 	
 	culture = bedouin_arabic
 	
-	# Parent Religion 
+	# Parent Religion
 	religion = ibadi
 	
 	# Cannot be held as a secondary title
@@ -611,10 +611,6 @@ d_knights_calatrava = {
 	mercenary_type = knights_calatrava_composition
 }
 
-
-
-
-
 d_zun_warriors = {
 
 	color = { 230 255 0 }
@@ -641,6 +637,37 @@ d_zun_warriors = {
 	monthly_income = 2 # (Must be an integer between 1 and 512)
 
 	mercenary_type = zun_warriors_composition
+}
+
+d_army_light = {
+	color={ 181 204 20 } 
+	
+	graphical_culture = bektashigfx # needs altered
+	
+	capital = 903 # Samarkand
+
+	title = "GRANDMASTER"
+	foa = "GRANDMASTER_FOA" # needs graphics
+	
+	# Always exists
+	landless = yes
+	
+	holy_order = yes
+	
+	# Parent Religion 
+	religion = manichean
+	
+	culture = persian
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	# Extra income due to donations, etc
+	monthly_income = 2 # (Must be an integer between 1 and 512)
+	
+	strength_growth_per_century = 0.10
+
+	mercenary_type = bektashi_composition
 }
 
 # MERCS
@@ -1229,6 +1256,75 @@ d_breton_company = {
 	mercenary_type = breton_company_composition
 }
 
+d_sardinian_company = {
+	color={ 210 165 165 }
+	color2={ 255 255 255 }
+
+	capital = 326 # Cagliari
+	
+	# Hire Trigger
+	allow = {
+		religion_group = christian
+	}
+	
+	# Parent Religion 
+	religion = nicene
+	culture = sardinian
+	
+	mercenary = yes
+
+	title = "CAPTAIN"
+	foa = "CAPTAIN_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.0
+
+	mercenary_type = sardinian_company_composition
+}
+
+d_sardinian_band = {
+	color={ 210 65 65 }
+	color2={ 255 255 255 }
+
+	capital = 325 # Arborea
+	
+	# Hire Trigger
+	allow = {
+		religion_group = christian
+	}
+	
+	# Parent Religion 
+	religion = nicene
+	
+	culture = sardinian
+	
+	mercenary = yes
+
+	title = "CAPTAIN"
+	foa = "CAPTAIN_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+		
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.0
+
+	mercenary_type = sardinian_band_composition
+}
+
 d_victual_brothers = {
 	color={ 160 160 160 }
 	color2={ 255 255 255 }
@@ -1345,7 +1441,92 @@ d_excubitors = {
 	mercenary_type = scholae_composition
 }
 
+d_western_scholae_palatinae = {
+	color={ 107 26 37 }
+	color2={ 255 255 255 }
+	
+	graphical_culture = orthodoxholygfx
 
+	capital = 351 # Ravenna
+	
+	mercenary = yes
+
+	title = "TRIBUNUS_PALATINAE"
+	foa = "CAPTAIN_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	strength_growth_per_century = 0.10
+	
+	mercenary_type = scholae_composition
+}
+
+d_imperial_fleet_ere = {
+	color = { 211 172 185 }
+	
+	graphical_culture = orthodoxholygfx
+
+	capital = 496 # Byzantion
+	
+	# Parent Religion
+	religion = nicene
+	
+	culture = roman
+	
+	mercenary = yes
+
+	title = "DRUNGARIOS"
+	foa = "DRUNGARIOS_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	mercenary_type = imperial_fleet_composition
+
+	
+	# Hire Trigger
+	allow = {
+		always = no # Navies can only be hired if vassalized.
+	}
+}
+
+d_imperial_fleet_wre = {
+	color = { 211 172 185 }
+	
+	graphical_culture = orthodoxholygfx
+
+	capital = 351 # Ravenna
+	
+	# Parent Religion
+	religion = nicene
+	
+	culture = roman
+	
+	mercenary = yes
+
+	title = "ADMIRAL"
+	foa = "ADMIRAL_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	mercenary_type = imperial_fleet_composition
+	
+	# Hire Trigger
+	allow = {
+		always = no # Navies can only be hired if vassalized.
+	}
+}
 
 d_cuman_company = {
 	color = { 160 160 80 }
@@ -2570,14 +2751,774 @@ d_ghanan_band = {
 	mercenary_type = naval_merc_composition
 }
 
+# Chinese Mercenaries
+d_han_massive = { # Massive Merc
+	color={ 60 165 80 }
+	color2={ 255 255 255 }
+	
+	graphical_culture = chinesegfx
+
+	capital = 1408 # Anxi
+	hire_range = 1300
+	
+	# Parent Religion 
+	religion = taoist
+	
+	# Parent Culture
+	culture = han
+	
+	mercenary = yes
+
+	title = "CAPTAIN"
+	foa = "CAPTAIN_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.0
+	
+	mercenary_type = han_massive_composition
+}
+
+d_han_large = { # Large Merc
+	color={ 235 235 235 }
+	color2={ 255 255 255 }
+	
+	graphical_culture = chinesegfx
+
+	capital = 1408 # Anxi
+	hire_range = 1300
+	
+	# Parent Religion 
+	religion = taoist
+	
+	# Parent Culture
+	culture = han
+	
+	mercenary = yes
+
+	title = "CAPTAIN"
+	foa = "CAPTAIN_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+		
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.0
+
+	mercenary_type = han_large_composition
+}
+
+d_han_mid = { # Mid Merc
+	color = { 150 80 40 }
+	color2 = { 255 255 255 }
+
+	graphical_culture = chinesegfx
+
+	capital = 1408 # Anxi
+	hire_range = 1300
+	
+	# Parent Religion 
+	religion = taoist
+	
+	# Parent Culture
+	culture = han
+	
+	mercenary = yes
+
+	title = "CAPTAIN"
+	foa = "CAPTAIN_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.0
+	
+	mercenary_type = han_mid_composition
+}
+
+d_han_mid_low = { # Mid-Low Merc
+	color = { 30 150 50 }
+	color2 = { 255 255 255 }
+
+	graphical_culture = chinesegfx
+
+	capital = 1408 # Anxi
+	hire_range = 1300
+	
+	# Parent Religion 
+	religion = taoist
+	
+	# Parent Culture
+	culture = han
+	
+	mercenary = yes
+
+	title = "CAPTAIN"
+	foa = "CAPTAIN_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.0
+	
+	mercenary_type = han_mid_low_composition
+}
+
+d_outlaws_of_the_marsh = { # Big merc
+	color = { 66 66 66 }
+	color2 = { 255 255 255 }
+
+	graphical_culture = chinesegfx
+
+	capital = 1408 # Anxi
+	hire_range = 1300
+	
+	# Parent Religion 
+	religion = taoist
+	
+	# Parent Culture
+	culture = han
+	
+	mercenary = yes
+
+	title = "CAPTAIN"
+	foa = "CAPTAIN_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.0
+	
+	mercenary_type = outlaws_of_the_marsh
+}
+
+d_han_low = { # Small Merc
+	color = { 30 170 50 }
+	color2 = { 255 255 255 }
+
+	graphical_culture = chinesegfx
+
+	capital = 1408 # Anxi
+	hire_range = 1300
+	
+	# Parent Religion 
+	religion = taoist
+	
+	# Parent Culture
+	culture = han
+	
+	mercenary = yes
+
+	title = "CAPTAIN"
+	foa = "CAPTAIN_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.0
+	
+	mercenary_type = han_low_composition
+}
+
+d_han_tiny_1 = { # Tiny Merc
+	color = { 38 120 51 }
+	color2 = { 255 255 255 }
+
+	graphical_culture = chinesegfx
+
+	capital = 1408 # Anxi
+	hire_range = 1300
+	
+	# Parent Religion 
+	religion = taoist
+	
+	# Parent Culture
+	culture = han
+	
+	mercenary = yes
+
+	title = "CAPTAIN"
+	foa = "CAPTAIN_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.0
+	
+	mercenary_type = han_tiny_composition_1
+}
+
+d_han_tiny_2 = { # Tiny Merc
+	color = { 32 175 57 }
+	color2 = { 255 255 255 }
+
+	graphical_culture = chinesegfx
+
+	capital = 1408 # Anxi
+	hire_range = 1300
+	
+	# Parent Religion 
+	religion = taoist
+	
+	# Parent Culture
+	culture = han
+	
+	mercenary = yes
+
+	title = "CAPTAIN"
+	foa = "CAPTAIN_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.0
+	
+	mercenary_type = han_tiny_composition_2
+}
+
+d_jurchen_band = { # Mid-Low Merc
+	color = { 32 120 50 }
+	color2 = { 255 255 255 }
+
+	graphical_culture = chinesegfx
+
+	capital = 1408 # Anxi
+	hire_range = 1300
+	
+	# Parent Religion 
+	religion = taoist
+	
+	# Parent Culture
+	culture = jurchen
+	
+	mercenary = yes
+
+	title = "CAPTAIN"
+	foa = "CAPTAIN_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.0
+	
+	mercenary_type = jurchen_band_composition
+}
+
+d_tangut_low = { # Small Merc
+	color = { 30 170 50 }
+	color2 = { 255 255 255 }
+
+	capital = 1503 # Jyekundo
+	hire_range = 800
+	
+	# Parent Religion 
+	religion = buddhist
+	
+	# Parent Culture
+	culture = tangut
+	
+	mercenary = yes
+
+	title = "CAPTAIN"
+	foa = "CAPTAIN_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.0
+	
+	mercenary_type = tangut_low_composition
+}
+
+d_bodpa_low = { # Small Merc
+	color = { 30 170 50 }
+	color2 = { 255 255 255 }
+
+	capital = 1491 # Purang
+	hire_range = 800
+	
+	# Parent Religion 
+	religion = bon
+	
+	# Parent Culture
+	culture = bodpa
+	
+	mercenary = yes
+
+	title = "CAPTAIN"
+	foa = "CAPTAIN_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.0
+	
+	mercenary_type = bodpa_low_composition
+}
+
+d_treasure_fleet = {
+	color={ 222 80 20 }
+	color2={ 255 255 255 }
+
+	capital = 1318 # Samatata
+	hire_range = 1200
+	
+	# Parent Religion 
+	religion = taoist
+	
+	# Parent Culture
+	culture = han
+	
+	mercenary = yes
+
+	title = "CAPTAIN"
+	foa = "CAPTAIN_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+		
+	# Cannot be vassalized
+	independent = yes
+
+	mercenary_type = treasure_fleet_composition
+}
+
+d_han_junks = {
+	color={ 222 80 20 }
+	color2={ 255 255 255 }
+	
+	short_name = yes
+
+	capital = 1318 # Samatata
+	hire_range = 1000
+	
+	# Parent Religion 
+	religion = taoist
+	
+	# Parent Culture
+	culture = han
+	
+	mercenary = yes
+
+	title = "CAPTAIN"
+	foa = "CAPTAIN_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+		
+	# Cannot be vassalized
+	independent = yes
+
+	mercenary_type = naval_merc_composition
+}
+
+d_jurchen_corsairs = {
+	color={ 222 180 20 }
+	color2={ 255 255 255 }
+	
+	short_name = yes
+
+	capital = 1318 # Samatata
+	hire_range = 1000
+	
+	# Parent Religion 
+	religion = taoist
+	
+	# Parent Culture
+	culture = jurchen
+	
+	mercenary = yes
+
+	title = "CAPTAIN"
+	foa = "CAPTAIN_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+		
+	# Cannot be vassalized
+	independent = yes
+
+	mercenary_type = naval_merc_composition
+}
+
+# INDIAN MERCS
+
+d_tamil_band = {
+	color = { 110 60 30 }
+	color2 = { 255 255 255 }
+
+	capital = 1120 # Tagadur
+	
+	# Parent Religion 
+	religion = hindu
+	
+	culture = tamil
+	
+	mercenary = yes
+
+	title = "CAPTAIN"
+	foa = "CAPTAIN_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.0
+	
+	mercenary_type = tamil_band_composition
+}
+
+d_marathi_company = {
+	color = { 150 80 40 }
+	color2 = { 255 255 255 }
+
+	capital = 1254 # Vairagara
+	
+	# Parent Religion
+	religion = hindu
+	
+	culture = marathi
+	
+	mercenary = yes
+
+	title = "CAPTAIN"
+	foa = "CAPTAIN_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.0
+	
+	mercenary_type = marathi_company_composition
+}
+
+d_marathi_band = {
+	color = { 180 80 40 }
+	color2 = { 255 255 255 }
+
+	capital = 1254 # Vairagara
+	
+	# Parent Religion
+	religion = hindu
+	
+	culture = marathi
+	
+	mercenary = yes
+
+	title = "CAPTAIN"
+	foa = "CAPTAIN_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.0
+	
+	mercenary_type = marathi_band_composition
+}
+
+d_bengal_company = {
+	color = { 30 150 50 }
+	color2 = { 255 255 255 }
+
+	capital = 1236 # Candradvipa
+	
+	# Parent Religion
+	religion = hindu
+	
+	culture = bengali
+	
+	mercenary = yes
+
+	title = "CAPTAIN"
+	foa = "CAPTAIN_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.0
+	
+	mercenary_type = bengal_company_composition
+}
+
+d_bengal_band = {
+	color = { 30 170 50 }
+	color2 = { 255 255 255 }
+
+	capital = 1236 # Candradvipa
+	
+	# Parent Religion
+	religion = hindu
+	
+	culture = bengali
+	
+	mercenary = yes
+
+	title = "CAPTAIN"
+	foa = "CAPTAIN_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.0
+	
+	mercenary_type = bengal_band_composition
+}
+
+d_rajput_company = {
+	color = { 180 65 0 }
+	color2 = { 255 255 255 }
+
+	capital = 1130 # Mandavyapura
+	
+	# Parent Religion
+	religion = hindu
+	
+	culture = rajput
+	
+	mercenary = yes
+
+	title = "CAPTAIN"
+	foa = "CAPTAIN_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.0
+	
+	mercenary_type = rajput_company_composition
+}
+
+d_rajput_band = {
+	color = { 170 50 0 }
+	color2 = { 255 255 255 }
+
+	capital = 1130 # Mandavyapura
+	
+	# Parent Religion
+	religion = hindu
+	
+	culture = rajput
+	
+	mercenary = yes
+
+	title = "CAPTAIN"
+	foa = "CAPTAIN_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.0
+	
+	mercenary_type = rajput_band_composition	
+}
+
+# Silk Road Mercs
+d_persian_caravan_guards = {
+	color = { 67 155 135 }
+	color2 = { 255 255 255 }
+
+	capital = 630 # Merv
+	
+	religion = shiite
+	culture = persian
+	
+	mercenary = yes
+
+	title = "CAPTAIN"
+	foa = "CAPTAIN_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.00
+	
+	mercenary_type = persian_caravan_guards_composition
+}
+
+d_silk_road_sentinels = {
+	color = { 167 125 135 }
+	color2 = { 255 255 255 }
+
+	capital = 1180 # Udabhanda
+	
+	religion = buddhist
+	culture = panjabi
+	
+	mercenary = yes
+
+	title = "CAPTAIN"
+	foa = "CAPTAIN_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.00
+	
+	mercenary_type = silk_road_sentinels_composition
+}
+
+d_turkic_guard = {
+	color = { 167 125 135 }
+	color2 = { 255 255 255 }
+
+	capital = 900 # Syr Darya
+	
+	religion = khurmazta
+	culture = turkish
+	
+	mercenary = yes
+
+	title = "CAPTAIN"
+	foa = "CAPTAIN_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.00
+	
+	mercenary_type = turkic_guards_composition
+}
+
 c_mountain_jews = { # The Tzadikite Juhuro peoples ("Mountain Jews") had an immense and dedicated warrior culture. For the purposes of this Mod, the unique martial prowess takes the form of a special Mercenary Group under the Juhurian leader.
 
 	color = { 0.8 0.8 0.0 }
 	color2 = { 8 8 8 }
 
 	graphical_culture = easterngfx
-
-	capital = 676
 
 	allow = {
 		OR = {
@@ -2616,20 +3557,23 @@ c_mountain_jews = { # The Tzadikite Juhuro peoples ("Mountain Jews") had an imme
 c_trading_company = {
 	color = { 80 88 83 }
 	color2 = { 79 79 79 }
-	capital = 1369 #Socotra
 
 	graphical_culture = republicsgfx
 
 	# Hire Trigger
 	allow = {
-		capital_scope = {
-			OR = {
-				has_landed_title = c_socotra
-				has_landed_title = d_socotra
-				region = world_india_deccan
-				region = world_middle_east_arabia
-				region = world_africa_east
+		OR = {
+			has_landed_title = c_socotra
+			has_landed_title = d_socotra
+			capital_scope = {
+				OR = {
+					region = world_india_deccan
+					region = world_middle_east_arabia
+					region = world_africa_east
+				}
 			}
+		}
+		capital_scope = {
 			NOT = {
 				region = custom_diocese_aegyptus
 			}
@@ -2643,15 +3587,15 @@ c_trading_company = {
 	title = "TRADING_COMPANY_TITLE"
 	foa = "CAPTAIN_FOA"
 
+	# Always exists
 	landless = yes
-
+	
+	# Cannot be held as a secondary title
 	primary = yes
 
 	independent = no
 
-	strength_grown_per_century = 1.5
-
-	income = 4
+	strength_growth_per_century = 1.5
 
 	mercenary_type = trading_company_composition
 }

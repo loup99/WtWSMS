@@ -31,41 +31,43 @@ has_romance_culture_trigger = {
 	}
 }
 # The Bureaucratic government type is used for the WRE and ERE
+# trigger has title scope
 bureaucratic_government_trigger = {
-	#higher_tier_than = king
 	OR = {
 		title = e_wre
 		title = e_byzantium
 		title = e_roman_empire
 		title = k_soissons
 		title = k_italy
-	}	
+		AND = {
+			higher_tier_than = king
+			has_title_flag = adopted_bureaucratic
+		}
+	}
 	NOT = {
 		has_title_flag = wre_restored
 		has_title_flag = ere_restored
 	}
 }
 # The Sassanid government type is used for Persia
+# trigger has title scope
 sassanid_government_trigger = {
 	OR = {
 		top_liege = {
 			title = e_persia
 		}
 		title = e_persia
-		culture = persian
-		culture = parthian
-	}
-	NOR = {
-		religion_group = christian
-		religion_group = muslim
-		religion_group = pagan_group
-		religion_group = jewish_group
-		religion_group = bosporan_group
-		religion_group = indian_group
-		religion_group = chinese_group
+		holder_scope = {
+			OR = {
+				culture = persian
+				culture = parthian
+				religion = zoroastrian
+			}
+		}
 	}
 }
 # The Legion government type is used for the Roman legions
+# trigger has title scope
 roman_legion_title_trigger = {
 	OR = {
 		title = c_legio_ii_britannica
@@ -116,5 +118,16 @@ roman_legion_title_trigger = {
 		title = c_legio_v_macedonica
 		title = c_legio_iv_flavia_felix
 		title = c_legio_v_iovia
+		title = d_imperial_fleet_wre
+		title = d_imperial_fleet_ere
+	}
+}
+
+# Mystic religions get some particular events and can access the Mystic trait
+# trigger has character scope
+mystic_religion_trigger = {
+	OR = {
+		religion = tzadikite
+		religion = melchisedechianism
 	}
 }

@@ -1,0 +1,588 @@
+##############################################################################################
+#
+# Salvaged from AO 2.0:
+# Rule 20 Years
+# Rule 10 Years Peace
+# Get Great Council
+# Increase Demesne
+# Become Duke
+# Church Career
+#
+##############################################################################################
+
+obj_reign_20_years = {
+	type = character
+	
+	allow = {
+		NOT = { ruled_years = 20 }
+		is_ruler = yes
+		age = 16
+		prisoner = no
+		NOT = { trait = incapable }
+	}
+	chance = {
+		factor = 5
+		
+		modifier = {
+			factor = 2.0
+			ruled_years = 10
+		}
+		
+		modifier = {
+			factor = 2.0
+			ruled_years = 15
+		}
+		
+		modifier = {
+			factor = 5.0
+			ruled_years = 18
+		}
+		
+	}
+	success = {
+		ruled_years = 20
+	}
+	abort = {
+		OR = {
+			trait = incapable
+			is_ruler = no
+			prisoner = yes
+		}
+	}
+	
+	abort_effect = {
+	}
+	
+	effect = {
+		change_stewardship = 1
+		prestige = 50
+	}
+}
+
+obj_peace_10_year = {
+	type = character
+	
+	creation_effect = {
+		add_character_modifier = {
+			name = "peace_declared_10_timer"
+			duration = 3650
+		}
+	}
+	
+	allow = {
+		independent = yes
+		is_ruler = yes
+		age = 16
+		prisoner = no
+		NOT = { trait = incapable }
+		NOT = { trait = ambitious } 
+		NOT = { has_character_modifier = peace_declared_10_timer }
+		war = no
+		mercenary = no
+	}
+	chance = {
+		factor = 0
+	}
+	
+	success = {
+		NOT = { has_character_modifier = peace_declared_10_timer }
+	}
+	
+	abort = {
+		OR = {
+			trait = incapable
+			independent = no
+			war = yes
+			prisoner = yes
+		}
+	}
+	
+	abort_effect = {
+		remove_character_modifier = peace_declared_10_timer
+	}
+	
+	effect = {
+		change_stewardship = 1
+		piety = 50
+		set_character_flag = VIET_peacekeeper
+	}
+}
+
+obj_great_council = {
+	type = character
+	
+	allow = {
+		age = 16
+		prisoner = no
+		NOT = { trait = incapable }
+		independent = yes
+		NOT = { has_character_flag = great_council_formed }
+		OR = {
+			job_chancellor = { diplomacy = 20 }
+			job_marshal = { martial = 20 }
+			job_treasurer = { stewardship = 20 }
+			job_spymaster = { intrigue = 20 }
+			job_spiritual = { learning = 20 }
+		}
+		
+		NOT = {
+			AND = {
+				job_chancellor = { diplomacy = 20 }
+				job_marshal = { martial = 20 }
+				job_treasurer = { stewardship = 20 }
+				job_spymaster = { intrigue = 20 }
+				job_spiritual = { learning = 20 }
+			}
+		}
+	}
+	
+	chance = {
+		factor = 1
+		
+		modifier = {
+			factor = 2.0
+			ruled_years = 20
+		}
+	}
+	success = {
+		job_chancellor = { diplomacy = 20 }
+		job_marshal = { martial = 20 }
+		job_treasurer = { stewardship = 20 }
+		job_spymaster = { intrigue = 20 }
+		job_spiritual = { learning = 20 }
+	}
+	abort = {
+		OR = {
+			trait = incapable
+			independent = no
+			is_ruler = no
+			prisoner = yes
+		}
+	}
+	
+	abort_effect = {
+	}
+	
+	effect = {
+		prestige = 200
+		hidden_tooltip = {
+			set_character_flag = great_council_formed
+		}
+	}
+}
+
+obj_increase_demesne = {
+	type = character
+
+	allow = {
+		is_ruler = yes
+		is_adult = yes
+		is_landed = yes
+		higher_tier_than = baron
+		NOT = { trait = incapable }
+		NOT = { trait = content }
+		NOT = { demesne_size = 9 }
+		NOT = { has_character_modifier = gain_demesne_obj_timer }
+		NOT = { is_nomadic = yes }
+	}
+	creation_effect = {
+		if = {
+			limit = { 
+				demesne_size = 1 
+				NOT = { demesne_size = 2 }
+			}
+			set_character_flag = demesne1
+		}
+		if = {
+			limit = { 
+				demesne_size = 2 
+				NOT = { demesne_size = 3 }
+			}
+			set_character_flag = demesne2
+		}
+		if = {
+			limit = { 
+				demesne_size = 3
+				NOT = { demesne_size = 4 }
+			}
+			set_character_flag = demesne3
+		}
+		if = {
+			limit = { 
+				demesne_size = 4 
+				NOT = { demesne_size = 5 }
+			}
+			set_character_flag = demesne4
+		}
+		if = {
+			limit = { 
+				demesne_size = 5 
+				NOT = { demesne_size = 6 }
+			}
+			set_character_flag = demesne5
+		}
+		if = {
+			limit = { 
+				demesne_size = 6 
+				NOT = { demesne_size = 7 }
+			}
+			set_character_flag = demesne6
+		}
+		if = {
+			limit = { 
+				demesne_size = 7 
+				NOT = { demesne_size = 8 }
+			}
+			set_character_flag = demesne7
+		}
+		if = {
+			limit = { 
+				demesne_size = 8 
+				NOT = { demesne_size = 9 }
+			}
+			set_character_flag = demesne8
+		}
+	}
+	chance = {
+		factor = 50
+
+		modifier = {
+			factor = 1.5
+			demesne_efficiency = 2.0
+		}
+		modifier = {
+			factor = 1.5
+			demesne_efficiency = 2.5
+		}
+		modifier = {
+			factor = 1.5
+			demesne_efficiency = 3.0
+		}
+		modifier = {
+			factor = 1.5
+			prestige = 400
+		}
+		modifier = {
+			factor = 0.2
+			OR = {
+				tier = duke
+				tier = king
+			}
+		}
+		modifier = {
+			factor = 1.5
+			trait = envious
+		}
+		modifier = {
+			factor = 1.5
+			trait = greedy
+		}
+		modifier = {
+			factor = 10.0
+			trait = ambitious
+		}
+	}
+	success = {
+		custom_tooltip = {
+			text = OBJDEMESNESUCCESS
+			hidden_tooltip = {
+				OR = {
+					AND = {
+						demesne_size = 9
+						has_character_flag = demesne8
+					}
+					AND = {
+						demesne_size = 8
+						has_character_flag = demesne7
+					}
+					AND = {
+						demesne_size = 7
+						has_character_flag = demesne6
+					}
+					AND = {
+						demesne_size = 6
+						has_character_flag = demesne5
+					}
+					AND = {
+						demesne_size = 5
+						has_character_flag = demesne4
+					}
+					AND = {
+						demesne_size = 4
+						has_character_flag = demesne3
+					}
+					AND = {
+						demesne_size = 3
+						has_character_flag = demesne2
+					}
+					AND = {
+						demesne_size = 2
+						has_character_flag = demesne1
+					}
+				}
+			}
+		}
+	}
+	abort = {
+		OR = {
+			trait = incapable
+			is_ruler = no
+			NOT = { demesne_efficiency = 1.00 }
+		}
+	}
+	abort_effect = {
+		clr_character_flag = demesne1
+		clr_character_flag = demesne2
+		clr_character_flag = demesne3
+		clr_character_flag = demesne4
+		clr_character_flag = demesne5
+		clr_character_flag = demesne6
+		clr_character_flag = demesne7
+		clr_character_flag = demesne8
+	}
+	effect = {
+		if = {
+			limit = {
+				NOT = { has_character_flag = obj_demesne_used }
+			}
+			change_stewardship = 1
+		}
+		prestige = 100
+		hidden_tooltip = {
+			clr_character_flag = demesne1
+			clr_character_flag = demesne2
+			clr_character_flag = demesne3
+			clr_character_flag = demesne4
+			clr_character_flag = demesne5
+			clr_character_flag = demesne6
+			clr_character_flag = demesne7
+			clr_character_flag = demesne8
+			add_character_modifier = {
+				name = gain_demesne_obj_timer
+				duration = 3650 #10 years
+			}
+			set_character_flag = obj_demesne_used
+		}
+	}
+}
+
+obj_become_duke = {
+	type = character
+
+	allow = {
+		is_ruler = yes
+		is_adult = yes
+		is_landed = yes
+		tier = count
+		NOT = { higher_tier_than = count}
+		NOT = { trait = incapable }
+		NOT = { trait = content }
+	}
+	chance = {
+		factor = 20
+		modifier = {
+			factor = 1.5
+			demesne_size = 2
+		}
+		modifier = {
+			factor = 1.5
+			demesne_size = 3
+		}
+		modifier = {
+			factor = 1.5
+			demesne_size = 4
+		}
+		modifier = {
+			factor = 10
+			any_claim = { tier = DUKE }
+		}		
+	}
+	success = {
+		higher_tier_than = count
+	}
+	abort = {
+		OR = {
+			is_ruler = no
+			NOT = { higher_tier_than = baron }
+			trait = incapable
+			trait = content
+		}
+	}
+	effect = {
+		change_stewardship = 1
+		prestige = 50
+	}
+}
+
+obj_church_career = {
+	type = character
+	
+	allow = {
+		age = 16
+		prisoner = no
+		is_ruler = no
+		ai = yes
+		NOT = { trait = ambitious }
+		NOT = { trait = incapable }
+		NOT = { trait = envious }
+		NOT = { trait = cynical }
+		NOT = { trait = monk }
+		NOT = { trait = nun }
+		religion_group = christian
+		liege = { 
+			NOT = { is_close_relative = ROOT }
+		}
+		is_female = no
+	}
+	
+	chance = {
+		factor = 8
+		
+		modifier = {
+			factor = 5.0
+			trait = content
+		}
+		
+		modifier = {
+			factor = 0.1
+			is_female = yes
+		}
+		
+		modifier = {
+			factor = 0.25
+			trait = slothful
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = zealous
+		}
+		
+		modifier = {
+			factor = 1.5
+			trait = detached_priest
+		}
+		
+		modifier = {
+			factor = 2.0
+			trait = martial_cleric
+		}
+		
+		modifier = {
+			factor = 10.0
+			any_heir_title = {
+				holder_scope = {
+					is_priest = yes
+				}
+			}
+		}
+		
+		modifier = {
+			factor = 5.0
+			OR = {
+				trait = scholarly_theologian
+				trait = mastermind_theologian
+			}
+		}
+		
+	}
+	success = {
+		OR = {
+			is_priest = yes
+			trait = monk
+			trait = nun
+		}
+	}
+	abort = {
+		OR = {
+			trait = ambitious
+			trait = envious
+			trait = incapable
+			AND = {
+				is_ruler = yes
+				is_priest = no 
+			}
+		}
+	}
+	
+	abort_effect = {
+	}
+	
+	effect = {
+		change_learning = 1
+		piety = 25
+		opinion = {
+			who = liege
+			modifier = opinion_ambition_fulfilled
+			months = 24
+		}
+	}
+}
+
+obj_go_traveling = {
+	type = character
+	
+	allow = {
+		is_adult = yes
+		is_ruler = yes
+		higher_tier_than = baron
+		NOT = { has_character_flag = go_traveling_ambition_fulfilled }
+		NOT = { trait = traveling }
+		NOT = { trait = on_hajj }
+		NOT = { trait = on_pilgrimage }
+	}
+	chance = {
+		factor = 50
+		
+		modifier = {
+			factor = 2
+			trait = diligent
+		}		
+		modifier = {
+			factor = 0.5
+			trait = slothful
+		}			
+		modifier = {
+			factor = 2
+			trait = ambitious
+		}		
+		modifier = {
+			factor = 0.5
+			trait = content
+		}	
+		modifier = {
+			factor = 2
+			trait = brave
+		}		
+		modifier = {
+			factor = 0.5
+			trait = craven
+		}		
+		modifier = {
+			factor = 1.5
+			prestige = 150
+		}			
+		modifier = {
+			factor = 2
+			prestige = 400
+		}
+	}
+	success = {
+		OR = {
+			trait = traveling
+			trait = on_hajj
+			trait = on_pilgrimage
+		}
+	}
+	abort = {
+		trait = incapable
+	}
+	abort_effect = {
+		clr_character_flag = go_traveling_ambition_fulfilled
+		
+	}
+	effect = {
+		prestige = 10
+		set_character_flag = go_traveling_ambition_fulfilled
+	}
+}

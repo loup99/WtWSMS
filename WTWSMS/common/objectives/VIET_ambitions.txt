@@ -496,74 +496,6 @@ obj_follow_truth = {
 	}
 }
 
-obj_go_traveling = {
-	type = character
-	
-	allow = {
-		is_adult = yes
-		is_ruler = yes
-		higher_tier_than = baron
-		NOT = { has_character_flag = go_traveling_ambition_fulfilled }
-		NOT = { trait = traveling }
-		NOT = { trait = on_hajj }
-		NOT = { trait = on_pilgrimage }
-	}
-	chance = {
-		factor = 50
-		
-		modifier = {
-			factor = 2
-			trait = diligent
-		}		
-		modifier = {
-			factor = 0.5
-			trait = slothful
-		}			
-		modifier = {
-			factor = 2
-			trait = ambitious
-		}		
-		modifier = {
-			factor = 0.5
-			trait = content
-		}	
-		modifier = {
-			factor = 2
-			trait = brave
-		}		
-		modifier = {
-			factor = 0.5
-			trait = craven
-		}		
-		modifier = {
-			factor = 1.5
-			prestige = 150
-		}			
-		modifier = {
-			factor = 2
-			prestige = 400
-		}
-	}
-	success = {
-		OR = {
-			trait = traveling
-			trait = on_hajj
-			trait = on_pilgrimage
-		}
-	}
-	abort = {
-		trait = incapable
-	}
-	abort_effect = {
-		clr_character_flag = go_traveling_ambition_fulfilled
-		
-	}
-	effect = {
-		prestige = 10
-		set_character_flag = go_traveling_ambition_fulfilled
-	}
-}
-
 obj_have_five_children = {
 	type = character
 	
@@ -1028,7 +960,8 @@ obj_win_republic_election = {
 		is_adult = yes
 		is_female = no
 		is_patrician = yes
-		is_merchant_republic = no
+		is_merchant_republic = no # Checks if character is not the doge of a merchant republic
+		is_republic	= yes # Checks if government is part of republic_governments group
 	}
 	chance = {
 		factor = 50
@@ -1054,15 +987,16 @@ obj_win_republic_election = {
 		}
 	}
 	success = {
-		is_merchant_republic = yes
+		is_merchant_republic = yes # Checks if character is the doge of a merchant republic
 	}
 	abort = {
 		OR = {
 			trait = incapable
 			AND = {
 				is_patrician = no
-				is_merchant_republic = yes
+				is_merchant_republic = yes # Checks if character is the doge of a merchant republic
 			}
+			is_republic	= no # Checks if government is not a part of republic_governments group
 		}		
 	}
 	effect = {
@@ -1076,7 +1010,9 @@ obj_command_an_army = {
 		is_adult = yes
 		is_female = no
 		in_command = no
+		NOT =  { has_minor_title = title_commander }
 		NOT = { has_character_flag = VIET_ambition_command_army }
+		can_hold_title = title_commander # Checks the conditions for the title_commander minor title
 	}
 	chance = {
 		factor = 100
@@ -1115,9 +1051,11 @@ obj_command_an_army = {
 	}
 	success = {
 		in_command = yes
+		has_minor_title = title_commander
 	}
 	abort = {
-		trait = incapable		
+		trait = incapable
+		NOT = { can_hold_title = title_commander }# Checks the conditions for the title_commander minor title
 	}
 	effect = {
 		prestige = 10

@@ -1,0 +1,613 @@
+castle = {
+	ca_aqueduct = {	# Aqueduct
+		potential = {
+			OR = {
+				borders_lake = yes
+				borders_major_river = yes
+				terrain = mountain
+				port = yes
+				any_neighbor_province = { terrain = mountain }
+			}
+			FROM = {
+				OR = {
+					has_romance_culture_trigger = yes
+					#bureaucratic_government_trigger = yes
+					trait = roman_nostalgia
+					any_liege = { has_romance_culture_trigger = yes }
+					#any_liege = { bureaucratic_government_trigger = yes }
+					any_liege = { trait = roman_nostalgia }
+				}
+			}
+			FROMFROM = {
+				OR = {
+					region = custom_imperium_romanum
+					region = world_asia_minor
+					region = world_europe
+					region = world_persia
+				}
+			}
+			FROMFROM = {
+				NOR = {
+					title = b_roma
+					title = b_constantinople
+					title = b_split
+					title = b_seleukeia
+					title = b_segovia
+					title = b_nimes
+					title = b_cartaghe
+				}
+			}
+		}
+		desc = aqueduct_desc
+		trigger = {
+			TECH_CONSTRUCTION = 1
+		}
+		gold_cost = 800
+		build_time = 1825
+		
+		convert_to_city = ct_aqueduct
+		convert_to_temple = tp_aqueduct
+		
+		ai_creation_factor = 95
+		
+		siege_defence = 0.1
+		disease_defence = 0.1
+		supply_limit = 0.1
+		
+		extra_tech_building_start = 10.0 # Never get at start of game
+	}
+	ca_aqueduct_hist = {	# Aqueduct building used for prebuilt aqueducts
+		potential = {
+			FROMFROM = {
+				OR = {
+					title = b_roma
+					title = b_constantinople
+					title = b_split
+					title = b_seleukeia
+					title = b_segovia
+					title = b_nimes
+					title = b_cartaghe
+				}
+			}
+		}
+		desc = aqueduct_desc
+		trigger = {
+			TECH_CONSTRUCTION = 1
+		}
+		gold_cost = 800
+		build_time = 1825
+		
+		convert_to_city = ct_aqueduct_hist
+		convert_to_temple = tp_aqueduct_hist
+		
+		ai_creation_factor = 95
+		
+		siege_defence = 0.1
+		disease_defence = 0.1
+		supply_limit = 0.1
+		
+		extra_tech_building_start = 10.0 # Never get at start of game
+	}
+	ca_qanat = {	# Qanat (Persian underground aqueduct)
+		potential = {
+			OR = {
+				terrain = mountain
+				any_neighbor_province = { terrain = mountain }
+			}
+			FROM = {
+				culture = persian
+			}
+		}
+		desc = qanat_desc
+		trigger = {
+			TECH_CONSTRUCTION = 1
+		}
+		gold_cost = 800
+		build_time = 1825
+		
+		#convert_to_city = ct_qanat
+		#convert_to_temple = tp_qanat
+		
+		ai_creation_factor = 95
+		
+		siege_defence = 0.1
+		disease_defence = 0.1
+		supply_limit = 0.1
+		
+		extra_tech_building_start = 10.0 # Never get at start of game
+	}
+	ca_cistern = {	# Cistern
+		potential = {
+			FROM = {
+				OR = {
+					has_romance_culture_trigger = yes
+					#bureaucratic_government_trigger = yes
+					trait = roman_nostalgia
+					any_liege = { has_romance_culture_trigger = yes }
+					#any_liege = { bureaucratic_government_trigger = yes }
+					any_liege = { trait = roman_nostalgia }
+				}
+			}
+		}
+		desc = cistern_desc
+		trigger = {
+			TECH_CONSTRUCTION = 1
+		}
+		gold_cost = 700
+		build_time = 1825
+		ai_creation_factor = 95
+		
+		siege_defence = 0.1
+		
+		extra_tech_building_start = 10.0 # Never get at start of game
+	}
+	ca_theatre = {	# Theatre
+		potential = {
+			FROMFROM = { is_capital = yes }
+			FROM = {
+				OR = {
+					has_romance_culture_trigger = yes
+					#bureaucratic_government_trigger = yes
+					trait = roman_nostalgia
+					any_liege = { has_romance_culture_trigger = yes }
+					#any_liege = { bureaucratic_government_trigger = yes }
+					any_liege = { trait = roman_nostalgia }
+				}
+			}
+		}
+		desc = theatre_desc
+		trigger = {
+			TECH_CONSTRUCTION = 1
+		}
+		gold_cost = 500
+		build_time = 360
+		ai_creation_factor = 95
+		
+		tech_growth_modifier = 0.1
+		culture_techpoints = 0.05
+		
+		extra_tech_building_start = 10.0 # Never get at start of game
+	}
+	ca_public_baths = {	# Public baths
+		potential = {
+			FROMFROM = { is_capital = yes }
+			FROM = {
+				OR = {
+					has_romance_culture_trigger = yes
+					#bureaucratic_government_trigger = yes
+					trait = roman_nostalgia
+					any_liege = { has_romance_culture_trigger = yes }
+					#any_liege = { bureaucratic_government_trigger = yes }
+					any_liege = { trait = roman_nostalgia }
+				}
+			}
+		}
+		desc = public_baths_desc
+		trigger = {
+			TECH_CONSTRUCTION = 1
+		}
+		gold_cost = 500
+		build_time = 360
+		ai_creation_factor = 95
+		
+		local_revolt_risk = -0.1
+		
+		extra_tech_building_start = 10.0 # Never get at start of game
+	}
+}
+city = {
+	ct_aqueduct = {	# Aqueduct
+		potential = {
+			OR = {
+				borders_lake = yes
+				borders_major_river = yes
+				terrain = mountain
+				port = yes
+				any_neighbor_province = { terrain = mountain }
+			}
+			FROM = {
+				OR = {
+					has_romance_culture_trigger = yes
+					#bureaucratic_government_trigger = yes
+					trait = roman_nostalgia
+					any_liege = { has_romance_culture_trigger = yes }
+					#any_liege = { bureaucratic_government_trigger = yes  }
+					any_liege = { trait = roman_nostalgia }
+				}
+			}
+			FROMFROM = {
+				OR = {
+					region = custom_imperium_romanum
+					region = world_asia_minor
+					region = world_europe
+					region = world_persia
+				}
+			}
+			FROMFROM = {
+				NOR = {
+					title = b_roma
+					title = b_constantinople
+					title = b_split
+					title = b_seleukeia
+					title = b_segovia
+					title = b_nimes
+					title = b_cartaghe
+				}
+			}
+		}
+		desc = aqueduct_desc
+		trigger = {
+			TECH_CONSTRUCTION = 1
+		}
+		gold_cost = 800
+		build_time = 1825
+		
+		convert_to_castle = ca_aqueduct
+		convert_to_temple = tp_aqueduct
+		
+		ai_creation_factor = 95
+		
+		siege_defence = 0.1
+		disease_defence = 0.1
+		supply_limit = 0.1
+		
+		extra_tech_building_start = 10.0 # Never get at start of game
+	}
+	ct_aqueduct_hist = {	# Aqueduct building used for prebuilt aqueducts
+		potential = {
+			FROMFROM = {
+				OR = {
+					title = b_roma
+					title = b_constantinople
+					title = b_split
+					title = b_seleukeia
+					title = b_segovia
+					title = b_nimes
+					title = b_cartaghe
+				}
+			}
+		}
+		desc = aqueduct_desc
+		trigger = {
+			TECH_CONSTRUCTION = 1
+		}
+		gold_cost = 800
+		build_time = 1825
+		
+		convert_to_castle = ca_aqueduct_hist
+		convert_to_temple = tp_aqueduct_hist
+		
+		ai_creation_factor = 95
+		
+		siege_defence = 0.1
+		disease_defence = 0.1
+		supply_limit = 0.1
+		
+		extra_tech_building_start = 10.0 # Never get at start of game
+	}
+	ct_qanat = {	# Qanat (Persian underground aqueduct)
+		potential = {
+			OR = {
+				terrain = mountain
+				any_neighbor_province = { terrain = mountain }
+			}
+			FROM = {
+				culture = persian
+			}
+		}
+		desc = qanat_desc
+		trigger = {
+			TECH_CONSTRUCTION = 1
+		}
+		gold_cost = 800
+		build_time = 1825
+		
+		#convert_to_castle = ca_qanat
+		#convert_to_temple = tp_qanat
+		
+		ai_creation_factor = 95
+		
+		siege_defence = 0.1
+		disease_defence = 0.1
+		supply_limit = 0.1
+		
+		extra_tech_building_start = 10.0 # Never get at start of game
+	}
+	ct_cistern = {	# Cistern
+		potential = {
+			FROM = {
+				OR = {
+					has_romance_culture_trigger = yes
+					#bureaucratic_government_trigger = yes
+					trait = roman_nostalgia
+					any_liege = { has_romance_culture_trigger = yes }
+					#any_liege = { bureaucratic_government_trigger = yes }
+					any_liege = { trait = roman_nostalgia }
+				}
+			}
+		}
+		desc = cistern_desc
+		trigger = {
+			TECH_CONSTRUCTION = 1
+		}
+		gold_cost = 700
+		build_time = 1825
+		ai_creation_factor = 95
+		
+		siege_defence = 0.1
+		
+		extra_tech_building_start = 10.0 # Never get at start of game
+	}
+	ct_theatre = {	# Theatre
+		potential = {
+			FROMFROM = { is_capital = yes }
+			FROM = {
+				OR = {
+					has_romance_culture_trigger = yes
+					#bureaucratic_government_trigger = yes
+					trait = roman_nostalgia
+					any_liege = { has_romance_culture_trigger = yes }
+					#any_liege = { bureaucratic_government_trigger = yes }
+					any_liege = { trait = roman_nostalgia }
+				}
+			}
+		}
+		desc = theatre_desc
+		trigger = {
+			TECH_CONSTRUCTION = 1
+		}
+		gold_cost = 500
+		build_time = 360
+		ai_creation_factor = 95
+		
+		tech_growth_modifier = 0.1
+		culture_techpoints = 0.05
+		
+		extra_tech_building_start = 10.0 # Never get at start of game
+	}
+	ct_public_baths = {	# Public baths
+		potential = {
+			FROMFROM = { is_capital = yes }
+			FROM = {
+				OR = {
+					has_romance_culture_trigger = yes
+					#bureaucratic_government_trigger = yes
+					trait = roman_nostalgia
+					any_liege = { has_romance_culture_trigger = yes }
+					#any_liege = { bureaucratic_government_trigger = yes }
+					any_liege = { trait = roman_nostalgia }
+				}
+			}
+		}
+		desc = public_baths_desc
+		trigger = {
+			TECH_CONSTRUCTION = 1
+		}
+		gold_cost = 500
+		build_time = 360
+		ai_creation_factor = 95
+		
+		local_revolt_risk = -0.1
+		
+		extra_tech_building_start = 10.0 # Never get at start of game
+	}
+}
+temple = {
+	tp_aqueduct = {	# Aqueduct
+		potential = {
+			OR = {
+					borders_lake = yes
+					borders_major_river = yes
+					terrain = mountain
+					port = yes
+					any_neighbor_province = { terrain = mountain }
+			}
+			FROM = {
+				OR = {
+					has_romance_culture_trigger = yes
+					#bureaucratic_government_trigger = yes
+					trait = roman_nostalgia
+					any_liege = { has_romance_culture_trigger = yes }
+					#any_liege = { bureaucratic_government_trigger = yes  }
+					any_liege = { trait = roman_nostalgia }
+				}
+			}
+			FROMFROM = {
+				OR = {
+					region = custom_imperium_romanum
+					region = world_asia_minor
+					region = world_europe
+					region = world_persia
+				}
+			}
+			FROMFROM = {
+				NOR = {
+					title = b_roma
+					title = b_constantinople
+					title = b_split
+					title = b_seleukeia
+					title = b_segovia
+					title = b_nimes
+					title = b_cartaghe
+				}
+			}
+		}
+		desc = aqueduct_desc
+		trigger = {
+			TECH_CONSTRUCTION = 1
+		}
+		gold_cost = 800
+		build_time = 1825
+		
+		convert_to_castle = ca_aqueduct
+		convert_to_city = ct_aqueduct
+		
+		ai_creation_factor = 95
+		
+		siege_defence = 0.1
+		disease_defence = 0.1
+		supply_limit = 0.1
+		
+		extra_tech_building_start = 10.0 # Never get at start of game
+	}
+	tp_aqueduct_hist = {	# Aqueduct building used for prebuilt aqueducts
+		potential = {
+			FROMFROM = {
+				OR = {
+					title = b_roma
+					title = b_constantinople
+					title = b_split
+					title = b_seleukeia
+					title = b_segovia
+					title = b_nimes
+					title = b_cartaghe
+				}
+			}
+		}
+		desc = aqueduct_desc
+		trigger = {
+			TECH_CONSTRUCTION = 1
+		}
+		gold_cost = 800
+		build_time = 1825
+		
+		convert_to_castle = ca_aqueduct_hist
+		convert_to_city = ct_aqueduct_hist
+		
+		ai_creation_factor = 95
+		
+		siege_defence = 0.1
+		disease_defence = 0.1
+		supply_limit = 0.1
+		
+		extra_tech_building_start = 10.0 # Never get at start of game
+	}
+	tp_qanat = {	# Qanat (Persian underground aqueduct)
+		potential = {
+			OR = {
+				terrain = mountain
+				any_neighbor_province = { terrain = mountain }
+			}
+			FROM = {
+				culture = persian
+			}
+		}
+		desc = qanat_desc
+		trigger = {
+			TECH_CONSTRUCTION = 1
+		}
+		gold_cost = 800
+		build_time = 1825
+		
+		#convert_to_city = ct_qanat
+		#convert_to_castle = ca_qanat
+		
+		ai_creation_factor = 95
+		
+		siege_defence = 0.1
+		disease_defence = 0.1
+		supply_limit = 0.1
+		
+		extra_tech_building_start = 10.0 # Never get at start of game
+	}
+	tp_cistern = {	# Cistern
+		potential = {
+			FROM = {
+				OR = {
+					has_romance_culture_trigger = yes
+					#bureaucratic_government_trigger = yes
+					trait = roman_nostalgia
+					any_liege = { has_romance_culture_trigger = yes }
+					#any_liege = { bureaucratic_government_trigger = yes }
+					any_liege = { trait = roman_nostalgia }
+				}
+			}
+		}
+		desc = cistern_desc
+		trigger = {
+			TECH_CONSTRUCTION = 1
+		}
+		gold_cost = 700
+		build_time = 1825
+		ai_creation_factor = 95
+		
+		siege_defence = 0.1
+		
+		extra_tech_building_start = 10.0 # Never get at start of game
+	}
+	tp_theatre = {	# Theatre
+		potential = {
+			FROMFROM = { is_capital = yes }
+			FROM = {
+				OR = {
+					has_romance_culture_trigger = yes
+					#bureaucratic_government_trigger = yes
+					trait = roman_nostalgia
+					any_liege = { has_romance_culture_trigger = yes }
+					#any_liege = { bureaucratic_government_trigger = yes }
+					any_liege = { trait = roman_nostalgia }
+				}
+			}
+		}
+		desc = theatre_desc
+		trigger = {
+			TECH_CONSTRUCTION = 1
+		}
+		gold_cost = 500
+		build_time = 360
+		ai_creation_factor = 95
+		
+		tech_growth_modifier = 0.1
+		culture_techpoints = 0.05
+		
+		extra_tech_building_start = 10.0 # Never get at start of game
+	}
+	tp_public_baths = {	# Public baths
+		potential = {
+			FROMFROM = { is_capital = yes }
+			FROM = {
+				OR = {
+					has_romance_culture_trigger = yes
+					#bureaucratic_government_trigger = yes
+					trait = roman_nostalgia
+					any_liege = { has_romance_culture_trigger = yes }
+					#any_liege = { bureaucratic_government_trigger = yes }
+					any_liege = { trait = roman_nostalgia }
+				}
+			}
+		}
+		desc = public_baths_desc
+		trigger = {
+			TECH_CONSTRUCTION = 1
+		}
+		gold_cost = 500
+		build_time = 360
+		ai_creation_factor = 95
+		
+		local_revolt_risk = -0.1
+		
+		extra_tech_building_start = 10.0 # Never get at start of game
+	}
+}
+trade_post = {
+	tr_lighthouse = {	# Lighthouse
+		potential = {
+			NOT = { province_id = 802 } #Alexandria has its own, historical lighthouse building
+		}
+		desc = lighthouse_desc
+		trigger = {
+			TECH_TRADE_PRACTICES = 1
+			FROM = { # Tribals and Nomads are not allowed to have anything past a trade post
+				is_tribal = no
+				is_nomadic = no
+			}
+		}
+		port = yes
+		gold_cost = 100
+		build_time = 360
+		ai_creation_factor = 95
+		
+		tradevalue = 6					 # 6 gold per year generated
+		extra_tech_building_start = 10.0 # Never get at start of game
+	}
+}

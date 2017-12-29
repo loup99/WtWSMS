@@ -242,7 +242,7 @@ character_event = {
 			}
 			remove_character_modifier = recent_duel_victory
 		}
-		event_target:opponent = {			
+		event_target:opponent = {
 			opinion = {
 				modifier = opinion_fought_duel
 				who = ROOT
@@ -394,7 +394,7 @@ character_event = {
 				}
 				### effects
 				random_list = {
-					70 = {						
+					70 = {
 						add_character_modifier = {
 							modifier = recent_duel_victory
 							months = 12
@@ -469,7 +469,7 @@ character_event = {
 								modifier = recent_duel_victory
 								months = 12
 							}
-							long_character_event = { id = WoL.11006  } 
+							long_character_event = { id = WoL.11006  }
 						}
 					}
 					30 = {
@@ -483,7 +483,7 @@ character_event = {
 								months = 12
 							}
 							set_character_flag = duel_maim
-							long_character_event = { id = WoL.11006  } 
+							long_character_event = { id = WoL.11006  }
 						}
 					}
 				}
@@ -551,7 +551,7 @@ long_character_event = {
 						limit = { NOT = { is_rival = ROOT } }
 						add_rival = ROOT
 					}
-				}	
+				}
 			}
 			hidden_tooltip = {
 				event_target:opponent = {
@@ -565,7 +565,7 @@ long_character_event = {
 					}
 				}
 			}
-		}		
+		}
 		if = {
 			limit = { NOT = { event_target:challenger = { character = ROOT } } }
 			tooltip = {
@@ -679,6 +679,7 @@ long_character_event = {
 		custom_tooltip = {
 			text = EVTTOOLTIPWOL11006
 			hidden_tooltip = {
+				generate_tooltip = no
 				any_realm_character = {
 					opinion = {
 						modifier = opinion_ruthless
@@ -710,13 +711,8 @@ long_character_event = {
 		}
 		if = {
 			limit = { event_target:challenger = { character = ROOT } }
-			if = {
-				limit = {
-					event_target:opponent = { dynasty = ROOT }
-					NOT = { trait = kinslayer }
-				}
-				add_trait = kinslayer
-			}
+			event_target:opponent = { save_event_target_as = kinslayer_target }
+			add_kinslayer_trait_effect = yes
 			tooltip = {
 				event_target:opponent = {
 					death = {
@@ -737,13 +733,8 @@ long_character_event = {
 		}
 		if = {
 			limit = { NOT = { event_target:challenger = { character = ROOT } } }
-			if = {
-				limit = {
-					event_target:challenger = { dynasty = ROOT }
-					NOT = { trait = kinslayer }
-				}
-				add_trait = kinslayer
-			}
+			event_target:challenger = { save_event_target_as = kinslayer_target }
+			add_kinslayer_trait_effect = yes
 			tooltip = {
 				event_target:challenger = {
 					death = {
@@ -847,17 +838,8 @@ long_character_event = {
 		hidden_tooltip = {
 			FROM = { clr_character_flag = duel_maim }
 		}
-		if = {
-			limit = {
-				FROM = {
-					dynasty = ROOT
-					NOT = { trait = kinslayer }
-				}
-			}
-			tooltip = {
-				FROM = { add_trait = kinslayer }
-			}
-		}
+		save_event_target_as = kinslayer_target
+		tooltip = { FROM = { add_kinslayer_trait_effect = yes } }
 		if = {
 			limit = { multiplayer = no }
 			death = {
@@ -893,13 +875,8 @@ long_character_event = {
 			limit = { multiplayer = yes }
 			if = {
 				limit = { event_target:challenger = { character = ROOT } }
-				if = {
-					limit = {
-						event_target:opponent = { dynasty = ROOT }
-						NOT = { trait = kinslayer }
-					}
-					add_trait = kinslayer
-				}
+				event_target:opponent = { save_event_target_as = kinslayer_target }
+				add_kinslayer_trait_effect = yes
 				death = {
 					death_reason = death_duel
 					killer = event_target:opponent
@@ -907,13 +884,8 @@ long_character_event = {
 			}
 			if = {
 				limit = { NOT = { event_target:challenger = { character = ROOT } } }
-				if = {
-					limit = {
-						event_target:challenger = { dynasty = ROOT }
-						NOT = { trait = kinslayer }
-					}
-					add_trait = kinslayer
-				}
+				event_target:challenger = { save_event_target_as = kinslayer_target }
+				add_kinslayer_trait_effect = yes
 				death = {
 					death_reason = death_duel
 					killer = event_target:challenger
@@ -926,19 +898,10 @@ long_character_event = {
 		name = EVTOPTA_CM_6303
 		if = {
 			limit = { event_target:challenger = { character = ROOT } }
-			if = {
-				limit = {
-					event_target:opponent = { dynasty = ROOT }
-				}
-				if = {
-					limit = { NOT = { trait = kinslayer } }
-					add_trait = kinslayer
-				}
-				if = {
-					limit = { event_target:opponent = { NOT = { trait = kinslayer } } }
-					tooltip = { event_target:opponent = { add_trait = kinslayer } }
-				}
-			}
+			event_target:opponent = { save_event_target_as = kinslayer_target }
+			add_kinslayer_trait_effect = yes
+			save_event_target_as = kinslayer_target
+			event_target:opponent = { add_kinslayer_trait_effect = yes }
 			if = {
 				limit = { multiplayer = no }
 				death = {
@@ -957,19 +920,10 @@ long_character_event = {
 		}
 		if = {
 			limit = { NOT = { event_target:challenger = { character = ROOT } } }
-			if = {
-				limit = {
-					event_target:challenger = { dynasty = ROOT }
-				}
-				if = {
-					limit = { NOT = { trait = kinslayer } }
-					add_trait = kinslayer
-				}
-				if = {
-					limit = { event_target:challenger = { NOT = { trait = kinslayer } } }
-					tooltip = { event_target:challenger = { add_trait = kinslayer } }
-				}
-			}
+			event_target:challenger = { save_event_target_as = kinslayer_target }
+			add_kinslayer_trait_effect = yes
+			save_event_target_as = kinslayer_target
+			event_target:challenger = { add_kinslayer_trait_effect = yes }
 			if = {
 				limit = { multiplayer = no }
 				death = {
@@ -1029,13 +983,8 @@ long_character_event = {
 			}
 			give_nickname = nick_the_beheader
 		}
-		if = {
-			limit = {
-				event_target:opponent = { dynasty = ROOT }
-				NOT = { trait = kinslayer }
-			}
-			add_trait = kinslayer
-		}
+		event_target:opponent = { save_event_target_as = kinslayer_target }
+		add_kinslayer_trait_effect = yes
 		tooltip = {
 			event_target:opponent = {
 				death = {
@@ -1075,13 +1024,8 @@ long_character_event = {
 			}
 			give_nickname = nick_the_beheader
 		}
-		if = {
-			limit = {
-				event_target:challenger = { dynasty = ROOT }
-				NOT = { trait = kinslayer }
-			}
-			add_trait = kinslayer
-		}
+		event_target:challenger = { save_event_target_as = kinslayer_target }
+		add_kinslayer_trait_effect = yes
 		tooltip = {
 			event_target:challenger = {
 				death = {
@@ -2051,7 +1995,7 @@ character_event = {
 		hidden_tooltip = {
 			character_event = { id = WoL.11140 days = 3 }
 		}
-	}	
+	}
 }
 
 character_event = {

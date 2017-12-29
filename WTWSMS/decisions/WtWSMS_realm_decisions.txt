@@ -1,9 +1,122 @@
 decisions = {
+	ask_for_hre = {
+		only_playable = yes
+		is_high_prio = yes
+		potential = {
+			religion = nicene
+			age = 16
+			prisoner = no
+			NOT = { trait = incapable }
+			demesne_size = 225
+			tier = emperor
+			NOT = { culture = roman }
+			NOT = { has_landed_title = e_wre } 
+			NOT = { has_landed_title = e_roman_empire }
+			NOT = { has_landed_title = e_axum }
+			NOT = { has_landed_title = e_italy } 
+			NOT = { has_landed_title = e_byzantium } 
+			NOT = { has_character_flag = asked_for_hre }
+			NOT = { has_global_flag = hre_formed }
+		}
+		allow = {
+			scaled_wealth = 2.0
+			is_heretic = no
+		}
+		effect = {
+			set_character_flag = asked_for_hre
+			hidden_tooltip = {
+				d_papal_state = {
+					holder_scope = {
+						character_event = { id = spirit.3 days = 5 random = 12 tooltip = "hre_ask" }
+					}
+				} 
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = {
+					scaled_wealth = 10.0
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = zealous
+			}
+			modifier = {
+				factor = 2
+				trait = ambitious
+			}
+		}
+	}
+	
+	ask_for_wre = {
+		only_playable = yes
+		is_high_prio = yes
+		potential = {
+			OR = {
+				religion_group = christian
+				religion_group = pagan_group
+			}
+			age = 16
+			prisoner = no
+			NOT = { trait = incapable }
+			demesne_size = 225
+			tier = king
+			e_wre = {
+				has_holder = no
+			}
+			e_byzantium = {
+				has_holder = yes
+			}
+			NOT = { culture = roman }
+			NOT = { has_landed_title = e_wre } 
+			NOT = { has_landed_title = e_roman_empire }
+			NOT = { has_landed_title = e_byzantium } 
+			NOT = { has_character_flag = asked_for_wre }
+			NOT = { has_global_flag = wre_reformed }
+		}
+		allow = {
+			scaled_wealth = 2.0
+		}
+		effect = {
+			set_character_flag = asked_for_wre
+			hidden_tooltip = {
+				e_byzantium = {
+					holder_scope = {
+						character_event = { id = spirit.3 days = 5 random = 12 tooltip = "wre_ask" }
+					}
+				} 
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = {
+					scaled_wealth = 10.0
+				}
+			}
+			modifier = {
+				factor = 5
+				trait = cynical
+			}
+			modifier = {
+				factor = 5
+				trait = ambitious
+			}
+		}
+	}
+
 	organize_scholae_palatinae = {
 		only_playable = yes
 		is_high_prio = yes
 		potential = {
-			has_landed_title = e_byzantium
+			OR = { 
+				has_landed_title = e_byzantium
+				has_landed_title = e_roman_empire
+			}
 			is_female = no
 			prisoner = no
 			age = 16
@@ -37,6 +150,128 @@ decisions = {
 				}
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	reorganize_western_scholae_palatinae = {
+		only_playable = yes
+		is_high_prio = yes
+		potential = {
+			OR = { 
+				has_landed_title = e_wre
+				has_landed_title = e_roman_empire
+			}
+			is_female = no
+			prisoner = no
+			age = 16
+			NOT = { has_global_flag = western_scholae_palatinae_reorganized }
+		}
+		allow = {
+			prestige = 300
+			wealth = 300
+		}
+		effect = {
+			set_global_flag = western_scholae_palatinae_reorganized
+			prestige = -300
+			wealth = -300
+			activate_title = { title = d_western_scholae_palatinae status = yes }
+			hidden_tooltip = {
+				narrative_event = { id = guard.31352 }
+				create_random_soldier = {
+					random_traits = yes
+					religion = nicene
+					culture = roman
+					dynasty = NONE
+					female = no
+					age = 34
+					trait = skilled_tactician
+				}
+				new_character = {
+					d_western_scholae_palatinae = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	reform_imperial_fleet_wre = {
+		is_high_prio = yes
+		only_playable = yes
+		potential = {
+			prisoner = no
+			age = 16
+			OR = { 
+				has_landed_title = e_wre
+				has_landed_title = e_roman_empire
+			}
+			NOT = { is_title_active = d_imperial_fleet_wre } 
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = c_ravenna # Ravenna was an important port
+			has_landed_title = c_ravenna
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = d_imperial_fleet_wre status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					d_imperial_fleet_wre = {
+						grant_title = PREV
+						religion = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	reform_imperial_fleet_ere = {
+		is_high_prio = yes
+		only_playable = yes
+		potential = {
+			prisoner = no
+			age = 16
+			OR = { 
+				has_landed_title = e_byzantium
+				has_landed_title = e_roman_empire
+			}
+			NOT = { is_title_active = d_imperial_fleet_ere } 
+		}
+		allow = {
+			wealth = 2000
+			completely_controls = c_byzantion # Constantinople was the main port of the imperial navy
+			has_landed_title = c_byzantion
+		}
+		effect = {
+			wealth = -2000
+			activate_title = { title = d_imperial_fleet_ere status = yes }
+			hidden_tooltip = {
+				create_legion_commander_effect = yes
+				new_character = {
+					d_imperial_fleet_ere = {
+						grant_title = PREV
+						religion = PREV
+					}
+					set_defacto_liege = ROOT
+					character_event = { id = LEG.1 }
+				}
+			}
+		}
+		
 		ai_will_do = {
 			factor = 1
 		}
@@ -95,9 +330,7 @@ decisions = {
 			character_event = { id = SENATE.600 tooltip = EVTTOOLTIP_SENATE_600 }
 		}
 		
-		revoke_allowed = {
-			always = no
-		}
+		
 		
 		ai_will_do = {
 			factor = 1
@@ -145,9 +378,7 @@ decisions = {
 			character_event = { id = SENATE.601 tooltip = EVTTOOLTIP_SENATE_601 }
 		}
 		
-		revoke_allowed = {
-			always = no
-		}
+		
 		
 		ai_will_do = {
 			factor = 1
@@ -200,7 +431,6 @@ decisions = {
 		effect = {
 			hidden_tooltip = {
 				character_event = { id = SENATE.100 }
-				narrative_event = { id = SENATE.101 days = 1460 random = 50 }
 			}
 			set_global_flag = building_circus_maximus
 			wealth = -1500
@@ -242,7 +472,6 @@ decisions = {
 		effect = {
 			hidden_tooltip = {
 				character_event = { id = imperial_legacy.40 }
-				narrative_event = { id = imperial_legacy.41 days = 2100 random = 50 }
 			}
 			set_global_flag = building_hagia_sophia
 			wealth = -2500
@@ -262,7 +491,10 @@ decisions = {
 		only_playable = yes
 		is_high_prio = yes
 		potential = {
-			has_landed_title = e_byzantium
+			OR = { 
+				has_landed_title = e_byzantium
+				has_landed_title = e_roman_empire
+			}
 			is_female = no
 			prisoner = no
 			age = 16
@@ -352,6 +584,7 @@ decisions = {
 			NOT = { trait = incapable }
 			NOT = { has_claim = e_roman_empire }
 			has_romance_culture_trigger = yes
+			NOT = { has_global_flag = sole_roman_empire }
 		}
 		allow = {
 			prestige = 1500
@@ -409,8 +642,8 @@ decisions = {
 			set_global_flag = rome_restored
 			narrative_event = { id = ancrel.2220 tooltip = EVTTOOLTIPLoR.20 }
 		}
-		ai_will_do = { 
-			factor = 1 
+		ai_will_do = {
+			factor = 1
 		}
 	}
 	
@@ -424,19 +657,22 @@ decisions = {
 				has_landed_title = e_byzantium
 				has_landed_title = e_roman_empire
 				has_romance_culture_trigger = yes
-			}	
+			}
 			age = 16
 			prisoner = no
 			NOT = { trait = incapable }
 			NOT = { government = bureaucratic_government }
 			NOT = { government = tribal_government }
 			NOT = { government = nomadic_government }
+			primary_title = {
+				NOT = { has_title_flag = adopted_bureaucratic }
+			}
 		}
 		allow = {
 			OR = {
 				primary_title = { has_law = imperial_administration } 
 				primary_title = { has_law = ze_administration_laws_2 } 
-			}	
+			}
 			prestige = 750
 			wealth = 200
 		}
@@ -445,11 +681,11 @@ decisions = {
 			wealth = -200
 			narrative_event = { id = imperial_legacy.39 }
 		}
-		ai_will_do = { 
-			factor = 1 
+		ai_will_do = {
+			factor = 1
 			modifier = {
 				factor = 0.5 # Decrease chance AI will do this unless they hold one of the empires 
-				NOR = { 
+				NOR = {
 					has_landed_title = e_wre
 					has_landed_title = e_byzantium
 					has_landed_title = e_roman_empire
@@ -492,7 +728,7 @@ decisions = {
 			}
 			
 			# Rome's glory
-			custom_tooltip = { 
+			custom_tooltip = {
 				hidden_tooltip = {
 					has_global_flag = circus_maximus_built
 				}
@@ -587,10 +823,10 @@ decisions = {
 		}
 		allow = {
 			# Controls Rome
-			OR = { 
+			OR = {
 				has_landed_title = c_roma
 				any_realm_lord = { 
-					has_landed_title = c_roma 
+					has_landed_title = c_roma
 				}
 			}
 			
@@ -603,7 +839,7 @@ decisions = {
 			}
 			
 			# Ostia, the holding of the Senate, is active
-			is_title_active = b_ostia 
+			is_title_active = b_ostia
 			
 			# Prestige
 			prestige = 1500
@@ -635,7 +871,7 @@ decisions = {
 			factor = 1
 		}
 	}
-		
+	
 	peregrinatio = {
 		only_rulers = yes
 		potential = {
@@ -664,9 +900,7 @@ decisions = {
 				}
 			}
 		}
-		revoke_allowed = {
-			always = no
-		}
+		
 		ai_will_do = {
 			factor = 0
 			
@@ -694,11 +928,11 @@ decisions = {
 	call_synod_of_whitby = {
 		only_rulers = yes
 		is_high_prio = yes
-	
+		
 		potential = {
 			always = no # TODO Event ins.4 does not exist !
 			year = 644
-			NOT = { has_global_flag = synod_of_whitby } 
+			NOT = { has_global_flag = synod_of_whitby }
 			prisoner = no
 			OR = {
 				religion = insular
@@ -717,22 +951,18 @@ decisions = {
 		
 		effect = {
 			set_global_flag = synod_of_whitby
-			character_event = { id = ins.4 days = 2 } 
-		}
-		
-		revoke_allowed = {
-			always = no
+			character_event = { id = ins.4 days = 2 }
 		}
 		
 		ai_will_do = {
 			factor = 1
 			modifier = {
 				factor = 0
-				trait = cynical	
+				trait = cynical
 			}
 			modifier = {
 				factor = 0
-				trait = arbitrary	
+				trait = arbitrary
 			}
 			modifier = {
 				factor = 0
@@ -747,7 +977,7 @@ decisions = {
 	lex_burgundionum = {
 		only_independent = yes
 		
-		is_high_prio = yes 
+		is_high_prio = yes
 		
 		potential = {
 			has_landed_title = k_maxima_sequanorum
@@ -768,25 +998,25 @@ decisions = {
 			narrative_event = { id = hist.14 }
 			set_global_flag = lex_burgundionum
 			religion_authority = {
-				modifier = lex_burgundionum 
+				modifier = lex_burgundionum
 				years = 100
 			}
 		}
 		
 		ai_will_do = {
-			factor = 1 
+			factor = 1
 		}
 	}
 	
 	twothousandth_anniversary_gothic_kingdom = { # Proclaim 2000th anniversary of the Gothic kingdom (based upon Cassiodorus)
 		only_independent = yes
 		
-		is_high_prio = yes 
+		is_high_prio = yes
 		
 		potential = {
 			OR = {
 				has_landed_title = k_ostrogoths
-				tier = EMPEROR 
+				tier = EMPEROR
 			}
 			OR = {
 				culture = romano_gothic
@@ -806,114 +1036,12 @@ decisions = {
 			wealth = -100
 			narrative_event = { id = hist.17 }
 			set_global_flag = twothousandth_anniversary_gothic_kingdom
-		}	
-		revoke_allowed = {
-			always = no 
 		}
+
 		ai_will_do = {
 			factor = 1 
 		}
 	}
-
-	invite_poet_to_court = { #Invite a Poet to court
-		only_playable = yes
-		potential = {
-			NOT = { year = 1066 }
-			OR = {
-				culture_group = celtic
-				culture = romano_british
-				religion = insular
-				religion = celtic_pagan
-				religion = celtic_pagan_reformed
-			}
-		}
-		allow = {
-			NOT = { has_character_modifier = new_poet_in_court }
-			NOT = { has_character_flag = inviting_poet_over }
-			primary_title = { higher_tier_than = BARON }
-			NOT = {
-				any_vassal = {
-					has_minor_title = title_court_celtic_poet
-				}
-			}
-			NOT = {
-				any_courtier = {
-					has_minor_title = title_court_celtic_poet
-				}
-			}
-		}
-		effect = {
-			scaled_wealth = -0.5
-			
-			set_character_flag = inviting_poet_over
-
-			hidden_tooltip = {
-				character_event = {
-					id = wafrica.1
-					days = 3
-				}
-			}
-			
-		}
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 0.3 #Decrease chance AI will do this
-			}
-			modifier = {
-				factor = 0
-				OR = {
-					any_vassal = {
-						has_minor_title = title_court_celtic_poet
-					}
-					any_courtier = {
-						has_minor_title = title_court_celtic_poet
-					}
-				}
-			}
-			modifier = {
-				factor = 0.1
-				any_vassal = {
-					trait = poet
-				}
-				any_courtier = {
-					trait = poet
-				}
-			}
-			modifier = {
-				factor = 2
-				trait = diligent
-			}	
-			modifier = {
-				factor = 0.5
-				trait = slothful
-			}	
-			modifier = {
-				factor = 2
-				trait = ambitious
-			}	
-			modifier = {
-				factor = 0.5
-				trait = imbecile
-			}		
-			modifier = {
-				factor = 2
-				trait = zealous
-			}	
-			modifier = {
-				factor = 0.5
-				trait = cynical
-			}			
-			modifier = {
-				factor = 2
-				primary_title = { higher_tier_than = DUKE }
-			}	
-			modifier = {
-				factor = 0.5
-				trait = slow
-			}	
-		}
-	}	
 
 	assign_poet = { # For the AI, because they are dumb enough not to hand out minor titles
 		potential = {
@@ -964,10 +1092,10 @@ decisions = {
 			is_playable = yes
 			is_landed = yes
 			age = 16
-			not = { 
+			not = {
 				trait = incapable
 				trait = infirm
-				trait = possessed 
+				trait = possessed
 			}
 			NOT = {
 				has_character_modifier = patron_peter
@@ -988,9 +1116,7 @@ decisions = {
 		effect = {
 			character_event = { id = PATRONS_CHR.1 }
 		}
-		revoke_allowed = {
-			always = no
-		}
+		
 		ai_will_do = {
 			factor = 1
 			modifier = {
