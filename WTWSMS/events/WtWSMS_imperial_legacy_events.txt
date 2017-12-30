@@ -1889,134 +1889,23 @@ narrative_event = {
 	
 	is_triggered_only = yes
 	
+	immediate = { # for localisation
+		e_wre = {
+			save_event_target_as = western_empire
+		}
+		e_byzantium = {
+			save_event_target_as = eastern_empire
+		}
+	}
+	
 	option = {
 		name = imperial_legacy.50.a # Give the West to your heir
-		activate_title = { title = e_wre status = yes }
-		current_heir = {
-			if = {
-				limit = {
-					NOT = {
-						any_realm_title = {
-							limit = { holder_scope = { character = ROOT } }
-							capital_scope = {
-								OR = {
-									region = custom_pars_occidentalis
-									region = custom_diocese_pannoniae
-								}
-							}
-						}
-					}
-				}
-				c_ravenna = {
-					grant_title_no_opinion = PREV
-				}
-			}
-			e_wre = {
-				grant_title = PREV
-			}
-			ROOT = {
-				e_byzantium = {
-					grant_title = PREV
-				}
-				e_roman_empire = {
-					destroy_landed_title = PREV
-				}
-				transfer_scaled_wealth = { to = PREV value = 0.25 }
-				if = {
-					limit = {
-						NOT = {
-							any_realm_title = {
-								limit = { holder_scope = { character = ROOT } }
-								capital_scope = {
-									region = custom_pars_orientalis
-									NOT = { region = custom_diocese_pannoniae }
-								}
-							}
-						}
-					}
-					c_byzantion = {
-						grant_title_no_opinion = PREV
-					}
-				}
-				any_vassal = {
-					limit = {
-						capital_scope = {
-							OR = {
-								region = custom_pars_occidentalis
-								region = custom_diocese_pannoniae
-							}
-						}
-					}
-					set_defacto_liege = PREVPREV
-				}
-				any_demesne_title = {
-					limit = {
-						capital_scope = {
-							OR = {
-								region = custom_pars_occidentalis
-								region = custom_diocese_pannoniae
-							}
-						}
-					}
-					grant_title_no_opinion = PREVPREV
-				}
-			}
-			
-			any_vassal = {
-				limit = {
-					capital_scope = {
-						region = custom_pars_orientalis
-						NOT = { region = custom_diocese_pannoniae }
-					}
-				}
-				set_defacto_liege = ROOT
-			}
-			any_demesne_title = {
-				limit = {
-					capital_scope = {
-						region = custom_pars_orientalis
-						NOT = { region = custom_diocese_pannoniae }
-					}
-				}
-				grant_title_no_opinion = ROOT
-			}
-		}
 		
-		#custom_tooltip = {
-		#	text = imperial_legacy.50.a.tooltip
-		#}
-	}
-	option = {
-		name = imperial_legacy.50.b # Give the East to your heir
-		activate_title = { title = e_byzantium status = yes }
-		current_heir = {
-			if = {
-				limit = {
-					NOT = {
-						any_realm_title = {
-							limit = { holder_scope = { character = ROOT } }
-							capital_scope = {
-								region = custom_pars_orientalis
-								NOT = { region = custom_diocese_pannoniae }
-							}
-						}
-					}
-				}
-				c_byzantion = {
-					grant_title_no_opinion = PREV
-				}
-			}
-			e_byzantium = {
-				grant_title = PREV
-			}
-			ROOT = {
-				e_wre = {
-					grant_title = PREV
-				}
-				e_roman_empire = {
-					destroy_landed_title = PREV
-				}
-				transfer_scaled_wealth = { to = PREV value = 0.25 }
+		custom_tooltip = {
+			text = imperial_legacy.50.a.tooltip
+			
+			activate_title = { title = e_wre status = yes }
+			current_heir = {
 				if = {
 					limit = {
 						NOT = {
@@ -2035,6 +1924,57 @@ narrative_event = {
 						grant_title_no_opinion = PREV
 					}
 				}
+				e_wre = {
+					grant_title = PREV
+				}
+				ROOT = {
+					e_byzantium = {
+						grant_title = PREV
+					}
+					e_roman_empire = {
+						destroy_landed_title = PREV
+					}
+					transfer_scaled_wealth = { to = PREV value = 0.25 }
+					if = {
+						limit = {
+							NOT = {
+								any_realm_title = {
+									limit = { holder_scope = { character = ROOT } }
+									capital_scope = {
+										region = custom_pars_orientalis
+										NOT = { region = custom_diocese_pannoniae }
+									}
+								}
+							}
+						}
+						c_byzantion = {
+							grant_title_no_opinion = PREV
+						}
+					}
+					any_vassal = {
+						limit = {
+							capital_scope = {
+								OR = {
+									region = custom_pars_occidentalis
+									region = custom_diocese_pannoniae
+								}
+							}
+						}
+						set_defacto_liege = PREVPREV
+					}
+					any_demesne_title = {
+						limit = {
+							capital_scope = {
+								OR = {
+									region = custom_pars_occidentalis
+									region = custom_diocese_pannoniae
+								}
+							}
+						}
+						grant_title_no_opinion = PREVPREV
+					}
+				}
+				
 				any_vassal = {
 					limit = {
 						capital_scope = {
@@ -2042,7 +1982,7 @@ narrative_event = {
 							NOT = { region = custom_diocese_pannoniae }
 						}
 					}
-					set_defacto_liege = PREVPREV
+					set_defacto_liege = ROOT
 				}
 				any_demesne_title = {
 					limit = {
@@ -2051,37 +1991,112 @@ narrative_event = {
 							NOT = { region = custom_diocese_pannoniae }
 						}
 					}
-					grant_title_no_opinion = PREVPREV
+					grant_title_no_opinion = ROOT
 				}
 			}
-			
-			any_vassal = {
-				limit = {
-					capital_scope = {
-						OR = {
-							region = custom_pars_occidentalis
-							region = custom_diocese_pannoniae
-						}
-					}
-				}
-				set_defacto_liege = ROOT
-			}
-			any_demesne_title = {
-				limit = {
-					capital_scope = {
-						OR = {
-							region = custom_pars_occidentalis
-							region = custom_diocese_pannoniae
-						}
-					}
-				}
-				grant_title_no_opinion = ROOT
-			}
+			clear_event_target = western_empire
+			clear_event_target = eastern_empire
 		}
+	}
+	option = {
+		name = imperial_legacy.50.b # Give the East to your heir
 		
-		#custom_tooltip = {
-		#	text = imperial_legacy.50.b.tooltip
-		#}
+		custom_tooltip = {
+			text = imperial_legacy.50.b.tooltip
+		
+			activate_title = { title = e_byzantium status = yes }
+			current_heir = {
+				if = {
+					limit = {
+						NOT = {
+							any_realm_title = {
+								limit = { holder_scope = { character = ROOT } }
+								capital_scope = {
+									region = custom_pars_orientalis
+									NOT = { region = custom_diocese_pannoniae }
+								}
+							}
+						}
+					}
+					c_byzantion = {
+						grant_title_no_opinion = PREV
+					}
+				}
+				e_byzantium = {
+					grant_title = PREV
+				}
+				ROOT = {
+					e_wre = {
+						grant_title = PREV
+					}
+					e_roman_empire = {
+						destroy_landed_title = PREV
+					}
+					transfer_scaled_wealth = { to = PREV value = 0.25 }
+					if = {
+						limit = {
+							NOT = {
+								any_realm_title = {
+									limit = { holder_scope = { character = ROOT } }
+									capital_scope = {
+										OR = {
+											region = custom_pars_occidentalis
+											region = custom_diocese_pannoniae
+										}
+									}
+								}
+							}
+						}
+						c_ravenna = {
+							grant_title_no_opinion = PREV
+						}
+					}
+					any_vassal = {
+						limit = {
+							capital_scope = {
+								region = custom_pars_orientalis
+								NOT = { region = custom_diocese_pannoniae }
+							}
+						}
+						set_defacto_liege = PREVPREV
+					}
+					any_demesne_title = {
+						limit = {
+							capital_scope = {
+								region = custom_pars_orientalis
+								NOT = { region = custom_diocese_pannoniae }
+							}
+						}
+						grant_title_no_opinion = PREVPREV
+					}
+				}
+				
+				any_vassal = {
+					limit = {
+						capital_scope = {
+							OR = {
+								region = custom_pars_occidentalis
+								region = custom_diocese_pannoniae
+							}
+						}
+					}
+					set_defacto_liege = ROOT
+				}
+				any_demesne_title = {
+					limit = {
+						capital_scope = {
+							OR = {
+								region = custom_pars_occidentalis
+								region = custom_diocese_pannoniae
+							}
+						}
+					}
+					grant_title_no_opinion = ROOT
+				}
+			}
+			clear_event_target = western_empire
+			clear_event_target = eastern_empire
+		}
 	}
 	option = {
 		name = imperial_legacy.50.c # Resign
