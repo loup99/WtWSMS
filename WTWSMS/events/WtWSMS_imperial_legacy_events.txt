@@ -1882,13 +1882,42 @@ narrative_event = {
 		name = imperial_legacy.50.a # Give the West to your heir
 		activate_title = { title = e_wre status = yes }
 		current_heir = {
-			ROOT = {
-				transfer_scaled_wealth = { to = PREV value = 0.25 }
-				c_ravenna = {
-					grant_title_no_opinion = PREVPREV
+			if = {
+				limit = {
+					NOT = {
+						any_realm_title = {
+							limit = { holder_scope = { character = ROOT } }
+							capital_scope = { region = custom_pars_occidentalis }
+						}
+					}
 				}
-				e_wre = {
-					grant_title = PREVPREV
+				c_ravenna = {
+					grant_title_no_opinion = PREV
+				}
+			}
+			e_wre = {
+				grant_title = PREV
+			}
+			ROOT = {
+				e_byzantium = {
+					grant_title = PREV
+				}
+				e_roman_empire = {
+					destroy_landed_title = PREV
+				}
+				transfer_scaled_wealth = { to = PREV value = 0.25 }
+				if = {
+					limit = {
+						NOT = {
+							any_realm_title = {
+								limit = { holder_scope = { character = ROOT } }
+								capital_scope = { region = custom_pars_orientalis }
+							}
+						}
+					}
+					c_byzantion = {
+						grant_title_no_opinion = PREV
+					}
 				}
 				any_vassal = {
 					limit = {
@@ -1897,6 +1926,14 @@ narrative_event = {
 						}
 					}
 					set_defacto_liege = PREVPREV
+				}
+				any_demesne_title = {
+					limit = {
+						capital_scope = {
+							region = custom_pars_occidentalis
+						}
+					}
+					grant_title_no_opinion = PREVPREV
 				}
 			}
 		}
@@ -1909,13 +1946,42 @@ narrative_event = {
 		name = imperial_legacy.50.b # Give the East to your heir
 		activate_title = { title = e_byzantium status = yes }
 		current_heir = {
-			ROOT = {
-				transfer_scaled_wealth = { to = PREV value = 0.25 }
-				c_byzantion = {
-					grant_title_no_opinion = PREVPREV
+			if = {
+				limit = {
+					NOT = {
+						any_realm_title = {
+							limit = { holder_scope = { character = ROOT } }
+							capital_scope = { region = custom_pars_orientalis }
+						}
+					}
 				}
-				e_byzantium = {
-					grant_title = PREVPREV
+				c_byzantion = {
+					grant_title_no_opinion = PREV
+				}
+			}
+			e_byzantium = {
+				grant_title = PREV
+			}
+			ROOT = {
+				e_wre = {
+					grant_title = PREV
+				}
+				e_roman_empire = {
+					destroy_landed_title = PREV
+				}
+				transfer_scaled_wealth = { to = PREV value = 0.25 }
+				if = {
+					limit = {
+						NOT = {
+							any_realm_title = {
+								limit = { holder_scope = { character = ROOT } }
+								capital_scope = { region = custom_pars_occidentalis }
+							}
+						}
+					}
+					c_ravenna = {
+						grant_title_no_opinion = PREV
+					}
 				}
 				any_vassal = {
 					limit = {
@@ -1924,6 +1990,14 @@ narrative_event = {
 						}
 					}
 					set_defacto_liege = PREVPREV
+				}
+				any_demesne_title = {
+					limit = {
+						capital_scope = {
+							region = custom_pars_orientalis
+						}
+					}
+					grant_title_no_opinion = PREVPREV
 				}
 			}
 		}
