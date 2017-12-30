@@ -1879,7 +1879,7 @@ narrative_event = {
 	}
 }
 
-#  Division of the Roman Empire
+# Division of the Roman Empire
 narrative_event = {
 	id = imperial_legacy.50
 	title = imperial_legacy.50.name
@@ -1928,6 +1928,7 @@ narrative_event = {
 					grant_title = PREV
 				}
 				ROOT = {
+					activate_title = { title = e_byzantium status = yes }
 					e_byzantium = {
 						grant_title = PREV
 					}
@@ -2026,6 +2027,7 @@ narrative_event = {
 					grant_title = PREV
 				}
 				ROOT = {
+					activate_title = { title = e_wre status = yes }
 					e_wre = {
 						grant_title = PREV
 					}
@@ -2099,10 +2101,126 @@ narrative_event = {
 		}
 	}
 	option = {
-		name = imperial_legacy.50.c # Resign
+		name = imperial_legacy.50.c # Abdicate and divide the Empire between two children
+		#trigger = { num_of_children = 2 }
+		trigger = { always = no }#disabled for now, not finished
+		
+		current_heir = {
+			save_event_target_as = target_first_child
+		}
+		random_child = {
+			limit = { NOT = { character = event_target:target_first_child } }
+			save_event_target_as = target_second_child
+		}
+		
+		abdicate = yes
 		
 		custom_tooltip = {
 			text = imperial_legacy.50.c.tooltip
+			
+			activate_title = { title = e_byzantium status = yes }
+			event_target:target_first_child = {
+				if = {
+					limit = {
+						NOT = {
+							any_realm_title = {
+								limit = { holder_scope = { character = ROOT } }
+								capital_scope = {
+									region = custom_pars_orientalis
+									NOT = { region = custom_diocese_pannoniae }
+								}
+							}
+						}
+					}
+					c_byzantion = {
+						grant_title_no_opinion = PREV
+					}
+				}
+				e_byzantium = {
+					grant_title = PREV
+				}
+				event_target:target_second_child = {
+					activate_title = { title = e_wre status = yes }
+					e_wre = {
+						grant_title = PREV
+					}
+					e_roman_empire = {
+						destroy_landed_title = PREV
+					}
+					transfer_scaled_wealth = { to = PREV value = 0.25 }
+					if = {
+						limit = {
+							NOT = {
+								any_realm_title = {
+									limit = { holder_scope = { character = ROOT } }
+									capital_scope = {
+										OR = {
+											region = custom_pars_occidentalis
+											region = custom_diocese_pannoniae
+										}
+									}
+								}
+							}
+						}
+						c_ravenna = {
+							grant_title_no_opinion = PREV
+						}
+					}
+					any_vassal = {
+						limit = {
+							capital_scope = {
+								region = custom_pars_orientalis
+								NOT = { region = custom_diocese_pannoniae }
+							}
+						}
+						set_defacto_liege = PREVPREV
+					}
+					any_demesne_title = {
+						limit = {
+							capital_scope = {
+								region = custom_pars_orientalis
+								NOT = { region = custom_diocese_pannoniae }
+							}
+						}
+						grant_title_no_opinion = PREVPREV
+					}
+				}
+				
+				any_vassal = {
+					limit = {
+						capital_scope = {
+							OR = {
+								region = custom_pars_occidentalis
+								region = custom_diocese_pannoniae
+							}
+						}
+					}
+					set_defacto_liege = ROOT
+				}
+				any_demesne_title = {
+					limit = {
+						capital_scope = {
+							OR = {
+								region = custom_pars_occidentalis
+								region = custom_diocese_pannoniae
+							}
+						}
+					}
+					grant_title_no_opinion = ROOT
+				}
+			}
+			
+			clear_event_target = western_empire
+			clear_event_target = eastern_empire
+			clear_event_target = first_child
+			clear_event_target = second_child
+		}
+	}
+	option = {
+		name = imperial_legacy.50.d # Resign
+		
+		custom_tooltip = {
+			text = imperial_legacy.50.d.tooltip
 		}
 	}
 }
