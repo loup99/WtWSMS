@@ -1896,6 +1896,13 @@ narrative_event = {
 		e_byzantium = {
 			save_event_target_as = eastern_empire
 		}
+		current_heir = {
+			save_event_target_as = target_first_child
+		}
+		random_child = {
+			limit = { NOT = { character = event_target:target_first_child } }
+			save_event_target_as = target_second_child
+		}
 	}
 	
 	option = {
@@ -1946,7 +1953,7 @@ narrative_event = {
 					e_roman_empire = {
 						destroy_landed_title = PREV
 					}
-					transfer_scaled_wealth = { to = PREV value = 0.25 }
+					transfer_scaled_wealth = { to = PREV value = 0.5 }
 					
 					any_vassal = {
 						limit = {
@@ -1993,6 +2000,8 @@ narrative_event = {
 			}
 			clear_event_target = western_empire
 			clear_event_target = eastern_empire
+			clear_event_target = target_first_child
+			clear_event_target = target_second_child
 		}
 	}
 	option = {
@@ -2043,7 +2052,7 @@ narrative_event = {
 					e_roman_empire = {
 						destroy_landed_title = PREV
 					}
-					transfer_scaled_wealth = { to = PREV value = 0.25 }
+					transfer_scaled_wealth = { to = PREV value = 0.5 }
 					
 					any_vassal = {
 						limit = {
@@ -2090,20 +2099,14 @@ narrative_event = {
 			}
 			clear_event_target = western_empire
 			clear_event_target = eastern_empire
+			clear_event_target = target_first_child
+			clear_event_target = target_second_child
 		}
 	}
 
 	option = {
 		name = imperial_legacy.50.c # Abdicate and divide the Empire between two children
 		trigger = { num_of_children = 2 }
-		
-		current_heir = {
-			save_event_target_as = target_first_child
-		}
-		random_child = {
-			limit = { NOT = { character = event_target:target_first_child } }
-			save_event_target_as = target_second_child
-		}
 		
 		abdicate = yes
 		
@@ -2180,6 +2183,7 @@ narrative_event = {
 				}
 				event_target:target_second_child = {
 					event_target:target_first_child = {
+						transfer_scaled_wealth = { to = PREV value = 0.5 }
 						any_vassal = {
 							limit = {
 								capital_scope = {
@@ -2208,8 +2212,8 @@ narrative_event = {
 			
 			clear_event_target = western_empire
 			clear_event_target = eastern_empire
-			clear_event_target = first_child
-			clear_event_target = second_child
+			clear_event_target = target_first_child
+			clear_event_target = target_second_child
 		}
 	}
 	
@@ -2218,6 +2222,11 @@ narrative_event = {
 		
 		custom_tooltip = {
 			text = imperial_legacy.50.d.tooltip
+			
+			clear_event_target = western_empire
+			clear_event_target = eastern_empire
+			clear_event_target = target_first_child
+			clear_event_target = target_second_child
 		}
 	}
 }
