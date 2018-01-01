@@ -1908,13 +1908,12 @@ narrative_event = {
 			current_heir = {
 				if = {
 					limit = {
-						NOT = {
-							any_demesne_title = {
-								capital_scope = {
-									OR = {
-										region = custom_pars_occidentalis
-										region = custom_diocese_pannoniae
-									}
+						OR = {
+							is_landed = no
+							capital_scope = {
+								NOR = {
+									region = custom_pars_occidentalis
+									region = custom_diocese_pannoniae
 								}
 							}
 						}
@@ -1927,6 +1926,19 @@ narrative_event = {
 					grant_title = PREV
 				}
 				ROOT = {
+					if = {
+						limit = {
+							capital_scope = {
+								NOR = {
+									region = custom_praetorian_prefecture_orientis
+									region = custom_diocese_moesiae
+								}
+							}
+						}
+						c_byzantion = {
+							grant_title_no_opinion = PREV
+						}
+					}
 					activate_title = { title = e_byzantium status = yes }
 					e_byzantium = {
 						grant_title = PREV
@@ -1935,21 +1947,7 @@ narrative_event = {
 						destroy_landed_title = PREV
 					}
 					transfer_scaled_wealth = { to = PREV value = 0.25 }
-					if = {
-						limit = {
-							NOT = {
-								any_demesne_title = {
-									capital_scope = {
-										region = custom_pars_orientalis
-										NOT = { region = custom_diocese_pannoniae }
-									}
-								}
-							}
-						}
-						c_byzantion = {
-							grant_title_no_opinion = PREV
-						}
-					}
+					
 					any_vassal = {
 						limit = {
 							capital_scope = {
@@ -2007,11 +2005,12 @@ narrative_event = {
 			current_heir = {
 				if = {
 					limit = {
-						NOT = {
-							any_demesne_title = {
-								capital_scope = {
-									region = custom_pars_orientalis
-									NOT = { region = custom_diocese_pannoniae }
+						OR = {
+							is_landed = no
+							capital_scope = {
+								NOR = {
+									region = custom_praetorian_prefecture_orientis
+									region = custom_diocese_moesiae
 								}
 							}
 						}
@@ -2024,6 +2023,19 @@ narrative_event = {
 					grant_title = PREV
 				}
 				ROOT = {
+					if = {
+						limit = {
+							capital_scope = {
+								NOR = {
+									region = custom_pars_occidentalis
+									region = custom_diocese_pannoniae
+								}
+							}
+						}
+						c_ravenna = {
+							grant_title_no_opinion = PREV
+						}
+					}
 					activate_title = { title = e_wre status = yes }
 					e_wre = {
 						grant_title = PREV
@@ -2032,23 +2044,7 @@ narrative_event = {
 						destroy_landed_title = PREV
 					}
 					transfer_scaled_wealth = { to = PREV value = 0.25 }
-					if = {
-						limit = {
-							NOT = {
-								any_demesne_title = {
-									capital_scope = {
-										OR = {
-											region = custom_pars_occidentalis
-											region = custom_diocese_pannoniae
-										}
-									}
-								}
-							}
-						}
-						c_ravenna = {
-							grant_title_no_opinion = PREV
-						}
-					}
+					
 					any_vassal = {
 						limit = {
 							capital_scope = {
@@ -2096,10 +2092,10 @@ narrative_event = {
 			clear_event_target = eastern_empire
 		}
 	}
+
 	option = {
 		name = imperial_legacy.50.c # Abdicate and divide the Empire between two children
-		#trigger = { num_of_children = 2 }
-		trigger = { always = no }#disabled for now, not finished
+		trigger = { num_of_children = 2 }
 		
 		current_heir = {
 			save_event_target_as = target_first_child
@@ -2118,11 +2114,12 @@ narrative_event = {
 			event_target:target_first_child = {
 				if = {
 					limit = {
-						NOT = {
-							any_demesne_title = {
-								capital_scope = {
-									region = custom_pars_orientalis
-									NOT = { region = custom_diocese_pannoniae }
+						OR = {
+							is_landed = no
+							capital_scope = {
+								NOR = {
+									region = custom_praetorian_prefecture_orientis
+									region = custom_diocese_moesiae
 								}
 							}
 						}
@@ -2134,24 +2131,18 @@ narrative_event = {
 				e_byzantium = {
 					grant_title = PREV
 				}
+				e_roman_empire = {
+					destroy_landed_title = PREV
+				}
 				event_target:target_second_child = {
-					activate_title = { title = e_wre status = yes }
-					e_wre = {
-						grant_title = PREV
-					}
-					e_roman_empire = {
-						destroy_landed_title = PREV
-					}
-					transfer_scaled_wealth = { to = PREV value = 0.25 }
 					if = {
 						limit = {
-							NOT = {
-								any_demesne_title = {
-									capital_scope = {
-										OR = {
-											region = custom_pars_occidentalis
-											region = custom_diocese_pannoniae
-										}
+							OR = {
+								is_landed = no
+								capital_scope = {
+									NOR = {
+										region = custom_pars_occidentalis
+										region = custom_diocese_pannoniae
 									}
 								}
 							}
@@ -2160,47 +2151,58 @@ narrative_event = {
 							grant_title_no_opinion = PREV
 						}
 					}
-					any_vassal = {
-						limit = {
-							capital_scope = {
-								region = custom_pars_orientalis
-								NOT = { region = custom_diocese_pannoniae }
-							}
-						}
-						set_defacto_liege = PREVPREV
+					activate_title = { title = e_wre status = yes }
+					e_wre = {
+						grant_title = PREV
 					}
-					any_demesne_title = {
-						limit = {
-							capital_scope = {
-								region = custom_pars_orientalis
-								NOT = { region = custom_diocese_pannoniae }
+						any_vassal = {
+							limit = {
+								capital_scope = {
+									OR = {
+										region = custom_praetorian_prefecture_orientis
+										region = custom_diocese_moesiae
+									}
+								}
 							}
+							set_defacto_liege = PREVPREV
 						}
-						grant_title_no_opinion = PREVPREV
-					}
+						any_demesne_title = {
+							limit = {
+								capital_scope = {
+									OR = {
+										region = custom_praetorian_prefecture_orientis
+										region = custom_diocese_moesiae
+									}
+								}
+							}
+							grant_title_no_opinion = PREVPREV
+						}
 				}
-				
-				any_vassal = {
-					limit = {
-						capital_scope = {
-							OR = {
-								region = custom_pars_occidentalis
-								region = custom_diocese_pannoniae
+				event_target:target_second_child = {
+					event_target:target_first_child = {
+						any_vassal = {
+							limit = {
+								capital_scope = {
+									OR = {
+										region = custom_pars_occidentalis
+										region = custom_diocese_pannoniae
+									}
+								}
 							}
+							set_defacto_liege = PREVPREV
+						}
+						any_demesne_title = {
+							limit = {
+								capital_scope = {
+									OR = {
+										region = custom_pars_occidentalis
+										region = custom_diocese_pannoniae
+									}
+								}
+							}
+							grant_title_no_opinion = PREVPREV
 						}
 					}
-					set_defacto_liege = ROOT
-				}
-				any_demesne_title = {
-					limit = {
-						capital_scope = {
-							OR = {
-								region = custom_pars_occidentalis
-								region = custom_diocese_pannoniae
-							}
-						}
-					}
-					grant_title_no_opinion = ROOT
 				}
 			}
 			
@@ -2210,6 +2212,7 @@ narrative_event = {
 			clear_event_target = second_child
 		}
 	}
+	
 	option = {
 		name = imperial_legacy.50.d # Resign
 		
