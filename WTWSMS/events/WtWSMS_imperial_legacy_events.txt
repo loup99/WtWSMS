@@ -1907,9 +1907,12 @@ narrative_event = {
 			}
 			save_event_target_as = target_second_child
 		}
+		current_heir = {
+			save_event_target_as = target_heir
+		}
 		random_dynasty_member = {
 			limit = {
-				NOT = { ROOT = { heir = PREV } }
+				is_heir = no
 				has_inheritance_blocker = no
 			}
 			save_event_target_as = target_second_kin
@@ -2312,22 +2315,14 @@ narrative_event = {
 	option = {
 		name = imperial_legacy.50.d # Abdicate and divide the Empire between two kins
 		trigger = {
-			OR = {
-				NOT = {
-					any_child = {
-						is_alive = yes
-						count = 2
-					}
-				}
-				event_target:target_first_child = {
-					has_inheritance_blocker = yes
-				}
-				event_target:target_second_child = {
-					has_inheritance_blocker = yes
+			NOT = {
+				any_child = {
+					is_alive = yes
+					count = 2
 				}
 			}
-			player_heir = {
-				has_inheritance_blocker = no
+			event_target:target_heir = {
+				dynasty = ROOT
 			}
 			event_target:target_second_kin = {
 				has_inheritance_blocker = no
@@ -2336,8 +2331,12 @@ narrative_event = {
 		
 		clr_global_flag = rome_restored
 		
-		any_demesne_title = {
-			grant_title_no_opinion = player_heir
+		event_target:target_heir = {
+			ROOT = {
+				any_demesne_title = {
+					grant_title_no_opinion = PREVPREV
+				}
+			}
 		}
 		
 		custom_tooltip = {
@@ -2369,7 +2368,7 @@ narrative_event = {
 			}
 			
 			activate_title = { title = e_byzantium status = yes }
-			player_heir = {
+			event_target:target_heir = {
 				if = {
 					limit = {
 						OR = {
@@ -2437,9 +2436,8 @@ narrative_event = {
 						}
 				}
 				event_target:target_second_kin = {
-					ROOT = {
-						player_heir = {
-							transfer_scaled_wealth = { to = PREVPREV value = 0.5 }
+					event_target:target_heir = {
+							transfer_scaled_wealth = { to = PREV value = 0.5 }
 							any_vassal = {
 								limit = {
 									capital_scope = {
@@ -2449,7 +2447,7 @@ narrative_event = {
 										}
 									}
 								}
-								set_defacto_liege = PREVPREVPREV
+								set_defacto_liege = PREVPREV
 							}
 							any_demesne_title = {
 								limit = {
@@ -2460,9 +2458,8 @@ narrative_event = {
 										}
 									}
 								}
-								grant_title_no_opinion = PREVPREVPREV
+								grant_title_no_opinion = PREVPREV
 							}
-						}
 					}
 				}
 			}
