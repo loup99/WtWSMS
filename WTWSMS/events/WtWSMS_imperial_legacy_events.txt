@@ -2303,9 +2303,19 @@ narrative_event = {
 	option = {
 		name = imperial_legacy.50.d # Abdicate and divide the Empire between two kins
 		trigger = {
-			any_child = {
-				is_alive = yes
-				count = 2
+			OR = {
+				NOT = {
+					any_child = {
+						is_alive = yes
+						count = 2
+					}
+				}
+				event_target:target_first_child = {
+					has_inheritance_blocker = yes
+				}
+				event_target:target_second_child = {
+					has_inheritance_blocker = yes
+				}
 			}
 			player_heir = {
 				has_inheritance_blocker = no
@@ -2320,7 +2330,7 @@ narrative_event = {
 		}
 		
 		custom_tooltip = {
-			text = imperial_legacy.50.c.tooltip
+			text = imperial_legacy.50.d.tooltip
 			
 			e_roman_empire = {
 				any_direct_de_jure_vassal_title = {
@@ -2416,7 +2426,7 @@ narrative_event = {
 						}
 				}
 				event_target:target_second_kin = {
-					ROOT = { 
+					ROOT = {
 						player_heir = {
 							transfer_scaled_wealth = { to = PREVPREV value = 0.5 }
 							any_vassal = {
