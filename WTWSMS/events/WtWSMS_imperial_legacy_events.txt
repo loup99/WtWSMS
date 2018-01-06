@@ -1907,6 +1907,10 @@ narrative_event = {
 			}
 			save_event_target_as = target_second_child
 		}
+		random_dynasty_member = {
+			limit = { NOT = { ROOT = { heir = PREV } } }
+			save_event_target_as = target_second_kin
+		}
 	}
 	
 	option = {
@@ -2027,10 +2031,6 @@ narrative_event = {
 					grant_title_no_opinion = ROOT
 				}
 			}
-			clear_event_target = western_empire
-			clear_event_target = eastern_empire
-			clear_event_target = target_first_child
-			clear_event_target = target_second_child
 		}
 	}
 	option = {
@@ -2151,10 +2151,6 @@ narrative_event = {
 					grant_title_no_opinion = ROOT
 				}
 			}
-			clear_event_target = western_empire
-			clear_event_target = eastern_empire
-			clear_event_target = target_first_child
-			clear_event_target = target_second_child
 		}
 	}
 
@@ -2250,28 +2246,28 @@ narrative_event = {
 					e_wre = {
 						grant_title = PREV
 					}
-						any_vassal = {
-							limit = {
-								capital_scope = {
-									OR = {
-										region = custom_praetorian_prefecture_orientis
-										region = custom_diocese_moesiae
-									}
+					any_vassal = {
+						limit = {
+							capital_scope = {
+								OR = {
+									region = custom_praetorian_prefecture_orientis
+									region = custom_diocese_moesiae
 								}
 							}
-							set_defacto_liege = PREVPREV
 						}
-						any_demesne_title = {
-							limit = {
-								capital_scope = {
-									OR = {
-										region = custom_praetorian_prefecture_orientis
-										region = custom_diocese_moesiae
-									}
+						set_defacto_liege = PREVPREV
+					}
+					any_demesne_title = {
+						limit = {
+							capital_scope = {
+								OR = {
+									region = custom_praetorian_prefecture_orientis
+									region = custom_diocese_moesiae
 								}
 							}
-							grant_title_no_opinion = PREVPREV
 						}
+						grant_title_no_opinion = PREVPREV
+					}
 				}
 				event_target:target_second_child = {
 					event_target:target_first_child = {
@@ -2301,24 +2297,162 @@ narrative_event = {
 					}
 				}
 			}
-			
-			clear_event_target = western_empire
-			clear_event_target = eastern_empire
-			clear_event_target = target_first_child
-			clear_event_target = target_second_child
 		}
 	}
 	
 	option = {
-		name = imperial_legacy.50.d # Resign
+		name = imperial_legacy.50.d # Abdicate and divide the Empire between two kins
+		trigger = {
+			any_child = {
+				is_alive = yes
+				count = 2
+			}
+			player_heir = {
+				has_inheritance_blocker = no
+			}
+			event_target:target_second_kin = {
+				has_inheritance_blocker = no
+			}
+		}
+		
+		any_demesne_title = {
+			grant_title_no_opinion = player_heir
+		}
 		
 		custom_tooltip = {
-			text = imperial_legacy.50.d.tooltip
+			text = imperial_legacy.50.c.tooltip
 			
-			clear_event_target = western_empire
-			clear_event_target = eastern_empire
-			clear_event_target = target_first_child
-			clear_event_target = target_second_child
+			e_roman_empire = {
+				any_direct_de_jure_vassal_title = {
+					limit = {
+						capital_scope {
+							OR = {
+								region = custom_pars_occidentalis
+								region = custom_diocese_pannoniae
+							}
+						}
+					}
+					de_jure_liege = e_wre
+				}
+				any_direct_de_jure_vassal_title = {
+					limit = {
+						capital_scope {
+							OR = {
+								region = custom_praetorian_prefecture_orientis
+								region = custom_diocese_moesiae
+							}
+						}
+					}
+					de_jure_liege = e_byzantium
+				}
+			}
+			
+			activate_title = { title = e_byzantium status = yes }
+			player_heir = {
+				if = {
+					limit = {
+						OR = {
+							is_landed = no
+							capital_scope = {
+								NOR = {
+									region = custom_praetorian_prefecture_orientis
+									region = custom_diocese_moesiae
+								}
+							}
+						}
+					}
+					c_byzantion = {
+						grant_title_no_opinion = PREV
+					}
+				}
+				e_byzantium = {
+					grant_title = PREV
+				}
+				e_roman_empire = {
+					destroy_landed_title = PREV
+				}
+				event_target:target_second_kin = {
+					if = {
+						limit = {
+							OR = {
+								is_landed = no
+								capital_scope = {
+									NOR = {
+										region = custom_pars_occidentalis
+										region = custom_diocese_pannoniae
+									}
+								}
+							}
+						}
+						c_ravenna = {
+							grant_title_no_opinion = PREV
+						}
+					}
+					activate_title = { title = e_wre status = yes }
+					e_wre = {
+						grant_title = PREV
+					}
+						any_vassal = {
+							limit = {
+								capital_scope = {
+									OR = {
+										region = custom_praetorian_prefecture_orientis
+										region = custom_diocese_moesiae
+									}
+								}
+							}
+							set_defacto_liege = PREVPREV
+						}
+						any_demesne_title = {
+							limit = {
+								capital_scope = {
+									OR = {
+										region = custom_praetorian_prefecture_orientis
+										region = custom_diocese_moesiae
+									}
+								}
+							}
+							grant_title_no_opinion = PREVPREV
+						}
+				}
+				event_target:target_second_kin = {
+					ROOT = { 
+						player_heir = {
+							transfer_scaled_wealth = { to = PREVPREV value = 0.5 }
+							any_vassal = {
+								limit = {
+									capital_scope = {
+										OR = {
+											region = custom_pars_occidentalis
+											region = custom_diocese_pannoniae
+										}
+									}
+								}
+								set_defacto_liege = PREVPREVPREV
+							}
+							any_demesne_title = {
+								limit = {
+									capital_scope = {
+										OR = {
+											region = custom_pars_occidentalis
+											region = custom_diocese_pannoniae
+										}
+									}
+								}
+								grant_title_no_opinion = PREVPREVPREV
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = imperial_legacy.50.e # Resign
+		
+		custom_tooltip = {
+			text = imperial_legacy.50.e.tooltip
 		}
 	}
 }
