@@ -3031,7 +3031,7 @@ character_event = {
 	}
 }
 
-# Independant Romano-Hispanic Arians convert back to Nicene
+# Independent Romano-Hispanic Arians convert back to Nicene
 character_event = {
 	id = zusk_event.49
 	hide_window = yes
@@ -3470,7 +3470,7 @@ narrative_event = {
 	}
 }
 
-# Nepos reconquers Italy
+# Julius Nepos reconquers Italy
 narrative_event = {
 	id = historical_wtwsms.3
 	title = historical_wtwsms.3.name
@@ -3599,7 +3599,7 @@ narrative_event = {
 	}
 }
 
-# Emperor has won the Isaurian Wars
+# Eastern Roman Emperor has won the Isaurian Wars
 narrative_event = {
 	id = historical_wtwsms.4
 	title = historical_wtwsms.4.name
@@ -3702,5 +3702,45 @@ narrative_event = {
 		name = OK
 		
 		prestige = 100
+	}
+}
+
+# Julius Nepos dies without a heir
+narrative_event = {
+	id = historical_wtwsms.6
+	title = historical_wtwsms.6.name
+	desc = historical_wtwsms.6.desc
+	picture = GFX_evt_fall_of_rome
+	
+	is_triggered_only = yes # On_actions event
+	
+	major = yes
+	
+	major_trigger = { # Informs Nepos' heir
+		OR = {
+			has_landed_title = e_wre
+			has_landed_title = k_dalmatia
+		}
+	}
+	
+	only_playable = yes
+	
+	trigger = {
+		has_landed_title = e_wre
+		character = 175110 # Julius Nepos
+		current_heir = {
+			from_ruler_dynasty = no # Doesn't have a heir
+		}
+	}
+	
+	immediate = {
+		e_wre = { # The last Western Roman Emperor has died
+			destroy_landed_title = THIS
+		}
+	}
+	
+	option = {
+		name = historical_wtwsms.6.a
+		prestige = -50
 	}
 }
