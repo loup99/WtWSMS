@@ -1,0 +1,94 @@
+namespace = WtWSMS_tribal
+
+# Tribal kingdom fractures on death of ruler (ROOT is the dead ruler)
+character_event = {
+	id = WtWSMS_tribal.1
+	
+	is_triggered_only = yes # On_actions event
+	
+	hide_window = yes
+	
+	only_independent = yes
+	
+	trigger = {
+		government = tribal_government
+		tier = KING
+		current_heir = { # Weak heir
+			OR = {
+				AND = { # Non-feminist religions
+					is_female = yes
+					is_feminist_religion_trigger = no
+				}
+				NOT = { age = 16 } # Children were weak
+				prisoner = yes # A prisoner isn't able to uphold authority
+				trait = incapable # An incapable ruler can't do that either
+				NOR = {
+					prestige = 1000
+					martial = 20
+				}
+			}
+		}
+		NOT = {
+			is_tributary = {
+				type = foederati
+			}
+		}
+		primary_title = {
+			is_titular = no # The historical titular kingdoms can remain
+			NOR = {
+				has_law	= tribal_organization_4 # Absolute Tribal Organization
+				has_law	= centralization_3 # High Centralization
+			} 
+		}
+	}
+	
+	immediate = {
+		current_heir = { 
+			long_character_event = { 
+				id = WtWSMS_tribal.2
+				days = 1
+			}
+		}
+	}
+}
+
+# Weak heir looses kingdom title
+long_character_event = {
+    id = WtWSMS_tribal.2
+	desc = WtWSMS_tribal.2.desc
+	picture = GFX_evt_death
+	
+	is_triggered_only = yes 
+
+	immediate = {
+		any_demesne_title = {
+			limit = {
+				tier = KING
+				is_titular = no
+			}
+			destroy_landed_title = THIS
+			save_event_target_as = destroyed_kingdom
+		}
+		any_vassal = {
+			limit = {
+				OR = { 
+					tier = DUKE
+					AND = {
+						tier = COUNT
+						NOT = { 
+							primary_title = { dejure_liege_title = { NOT = { holder_scope = { character = ROOT } } } } # Not a de jure vassal of any duchy kept
+						}
+					}
+				}
+			} 
+			set_defacto_liege = THIS # Independent
+		}
+		# Log tribal kingdom fracture to see frequency
+		log = "The weak heir of the tribal ruler [From.GetTitledName], [Root.GetTitledName] lost their kingdom [destroyed_kingdom.GetName]."
+	}
+	
+	option = {
+		name = WtWSMS_tribal.2.a
+		prestige = -50
+	}
+}
