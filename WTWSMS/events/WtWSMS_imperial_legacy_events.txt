@@ -1896,26 +1896,37 @@ narrative_event = {
 		e_byzantium = {
 			save_event_target_as = eastern_empire
 		}
-		random_child = {
-			limit = { has_inheritance_blocker = no }
-			save_event_target_as = target_first_child
-		}
-		random_child = {
+		if = {
 			limit = {
-				NOT = { character = event_target:target_first_child }
-				has_inheritance_blocker = no
+				any_child = {
+					is_alive = yes
+					has_inheritance_blocker = no
+					count = 2
+				}
 			}
-			save_event_target_as = target_second_child
-		}
-		current_heir = {
-			save_event_target_as = target_heir
-		}
-		random_dynasty_member = {
-			limit = {
-				is_heir = no
-				has_inheritance_blocker = no
+			random_child = {
+				limit = { has_inheritance_blocker = no }
+				save_event_target_as = target_first_child
 			}
-			save_event_target_as = target_second_kin
+			random_child = {
+				limit = {
+					NOT = { character = event_target:target_first_child }
+					has_inheritance_blocker = no
+				}
+				save_event_target_as = target_second_child
+			}
+		}
+		else = {
+			current_heir = {
+				save_event_target_as = target_heir
+			}
+			random_dynasty_member = {
+				limit = {
+					is_heir = no
+					has_inheritance_blocker = no
+				}
+				save_event_target_as = target_second_kin
+			}
 		}
 	}
 	
@@ -2129,6 +2140,7 @@ narrative_event = {
 		trigger = {
 			any_child = {
 				is_alive = yes
+				has_inheritance_blocker = no
 				count = 2
 			}
 			event_target:target_first_child = {
