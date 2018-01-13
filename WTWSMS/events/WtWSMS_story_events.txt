@@ -3031,7 +3031,7 @@ character_event = {
 	}
 }
 
-# Independant Romano-Hispanic Arians convert back to Nicene
+# Independent Romano-Hispanic Arians convert back to Nicene
 character_event = {
 	id = zusk_event.49
 	hide_window = yes
@@ -3323,11 +3323,24 @@ character_event = {
 narrative_event = {
 	id = historical_wtwsms.1
 	title = historical_wtwsms.1.name
-	desc = historical_wtwsms.1.desc
+	desc = {
+		trigger = {
+			has_landed_title = e_byzantium
+		}
+		text = historical_wtwsms.1.desc.a
+	}
+	desc = {
+		trigger = {			
+			NOT = { has_landed_title = e_byzantium }
+		}
+		text = historical_wtwsms.1.desc.b
+	}
 	picture = GFX_evt_victory_arch_byzantine
 	
 	only_rulers = yes
 	only_independent = yes
+	
+	major = yes
 	
 	trigger = {
 		start_date = 476.2.2
@@ -3351,7 +3364,10 @@ narrative_event = {
 	}
 	
 	option = {
-		name = OK # To expand, maybe banquet event with Odoacer?
+		name = OK # To expand, maybe banquet event with Odoacer?	
+		trigger = {
+			has_landed_title = e_byzantium
+		}
 		
 		prestige = 100
 		change_infamy = { # To avoid huge coalition
@@ -3362,41 +3378,37 @@ narrative_event = {
 			abdicate_to = ROOT
 			imprison = ROOT
 		}
-		hidden_tooltip = {
-			any_playable_ruler = {
-				narrative_event = { id = historical_wtwsms.2 }
-				limit = {
-					NOT = { has_landed_title = e_byzantium }
-				}
-			}
-		}
 	}
-}
-
-# INFO - Zeno has won the war for the ERE against Basiliscus
-narrative_event = {
-	id = historical_wtwsms.2
-	title = historical_wtwsms.2.name
-	desc = historical_wtwsms.2.desc
-	picture = GFX_evt_victory_arch_byzantine
-	border = GFX_event_narrative_frame_diplomacy
-	
-	is_triggered_only = yes
-	
-	option = { # To expand/look into options with WRE
-		name = OK 
+	option = {
+		name = OK # To expand/look into options with WRE		
+		trigger = {
+			NOT = { has_landed_title = e_byzantium }
+		}
 	}
 }
 
 # Theodoric has won the invasion of Italy against Odoacer
 narrative_event = {
-	id = historical_wtwsms.3
-	title = historical_wtwsms.3.name
-	desc = historical_wtwsms.3.desc
+	id = historical_wtwsms.2
+	title = historical_wtwsms.2.name
+	desc = {
+		trigger = {
+			has_landed_title = k_ostrogoths
+		}
+		text = historical_wtwsms.2.desc.a
+	}
+	desc = {
+		trigger = {			
+			NOT = { has_landed_title = k_ostrogoths }
+		}
+		text = historical_wtwsms.2.desc.b
+	}
 	picture = GFX_evt_heretic
 	
 	only_rulers = yes
 	only_independent = yes
+	
+	major = yes
 	
 	trigger = {
 		has_global_flag = ostrogoths_arrived
@@ -3438,6 +3450,9 @@ narrative_event = {
 
 	option = {
 		name = OK
+		trigger = {
+			has_landed_title = k_ostrogoths
+		}
 		
 		disband_event_forces = theodoric_italy_invasion
 		prestige = 100 
@@ -3445,41 +3460,38 @@ narrative_event = {
 			value = -100 
 			localisation = CHANGE_INFAMY_EFFECT
 		}
-		hidden_tooltip = {
-			any_playable_ruler = {
-				narrative_event = { id = historical_wtwsms.4 }
-				limit = {
-					NOT = { has_landed_title = k_ostrogoths }
-				}
-			}
+	}
+	
+	option = {
+		name = OK
+		trigger = {
+			NOT = { has_landed_title = k_ostrogoths }
 		}
 	}
 }
 
-# INFO - Theodoric has won the Invasion of Italy against Odoacer
+# Julius Nepos reconquers Italy
 narrative_event = {
-	id = historical_wtwsms.4
-	title = historical_wtwsms.4.name
-	desc = historical_wtwsms.4.desc
-	picture = GFX_evt_heretic
-	border = GFX_event_narrative_frame_diplomacy
-	
-	is_triggered_only = yes
-	
-	option = { # To expand/look into options with ERE
-		name = OK
+	id = historical_wtwsms.3
+	title = historical_wtwsms.3.name
+	desc = {
+		trigger = {
+			has_landed_title = e_wre
+		}
+		text = historical_wtwsms.3.desc.a
 	}
-}
-
-# Nepos reconquers Italy
-narrative_event = {
-	id = historical_wtwsms.5
-	title = historical_wtwsms.5.name
-	desc = historical_wtwsms.5.desc
+	desc = {
+		trigger = {			
+			NOT = { has_landed_title = e_wre }
+		}
+		text = historical_wtwsms.3.desc.b
+	}
 	picture = GFX_evt_heretic
 	
 	only_rulers = yes
 	only_independent = yes
+	
+	major = yes
 	
 	trigger = {
 		has_global_flag = julis_nepos_wre
@@ -3531,8 +3543,11 @@ narrative_event = {
 	}
 
 	option = {
-		name = historical_wtwsms.5.a
-
+		name = historical_wtwsms.3.a
+		trigger = {
+			has_landed_title = e_wre
+		}
+		
 		prestige = 100 
 		if = {
 			limit = {
@@ -3574,37 +3589,20 @@ narrative_event = {
 			value = -100 
 			localisation = CHANGE_INFAMY_EFFECT
 		}
-		hidden_tooltip = {
-			any_playable_ruler = {
-				narrative_event = { id = historical_wtwsms.6 }
-				limit = {
-					NOT = { has_landed_title = e_wre }
-				}
-			}
+	}
+	option = { 
+		name = historical_wtwsms.3.b
+		trigger = {
+			NOT = { has_landed_title = e_wre }		
 		}
 	}
 }
 
-# INFO - Nepos reconquers Italy
+# Eastern Roman Emperor has won the Isaurian Wars
 narrative_event = {
-	id = historical_wtwsms.6
-	title = historical_wtwsms.6.name
-	desc = historical_wtwsms.6.desc
-	picture = GFX_evt_heretic
-	border = GFX_event_narrative_frame_diplomacy
-	
-	is_triggered_only = yes
-	
-	option = { 
-		name = historical_wtwsms.6.a
-	}
-}
-
-# Emperor has won the Isaurian Wars
-narrative_event = {
-	id = historical_wtwsms.7
-	title = historical_wtwsms.7.name
-	desc = historical_wtwsms.7.desc
+	id = historical_wtwsms.4
+	title = historical_wtwsms.4.name
+	desc = historical_wtwsms.4.desc
 	picture = GFX_evt_victory_arch_byzantine
 	
 	only_rulers = yes
@@ -3659,9 +3657,9 @@ narrative_event = {
 
 # Isaurians have won the Isaurian Wars
 narrative_event = {
-	id = historical_wtwsms.8
-	title = historical_wtwsms.8.name
-	desc = historical_wtwsms.8.desc
+	id = historical_wtwsms.5
+	title = historical_wtwsms.5.name
+	desc = historical_wtwsms.5.desc
 	picture = GFX_evt_castle_hill
 	
 	only_rulers = yes
@@ -3703,5 +3701,45 @@ narrative_event = {
 		name = OK
 		
 		prestige = 100
+	}
+}
+
+# Julius Nepos dies without a heir
+narrative_event = {
+	id = historical_wtwsms.6
+	title = historical_wtwsms.6.name
+	desc = historical_wtwsms.6.desc
+	picture = GFX_evt_fall_of_rome
+	
+	is_triggered_only = yes # On_actions event
+	
+	major = yes
+	
+	major_trigger = { # Informs Nepos' heir
+		OR = {
+			has_landed_title = e_wre
+			has_landed_title = k_dalmatia
+		}
+	}
+	
+	only_playable = yes
+	
+	trigger = {
+		has_landed_title = e_wre
+		character = 175110 # Julius Nepos
+		current_heir = {
+			from_ruler_dynasty = no # Doesn't have a heir
+		}
+	}
+	
+	immediate = {
+		e_wre = { # The last Western Roman Emperor has died
+			destroy_landed_title = THIS
+		}
+	}
+	
+	option = {
+		name = historical_wtwsms.6.a
+		prestige = -50
 	}
 }

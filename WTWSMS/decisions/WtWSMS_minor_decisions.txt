@@ -202,5 +202,46 @@ decisions = {
 			}
 		}
 	}
+	
+	erect_hero_stone = {
+		only_playable = yes
+		potential = {
+			has_dlc = "The Old Gods"
+			is_playable = yes
+			is_adult = yes
+			prisoner = no
+			OR = { 
+				religion = dravidian_pagan_reformed
+				religion = dravidian_pagan
+			}
+			NOT = {	has_character_flag = erected_hero_stone }
+		}
+		allow = {
+			wealth = 100
+			prestige = 500
+			prisoner = no
+			NOT = { is_inaccessible_trigger = yes }
+			custom_tooltip = {
+				text = is_not_busy_trigger_tooltip
+				hidden_tooltip = { NOT = { has_character_flag = do_not_disturb } }
+			}
+
+		}
+		effect = {
+			wealth = -100
+			set_character_flag = erected_hero_stone
+			hidden_tooltip = { 
+				character_event = { id = WtWSMS_flavour.36 }
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { wealth = 300 }
+			}
+		}
+	}
 
 }

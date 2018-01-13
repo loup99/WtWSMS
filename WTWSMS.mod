@@ -11,3 +11,5 @@ replace_path = "history/provinces"
 replace_path = "history/technology"
 replace_path = "history/titles"
 replace_path = "history/wars"
+picture = "WtWSMS.jpg"
+tags = { "History" "Bookmarks" "Overhaul" "Events" "Decisions" "Map" "Religions" "Cultures" "Characters" "Titles" "Governments" }
