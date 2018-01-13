@@ -83,6 +83,65 @@ long_character_event = {
 			} 
 			set_defacto_liege = THIS # Independent
 		}
+		if = { # Clear up AI borders
+			limit = {
+				ai = yes
+				OR = { 
+					num_of_duke_titles = 2
+					num_of_count_titles	= 2
+				}
+			}
+			event_target:destroyed_kingdom = {
+				random_direct_de_jure_vassal_title = {
+					limit = {
+						tier = duke
+					}
+					set_title_flag = capital_duchy_flag
+					save_event_target_as = capital_duchy
+				}
+			}
+			any_demesne_province = { # Hand out the provinces that are not a part of the capital duchy or not a de jure part of the destroyed kingdom
+				limit = {
+					OR = {
+						NOT = { de_jure_liege = event_target:destroyed_kingdom } # Not a de jure part of the destroyed kingdom
+						NOT = { de_jure_liege = event_target:capital_duchy } # Not a part of the capital duchy
+					}
+				}
+				county = {
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = PREV
+						culture = PREV
+						female = no
+						age = 25
+						trait = peasant_leader
+					}
+					new_character = {
+						usurp_title_plus_barony_if_unlanded = PREV
+						set_defacto_liege = THIS
+						set_truce = {
+							who = ROOT
+							years = 10
+						}
+						ROOT = {
+							set_truce = {
+								who = PREV
+								years = 10
+							}
+						}
+					}
+				}
+			}
+			any_demesne_title = { # Destroy other duchies
+				limit = {
+					tier = duke
+					NOT = { has_title_flag = capital_duchy_flag }
+				}
+				destroy_landed_title = THIS
+			}
+			clr_title_flag = capital_duchy_flag
+		}
 		# Log tribal kingdom fracture to see frequency
 		log = "The weak heir of the tribal ruler [From.GetTitledName], [Root.GetTitledName] lost their kingdom [destroyed_kingdom.GetName]."
 	}
