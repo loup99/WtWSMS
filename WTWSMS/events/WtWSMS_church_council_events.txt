@@ -144,11 +144,10 @@ character_event = {
 		name = syn.6.a
 		ai_chance = { factor = 3 }
 		hidden_tooltip = {
-			any_playable_ruler = {
-				limit = { 
-					NOT = { character = ROOT }
+			b_aquileia = { # Milan and Aquileia reacts
+				holder_scope = {
+					character_event = { id = syn.12 }
 				}
-				character_event = { id = syn.7 } # The Aquileian Schism
 			}
 		}
 	}
@@ -156,13 +155,10 @@ character_event = {
 	option = { # Refuse
 		name = syn.6.b
 		hidden_tooltip = {
-			any_playable_ruler = {
-				limit = { 
-					religion = nicene
-					controls_religion = yes
-					has_landed_title = k_nicene
-				}
-				character_event = { id = HRE.4 } # The Great Schism
+			d_orthodox = { # Ecumenial Patriarch reacts
+				holder_scope = { 
+					character_event = { id = syn.13 } 
+				} 
 			}
 		}
 	}
@@ -396,5 +392,63 @@ narrative_event = {
 			limit = { religion = aquileian }
 			religion = nicene
 		}
+	}
+}
+
+# Milan and Aquileia reacts
+character_event = {
+	id = syn.12
+	desc = syn.12.desc
+	picture = GFX_evt_christian_council
+	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+	
+	option = { # Accept
+		name = syn.12.a
+		# Nothing more happens
+	}
+	
+	option = { # Refuse
+		name = syn.12.b
+		ai_chance = { factor = 3 }
+		hidden_tooltip = {
+			any_playable_ruler = {
+				limit = { 
+					NOT = { character = ROOT }
+					NOT = { has_landed_title = d_papal_state }
+				}
+				character_event = { id = syn.7 } # The Aquileian Schism
+			}
+		}
+	}
+}
+
+# Ecumenial Patriarch reacts
+character_event = {
+	id = syn.13
+	desc = syn.13.desc
+	picture = GFX_evt_christian_council
+	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+	
+	option = { # Excommunicate Pope
+		name = syn.13.a
+		any_playable_ruler = {
+			limit = { 
+				religion = nicene
+				controls_religion = yes
+				has_landed_title = k_nicene
+			}
+			character_event = { id = HRE.4 } # The Great Schism
+		}
+	}
+	
+	option = { # Reverse judgement
+		name = syn.13.b
+		ai_chance = { factor = 3 }
+		# Changes undone
+		set_parent_religion = { religion = nestorian parent = 0 }
 	}
 }
