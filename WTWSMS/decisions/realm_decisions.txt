@@ -1271,12 +1271,12 @@ decisions = {
 		allow = {
 			completely_controls = d_iudea # k_oriens is too large, this area corresponds to the historical Israel
 			custom_tooltip = {
-				text = JEW_ACRE_TIBERIAS				
+				text = controls_acre_tiberias				
 				hidden_tooltip = {
-						AND = {
-							completely_controls = c_tiberias
-							completely_controls = c_acre
-						}
+					AND = {
+						completely_controls = c_tiberias
+						completely_controls = c_acre
+					}
 				}
 			}
 			774 = {
@@ -1450,7 +1450,12 @@ decisions = {
 				}
 			}
 			any_friend = {
-				limit = { religion_group = jewish_group }
+				limit = { 
+					OR = { 
+						religion_group = jewish_group
+						religion = ebionites
+					}
+				}
 				remove_friend = ROOT
 			}
 		}
@@ -1540,7 +1545,11 @@ decisions = {
 			has_dlc = "Rajas of India"
 			is_playable = yes
 			is_feudal = yes
-			has_dharmic_religion_trigger = yes
+			OR = { 
+				has_dharmic_religion_trigger = yes
+				religion = dravidian_pagan
+				religion = dravidian_pagan_reformed
+			}
 			primary_title = {
 				higher_tier_than = DUKE
 			}
@@ -2039,8 +2048,8 @@ decisions = {
 			
 			OR = {
 				has_game_rule = {
-					name = dynamic_custom_realms
-					value = custom_realms_unrestricted
+					name = dynamic_realms
+					value = unrestricted
 				}
 				ai = no
 				AND = {
@@ -2173,8 +2182,8 @@ decisions = {
 			NOT = { tier = EMPEROR }
 			OR = {
 				has_game_rule = {
-					name = dynamic_custom_realms
-					value = custom_realms_unrestricted
+					name = dynamic_realms
+					value = unrestricted
 				}
 				ai = no
 				AND = {
