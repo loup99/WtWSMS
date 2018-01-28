@@ -187,7 +187,7 @@ character_event = {
 		}
 		liege = {
 			character_event = { 
-				id = WtWSMS_pots.6
+				id = WtWSMS_pots.6 # Mighty Christian landed vassal brings it up with Pagan liege
 				days = 5
 			}
 		}
@@ -243,7 +243,7 @@ character_event = {
 			}
 			piety = 200
 			character_event = {
-				id = WtWSMS_pots.16
+				id = WtWSMS_pots.17
 			}
 		}
 	}
@@ -251,7 +251,7 @@ character_event = {
 	option = {
 		name = WtWSMS_pots.6.b # Make vague statement
 		character_event = { 
-			id = WtWSMS_pots.14 # Insists after first step
+			id = WtWSMS_pots.15 # Insists after first step
 			days = 100
 		}
 	}
@@ -305,7 +305,7 @@ character_event = {
 		}
 		liege = {
 			character_event = { 
-				id = WtWSMS_pots.8
+				id = WtWSMS_pots.8 # Bishop from the realm visits your court
 				days = 5
 			}
 		}
@@ -361,7 +361,7 @@ character_event = {
 			}
 			piety = 200
 			character_event = {
-				id = WtWSMS_pots.16
+				id = WtWSMS_pots.17
 			}
 		}
 	}
@@ -369,7 +369,7 @@ character_event = {
 	option = {
 		name = WtWSMS_pots.8.b # Make vague statement
 		character_event = { 
-			id = WtWSMS_pots.14 # Insists after first step
+			id = WtWSMS_pots.15 # Insists after first step
 			days = 100
 		}
 	}
@@ -380,11 +380,116 @@ character_event = {
 	}
 }
 
-# Wife is a Christian
+# Burgher from the realm is a Christian
 character_event = {
 	id = WtWSMS_pots.9
 	title = WtWSMS_pots.9.name
 	desc = WtWSMS_pots.9.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
+	
+	only_playable = yes
+	
+	trigger = {
+		any_demesne_province = {
+			has_province_flag = spread_of_christianity
+			has_province_flag = melting_pot_target
+		}
+		is_adult = yes
+		is_incapable = no
+		prisoner = no
+		NOT = { has_character_flag = refused_conversion_christianity }
+		any_vassal = { 
+			religion_group = christian
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			has_job_title = no # That one is done separately
+			is_landed = yes # This is meant to be for a city vassal
+			is_republic = yes
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		any_vassal = { 
+			limit = {
+				religion_group = christian
+				is_adult = yes
+				is_incapable = no
+				prisoner = no
+				has_job_title = no # That one is done separately
+				is_landed = yes # This is meant to be for a city vassal
+				is_republic = yes
+			}
+			save_event_target_as = christian_burgher
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.9.a # Embrace the religion
+		trigger = {
+			NOT = { trait = zealous }
+		}
+		ROOT = {
+			event_target:christian_burgher = {
+				reverse_religion = PREV
+			}
+			religion_authority = {
+				modifier = ruler_converted_from
+			}
+			if = {
+				limit = {
+					trait = cynical
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_pagans
+				}
+			}
+			if = {
+				limit = {
+					NOT = { trait = cynical }
+				}
+				random = {
+					chance = 50
+					add_trait = sympathy_pagans
+				}
+			}		
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			piety = 200
+			character_event = {
+				id = WtWSMS_pots.17
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.9.b # Make vague statement
+		character_event = { 
+			id = WtWSMS_pots.15 # Insists after first step
+			days = 100
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.9.c # Refuse
+		set_character_flag = refused_conversion_christianity
+	}
+}
+
+# Wife is a Christian
+character_event = {
+	id = WtWSMS_pots.10
+	title = WtWSMS_pots.10.name
+	desc = WtWSMS_pots.10.desc
 	picture = GFX_evt_stone_church
 	border = GFX_event_normal_frame_religion
 	
@@ -428,7 +533,7 @@ character_event = {
 	}
 
 	option = {
-		name = WtWSMS_pots.9.a # Yes, my love
+		name = WtWSMS_pots.10.a # Yes, my love
 		trigger = {
 			NOT = { trait = zealous }
 		}
@@ -464,30 +569,30 @@ character_event = {
 			}
 			piety = 200
 			character_event = {
-				id = WtWSMS_pots.16
+				id = WtWSMS_pots.17
 			}
 		}
 	}
 	
 	option = {
-		name = WtWSMS_pots.9.b # We will see, my dear
+		name = WtWSMS_pots.10.b # We will see, my dear
 		character_event = { 
-			id = WtWSMS_pots.14 # Insists after first step
+			id = WtWSMS_pots.15 # Insists after first step
 			days = 100
 		}
 	}
 
 	option = {
-		name = WtWSMS_pots.9.c # How dare you?
+		name = WtWSMS_pots.10.c # How dare you?
 		set_character_flag = refused_conversion_christianity
 	}
 }
 
 # Concubine is a Christian
 character_event = {
-	id = WtWSMS_pots.10
-	title = WtWSMS_pots.10.name
-	desc = WtWSMS_pots.10.desc
+	id = WtWSMS_pots.11
+	title = WtWSMS_pots.11.name
+	desc = WtWSMS_pots.11.desc
 	picture = GFX_evt_stone_church
 	border = GFX_event_normal_frame_religion
 	
@@ -533,7 +638,7 @@ character_event = {
 	}
 
 	option = {
-		name = WtWSMS_pots.10.a # Yes, my love
+		name = WtWSMS_pots.11.a # Yes, my love
 		trigger = {
 			NOT = { trait = zealous }
 		}
@@ -569,30 +674,30 @@ character_event = {
 			}
 			piety = 200
 			character_event = {
-				id = WtWSMS_pots.16
+				id = WtWSMS_pots.17
 			}
 		}
 	}
 	
 	option = {
-		name = WtWSMS_pots.10.b # We will see, my dear
+		name = WtWSMS_pots.11.b # We will see, my dear
 		character_event = { 
-			id = WtWSMS_pots.14 # Insists after first step
+			id = WtWSMS_pots.15 # Insists after first step
 			days = 100
 		}
 	}
 
 	option = {
-		name = WtWSMS_pots.10.c # How dare you?
+		name = WtWSMS_pots.11.c # How dare you?
 		set_character_flag = refused_conversion_christianity
 	}
 }
 
 # Courtier speaks to you about Christianity
 character_event = {
-	id = WtWSMS_pots.11
-	title = WtWSMS_pots.11.name
-	desc = WtWSMS_pots.11.desc
+	id = WtWSMS_pots.12
+	title = WtWSMS_pots.12.name
+	desc = WtWSMS_pots.12.desc
 	picture = GFX_evt_stone_church
 	border = GFX_event_normal_frame_religion
 	
@@ -636,7 +741,7 @@ character_event = {
 	}
 
 	option = {
-		name = WtWSMS_pots.11.a # Embrace the religion
+		name = WtWSMS_pots.12.a # Embrace the religion
 		trigger = {
 			NOT = { trait = zealous }
 		}
@@ -672,30 +777,30 @@ character_event = {
 			}
 			piety = 200
 			character_event = {
-				id = WtWSMS_pots.16
+				id = WtWSMS_pots.17
 			}
 		}
 	}
 	
 	option = {
-		name = WtWSMS_pots.11.b # Make vague statement
+		name = WtWSMS_pots.12.b # Make vague statement
 		character_event = { 
-			id = WtWSMS_pots.14 # Insists after first step
+			id = WtWSMS_pots.15 # Insists after first step
 			days = 100
 		}
 	}
 
 	option = {
-		name = WtWSMS_pots.11.c # Refuse
+		name = WtWSMS_pots.12.c # Refuse
 		set_character_flag = refused_conversion_christianity
 	}
 }
 
 # Christian Councillour
 character_event = {
-	id = WtWSMS_pots.12
-	title = WtWSMS_pots.12.name
-	desc = WtWSMS_pots.12.desc
+	id = WtWSMS_pots.13
+	title = WtWSMS_pots.13.name
+	desc = WtWSMS_pots.13.desc
 	picture = GFX_evt_stone_church
 	border = GFX_event_normal_frame_religion
 	
@@ -737,7 +842,7 @@ character_event = {
 	}
 
 	option = {
-		name = WtWSMS_pots.12.a # Embrace the religion
+		name = WtWSMS_pots.13.a # Embrace the religion
 		trigger = {
 			NOT = { trait = zealous }
 		}
@@ -773,30 +878,30 @@ character_event = {
 			}
 			piety = 200
 			character_event = {
-				id = WtWSMS_pots.16
+				id = WtWSMS_pots.17
 			}
 		}
 	}
 	
 	option = {
-		name = WtWSMS_pots.12.b # Make vague statement
+		name = WtWSMS_pots.13.b # Make vague statement
 		character_event = { 
-			id = WtWSMS_pots.14 # Insists after first step
+			id = WtWSMS_pots.15 # Insists after first step
 			days = 100
 		}
 	}
 
 	option = {
-		name = WtWSMS_pots.12.c # Refuse
+		name = WtWSMS_pots.13.c # Refuse
 		set_character_flag = refused_conversion_christianity
 	}
 }
 
 # Christian missionary from foreign realm travels to your court
 character_event = {
-	id = WtWSMS_pots.13
-	title = WtWSMS_pots.13.name
-	desc = WtWSMS_pots.13.desc
+	id = WtWSMS_pots.14
+	title = WtWSMS_pots.14.name
+	desc = WtWSMS_pots.14.desc
 	picture = GFX_evt_stone_church
 	border = GFX_event_normal_frame_religion
 	
@@ -842,7 +947,7 @@ character_event = {
 	}
 	
 	option = {
-		name = WtWSMS_pots.13.a # Embrace the religion
+		name = WtWSMS_pots.14.a # Embrace the religion
 		trigger = {
 			NOT = { trait = zealous }
 		}
@@ -878,37 +983,37 @@ character_event = {
 			}
 			piety = 200
 			character_event = {
-				id = WtWSMS_pots.16
+				id = WtWSMS_pots.17
 			}
 		}
 	}
 	
 	option = {
-		name = WtWSMS_pots.13.b # Make vague statement
+		name = WtWSMS_pots.14.b # Make vague statement
 		character_event = { 
-			id = WtWSMS_pots.14 # Insists after first step
+			id = WtWSMS_pots.15 # Insists after first step
 			days = 100
 		}
 	}
 
 	option = {
-		name = WtWSMS_pots.13.c # Refuse
+		name = WtWSMS_pots.14.c # Refuse
 		set_character_flag = refused_conversion_christianity
 	}
 }
 
 # Insists after first step
 character_event = {
-	id = WtWSMS_pots.14
-	title = WtWSMS_pots.14.name
-	desc = WtWSMS_pots.14.desc
+	id = WtWSMS_pots.15
+	title = WtWSMS_pots.15.name
+	desc = WtWSMS_pots.15.desc
 	picture = GFX_evt_stone_church
 	border = GFX_event_normal_frame_religion
 
 	is_triggered_only = yes
 	
 	option = {
-		name = WtWSMS_pots.14.a # Convert
+		name = WtWSMS_pots.15.a # Convert
 		ai_chance = {
 			#Option A modifiers
 		}
@@ -959,13 +1064,13 @@ character_event = {
 			}
 			piety = 200
 			character_event = {
-				id = WtWSMS_pots.16
+				id = WtWSMS_pots.17
 			}
 		}
 	}
 	
 	option = {
-		name = WtWSMS_pots.14.b # Refuse
+		name = WtWSMS_pots.15.b # Refuse
 		ai_chance = {
 			#Option B modifiers
 		}
@@ -975,8 +1080,8 @@ character_event = {
 
 # Won major battle with the "help" of the Christian god
 character_event = {
-	id = WtWSMS_pots.15
-	id = WtWSMS_pots.15.desc
+	id = WtWSMS_pots.16
+	id = WtWSMS_pots.16.desc
 	picture = GFX_evt_stone_church # To change
 	border = GFX_event_normal_frame_religion
 	
@@ -996,7 +1101,7 @@ character_event = {
 	}
 		
 	option = {
-		name = WtWSMS_pots.15.a # Convert
+		name = WtWSMS_pots.16.a # Convert
 		ai_chance = {
 			#Option A modifiers
 		}
@@ -1037,7 +1142,7 @@ character_event = {
 			}
 			piety = 200
 			character_event = {
-				id = WtWSMS_pots.16
+				id = WtWSMS_pots.17
 			}
 		}
 	}
@@ -1045,7 +1150,7 @@ character_event = {
 	# Option to wait with conversion?
 	
 	option = {
-		name = WtWSMS_pots.15.b # Refuse
+		name = WtWSMS_pots.16.b # Refuse
 		ai_chance = {
 			#Option B modifiers
 		}
@@ -1055,24 +1160,1090 @@ character_event = {
 
 # Conversion to Christianity
 character_event = {
-	id = WtWSMS_pots.16
-	title = WtWSMS_pots.16.name
-	desc = WtWSMS_pots.16.desc
+	id = WtWSMS_pots.17
+	title = WtWSMS_pots.17.name
+	desc = WtWSMS_pots.17.desc
 	picture = GFX_evt_stone_church
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	immediate = {
-		any_realm_province = { # Set flag to give away land
+		any_realm_province = {
 			limit = {
 				has_province_flag = spread_of_christianity 
 			}
 			clr_province_flag = spread_of_christianity
 		}
+		set_character_flag = converted_to_christianity
 	}
 	
 	option = {
-		name = WtWSMS_pots.16.a # OK
+		name = WtWSMS_pots.17.a # OK
+	}
+}
+
+# Ruler is no longer Christian
+character_event = {
+	id = WtWSMS_pots.18
+	
+	hide_window = yes
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_character_flag = converted_to_christianity
+		NOT = { religion_group = christiam }
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		clr_character_flag = converted_to_christianity
+	}
+}
+
+###############################
+# Feudalism
+###############################
+
+# Adopt Feudal Ways
+province_event = {
+	id = WtWSMS_pots.19
+	title = WtWSMS_pots.19.name
+	desc = WtWSMS_pots.19.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
+	
+	only_rulers = yes
+	
+	trigger = { 
+		owner = { 
+			religion_group = christian
+			is_tribal = yes
+			has_germanic_culture_trigger = yes 
+		}
+		religion_group = christian
+		is_feudal = yes
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		has_character_flag = converted_to_christianity
+		NOT = { has_character_flag = adopted_feudalism }
+	}
+
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		set_province_flag = adopt_feudalism
+	}
+	
+	option = {
+		name = WtWSMS_pots.19.a # OK
+	}
+}
+
+# Became feudal
+character_event = {
+	id = WtWSMS_pots.20
+	title = WtWSMS_pots.20.name
+	desc = WtWSMS_pots.20.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
+	
+	only_rulers = yes
+	
+	trigger = { 
+		religion_group = christian
+		is_feudal = yes
+		has_germanic_culture_trigger = yes
+		has_character_flag = converted_to_christianity
+		any_realm_province = {
+			has_province_flag = adopt_feudalism 
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		any_realm_province = {
+			limit = {
+				has_province_flag = adopt_feudalism 
+			}
+			clr_province_flag = adopt_feudalism
+		}
+		set_character_flag = adopted_feudalism
+	}
+	
+	option = {
+		name = WtWSMS_pots.20.a # OK
+	}
+}
+
+# Ruler is no longer feudal
+character_event = {
+	id = WtWSMS_pots.21
+	
+	hide_window = yes
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_character_flag = adopted_feudalism
+		is_feudal = no
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		clr_character_flag = adopted_feudalism
+	}
+}
+
+###############################
+# Christian Heretic
+###############################
+
+# Religious divergences between Christians
+province_event = {
+	id = WtWSMS_pots.22
+	title = WtWSMS_pots.22.name
+	desc = WtWSMS_pots.22.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
+	
+	only_rulers = yes
+	
+	trigger = { 
+		owner = {
+			religion_group = christian
+			is_feudal = yes
+			has_germanic_culture_trigger = yes
+			NOT = { religion = ROOT } # Is not of the province religion
+		}
+		religion_group = christian
+		is_feudal = yes
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		has_character_flag = converted_to_christianity
+		has_character_flag = adopted_feudalism
+		NOT = { has_character_flag = converted_christian_branch }
+	}
+
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		set_province_flag = heretic_christian
+		religion_scope = { # Religion of the province
+			save_global_event_target_as = christian_branch_of_province
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.22.a # OK
+	}
+}
+
+# Mighty Christian landed vassal has a Heretic liege
+character_event = {
+	id = WtWSMS_pots.23
+	title = WtWSMS_pots.23.name
+	desc = WtWSMS_pots.23.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
+	
+	only_playable = yes
+	
+	trigger = {
+		liege = {
+			any_demesne_province = {
+				has_province_flag = heretic_christian
+				has_province_flag = melting_pot_target
+				religion = event_target:christian_branch_of_province
+			}
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			NOT = { has_character_flag = refused_conversion_christian_branch }
+		}
+		religion = event_target:christian_branch_of_province
+		relative_power_to_liege = 0.1 # Testing placeholder
+		is_theocracy = no
+		is_adult = yes
+		is_incapable = no
+		prisoner = no
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	option = {
+		name = WtWSMS_pots.23.a # Try to convince the liege to convert
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 5
+				trait = zealous
+			}
+		}
+		liege = {
+			character_event = { 
+				id = WtWSMS_pots.24 # Mighty Christian landed vassal brings it up with Heretic liege
+				days = 5
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.23.b # Not worth it
+	}
+}
+
+# Mighty Christian landed vassal brings it up with Heretic liege
+character_event = {
+	id = WtWSMS_pots.24
+	title = WtWSMS_pots.24.name
+	desc = WtWSMS_pots.24.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = WtWSMS_pots.24.a # Embrace the religion
+		trigger = {
+			NOT = { trait = zealous }
+		}
+		ROOT = {
+			religion = FROM
+			religion_authority = {
+				modifier = ruler_converted_from
+			}
+			if = {
+				limit = {
+					trait = cynical
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_pagans
+				}
+			}
+			if = {
+				limit = {
+					NOT = { trait = cynical }
+				}
+				random = {
+					chance = 50
+					add_trait = sympathy_pagans
+				}
+			}		
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			piety = 200
+			character_event = {
+				id = WtWSMS_pots.33 # Abandoning of heresy
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.24.b # Make vague statement
+		character_event = { 
+			id = WtWSMS_pots.32 # Insists after first step
+			days = 100
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.24.c # Refuse
+		set_character_flag = refused_conversion_christian_branch
+	}
+}
+
+# Bishop from the realm has a Heretic liege
+character_event = {
+	id = WtWSMS_pots.25
+	title = WtWSMS_pots.25.name
+	desc = WtWSMS_pots.25.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
+	
+	only_playable = yes
+	
+	trigger = {
+		liege = {
+			any_demesne_province = {
+				has_province_flag = heretic_christian
+				has_province_flag = melting_pot_target
+				religion = event_target:christian_branch_of_province
+			}
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			NOT = { has_character_flag = refused_conversion_christian_branch }
+		}
+		religion = event_target:christian_branch_of_province
+		is_theocracy = yes
+		is_adult = yes
+		is_incapable = no
+		prisoner = no
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	option = {
+		name = WtWSMS_pots.25.a # Try to convince the liege to convert
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 5
+				trait = zealous
+			}
+		}
+		liege = {
+			character_event = { 
+				id = WtWSMS_pots.26 # Bishop from the realm visits your court
+				days = 5
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.25.b # Not worth it
+	}
+}
+
+# Bishop from the realm visits your court
+character_event = {
+	id = WtWSMS_pots.26
+	title = WtWSMS_pots.26.name
+	desc = WtWSMS_pots.26.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = WtWSMS_pots.26.a # Embrace the religion
+		trigger = {
+			NOT = { trait = zealous }
+		}
+		ROOT = {
+			religion = FROM
+			religion_authority = {
+				modifier = ruler_converted_from
+			}
+			if = {
+				limit = {
+					trait = cynical
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_pagans
+				}
+			}
+			if = {
+				limit = {
+					NOT = { trait = cynical }
+				}
+				random = {
+					chance = 50
+					add_trait = sympathy_pagans
+				}
+			}		
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			piety = 200
+			character_event = {
+				id = WtWSMS_pots.33 # Abandoning of heresy
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.26.b # Make vague statement
+		character_event = { 
+			id = WtWSMS_pots.32 # Insists after first step
+			days = 100
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.26.c # Refuse
+		set_character_flag = refused_conversion_christian_branch
+	}
+}
+
+# Burgher from the realm is of another Christian branch
+character_event = {
+	id = WtWSMS_pots.27
+	title = WtWSMS_pots.27.name
+	desc = WtWSMS_pots.27.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
+	
+	only_playable = yes
+	
+	trigger = {
+		any_demesne_province = {
+			has_province_flag = heretic_christian
+			has_province_flag = melting_pot_target
+			religion = event_target:christian_branch_of_province
+		}
+		is_adult = yes
+		is_incapable = no
+		prisoner = no
+		NOT = { has_character_flag = refused_conversion_christian_branch }
+		any_vassal = { 
+			religion = event_target:christian_branch_of_province
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			has_job_title = no # That one is done separately
+			is_landed = yes # This is meant to be for a city vassal
+			is_republic = yes
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		any_vassal = { 
+			limit = {
+				religion = event_target:christian_branch_of_province
+				is_adult = yes
+				is_incapable = no
+				prisoner = no
+				has_job_title = no # That one is done separately
+				is_landed = yes # This is meant to be for a city vassal
+				is_republic = yes
+			}
+			save_event_target_as = christian_branch_burgher
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.27.a # Embrace the religion
+		trigger = {
+			NOT = { trait = zealous }
+		}
+		ROOT = {
+			event_target:christian_branch_burgher = {
+				reverse_religion = PREV
+			}
+			religion_authority = {
+				modifier = ruler_converted_from
+			}
+			if = {
+				limit = {
+					trait = cynical
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_pagans
+				}
+			}
+			if = {
+				limit = {
+					NOT = { trait = cynical }
+				}
+				random = {
+					chance = 50
+					add_trait = sympathy_pagans
+				}
+			}		
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			piety = 200
+			character_event = {
+				id = WtWSMS_pots.33 # Abandoning of heresy
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.27.b # Make vague statement
+		character_event = { 
+			id = WtWSMS_pots.32 # Insists after first step
+			days = 100
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.27.c # Refuse
+		set_character_flag = refused_conversion_christian_branch
+	}
+}
+
+# Wife is of another Christian branch
+character_event = {
+	id = WtWSMS_pots.28
+	title = WtWSMS_pots.28.name
+	desc = WtWSMS_pots.28.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
+	
+	only_rulers = yes
+	
+	trigger = {
+		any_demesne_province = {
+			has_province_flag = heretic_christian
+			has_province_flag = melting_pot_target
+			religion = event_target:christian_branch_of_province
+		}
+		is_adult = yes
+		is_incapable = no
+		prisoner = no
+		NOT = { has_character_flag = refused_conversion_christian_branch }
+		any_spouse = {
+			religion = event_target:christian_branch_of_province
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			is_abroad = no
+			is_alive = yes
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		any_spouse = {
+			limit = {
+				religion = event_target:christian_branch_of_province
+				is_adult = yes
+				is_incapable = no
+				prisoner = no
+				is_abroad = no
+				is_alive = yes
+			}
+			save_event_target_as = christian_branch_wife
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.28.a # Yes, my love
+		trigger = {
+			NOT = { trait = zealous }
+		}
+		ROOT = {
+			event_target:christian_branch_wife = {
+				reverse_religion = PREV
+			}
+			religion_authority = {
+				modifier = ruler_converted_from
+			}
+			if = {
+				limit = {
+					trait = cynical
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_pagans
+				}
+			}
+			if = {
+				limit = {
+					NOT = { trait = cynical }
+				}
+				random = {
+					chance = 50
+					add_trait = sympathy_pagans
+				}
+			}		
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			piety = 200
+			character_event = {
+				id = WtWSMS_pots.33 # Abandoning of heresy
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.28.b # We will see, my dear
+		character_event = { 
+			id = WtWSMS_pots.32 # Insists after first step
+			days = 100
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.28.c # How dare you?
+		set_character_flag = refused_conversion_christian_branch
+	}
+}
+
+# Concubine is of another Christian branch
+character_event = {
+	id = WtWSMS_pots.29
+	title = WtWSMS_pots.29.name
+	desc = WtWSMS_pots.29.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
+	
+	only_rulers = yes
+	
+	trigger = {
+		any_demesne_province = {
+			has_province_flag = heretic_christian
+			has_province_flag = melting_pot_target
+			religion = event_target:christian_branch_of_province
+		}
+		is_adult = yes
+		is_incapable = no
+		prisoner = no
+		NOT = { has_character_flag = refused_conversion_christian_branch }
+		any_consort = { # Scopes to all of a character's consorts (not only concubines, works for both genders)
+			religion = event_target:christian_branch_of_province
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			is_consort = yes # Checks if THIS is a concubine, or a concubine or the specified character
+			is_abroad = no
+			is_alive = yes
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		any_consort = { 
+			limit = {
+				religion = event_target:christian_branch_of_province
+				is_adult = yes
+				is_incapable = no
+				prisoner = no
+				is_consort = yes 
+				is_abroad = no
+				is_alive = yes
+			}
+			save_event_target_as = christian_branch_concubine
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.29.a # Yes, my love
+		trigger = {
+			NOT = { trait = zealous }
+		}
+		ROOT = {
+			event_target:christian_branch_concubine = {
+				reverse_religion = PREV
+			}
+			religion_authority = {
+				modifier = ruler_converted_from
+			}
+			if = {
+				limit = {
+					trait = cynical
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_pagans
+				}
+			}
+			if = {
+				limit = {
+					NOT = { trait = cynical }
+				}
+				random = {
+					chance = 50
+					add_trait = sympathy_pagans
+				}
+			}		
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			piety = 200
+			character_event = {
+				id = WtWSMS_pots.33 # Abandoning of heresy
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.29.b # We will see, my dear
+		character_event = { 
+			id = WtWSMS_pots.32 # Insists after first step
+			days = 100
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.29.c # How dare you?
+		set_character_flag = refused_conversion_christian_branch
+	}
+}
+
+# Courtier speaks to you about Christian branch
+character_event = {
+	id = WtWSMS_pots.30
+	title = WtWSMS_pots.30.name
+	desc = WtWSMS_pots.30.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
+	
+	only_playable = yes
+	
+	trigger = {
+		any_demesne_province = {
+			has_province_flag = heretic_christian
+			has_province_flag = melting_pot_target
+			religion = event_target:christian_branch_of_province
+		}
+		is_adult = yes
+		is_incapable = no
+		prisoner = no
+		NOT = { has_character_flag = refused_conversion_christian_branch }
+		any_courtier = { 
+			religion = event_target:christian_branch_of_province
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			has_job_title = no # That one is done separately
+			is_landed = no # This is meant to be for a courtier
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		any_courtier = { 
+			limit = {
+				religion = event_target:christian_branch_of_province
+				is_adult = yes
+				is_incapable = no
+				prisoner = no
+				has_job_title = no
+				is_landed = no
+			}
+			save_event_target_as = christian_branch_courtier
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.30.a # Embrace the religion
+		trigger = {
+			NOT = { trait = zealous }
+		}
+		ROOT = {
+			event_target:christian_branch_courtier = {
+				reverse_religion = PREV
+			}
+			religion_authority = {
+				modifier = ruler_converted_from
+			}
+			if = {
+				limit = {
+					trait = cynical
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_pagans
+				}
+			}
+			if = {
+				limit = {
+					NOT = { trait = cynical }
+				}
+				random = {
+					chance = 50
+					add_trait = sympathy_pagans
+				}
+			}		
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			piety = 200
+			character_event = {
+				id = WtWSMS_pots.33 # Abandoning of heresy
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.30.b # Make vague statement
+		character_event = { 
+			id = WtWSMS_pots.32 # Insists after first step
+			days = 100
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.30.c # Refuse
+		set_character_flag = refused_conversion_christian_branch
+	}
+}
+
+# Christian Councillour
+character_event = {
+	id = WtWSMS_pots.31
+	title = WtWSMS_pots.31.name
+	desc = WtWSMS_pots.31.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
+	
+	only_playable = yes
+	
+	trigger = {
+		any_demesne_province = {
+			has_province_flag = heretic_christian
+			has_province_flag = melting_pot_target
+			religion = event_target:christian_branch_of_province
+		}
+		is_adult = yes
+		is_incapable = no
+		prisoner = no
+		NOT = { has_character_flag = refused_conversion_christian_branch }
+		any_courtier = { 
+			religion = event_target:christian_branch_of_province
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			has_job_title = yes # Want it to be a councillour
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		any_courtier = { 
+			limit = {
+				religion = event_target:christian_branch_of_province
+				is_adult = yes
+				is_incapable = no
+				prisoner = no
+				has_job_title = yes 
+			}
+			save_event_target_as = christian_branch_councillour
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.31.a # Embrace the religion
+		trigger = {
+			NOT = { trait = zealous }
+		}
+		ROOT = {
+			event_target:christian_branch_councillour = {
+				reverse_religion = PREV
+			}
+			religion_authority = {
+				modifier = ruler_converted_from
+			}
+			if = {
+				limit = {
+					trait = cynical
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_pagans
+				}
+			}
+			if = {
+				limit = {
+					NOT = { trait = cynical }
+				}
+				random = {
+					chance = 50
+					add_trait = sympathy_pagans
+				}
+			}		
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			piety = 200
+			character_event = {
+				id = WtWSMS_pots.33 # Abandoning of heresy
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.31.b # Make vague statement
+		character_event = { 
+			id = WtWSMS_pots.32 # Insists after first step
+			days = 100
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.31.c # Refuse
+		set_character_flag = refused_conversion_christian_branch
+	}
+}
+
+# Insists after first step
+character_event = {
+	id = WtWSMS_pots.32
+	title = WtWSMS_pots.32.name
+	desc = WtWSMS_pots.32.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+	
+	option = {
+		name = WtWSMS_pots.32.a # Convert
+		ai_chance = {
+			#Option A modifiers
+		}
+		ROOT = {
+			FROMFROM = {
+				reverse_religion = PREV
+			}
+			event_target:christian_wife = {
+				reverse_religion = PREV
+			}
+			event_target:christian_concubine = {
+				reverse_religion = PREV
+			}
+			event_target:christian_courtier = {
+				reverse_religion = PREV
+			}
+			event_target:christian_councillour = {
+				reverse_religion = PREV
+			}
+			event_target:christian_missionary = {
+				reverse_religion = PREV
+			}
+			religion_authority = {
+				modifier = ruler_converted_from
+			}
+			if = {
+				limit = {
+					trait = cynical
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_pagans
+				}
+			}
+			if = {
+				limit = {
+					NOT = { trait = cynical }
+				}
+				random = {
+					chance = 50
+					add_trait = sympathy_pagans
+				}
+			}		
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			piety = 200
+			character_event = {
+				id = WtWSMS_pots.33 # Abandoning of heresy
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.32.b # Refuse
+		ai_chance = {
+			#Option B modifiers
+		}
+		set_character_flag = refused_conversion_christian_branch
+	}
+}
+
+# Abandoning of heresy
+character_event = {
+	id = WtWSMS_pots.33
+	title = WtWSMS_pots.33.name
+	desc = WtWSMS_pots.33.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		any_realm_province = {
+			limit = {
+				has_province_flag = heretic_christian 
+			}
+			clr_province_flag = heretic_christian
+		}
+		set_character_flag = converted_christian_branch
+	}
+	
+	option = {
+		name = WtWSMS_pots.33.a # OK
+	}
+}
+
+# Ruler is no longer of the Christian branch
+character_event = {
+	id = WtWSMS_pots.34
+	
+	hide_window = yes
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_character_flag = converted_christian_branch
+		NOT = { religion = event_target:christian_branch_of_province }
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		clear_global_event_target = christian_branch_of_province
+		clr_character_flag = converted_christian_branch
 	}
 }
