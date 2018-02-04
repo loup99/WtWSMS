@@ -92,8 +92,10 @@ character_event	= {
 # Add impassable desert
 character_event = {
 	id = misc_event.4
-		
+	
 	hide_window = yes
+	
+	only_playable = yes
 	
 	trigger = {
 		ROOT = {
@@ -281,6 +283,7 @@ character_event = {
 	hide_window = yes
 	
 	only_playable = yes
+	only_independent = yes
 
 	trigger = {
 		NAND = {
@@ -290,11 +293,14 @@ character_event = {
 		NOT = { religion_group = muslim }
 		NOT = { religion = zoroastrian }
 		is_theocracy = no
-		any_demesne_title = {
+		any_realm_title = {
+			holder_scope = {
+				character = ROOT
+			}
+			higher_tier_than = duke
 			bureaucratic_government_trigger = yes
-		}
-		any_demesne_title = {
 			sassanid_government_trigger = no
+			has_title_flag = adopted_bureaucratic
 		}
 		higher_tier_than = duke
 		NOT = { government = bureaucratic_government }
@@ -308,5 +314,6 @@ character_event = {
 		primary_title = {
 			set_title_flag = adopted_bureaucratic # For bureaucratic government
 		}
+		set_government_type = bureaucratic_government
 	}
 }
