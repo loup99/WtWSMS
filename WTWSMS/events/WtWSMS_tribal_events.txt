@@ -95,16 +95,36 @@ long_character_event = {
 				random_direct_de_jure_vassal_title = {
 					limit = {
 						tier = duke
+						OR = {
+							holder_scope = { # Heir holds the duchy
+								character = ROOT
+							}
+							defacto_liege_title = { # Heir is liege to this duchy
+								holder_scope = {
+									character = ROOT
+								}
+							}
+						}
 					}
 					set_title_flag = capital_duchy_flag
 					save_event_target_as = capital_duchy
 				}
+			}
+			any_demesne_province = { # Keep the provinces that are a part of the capital duchy
+				limit = {
+					de_jure_liege = event_target:destroyed_kingdom # Not a de jure part of the destroyed kingdom
+					de_jure_liege = event_target:capital_duchy # Not a part of the capital duchy
+				}
+				set_province_flag = capital_duchy_county
 			}
 			any_demesne_province = { # Hand out the provinces that are not a part of the capital duchy or not a de jure part of the destroyed kingdom
 				limit = {
 					NOR = {
 						de_jure_liege = event_target:destroyed_kingdom # Not a de jure part of the destroyed kingdom
 						de_jure_liege = event_target:capital_duchy # Not a part of the capital duchy
+					}
+					NOT = {
+						has_province_flag = capital_duchy_county
 					}
 				}
 				county = {
@@ -142,6 +162,12 @@ long_character_event = {
 			}
 			event_target:capital_duchy = {
 				clr_title_flag = capital_duchy_flag
+			}
+			any_demesne_province = {
+				limit = {
+					has_province_flag = capital_duchy_county
+				}
+				clr_province_flag = capital_duchy_county
 			}
 		}
 		# Log tribal kingdom fracture to see frequency
