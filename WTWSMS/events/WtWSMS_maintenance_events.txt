@@ -336,3 +336,31 @@ character_event = {
 		set_global_flag = nicene_heresy
 	}
 }
+
+# Prevent Papal States title revocation
+character_event = {
+	id = misc_event.10
+	
+	hide_window = yes
+	
+	is_triggered_only = yes # On-action
+	
+	trigger = {
+		OR = { 
+			d_papal_state = {
+				any_previous_holder	= {
+					character = FROMFROM
+				}
+			}
+			FROMFROM = { # FROMFROM is the person sending the event
+				has_landed_title = d_papal_state
+			}
+		}
+	}
+	
+	immediate = {
+		d_papal_state = {
+			grant_title_no_opinion = FROMFROM
+		}
+	}
+}
