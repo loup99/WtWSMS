@@ -666,6 +666,8 @@ province_event = {
 	desc = EVTDESCspirit.14
 	picture = GFX_evt_skyrim_forest_celtic
 	
+	only_playable = yes
+	
 	trigger = {
 		religion = germanic_pagan
 		owner = {
@@ -728,6 +730,8 @@ province_event = {
 	desc = EVTDESCspirit.15
 	picture = GFX_evt_skyrim_forest_celtic
 	
+	only_playable = yes
+	
 	trigger = {
 		religion = germanic_pagan
 		has_province_modifier = holy_tree
@@ -767,6 +771,8 @@ province_event = {
 	id = spirit.16
 	desc = EVTDESCspirit.16
 	picture = GFX_evt_skyrim_forest_celtic
+	
+	only_playable = yes
 	
 	trigger = {
 		owner = {
@@ -810,6 +816,8 @@ province_event = {
 	id = spirit.17
 	desc = EVTDESCspirit.17
 	picture = GFX_evt_skyrim_forest_celtic
+	
+	only_playable = yes
 	
 	trigger = {
 		religion = germanic_pagan
@@ -861,8 +869,13 @@ province_event = {
 	desc = EVTDESCspirit.18
 	picture = GFX_evt_skyrim_forest_celtic
 	
+	only_playable = yes
+	
 	trigger = {
 		has_province_flag = destroyed_holy_tree
+		owner = {
+			NOT = { religion = germanic_pagan }
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -870,6 +883,32 @@ province_event = {
 	}
 	option = {
 		name = EVTOPTAspirit.18
+		
+		owner = {
+			if = { 
+				limit = { 
+					OR = {
+					religion_group = christian
+					religion_group = muslim
+					}
+				}
+				random = { chance = 30 add_trait = sympathy_pagans }
+				piety = -20
+			}
+		}
+	}
+	option = {
+		name = EVTOPTBspirit.18
+		trigger = {
+			owner = {
+				OR = {
+					religion_group = christian
+					religion_group = muslim
+				}
+			}
+		}
+		
+		piety = 10
 	}
 }
 	
@@ -920,10 +959,6 @@ character_event = {
 			character_event = { id = spirit.21 }
 		}
 		death = { death_reason = death_sacrificed }
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -1158,10 +1193,6 @@ character_event = {
 		}
 		death = { death_reason = death_sacrificed }
 	}
-	
-	option = {
-		name = OK
-	}
 }
 
 # Liege Informed of Sacrifice
@@ -1312,8 +1343,7 @@ character_event = {
 		days = 1
 	}
 	
-	option = {
-		name = spirit.41.a
+	immediate = {
 		add_trait = mystic
 	}
 }
@@ -1355,8 +1385,7 @@ character_event = {
 		days = 1
 	}
 
-	option = {
-		name = spirit.42.a
+	immediate = {
 		add_trait = vegetarian
 	}
 }
@@ -1465,8 +1494,7 @@ character_event = {
 		days = 1
 	}
 	
-	option = {
-		name = spirit.44.c
+	immediate = {
 		add_trait = bad_priest_donatism
 		remove_trait = bad_priest_christian
 		add_character_modifier = {
@@ -1475,10 +1503,8 @@ character_event = {
 		}
 		if = {
 			limit = {
-				# Conditions
 				is_ruler = yes
 			}
-			# Commands to execute if the conditions match
 			abdicate = yes # The Donatist denomination required all open Traditores to immediately vacate their office
 		}
 	}
@@ -1504,8 +1530,7 @@ character_event = {
 		days = 1
 	}
 
-	option = {
-		name = spirit.44.a
+	immediate = {
 		remove_trait = bad_priest_donatism
 		remove_trait = bad_priest_christian
 		remove_character_modifier = traditor_donatism
@@ -1516,7 +1541,7 @@ character_event = {
 	}
 }
 
-# Ebionites, being Jews themselves, will obviously tolerate any and all Jews
+# Ebionites, being Jews themselves, tolerate all Jews
 character_event = { 
 	id = spirit.47
 	
@@ -1533,8 +1558,7 @@ character_event = {
 		days = 1
 	}
 	
-	option = {
-		name = spirit.44.a
+	immediate = {
 		add_trait = sympathy_judaism
 	}
 }

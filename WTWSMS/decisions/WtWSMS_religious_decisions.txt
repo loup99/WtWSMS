@@ -829,6 +829,7 @@ decisions = {
 	}
 	
 	choose_sanamahi_patron_deity = {
+		only_playable = yes
 		potential = {
 			always = no # TODO event spirit.34 does not exist !
 			has_dlc = "Rajas of India"
@@ -1272,8 +1273,21 @@ decisions = {
 		}
 		
 		ai_will_do = {
-			factor = .5
-			
+			factor = 0.5
+			modifier = {
+				factor = 10
+				had_global_flag = { 
+					flag = aquileian_schism 
+					days = 36500 # 100 years 
+				}
+			}
+			modifier = {
+				factor = 5
+				had_global_flag = { 
+					flag = aquileian_schism 
+					days = 18250 # 50 years
+				}
+			}
 			modifier = {
 				factor = 3
 				trait = craven
@@ -1286,6 +1300,10 @@ decisions = {
 				factor = 0.1
 				trait = zealous
 			}
+			modifier = {
+				factor = 0.001 # Slow it down
+				always = yes
+			}
 		}
 	}
 	
@@ -1296,7 +1314,8 @@ decisions = {
 			religion_group = pagan_group 
 			has_landed_title = c_aquileia
 			NOT = { has_global_flag = the_aquileian_capture }
-			NOT = { has_global_flag = aquileian_schism }
+			NOT = { has_global_flag = end_aquileian_schism }
+			has_global_flag = aquileian_schism 
 			age = 16
 			prisoner = no
 		}

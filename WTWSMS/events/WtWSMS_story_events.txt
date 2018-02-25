@@ -651,10 +651,13 @@ narrative_event = {
 	trigger = {
 		NOT = { has_global_flag = fall_of_rome }
 		has_romance_culture_trigger = no
-		c_roma = {
-			holder_scope = {
-				top_liege = {
-					character = ROOT
+		OR = {
+			has_landed_title = c_roma
+			c_roma = {
+				holder_scope = {
+					top_liege = {
+						character = ROOT
+					}
 				}
 			}
 		}
@@ -672,14 +675,12 @@ narrative_event = {
 					has_global_flag = western_regalia_transferred
 				}
 			}
-			e_wre = {
-				holder_scope = {
-					any_artifact = {
-						limit = { has_artifact_flag = western_regalia } # it's kind of a workaround
-						transfer_artifact = {
-							from = PREV
-							to = ROOT
-						}
+			event_target:defeated_western_emperor = {
+				any_artifact = {
+					limit = { has_artifact_flag = western_regalia } # it's kind of a workaround
+					transfer_artifact = {
+						from = PREV
+						to = ROOT
 					}
 				}
 			}
@@ -2463,10 +2464,10 @@ character_event = {
 			limit = { is_consort = no ai = yes }
 			religion = hindu
 		}
-			random = {
-				chance = 50
-				add_trait = zealous
-			}
+		random = {
+			chance = 50
+			add_trait = zealous
+		}
 	}
 }
 
@@ -2910,7 +2911,7 @@ character_event = {
 
 	option = {
 		name = OK
-		  
+		
 		trigger = {
 			e_roman_empire = {
 				has_holder = no
