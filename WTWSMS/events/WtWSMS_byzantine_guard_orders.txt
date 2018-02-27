@@ -59,7 +59,10 @@ character_event = {
 	only_rulers = yes
 	
 	trigger = {
-		has_landed_title = d_scholae_palatinae
+		OR = {
+			has_landed_title = d_scholae_palatinae
+			has_landed_title = d_western_scholae_palatinae
+		}
 		NOT = { trait = varangian }
 	}
 	
@@ -2198,20 +2201,985 @@ narrative_event = {
 	}
 }
 
-# Western Scholae Palatinae Captain gets Guard trait
+# Son has served a few years
 character_event = {
-	id = guard.31354
+	id = guard.31082
 	hide_window = yes
 	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_character_flag = wants_western_scholae
+	}
+	
+	immediate = {
+		set_character_flag = serving_western_scholae
+		clr_character_flag = wants_western_scholae
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Son wants to join the Western Scholae Palatinae (Son)
+character_event = {
+	id = guard.31092
+	hide_window = yes
+	
+	ai = yes
 	min_age = 16
+	max_age = 40
 	only_men = yes
 	capable_only = yes
 	prisoner = no
-	only_rulers = yes
 	
 	trigger = {
-		has_landed_title = d_western_scholae_palatinae
-		NOT = { trait = varangian }
+		has_dlc = "The Old Gods"
+		is_landed = no
+		in_command = no
+		has_global_flag = western_scholae_palatinae_reorganized
+		OR = {
+			culture_group = latin
+			culture_group = east_germanic
+			culture_group = byzantine
+			culture = rygir
+		}
+		NOT = { 
+			trait = varangian 
+			has_character_flag = wants_western_scholae
+			has_character_flag = denied_western_scholae
+		}
+		father = {
+			is_alive = yes
+			OR = {
+			culture_group = latin
+			culture_group = east_germanic
+			culture_group = byzantine
+			culture = rygir
+			}
+			is_ruler = yes
+			is_liege_of = ROOT
+			prisoner = no
+			NOT = { trait = incapable }
+			ROOT = { host = { character = PREVPREV } }
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 240
+		
+		modifier = {
+			factor = 0.5
+			trait = ambitious
+		}
+		modifier = {
+			factor = 0.5
+			trait = brave
+		}
+		modifier = {
+			factor = 0.75
+			trait = berserker
+		}
+		modifier = {
+			factor = 0.75
+			trait = proud
+		}
+		modifier = {
+			factor = 0.75
+			trait = impaler
+		}
+		modifier = {
+			factor = 1.5
+			trait = slothful
+		}
+		modifier = {
+			factor = 1.5
+			trait = content
+		}
+		modifier = {
+			factor = 1.5
+			is_primary_heir = yes
+		}
+		modifier = {
+			factor = 2.0
+			trait = craven
+		}
+	}
+	
+	immediate = {
+		father = { character_event = { id = guard.31102 } }
+		set_character_flag = wants_western_scholae
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Son wants to join the Western Scholae Palatinae (Father)
+character_event = {
+	id = guard.31102
+	desc = EVTDESC_guard_31102
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = { # Deny
+		name = EVTOPTA_guard_31102
+		FROM = {
+			opinion = {
+				modifier = opinion_very_disappointed
+				years = 1
+				who = ROOT
+			}
+			clr_character_flag = wants_western_scholae
+			set_character_flag = denied_western_scholae
+		}
+		prestige = -100
+	}
+	option = { # Allow
+		name = EVTOPTB_guard_31102
+		d_western_scholae_palatinae = {
+			holder_scope = {
+				FROM = {
+					move_character = PREV
+				}
+			}
+		}
+		hidden_tooltip = {
+			FROM = { 
+				character_event = { id = guard.31082 days = 1460 }
+			}
+		}
+		prestige = 100
+	}
+}
+
+# Son stays in Italia with wife (Son)
+character_event = {
+	id = guard.31112
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = serving_western_scholae
+		is_married = no
+		NOT = {
+			OR = {
+				father = {
+					primary_title = {
+						current_heir = { character = ROOT }
+					}
+				}
+				mother = {
+					primary_title = {
+						current_heir = { character = ROOT }
+					}
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 200
+		
+		modifier = {
+			factor = 0.75
+			trait = lustful
+		}
+		modifier = {
+			factor = 0.75
+			trait = content
+		}
+		modifier = {
+			factor = 0.75
+			trait = slothful
+		}
+	}
+	
+	immediate = {
+		father = { character_event = { id = guard.31122 } }
+		e_wre = {
+			holder_scope = {
+				character_event = { id = guard.31132 }
+			}
+		}
+		clr_character_flag = serving_western_scholae
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Son stays in Italia with wife (Latin father)
+character_event = {
+	id = guard.31122
+	desc = EVTDESC_guard_31122
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_guard_31122
+		tooltip = {
+			e_wre = {
+				holder_scope = {
+					FROM = {
+						move_character = PREV
+						religion = PREV
+					}
+				}
+			}
+		}
+		FROM = { add_trait = varangian }
+	}
+}
+
+# Son stays in Italia with wife (Western Roman Emperor)
+character_event = {
+	id = guard.31132
+	desc = EVTDESC_guard_31132
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_guard_31132
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			female = yes
+			age = 26
+			religion = ROOT
+			culture = roman
+		}
+		new_character = {
+			add_spouse_matrilineal = FROM
+		}
+		FROM = {
+			move_character = ROOT
+			religion = ROOT
+		}
+	}
+}
+
+# Son returns scarred but seasoned (Son)
+character_event = {
+	id = guard.31142
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = serving_western_scholae
+		NOT = { trait = scarred }
+	}
+	
+	mean_time_to_happen = {
+		months = 160
+		
+		modifier = {
+			factor = 0.75
+			trait = brave
+		}
+		modifier = {
+			factor = 1.25
+			trait = craven
+		}
+	}
+	
+	immediate = {
+		father = { character_event = { id = guard.31152 } }
+		clr_character_flag = serving_western_scholae
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Son returns scarred but seasoned
+character_event = {
+	id = guard.31152
+	desc = EVTDESC_guard_31152
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_guard_31152
+		FROM = {
+			move_character = ROOT
+			add_trait = scarred
+			add_trait = varangian
+			change_martial = 4
+		}
+	}
+}
+
+# Son returns with notions of Roman love (Son)
+character_event = {
+	id = guard.31162
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = serving_varangian
+		NOT = { trait = homosexual }
+	}
+	
+	mean_time_to_happen = {
+		months = 180
+		
+		modifier = {
+			factor = 0.75
+			trait = lustful
+		}
+		modifier = {
+			factor = 0.75
+			trait = hedonist
+		}
+		modifier = {
+			factor = 0.75
+			trait = chaste
+		}
+	}
+	
+	immediate = {
+		father = { character_event = { id = guard.31172 } }
+		clr_character_flag = serving_western_scholae
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Son returns with notions of Roman love
+character_event = {
+	id = guard.31172
+	desc = EVTDESC_guard_31172
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_guard_31172
+		FROM = {
+			move_character = ROOT
+			add_trait = homosexual
+			add_trait = varangian
+		}
+	}
+}
+
+# Son returns castrated and blinded (Son)
+character_event = {
+	id = guard.3118
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = serving_western_scholae
+		NOT = {
+			trait = eunuch
+			trait = blinded
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 250
+	}
+	
+	immediate = {
+		add_trait = blinded
+		father = { character_event = { id = guard.31192 } }
+		clr_character_flag = serving_western_scholae
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Son returns castrated and blinded
+character_event = {
+	id = guard.31192
+	desc = EVTDESC_guard_31192
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_guard_31192
+		FROM = {
+			move_character = ROOT
+			tooltip = { add_trait = blinded }
+			add_trait = eunuch
+			add_trait = varangian
+		}
+	}
+}
+
+# Son returns as excellent strategist (Son)
+character_event = {
+	id = guard.31202
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = serving_western_scholae
+		NOT = { trait = brilliant_strategist }
+		OR = {
+			trait = misguided_warrior
+			trait = tough_soldier
+			trait = skilled_tactician
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 160
+		
+		modifier = {
+			factor = 0.5
+			is_smart_trigger = yes
+		}
+		modifier = {
+			factor = 0.75
+			trait = diligent
+		}
+		modifier = {
+			factor = 1.5
+			is_dumb_trigger = yes
+		}
+	}
+	
+	immediate = {
+		father = { character_event = { id = guard.31212 } }
+		clr_character_flag = serving_western_scholae
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Son returns as excellent strategist
+character_event = {
+	id = guard.31212
+	desc = EVTDESC_guard_31212
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_guard_31212
+		if = {
+			limit = {
+				FROM = {
+					trait = skilled_tactician
+				}
+			}
+			FROM = {
+				hidden_tooltip = { remove_trait = skilled_tactician }
+				add_trait = brilliant_strategist
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					OR = {
+						trait = misguided_warrior
+						trait = tough_soldier
+					}	
+				}
+			}
+			FROM = {
+				hidden_tooltip = { 
+					remove_trait = misguided_warrior
+					remove_trait = tough_soldier
+				}
+				add_trait = skilled_tactician
+			}
+		}
+		FROM = {
+			change_martial = 2
+			add_trait = varangian
+			move_character = ROOT
+		}
+	}
+}
+
+# Son returns with PTSD (Son)
+character_event = {
+	id = guard.31222
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = serving_western_scholae
+		NOT = { trait = depressed }
+	}
+	
+	mean_time_to_happen = {
+		months = 180
+		
+		modifier = {
+			factor = 0.75
+			trait = kind
+		}
+		modifier = {
+			factor = 0.75
+			trait = poet
+		}
+		modifier = {
+			factor = 0.75
+			trait = just
+		}
+	}
+	
+	immediate = {
+		father = { character_event = { id = guard.31232 } }
+		clr_character_flag = serving_western_scholae
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Son returns with PTSD
+character_event = {
+	id = guard.31232
+	desc = EVTDESC_guard_31232
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_guard_31232
+		FROM = {
+			move_character = ROOT
+			add_trait = stressed
+			add_trait = depressed
+			add_trait = varangian
+		}
+	}
+}
+
+# Son returns home with Roman wife (Son)
+character_event = {
+	id = guard.31242
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = serving_western_scholae
+		is_married = no
+		e_wre = {
+			holder_scope = {
+				culture = roman
+				religion = catholic
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 180
+		
+		modifier = {
+			factor = 0.75
+			trait = lustful
+		}
+	}
+	
+	immediate = {
+		father = { character_event = { id = guard.31252 } }
+		clr_character_flag = serving_western_scholae
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Son returns home with Roman wife
+character_event = {
+	id = guard.31252
+	desc = EVTDESC_guard_31252
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_guard_31252
+		create_character = {
+			random_traits = yes
+			dynasty = NONE
+			female = yes
+			age = 26
+			religion = catholic
+			culture = roman
+		}
+		new_character = {
+			add_spouse = FROM
+		}
+		FROM = { 
+			add_trait = varangian 
+			move_character = ROOT
+		}
+	}
+}
+
+# Son returns home as a Christian zealot (Son)
+character_event = {
+	id = guard.31262
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = serving_western_scholae
+		OR = {
+			religion = germanic_pagan
+			religion = germanic_pagan_reformed
+			religion = celtic_pagan
+			religion = celtic_pagan_reformed
+			religion = semitic_pagan
+			religion = semitic_pagan_reformed
+		}
+		father = {
+			OR = {
+				religion = germanic_pagan
+				religion = germanic_pagan_reformed
+				religion = celtic_pagan
+				religion = celtic_pagan_reformed
+				religion = semitic_pagan
+				religion = semitic_pagan_reformed
+			}
+		}
+		NOT = { trait = zealous }
+		e_wre = {
+			holder_scope = {
+				religion = catholic
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 160
+		
+		modifier = {
+			factor = 2.0
+			trait = cynical
+		}
+	}
+	
+	immediate = {
+		father = { character_event = { id = guard.31272 } }
+		clr_character_flag = serving_western_scholae
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Son returns home as a Christian zealot
+character_event = {
+	id = guard.31272
+	desc = EVTDESC_guard_31272
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_guard_31272
+		FROM = {
+			move_character = ROOT
+			add_trait = zealous
+			add_trait = varangian
+			religion = catholic
+		}
+	}
+}
+
+# Son returns home as a seasoned warrior (Son)
+character_event = {
+	id = guard.31282
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = serving_western_scholae
+	}
+	
+	mean_time_to_happen = {
+		months = 120
+		
+		modifier = {
+			factor = 0.75
+			trait = brave
+		}
+		modifier = {
+			factor = 0.75
+			is_strong_trigger = yes
+		}
+		modifier = {
+			factor = 0.75
+			is_smart_trigger = yes
+		}
+		modifier = {
+			factor = 1.5
+			trait = slothful
+		}
+		modifier = {
+			factor = 1.5
+			is_dumb_trigger = yes
+		}
+	}
+	
+	immediate = {
+		father = { character_event = { id = guard.31292 } }
+		clr_character_flag = serving_western_scholae
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Son returns home as a seasoned warrior
+character_event = {
+	id = guard.31292
+	desc = EVTDESC_guard_31292
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_guard_31292
+		FROM = {
+			move_character = ROOT
+			add_trait = brave
+			add_trait = varangian
+			change_martial = 2
+		}
+	}
+}
+
+# Son dies in battle (Son)
+character_event = {
+	id = guard.31302
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = serving_western_scholae
+	}
+	
+	mean_time_to_happen = {
+		months = 200
+		
+		modifier = {
+			factor = 0.75
+			trait = brave
+		}
+		modifier = {
+			factor = 0.75
+			trait = wroth
+		}
+		modifier = {
+			factor = 0.75
+			trait = berserker
+		}
+		modifier = {
+			factor = 1.25
+			trait = craven
+		}
+		modifier = {
+			factor = 0.75
+			trait = drunkard
+		}
+		modifier = {
+			factor = 0.75
+			trait = has_tuberculosis
+		}
+		modifier = {
+			factor = 0.75
+			trait = has_typhoid_fever
+		}
+		modifier = {
+			factor = 0.75
+			trait = has_typhus
+		}
+		modifier = {
+			factor = 0.75
+			trait = has_bubonic_plague
+		}
+		modifier = {
+			factor = 0.75
+			trait = has_measles
+		}
+		modifier = {
+			factor = 0.75
+			trait = has_small_pox
+		}
+		modifier = {
+			factor = 0.75
+			trait = wounded
+		}
+		modifier = {
+			factor = 0.5
+			trait = infirm
+		}
+		modifier = {
+			factor = 0.5
+			trait = incapable
+		}
+	}
+	
+	immediate = {
+		father = { character_event = { id = guard.31312 } }
+		clr_character_flag = serving_western_scholae
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Son dies in battle
+character_event = {
+	id = guard.31312
+	desc = EVTDESC_guard_31312
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_guard_31312
+		FROM = { death = { death_reason = death_battle } }
+	}
+}
+
+# Son returns with loot (Son)
+character_event = {
+	id = guard.31322
+	hide_window = yes
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		has_character_flag = serving_western_scholae
+	}
+	
+	mean_time_to_happen = {
+		months = 160
+		
+		modifier = {
+			factor = 0.75
+			trait = greedy
+		}
+		modifier = {
+			factor = 0.75
+			stewardship = 10
+		}
+	}
+	
+	immediate = {
+		father = { character_event = { id = guard.31332 } }
+		clr_character_flag = serving_western_scholae
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Son returns with loot
+character_event = {
+	id = guard.31332
+	desc = EVTDESC_guard_31332
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_guard_31332
+		FROM = {
+			move_character = ROOT
+			add_trait = varangian
+		}
+		wealth = 300
+	}
+}
+
+# Father dies, Player Son is heir
+character_event = {
+	id = guard.31342
+	desc = EVTDESC_guard_31342
+	picture = GFX_evt_viking_throneroom_oldgods
+	border = GFX_event_normal_frame_war
+	
+	ai = no
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		OR = {
+			has_character_flag = wants_western_scholae
+			has_character_flag = serving_western_scholae
+		}
+		father = { is_alive = no }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		clr_character_flag = wants_western_scholae
+		clr_character_flag = serving_western_scholae
+	}
+	
+	option = {
+		name = EVTOPTA_guard_31342
+		add_trait = varangian
+		prestige = 200
+		wealth = 200
+	}
+}
+
+# Father dies, Son gets Guard trait
+character_event = {
+	id = guard.31352
+	hide_window = yes
+	
+	min_age = 16
+	ai = yes
+	only_men = yes
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		has_dlc = "The Old Gods"
+		OR = {
+			has_character_flag = wants_western_scholae
+			has_character_flag = serving_western_scholae
+		}
+		father = { is_alive = no }
 	}
 	
 	mean_time_to_happen = {
@@ -2220,6 +3188,8 @@ character_event = {
 	
 	immediate = {
 		add_trait = varangian
+		clr_character_flag = wants_western_scholae
+		clr_character_flag = serving_western_scholae
 	}
 	
 	option = {
