@@ -1,0 +1,83 @@
+namespace = naval_combat
+
+character_event = {
+	id = naval_combat.1
+	desc = "Naval combat is here, bitches! evt1"
+	hide_window = yes
+	trigger = {
+		any_army = {
+			OR = {
+				center_flank_leader = {
+					is_at_sea = yes
+				}
+				left_flank_leader = {
+					is_at_sea = yes
+				}
+				right_flank_leader = {
+					is_at_sea = yes
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				any_army = {
+					center_flank_leader = {
+						is_at_sea = yes
+					}
+				}
+			}
+			any_army = {
+				limit = {
+					center_flank_leader = {
+						is_at_sea = yes
+					}
+				}
+				center_flank_leader = { 
+					save_event_target_as = navy_commander 
+					location = { save_event_target_as = navy_commander_location }
+					
+				}
+			}
+			
+			
+		}
+		
+		if = {
+			limit = {
+				any_current_enemy = {
+					any_army = {
+						OR= {
+							center_flank_leader = {
+								location = navy_commander_location
+							}
+							left_flank_leader = {
+								location = navy_commander_location
+							}
+							right_flank_leader = {
+								location = navy_commander_location
+							}
+						}
+					}
+				}
+			}
+			character_event = { id = naval_combat.2 days = 1 }
+		}
+	}
+	
+	mean_time_to_happen = {
+		days =1
+	}
+}
+
+character_event = {
+	id = naval_combat.2
+	desc = "Naval combat is here, bitches! THE REAL ONE!"
+	is_triggered_only = yes
+	
+	option = {
+	 name = OK
+	 }
+}
