@@ -3379,9 +3379,9 @@ character_event = {
 
 # Lack of strong Romano-Gallic realm remaining means last Romano-Gallic enclaves are removed
 province_event = {
-	id = WtWSMS_pots.40
-	title = WtWSMS_pots.40.name
-	desc = WtWSMS_pots.40.desc
+	id = WtWSMS_pots.56
+	title = WtWSMS_pots.56.name
+	desc = WtWSMS_pots.56.desc
 	picture = GFX_evt_stone_church # Placeholder
 	border = GFX_event_normal_frame_diplomacy
 
@@ -3434,7 +3434,7 @@ province_event = {
 	}
 	
 	option = {
-		name = WtWSMS_pots.40.a
+		name = WtWSMS_pots.56.a
 		if = {
 			limit = {
 				owner = {
@@ -3466,7 +3466,1356 @@ province_event = {
 	}
 }
 
-# Romano-Hispanic -> Catalan, Portuegese, Castillian, Leonese or Andalusian (catalan, portugese, castillian, leonese, andalusian_arabic)
+# Province culture changes from Romano-Hispanic to Catalan
+province_event = {
+	id = WtWSMS_pots.57
+	title = WtWSMS_pots.57.name
+	desc = WtWSMS_pots.57.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+	
+	only_rulers = yes
+	
+	trigger = { 
+		owner = {
+			religion_group = christian
+			is_feudal = yes
+			has_germanic_culture_trigger = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		is_feudal = yes
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		has_character_flag = converted_to_christianity
+		has_character_flag = adopted_feudalism
+		has_character_flag = converted_christian_branch 
+		culture = romano_hispanic
+		region = custom_catalan
+	}
+
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+		modifier = {
+			factor = 0.75
+			learning = 7
+		}
+		modifier = {
+			factor = 0.75
+			learning = 9
+		}
+		modifier = {
+			factor = 0.75
+			learning = 11
+		}
+		modifier = {
+			factor = 0.75
+			learning = 13
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { learning = 5 }
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { learning = 3 }
+		}
+		modifier = {
+			factor = 2.0
+			NOT = { learning = 1 }
+		}
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_flag = catalan_melting_pot
+	}
+	
+	option = {
+		name = WtWSMS_pots.57.a #
+		culture = catalan
+		owner = {
+			culture = catalan
+		}
+	}
+}
+
+# Catalan culture spreading
+province_event = {
+	id = WtWSMS_pots.58
+	title = WtWSMS_pots.58.name
+	desc = WtWSMS_pots.58.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+	
+	only_rulers = yes
+	
+	trigger = {
+		owner = {
+			culture = catalan
+			religion_group = christian
+			is_feudal = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		is_feudal = yes
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		has_character_flag = converted_to_christianity
+		has_character_flag = adopted_feudalism
+		has_character_flag = converted_christian_branch 
+		culture = romano_hispanic
+		region = custom_catalan
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.58.a
+		culture = catalan 
+	}
+}
+
+# Catalan ruler makes court Catalan
+character_event = {
+	id = WtWSMS_pots.59
+	title = WtWSMS_pots.59.name
+	desc = WtWSMS_pots.59.desc
+	picture = GFX_evt_throne_room
+	
+	only_rulers = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = catalan
+		any_courtier = {
+			has_germanic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.59.a
+		random_courtier = {
+			limit = {
+				has_germanic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = catalan
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.61 days = 3 }
+			}
+		}
+	}
+}
+
+# Catalan ruler makes vassal Catalan
+character_event = {
+	id = WtWSMS_pots.60
+	title = WtWSMS_pots.60.name
+	desc = WtWSMS_pots.60.desc
+	picture = GFX_evt_throne_room
+	
+	only_playable = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = catalan
+		any_vassal = {
+			has_germanic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.60.a
+		random_vassal = {
+			limit = {
+				has_germanic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = catalan
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.61 days = 3 }
+			}
+		}
+	}
+}
+
+character_event = {
+	id = WtWSMS_pots.61
+	title = WtWSMS_pots.61.name
+	desc = WtWSMS_pots.61.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_pots.61.a
+		culture = catalan
+	}
+}
+
+# Province culture changes from Romano-Hispanic to Portuguese
+province_event = {
+	id = WtWSMS_pots.62
+	title = WtWSMS_pots.62.name
+	desc = WtWSMS_pots.62.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+	
+	only_rulers = yes
+	
+	trigger = { 
+		owner = {
+			religion_group = christian
+			is_feudal = yes
+			has_germanic_culture_trigger = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		is_feudal = yes
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		has_character_flag = converted_to_christianity
+		has_character_flag = adopted_feudalism
+		has_character_flag = converted_christian_branch 
+		culture = romano_hispanic
+		region = custom_portuguese
+	}
+
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+		modifier = {
+			factor = 0.75
+			learning = 7
+		}
+		modifier = {
+			factor = 0.75
+			learning = 9
+		}
+		modifier = {
+			factor = 0.75
+			learning = 11
+		}
+		modifier = {
+			factor = 0.75
+			learning = 13
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { learning = 5 }
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { learning = 3 }
+		}
+		modifier = {
+			factor = 2.0
+			NOT = { learning = 1 }
+		}
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_flag = portuguese_melting_pot
+	}
+	
+	option = {
+		name = WtWSMS_pots.62.a #
+		culture = portuguese
+		owner = {
+			culture = portuguese
+		}
+	}
+}
+
+# Portuguese culture spreading
+province_event = {
+	id = WtWSMS_pots.63
+	title = WtWSMS_pots.63.name
+	desc = WtWSMS_pots.63.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+	
+	only_rulers = yes
+	
+	trigger = {
+		owner = {
+			culture = portuguese
+			religion_group = christian
+			is_feudal = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		is_feudal = yes
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		has_character_flag = converted_to_christianity
+		has_character_flag = adopted_feudalism
+		has_character_flag = converted_christian_branch 
+		culture = romano_hispanic
+		region = custom_portuguese
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.63.a
+		culture = portuguese 
+	}
+}
+
+# Portuguese ruler makes court Portuguese
+character_event = {
+	id = WtWSMS_pots.64
+	title = WtWSMS_pots.64.name
+	desc = WtWSMS_pots.64.desc
+	picture = GFX_evt_throne_room
+	
+	only_rulers = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = portuguese
+		any_courtier = {
+			has_germanic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.64.a
+		random_courtier = {
+			limit = {
+				has_germanic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = portuguese
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.66 days = 3 }
+			}
+		}
+	}
+}
+
+# Portuguese ruler makes vassal Portuguese
+character_event = {
+	id = WtWSMS_pots.65
+	title = WtWSMS_pots.65.name
+	desc = WtWSMS_pots.65.desc
+	picture = GFX_evt_throne_room
+	
+	only_playable = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = portuguese
+		any_vassal = {
+			has_germanic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.65.a
+		random_vassal = {
+			limit = {
+				has_germanic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = portuguese
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.66 days = 3 }
+			}
+		}
+	}
+}
+
+character_event = {
+	id = WtWSMS_pots.66
+	title = WtWSMS_pots.66.name
+	desc = WtWSMS_pots.66.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_pots.66.a
+		culture = portuguese
+	}
+}
+
+# Province culture changes from Romano-Hispanic to Castillian
+province_event = {
+	id = WtWSMS_pots.67
+	title = WtWSMS_pots.67.name
+	desc = WtWSMS_pots.67.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+	
+	only_rulers = yes
+	
+	trigger = { 
+		owner = {
+			religion_group = christian
+			is_feudal = yes
+			has_germanic_culture_trigger = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		is_feudal = yes
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		has_character_flag = converted_to_christianity
+		has_character_flag = adopted_feudalism
+		has_character_flag = converted_christian_branch 
+		culture = romano_hispanic
+		region = custom_castillian
+	}
+
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+		modifier = {
+			factor = 0.75
+			learning = 7
+		}
+		modifier = {
+			factor = 0.75
+			learning = 9
+		}
+		modifier = {
+			factor = 0.75
+			learning = 11
+		}
+		modifier = {
+			factor = 0.75
+			learning = 13
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { learning = 5 }
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { learning = 3 }
+		}
+		modifier = {
+			factor = 2.0
+			NOT = { learning = 1 }
+		}
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_flag = castillian_melting_pot
+	}
+	
+	option = {
+		name = WtWSMS_pots.67.a #
+		culture = castillian
+		owner = {
+			culture = castillian
+		}
+	}
+}
+
+# Castillian culture spreading
+province_event = {
+	id = WtWSMS_pots.68
+	title = WtWSMS_pots.68.name
+	desc = WtWSMS_pots.68.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+	
+	only_rulers = yes
+	
+	trigger = {
+		owner = {
+			culture = castillian
+			religion_group = christian
+			is_feudal = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		is_feudal = yes
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		has_character_flag = converted_to_christianity
+		has_character_flag = adopted_feudalism
+		has_character_flag = converted_christian_branch 
+		culture = romano_hispanic
+		region = custom_castillian
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.68.a
+		culture = castillian 
+	}
+}
+
+# Castillian ruler makes court Castillian
+character_event = {
+	id = WtWSMS_pots.69
+	title = WtWSMS_pots.69.name
+	desc = WtWSMS_pots.69.desc
+	picture = GFX_evt_throne_room
+	
+	only_rulers = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = castillian
+		any_courtier = {
+			has_germanic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.69.a
+		random_courtier = {
+			limit = {
+				has_germanic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = castillian
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.71 days = 3 }
+			}
+		}
+	}
+}
+
+# Castillian ruler makes vassal Castillian
+character_event = {
+	id = WtWSMS_pots.70
+	title = WtWSMS_pots.70.name
+	desc = WtWSMS_pots.70.desc
+	picture = GFX_evt_throne_room
+	
+	only_playable = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = castillian
+		any_vassal = {
+			has_germanic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.70.a
+		random_vassal = {
+			limit = {
+				has_germanic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = castillian
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.71 days = 3 }
+			}
+		}
+	}
+}
+
+character_event = {
+	id = WtWSMS_pots.71
+	title = WtWSMS_pots.71.name
+	desc = WtWSMS_pots.71.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_pots.71.a
+		culture = castillian
+	}
+}
+
+# Province culture changes from Romano-Hispanic to Leonese
+province_event = {
+	id = WtWSMS_pots.72
+	title = WtWSMS_pots.72.name
+	desc = WtWSMS_pots.72.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+	
+	only_rulers = yes
+	
+	trigger = { 
+		owner = {
+			religion_group = christian
+			is_feudal = yes
+			has_germanic_culture_trigger = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		is_feudal = yes
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		has_character_flag = converted_to_christianity
+		has_character_flag = adopted_feudalism
+		has_character_flag = converted_christian_branch 
+		culture = romano_hispanic
+		region = custom_leonese
+	}
+
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+		modifier = {
+			factor = 0.75
+			learning = 7
+		}
+		modifier = {
+			factor = 0.75
+			learning = 9
+		}
+		modifier = {
+			factor = 0.75
+			learning = 11
+		}
+		modifier = {
+			factor = 0.75
+			learning = 13
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { learning = 5 }
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { learning = 3 }
+		}
+		modifier = {
+			factor = 2.0
+			NOT = { learning = 1 }
+		}
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_flag = leonese_melting_pot
+	}
+	
+	option = {
+		name = WtWSMS_pots.72.a #
+		culture = leonese
+		owner = {
+			culture = leonese
+		}
+	}
+}
+
+# Leonese culture spreading
+province_event = {
+	id = WtWSMS_pots.73
+	title = WtWSMS_pots.73.name
+	desc = WtWSMS_pots.73.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+	
+	only_rulers = yes
+	
+	trigger = {
+		owner = {
+			culture = leonese
+			religion_group = christian
+			is_feudal = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		is_feudal = yes
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		has_character_flag = converted_to_christianity
+		has_character_flag = adopted_feudalism
+		has_character_flag = converted_christian_branch 
+		culture = romano_hispanic
+		region = custom_leonese
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.73.a
+		culture = leonese 
+	}
+}
+
+# Leonese ruler makes court Leonese
+character_event = {
+	id = WtWSMS_pots.74
+	title = WtWSMS_pots.74.name
+	desc = WtWSMS_pots.74.desc
+	picture = GFX_evt_throne_room
+	
+	only_rulers = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = leonese
+		any_courtier = {
+			has_germanic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.74.a
+		random_courtier = {
+			limit = {
+				has_germanic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = leonese
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.76 days = 3 }
+			}
+		}
+	}
+}
+
+# Leonese ruler makes vassal Leonese
+character_event = {
+	id = WtWSMS_pots.75
+	title = WtWSMS_pots.75.name
+	desc = WtWSMS_pots.75.desc
+	picture = GFX_evt_throne_room
+	
+	only_playable = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = leonese
+		any_vassal = {
+			has_germanic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.75.a
+		random_vassal = {
+			limit = {
+				has_germanic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = leonese
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.76 days = 3 }
+			}
+		}
+	}
+}
+
+character_event = {
+	id = WtWSMS_pots.76
+	title = WtWSMS_pots.76.name
+	desc = WtWSMS_pots.76.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_pots.76.a
+		culture = leonese
+	}
+}
+
+# Province culture changes from Romano-Hispanic to Andalusian
+province_event = {
+	id = WtWSMS_pots.77
+	title = WtWSMS_pots.77.name
+	desc = WtWSMS_pots.77.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+	
+	only_rulers = yes
+	
+	trigger = { 
+		owner = {
+			religion_group = christian
+			is_feudal = yes
+			OR = { 
+				culture_group = south_semitic
+				culture_group = central_semitic
+			}
+			religion = ROOT
+		}
+		religion_group = christian # Realised this was slightly problematic for this one
+		is_feudal = yes
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		has_character_flag = converted_to_christianity
+		has_character_flag = adopted_feudalism
+		has_character_flag = converted_christian_branch 
+		culture = romano_hispanic
+		region = custom_andalusian
+	}
+
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+		modifier = {
+			factor = 0.75
+			learning = 7
+		}
+		modifier = {
+			factor = 0.75
+			learning = 9
+		}
+		modifier = {
+			factor = 0.75
+			learning = 11
+		}
+		modifier = {
+			factor = 0.75
+			learning = 13
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { learning = 5 }
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { learning = 3 }
+		}
+		modifier = {
+			factor = 2.0
+			NOT = { learning = 1 }
+		}
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_flag = andalusian_melting_pot
+	}
+	
+	option = {
+		name = WtWSMS_pots.77.a #
+		culture = andalusian
+		owner = {
+			culture = andalusian
+		}
+	}
+}
+
+# Andalusian culture spreading
+province_event = {
+	id = WtWSMS_pots.77
+	title = WtWSMS_pots.77.name
+	desc = WtWSMS_pots.77.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+	
+	only_rulers = yes
+	
+	trigger = {
+		owner = {
+			culture = andalusian
+			religion_group = christian
+			is_feudal = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		is_feudal = yes
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		has_character_flag = converted_to_christianity
+		has_character_flag = adopted_feudalism
+		has_character_flag = converted_christian_branch 
+		culture = romano_hispanic
+		region = custom_andalusian
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.77.a
+		culture = andalusian 
+	}
+}
+
+# Andalusian ruler makes court Andalusian
+character_event = {
+	id = WtWSMS_pots.78
+	title = WtWSMS_pots.78.name
+	desc = WtWSMS_pots.78.desc
+	picture = GFX_evt_throne_room
+	
+	only_rulers = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = andalusian
+		any_courtier = {
+			OR = { 
+				culture_group = south_semitic
+				culture_group = central_semitic
+			}
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.78.a
+		random_courtier = {
+			limit = {
+				OR = { 
+					culture_group = south_semitic
+					culture_group = central_semitic
+				}
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = andalusian
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.80 days = 3 }
+			}
+		}
+	}
+}
+
+# Andalusian ruler makes vassal Andalusian
+character_event = {
+	id = WtWSMS_pots.79
+	title = WtWSMS_pots.79.name
+	desc = WtWSMS_pots.79.desc
+	picture = GFX_evt_throne_room
+	
+	only_playable = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = andalusian
+		any_vassal = {
+			OR = { 
+				culture_group = south_semitic
+				culture_group = central_semitic
+			}
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.79.a
+		random_vassal = {
+			limit = {
+				OR = { 
+					culture_group = south_semitic
+					culture_group = central_semitic
+				}
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = andalusian
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.80 days = 3 }
+			}
+		}
+	}
+}
+
+character_event = {
+	id = WtWSMS_pots.80
+	title = WtWSMS_pots.80.name
+	desc = WtWSMS_pots.80.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_pots.80.a
+		culture = andalusian
+	}
+}
+
 # Romano-British -> Brídaney (british_romance)
 # African Romance -> Arréyanu (arreyanu)
 # Romano-Illyrian -> Dalmatian (dalmatian)
