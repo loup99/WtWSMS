@@ -368,3 +368,37 @@ character_event = {
 		}
 	}
 }
+
+# Papal States should remain a theocracy
+character_event = {
+	id = misc_event.11
+	
+	hide_window = yes
+	
+	only_rulers = yes
+	ai = yes
+	
+	trigger = {
+		has_landed_title = d_papal_state
+		is_theocracy = no
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+		
+	immediate = {
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = nicene
+			culture = roman
+		}
+		new_character = {
+			d_papal_state = {
+				grant_title = PREV
+			}
+			set_government_type	= theocracy_government
+		}
+	}
+}
