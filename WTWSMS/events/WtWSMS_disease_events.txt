@@ -327,14 +327,35 @@ character_event = {
 		trait = has_bubonic_plague
 		NOT = { intrigue = 12 } # Unsuccessful at concealing it
 		NOT = { has_character_flag = flag_affected_by_pestilence }
+		OR = { # Either not had it for more than five years or never had it
+			any_demesne_title = {
+				controls_religion = yes
+				had_title_flag = { 
+					flag = flag_religious_head_affected_by_pestilence
+					days = 1825 # 5 years
+				}
+			}
+			NOT = {
+				any_demesne_title = {
+					controls_religion = yes
+					has_title_flag = flag_religious_head_affected_by_pestilence
+				}
+			}
+		} 
 	}
-		
+	
 	mean_time_to_happen = {
 		days = 1
 	}
 	
 	immediate = {
 		set_character_flag = flag_affected_by_pestilence
+		any_demesne_title = { # Limit event from firing repeatedly for a quick sucession of heads
+			limit = { 
+				controls_religion = yes
+			}
+			set_title_flag = flag_religious_head_affected_by_pestilence
+		}
 	}
 	
 	option = {
