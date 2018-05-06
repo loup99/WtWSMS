@@ -61,12 +61,11 @@ long_character_event = {
 	is_triggered_only = yes 
 
 	immediate = {
-		any_demesne_title = {
+		random_demesne_title = {
 			limit = {
 				tier = KING
 				is_titular = no
 			}
-			destroy_landed_title = THIS
 			save_event_target_as = destroyed_kingdom
 		}
 		any_vassal = {
@@ -94,35 +93,54 @@ long_character_event = {
 			event_target:destroyed_kingdom = {
 				random_direct_de_jure_vassal_title = {
 					limit = {
-						tier = duke
+						#tier = duke  #probably not needed
 						OR = {
 							holder_scope = { # Heir holds the duchy
 								character = ROOT
 							}
-							defacto_liege_title = { # Heir is liege to this duchy
-								holder_scope = {
+							any_direct_de_jure_vassal_title = { 
+								holder_scope = { # Heir holds a county in duchy
 									character = ROOT
 								}
 							}
+							#defacto_liege_title = { # Heir is liege to this duchy
+							#	holder_scope = {
+							#		character = ROOT
+							#	}
+							#}
 						}
 					}
+					activate_title = { title = THIS status = yes }
 					set_title_flag = capital_duchy_flag
 					save_event_target_as = capital_duchy
 				}
 			}
+			if = {
+				limit={
+					NOT = { has_landed_title = event_target:capital_duchy }
+				}
+				event_target:capital_duchy = {
+					grant_title = ROOT
+				}
+			}
+			
 			any_demesne_province = { # Keep the provinces that are a part of the capital duchy
 				limit = {
-					de_jure_liege = event_target:destroyed_kingdom # Not a de jure part of the destroyed kingdom
-					de_jure_liege = event_target:capital_duchy # Not a part of the capital duchy
+					#de_jure_liege_or_above = event_target:destroyed_kingdom # a de jure part of the destroyed kingdom
+					de_jure_liege_or_above = event_target:capital_duchy # a part of the capital duchy
 				}
 				set_province_flag = capital_duchy_county
+				add_province_modifier = {
+					name = religious_unrest
+					duration = 730
+				}
 			}
 			any_demesne_province = { # Hand out the provinces that are not a part of the capital duchy or not a de jure part of the destroyed kingdom
 				limit = {
-					NOR = {
-						de_jure_liege = event_target:destroyed_kingdom # Not a de jure part of the destroyed kingdom
-						de_jure_liege = event_target:capital_duchy # Not a part of the capital duchy
-					}
+					#NOR = {
+					#	de_jure_liege_or_above = event_target:destroyed_kingdom # Not a de jure part of the destroyed kingdom
+					#	de_jure_liege_or_above = event_target:capital_duchy # Not a part of the capital duchy
+					#}
 					NOT = {
 						has_province_flag = capital_duchy_county
 					}
@@ -169,6 +187,9 @@ long_character_event = {
 				}
 				clr_province_flag = capital_duchy_county
 			}
+		}
+		event_target:destroyed_kingdom = {
+			destroy_landed_title = THIS
 		}
 		# Log tribal kingdom fracture to see frequency
 		log = "The weak heir of the tribal ruler [From.GetTitledName], [Root.GetTitledName] lost their kingdom [destroyed_kingdom.GetName]."
