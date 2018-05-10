@@ -266,6 +266,60 @@ decisions = {
 			factor = 1
 		}
 	}
+	
+	create_audianistic_patriarch = {
+		only_playable = yes
+		is_high_prio = yes
+	
+		potential = {
+			religion = audianistic
+			NOT = { is_title_active = d_audianistic }
+			age = 16
+			prisoner = no
+			NOT = { trait = incapable }
+		}
+		
+		allow = {
+			is_heretic = no
+			piety = 1000
+			OR = {
+				owns = 333 # Rome
+				any_realm_lord = {
+					owns = 333
+				}
+			}
+		}
+		
+		effect = {
+			activate_title = { title = d_audianistic status = yes }
+			hidden_tooltip = {
+				create_random_priest = {
+					dynasty = none
+					random_traits = yes
+				}
+				new_character = {
+					d_audianistic = {
+						grant_title = PREV
+					}
+					wealth = 500
+					opinion = {
+						who = ROOT
+						modifier = opinion_creator_of_rel_heal
+					}
+				}
+				
+				religion_authority = {
+					modifier = patriarchy_instituted
+					years = 20
+				}
+			}
+			piety = 1000
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
 
 	restore_bishop_of_carthage = {
 		only_playable = yes
