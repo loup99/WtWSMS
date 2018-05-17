@@ -19,6 +19,8 @@ character_event = {
 	trigger = {
 		has_job_action = action_statecraft
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 		liege = {
 			NOT = { 
 				has_character_modifier = popular_ruler
@@ -428,6 +430,8 @@ character_event = {
 	trigger = {
 		has_job_action = action_improve_relations
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 		liege = { 
 			any_vassal = {
 				is_priest = no
@@ -514,6 +518,8 @@ character_event = {
 	trigger = {
 		has_job_action = action_administer_realm
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 	}
 	
 	mean_time_to_happen = {
@@ -699,6 +705,8 @@ character_event = {
 	trigger = {
 		has_job_action = action_administer_realm
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 		liege = { 
 			any_demesne_province = {
 				NOT = {
@@ -825,6 +833,8 @@ character_event = {
 	trigger = {
 		has_job_action = action_organize_army
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 		liege = {
 			any_courtier_or_vassal = {
 				has_minor_title = title_commander
@@ -1200,6 +1210,8 @@ character_event = {
 	trigger = {
 		has_job_action = action_organize_army
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 		OR = {
 			ai = no
 			NOR = {
@@ -1616,6 +1628,8 @@ character_event = {
 	trigger = {
 		has_job_action = action_organize_army
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 		can_be_maimed_trigger = yes
 		liege = {
 			any_courtier_or_vassal = {
@@ -1756,6 +1770,8 @@ character_event = {
 	trigger = {
 		has_job_action = action_sabotage_province
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 		location = {
 			can_be_sabotaged_trigger = yes
 		}
@@ -1879,6 +1895,8 @@ character_event = {
 	trigger = {
 		has_job_action = action_uncover_plots_offmap
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 		liege = {
 			any_realm_lord = {
 				NOT = { is_liege_of = ROOT }
@@ -1974,6 +1992,8 @@ character_event = {
 	
 	trigger = {
 		has_job_action = action_uncover_plots_offmap
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 		NOT = { has_character_modifier = in_seclusion }
 		liege = {
 			any_realm_lord = {
@@ -2125,6 +2145,8 @@ character_event = {
 	trigger = {
 		has_job_action = action_uncover_plots_offmap
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 		liege = {
 			any_vassal = {
 				NOT = { character = ROOT }
@@ -2229,6 +2251,8 @@ character_event = { # Hunt Apostates meta event
 	trigger = {
 		has_job_action = action_hunt_heretics
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 		liege = {
 			OR = {
 				# There is someone who is highly suspect
@@ -3160,16 +3184,8 @@ character_event = { # What does the liege wish to do with the apostate?
 				}
 			}
 		}
-		if = {
-			limit = {
-				NOT = { trait = kinslayer }
-				NOT = { religion_group = muslim }
-				event_target:accused_apostate = {
-					dynasty = ROOT
-				}
-			}
-			add_kinslayer_trait_effect = yes
-		}
+		event_target:accused_apostate = { save_event_target_as = kinslayer_target }
+		add_kinslayer_trait_effect = yes
 		hidden_tooltip = {
 			event_target:accused_apostate = {
 				if = {
