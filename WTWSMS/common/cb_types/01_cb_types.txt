@@ -83,7 +83,7 @@ dejure_duchy_claim = { # New1
 		if = {
 			limit = { defender = { is_offmap_governor = offmap_china } }
 			attacker = {  
-				sound_effect = chinese_emperor_angered
+				sound_effect = china_angered_emperor
 				detract_grace_super_huge_effect = yes
 			}
 		}
@@ -466,7 +466,7 @@ force_vassalization = { # New2
 		if = {
 			limit = { defender = { is_offmap_governor = offmap_china } }
 			attacker = {  
-				sound_effect = chinese_emperor_angered
+				sound_effect = china_angered_emperor
 				detract_grace_super_huge_effect = yes
 			}
 		}
@@ -606,7 +606,7 @@ great_realm_conflict = { # New3
 		if = {
 			limit = { defender = { is_offmap_governor = offmap_china } }
 			attacker = {  
-				sound_effect = chinese_emperor_angered
+				sound_effect = china_angered_emperor
 				detract_grace_super_huge_effect = yes
 			}
 		}
@@ -620,6 +620,12 @@ great_realm_conflict = { # New3
 					name = jade_dragon_cbs
 					value = off
 				}
+			}
+		}
+		FROM = {
+			relative_power = {
+				who = ROOT
+				power = 0.95
 			}
 		}
 	}
@@ -867,7 +873,7 @@ ducal_county_conquest = { # New4
 		if = {
 			limit = { defender = { is_offmap_governor = offmap_china } }
 			attacker = {  
-				sound_effect = chinese_emperor_angered
+				sound_effect = china_angered_emperor
 				detract_grace_super_huge_effect = yes 
 			}
 		}
@@ -1104,7 +1110,7 @@ hostages_cb = { # New5
 		if = {
 			limit = { defender = { is_offmap_governor = offmap_china } }
 			attacker = {  
-				sound_effect = chinese_emperor_angered
+				sound_effect = china_angered_emperor
 				detract_grace_super_huge_effect = yes
 			}
 		}
@@ -1403,7 +1409,7 @@ liberate_religion = { # New6
 		if = {
 			limit = { defender = { is_offmap_governor = offmap_china } }
 			attacker = {  
-				sound_effect = chinese_emperor_angered
+				sound_effect = china_angered_emperor
 				detract_grace_super_huge_effect = yes
 			}
 		}
@@ -1758,6 +1764,14 @@ liberate_religion = { # New6
 		}
 	}
 	
+	is_valid_title = {
+		FROM = {
+			any_realm_province = {
+				de_jure_liege_or_above = PREVPREV
+			}
+		}
+	}
+
 	on_fail = {
 		ROOT = { 
 			piety = -125 
@@ -2259,7 +2273,7 @@ unjust_conquest = { # New7
 		if = {
 			limit = { defender = { is_offmap_governor = offmap_china } }
 			attacker = {  
-				sound_effect = chinese_emperor_angered
+				sound_effect = china_angered_emperor
 				detract_grace_super_huge_effect = yes
 			}
 		}
@@ -2672,7 +2686,7 @@ tributary_permanent_cb = { # New8
 		if = {
 			limit = { defender = { is_offmap_governor = offmap_china } }
 			attacker = {  
-				sound_effect = chinese_emperor_angered
+				sound_effect = china_angered_emperor
 				detract_grace_super_huge_effect = yes 
 			}
 		}
@@ -2961,7 +2975,7 @@ tributary_nomad_cb = { # New9
 		if = {
 			limit = { defender = { is_offmap_governor = offmap_china } }
 			attacker = { 
-				sound_effect = chinese_emperor_angered
+				sound_effect = china_angered_emperor
 				detract_grace_super_huge_effect = yes 
 			}
 		}
@@ -4165,16 +4179,20 @@ force_open_china_cb = {
 
 	on_reverse_demand = {
 		ROOT = {
+			show_scope_change = no
 			prestige = -300
 			transfer_scaled_wealth = {
 				to = FROM
 				value = 5.0
 				min = 500
 			}
-			add_character_modifier = {
-				modifier = angered_china_modifier
-				inherit = yes
-				years = 50
+			custom_tooltip = {
+				text = angered_china_tt #Scripter! Update this is you change the value below.
+				add_character_modifier = {
+					modifier = angered_china_modifier
+					inherit = yes
+					years = 50
+				}
 			}
 		}
 		FROM = {
@@ -4357,6 +4375,7 @@ invasion_of_china_cb = {
 	max_defender_occupation_score = 50
 	max_attacker_battle_score = 100
 	capturing_defender_is_complete_victory = no
+	third_party_portrait = event_target:invasion_of_china_claimant
 
 	# attacker_unoccupied_warscore = yes - If attacker completely unoccupied, attacker will get ticking warscore. Only works if no title is targetted
 	# defender_unoccupied_warscore = yes - If defender completely unoccupied, defender will get ticking warscore. Only works if no title is targetted
@@ -4382,6 +4401,7 @@ invasion_of_china_cb = {
 			custom_tooltip = {
 				text = invasion_of_china_success_tt
 				hidden_effect = {
+					remove_character_modifier = china_raid_active
 					event_target:invasion_of_china_claimant = {
 						betrothed = { break_betrothal = PREV }
 						spouse = {
@@ -4582,10 +4602,13 @@ invasion_of_china_cb = {
 					narrative_event = { id = JD.60403 }
 				}
 			}
-			add_character_modifier = {
-				modifier = angered_china_modifier
-				inherit = yes
-				years = 50
+			custom_tooltip = {
+				text = angered_china_tt #Scripter! Update this is you change the value below.
+				add_character_modifier = {
+					modifier = angered_china_modifier
+					inherit = yes
+					years = 50
+				}
 			}
 		}
 		clear_global_event_target = invasion_of_china_claimant
@@ -4632,10 +4655,13 @@ invasion_of_china_cb = {
 					}
 				}
 			}
-			add_character_modifier = {
-				modifier = angered_china_modifier
-				inherit = yes
-				years = 50
+			custom_tooltip = {
+				text = angered_china_tt #Scripter! Update this is you change the value below.
+				add_character_modifier = {
+					modifier = angered_china_modifier
+					inherit = yes
+					years = 50
+				}
 			}
 		}
 		FROM = {
