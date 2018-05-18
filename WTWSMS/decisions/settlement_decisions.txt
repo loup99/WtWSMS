@@ -717,6 +717,7 @@ settlement_decisions = {
 		effect = {
 			# Change culture and religion of new capital province and possibly more provinces depending on nomad population_and_manpower
 			location = {
+				show_scope_change = no
 				if = {
 					limit = {
 						NOT = { culture = FROM }
@@ -1801,16 +1802,20 @@ settlement_decisions = {
 				usurp_title = FROM
 			}
 			
-			if = {
-				limit = { is_capital = no }
-				make_capital_holding = yes
+			hidden_tooltip = {
+				if = {
+					limit = { is_capital = no }
+					make_capital_holding = yes
+				}
 			}
 		
 			FROM = {
 				capital = PREV
 				
 				primary_title = {
+					show_scope_change = no
 					ROOT_FROM = {
+						show_scope_change = no
 						custom_tooltip = { 
 							text = TT_KHAN_INDEPENDENCE
 						}
@@ -1886,24 +1891,25 @@ settlement_decisions = {
 					set_government_type = theocratic_feudal_government
 				}
 				
-				if = {
-					limit = {
-						higher_tier_than = king
+				hidden_tooltip = {
+					if = {
+						limit = {
+							higher_tier_than = king
+						}
+						primary_title = {
+							add_law = feudal_administration
+						}
 					}
-					primary_title = {
-						add_law = feudal_administration
+					
+					if = {
+						limit = {
+							higher_tier_than = count
+						}
+						primary_title = {
+							add_law = centralization_0
+						}
 					}
 				}
-				
-				if = {
-					limit = {
-						higher_tier_than = count
-					}
-					primary_title = {
-						add_law = centralization_0
-					}
-				}
-				
 				any_playable_ruler = {
 					limit = {
 						NOT = { character = ROOT_FROM }

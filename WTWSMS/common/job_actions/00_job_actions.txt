@@ -14,7 +14,7 @@
 #	color = { 255 0 0 }                           # What color to use on the map
 # }
 
-
+ 
 # Chancellor
 action_improve_relations = {
 	attribute = diplomacy
@@ -192,6 +192,16 @@ action_settle_tribe = {
 			character = FROM
 		}
 		NOT = { culture = FROM }
+		OR = {
+			NOT = { 
+				has_game_rule = {
+					name = culture_conversion
+					value = restricted
+				}
+			}
+			any_neighbor_province = { culture = FROM } 
+			any_neighbor_province = { port = yes } 
+		}
 	}
 	
 	events = { 925 20206 }

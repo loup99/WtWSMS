@@ -1147,11 +1147,14 @@ character_event = {
 	}
 	
 	option = { # Inform liege
-		name = EVTOPTA_WOL_2080
+		name = EVTOPTA_WOL_2080 
 		trigger = {
 			NOT = { is_liege_of = FROMFROMFROM }
 			FROMFROMFROM = { independent = no }
 			FROMFROMFROM = { liege = { NOT = { war_with = ROOT } } }
+			FROMFROMFROM = { liege = { NOT = { trait = incapable } } }
+			FROMFROMFROM = { liege = { NOT = { is_inaccessible_trigger = yes } } }
+			FROMFROMFROM = { liege = { age = 16 } }
 		}
 		ai_chance = {
 			factor = 100
@@ -2985,6 +2988,18 @@ character_event = {
 		hidden_tooltip = {
 			FROM = {
 				character_event = { id = WoL.2122 }
+			}
+			if = {
+				limit = {
+					FROM = {
+						de_facto_liege = ROOT
+					}
+				}
+				opinion = {
+					who = FROM
+					years = 10
+					modifier = opinion_regicide_traitor
+				}
 			}
 		}
 		clr_character_flag = spy_success
