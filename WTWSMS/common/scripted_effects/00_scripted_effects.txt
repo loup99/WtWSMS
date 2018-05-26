@@ -2336,16 +2336,28 @@ jailor_torture_effect = {
 	
 	random_list = {
 		80 = {
+				if = {
+					limit = { trait = stressed }
+					health = -0.25
+				}
 				add_trait = stressed
 			}
 		10 = {
+			if = {
+				limit = { OR = { trait = craven trait = berserker } }
+				health = -0.5
+			}
 			if = {
 				limit = { NOR = { trait = craven trait = berserker } }
 				add_trait = craven
 			}
 		}
 		5 = {
-				add_trait = lunatic
+			if = {
+				limit = { trait = lunatic }
+				health = -1.0
+			}
+			add_trait = lunatic
 		}
 		5 = {
 			#nothing
@@ -4288,6 +4300,11 @@ major_soul_corruption_effect = {
 					check_variable = { which = visibility_value value = 40 }
 				}
 			}
+		}
+		random = {
+			chance = 2
+			set_character_flag = has_it_coming
+			character_event = { id = MNM.7854 days = 30 random = 50 } #Demon hunters come after you...
 		}
 	}
 }
@@ -12031,610 +12048,523 @@ event_target_old_religion_from_flag_effect = {
 	### WtWSMS ###
 	if = {
     	limit = { has_character_flag = character_was_aquileian }
-    	random_character = {
-    		limit = { religion = aquileian }
+    	aquileian = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_nicene }
-    	random_character = {
-    		limit = { religion = nicene }
+    	nicene = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_total_depravity }
-    	random_character = {
-    		limit = { religion = total_depravity }
+    	total_depravity = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_eutychian }
-    	random_character = {
-    		limit = { religion = eutychian }
+    	eutychian = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_binitarian }
-    	random_character = {
-    		limit = { religion = binitarian }
+    	binitarian = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_georgian_orthodox }
-    	random_character = {
-    		limit = { religion = georgian_orthodox }
+    	georgian_orthodox = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_insular }
-    	random_character = {
-    		limit = { religion = insular }
+    	insular = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_pelagianism }
-    	random_character = {
-    		limit = { religion = pelagianism }
+    	pelagianism = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_antinomianism }
-    	random_character = {
-    		limit = { religion = antinomianism }
+    	antinomianism = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_ebionites }
-    	random_character = {
-    		limit = { religion = ebionites }
+    	ebionites = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_marcionism }
-    	random_character = {
-    		limit = { religion = marcionism }
+    	marcionism = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_montanist }
-    	random_character = {
-    		limit = { religion = montanist }
+    	montanist = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_sethian }
-    	random_character = {
-    		limit = { religion = sethian }
+    	sethian = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_valentinianism }
-    	random_character = {
-    		limit = { religion = valentinianism }
+    	valentinianism = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_apollinarian }
-    	random_character = {
-    		limit = { religion = apollinarian }
+    	apollinarian = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_adoptionism }
-    	random_character = {
-    		limit = { religion = adoptionism }
+    	adoptionism = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_docetic }
-    	random_character = {
-    		limit = { religion = docetic }
+    	docetic = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_pneumatomachians }
-    	random_character = {
-    		limit = { religion = pneumatomachians }
+    	pneumatomachians = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_melchisedechianism }
-    	random_character = {
-    		limit = { religion = melchisedechianism }
+    	melchisedechianism = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_patripassianism }
-    	random_character = {
-    		limit = { religion = patripassianism }
+    	patripassianism = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_sabellianism }
-    	random_character = {
-    		limit = { religion = sabellianism }
+    	sabellianism = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_psilanthropism }
-    	random_character = {
-    		limit = { religion = psilanthropism }
+    	psilanthropism = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_audianistic }
-    	random_character = {
-    		limit = { religion = audianistic }
+    	audianistic = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_arian }
-    	random_character = {
-    		limit = { religion = arian }
+    	arian = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_monarchianism }
-    	random_character = {
-    		limit = { religion = monarchianism }
+    	monarchianism = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_donatism }
-    	random_character = {
-    		limit = { religion = donatism }
+    	donatism = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_priscillianism }
-    	random_character = {
-    		limit = { religion = priscillianism }
+    	priscillianism = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_islamic }
-    	random_character = {
-    		limit = { religion = islamic }
+    	islamic = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_abadites }
-    	random_character = {
-    		limit = { religion = abadites }
+    	abadites = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_quranism }
-    	random_character = {
-    		limit = { religion = quranism }
+    	quranism = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_qadariyya }
-    	random_character = {
-    		limit = { religion = qadariyya }
+    	qadariyya = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_khawariji }
-    	random_character = {
-    		limit = { religion = khawariji }
+    	khawariji = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_haruriyyah }
-    	random_character = {
-    		limit = { religion = haruriyyah }
+    	haruriyyah = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_wahhabi }
-    	random_character = {
-    		limit = { religion = wahhabi }
+    	wahhabi = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_mahdi }
-    	random_character = {
-    		limit = { religion = mahdi }
+    	mahdi = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_salafi }
-    	random_character = {
-    		limit = { religion = salafi }
+    	salafi = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_twelver }
-    	random_character = {
-    		limit = { religion = twelver }
+    	twelver = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_zayid }
-    	random_character = {
-    		limit = { religion = zayid }
+    	zayid = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_ismaili }
-    	random_character = {
-    		limit = { religion = ismaili }
+    	ismaili = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_uwaisi }
-    	random_character = {
-    		limit = { religion = uwaisi }
+    	uwaisi = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_qarmatian }
-    	random_character = {
-    		limit = { religion = qarmatian }
+    	qarmatian = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_root_west_pagan }
-    	random_character = {
-    		limit = { religion = root_west_pagan }
+    	root_west_pagan = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_root_west_pagan_reformed }
-    	random_character = {
-    		limit = { religion = root_west_pagan_reformed }
+    	root_west_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_sanamahi }
-    	random_character = {
-    		limit = { religion = sanamahi }
+    	sanamahi = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_sanamahi_reformed }
-    	random_character = {
-    		limit = { religion = sanamahi_reformed }
+    	sanamahi_reformed = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_georgian_pagan }
-    	random_character = {
-    		limit = { religion = georgian_pagan }
+    	georgian_pagan = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_illyran_pagan }
-    	random_character = {
-    		limit = { religion = illyran_pagan }
+    	illyran_pagan = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_germanic_pagan }
-    	random_character = {
-    		limit = { religion = germanic_pagan }
+    	germanic_pagan = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_germanic_pagan_reformed }
-    	random_character = {
-    		limit = { religion = germanic_pagan_reformed }
+    	germanic_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_west_pagan }
-    	random_character = {
-    		limit = { religion = west_pagan }
+    	west_pagan = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_scythian_pagan }
-    	random_character = {
-    		limit = { religion = scythian_pagan }
+    	scythian_pagan = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_scythian_pagan_reformed }
-    	random_character = {
-    		limit = { religion = scythian_pagan_reformed }
+    	scythian_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_semitic_pagan }
-    	random_character = {
-    		limit = { religion = semitic_pagan }
+    	semitic_pagan = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_semitic_pagan_reformed }
-    	random_character = {
-    		limit = { religion = semitic_pagan_reformed }
+    	semitic_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_dravidian_pagan }
-    	random_character = {
-    		limit = { religion = dravidian_pagan }
+    	dravidian_pagan = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_dravidian_pagan_reformed }
-    	random_character = {
-    		limit = { religion = dravidian_pagan_reformed }
+    	dravidian_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_central_african_pagan }
-    	random_character = {
-    		limit = { religion = central_african_pagan }
+    	central_african_pagan = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_central_african_pagan_reformed }
-    	random_character = {
-    		limit = { religion = central_african_pagan_reformed }
+    	central_african_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_gurzil_pagan }
-    	random_character = {
-    		limit = { religion = gurzil_pagan }
+    	gurzil_pagan = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_msoura_pagan }
-    	random_character = {
-    		limit = { religion = msoura_pagan }
+    	msoura_pagan = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_african_solar_pagan }
-    	random_character = {
-    		limit = { religion = african_solar_pagan }
+    	african_solar_pagan = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_african_solar_pagan_reformed }
-    	random_character = {
-    		limit = { religion = african_solar_pagan_reformed }
+    	african_solar_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_latin_solar_pagan }
-    	random_character = {
-    		limit = { religion = latin_solar_pagan }
+    	latin_solar_pagan = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_latin_solar_pagan_reformed }
-    	random_character = {
-    		limit = { religion = latin_solar_pagan_reformed }
+    	latin_solar_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_mandulis_pagan }
-    	random_character = {
-    		limit = { religion = mandulis_pagan }
+    	mandulis_pagan = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_east_african_pagan }
-    	random_character = {
-    		limit = { religion = east_african_pagan }
+    	east_african_pagan = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_assyrian_pagan }
-    	random_character = {
-    		limit = { religion = assyrian_pagan }
+    	assyrian_pagan = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_cybelian_pagan }
-    	random_character = {
-    		limit = { religion = cybelian_pagan }
+    	cybelian_pagan = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_mastimani }
-    	random_character = {
-    		limit = { religion = mastimani }
+    	mastimani = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_neoplatonist }
-    	random_character = {
-    		limit = { religion = neoplatonist }
+    	neoplatonist = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_mithraic_pagan }
-    	random_character = {
-    		limit = { religion = mithraic_pagan }
+    	mithraic_pagan = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_zurvanist }
-    	random_character = {
-    		limit = { religion = zurvanist }
+    	zurvanist = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_khurramite }
-    	random_character = {
-    		limit = { religion = khurramite }
+    	khurramite = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_hepthal_religion }
-    	random_character = {
-    		limit = { religion = hepthal_religion }
+    	hepthal_religion = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_tzadikite }
-    	random_character = {
-    		limit = { religion = tzadikite }
+    	tzadikite = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_bosporan_faith }
-    	random_character = {
-    		limit = { religion = bosporan_faith }
+    	bosporan_faith = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_ajivika }
-    	random_character = {
-    		limit = { religion = ajivika }
+    	ajivika = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_carvaka }
-    	random_character = {
-    		limit = { religion = carvaka }
+    	carvaka = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_mimamsa }
-    	random_character = {
-    		limit = { religion = mimamsa }
+    	mimamsa = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_tantric }
-    	random_character = {
-    		limit = { religion = tantric }
+    	tantric = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_bhakti }
-    	random_character = {
-    		limit = { religion = bhakti }
+    	bhakti = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_sramanic }
-    	random_character = {
-    		limit = { religion = sramanic }
+    	sramanic = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_confucianism }
-    	random_character = {
-    		limit = { religion = confucianism }
+    	confucianism = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_vasconic_pagan }
-    	random_character = {
-    		limit = { religion = vasconic_pagan }
+    	vasconic_pagan = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_vasconic_pagan_reformed }
-    	random_character = {
-    		limit = { religion = vasconic_pagan_reformed }
+    	vasconic_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
 		if = {
     	limit = { has_character_flag = character_was_dacian_pagan }
-    	random_character = {
-    		limit = { religion = dacian_pagan }
+    	dacian_pagan = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_dacian_pagan_reformed }
-    	random_character = {
-    		limit = { religion = dacian_pagan_reformed }
+    	dacian_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
@@ -12642,351 +12572,301 @@ event_target_old_religion_from_flag_effect = {
 	### Vanilla ###
 	if = {
     	limit = { has_character_flag = character_was_catholic }
-    	random_character = {
-    		limit = { religion = catholic }
+    	catholic = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_cathar }
-    	random_character = {
-    		limit = { religion = cathar }
+    	cathar = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_fraticelli }
-    	random_character = {
-    		limit = { religion = fraticelli }
+    	fraticelli = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_waldensian }
-    	random_character = {
-    		limit = { religion = waldensian }
+    	waldensian = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_lollard }
-    	random_character = {
-    		limit = { religion = lollard }
+    	lollard = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_orthodox }
-    	random_character = {
-    		limit = { religion = orthodox }
+    	orthodox = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_miaphysite }
-    	random_character = {
-    		limit = { religion = miaphysite }
+    	miaphysite = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_monophysite }
-    	random_character = {
-    		limit = { religion = monophysite }
+    	monophysite = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_bogomilist }
-    	random_character = {
-    		limit = { religion = bogomilist }
+    	bogomilist = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_monothelite }
-    	random_character = {
-    		limit = { religion = monothelite }
+    	monothelite = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_iconoclast }
-    	random_character = {
-    		limit = { religion = iconoclast }
+    	iconoclast = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_paulician }
-    	random_character = {
-    		limit = { religion = paulician }
+    	paulician = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_nestorian }
-    	random_character = {
-    		limit = { religion = nestorian }
+    	nestorian = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_messalian }
-    	random_character = {
-    		limit = { religion = messalian }
+    	messalian = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_sunni }
-    	random_character = {
-    		limit = { religion = sunni }
+    	sunni = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_zikri }
-    	random_character = {
-    		limit = { religion = zikri }
+    	zikri = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_yazidi }
-    	random_character = {
-    		limit = { religion = yazidi }
+    	yazidi = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_ibadi }
-    	random_character = {
-    		limit = { religion = ibadi }
+    	ibadi = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_kharijite }
-    	random_character = {
-    		limit = { religion = kharijite }
+    	kharijite = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_shiite }
-    	random_character = {
-    		limit = { religion = shiite }
+    	shiite = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_druze }
-    	random_character = {
-    		limit = { religion = druze }
+    	druze = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_hurufi }
-    	random_character = {
-    		limit = { religion = hurufi }
+    	hurufi = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_jewish }
-    	random_character = {
-    		limit = { religion = jewish }
+    	jewish = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_karaite }
-    	random_character = {
-    		limit = { religion = karaite }
+    	karaite = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_samaritan }
-    	random_character = {
-    		limit = { religion = samaritan }
+    	samaritan = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_zoroastrian }
-    	random_character = {
-    		limit = { religion = zoroastrian }
+    	zoroastrian = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_mazdaki }
-    	random_character = {
-    		limit = { religion = mazdaki }
+    	mazdaki = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_manichean }
-    	random_character = {
-    		limit = { religion = manichean }
+    	manichean = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_khurmazta }
-    	random_character = {
-    		limit = { religion = khurmazta }
+    	khurmazta = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_bon }
-    	random_character = {
-    		limit = { religion = bon }
+    	bon = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_taoist }
-    	random_character = {
-    		limit = { religion = taoist }
+    	taoist = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_hindu }
-    	random_character = {
-    		limit = { religion = hindu }
+    	hindu = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_buddhist }
-    	random_character = {
-    		limit = { religion = buddhist }
+    	buddhist = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_jain }
-    	random_character = {
-    		limit = { religion = jain }
+    	jain = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_norse_pagan_reformed }
-    	random_character = {
-    		limit = { religion = norse_pagan_reformed }
+    	norse_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_slavic_pagan_reformed }
-    	random_character = {
-    		limit = { religion = slavic_pagan_reformed }
+    	slavic_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_tengri_pagan_reformed }
-    	random_character = {
-    		limit = { religion = tengri_pagan_reformed }
+    	tengri_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_baltic_pagan_reformed }
-    	random_character = {
-    		limit = { religion = baltic_pagan_reformed }
+    	baltic_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_finnish_pagan_reformed }
-    	random_character = {
-    		limit = { religion = finnish_pagan_reformed }
+    	finnish_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_west_african_pagan_reformed }
-    	random_character = {
-    		limit = { religion = west_african_pagan_reformed }
+    	west_african_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_zun_pagan_reformed }
-    	random_character = {
-    		limit = { religion = zun_pagan_reformed }
+    	zun_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_norse_pagan }
-    	random_character = {
-    		limit = { religion = norse_pagan }
+    	norse_pagan = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_slavic_pagan }
-    	random_character = {
-    		limit = { religion = slavic_pagan }
+    	slavic_pagan = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_tengri_pagan }
-    	random_character = {
-    		limit = { religion = tengri_pagan }
+    	tengri_pagan = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_baltic_pagan }
-    	random_character = {
-    		limit = { religion = baltic_pagan }
+    	baltic_pagan = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_finnish_pagan }
-    	random_character = {
-    		limit = { religion = finnish_pagan }
+    	finnish_pagan = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_west_african_pagan }
-    	random_character = {
-    		limit = { religion = west_african_pagan }
+    	west_african_pagan = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_zun_pagan }
-    	random_character = {
-    		limit = { religion = zun_pagan }
+    	zun_pagan = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_aztec }
-    	random_character = {
-    		limit = { religion = aztec }
+    	aztec = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_aztec_reformed }
-    	random_character = {
-    		limit = { religion = aztec_reformed }
+    	aztec_reformed = {
     		save_event_target_as = old_religion
     	}
     }
@@ -12994,36 +12874,31 @@ event_target_old_religion_from_flag_effect = {
     ### ACR ###
     if = {
     	limit = { has_character_flag = character_was_celtic_pagan }
-    	random_character = {
-    		limit = { religion = celtic_pagan }
+    	celtic_pagan = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_celtic_pagan_reformed }
-    	random_character = {
-    		limit = { religion = celtic_pagan_reformed }
+    	celtic_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_hellenic_pagan }
-    	random_character = {
-    		limit = { religion = hellenic_pagan }
+    	hellenic_pagan = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_egyptian_pagan }
-    	random_character = {
-    		limit = { religion = egyptian_pagan }
+    	egyptian_pagan = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_aten_pagan }
-    	random_character = {
-    		limit = { religion = aten_pagan }
+    	aten_pagan = {
     		save_event_target_as = old_religion
     	}
     }
@@ -15866,6 +15741,8 @@ clean_up_after_leaving_society_effect = {
 		clr_character_flag = monastic_orders_mission_temple
 		clr_character_flag = ascetic_arriving
 		clr_character_flag = monastic_artifact_lover
+		if = { 
+			limit = { NOT = { has_character_flag = flag_monastic_mid_theft } }
 		clr_character_flag = monastic_artifact_seamless_robe_of_jesus
 		clr_character_flag = monastic_artifact_crown_of_thorns
 		clr_character_flag = monastic_artifact_fragment_of_true_cross
@@ -15874,6 +15751,7 @@ clean_up_after_leaving_society_effect = {
 		clr_character_flag = monastic_artifact_elaborate_danda
 		clr_character_flag = monastic_artifact_sariraka_actual_body_part
 		clr_character_flag = monastic_artifact_sarira
+		}
 		clr_character_flag = suggestion_A_flag
 		clr_character_flag = suggestion_B_flag
 		clr_character_flag = 3264_deceitful_flag
@@ -16581,6 +16459,7 @@ destroy_all_ingredients_effect = {
         }
 	}
 }
+
 
 calculate_health_level_of_ingredient_1_effect = {
 	hidden_effect = {
@@ -18327,4 +18206,58 @@ add_chinese_artifact_effect = { #Used in event JD.15016 (possible to use elsewhe
 			save_event_target_as = chinese_artifact
 		}
 	}
+}
+
+remove_opinions_with_prison_reason_effect = {
+	#Removes the specified opinion about "who" (PREV), from current scope
+	#NOTE: If you add a new opinion with "prison_reason" to the game, add it here, too!
+	remove_opinion = { modifier = opinion_dishonorable who = PREV }
+	remove_opinion = { modifier = opinion_traitor who = PREV }
+	remove_opinion = { modifier = opinion_rebel_traitor who = PREV }
+	remove_opinion = { modifier = opinion_regicide_traitor who = PREV }
+	remove_opinion = { modifier = attempted_murder_of_spouse who = PREV }
+	remove_opinion = { modifier = attempted_murder_of_child who = PREV }
+	remove_opinion = { modifier = attempted_murder_of_parent who = PREV }
+	remove_opinion = { modifier = attempted_murder_of_sibling who = PREV }
+	remove_opinion = { modifier = attempted_murder_of_vassal who = PREV }
+	remove_opinion = { modifier = attempted_murder_of_spouse_vassal who = PREV }
+	remove_opinion = { modifier = attempted_murder who = PREV }
+	remove_opinion = { modifier = opinion_spouse_slayer who = PREV }
+	remove_opinion = { modifier = opinion_murder_attempt who = PREV }
+	remove_opinion = { modifier = opinion_killed_close_kin who = PREV }
+	remove_opinion = { modifier = opinion_killed_father who = PREV }
+	remove_opinion = { modifier = opinion_hajj_attempt_murder who = PREV }
+	remove_opinion = { modifier = opinion_fatwa_target who = PREV }
+	remove_opinion = { modifier = opinion_refused_order who = PREV }
+	remove_opinion = { modifier = opinion_castrated_me who = PREV }
+	remove_opinion = { modifier = opinion_blinded_me who = PREV }
+	remove_opinion = { modifier = opinion_castrated_family who = PREV }
+	remove_opinion = { modifier = opinion_castrated_close_kin who = PREV }
+	remove_opinion = { modifier = opinion_blinded_family who = PREV }
+	remove_opinion = { modifier = opinion_blinded_close_kin who = PREV }
+	remove_opinion = { modifier = opinion_witch who = PREV }
+	remove_opinion = { modifier = opinion_takfir who = PREV }
+	remove_opinion = { modifier = opinion_attempted_abduction who = PREV }
+	remove_opinion = { modifier = opinion_unfaithful_wife who = PREV }
+	remove_opinion = { modifier = opinion_unfaithful_husband_crime who = PREV }
+	remove_opinion = { modifier = opinion_cuckolded who = PREV }
+	remove_opinion = { modifier = opinion_killed_lover who = PREV }
+	remove_opinion = { modifier = opinion_charge_heresiarch who = PREV }
+	remove_opinion = { modifier = opinion_charge_infidel who = PREV }
+	remove_opinion = { modifier = opinion_charge_deviant who = PREV }
+	remove_opinion = { modifier = opinion_charge_illegitimate who = PREV }
+	remove_opinion = { modifier = opinion_charge_cultist who = PREV }
+	remove_opinion = { modifier = opinion_charge_dw who = PREV }
+	remove_opinion = { modifier = opinion_charge_traitor who = PREV }
+	remove_opinion = { modifier = opinion_charge_slanderer who = PREV }
+	remove_opinion = { modifier = abuse_of_office who = PREV }
+	remove_opinion = { modifier = opinion_tortured_me who = PREV }
+	remove_opinion = { modifier = opinion_tortured_family who = PREV }
+	remove_opinion = { modifier = opinion_tortured_close_kin who = PREV }
+	remove_opinion = { modifier = opinion_mutilated_me who = PREV }
+	remove_opinion = { modifier = opinion_mutilated_family who = PREV }
+	remove_opinion = { modifier = opinion_mutilated_close_kin who = PREV }
+	remove_opinion = { modifier = opinion_thief who = PREV }
+	remove_opinion = { modifier = opinion_outlawed_society who = PREV }
+	remove_opinion = { modifier = opinion_accused_apostate who = PREV }
 }

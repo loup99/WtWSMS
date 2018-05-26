@@ -266,6 +266,60 @@ decisions = {
 			factor = 1
 		}
 	}
+	
+	create_audianistic_patriarch = {
+		only_playable = yes
+		is_high_prio = yes
+	
+		potential = {
+			religion = audianistic
+			NOT = { is_title_active = d_audianistic }
+			age = 16
+			prisoner = no
+			NOT = { trait = incapable }
+		}
+		
+		allow = {
+			is_heretic = no
+			piety = 1000
+			OR = {
+				owns = 333 # Rome
+				any_realm_lord = {
+					owns = 333
+				}
+			}
+		}
+		
+		effect = {
+			activate_title = { title = d_audianistic status = yes }
+			hidden_tooltip = {
+				create_random_priest = {
+					dynasty = none
+					random_traits = yes
+				}
+				new_character = {
+					d_audianistic = {
+						grant_title = PREV
+					}
+					wealth = 500
+					opinion = {
+						who = ROOT
+						modifier = opinion_creator_of_rel_heal
+					}
+				}
+				
+				religion_authority = {
+					modifier = patriarchy_instituted
+					years = 20
+				}
+			}
+			piety = 1000
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
 
 	restore_bishop_of_carthage = {
 		only_playable = yes
@@ -831,7 +885,7 @@ decisions = {
 	choose_sanamahi_patron_deity = {
 		only_playable = yes
 		potential = {
-			always = no # TODO event spirit.34 does not exist !
+			#always = no # TODO event spirit.34 does not exist !
 			has_dlc = "Rajas of India"
 			is_playable = yes
 			age = 16
@@ -848,12 +902,18 @@ decisions = {
 				has_character_modifier = patron_panthoibi
 				has_character_modifier = patron_shidapa
 			}
+			NOT = { has_character_flag = selecting_patron_deity }
 		}
 		allow = {
 			prisoner = no
 		}
 		effect = {
-			character_event = { id = spirit.34 }
+			custom_tooltip = {
+				text = custom_tooltip_choose_patron_diety
+			}
+			#character_event = { id = spirit.34 } #wrong ID
+			character_event = { id = spirit.35 }
+			set_character_flag = selecting_patron_deity
 		}
 		
 		ai_will_do = {
