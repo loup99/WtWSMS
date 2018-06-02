@@ -243,5 +243,91 @@ decisions = {
 			}
 		}
 	}
+	
+	hold_cuelebre = {
+        only_playable = yes
+        potential = {
+            has_dlc = "The Old Gods"
+            is_playable = yes
+            is_adult = yes
+            independent = yes
+            prisoner = no
+            OR = {
+                culture = astures
+                culture = cantabrian
+            }
+			OR = {
+				religion = celtic_pagan
+				religion = celtic_pagan_reformed
+			}
+            NOT = { has_character_modifier = held_cuelebre_timer }
+            NOT = { has_character_flag = holding_cuelebre }
+        }
+        allow = {
+            war = no
+            custom_tooltip = {
+                text = UNOCCUPIED_DEMESNE_TITLE
+                hidden_tooltip = {
+                    any_demesne_title = {
+                        NOT = { higher_tier_than = count }
+                        is_occupied = no
+                    }
+                }
+            }
+            scaled_wealth = 0.2
+            prisoner = no
+            NOT = { is_inaccessible_trigger = yes }
+            custom_tooltip = {
+                text = is_not_busy_trigger_tooltip
+                hidden_tooltip = { NOT = { has_character_flag = do_not_disturb } }
+            }
+        }
+        effect = {
+            scaled_wealth = -0.2
+            set_character_flag = holding_cuelebre
+            set_character_flag = recent_minor_decision
+            set_character_flag = do_not_disturb
+            custom_tooltip = {
+                text = prepare_cuelebre
+                hidden_tooltip = {
+                    character_event = { id = WtWSMS_flavour.41 }
+                }
+            }
+            if = {
+                limit = {
+                    has_dlc = "Reapers"
+                }
+                custom_tooltip = {
+                    text = capital_prospers_custom_tooltip
+                    hidden_tooltip = {
+                        capital_scope = {
+                            change_variable = { which = prosperity_value value = 8 }
+                        }
+                    }
+                }
+            }
+        }
+        
+        ai_will_do = {
+            factor = 1
+            
+            modifier = {
+                factor = 0
+                NOT = {
+                    scaled_wealth = 2.0
+                }
+            }
+            modifier = {
+                factor = 0
+                has_character_flag = recent_minor_decision
+                NOT = {
+                    had_character_flag = {
+                        flag = recent_minor_decision
+                        days = 730
+                    }
+                }
+            }
+        }
+    }
 
 }

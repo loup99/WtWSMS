@@ -2379,3 +2379,212 @@ narrative_event = {
         prestige = 150
     }
 }
+
+####################### Continental Celtic Events #####################
+
+### Cuelebre Ritual
+
+# Invitations Sent (Liege)
+character_event = {
+    id = WtWSMS_flavour.41
+    desc = WtWSMS_flavour.41.desc
+    picture = GFX_evt_viking_throneroom_oldgods
+    border = GFX_event_normal_frame_religion
+    
+    is_triggered_only = yes
+    
+    hide_from = yes
+    
+    option = {
+        name = WtWSMS_flavour.41.a
+        any_vassal = {
+            limit = {
+                OR = {
+                    culture = cantabrian
+                    culture = astures
+                }
+                is_adult = yes
+                prisoner = no
+                war = no
+                NOT = { trait = incapable }
+            }
+            character_event = { id = WtWSMS_flavour.42 days = 2 }
+        }
+        custom_tooltip = { text = cuelebre_invitations_sent }
+        hidden_tooltip = { narrative_event = { id = WtWSMS_flavour.43 days = 10 } }
+        hidden_tooltip = { character_event = { id = WtWSMS_flavour.44 days = 12 } }
+        hidden_tooltip = {
+			random_list = {
+				10 = {
+					character_event = { id = WtWSMS_flavour.48 days = 12 } # Meeting the Xana
+				}
+				90 = {
+					character_event = { id = WtWSMS_flavour.45 days = 12 } # Nothing found
+				}
+			}
+		}
+    }
+}
+
+# Invitations Received (Vassals)
+character_event = {
+    id = WtWSMS_flavour.42
+    desc = WtWSMS_flavour.42.desc
+    picture = GFX_evt_viking_throneroom_oldgods
+    border = GFX_event_normal_frame_religion
+    
+    is_triggered_only = yes
+
+    trigger = { NOT = { is_inaccessible_trigger = yes } }
+    
+    option = {
+        name = WtWSMS_flavour.42.a
+        ai_chance = {
+            factor = 80
+            modifier = {
+                factor = 0
+                NOT = {    opinion = { who = ROOT value = -20 } }
+            }
+        }
+        custom_tooltip = { text = cuelebre_accepted }
+        set_character_flag = attending_cuelebre
+        set_character_flag = do_not_disturb
+        hidden_tooltip = { narrative_event = { id = WtWSMS_flavour.43 days = 8 } }
+    }
+    option = {
+        name = WtWSMS_flavour.42.b
+        ai_chance = {
+            factor = 20
+        }
+        FROM = {
+            opinion = {
+                modifier = opinion_refused_cuelebre
+                who = ROOT
+            }
+        }
+        custom_tooltip = { text = cuelebre_declined }
+        hidden_tooltip = {
+            FROM = { character_event = { id = WtWSMS_flavour.46 } }
+        }
+    }
+}
+
+# Cuelebre Begins
+narrative_event = {
+    id = WtWSMS_flavour.43
+    title = WtWSMS_flavour.43.name
+    desc = WtWSMS_flavour.43.desc
+    picture = GFX_evt_viking_throneroom_oldgods
+    border = GFX_event_narrative_frame_religion
+    
+    hide_from = yes
+    
+    is_triggered_only = yes
+    
+    option = {
+        name = WtWSMS_flavour.43.a
+    }
+}
+
+# Cuelebre Ends (Liege)
+character_event = {
+    id = WtWSMS_flavour.44
+    desc = WtWSMS_flavour.44.desc
+    picture = GFX_evt_viking_throneroom_oldgods
+    border = GFX_event_normal_frame_religion
+    
+    hide_from = yes
+    
+    is_triggered_only = yes
+    
+    option = {
+        name = WtWSMS_flavour.44.a
+        any_vassal = {
+            limit = { has_character_flag = attending_cuelebre }
+            opinion = {
+                modifier = opinion_cuelebre
+                who = ROOT
+            }
+        }
+        hidden_tooltip = {
+            any_vassal = {
+                limit = { has_character_flag = attending_cuelebre}
+                character_event = { id = WtWSMS_flavour.47 }
+            }
+        }
+        add_character_modifier = {
+            name = held_cuelebre_timer
+            duration = 1825
+            hidden = yes
+        }
+        prestige = 50
+        piety = 50
+        clr_character_flag = holding_cuelebre
+        clr_character_flag = do_not_disturb
+    }
+}
+
+# Nothing found
+character_event = {
+    id = WtWSMS_flavour.45
+    desc = WtWSMS_flavour.45.desc
+    picture = GFX_evt_viking_throneroom_oldgods
+    border = GFX_event_normal_frame_religion
+    
+    is_triggered_only = yes
+    
+    option = {
+        name = WtWSMS_flavour.48.a
+        prestige = -50
+    }
+}
+
+# Invitation Refused (Liege)
+character_event = {
+    id = WtWSMS_flavour.46
+    desc = WtWSMS_flavour.46.desc
+    picture = GFX_evt_viking_throneroom_oldgods
+    border = GFX_event_normal_frame_religion
+    
+    is_triggered_only = yes
+    
+    option = {
+        name = WtWSMS_flavour.46.a
+        opinion = {
+            modifier = opinion_refused_cuelebre
+            who = FROM
+        }
+    }
+}
+
+# Cuelebre Ends (Vassals)
+character_event = {
+    id = WtWSMS_flavour.47
+    desc = WtWSMS_flavour.47.desc
+    picture = GFX_evt_viking_throneroom_oldgods
+    border = GFX_event_normal_frame_religion
+    
+    is_triggered_only = yes
+    
+    option = {
+        name = WtWSMS_flavour.47.a
+        clr_character_flag = attending_cuelebre
+        clr_character_flag = do_not_disturb
+    }
+}
+
+# Meeting the Xana
+character_event = {
+    id = WtWSMS_flavour.48
+    desc = WtWSMS_flavour.48.desc
+    picture = GFX_evt_viking_throneroom_oldgods
+    border = GFX_event_normal_frame_religion
+    
+    is_triggered_only = yes
+    
+    option = {
+        name = WtWSMS_flavour.48.a
+        wealth = 50
+        prestige = 100
+    }
+}
