@@ -167,11 +167,13 @@ decisions = {
 			prisoner = no
 			age = 16
 			NOT = { has_global_flag = western_scholae_palatinae_reorganized }
+			NOT = { is_title_active = d_praetorian_guard } #shouldn't coexist with them
 		}
 		allow = {
 			prestige = 300
 			wealth = 300
 			realm_size = 100 # Prevents it from being done too easily
+			NOT = { is_title_active = d_praetorian_guard } #shouldn't coexist with them
 		}
 		effect = {
 			set_global_flag = western_scholae_palatinae_reorganized
@@ -191,6 +193,55 @@ decisions = {
 				}
 				new_character = {
 					d_western_scholae_palatinae = {
+						grant_title = PREV
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	reorganize_praetorian_guard = {
+		only_playable = yes
+		is_high_prio = yes
+		potential = {
+			OR = { 
+				has_landed_title = e_wre
+				has_landed_title = e_roman_empire
+			}
+			is_female = no
+			prisoner = no
+			age = 16
+			NOT = { has_global_flag = praetorian_guard_reorganized }
+			NOT = { is_title_active = d_western_scholae_palatinae } #shouldn't coexist with them
+		}
+		allow = {
+			prestige = 300
+			wealth = 300
+			realm_size = 100 # Prevents it from being done too easily
+			NOT = { is_title_active = d_western_scholae_palatinae } #shouldn't coexist with them
+		}
+		effect = {
+			set_global_flag = praetorian_guard_reorganized
+			prestige = -300
+			wealth = -300
+			activate_title = { title = d_praetorian_guard status = yes }
+			hidden_tooltip = {
+				narrative_event = { id = guard.31003 }
+				create_random_soldier = {
+					random_traits = yes
+					religion = nicene
+					culture = roman
+					dynasty = NONE
+					female = no
+					age = 34
+					trait = skilled_tactician
+				}
+				new_character = {
+					d_praetorian_guard = {
 						grant_title = PREV
 					}
 					set_defacto_liege = ROOT
