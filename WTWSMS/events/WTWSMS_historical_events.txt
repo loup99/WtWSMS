@@ -1004,9 +1004,7 @@ narrative_event = {
 	title = hist.24.name
 	desc = hist.24.desc
 	picture = GFX_evt_falling_statue
-	border = GFX_event_normal_frame_diplomacy
-	
-	ai = no
+	border = GFX_event_narrative_frame_diplomacy
 
 	trigger = {
 		year = 526
@@ -1015,24 +1013,53 @@ narrative_event = {
     }
 	
     mean_time_to_happen = {
-        days = 20
+        days = 1
     }
 	
     option = {
 		name = hist.24.a
 		
-		set_global_flag = 526_antioch_earthquake
-		b_antioch = {
-			random = { chance = 50 destroy_random_building = yes }
+		trigger = {
+			b_antiocheia = {
+				holder_scope = { top_liege = { character = ROOT } }
+			}
 		}
+		
+		b_antiocheia = {
+			random_list = { 50 = { destroy_random_building = yes } 50 = { destroy_random_building = yes } 50 = { destroy_random_building = yes } 50 = { destroy_random_building = yes } 50 = { destroy_random_building = yes } }
+			location = {
+				add_province_modifier = { name = depopulated_2 duration = -1 }
+			}
+		}
+		set_global_flag = 526_antioch_earthquake
     }
 	option = {
 		name = hist.24.b #we must send help
+		trigger = {
+			b_antiocheia = {
+				holder_scope = { top_liege = { character = ROOT } }
+			}
+		}
 		
-		
+		b_antiocheia = {
+			random_list = { 50 = { destroy_random_building = yes } 50 = { destroy_random_building = yes } }
+			location = {
+				add_province_modifier = { name = depopulated_2 duration = -1 }
+			}
+			holder_scope = {
+				top_liege = {
+					transfer_scaled_wealth = { to = PREV value = 0.25 }
+				}
+			}
+		}
+		piety = 200
 		set_global_flag = 526_antioch_earthquake
-		b_antioch = {
-			random = { chance = 50 destroy_random_building = yes }
+    }
+	
+	option = {
+		name = hist.24.c
+		trigger = {
+			NOT = { b_antiocheia = { holder_scope = { top_liege = { character = ROOT } } } }
 		}
     }
 }
