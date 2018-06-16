@@ -19,9 +19,19 @@ province_event = {
 	hide_window = yes	
 	
 	trigger = {
+		has_game_rule = { # Has enabled new melting pot events
+			name = melting_pots 
+			value = new 
+		}
 		owner = {
-			religion_group = pagan_group
-			is_tribal = yes
+			OR = { 
+				religion_group = pagan_group
+				religion_group = christian # Can already be Christian at arrival
+			}
+			OR = { 
+				is_tribal = yes
+				is_feudal = yes # Can already be Feudal at arrival
+			}
 		}
 		OR = {
 			owner = { # Germanic
@@ -83,8 +93,14 @@ province_event = {
 		has_province_flag = melting_pot_target
 		NAND = { 
 			owner = {
-				religion_group = pagan_group
-				is_tribal = yes
+				OR = { 
+					religion_group = pagan_group
+					religion_group = christian # Can already be Christian at arrival
+				}
+				OR = { 
+					is_tribal = yes
+					is_feudal = yes # Can already be Feudal at arrival
+				}
 			}
 			OR = {
 				owner = { # Germanic
