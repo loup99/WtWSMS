@@ -1077,16 +1077,18 @@ narrative_event = {
 	id = hist.25
 	title = hist.25.name
 	desc = hist.25.desc
-	picture = GFX_evt_battle_visigothic
-	border = GFX_event_narrative_frame_war
+	picture = GFX_evt_autumn_harvest
+	border = GFX_event_narrative_frame_diplomacy
 	
 	only_playable = yes
-	#major = yes
+	major = yes
 
 	is_triggered_only = yes #on_action
 	
 	trigger = {
 		year = 536
+		NOT = { has_global_flag = 535_536_weather_events }
+		owns = 496 #provinces are always held by someone
 	}
 	
     mean_time_to_happen = {
@@ -1095,6 +1097,7 @@ narrative_event = {
 	
     option = {
 		name = hist.25.a
-		any_realm_province = { add_province_modifier = { name = failed_crops duration = 3650 }
+		set_global_flag = 535_536_weather_events
+		any_realm_province = { add_province_modifier = { name = failed_crops duration = 3650 } }
     }
 }
