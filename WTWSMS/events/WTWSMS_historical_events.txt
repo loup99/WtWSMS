@@ -988,7 +988,7 @@ narrative_event = {
     }
 	
     mean_time_to_happen = {
-        days = 1
+		days = 1
     }
 	
     option = {
@@ -996,4 +996,78 @@ narrative_event = {
 		set_global_flag = domuit_vascones
 		prestige = 150
     }
+}
+
+# 526 Antioch earthquake
+narrative_event = {
+	id = hist.24
+	title = hist.24.name
+	desc = hist.24.desc
+	picture = GFX_evt_falling_statue
+	border = GFX_event_narrative_frame_diplomacy
+	
+	only_playable = yes
+	
+	major = yes
+
+	trigger = {
+		year = 526
+		NOT = { has_global_flag = 526_antioch_earthquake }
+		b_antiocheia = {
+			holder_scope = { top_liege = { character = ROOT } }
+		}
+	}
+	
+    mean_time_to_happen = {
+        months = 3
+	}
+	
+	immediate = {
+		set_global_flag = 526_antioch_earthquake
+	}
+    option = {
+		name = hist.24.a
+		
+		trigger = {
+			b_antiocheia = {
+				holder_scope = { top_liege = { character = ROOT } }
+			}
+		}
+		
+		b_antiocheia = {
+			destroy_random_building = yes
+			destroy_random_building = yes
+			destroy_random_building = yes
+			destroy_random_building = yes
+			destroy_random_building = yes
+			location = {
+				add_province_modifier = { name = horrible_earthquake duration = 730 }
+			}
+		}
+	}
+	option = {
+		name = hist.24.b #we must send help
+		trigger = {
+			b_antiocheia = {
+				holder_scope = { top_liege = { character = ROOT } }
+			}
+		}
+		
+		b_antiocheia = {
+			destroy_random_building = yes
+			destroy_random_building = yes
+			location = {
+				add_province_modifier = { name = horrible_earthquake duration = 365 }
+			}
+		}
+		scaled_wealth = -0.25
+		piety = 200
+	}
+	
+	option = {
+		name = hist.24.c
+		trigger = {
+			NOT = { b_antiocheia = { holder_scope = { top_liege = { character = ROOT } } } }
+		}
+	}
 }
