@@ -1151,21 +1151,30 @@ narrative_event = {
 	}
 	
 	immediate = {
-		clr_global_flag = senate_not_active
+		d_senate = { holder_scope = { random_vassal = { save_event_target_as = consul_candidate_1 } } }
+		random_character = {
+			limit = {
+				age = 16
+				num_of_titles == 0
+				has_romance_culture_trigger = yes
+				is_heir = no
+			}
+			save_event_target_as = consul_candidate_2
+		}
 	}
 	
 	option = {
 		name = SENATE.10006.a
-		d_senate = { holder_scope = { random_host_courtier = { PREV = { abdicate_to = PREV } } } }
+		event_target:consul_candidate_1 = { d_senate = { holder_scope = { abdicate_to = PREVPREV }
 	}
 	
 	option = {
 		name = SENATE.10006.b
-		d_senate = { holder_scope = { random_host_courtier = { PREV = { abdicate_to = PREV } } } }
+		event_target:consul_candidate_2 = { d_senate = { holder_scope = { abdicate_to = PREVPREV }
 	}
 	
 	option = {
 		name = SENATE.10006.c
-		d_senate = { holder_scope = { random_host_courtier = { PREV = { abdicate_to = PREV } } } }
+		
 	}
 }
