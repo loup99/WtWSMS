@@ -1121,3 +1121,60 @@ narrative_event = {
 		}
 	}
 }
+
+# Yearly assignment of the consul (or assignment of a consul suffectus)
+narrative_event = {
+	id = SENATE.10006
+	title = SENATE.10006.name
+	desc = SENATE.10006.desc
+	picture = GFX_evt_roman_senate
+	border = GFX_event_narrative_frame_religion
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		#NOT = { has_global_flag = senate_not_active }
+		#OR = {
+		#	has_landed_title = e_roman_empire
+		#	has_landed_title = e_wre
+		#	AND = {
+		#		e_wre = { has_holder = no }
+		#		has_landed_title = e_byzantium
+		#	}
+		#	AND = {
+		#		e_wre = { has_holder = no }
+		#		e_byzantium = { has_holder = no }
+		#		has_landed_title = k_italy
+		#	}
+		#}
+		has_landed_title = e_byzantium
+	}
+	
+	immediate = {
+		clr_global_flag = senate_not_active
+	}
+	
+	option = {
+		name = SENATE.10006.a
+		trigger = {
+			has_romance_culture_trigger = yes
+		}
+		d_senate = { holder_scope = { random_host_courtier = { PREV = { abdicate_to = PREV } } } }
+	}
+	
+	option = {
+		name = SENATE.10006.b
+		trigger = {
+			has_romance_culture_trigger = yes
+		}
+		d_senate = { holder_scope = { random_host_courtier = { PREV = { abdicate_to = PREV } } } }
+	}
+	
+	option = {
+		name = SENATE.10006.c
+		trigger = {
+			has_romance_culture_trigger = yes
+		}
+		d_senate = { holder_scope = { random_host_courtier = { PREV = { abdicate_to = PREV } } } }
+	}
+}
