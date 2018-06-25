@@ -1,0 +1,7575 @@
+###############################
+# Melting-pot events
+#
+# Written by Loup
+#
+# WtWSMS_pots.1 -> WtWSMS_pots.128
+###############################
+
+namespace = WtWSMS_pots
+
+###############################
+# Initial melting-pot target flag
+###############################
+
+# New Pagan, Tribal and Germanic ruler holding a Christian, sub-Roman and Feudal province, making it a melting-pot target
+province_event = {
+	id = WtWSMS_pots.1
+
+	hide_window = yes	
+	
+	trigger = {
+		has_game_rule = { # Has enabled new melting pot events
+			name = melting_pots 
+			value = new 
+		}
+		owner = {
+			OR = { 
+				religion_group = pagan_group
+				religion_group = christian # Can already be Christian at arrival
+			}
+			OR = { 
+				is_tribal = yes
+				is_feudal = yes # Can already be Feudal at arrival
+			}
+		}
+		OR = {
+			owner = { # Germanic
+				has_germanic_culture_trigger = yes
+			}
+			AND = { # Celtic alternative for Romano-Gallic and Romano-British
+				owner = { 
+					has_celtic_culture_trigger = yes
+				}
+				OR = {
+					culture = romano_gallic
+					culture = romano_british
+				}
+			}
+			AND = { # Slavic alternative for Thraco-Roman and Rumanescu
+				owner = { 
+					has_slavic_culture_trigger = yes
+				}
+				OR = { 
+					culture = thraco_roman
+					culture = romano_dacian
+				}
+			}
+			AND = { # Arabic alternative for Andalusian
+				owner = { 
+					has_arabic_culture_trigger = yes
+				}
+				culture = romano_hispanic
+			}
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		set_province_flag = melting_pot_target
+	}
+}
+
+# The ruler is no longer Pagan, Tribal and Germanic, meaning the province held should no longer be a melting-pot target
+province_event = {
+	id = WtWSMS_pots.2
+
+	hide_window = yes	
+	
+	trigger = {
+		has_province_flag = melting_pot_target
+		NAND = { 
+			owner = {
+				OR = { 
+					religion_group = pagan_group
+					religion_group = christian # Can already be Christian at arrival
+				}
+				OR = { 
+					is_tribal = yes
+					is_feudal = yes # Can already be Feudal at arrival
+				}
+			}
+			OR = {
+				owner = { # Germanic
+					has_germanic_culture_trigger = yes
+				}
+				AND = { # Celtic alternative for Romano-Gallic and Romano-British
+					owner = { 
+						has_celtic_culture_trigger = yes
+					}
+					OR = {
+						culture = romano_gallic
+						culture = romano_british
+					}
+				}
+				AND = { # Slavic alternative for Thraco-Roman and Rumanescu
+					owner = { 
+						has_slavic_culture_trigger = yes
+					}
+					OR = { 
+						culture = thraco_roman
+						culture = romano_dacian
+					}
+				}
+				AND = { # Arabic alternative for Andalusian
+					owner = { 
+						has_arabic_culture_trigger = yes
+					}
+					culture = romano_hispanic
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		clr_province_flag = melting_pot_target
+	}
+}
+
+# The province is no longer Christian, sub-Roman or Feudal, meaning it is no longer eligible as a melting-pot target
+province_event = {
+	id = WtWSMS_pots.3
+
+	hide_window = yes	
+	
+	trigger = {
+		has_province_flag = melting_pot_target
+		NOR = { 
+			religion_group = christian
+			county = { 
+				is_feudal = yes
+			}
+			has_romance_culture_trigger = yes
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		clr_province_flag = melting_pot_target
+	}
+}
+
+###############################
+# Conversion to Christianity
+###############################
+
+# Spread of Christianity
+province_event = {
+	id = WtWSMS_pots.4
+	title = WtWSMS_pots.4.name
+	desc = WtWSMS_pots.4.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
+		
+	trigger = { 
+		owner = {
+			religion_group = pagan_group
+			is_tribal = yes
+		}
+		OR = {
+			owner = { # Germanic
+				has_germanic_culture_trigger = yes
+			}
+			AND = { # Celtic alternative for Romano-Gallic and Romano-British
+				owner = { 
+					has_celtic_culture_trigger = yes
+				}
+				OR = {
+					culture = romano_gallic
+					culture = romano_british
+				}
+			}
+			AND = { # Slavic alternative for Thraco-Roman and Rumanescu
+				owner = { 
+					has_slavic_culture_trigger = yes
+				}
+				OR = { 
+					culture = thraco_roman
+					culture = romano_dacian
+				}
+			}
+			AND = { # Arabic alternative for Andalusian
+				owner = { 
+					has_arabic_culture_trigger = yes
+				}
+				culture = romano_hispanic
+			}
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+	}
+
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		set_province_flag = spread_of_christianity
+	}
+	
+	option = {
+		name = WtWSMS_pots.4.a # OK
+	}
+}
+
+# Mighty Christian landed vassal has a Pagan liege
+character_event = {
+	id = WtWSMS_pots.5
+	desc = WtWSMS_pots.5.desc
+	picture = GFX_evt_throne_room
+	border = GFX_event_normal_frame_religion
+	
+	only_playable = yes
+	
+	trigger = {
+		liege = {
+			any_demesne_province = {
+				has_province_flag = spread_of_christianity
+				has_province_flag = melting_pot_target
+			}
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			NOT = { has_character_flag = refused_conversion_christianity }
+		}
+		religion_group = christian
+		relative_power_to_liege = 0.1 # Testing placeholder
+		is_theocracy = no
+		is_adult = yes
+		is_incapable = no
+		prisoner = no
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	option = {
+		name = WtWSMS_pots.5.a # Try to convince the liege to convert
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 5
+				trait = zealous
+			}
+		}
+		liege = {
+			character_event = { 
+				id = WtWSMS_pots.6 # Mighty Christian landed vassal brings it up with Pagan liege
+				days = 5
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.5.b # Not worth it
+	}
+}
+
+# Mighty Christian landed vassal brings it up with Pagan liege
+character_event = {
+	id = WtWSMS_pots.6
+	desc = WtWSMS_pots.6.desc
+	picture = GFX_evt_throne_room
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = WtWSMS_pots.6.a # Embrace the religion
+		trigger = {
+			NOT = { trait = zealous }
+		}
+		ROOT = {
+			religion = FROM
+			religion_authority = {
+				modifier = ruler_converted_from
+			}
+			if = {
+				limit = {
+					trait = cynical
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_pagans
+				}
+			}
+			if = {
+				limit = {
+					NOT = { trait = cynical }
+				}
+				random = {
+					chance = 50
+					add_trait = sympathy_pagans
+				}
+			}		
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			piety = 200
+			character_event = {
+				id = WtWSMS_pots.17  # Conversion to Christianity
+			}
+		}
+		FROM = { 
+			character_event = {
+				id = WtWSMS_pots.125 # Liege converts to Christianity
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.6.b # Make vague statement
+		character_event = { 
+			id = WtWSMS_pots.15 # Insists after first step
+			days = 100
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.6.c # Refuse
+		set_character_flag = refused_conversion_christianity
+		FROM = { 
+			character_event = {
+				id = WtWSMS_pots.126 # Liege refuses conversion to Christianity
+			}
+		}
+	}
+}
+
+# Bishop from the realm has a Pagan liege
+character_event = {
+	id = WtWSMS_pots.7
+	desc = WtWSMS_pots.7.desc
+	picture = GFX_evt_bishop
+	border = GFX_event_normal_frame_religion
+	
+	only_playable = yes
+	
+	trigger = {
+		liege = {
+			any_demesne_province = {
+				has_province_flag = spread_of_christianity
+				has_province_flag = melting_pot_target
+			}
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			NOT = { has_character_flag = refused_conversion_christianity }
+		}
+		religion_group = christian
+		is_theocracy = yes
+		is_adult = yes
+		is_incapable = no
+		prisoner = no
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	option = {
+		name = WtWSMS_pots.7.a # Try to convince the liege to convert
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 5
+				trait = zealous
+			}
+		}
+		liege = {
+			character_event = { 
+				id = WtWSMS_pots.8 # Bishop from the realm visits your court
+				days = 5
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.7.b # Not worth it
+	}
+}
+
+# Bishop from the realm visits your court
+character_event = {
+	id = WtWSMS_pots.8
+	desc = WtWSMS_pots.8.desc
+	picture = GFX_evt_bishop
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = WtWSMS_pots.8.a # Embrace the religion
+		trigger = {
+			NOT = { trait = zealous }
+		}
+		ROOT = {
+			religion = FROM
+			religion_authority = {
+				modifier = ruler_converted_from
+			}
+			if = {
+				limit = {
+					trait = cynical
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_pagans
+				}
+			}
+			if = {
+				limit = {
+					NOT = { trait = cynical }
+				}
+				random = {
+					chance = 50
+					add_trait = sympathy_pagans
+				}
+			}		
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			piety = 200
+			character_event = {
+				id = WtWSMS_pots.17  # Conversion to Christianity
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.8.b # Make vague statement
+		character_event = { 
+			id = WtWSMS_pots.15 # Insists after first step
+			days = 100
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.8.c # Refuse
+		set_character_flag = refused_conversion_christianity
+	}
+}
+
+# Burgher from the realm is a Christian
+character_event = {
+	id = WtWSMS_pots.9
+	desc = WtWSMS_pots.9.desc
+	picture = GFX_evt_throne_room
+	border = GFX_event_normal_frame_religion
+	
+	only_playable = yes
+	
+	trigger = {
+		any_demesne_province = {
+			has_province_flag = spread_of_christianity
+			has_province_flag = melting_pot_target
+		}
+		is_adult = yes
+		is_incapable = no
+		prisoner = no
+		NOT = { has_character_flag = refused_conversion_christianity }
+		any_vassal = { 
+			religion_group = christian
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			has_job_title = no # That one is done separately
+			is_landed = yes # This is meant to be for a city vassal
+			is_republic = yes
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		any_vassal = { 
+			limit = {
+				religion_group = christian
+				is_adult = yes
+				is_incapable = no
+				prisoner = no
+				has_job_title = no # That one is done separately
+				is_landed = yes # This is meant to be for a city vassal
+				is_republic = yes
+			}
+			save_event_target_as = christian_burgher
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.9.a # Embrace the religion
+		trigger = {
+			NOT = { trait = zealous }
+		}
+		ROOT = {
+			event_target:christian_burgher = {
+				reverse_religion = PREV
+			}
+			religion_authority = {
+				modifier = ruler_converted_from
+			}
+			if = {
+				limit = {
+					trait = cynical
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_pagans
+				}
+			}
+			if = {
+				limit = {
+					NOT = { trait = cynical }
+				}
+				random = {
+					chance = 50
+					add_trait = sympathy_pagans
+				}
+			}		
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			piety = 200
+			character_event = {
+				id = WtWSMS_pots.17  # Conversion to Christianity
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.9.b # Make vague statement
+		character_event = { 
+			id = WtWSMS_pots.15 # Insists after first step
+			days = 100
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.9.c # Refuse
+		set_character_flag = refused_conversion_christianity
+	}
+}
+
+# Wife is a Christian
+character_event = {
+	id = WtWSMS_pots.10
+	desc = WtWSMS_pots.10.desc
+	picture = GFX_evt_throne_room
+	border = GFX_event_normal_frame_religion
+	
+	only_rulers = yes
+	
+	trigger = {
+		any_demesne_province = {
+			has_province_flag = spread_of_christianity
+			has_province_flag = melting_pot_target
+		}
+		is_adult = yes
+		is_incapable = no
+		prisoner = no
+		NOT = { has_character_flag = refused_conversion_christianity }
+		any_spouse = {
+			religion_group = christian
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			is_abroad = no
+			is_alive = yes
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		any_spouse = {
+			limit = {
+				religion_group = christian
+				is_adult = yes
+				is_incapable = no
+				prisoner = no
+				is_abroad = no
+				is_alive = yes
+			}
+			save_event_target_as = christian_wife
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.10.a # Yes, my love
+		trigger = {
+			NOT = { trait = zealous }
+		}
+		ROOT = {
+			event_target:christian_wife = {
+				reverse_religion = PREV
+			}
+			religion_authority = {
+				modifier = ruler_converted_from
+			}
+			if = {
+				limit = {
+					trait = cynical
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_pagans
+				}
+			}
+			if = {
+				limit = {
+					NOT = { trait = cynical }
+				}
+				random = {
+					chance = 50
+					add_trait = sympathy_pagans
+				}
+			}		
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			piety = 200
+			character_event = {
+				id = WtWSMS_pots.17  # Conversion to Christianity
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.10.b # We will see, my dear
+		character_event = { 
+			id = WtWSMS_pots.15 # Insists after first step
+			days = 100
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.10.c # How dare you?
+		set_character_flag = refused_conversion_christianity
+	}
+}
+
+# Concubine is a Christian
+character_event = {
+	id = WtWSMS_pots.11
+	desc = WtWSMS_pots.11.desc
+	picture = GFX_evt_throne_room
+	border = GFX_event_normal_frame_religion
+	
+	only_rulers = yes
+	
+	trigger = {
+		any_demesne_province = {
+			has_province_flag = spread_of_christianity
+			has_province_flag = melting_pot_target
+		}
+		is_adult = yes
+		is_incapable = no
+		prisoner = no
+		NOT = { has_character_flag = refused_conversion_christianity }
+		any_consort = { # Scopes to all of a character's consorts (not only concubines, works for both genders)
+			religion_group = christian
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			is_consort = yes # Checks if THIS is a concubine, or a concubine or the specified character
+			is_abroad = no
+			is_alive = yes
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		any_consort = { 
+			limit = {
+				religion_group = christian
+				is_adult = yes
+				is_incapable = no
+				prisoner = no
+				is_consort = yes 
+				is_abroad = no
+				is_alive = yes
+			}
+			save_event_target_as = christian_concubine
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.11.a # Yes, my love
+		trigger = {
+			NOT = { trait = zealous }
+		}
+		ROOT = {
+			event_target:christian_concubine = {
+				reverse_religion = PREV
+			}
+			religion_authority = {
+				modifier = ruler_converted_from
+			}
+			if = {
+				limit = {
+					trait = cynical
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_pagans
+				}
+			}
+			if = {
+				limit = {
+					NOT = { trait = cynical }
+				}
+				random = {
+					chance = 50
+					add_trait = sympathy_pagans
+				}
+			}		
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			piety = 200
+			character_event = {
+				id = WtWSMS_pots.17  # Conversion to Christianity
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.11.b # We will see, my dear
+		character_event = { 
+			id = WtWSMS_pots.15 # Insists after first step
+			days = 100
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.11.c # How dare you?
+		set_character_flag = refused_conversion_christianity
+	}
+}
+
+# Courtier speaks to you about Christianity
+character_event = {
+	id = WtWSMS_pots.12
+	desc = WtWSMS_pots.12.desc
+	picture = GFX_evt_throne_room
+	border = GFX_event_normal_frame_religion
+	
+	only_playable = yes
+	
+	trigger = {
+		any_demesne_province = {
+			has_province_flag = spread_of_christianity
+			has_province_flag = melting_pot_target
+		}
+		is_adult = yes
+		is_incapable = no
+		prisoner = no
+		NOT = { has_character_flag = refused_conversion_christianity }
+		any_courtier = { 
+			religion_group = christian
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			has_job_title = no # That one is done separately
+			is_landed = no # This is meant to be for a courtier
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		any_courtier = { 
+			limit = {
+				religion_group = christian
+				is_adult = yes
+				is_incapable = no
+				prisoner = no
+				has_job_title = no
+				is_landed = no
+			}
+			save_event_target_as = christian_courtier
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.12.a # Embrace the religion
+		trigger = {
+			NOT = { trait = zealous }
+		}
+		ROOT = {
+			event_target:christian_courtier = {
+				reverse_religion = PREV
+			}
+			religion_authority = {
+				modifier = ruler_converted_from
+			}
+			if = {
+				limit = {
+					trait = cynical
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_pagans
+				}
+			}
+			if = {
+				limit = {
+					NOT = { trait = cynical }
+				}
+				random = {
+					chance = 50
+					add_trait = sympathy_pagans
+				}
+			}		
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			piety = 200
+			character_event = {
+				id = WtWSMS_pots.17  # Conversion to Christianity
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.12.b # Make vague statement
+		character_event = { 
+			id = WtWSMS_pots.15 # Insists after first step
+			days = 100
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.12.c # Refuse
+		set_character_flag = refused_conversion_christianity
+	}
+}
+
+# Christian Councillour
+character_event = {
+	id = WtWSMS_pots.13
+	desc = WtWSMS_pots.13.desc
+	picture = GFX_evt_throne_room
+	border = GFX_event_normal_frame_religion
+	
+	only_playable = yes
+	
+	trigger = {
+		any_demesne_province = {
+			has_province_flag = spread_of_christianity
+			has_province_flag = melting_pot_target
+		}
+		is_adult = yes
+		is_incapable = no
+		prisoner = no
+		NOT = { has_character_flag = refused_conversion_christianity }
+		any_courtier = { 
+			religion_group = christian
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			has_job_title = yes # Want it to be a councillour
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		any_courtier = { 
+			limit = {
+				religion_group = christian
+				is_adult = yes
+				is_incapable = no
+				prisoner = no
+				has_job_title = yes 
+			}
+			save_event_target_as = christian_councillour
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.13.a # Embrace the religion
+		trigger = {
+			NOT = { trait = zealous }
+		}
+		ROOT = {
+			event_target:christian_councillour = {
+				reverse_religion = PREV
+			}
+			religion_authority = {
+				modifier = ruler_converted_from
+			}
+			if = {
+				limit = {
+					trait = cynical
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_pagans
+				}
+			}
+			if = {
+				limit = {
+					NOT = { trait = cynical }
+				}
+				random = {
+					chance = 50
+					add_trait = sympathy_pagans
+				}
+			}		
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			piety = 200
+			character_event = {
+				id = WtWSMS_pots.17  # Conversion to Christianity
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.13.b # Make vague statement
+		character_event = { 
+			id = WtWSMS_pots.15 # Insists after first step
+			days = 100
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.13.c # Refuse
+		set_character_flag = refused_conversion_christianity
+	}
+}
+
+# Christian missionary from foreign realm travels to your court
+character_event = {
+	id = WtWSMS_pots.14
+	desc = WtWSMS_pots.14.desc
+	picture = GFX_evt_bishop
+	border = GFX_event_normal_frame_religion
+	
+	only_rulers = yes
+	
+	trigger = {
+		any_demesne_province = {
+			has_province_flag = spread_of_christianity
+			has_province_flag = melting_pot_target
+		}
+		is_adult = yes
+		is_incapable = no
+		prisoner = no
+		NOT = { has_character_flag = refused_conversion_christianity }
+		any_neighbor_independent_ruler = {
+			any_realm_character	= {
+				religion_group = christian
+				is_adult = yes
+				is_incapable = no
+				prisoner = no
+				is_priest = yes
+			}
+		}		
+	}
+
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		any_neighbor_independent_ruler = {
+			limit = { 
+				any_realm_character	= { 
+					religion_group = christian
+					is_adult = yes
+					is_incapable = no
+					prisoner = no
+					is_priest = yes
+				}
+			}
+			save_event_target_as = christian_missionary
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.14.a # Embrace the religion
+		trigger = {
+			NOT = { trait = zealous }
+		}
+		ROOT = {
+			event_target:christian_missionary = {
+				reverse_religion = PREV
+			}
+			religion_authority = {
+				modifier = ruler_converted_from
+			}
+			if = {
+				limit = {
+					trait = cynical
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_pagans
+				}
+			}
+			if = {
+				limit = {
+					NOT = { trait = cynical }
+				}
+				random = {
+					chance = 50
+					add_trait = sympathy_pagans
+				}
+			}		
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			piety = 200
+			character_event = {
+				id = WtWSMS_pots.17  # Conversion to Christianity
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.14.b # Make vague statement
+		character_event = { 
+			id = WtWSMS_pots.15 # Insists after first step
+			days = 100
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.14.c # Refuse
+		set_character_flag = refused_conversion_christianity
+	}
+}
+
+# Insists after first step
+character_event = {
+	id = WtWSMS_pots.15
+	desc = WtWSMS_pots.15.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+	
+	option = {
+		name = WtWSMS_pots.15.a # Convert
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 1.5
+				trait = cynical
+			}
+		}
+		trigger = {
+			NOT = { trait = zealous }
+		}
+		ROOT = {
+			FROMFROM = {
+				reverse_religion = PREV
+			}
+			event_target:christian_wife = {
+				reverse_religion = PREV
+			}
+			event_target:christian_concubine = {
+				reverse_religion = PREV
+			}
+			event_target:christian_courtier = {
+				reverse_religion = PREV
+			}
+			event_target:christian_councillour = {
+				reverse_religion = PREV
+			}
+			event_target:christian_missionary = {
+				reverse_religion = PREV
+			}
+			religion_authority = {
+				modifier = ruler_converted_from
+			}
+			if = {
+				limit = {
+					trait = cynical
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_pagans
+				}
+			}
+			if = {
+				limit = {
+					NOT = { trait = cynical }
+				}
+				random = {
+					chance = 50
+					add_trait = sympathy_pagans
+				}
+			}		
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			piety = 200
+			character_event = {
+				id = WtWSMS_pots.17  # Conversion to Christianity
+			}
+		}
+		FROMFROM = { 
+			character_event = {
+				id = WtWSMS_pots.125 # Liege converts to Christianity
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.15.b # Refuse
+		ai_chance = {
+			factor = 25
+		}
+		set_character_flag = refused_conversion_christianity		
+		FROMFROM = { 
+			character_event = {
+				id = WtWSMS_pots.126 # Liege refuses conversion to Christianity
+			}
+		}
+	}
+}
+
+# Won major battle with the "help" of the Christian god
+character_event = {
+	id = WtWSMS_pots.16
+	desc = WtWSMS_pots.16.desc
+	picture = GFX_evt_stone_church # To change
+	border = GFX_event_normal_frame_religion
+	
+	hide_FROM = yes
+	
+	is_triggered_only = yes # On_actions event
+	
+	trigger = {
+		any_demesne_province = {
+			has_province_flag = spread_of_christianity
+			has_province_flag = melting_pot_target
+		}
+		is_adult = yes
+		is_incapable = no
+		prisoner = no
+		NOT = { has_character_flag = refused_conversion_christianity }
+	}
+		
+	option = {
+		name = WtWSMS_pots.16.a # Convert
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 1.5
+				trait = cynical
+			}
+		}
+		trigger = {
+			NOT = { trait = zealous }
+		}
+		ROOT = {
+			any_demesne_province = {
+				limit = {
+						has_province_flag = spread_of_christianity
+						has_province_flag = melting_pot_target
+				}
+				save_event_target_as = christian_province
+			}
+			religion = event_target:christian_province
+			religion_authority = {
+				modifier = ruler_converted_from
+			}
+			if = {
+				limit = {
+					trait = cynical
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_pagans
+				}
+			}
+			if = {
+				limit = {
+					NOT = { trait = cynical }
+				}
+				random = {
+					chance = 50
+					add_trait = sympathy_pagans
+				}
+			}		
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			piety = 200
+			character_event = {
+				id = WtWSMS_pots.17  # Conversion to Christianity
+			}
+		}
+	}
+	
+	# Option to wait with conversion?
+	
+	option = {
+		name = WtWSMS_pots.16.b # Refuse
+		ai_chance = {
+			factor = 25
+		}
+		set_character_flag = refused_conversion_christianity
+	}
+}
+
+# Conversion to Christianity
+character_event = {
+	id = WtWSMS_pots.17
+	title = WtWSMS_pots.17.name
+	desc = WtWSMS_pots.17.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		any_realm_province = {
+			limit = {
+				has_province_flag = spread_of_christianity 
+			}
+			clr_province_flag = spread_of_christianity
+		}
+		set_character_flag = converted_to_christianity
+	}
+	
+	option = {
+		name = WtWSMS_pots.17.a # OK
+	}
+}
+
+# Ruler is no longer Christian
+character_event = {
+	id = WtWSMS_pots.18
+	
+	hide_window = yes
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_character_flag = converted_to_christianity
+		NOT = { religion_group = christian }
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		clr_character_flag = converted_to_christianity
+	}
+}
+
+###############################
+# Feudalism
+###############################
+
+# Adopt Feudal Ways
+province_event = {
+	id = WtWSMS_pots.19
+	title = WtWSMS_pots.19.name
+	desc = WtWSMS_pots.19.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
+	
+	trigger = { 
+		owner = {
+			religion_group = christian
+			is_tribal = yes
+			NOT = { has_character_flag = adopted_feudalism }
+		}
+		OR = {
+			owner = { # Germanic
+				has_germanic_culture_trigger = yes
+			}
+			AND = { # Celtic alternative for Romano-Gallic and Romano-British
+				owner = { 
+					has_celtic_culture_trigger = yes
+				}
+				OR = {
+					culture = romano_gallic
+					culture = romano_british
+				}
+			}
+			AND = { # Slavic alternative for Thraco-Roman and Rumanescu
+				owner = { 
+					has_slavic_culture_trigger = yes
+				}
+				OR = { 
+					culture = thraco_roman
+					culture = romano_dacian
+				}
+			}
+			AND = { # Arabic alternative for Andalusian
+				owner = { 
+					has_arabic_culture_trigger = yes
+				}
+				culture = romano_hispanic
+			}
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+	}
+
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		set_province_flag = adopt_feudalism
+	}
+	
+	option = {
+		name = WtWSMS_pots.19.a # OK
+	}
+}
+
+# Became feudal
+character_event = {
+	id = WtWSMS_pots.20
+	title = WtWSMS_pots.20.name
+	desc = WtWSMS_pots.20.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
+	
+	only_rulers = yes
+	
+	trigger = { 
+		religion_group = christian
+		is_feudal = yes
+		OR = { 
+			has_germanic_culture_trigger = yes
+			has_celtic_culture_trigger = yes
+			has_slavic_culture_trigger = yes
+			has_arabic_culture_trigger = yes
+		}
+		any_realm_province = {
+			has_province_flag = adopt_feudalism 
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		any_realm_province = {
+			limit = {
+				has_province_flag = adopt_feudalism 
+			}
+			clr_province_flag = adopt_feudalism
+		}
+		set_character_flag = adopted_feudalism
+	}
+	
+	option = {
+		name = WtWSMS_pots.20.a # OK
+	}
+}
+
+# Ruler is no longer feudal
+character_event = {
+	id = WtWSMS_pots.21
+	
+	hide_window = yes
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_character_flag = adopted_feudalism
+		is_feudal = no
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		clr_character_flag = adopted_feudalism
+	}
+}
+
+###############################
+# Christian Heretic
+###############################
+
+# Religious divergences between Christians
+province_event = {
+	id = WtWSMS_pots.22
+	title = WtWSMS_pots.22.name
+	desc = WtWSMS_pots.22.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
+	
+	trigger = { 
+		owner = {
+			religion_group = christian
+			is_feudal = yes
+			NOT = { religion = ROOT } # Is not of the province religion
+			NOT = { has_character_flag = converted_christian_branch }
+		}
+		OR = {
+			owner = { # Germanic
+				has_germanic_culture_trigger = yes
+			}
+			AND = { # Celtic alternative for Romano-Gallic and Romano-British
+				owner = { 
+					has_celtic_culture_trigger = yes
+				}
+				OR = {
+					culture = romano_gallic
+					culture = romano_british
+				}
+			}
+			AND = { # Slavic alternative for Thraco-Roman and Rumanescu
+				owner = { 
+					has_slavic_culture_trigger = yes
+				}
+				OR = { 
+					culture = thraco_roman
+					culture = romano_dacian
+				}
+			}
+			AND = { # Arabic alternative for Andalusian
+				owner = { 
+					has_arabic_culture_trigger = yes
+				}
+				culture = romano_hispanic
+			}
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+	}
+
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		set_province_flag = heretic_christian
+		religion_scope = { # Religion of the province
+			save_global_event_target_as = christian_branch_of_province
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.22.a # OK
+	}
+}
+
+# Mighty Christian landed vassal has a Heretic liege
+character_event = {
+	id = WtWSMS_pots.23
+	desc = WtWSMS_pots.23.desc
+	picture = GFX_evt_throne_room
+	border = GFX_event_normal_frame_religion
+	
+	only_playable = yes
+	
+	trigger = {
+		liege = {
+			any_demesne_province = {
+				has_province_flag = heretic_christian
+				has_province_flag = melting_pot_target
+				religion = event_target:christian_branch_of_province
+			}
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			NOT = { has_character_flag = refused_conversion_christian_branch }
+		}
+		religion = event_target:christian_branch_of_province
+		relative_power_to_liege = 0.1 # Testing placeholder
+		is_theocracy = no
+		is_adult = yes
+		is_incapable = no
+		prisoner = no
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	option = {
+		name = WtWSMS_pots.23.a # Try to convince the liege to convert
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 5
+				trait = zealous
+			}
+		}
+		liege = {
+			character_event = { 
+				id = WtWSMS_pots.24 # Mighty Christian landed vassal brings it up with Heretic liege
+				days = 5
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.23.b # Not worth it
+	}
+}
+
+# Mighty Christian landed vassal brings it up with Heretic liege
+character_event = {
+	id = WtWSMS_pots.24
+	desc = WtWSMS_pots.24.desc
+	picture = GFX_evt_throne_room
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = WtWSMS_pots.24.a # Embrace the religion
+		trigger = {
+			NOT = { trait = zealous }
+		}
+		ROOT = {
+			religion = FROM
+			religion_authority = {
+				modifier = ruler_converted_from
+			}
+			if = {
+				limit = {
+					trait = cynical
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_pagans
+				}
+			}
+			if = {
+				limit = {
+					NOT = { trait = cynical }
+				}
+				random = {
+					chance = 50
+					add_trait = sympathy_pagans
+				}
+			}		
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			piety = 200
+			character_event = {
+				id = WtWSMS_pots.33 # Abandoning of heresy
+			}
+		}
+		FROM = { 
+			character_event = {
+				id = WtWSMS_pots.127 # Liege abandons heresy
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.24.b # Make vague statement
+		character_event = { 
+			id = WtWSMS_pots.32 # Insists after first step
+			days = 100
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.24.c # Refuse
+		set_character_flag = refused_conversion_christian_branch
+		FROM = { 
+			character_event = {
+				id = WtWSMS_pots.128 # Liege refuses to abandon heresy
+			}
+		}
+	}
+}
+
+# Bishop from the realm has a Heretic liege
+character_event = {
+	id = WtWSMS_pots.25
+	desc = WtWSMS_pots.25.desc
+	picture = GFX_evt_bishop
+	border = GFX_event_normal_frame_religion
+	
+	only_playable = yes
+	
+	trigger = {
+		liege = {
+			any_demesne_province = {
+				has_province_flag = heretic_christian
+				has_province_flag = melting_pot_target
+				religion = event_target:christian_branch_of_province
+			}
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			NOT = { has_character_flag = refused_conversion_christian_branch }
+		}
+		religion = event_target:christian_branch_of_province
+		is_theocracy = yes
+		is_adult = yes
+		is_incapable = no
+		prisoner = no
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	option = {
+		name = WtWSMS_pots.25.a # Try to convince the liege to convert
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 5
+				trait = zealous
+			}
+		}
+		liege = {
+			character_event = { 
+				id = WtWSMS_pots.26 # Bishop from the realm visits your court
+				days = 5
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.25.b # Not worth it
+	}
+}
+
+# Bishop from the realm visits your court
+character_event = {
+	id = WtWSMS_pots.26
+	desc = WtWSMS_pots.26.desc
+	picture = GFX_evt_bishop
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = WtWSMS_pots.26.a # Embrace the religion
+		trigger = {
+			NOT = { trait = zealous }
+		}
+		ROOT = {
+			religion = FROM
+			religion_authority = {
+				modifier = ruler_converted_from
+			}
+			if = {
+				limit = {
+					trait = cynical
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_pagans
+				}
+			}
+			if = {
+				limit = {
+					NOT = { trait = cynical }
+				}
+				random = {
+					chance = 50
+					add_trait = sympathy_pagans
+				}
+			}		
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			piety = 200
+			character_event = {
+				id = WtWSMS_pots.33 # Abandoning of heresy
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.26.b # Make vague statement
+		character_event = { 
+			id = WtWSMS_pots.32 # Insists after first step
+			days = 100
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.26.c # Refuse
+		set_character_flag = refused_conversion_christian_branch
+	}
+}
+
+# Burgher from the realm is of another Christian branch
+character_event = {
+	id = WtWSMS_pots.27
+	desc = WtWSMS_pots.27.desc
+	picture = GFX_evt_throne_room
+	border = GFX_event_normal_frame_religion
+	
+	only_playable = yes
+	
+	trigger = {
+		any_demesne_province = {
+			has_province_flag = heretic_christian
+			has_province_flag = melting_pot_target
+			religion = event_target:christian_branch_of_province
+		}
+		is_adult = yes
+		is_incapable = no
+		prisoner = no
+		NOT = { has_character_flag = refused_conversion_christian_branch }
+		any_vassal = { 
+			religion = event_target:christian_branch_of_province
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			has_job_title = no # That one is done separately
+			is_landed = yes # This is meant to be for a city vassal
+			is_republic = yes
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		any_vassal = { 
+			limit = {
+				religion = event_target:christian_branch_of_province
+				is_adult = yes
+				is_incapable = no
+				prisoner = no
+				has_job_title = no # That one is done separately
+				is_landed = yes # This is meant to be for a city vassal
+				is_republic = yes
+			}
+			save_event_target_as = christian_branch_burgher
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.27.a # Embrace the religion
+		trigger = {
+			NOT = { trait = zealous }
+		}
+		ROOT = {
+			event_target:christian_branch_burgher = {
+				reverse_religion = PREV
+			}
+			religion_authority = {
+				modifier = ruler_converted_from
+			}
+			if = {
+				limit = {
+					trait = cynical
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_pagans
+				}
+			}
+			if = {
+				limit = {
+					NOT = { trait = cynical }
+				}
+				random = {
+					chance = 50
+					add_trait = sympathy_pagans
+				}
+			}		
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			piety = 200
+			character_event = {
+				id = WtWSMS_pots.33 # Abandoning of heresy
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.27.b # Make vague statement
+		character_event = { 
+			id = WtWSMS_pots.32 # Insists after first step
+			days = 100
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.27.c # Refuse
+		set_character_flag = refused_conversion_christian_branch
+	}
+}
+
+# Wife is of another Christian branch
+character_event = {
+	id = WtWSMS_pots.28
+	desc = WtWSMS_pots.28.desc
+	picture = GFX_evt_throne_room
+	border = GFX_event_normal_frame_religion
+	
+	only_rulers = yes
+	
+	trigger = {
+		any_demesne_province = {
+			has_province_flag = heretic_christian
+			has_province_flag = melting_pot_target
+			religion = event_target:christian_branch_of_province
+		}
+		is_adult = yes
+		is_incapable = no
+		prisoner = no
+		NOT = { has_character_flag = refused_conversion_christian_branch }
+		any_spouse = {
+			religion = event_target:christian_branch_of_province
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			is_abroad = no
+			is_alive = yes
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		any_spouse = {
+			limit = {
+				religion = event_target:christian_branch_of_province
+				is_adult = yes
+				is_incapable = no
+				prisoner = no
+				is_abroad = no
+				is_alive = yes
+			}
+			save_event_target_as = christian_branch_wife
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.28.a # Yes, my love
+		trigger = {
+			NOT = { trait = zealous }
+		}
+		ROOT = {
+			event_target:christian_branch_wife = {
+				reverse_religion = PREV
+			}
+			religion_authority = {
+				modifier = ruler_converted_from
+			}
+			if = {
+				limit = {
+					trait = cynical
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_pagans
+				}
+			}
+			if = {
+				limit = {
+					NOT = { trait = cynical }
+				}
+				random = {
+					chance = 50
+					add_trait = sympathy_pagans
+				}
+			}		
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			piety = 200
+			character_event = {
+				id = WtWSMS_pots.33 # Abandoning of heresy
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.28.b # We will see, my dear
+		character_event = { 
+			id = WtWSMS_pots.32 # Insists after first step
+			days = 100
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.28.c # How dare you?
+		set_character_flag = refused_conversion_christian_branch
+	}
+}
+
+# Concubine is of another Christian branch
+character_event = {
+	id = WtWSMS_pots.29
+	desc = WtWSMS_pots.29.desc
+	picture = GFX_evt_throne_room
+	border = GFX_event_normal_frame_religion
+	
+	only_rulers = yes
+	
+	trigger = {
+		any_demesne_province = {
+			has_province_flag = heretic_christian
+			has_province_flag = melting_pot_target
+			religion = event_target:christian_branch_of_province
+		}
+		is_adult = yes
+		is_incapable = no
+		prisoner = no
+		NOT = { has_character_flag = refused_conversion_christian_branch }
+		any_consort = { # Scopes to all of a character's consorts (not only concubines, works for both genders)
+			religion = event_target:christian_branch_of_province
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			is_consort = yes # Checks if THIS is a concubine, or a concubine or the specified character
+			is_abroad = no
+			is_alive = yes
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		any_consort = { 
+			limit = {
+				religion = event_target:christian_branch_of_province
+				is_adult = yes
+				is_incapable = no
+				prisoner = no
+				is_consort = yes 
+				is_abroad = no
+				is_alive = yes
+			}
+			save_event_target_as = christian_branch_concubine
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.29.a # Yes, my love
+		trigger = {
+			NOT = { trait = zealous }
+		}
+		ROOT = {
+			event_target:christian_branch_concubine = {
+				reverse_religion = PREV
+			}
+			religion_authority = {
+				modifier = ruler_converted_from
+			}
+			if = {
+				limit = {
+					trait = cynical
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_pagans
+				}
+			}
+			if = {
+				limit = {
+					NOT = { trait = cynical }
+				}
+				random = {
+					chance = 50
+					add_trait = sympathy_pagans
+				}
+			}		
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			piety = 200
+			character_event = {
+				id = WtWSMS_pots.33 # Abandoning of heresy
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.29.b # We will see, my dear
+		character_event = { 
+			id = WtWSMS_pots.32 # Insists after first step
+			days = 100
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.29.c # How dare you?
+		set_character_flag = refused_conversion_christian_branch
+	}
+}
+
+# Courtier speaks to you about Christian branch
+character_event = {
+	id = WtWSMS_pots.30
+	desc = WtWSMS_pots.30.desc
+	picture = GFX_evt_throne_room
+	border = GFX_event_normal_frame_religion
+	
+	only_playable = yes
+	
+	trigger = {
+		any_demesne_province = {
+			has_province_flag = heretic_christian
+			has_province_flag = melting_pot_target
+			religion = event_target:christian_branch_of_province
+		}
+		is_adult = yes
+		is_incapable = no
+		prisoner = no
+		NOT = { has_character_flag = refused_conversion_christian_branch }
+		any_courtier = { 
+			religion = event_target:christian_branch_of_province
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			has_job_title = no # That one is done separately
+			is_landed = no # This is meant to be for a courtier
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		any_courtier = { 
+			limit = {
+				religion = event_target:christian_branch_of_province
+				is_adult = yes
+				is_incapable = no
+				prisoner = no
+				has_job_title = no
+				is_landed = no
+			}
+			save_event_target_as = christian_branch_courtier
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.30.a # Embrace the religion
+		trigger = {
+			NOT = { trait = zealous }
+		}
+		ROOT = {
+			event_target:christian_branch_courtier = {
+				reverse_religion = PREV
+			}
+			religion_authority = {
+				modifier = ruler_converted_from
+			}
+			if = {
+				limit = {
+					trait = cynical
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_pagans
+				}
+			}
+			if = {
+				limit = {
+					NOT = { trait = cynical }
+				}
+				random = {
+					chance = 50
+					add_trait = sympathy_pagans
+				}
+			}		
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			piety = 200
+			character_event = {
+				id = WtWSMS_pots.33 # Abandoning of heresy
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.30.b # Make vague statement
+		character_event = { 
+			id = WtWSMS_pots.32 # Insists after first step
+			days = 100
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.30.c # Refuse
+		set_character_flag = refused_conversion_christian_branch
+	}
+}
+
+# Councillour of another Christian branch
+character_event = {
+	id = WtWSMS_pots.31
+	desc = WtWSMS_pots.31.desc
+	picture = GFX_evt_throne_room
+	border = GFX_event_normal_frame_religion
+	
+	only_playable = yes
+	
+	trigger = {
+		any_demesne_province = {
+			has_province_flag = heretic_christian
+			has_province_flag = melting_pot_target
+			religion = event_target:christian_branch_of_province
+		}
+		is_adult = yes
+		is_incapable = no
+		prisoner = no
+		NOT = { has_character_flag = refused_conversion_christian_branch }
+		any_courtier = { 
+			religion = event_target:christian_branch_of_province
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			has_job_title = yes # Want it to be a councillour
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		any_courtier = { 
+			limit = {
+				religion = event_target:christian_branch_of_province
+				is_adult = yes
+				is_incapable = no
+				prisoner = no
+				has_job_title = yes 
+			}
+			save_event_target_as = christian_branch_councillour
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.31.a # Embrace the religion
+		trigger = {
+			NOT = { trait = zealous }
+		}
+		ROOT = {
+			event_target:christian_branch_councillour = {
+				reverse_religion = PREV
+			}
+			religion_authority = {
+				modifier = ruler_converted_from
+			}
+			if = {
+				limit = {
+					trait = cynical
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_pagans
+				}
+			}
+			if = {
+				limit = {
+					NOT = { trait = cynical }
+				}
+				random = {
+					chance = 50
+					add_trait = sympathy_pagans
+				}
+			}		
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			piety = 200
+			character_event = {
+				id = WtWSMS_pots.33 # Abandoning of heresy
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.31.b # Make vague statement
+		character_event = { 
+			id = WtWSMS_pots.32 # Insists after first step
+			days = 100
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.31.c # Refuse
+		set_character_flag = refused_conversion_christian_branch
+	}
+}
+
+# Insists after first step
+character_event = {
+	id = WtWSMS_pots.32
+	desc = WtWSMS_pots.32.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
+
+	is_triggered_only = yes
+	
+	option = {
+		name = WtWSMS_pots.32.a # Convert
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 1.5
+				trait = cynical
+			}
+		}
+		trigger = {
+			NOT = { trait = zealous }
+		}
+		ROOT = {
+			FROMFROM = {
+				reverse_religion = PREV
+			}
+			event_target:christian_wife = {
+				reverse_religion = PREV
+			}
+			event_target:christian_concubine = {
+				reverse_religion = PREV
+			}
+			event_target:christian_courtier = {
+				reverse_religion = PREV
+			}
+			event_target:christian_councillour = {
+				reverse_religion = PREV
+			}
+			event_target:christian_missionary = {
+				reverse_religion = PREV
+			}
+			religion_authority = {
+				modifier = ruler_converted_from
+			}
+			if = {
+				limit = {
+					trait = cynical
+				}
+				random = {
+					chance = 60
+					add_trait = sympathy_pagans
+				}
+			}
+			if = {
+				limit = {
+					NOT = { trait = cynical }
+				}
+				random = {
+					chance = 50
+					add_trait = sympathy_pagans
+				}
+			}		
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = ruler_converted_to
+				}
+			}
+			piety = 200
+			character_event = {
+				id = WtWSMS_pots.33 # Abandoning of heresy
+			}
+		}		
+		FROMFROM = { 
+			character_event = {
+				id = WtWSMS_pots.127 # Liege abandons heresy
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_pots.32.b # Refuse
+		ai_chance = {
+			factor = 25
+		}
+		set_character_flag = refused_conversion_christian_branch
+		FROMFROM = { 
+			character_event = {
+				id = WtWSMS_pots.128 # Liege refuses to abandon heresy
+			}
+		}
+	}
+}
+
+# Abandoning of heresy
+character_event = {
+	id = WtWSMS_pots.33
+	desc = WtWSMS_pots.33.desc
+	picture = GFX_evt_stone_church
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		any_realm_province = {
+			limit = {
+				has_province_flag = heretic_christian 
+			}
+			clr_province_flag = heretic_christian
+		}
+		set_character_flag = converted_christian_branch
+	}
+	
+	option = {
+		name = WtWSMS_pots.33.a # OK
+	}
+}
+
+# Ruler is no longer of the Christian branch
+character_event = {
+	id = WtWSMS_pots.34
+	
+	hide_window = yes
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_character_flag = converted_christian_branch
+		NOT = { religion = event_target:christian_branch_of_province }
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		clear_global_event_target = christian_branch_of_province
+		clr_character_flag = converted_christian_branch
+	}
+}
+
+###############################
+# Cultural melting-pot
+###############################
+
+# Heavily inspired by PDS in culture_conversion_events.txt
+
+# Province culture changes from Roman to Italian
+province_event = {
+	id = WtWSMS_pots.35
+	title = WtWSMS_pots.35.name
+	desc = WtWSMS_pots.35.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+	
+	trigger = { 
+		owner = {
+			religion_group = christian
+			is_feudal = yes
+			has_germanic_culture_trigger = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = roman
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 7
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 9
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 11
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 13
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 5 }
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 3 }
+			}
+		}
+		modifier = {
+			factor = 2.0
+			owner = { 
+				NOT = { learning = 1 }
+			}
+		}
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_flag = italian_melting_pot
+	}
+	
+	option = {
+		name = WtWSMS_pots.35.a #
+		culture = italian
+		owner = {
+			culture = italian
+		}
+	}
+}
+
+# Italian culture spreading
+province_event = {
+	id = WtWSMS_pots.36
+	desc = WtWSMS_pots.36.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+	
+	trigger = {
+		owner = {
+			culture = italian
+			religion_group = christian
+			is_feudal = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = roman
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.36.a
+		culture = italian 
+	}
+}
+
+# Italian ruler makes court Italian
+character_event = {
+	id = WtWSMS_pots.37
+	desc = WtWSMS_pots.37.desc
+	picture = GFX_evt_throne_room
+	
+	only_rulers = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = italian
+		any_courtier = {
+			has_germanic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 120 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.37.a
+		random_courtier = {
+			limit = {
+				has_germanic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = italian
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.39 days = 3 }
+			}
+		}
+	}
+}
+
+# Italian ruler makes vassal Italian
+character_event = {
+	id = WtWSMS_pots.38
+	desc = WtWSMS_pots.38.desc
+	picture = GFX_evt_throne_room
+	
+	only_playable = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = italian
+		any_vassal = {
+			has_germanic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.38.a
+		random_vassal = {
+			limit = {
+				has_germanic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = italian
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.39 days = 3 }
+			}
+		}
+	}
+}
+
+character_event = {
+	id = WtWSMS_pots.39
+	desc = WtWSMS_pots.39.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_pots.39.a
+		culture = italian
+	}
+}
+
+# Lack of strong Roman realm remaining means last Roman enclaves are removed
+province_event = {
+	id = WtWSMS_pots.40
+	title = WtWSMS_pots.40.name
+	desc = WtWSMS_pots.40.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_diplomacy
+
+	trigger = {
+		had_global_flag = { 
+			flag = italian_melting_pot
+			days = 3650 # 10 years 
+		}
+		NOT = { # Lack of strong Roman realm remaining
+			any_independent_ruler = {
+				culture = roman
+				OR = { 
+					higher_tier_than = duke
+					realm_size = 35
+					any_demesne_title = {
+						count = 3
+						tier = DUKE
+					}
+				}
+			}
+		}
+		NOT = {
+			owner = { 
+				OR = { 
+					culture = roman 
+					top_liege = {
+						culture = roman
+					}
+					liege = {
+						culture = roman
+					}
+				}
+			}
+		}
+		culture = roman
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+	}
+	
+	option = {
+		name = WtWSMS_pots.40.a
+		culture = italian
+	}
+}
+
+# Province culture changes from Romano-Gallic to Old French
+province_event = {
+	id = WtWSMS_pots.41
+	title = WtWSMS_pots.41.name
+	desc = WtWSMS_pots.41.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+	
+	trigger = { 
+		owner = {
+			religion_group = christian
+			is_feudal = yes
+			culture = old_frankish
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = romano_gallic
+		region = custom_frankish
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 7
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 9
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 11
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 13
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 5 }
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 3 }
+			}
+		}
+		modifier = {
+			factor = 2.0
+			owner = { 
+				NOT = { learning = 1 }
+			}
+		}
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_flag = old_french_melting_pot
+	}
+	
+	option = {
+		name = WtWSMS_pots.41.a #
+		culture = frankish
+		owner = {
+			culture = frankish
+		}
+	}
+}
+
+# Old French culture spreading
+province_event = {
+	id = WtWSMS_pots.42
+	desc = WtWSMS_pots.42.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+	
+	trigger = {
+		owner = {
+			culture = frankish
+			religion_group = christian
+			is_feudal = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = romano_gallic
+		region = custom_frankish
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.42.a
+		culture = frankish 
+	}
+}
+
+# Old French ruler makes court Old French
+character_event = {
+	id = WtWSMS_pots.43
+	desc = WtWSMS_pots.43.desc
+	picture = GFX_evt_throne_room
+	
+	only_rulers = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = frankish
+		any_courtier = {
+			culture = old_frankish
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 120 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.43.a
+		random_courtier = {
+			limit = {
+				culture = old_frankish
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = frankish
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.45 days = 3 }
+			}
+		}
+	}
+}
+
+# Old French ruler makes vassal Old French
+character_event = {
+	id = WtWSMS_pots.44
+	desc = WtWSMS_pots.44.desc
+	picture = GFX_evt_throne_room
+	
+	only_playable = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = frankish
+		any_vassal = {
+			culture = old_frankish
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.44.a
+		random_vassal = {
+			limit = {
+				culture = old_frankish
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = frankish
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.45 days = 3 }
+			}
+		}
+	}
+}
+
+character_event = {
+	id = WtWSMS_pots.45
+	desc = WtWSMS_pots.45.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_pots.45.a
+		culture = frankish
+	}
+}
+
+# Province culture changes from Romano-Gallic to Galleis
+province_event = {
+	id = WtWSMS_pots.46
+	title = WtWSMS_pots.46.name
+	desc = WtWSMS_pots.46.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+	
+	trigger = { 
+		owner = {
+			religion_group = christian
+			is_feudal = yes
+			OR = { 
+				has_germanic_culture_trigger = yes
+				has_celtic_culture_trigger = yes
+			}
+			NOT = { culture = old_frankish }
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = romano_gallic
+		region = custom_frankish
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 7
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 9
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 11
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 13
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 5 }
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 3 }
+			}
+		}
+		modifier = {
+			factor = 2.0
+			owner = { 
+				NOT = { learning = 1 }
+			}
+		}
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_flag = gallo_romance_melting_pot
+	}
+	
+	option = {
+		name = WtWSMS_pots.46.a #
+		culture = gallo_romance
+		owner = {
+			culture = gallo_romance
+		}
+	}
+}
+
+# Galleis culture spreading
+province_event = {
+	id = WtWSMS_pots.47
+	desc = WtWSMS_pots.47.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+	
+	trigger = {
+		owner = {
+			culture = gallo_romance
+			religion_group = christian
+			is_feudal = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = romano_gallic
+		region = custom_frankish
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.47.a
+		culture = gallo_romance 
+	}
+}
+
+# Galleis ruler makes court Galleis
+character_event = {
+	id = WtWSMS_pots.48
+	desc = WtWSMS_pots.48.desc
+	picture = GFX_evt_throne_room
+	
+	only_rulers = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = frankish
+		any_courtier = {
+			OR = { 
+				has_germanic_culture_trigger = yes
+				has_celtic_culture_trigger = yes
+			}
+			NOT = { culture = old_frankish }
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 120 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.48.a
+		random_courtier = {
+			limit = {
+				OR = { 
+					has_germanic_culture_trigger = yes
+					has_celtic_culture_trigger = yes
+				}
+				NOT = { culture = old_frankish }
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = gallo_romance
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.50 days = 3 }
+			}
+		}
+	}
+}
+
+# Galleis ruler makes vassal Galleis
+character_event = {
+	id = WtWSMS_pots.49
+	desc = WtWSMS_pots.49.desc
+	picture = GFX_evt_throne_room
+	
+	only_playable = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = gallo_romance
+		any_vassal = {
+			OR = { 
+				has_germanic_culture_trigger = yes
+				has_celtic_culture_trigger = yes
+			}
+			NOT = { culture = old_frankish }
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.49.a
+		random_vassal = {
+			limit = {
+				OR = { 
+					has_germanic_culture_trigger = yes
+					has_celtic_culture_trigger = yes
+				}
+				NOT = { culture = old_frankish }
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = gallo_romance
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.50 days = 3 }
+			}
+		}
+	}
+}
+
+character_event = {
+	id = WtWSMS_pots.50
+	desc = WtWSMS_pots.50.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_pots.50.a
+		culture = gallo_romance
+	}
+}
+
+# Province culture changes from Romano-Gallic to Occitan
+province_event = {
+	id = WtWSMS_pots.51
+	title = WtWSMS_pots.51.name
+	desc = WtWSMS_pots.51.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+	
+	trigger = { 
+		owner = {
+			religion_group = christian
+			is_feudal = yes
+			has_germanic_culture_trigger = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = romano_gallic
+		region = custom_occitan
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 7
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 9
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 11
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 13
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 5 }
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 3 }
+			}
+		}
+		modifier = {
+			factor = 2.0
+			owner = { 
+				NOT = { learning = 1 }
+			}
+		}
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_flag = occitan_melting_pot
+	}
+	
+	option = {
+		name = WtWSMS_pots.51.a #
+		culture = occitan
+		owner = {
+			culture = occitan
+		}
+	}
+}
+
+# Occitan culture spreading
+province_event = {
+	id = WtWSMS_pots.52
+	desc = WtWSMS_pots.52.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+	
+	trigger = {
+		owner = {
+			culture = occitan
+			religion_group = christian
+			is_feudal = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = romano_gallic
+		region = custom_occitan
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.52.a
+		culture = occitan 
+	}
+}
+
+# Occitan ruler makes court Occitan
+character_event = {
+	id = WtWSMS_pots.53
+	desc = WtWSMS_pots.53.desc
+	picture = GFX_evt_throne_room
+	
+	only_rulers = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = occitan
+		any_courtier = {
+			has_germanic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 120 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.53.a
+		random_courtier = {
+			limit = {
+				has_germanic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = occitan
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.55 days = 3 }
+			}
+		}
+	}
+}
+
+# Occitan ruler makes vassal Occitan
+character_event = {
+	id = WtWSMS_pots.54
+	desc = WtWSMS_pots.54.desc
+	picture = GFX_evt_throne_room
+	
+	only_playable = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = occitan
+		any_vassal = {
+			has_germanic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.54.a
+		random_vassal = {
+			limit = {
+				has_germanic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = occitan
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.55 days = 3 }
+			}
+		}
+	}
+}
+
+character_event = {
+	id = WtWSMS_pots.55
+	desc = WtWSMS_pots.55.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_pots.55.a
+		culture = occitan
+	}
+}
+
+# Lack of strong Romano-Gallic realm remaining means last Romano-Gallic enclaves are removed
+province_event = {
+	id = WtWSMS_pots.56
+	title = WtWSMS_pots.56.name
+	desc = WtWSMS_pots.56.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_diplomacy
+
+	trigger = {
+		OR = { 
+			had_global_flag = { 
+				flag = old_french_melting_pot
+				days = 3650 # 10 years 
+			}
+			had_global_flag = { 
+				flag = gallo_romance_melting_pot
+				days = 3650 # 10 years 
+			}
+			had_global_flag = { 
+				flag = occitan_melting_pot
+				days = 3650 # 10 years 
+			}
+		}
+		NOT = { # Lack of strong Romano-Gallic realm remaining
+			any_independent_ruler = {
+				culture = romano_gallic
+				OR = { 
+					higher_tier_than = duke
+					realm_size = 35
+					any_demesne_title = {
+						count = 3
+						tier = DUKE
+					}
+				}
+			}
+		}
+		NOT = {
+			owner = { 
+				OR = { 
+					culture = romano_gallic 
+					top_liege = {
+						culture = romano_gallic
+					}
+					liege = {
+						culture = romano_gallic
+					}
+				}
+			}
+		}
+		culture = romano_gallic
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+	}
+	
+	option = {
+		name = WtWSMS_pots.56.a
+		if = {
+			limit = {
+				owner = {
+					culture = old_frankish
+				}
+				region = custom_frankish
+			}
+			culture = frankish
+		}
+		else_if = {
+			limit = {
+				owner = {
+					has_germanic_culture_trigger = yes
+					NOT = { culture = old_frankish }
+				}
+				region = custom_frankish
+			}
+			culture = gallo_romance
+		}
+		if = {
+			limit = {
+				owner = {
+					culture = old_frankish
+				}
+				region = custom_occitan
+			}
+			culture = occitan
+		}
+	}
+}
+
+# Province culture changes from Romano-Hispanic to Catalan
+province_event = {
+	id = WtWSMS_pots.57
+	title = WtWSMS_pots.57.name
+	desc = WtWSMS_pots.57.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+	
+	trigger = { 
+		owner = {
+			religion_group = christian
+			is_feudal = yes
+			has_germanic_culture_trigger = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = romano_hispanic
+		region = custom_catalan
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 7
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 9
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 11
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 13
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 5 }
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 3 }
+			}
+		}
+		modifier = {
+			factor = 2.0
+			owner = { 
+				NOT = { learning = 1 }
+			}
+		}
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_flag = catalan_melting_pot
+	}
+	
+	option = {
+		name = WtWSMS_pots.57.a #
+		culture = catalan
+		owner = {
+			culture = catalan
+		}
+	}
+}
+
+# Catalan culture spreading
+province_event = {
+	id = WtWSMS_pots.58
+	desc = WtWSMS_pots.58.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+	
+	trigger = {
+		owner = {
+			culture = catalan
+			religion_group = christian
+			is_feudal = yes
+			religion = ROOT		
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = romano_hispanic
+		region = custom_catalan
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.58.a
+		culture = catalan 
+	}
+}
+
+# Catalan ruler makes court Catalan
+character_event = {
+	id = WtWSMS_pots.59
+	desc = WtWSMS_pots.59.desc
+	picture = GFX_evt_throne_room
+	
+	only_rulers = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = catalan
+		any_courtier = {
+			has_germanic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 120 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.59.a
+		random_courtier = {
+			limit = {
+				has_germanic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = catalan
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.61 days = 3 }
+			}
+		}
+	}
+}
+
+# Catalan ruler makes vassal Catalan
+character_event = {
+	id = WtWSMS_pots.60
+	desc = WtWSMS_pots.60.desc
+	picture = GFX_evt_throne_room
+	
+	only_playable = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = catalan
+		any_vassal = {
+			has_germanic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.60.a
+		random_vassal = {
+			limit = {
+				has_germanic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = catalan
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.61 days = 3 }
+			}
+		}
+	}
+}
+
+character_event = {
+	id = WtWSMS_pots.61
+	desc = WtWSMS_pots.61.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_pots.61.a
+		culture = catalan
+	}
+}
+
+# Province culture changes from Romano-Hispanic to Portuguese
+province_event = {
+	id = WtWSMS_pots.62
+	title = WtWSMS_pots.62.name
+	desc = WtWSMS_pots.62.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+		
+	trigger = { 
+		owner = {
+			religion_group = christian
+			is_feudal = yes
+			has_germanic_culture_trigger = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = romano_hispanic
+		region = custom_portuguese
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 7
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 9
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 11
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 13
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 5 }
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 3 }
+			}
+		}
+		modifier = {
+			factor = 2.0
+			owner = { 
+				NOT = { learning = 1 }
+			}
+		}
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_flag = portuguese_melting_pot
+	}
+	
+	option = {
+		name = WtWSMS_pots.62.a #
+		culture = portuguese
+		owner = {
+			culture = portuguese
+		}
+	}
+}
+
+# Portuguese culture spreading
+province_event = {
+	id = WtWSMS_pots.63
+	desc = WtWSMS_pots.63.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+		
+	trigger = {
+		owner = {
+			culture = portuguese
+			religion_group = christian
+			is_feudal = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = romano_hispanic
+		region = custom_portuguese
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.63.a
+		culture = portuguese 
+	}
+}
+
+# Portuguese ruler makes court Portuguese
+character_event = {
+	id = WtWSMS_pots.64
+	desc = WtWSMS_pots.64.desc
+	picture = GFX_evt_throne_room
+	
+	only_rulers = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = portuguese
+		any_courtier = {
+			has_germanic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 120 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.64.a
+		random_courtier = {
+			limit = {
+				has_germanic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = portuguese
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.66 days = 3 }
+			}
+		}
+	}
+}
+
+# Portuguese ruler makes vassal Portuguese
+character_event = {
+	id = WtWSMS_pots.65
+	desc = WtWSMS_pots.65.desc
+	picture = GFX_evt_throne_room
+	
+	only_playable = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = portuguese
+		any_vassal = {
+			has_germanic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.65.a
+		random_vassal = {
+			limit = {
+				has_germanic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = portuguese
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.66 days = 3 }
+			}
+		}
+	}
+}
+
+character_event = {
+	id = WtWSMS_pots.66
+	desc = WtWSMS_pots.66.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_pots.66.a
+		culture = portuguese
+	}
+}
+
+# Province culture changes from Romano-Hispanic to Castillan
+province_event = {
+	id = WtWSMS_pots.67
+	title = WtWSMS_pots.67.name
+	desc = WtWSMS_pots.67.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+		
+	trigger = { 
+		owner = {
+			religion_group = christian
+			is_feudal = yes
+			has_germanic_culture_trigger = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = romano_hispanic
+		region = custom_castillian
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 7
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 9
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 11
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 13
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 5 }
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 3 }
+			}
+		}
+		modifier = {
+			factor = 2.0
+			owner = { 
+				NOT = { learning = 1 }
+			}
+		}
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_flag = castillan_melting_pot
+	}
+	
+	option = {
+		name = WtWSMS_pots.67.a #
+		culture = castillan
+		owner = {
+			culture = castillan
+		}
+	}
+}
+
+# Castillan culture spreading
+province_event = {
+	id = WtWSMS_pots.68
+	desc = WtWSMS_pots.68.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+		
+	trigger = {
+		owner = {
+			culture = castillan
+			religion_group = christian
+			is_feudal = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = romano_hispanic
+		region = custom_castillian
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.68.a
+		culture = castillan 
+	}
+}
+
+# Castillan ruler makes court Castillan
+character_event = {
+	id = WtWSMS_pots.69
+	desc = WtWSMS_pots.69.desc
+	picture = GFX_evt_throne_room
+	
+	only_rulers = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = castillan
+		any_courtier = {
+			has_germanic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 120 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.69.a
+		random_courtier = {
+			limit = {
+				has_germanic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = castillan
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.71 days = 3 }
+			}
+		}
+	}
+}
+
+# Castillan ruler makes vassal Castillan
+character_event = {
+	id = WtWSMS_pots.70
+	desc = WtWSMS_pots.70.desc
+	picture = GFX_evt_throne_room
+	
+	only_playable = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = castillan
+		any_vassal = {
+			has_germanic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.70.a
+		random_vassal = {
+			limit = {
+				has_germanic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = castillan
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.71 days = 3 }
+			}
+		}
+	}
+}
+
+character_event = {
+	id = WtWSMS_pots.71
+	desc = WtWSMS_pots.71.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_pots.71.a
+		culture = castillan
+	}
+}
+
+# Province culture changes from Romano-Hispanic to Leonese
+province_event = {
+	id = WtWSMS_pots.72
+	title = WtWSMS_pots.72.name
+	desc = WtWSMS_pots.72.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+		
+	trigger = { 
+		owner = {
+			religion_group = christian
+			is_feudal = yes
+			has_germanic_culture_trigger = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = romano_hispanic
+		region = custom_leonese
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 7
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 9
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 11
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 13
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 5 }
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 3 }
+			}
+		}
+		modifier = {
+			factor = 2.0
+			owner = { 
+				NOT = { learning = 1 }
+			}
+		}
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_flag = leonese_melting_pot
+	}
+	
+	option = {
+		name = WtWSMS_pots.72.a #
+		culture = leonese
+		owner = {
+			culture = leonese
+		}
+	}
+}
+
+# Leonese culture spreading
+province_event = {
+	id = WtWSMS_pots.73
+	desc = WtWSMS_pots.73.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+		
+	trigger = {
+		owner = {
+			culture = leonese
+			religion_group = christian
+			is_feudal = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = romano_hispanic
+		region = custom_leonese
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.73.a
+		culture = leonese 
+	}
+}
+
+# Leonese ruler makes court Leonese
+character_event = {
+	id = WtWSMS_pots.74
+	desc = WtWSMS_pots.74.desc
+	picture = GFX_evt_throne_room
+	
+	only_rulers = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = leonese
+		any_courtier = {
+			has_germanic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 120 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.74.a
+		random_courtier = {
+			limit = {
+				has_germanic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = leonese
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.76 days = 3 }
+			}
+		}
+	}
+}
+
+# Leonese ruler makes vassal Leonese
+character_event = {
+	id = WtWSMS_pots.75
+	desc = WtWSMS_pots.75.desc
+	picture = GFX_evt_throne_room
+	
+	only_playable = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = leonese
+		any_vassal = {
+			has_germanic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.75.a
+		random_vassal = {
+			limit = {
+				has_germanic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = leonese
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.76 days = 3 }
+			}
+		}
+	}
+}
+
+character_event = {
+	id = WtWSMS_pots.76
+	desc = WtWSMS_pots.76.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_pots.76.a
+		culture = leonese
+	}
+}
+
+# Province culture changes from Romano-Hispanic to Andalusian
+province_event = {
+	id = WtWSMS_pots.77
+	title = WtWSMS_pots.77.name
+	desc = WtWSMS_pots.77.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+		
+	trigger = { 
+		owner = {
+			religion_group = christian
+			is_feudal = yes
+			has_arabic_culture_trigger = yes
+			religion = ROOT
+		}
+		religion_group = christian # Realised this was slightly problematic for this one
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = romano_hispanic
+		region = custom_andalusian
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 7
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 9
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 11
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 13
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 5 }
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 3 }
+			}
+		}
+		modifier = {
+			factor = 2.0
+			owner = { 
+				NOT = { learning = 1 }
+			}
+		}
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_flag = andalusian_melting_pot
+	}
+	
+	option = {
+		name = WtWSMS_pots.77.a #
+		culture = andalusian_arabic
+		owner = {
+			culture = andalusian_arabic
+		}
+	}
+}
+
+# Andalusian culture spreading
+province_event = {
+	id = WtWSMS_pots.78
+	desc = WtWSMS_pots.78.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+		
+	trigger = {
+		owner = {
+			culture = andalusian_arabic
+			religion_group = christian
+			is_feudal = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = romano_hispanic
+		region = custom_andalusian
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.78.a
+		culture = andalusian_arabic 
+	}
+}
+
+# Andalusian ruler makes court Andalusian
+character_event = {
+	id = WtWSMS_pots.79
+	desc = WtWSMS_pots.79.desc
+	picture = GFX_evt_throne_room
+	
+	only_rulers = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = andalusian_arabic
+		any_courtier = {
+			has_arabic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 120 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.79.a
+		random_courtier = {
+			limit = {
+				has_arabic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = andalusian_arabic
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.81 days = 3 }
+			}
+		}
+	}
+}
+
+# Andalusian ruler makes vassal Andalusian
+character_event = {
+	id = WtWSMS_pots.80
+	desc = WtWSMS_pots.80.desc
+	picture = GFX_evt_throne_room
+	
+	only_playable = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = andalusian_arabic
+		any_vassal = {
+			has_arabic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.80.a
+		random_vassal = {
+			limit = {
+				has_arabic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = andalusian_arabic
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.81 days = 3 }
+			}
+		}
+	}
+}
+
+character_event = {
+	id = WtWSMS_pots.81
+	desc = WtWSMS_pots.81.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_pots.81.a
+		culture = andalusian_arabic
+	}
+}
+
+# Lack of strong Romano-Hispanic realm remaining means last Romano-Hispanic enclaves are removed
+province_event = {
+	id = WtWSMS_pots.82
+	title = WtWSMS_pots.82.name
+	desc = WtWSMS_pots.82.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_diplomacy
+
+	trigger = {
+		OR = { 
+			had_global_flag = { 
+				flag = catalan_melting_pot
+				days = 3650 # 10 years 
+			}
+			had_global_flag = { 
+				flag = portugese_melting_pot
+				days = 3650 # 10 years 
+			}
+			had_global_flag = { 
+				flag = castillan_melting_pot
+				days = 3650 # 10 years 
+			}
+			had_global_flag = { 
+				flag = leonese_melting_pot
+				days = 3650 # 10 years 
+			}
+			had_global_flag = { 
+				flag = andalusian_melting_pot
+				days = 3650 # 10 years 
+			}
+		}
+		NOT = { # Lack of strong Romano-Hispanic realm remaining
+			any_independent_ruler = {
+				culture = romano_hispanic
+				OR = { 
+					higher_tier_than = duke
+					realm_size = 35
+					any_demesne_title = {
+						count = 3
+						tier = DUKE
+					}
+				}
+			}
+		}
+		NOT = {
+			owner = { 
+				OR = { 
+					culture = romano_hispanic 
+					top_liege = {
+						culture = romano_hispanic
+					}
+					liege = {
+						culture = romano_hispanic
+					}
+				}
+			}
+		}
+		culture = romano_hispanic
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+	}
+	
+	option = {
+		name = WtWSMS_pots.82.a
+		if = {
+			limit = {
+				region = custom_catalan
+			}
+			culture = catalan
+		}
+		else_if = {
+			limit = {
+				region = custom_portuguese
+			}
+			culture = portuguese
+		}
+		else_if = {
+			limit = {
+				region = custom_castillian
+			}
+			culture = castillan
+		}
+		if = {
+			limit = {
+				region = custom_leonese
+			}
+			culture = leonese
+		}
+		if = {
+			limit = {
+				owner = {
+					has_arabic_culture_trigger = yes
+				}
+				region = custom_andalusian
+			}
+			culture = andalusian_arabic
+		}
+	}
+}
+
+# Province culture changes from Romano-British to Brídaney
+province_event = {
+	id = WtWSMS_pots.83
+	title = WtWSMS_pots.83.name
+	desc = WtWSMS_pots.83.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+	
+	trigger = { 
+		owner = {
+			religion_group = christian
+			is_feudal = yes
+			OR = { 
+				has_germanic_culture_trigger = yes
+				has_celtic_culture_trigger = yes
+			}
+			religion = ROOT			
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = romano_british
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 7
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 9
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 11
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 13
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 5 }
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 3 }
+			}
+		}
+		modifier = {
+			factor = 2.0
+			owner = { 
+				NOT = { learning = 1 }
+			}
+		}
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_flag = british_romance_melting_pot
+	}
+	
+	option = {
+		name = WtWSMS_pots.83.a #
+		culture = british_romance
+		owner = {
+			culture = british_romance
+		}
+	}
+}
+
+# Brídaney culture spreading
+province_event = {
+	id = WtWSMS_pots.84
+	desc = WtWSMS_pots.84.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+		
+	trigger = {
+		owner = {
+			culture = british_romance
+			religion_group = christian
+			is_feudal = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = romano_british
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.84.a
+		culture = british_romance 
+	}
+}
+
+# Brídaney ruler makes court Brídaney
+character_event = {
+	id = WtWSMS_pots.85
+	desc = WtWSMS_pots.85.desc
+	picture = GFX_evt_throne_room
+	
+	only_rulers = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = british_romance
+		any_courtier = {
+			OR = { 
+				has_germanic_culture_trigger = yes
+				has_celtic_culture_trigger = yes
+			}
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 120 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.85.a
+		random_courtier = {
+			limit = {
+				OR = { 
+					has_germanic_culture_trigger = yes
+					has_celtic_culture_trigger = yes
+				}
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = british_romance
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.87 days = 3 }
+			}
+		}
+	}
+}
+
+# Brídaney ruler makes vassal Brídaney
+character_event = {
+	id = WtWSMS_pots.86
+	desc = WtWSMS_pots.86.desc
+	picture = GFX_evt_throne_room
+	
+	only_playable = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = british_romance
+		any_vassal = {
+			OR = { 
+				has_germanic_culture_trigger = yes
+				has_celtic_culture_trigger = yes
+			}
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.86.a
+		random_vassal = {
+			limit = {
+				OR = {
+					has_germanic_culture_trigger = yes
+					has_celtic_culture_trigger = yes
+				}
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = british_romance
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.87 days = 3 }
+			}
+		}
+	}
+}
+
+character_event = {
+	id = WtWSMS_pots.87
+	desc = WtWSMS_pots.87.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_pots.87.a
+		culture = british_romance
+	}
+}
+
+# Lack of strong Romano-British realm remaining means last Romano-British enclaves are removed
+province_event = {
+	id = WtWSMS_pots.88
+	title = WtWSMS_pots.88.name
+	desc = WtWSMS_pots.88.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_diplomacy
+
+	trigger = {
+		had_global_flag = { 
+			flag = british_romance_melting_pot
+			days = 3650 # 10 years 
+		}
+		NOT = { # Lack of strong Romano-British realm remaining
+			any_independent_ruler = {
+				culture = romano_british
+				OR = { 
+					higher_tier_than = duke
+					realm_size = 35
+					any_demesne_title = {
+						count = 3
+						tier = DUKE
+					}
+				}
+			}
+		}
+		NOT = {
+			owner = { 
+				OR = { 
+					culture = romano_british 
+					top_liege = {
+						culture = romano_british
+					}
+					liege = {
+						culture = romano_british
+					}
+				}
+			}
+		}
+		culture = romano_british
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+	}
+	
+	option = {
+		name = WtWSMS_pots.88.a
+		culture = british_romance
+	}
+}
+
+# Province culture changes from African Romance to Arréyanu
+province_event = {
+	id = WtWSMS_pots.89
+	title = WtWSMS_pots.89.name
+	desc = WtWSMS_pots.89.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+		
+	trigger = { 
+		owner = {
+			religion_group = christian
+			is_feudal = yes
+			has_germanic_culture_trigger = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = african_romance
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 7
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 9
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 11
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 13
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 5 }
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 3 }
+			}
+		}
+		modifier = {
+			factor = 2.0
+			owner = { 
+				NOT = { learning = 1 }
+			}
+		}
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_flag = arreyanu_melting_pot
+	}
+	
+	option = {
+		name = WtWSMS_pots.89.a #
+		culture = arreyanu
+		owner = {
+			culture = arreyanu
+		}
+	}
+}
+
+# Arréyanu culture spreading
+province_event = {
+	id = WtWSMS_pots.90
+	desc = WtWSMS_pots.90.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+		
+	trigger = {
+		owner = {
+			culture = arreyanu
+			religion_group = christian
+			is_feudal = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = african_romance
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.90.a
+		culture = arreyanu 
+	}
+}
+
+# Arréyanu ruler makes court Arréyanu
+character_event = {
+	id = WtWSMS_pots.91
+	desc = WtWSMS_pots.91.desc
+	picture = GFX_evt_throne_room
+	
+	only_rulers = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = arreyanu
+		any_courtier = {
+			has_germanic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 120 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.91.a
+		random_courtier = {
+			limit = {
+				has_germanic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = arreyanu
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.93 days = 3 }
+			}
+		}
+	}
+}
+
+# Arréyanu ruler makes vassal Arréyanu
+character_event = {
+	id = WtWSMS_pots.92
+	desc = WtWSMS_pots.92.desc
+	picture = GFX_evt_throne_room
+	
+	only_playable = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = arreyanu
+		any_vassal = {
+			has_germanic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.92.a
+		random_vassal = {
+			limit = {
+				has_germanic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = arreyanu
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.93 days = 3 }
+			}
+		}
+	}
+}
+
+character_event = {
+	id = WtWSMS_pots.93
+	desc = WtWSMS_pots.93.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_pots.93.a
+		culture = arreyanu
+	}
+}
+
+# Lack of strong African Romance realm remaining means last African Romance enclaves are removed
+province_event = {
+	id = WtWSMS_pots.94
+	title = WtWSMS_pots.94.name
+	desc = WtWSMS_pots.94.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_diplomacy
+
+	trigger = {
+		had_global_flag = { 
+			flag = arreyanu_melting_pot
+			days = 3650 # 10 years 
+		}
+		NOT = { # Lack of strong Romano-British realm remaining
+			any_independent_ruler = {
+				culture = african_romance
+				OR = { 
+					higher_tier_than = duke
+					realm_size = 35
+					any_demesne_title = {
+						count = 3
+						tier = DUKE
+					}
+				}
+			}
+		}
+		NOT = {
+			owner = { 
+				OR = { 
+					culture = african_romance 
+					top_liege = {
+						culture = african_romance
+					}
+					liege = {
+						culture = african_romance
+					}
+				}
+			}
+		}
+		culture = african_romance
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+	}
+	
+	option = {
+		name = WtWSMS_pots.94.a
+		culture = arreyanu
+	}
+}
+
+# Province culture changes from Romano-Illyrian to Dalmatian
+province_event = {
+	id = WtWSMS_pots.95
+	title = WtWSMS_pots.95.name
+	desc = WtWSMS_pots.95.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+		
+	trigger = { 
+		owner = {
+			religion_group = christian
+			is_feudal = yes
+			has_germanic_culture_trigger = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = illyro_roman
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 7
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 9
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 11
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 13
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 5 }
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 3 }
+			}
+		}
+		modifier = {
+			factor = 2.0
+			owner = { 
+				NOT = { learning = 1 }
+			}
+		}
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_flag = dalmatian_melting_pot
+	}
+	
+	option = {
+		name = WtWSMS_pots.95.a #
+		culture = dalmatian
+		owner = {
+			culture = dalmatian
+		}
+	}
+}
+
+# Dalmatian culture spreading
+province_event = {
+	id = WtWSMS_pots.96
+	desc = WtWSMS_pots.96.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+		
+	trigger = {
+		owner = {
+			culture = dalmatian
+			religion_group = christian
+			is_feudal = yes
+			religion = ROOT			
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = illyro_roman
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.96.a
+		culture = dalmatian 
+	}
+}
+
+# Dalmatian ruler makes court Dalmatian
+character_event = {
+	id = WtWSMS_pots.97
+	desc = WtWSMS_pots.97.desc
+	picture = GFX_evt_throne_room
+	
+	only_rulers = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = dalmatian
+		any_courtier = {
+			has_germanic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 120 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.97.a
+		random_courtier = {
+			limit = {
+				has_germanic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = dalmatian
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.99 days = 3 }
+			}
+		}
+	}
+}
+
+# Dalmatian ruler makes vassal Dalmatian
+character_event = {
+	id = WtWSMS_pots.98
+	desc = WtWSMS_pots.98.desc
+	picture = GFX_evt_throne_room
+	
+	only_playable = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = dalmatian
+		any_vassal = {
+			has_germanic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.98.a
+		random_vassal = {
+			limit = {
+				has_germanic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = dalmatian
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.99 days = 3 }
+			}
+		}
+	}
+}
+
+character_event = {
+	id = WtWSMS_pots.99
+	desc = WtWSMS_pots.99.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_pots.99.a
+		culture = dalmatian
+	}
+}
+
+# Lack of strong Romano-Illyrian realm remaining means last Romano-Illyrian enclaves are removed
+province_event = {
+	id = WtWSMS_pots.100
+	title = WtWSMS_pots.100.name
+	desc = WtWSMS_pots.100.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_diplomacy
+
+	trigger = {
+		had_global_flag = { 
+			flag = dalmatian_melting_pot
+			days = 3650 # 10 years 
+		}
+		NOT = { # Lack of strong Romano-British realm remaining
+			any_independent_ruler = {
+				culture = illyro_roman
+				OR = { 
+					higher_tier_than = duke
+					realm_size = 35
+					any_demesne_title = {
+						count = 3
+						tier = DUKE
+					}
+				}
+			}
+		}
+		NOT = {
+			owner = { 
+				OR = { 
+					culture = illyro_roman 
+					top_liege = {
+						culture = illyro_roman
+					}
+					liege = {
+						culture = illyro_roman
+					}
+				}
+			}
+		}
+		culture = illyro_roman
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+	}
+	
+	option = {
+		name = WtWSMS_pots.100.a
+		culture = dalmatian
+	}
+}
+
+# Province culture changes from Romano-Noric to Romansh
+province_event = {
+	id = WtWSMS_pots.101
+	title = WtWSMS_pots.101.name
+	desc = WtWSMS_pots.101.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+		
+	trigger = { 
+		owner = {
+			religion_group = christian
+			is_feudal = yes
+			has_germanic_culture_trigger = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = noricroman
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 7
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 9
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 11
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 13
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 5 }
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 3 }
+			}
+		}
+		modifier = {
+			factor = 2.0
+			owner = { 
+				NOT = { learning = 1 }
+			}
+		}
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_flag = romansh_melting_pot
+	}
+	
+	option = {
+		name = WtWSMS_pots.101.a #
+		culture = romansh
+		owner = {
+			culture = romansh
+		}
+	}
+}
+
+# Romansh culture spreading
+province_event = {
+	id = WtWSMS_pots.102
+	desc = WtWSMS_pots.102.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+		
+	trigger = {
+		owner = {
+			culture = romansh
+			religion_group = christian
+			is_feudal = yes
+			religion = ROOT			
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = noricroman
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.102.a
+		culture = romansh 
+	}
+}
+
+# Romansh ruler makes court Romansh
+character_event = {
+	id = WtWSMS_pots.103
+	desc = WtWSMS_pots.103.desc
+	picture = GFX_evt_throne_room
+	
+	only_rulers = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = romansh
+		any_courtier = {
+			has_germanic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 120 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.103.a
+		random_courtier = {
+			limit = {
+				has_germanic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = romansh
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.105 days = 3 }
+			}
+		}
+	}
+}
+
+# Romansh ruler makes vassal Romansh
+character_event = {
+	id = WtWSMS_pots.104
+	desc = WtWSMS_pots.104.desc
+	picture = GFX_evt_throne_room
+	
+	only_playable = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = romansh
+		any_vassal = {
+			has_germanic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.104.a
+		random_vassal = {
+			limit = {
+				has_germanic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = romansh
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.105 days = 3 }
+			}
+		}
+	}
+}
+
+character_event = {
+	id = WtWSMS_pots.105
+	desc = WtWSMS_pots.105.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_pots.105.a
+		culture = romansh
+	}
+}
+
+# Lack of strong Romano-Noric realm remaining means last Romano-Noric enclaves are removed
+province_event = {
+	id = WtWSMS_pots.106
+	title = WtWSMS_pots.106.name
+	desc = WtWSMS_pots.106.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_diplomacy
+
+	trigger = {
+		had_global_flag = { 
+			flag = romansh_melting_pot
+			days = 3650 # 10 years 
+		}
+		NOT = { # Lack of strong Romano-British realm remaining
+			any_independent_ruler = {
+				culture = noricroman
+				OR = { 
+					higher_tier_than = duke
+					realm_size = 35
+					any_demesne_title = {
+						count = 3
+						tier = DUKE
+					}
+				}
+			}
+		}
+		NOT = {
+			owner = { 
+				OR = { 
+					culture = noricroman 
+					top_liege = {
+						culture = noricroman
+					}
+					liege = {
+						culture = noricroman
+					}
+				}
+			}
+		}
+		culture = noricroman
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+	}
+	
+	option = {
+		name = WtWSMS_pots.106.a
+		culture = romansh
+	}
+}
+
+# Province culture changes from Raetian to Romansh
+province_event = {
+	id = WtWSMS_pots.107
+	title = WtWSMS_pots.107.name
+	desc = WtWSMS_pots.107.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+		
+	trigger = { 
+		owner = {
+			religion_group = christian
+			is_feudal = yes
+			has_germanic_culture_trigger = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = raetoroman
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 7
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 9
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 11
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 13
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 5 }
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 3 }
+			}
+		}
+		modifier = {
+			factor = 2.0
+			owner = { 
+				NOT = { learning = 1 }
+			}
+		}
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_flag = romansh_melting_pot
+	}
+	
+	option = {
+		name = WtWSMS_pots.107.a #
+		culture = romansh
+		owner = {
+			culture = romansh
+		}
+	}
+}
+
+# Romansh culture spreading
+province_event = {
+	id = WtWSMS_pots.108
+	desc = WtWSMS_pots.108.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+		
+	trigger = {
+		owner = {
+			culture = romansh
+			religion_group = christian
+			is_feudal = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = raetoroman
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.108.a
+		culture = romansh 
+	}
+}
+
+# Lack of strong Raetian realm remaining means last Raetian enclaves are removed
+province_event = {
+	id = WtWSMS_pots.109
+	title = WtWSMS_pots.109.name
+	desc = WtWSMS_pots.109.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_diplomacy
+
+	trigger = {
+		had_global_flag = { 
+			flag = romansh_melting_pot
+			days = 3650 # 10 years 
+		}
+		NOT = { # Lack of strong Romano-British realm remaining
+			any_independent_ruler = {
+				culture = raetoroman
+				OR = { 
+					higher_tier_than = duke
+					realm_size = 35
+					any_demesne_title = {
+						count = 3
+						tier = DUKE
+					}
+				}
+			}
+		}
+		NOT = {
+			owner = { 
+				OR = { 
+					culture = raetoroman 
+					top_liege = {
+						culture = raetoroman
+					}
+					liege = {
+						culture = raetoroman
+					}
+				}
+			}
+		}
+		culture = raetoroman
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+	}
+	
+	option = {
+		name = WtWSMS_pots.109.a
+		culture = romansh
+	}
+}
+
+# Province culture changes from Rumanescu to Vlach
+province_event = {
+	id = WtWSMS_pots.110
+	title = WtWSMS_pots.110.name
+	desc = WtWSMS_pots.110.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+		
+	trigger = { 
+		owner = {
+			religion_group = christian
+			is_feudal = yes
+			OR = { 
+				has_germanic_culture_trigger = yes
+				has_slavic_culture_trigger = yes
+			}
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = romano_dacian
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 7
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 9
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 11
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 13
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 5 }
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 3 }
+			}
+		}
+		modifier = {
+			factor = 2.0
+			owner = { 
+				NOT = { learning = 1 }
+			}
+		}
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_flag = romanian_melting_pot
+	}
+	
+	option = {
+		name = WtWSMS_pots.110.a #
+		culture = romanian
+		owner = {
+			culture = romanian
+		}
+	}
+}
+
+# Vlach culture spreading
+province_event = {
+	id = WtWSMS_pots.111
+	desc = WtWSMS_pots.111.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+		
+	trigger = {
+		owner = {
+			culture = romanian
+			religion_group = christian
+			is_feudal = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = romano_dacian
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.111.a
+		culture = romanian 
+	}
+}
+
+# Vlach ruler makes court Vlach
+character_event = {
+	id = WtWSMS_pots.112
+	desc = WtWSMS_pots.112.desc
+	picture = GFX_evt_throne_room
+	
+	only_rulers = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = romanian
+		any_courtier = {
+			OR = { 
+				has_germanic_culture_trigger = yes
+				has_slavic_culture_trigger = yes
+			}
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 120 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.112.a
+		random_courtier = {
+			limit = {
+				OR = { 
+					has_germanic_culture_trigger = yes
+					has_slavic_culture_trigger = yes
+				}
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = romanian
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.114 days = 3 }
+			}
+		}
+	}
+}
+
+# Vlach ruler makes vassal Vlach
+character_event = {
+	id = WtWSMS_pots.113
+	desc = WtWSMS_pots.113.desc
+	picture = GFX_evt_throne_room
+	
+	only_playable = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = romanian
+		any_vassal = {
+			OR = { 
+				has_germanic_culture_trigger = yes
+				has_slavic_culture_trigger = yes
+			}
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.113.a
+		random_vassal = {
+			limit = {
+				OR = { 
+					has_germanic_culture_trigger = yes
+					has_slavic_culture_trigger = yes
+				}
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = romanian
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.114 days = 3 }
+			}
+		}
+	}
+}
+
+character_event = {
+	id = WtWSMS_pots.114
+	desc = WtWSMS_pots.114.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_pots.114.a
+		culture = romanian
+	}
+}
+
+# Lack of strong Rumanescu realm remaining means last Rumanescu enclaves are removed
+province_event = {
+	id = WtWSMS_pots.115
+	title = WtWSMS_pots.115.name
+	desc = WtWSMS_pots.115.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_diplomacy
+
+	trigger = {
+		had_global_flag = { 
+			flag = romanian_melting_pot
+			days = 3650 # 10 years 
+		}
+		NOT = { # Lack of strong Romano-British realm remaining
+			any_independent_ruler = {
+				culture = romano_dacian
+				OR = { 
+					higher_tier_than = duke
+					realm_size = 35
+					any_demesne_title = {
+						count = 3
+						tier = DUKE
+					}
+				}
+			}
+		}
+		NOT = {
+			owner = { 
+				OR = { 
+					culture = romano_dacian 
+					top_liege = {
+						culture = romano_dacian
+					}
+					liege = {
+						culture = romano_dacian
+					}
+				}
+			}
+		}
+		culture = romano_dacian
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+	}
+	
+	option = {
+		name = WtWSMS_pots.115.a
+		culture = romanian
+	}
+}
+
+# Province culture changes from Thraco-Roman to Vlach
+province_event = {
+	id = WtWSMS_pots.116
+	title = WtWSMS_pots.116.name
+	desc = WtWSMS_pots.116.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+		
+	trigger = { 
+		owner = {
+			religion_group = christian
+			is_feudal = yes
+			OR = { 
+				has_germanic_culture_trigger = yes
+				has_slavic_culture_trigger = yes
+			}
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = thraco_roman
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 7
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 9
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 11
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 13
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 5 }
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 3 }
+			}
+		}
+		modifier = {
+			factor = 2.0
+			owner = { 
+				NOT = { learning = 1 }
+			}
+		}
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_flag = romanian_melting_pot
+	}
+	
+	option = {
+		name = WtWSMS_pots.116.a #
+		culture = romanian
+		owner = {
+			culture = romanian
+		}
+	}
+}
+
+# Vlach culture spreading
+province_event = {
+	id = WtWSMS_pots.117
+	desc = WtWSMS_pots.117.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+		
+	trigger = {
+		owner = {
+			culture = romanian
+			religion_group = christian
+			is_feudal = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = thraco_roman
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.117.a
+		culture = romanian 
+	}
+}
+
+# Lack of strong Thraco-Roman realm remaining means last Thraco-Roman enclaves are removed
+province_event = {
+	id = WtWSMS_pots.118
+	title = WtWSMS_pots.118.name
+	desc = WtWSMS_pots.118.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_diplomacy
+
+	trigger = {
+		had_global_flag = { 
+			flag = romanian_melting_pot
+			days = 3650 # 10 years 
+		}
+		NOT = { # Lack of strong Romano-British realm remaining
+			any_independent_ruler = {
+				culture = thraco_roman
+				OR = { 
+					higher_tier_than = duke
+					realm_size = 35
+					any_demesne_title = {
+						count = 3
+						tier = DUKE
+					}
+				}
+			}
+		}
+		NOT = {
+			owner = { 
+				OR = { 
+					culture = thraco_roman 
+					top_liege = {
+						culture = thraco_roman
+					}
+					liege = {
+						culture = thraco_roman
+					}
+				}
+			}
+		}
+		culture = thraco_roman
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+	}
+	
+	option = {
+		name = WtWSMS_pots.118.a
+		culture = romanian
+	}
+}
+
+# Province culture changes from Pannonian to Pièlsuzhany
+province_event = {
+	id = WtWSMS_pots.119
+	title = WtWSMS_pots.119.name
+	desc = WtWSMS_pots.119.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+		
+	trigger = { 
+		owner = {
+			religion_group = christian
+			is_feudal = yes
+			has_germanic_culture_trigger = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = pannonian
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 7
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 9
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 11
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = { 
+				learning = 13
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 5 }
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { 
+				NOT = { learning = 3 }
+			}
+		}
+		modifier = {
+			factor = 2.0
+			owner = { 
+				NOT = { learning = 1 }
+			}
+		}
+
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_flag = pannonian_romance_melting_pot
+	}
+	
+	option = {
+		name = WtWSMS_pots.119.a #
+		culture = pannonian_romance
+		owner = {
+			culture = pannonian_romance
+		}
+	}
+}
+
+# Pièlsuzhany culture spreading
+province_event = {
+	id = WtWSMS_pots.120
+	desc = WtWSMS_pots.120.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+		
+	trigger = {
+		owner = {
+			culture = pannonian_romance
+			religion_group = christian
+			is_feudal = yes
+			religion = ROOT
+		}
+		religion_group = christian
+		county = { 
+			is_feudal = yes
+		}
+		has_romance_culture_trigger = yes
+		NOR = { 
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			} 
+		}
+		has_province_flag = melting_pot_target
+		culture = pannonian
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.120.a
+		culture = pannonian_romance 
+	}
+}
+
+# Pièlsuzhany ruler makes court Pièlsuzhany
+character_event = {
+	id = WtWSMS_pots.121
+	desc = WtWSMS_pots.121.desc
+	picture = GFX_evt_throne_room
+	
+	only_rulers = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = pannonian_romance
+		any_courtier = {
+			has_germanic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 120 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.121.a
+		random_courtier = {
+			limit = {
+				has_germanic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = pannonian_romance
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.123 days = 3 }
+			}
+		}
+	}
+}
+
+# Pièlsuzhany ruler makes vassal Pièlsuzhany
+character_event = {
+	id = WtWSMS_pots.122
+	desc = WtWSMS_pots.122.desc
+	picture = GFX_evt_throne_room
+	
+	only_playable = yes
+
+	trigger = {
+		religion_group = christian
+		is_feudal = yes
+		culture = pannonian_romance
+		any_vassal = {
+			has_germanic_culture_trigger = yes
+			religion_group = christian
+			religion = ROOT
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_pots.122.a
+		random_vassal = {
+			limit = {
+				has_germanic_culture_trigger = yes
+				religion_group = christian
+				religion = ROOT
+			}
+			culture = pannonian_romance
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_pots.123 days = 3 }
+			}
+		}
+	}
+}
+
+character_event = {
+	id = WtWSMS_pots.123
+	desc = WtWSMS_pots.123.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_pots.123.a
+		culture = pannonian_romance
+	}
+}
+
+# Lack of strong Pannonian realm remaining means last Pannonian enclaves are removed
+province_event = {
+	id = WtWSMS_pots.124
+	title = WtWSMS_pots.124.name
+	desc = WtWSMS_pots.124.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_diplomacy
+
+	trigger = {
+		had_global_flag = { 
+			flag = pannonian_romance_melting_pot
+			days = 3650 # 10 years 
+		}
+		NOT = { # Lack of strong pannonian realm remaining
+			any_independent_ruler = {
+				culture = pannonian
+				OR = { 
+					higher_tier_than = duke
+					realm_size = 35
+					any_demesne_title = {
+						count = 3
+						tier = DUKE
+					}
+				}
+			}
+		}
+		NOT = {
+			owner = { 
+				OR = { 
+					culture = pannonian 
+					top_liege = {
+						culture = pannonian
+					}
+					liege = {
+						culture = pannonian
+					}
+				}
+			}
+		}
+		culture = pannonian
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+	}
+	
+	option = {
+		name = WtWSMS_pots.124.a
+		culture = pannonian_romance
+	}
+}
+
+###############################
+# Conversion to Christianity
+###############################
+
+# Liege converts to Christianity
+character_event = {
+	id = WtWSMS_pots.125
+	desc = WtWSMS_pots.125.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_pots.125.a
+		piety = 100
+	}
+}
+
+# Liege refuses conversion to Christianity
+character_event = {
+	id = WtWSMS_pots.126
+	desc = WtWSMS_pots.126.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_pots.126.a
+	}
+}
+
+# Liege converts away from heresy
+character_event = {
+	id = WtWSMS_pots.127
+	desc = WtWSMS_pots.127.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_pots.127.a
+		piety = 100
+	}
+}
+
+# Liege refuses to abandon heresy
+character_event = {
+	id = WtWSMS_pots.128
+	desc = WtWSMS_pots.128.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_pots.128.a
+	}
+}
