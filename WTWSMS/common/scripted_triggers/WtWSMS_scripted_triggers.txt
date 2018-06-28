@@ -98,6 +98,7 @@ bureaucratic_government_trigger = {
 		has_title_flag = ere_restored
 	}
 }
+
 # The Sassanid government type is used for Persia
 # trigger has title scope
 sassanid_government_trigger = {
@@ -115,6 +116,7 @@ sassanid_government_trigger = {
 		}
 	}
 }
+
 # The Legion government type is used for the Roman legions
 # trigger has title scope
 roman_legion_title_trigger = {
@@ -171,6 +173,30 @@ roman_legion_title_trigger = {
 		title = d_imperial_fleet_ere
 	}
 }
+
+# The Sub-Roman government type is used for the successor states to the Roman Empire
+# trigger has title scope
+sub_roman_government_trigger = {
+	OR = {
+		top_liege = {
+			primary_title = {
+				OR = {
+					bureaucratic_government_trigger = yes
+					sub_roman_government_trigger = yes
+				}
+			}
+		}
+		holder_scope = {
+			OR = {
+				has_romance_culture_trigger = yes
+				any_realm_title	= {
+					region = custom_imperium_romanum
+				}
+			}
+		}
+	}
+}
+
 # Foederati barbarians can use the foederati diplo-action
 # trigger has character scope
 foederati_barbarian_trigger = {
@@ -197,6 +223,7 @@ foederati_barbarian_trigger = {
 		}
 	}
 }
+
 # Foederati Romans can use the foederati diplo-action
 # trigger has character scope
 foederati_roman_trigger = {
