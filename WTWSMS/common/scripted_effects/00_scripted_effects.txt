@@ -5128,6 +5128,12 @@ monastic_order_purity_effect = {
 }
 
 join_prev_monastic_order_society = {
+	# WtWSMS
+	if = {
+		limit = { PREV = { society_member_of = monastic_order_insular } }
+		join_society = monastic_order_insular
+	}
+	# Vanilla
 	if = {
 		limit = { PREV = { society_member_of = monastic_order_orthodox } }
 		join_society = monastic_order_orthodox
@@ -9605,22 +9611,6 @@ add_secret_religion_trait_trigger_is_religion_or_old_religion_flag_clear_flag_af
     				NOT = {
 						has_character_was_religion_flag_trigger = yes
     				}
-    				religion = wahhabi
-    			}
-    			has_character_flag = character_was_wahhabi
-			}
-    	}
-    	set_secret_religion = wahhabi
-    	clr_character_flag = character_was_wahhabi
-		break = yes
-    }
-	if = {
-    	limit = {
-    		OR = {
-    			AND = {
-    				NOT = {
-						has_character_was_religion_flag_trigger = yes
-    				}
     				religion = mahdi
     			}
     			has_character_flag = character_was_mahdi
@@ -9628,22 +9618,6 @@ add_secret_religion_trait_trigger_is_religion_or_old_religion_flag_clear_flag_af
     	}
     	set_secret_religion = mahdi
     	clr_character_flag = character_was_mahdi
-		break = yes
-    }
-	if = {
-    	limit = {
-    		OR = {
-    			AND = {
-    				NOT = {
-						has_character_was_religion_flag_trigger = yes
-    				}
-    				religion = salafi
-    			}
-    			has_character_flag = character_was_salafi
-			}
-    	}
-    	set_secret_religion = salafi
-    	clr_character_flag = character_was_salafi
 		break = yes
     }
 	if = {
@@ -11452,16 +11426,8 @@ add_religion_char_flag_effect = {
     	set_character_flag = character_was_haruriyyah
 	}
 	if = {
-    	limit = { religion = wahhabi }
-    	set_character_flag = character_was_wahhabi
-	}
-	if = {
     	limit = { religion = mahdi }
     	set_character_flag = character_was_mahdi
-	}
-	if = {
-    	limit = { religion = salafi }
-    	set_character_flag = character_was_salafi
 	}
 	if = {
     	limit = { religion = twelver }
@@ -11928,9 +11894,7 @@ clr_religion_char_flag_effect = {
 	clr_character_flag = character_was_qadariyya
 	clr_character_flag = character_was_khawariji
 	clr_character_flag = character_was_haruriyyah
-	clr_character_flag = character_was_wahhabi
 	clr_character_flag = character_was_mahdi
-	clr_character_flag = character_was_salafi
 	clr_character_flag = character_was_twelver
 	clr_character_flag = character_was_zayid
 	clr_character_flag = character_was_ismaili
@@ -12245,20 +12209,8 @@ event_target_old_religion_from_flag_effect = {
     	}
     }
 	if = {
-    	limit = { has_character_flag = character_was_wahhabi }
-    	wahhabi = {
-    		save_event_target_as = old_religion
-    	}
-    }
-	if = {
     	limit = { has_character_flag = character_was_mahdi }
     	mahdi = {
-    		save_event_target_as = old_religion
-    	}
-    }
-	if = {
-    	limit = { has_character_flag = character_was_salafi }
-    	salafi = {
     		save_event_target_as = old_religion
     	}
     }
@@ -14513,17 +14465,6 @@ flip_secret_religious_community_provinces = {
 				}
 			}
 		}
-		secret_religious_society_wahhabi = {
-			ROOT = {
-				any_demesne_province = {
-					limit = {
-						has_province_modifier = secret_wahhabi_community
-					}
-					religion = wahhabi
-					remove_province_modifier = secret_wahhabi_community
-				}
-			}
-		}
 		secret_religious_society_mahdi = {
 			ROOT = {
 				any_demesne_province = {
@@ -14532,17 +14473,6 @@ flip_secret_religious_community_provinces = {
 					}
 					religion = mahdi
 					remove_province_modifier = secret_mahdi_community
-				}
-			}
-		}
-		secret_religious_society_salafi = {
-			ROOT = {
-				any_demesne_province = {
-					limit = {
-						has_province_modifier = secret_salafi_community
-					}
-					religion = salafi
-					remove_province_modifier = secret_salafi_community
 				}
 			}
 		}

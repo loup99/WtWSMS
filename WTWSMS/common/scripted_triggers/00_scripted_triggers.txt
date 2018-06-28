@@ -817,35 +817,33 @@ has_crusade_trait_trigger = {
 			religion = celtic_pagan_reformed
 			trait = lughs_own
 		}
-		if = {
-			limit = {
-				religion_group = pagan_group
-            	NOR = {
-					religion = norse_pagan
-                	religion = norse_pagan_reformed
-                	religion = germanic_pagan
-                	religion = germanic_pagan_reformed
-					religion = tengri_pagan
-					religion = tengri_pagan_reformed
-					religion = baltic_pagan
-					religion = baltic_pagan_reformed
-					religion = finnish_pagan
-					religion = finnish_pagan_reformed
-					religion = slavic_pagan
-					religion = slavic_pagan_reformed
-					religion = west_african_pagan
-					religion = west_african_pagan_reformed
-					religion = zun_pagan
-					religion = zun_pagan_reformed
-					religion = african_solar_pagan
-					religion = latin_solar_pagan
-					religion = latin_solar_pagan_reformed
-					religion = african_solar_pagan_reformed
-					religion = hellenic_pagan
-            	}
+		AND = {
+			religion_group = pagan_group
+			NOR = {
+				religion = norse_pagan
+				religion = norse_pagan_reformed
+				religion = germanic_pagan
+				religion = germanic_pagan_reformed
+				religion = tengri_pagan
+				religion = tengri_pagan_reformed
+				religion = baltic_pagan
+				religion = baltic_pagan_reformed
+				religion = finnish_pagan
+				religion = finnish_pagan_reformed
+				religion = slavic_pagan
+				religion = slavic_pagan_reformed
+				religion = west_african_pagan
+				religion = west_african_pagan_reformed
+				religion = zun_pagan
+				religion = zun_pagan_reformed
+				religion = african_solar_pagan
+				religion = latin_solar_pagan
+				religion = latin_solar_pagan_reformed
+				religion = african_solar_pagan_reformed
+				religion = hellenic_pagan
 			}
-        	add_trait = WtWSMS_holy_warrior
-    	}
+			trait = WtWSMS_holy_warrior
+		}
 		AND = {
 			religion_group = bosporan_group
 			trait = warrior_of_hypsistos
@@ -2325,6 +2323,9 @@ has_negative_congenital_trigger = {
 
 is_christian_monastic_member_trigger = {
 	OR = {
+		# WtWSMS
+		society_member_of = monastic_order_insular
+		# Vanilla
 		society_member_of = monastic_order_orthodox
 		society_member_of = monastic_order_benedictine
 		society_member_of = monastic_order_dominican
@@ -2778,16 +2779,8 @@ is_in_prevs_interesting_society_trigger = {
 			PREV = { interested_in_society = secret_religious_society_haruriyyah }
 		}
 		AND = {
-			society_member_of = secret_religious_society_wahhabi
-			PREV = { interested_in_society = secret_religious_society_wahhabi }
-		}
-		AND = {
 			society_member_of = secret_religious_society_mahdi
 			PREV = { interested_in_society = secret_religious_society_mahdi }
-		}
-		AND = {
-			society_member_of = secret_religious_society_salafi
-			PREV = { interested_in_society = secret_religious_society_salafi }
 		}
 		AND = {
 			society_member_of = secret_religious_society_twelver
@@ -3475,21 +3468,9 @@ has_any_char_old_religion = {
 	    	}
 	    }
 		AND = {
-			has_character_flag = character_was_wahhabi
-	    	any_character = {
-	    		religion = wahhabi
-	    	}
-	    }
-		AND = {
 			has_character_flag = character_was_mahdi
 	    	any_character = {
 	    		religion = mahdi
-	    	}
-	    }
-		AND = {
-			has_character_flag = character_was_salafi
-	    	any_character = {
-	    		religion = salafi
 	    	}
 	    }
 		AND = {
@@ -4562,22 +4543,8 @@ looting_artifact_event_religious_artifacts_trigger = {
 		NAND = {
 			any_artifact = {
 				has_artifact_flag = looted_artifact_tooltip_1
-				has_artifact_flag = wahhabi
-				ROOT = { religion = wahhabi }
-			}
-		}
-		NAND = {
-			any_artifact = {
-				has_artifact_flag = looted_artifact_tooltip_1
 				has_artifact_flag = mahdi
 				ROOT = { religion = mahdi }
-			}
-		}
-		NAND = {
-			any_artifact = {
-				has_artifact_flag = looted_artifact_tooltip_1
-				has_artifact_flag = salafi
-				ROOT = { religion = salafi }
 			}
 		}
 		NAND = {

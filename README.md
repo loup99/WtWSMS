@@ -1,6 +1,6 @@
 # When the World Stopped Making Sense
 
-> A Dark Ages mod for Crusader Kings 2 ! 
+> A Dark Ages mod for Crusader Kings 2!
 
 Allows to play from 476 (Fall of the Western Roman Empire) to 1453 (Fall of the Eastern Roman Empire).
 
