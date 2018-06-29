@@ -1,0 +1,133 @@
+###############################
+# Government events
+#
+# 
+#
+# 
+###############################
+
+namespace = WtWSMS_govs
+
+###############################
+# Initial Sub-Roman flag
+###############################
+
+# Independent character with a Sub-Roman government
+character_event = {
+	id = WtWSMS_govs.1
+
+	hide_window = yes
+	
+	only_playable = yes
+	only_independent = yes
+
+	trigger = {
+		government = sub_roman_government
+		# This is based upon the Romano-Germanic kingdoms, doesn't necessarily fit for other realms who had more tribal patterns...
+		# Vassals, what happens with them? Tax-collecting is done at state-level, although naturally they get the land later on and their cultural values shift. 
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		primary_title = { 
+			set_title_flag = sub_roman_government_flag
+		}
+	}
+}
+
+# Independent character no longer has a Sub-Roman government
+character_event = {
+	id = WtWSMS_govs.2
+
+	hide_window = yes
+	
+	only_playable = yes
+	only_independent = yes
+
+	trigger = {
+		NOT = { government = sub_roman_government }
+		primary_title = { 
+			has_title_flag = sub_roman_government_flag
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		clr_title_flag = sub_roman_government_flag
+	}
+}
+
+###############################
+# Roman taxation
+###############################
+
+# Sub-Roman ruler gets the choice of maintaining the old taxation after ~50 years, step one
+character_event = {
+	id = WtWSMS_govs.3
+	title = WtWSMS_govs.3.name
+	desc = WtWSMS_govs.3.desc
+	picture = GFX_evt_throne_room
+	border = GFX_event_normal_frame_economy
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		primary_title = { 
+			has_title_flag = sub_roman_government_flag
+		}
+		government = sub_roman_government
+	}
+	
+	mean_time_to_happen = {
+		years = 50 # Approximate time for records to be outdated and not a nuisance for player, but still random with the MTTH, an alternative could be "had_title_flag" instead
+	}
+	
+	option = {
+		name = WtWSMS_govs.3.a # Yes, maintain, costs money, increases revolt risk in reaction to taxation for the peasants and decreases opinions for the aristocracy, delay a bit -> 50 years
+		ai_chance = {
+			#Option A modifiers
+		}
+		scaled_wealth = -1 # Maintaining taxation has a cost...
+		any_realm_province = {
+			add_province_modifier = {
+				name = maintained_roman_taxation_infrastructure
+				duration = -1 
+			}
+		}
+		any_vassal = { 
+			opinion = {
+				modifier = maintained_roman_taxes 
+				who = ROOT 
+				years = 10
+			}
+		}
+		character_event	= { # Repeat ~fifty years later
+			id = WtWSMS_govs.3
+			days = 18250 # 50 years
+			random = 3650 # 10 years
+		}
+	}
+	
+	option = {
+		name = WtWSMS_govs.3.b # No, less income permanently -> Step one for becomming feudal
+		ai_chance = {
+			#Option B modifiers
+		}
+		any_realm_province = {
+			add_province_modifier = {
+				name = abandoned_roman_taxation_infrastructure
+				duration = -1 
+			}
+		}
+		primary_title = { 
+			set_title_flag = first_step_feudal
+		}
+	}
+}
