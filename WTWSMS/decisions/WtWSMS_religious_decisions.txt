@@ -1394,4 +1394,52 @@ decisions = {
 			factor = 5
 		}
 	}
+	
+	give_alms  = {
+		only_playable = yes
+		potential = {
+			is_playable = yes
+			ai = no
+			religion = pelagianism
+			is_adult = yes
+			demesne_size = 1
+			NOT = { has_character_flag = gave_alms }
+			religion_head = {	
+				NOT = {
+					has_opinion_modifier = { who = ROOT modifier = opinion_almsgiving }
+				}
+			}
+		}
+		allow = {
+			scaled_wealth = 1.0
+		}
+		effect = {
+			set_character_flag = gave_alms
+			scaled_wealth = -0.25
+			piety = 50
+			if = {
+				limit = {
+					is_title_active = d_pelagian
+				}
+				religion_head = {
+					opinion = {
+						modifier = opinion_almsgiving
+						who = ROOT
+						years = 5
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				ai = yes
+				OR = {
+					NOT = { scaled_wealth = 10.0 }
+					piety = 0
+				}
+			}
+		}
+	}
 }

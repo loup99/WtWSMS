@@ -1072,11 +1072,67 @@ narrative_event = {
 	}
 }
 
-# Extreme weather events of 535-536
+# Lex Visigothorum
 narrative_event = {
 	id = hist.25
 	title = hist.25.name
-	desc = hist.25.desc
+	desc = {
+		trigger = {
+			has_landed_title = k_visigoths
+		}
+		text = hist.25.desc.a
+	}
+	desc = {
+		trigger = {			
+			NOT = { has_landed_title = k_visigoths }
+		}
+		text = hist.25.desc.b
+	}
+	picture = GFX_evt_stone_church
+	border = GFX_event_narrative_frame_religion
+	
+	is_triggered_only = yes
+	
+	major = yes
+	
+	major_trigger = {
+		OR = { 
+			any_realm_province = { region = world_europe_west }
+			any_realm_province = { region = world_europe_south }
+		}
+	}
+	
+	option = {
+		name = hist.25.a
+		trigger = {
+			has_landed_title = k_visigoths
+		}
+		piety = 150
+		wealth = 50
+	}
+	
+	option = {
+		name = hist.25.b
+		trigger = { 
+			has_romance_culture_trigger = yes 
+		}
+		prestige = -50 
+	}
+	
+	option = {
+		name = hist.25.c
+		trigger = { 
+			has_germanic_culture_trigger = yes 
+		}
+		prestige = 50 
+	}
+}
+
+# Extreme weather events of 535-536
+narrative_event = {
+	id = hist.26
+	title = hist.26.name
+	desc = hist.26.desc
 	picture = GFX_evt_autumn_harvest
 	border = GFX_event_narrative_frame_diplomacy
 	
@@ -1091,7 +1147,7 @@ narrative_event = {
 	}
 	
     option = {
-		name = hist.25.a
+		name = hist.26.a
 		set_global_flag = 535_536_weather_events
 		any_realm_province = { add_province_modifier = { name = failed_crops duration = 3650 } }
     }
