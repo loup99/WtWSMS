@@ -81,12 +81,16 @@ character_event = {
 	trigger = {
 		primary_title = { 
 			has_title_flag = sub_roman_government_flag
+			had_title_flag = { 
+				flag = sub_roman_government_flag 
+				days = 18250 # 50 years
+			}	
 		}
 		government = sub_roman_government
 	}
 	
 	mean_time_to_happen = {
-		years = 50 # Approximate time for records to be outdated and not a nuisance for player, but still random with the MTTH, an alternative could be "had_title_flag" instead
+		years = 10 # A minimum of 50 years with "had_title_flag", then 10 years at random
 	}
 	
 	option = {
@@ -131,3 +135,143 @@ character_event = {
 		}
 	}
 }
+
+# Sub-Roman ruler gets the choice of further maintaining remains of old fiscal system after ~50 more years, step two
+character_event = {
+	id = WtWSMS_govs.4
+	title = WtWSMS_govs.4.name
+	desc = WtWSMS_govs.4.desc
+	picture = GFX_evt_throne_room
+	border = GFX_event_normal_frame_economy
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		primary_title = { 
+			has_title_flag = sub_roman_government_flag
+			had_title_flag = { 
+				flag = first_step_feudal 
+				days = 18250 # 50 years
+			}
+		}
+		government = sub_roman_government
+	}
+	
+	mean_time_to_happen = {
+		years = 10 # A minimum of 50 years with "had_title_flag", then 10 years at random
+	}
+	
+	option = {
+		name = WtWSMS_govs.4.a # Yes, maintain, costs money, increases revolt risk in reaction to taxation for the peasants and decreases opinions for the aristocracy, delay a bit -> 50 years
+		ai_chance = {
+			#Option A modifiers
+		}
+		scaled_wealth = -1 # Maintaining taxation has a cost...
+		any_realm_province = {
+			add_province_modifier = {
+				name = maintained_roman_taxation_infrastructure
+				duration = -1 
+			}
+		}
+		any_vassal = { 
+			opinion = {
+				modifier = maintained_roman_taxes 
+				who = ROOT 
+				years = 10
+			}
+		}
+		character_event	= { # Repeat ~fifty years later
+			id = WtWSMS_govs.5
+			days = 18250 # 50 years
+			random = 3650 # 10 years
+		}
+	}
+	
+	option = {
+		name = WtWSMS_govs.4.b # No, less income permanently -> Step one for becomming feudal
+		ai_chance = {
+			#Option B modifiers
+		}
+		any_realm_province = {
+			add_province_modifier = {
+				name = abandoned_roman_taxation_infrastructure
+				duration = -1 
+			}
+		}
+		primary_title = { 
+			set_title_flag = second_step_feudal
+		}
+	}
+}
+
+# Sub-Roman ruler gets the choice of maintaining last vestiges of the old fiscal system after ~50 more years, step three
+character_event = {
+	id = WtWSMS_govs.5
+	title = WtWSMS_govs.5.name
+	desc = WtWSMS_govs.5.desc
+	picture = GFX_evt_throne_room
+	border = GFX_event_normal_frame_economy
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		primary_title = { 
+			has_title_flag = sub_roman_government_flag
+			had_title_flag = { 
+				flag = second_step_feudal 
+				days = 18250 # 50 years
+			}
+		}
+		government = sub_roman_government
+	}
+	
+	mean_time_to_happen = {
+		years = 10 # A minimum of 50 years with "had_title_flag", then 10 years at random
+	}
+	
+	option = {
+		name = WtWSMS_govs.5.a # Yes, maintain, costs money, increases revolt risk in reaction to taxation for the peasants and decreases opinions for the aristocracy, delay a bit -> 50 years
+		ai_chance = {
+			#Option A modifiers
+		}
+		scaled_wealth = -1 # Maintaining taxation has a cost...
+		any_realm_province = {
+			add_province_modifier = {
+				name = maintained_roman_taxation_infrastructure
+				duration = -1 
+			}
+		}
+		any_vassal = {
+			opinion = {
+				modifier = maintained_roman_taxes 
+				who = ROOT 
+				years = 10
+			}
+		}
+		character_event	= { # Repeat ~fifty years later
+			id = WtWSMS_govs.5
+			days = 18250 # 50 years
+			random = 3650 # 10 years
+		}
+	}
+	
+	option = {
+		name = WtWSMS_govs.5.b # No, less income permanently -> Step one for becomming feudal
+		ai_chance = {
+			#Option B modifiers
+		}
+		any_realm_province = {
+			add_province_modifier = {
+				name = abandoned_roman_taxation_infrastructure
+				duration = -1 
+			}
+		}
+		primary_title = { 
+			set_title_flag = third_step_feudal
+		}
+	}
+}
+
+# Vassals ask for lowered taxes
