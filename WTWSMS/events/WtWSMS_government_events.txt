@@ -84,7 +84,8 @@ character_event = {
 			had_title_flag = { 
 				flag = sub_roman_government_flag 
 				days = 18250 # 50 years
-			}	
+			}
+			NOT = { has_title_flag = first_step_feudal } # Don't want the event to fire again
 		}
 		government = sub_roman_government
 	}
@@ -105,7 +106,7 @@ character_event = {
 				duration = -1 
 			}
 		}
-		any_vassal = { 
+		any_vassal = {
 			opinion = {
 				modifier = maintained_roman_taxes 
 				who = ROOT 
@@ -158,8 +159,9 @@ character_event = {
 				flag = first_step_feudal 
 				days = 18250 # 50 years
 			}
+			NOT = { has_title_flag = second_step_feudal } # Don't want the event to fire again
 		}
-		government = sub_roman_government
+		government = sub_roman_governmen
 	}
 	
 	mean_time_to_happen = {
@@ -231,6 +233,7 @@ character_event = {
 				flag = second_step_feudal 
 				days = 18250 # 50 years
 			}
+			NOT = { has_title_flag = third_step_feudal } # Don't want the event to fire again
 		}
 		government = sub_roman_government
 	}
@@ -286,4 +289,110 @@ character_event = {
 	}
 }
 
-# Vassals ask for lowered taxes
+# Vassals of a Sub-Roman liege asks for abandoning Roman fiscal system
+character_event = {
+	id = WtWSMS_govs.6
+	title = WtWSMS_govs.6.name
+	desc = WtWSMS_govs.6.desc
+	picture = GFX_evt_throne_room
+	border = GFX_event_normal_frame_economy
+	
+	only_playable = yes
+	
+	trigger = {
+		top_liege = {
+			primary_title = {
+				has_title_flag = sub_roman_government_flag
+				had_title_flag = { 
+					flag = sub_roman_government_flag 
+					days = 18250 # 50 years
+				}
+				NOT = { has_title_flag = first_step_feudal } # Don't want the event to fire again
+			}
+		}
+		government = sub_roman_government
+		higher_tier_than = BARON
+	}
+	
+	mean_time_to_happen = {
+		years = 10 # A minimum of 50 years with "had_title_flag", then 10 years at random
+	}
+	
+	option = {
+		name = WtWSMS_govs.6.a # Ask to abandon
+		top_liege = { 
+			character_event	= { 
+				id = WtWSMS_govs.7
+				days = 3 # Instant events can cause issues for AI calculation
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_govs.6.b # Let it be
+		trigger = {
+			ai = no # Why would the AI want to pay taxes?
+		}
+	}
+}
+
+# Liege receives vassal request of abandoning Roman fiscal system
+character_event = {
+	id = WtWSMS_govs.7
+	title = WtWSMS_govs.7.name
+	desc = WtWSMS_govs.7.desc
+	picture = GFX_evt_throne_room
+	border = GFX_event_normal_frame_economy
+	
+	is_triggered_only = yes
+	
+	option = { # Accept to abandon
+		name = WtWSMS_govs.7.a
+		ai_chance = {
+			#Option A modifiers
+		}
+		# Vassal pleased
+		any_realm_province = {
+			add_province_modifier = {
+				name = abandoned_roman_taxation_infrastructure
+				duration = -1 
+			}
+		}
+		primary_title = { 
+			set_title_flag = first_step_feudal
+			set_variable = { 
+				which = feudal_transition_variable 
+				value = 1 
+			}
+		}
+		FROM = {
+			character_event	= {
+				id = WtWSMS_govs.8
+			}
+		}
+	}
+	
+	option = { # Refuse to abandon
+		name = WtWSMS_govs.7.b
+		ai_chance = {
+			#Option B modifiers
+		}
+		FROM = {
+			opinion = {
+				modifier = maintained_roman_taxes 
+				who = ROOT 
+				years = 10
+			}
+			character_event	= {
+				id = WtWSMS_govs.9
+			}
+		}
+	}
+}
+
+# vassal getting notified
+# Modifiers that add up
+# crisis (in-game war and looting)
+# sources of money spending (in-game the amount of retinues vs levies) 
+# changed cultural values of the aristocracy and social status of the army (in-game vassals with military education and strong martial but weak other stats)
+# Minimum of 4 variables, but likelier the more you have
