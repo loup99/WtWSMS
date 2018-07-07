@@ -952,7 +952,7 @@ narrative_event = {
 				random_traits = yes
 				dynasty = culture
 				religion = karaite
-				culture = aramaic
+				culture = aramean
 				female = no
 				age = 45
 				trait = house_of_david
@@ -1069,5 +1069,61 @@ narrative_event = {
 		trigger = {
 			NOT = { b_antiocheia = { holder_scope = { top_liege = { character = ROOT } } } }
 		}
+	}
+}
+
+# Lex Visigothorum
+narrative_event = {
+	id = hist.25
+	title = hist.25.name
+	desc = {
+		trigger = {
+			has_landed_title = k_visigoths
+		}
+		text = hist.25.desc.a
+	}
+	desc = {
+		trigger = {			
+			NOT = { has_landed_title = k_visigoths }
+		}
+		text = hist.25.desc.b
+	}
+	picture = GFX_evt_stone_church
+	border = GFX_event_narrative_frame_religion
+	
+	is_triggered_only = yes
+	
+	major = yes
+	
+	major_trigger = {
+		OR = { 
+			any_realm_province = { region = world_europe_west }
+			any_realm_province = { region = world_europe_south }
+		}
+	}
+	
+	option = {
+		name = hist.25.a
+		trigger = {
+			has_landed_title = k_visigoths
+		}
+		piety = 150
+		wealth = 50
+	}
+	
+	option = {
+		name = hist.25.b
+		trigger = { 
+			has_romance_culture_trigger = yes 
+		}
+		prestige = -50 
+	}
+	
+	option = {
+		name = hist.25.c
+		trigger = { 
+			has_germanic_culture_trigger = yes 
+		}
+		prestige = 50 
 	}
 }
