@@ -19,12 +19,10 @@ character_event = {
 	hide_window = yes
 	
 	only_playable = yes
-	only_independent = yes
+	only_independent = yes # Tax-collecting is done at state-level, although naturally vassals get the land later on and their cultural values shift. 
 
 	trigger = {
-		government = sub_roman_government
-		# This is based upon the Romano-Germanic kingdoms, doesn't necessarily fit for other realms who had more tribal patterns...
-		# Vassals, what happens with them? Tax-collecting is done at state-level, although naturally they get the land later on and their cultural values shift. 
+		government = sub_roman_government # This is based upon the Romano-Germanic kingdoms, doesn't necessarily fit for other realms who had more tribal patterns...
 	}
 	
 	mean_time_to_happen = {
@@ -85,13 +83,19 @@ character_event = {
 				flag = sub_roman_government_flag 
 				days = 18250 # 50 years
 			}
-			NOT = { has_title_flag = first_step_feudal } # Don't want the event to fire again
+			NOT = { has_title_flag = first_event_feudal_transition } # Don't want the event to fire again
 		}
 		government = sub_roman_government
 	}
 	
 	mean_time_to_happen = {
 		years = 10 # A minimum of 50 years with "had_title_flag", then 10 years at random
+	}
+	
+	immediate = {
+		primary_title = {
+			set_title_flag = first_event_feudal_transition
+		}
 	}
 	
 	option = {
@@ -127,7 +131,7 @@ character_event = {
 		}
 		any_realm_province = {
 			add_province_modifier = {
-				name = abandoned_roman_taxation_infrastructure
+				name = neglected_roman_taxation_infrastructure
 				duration = -1 
 			}
 		}
@@ -159,7 +163,7 @@ character_event = {
 				flag = first_step_feudal 
 				days = 18250 # 50 years
 			}
-			NOT = { has_title_flag = second_step_feudal } # Don't want the event to fire again
+			NOT = { has_title_flag = second_event_feudal_transition } # Don't want the event to fire again
 		}
 		government = sub_roman_governmen
 	}
@@ -168,12 +172,18 @@ character_event = {
 		years = 10 # A minimum of 50 years with "had_title_flag", then 10 years at random
 	}
 	
+	immediate = {
+		primary_title = {
+			set_title_flag = second_event_feudal_transition
+		}
+	}
+	
 	option = {
 		name = WtWSMS_govs.4.a # Yes, maintain, costs money, increases revolt risk in reaction to taxation for the peasants and decreases opinions for the aristocracy, delay a bit -> 50 years
 		ai_chance = {
 			#Option A modifiers
 		}
-		scaled_wealth = -1 # Maintaining taxation has a cost...
+		scaled_wealth = -2 # Maintaining taxation has a cost...
 		any_realm_province = {
 			add_province_modifier = {
 				name = maintained_roman_taxation_infrastructure
@@ -198,6 +208,12 @@ character_event = {
 		name = WtWSMS_govs.4.b # No, less income permanently -> Step one for becomming feudal
 		ai_chance = {
 			#Option B modifiers
+		}
+		any_realm_province = {
+			limit = {
+				has_province_flag = neglected_roman_taxation_infrastructure
+			}
+			clr_province_flag = neglected_roman_taxation_infrastructure
 		}
 		any_realm_province = {
 			add_province_modifier = {
@@ -233,7 +249,7 @@ character_event = {
 				flag = second_step_feudal 
 				days = 18250 # 50 years
 			}
-			NOT = { has_title_flag = third_step_feudal } # Don't want the event to fire again
+			NOT = { has_title_flag = third_event_feudal_transition } # Don't want the event to fire again
 		}
 		government = sub_roman_government
 	}
@@ -242,12 +258,18 @@ character_event = {
 		years = 10 # A minimum of 50 years with "had_title_flag", then 10 years at random
 	}
 	
+	immediate = {
+		primary_title = {
+			set_title_flag = third_event_feudal_transition
+		}
+	}
+	
 	option = {
 		name = WtWSMS_govs.5.a # Yes, maintain, costs money, increases revolt risk in reaction to taxation for the peasants and decreases opinions for the aristocracy, delay a bit -> 50 years
 		ai_chance = {
 			#Option A modifiers
 		}
-		scaled_wealth = -1 # Maintaining taxation has a cost...
+		scaled_wealth = -3 # Maintaining taxation has a cost...
 		any_realm_province = {
 			add_province_modifier = {
 				name = maintained_roman_taxation_infrastructure
@@ -274,8 +296,14 @@ character_event = {
 			#Option B modifiers
 		}
 		any_realm_province = {
+			limit = {
+				has_province_flag = abandoned_roman_taxation_infrastructure
+			}
+			clr_province_flag = abandoned_roman_taxation_infrastructure
+		}
+		any_realm_province = {
 			add_province_modifier = {
-				name = abandoned_roman_taxation_infrastructure
+				name = nonexistent_roman_taxation_infrastructure
 				duration = -1 
 			}
 		}
