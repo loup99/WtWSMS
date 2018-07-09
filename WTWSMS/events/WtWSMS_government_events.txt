@@ -335,7 +335,7 @@ character_event = {
 					flag = sub_roman_government_flag 
 					days = 18250 # 50 years
 				}
-				NOT = { has_title_flag = first_step_feudal } # Don't want the event to fire again
+				NOT = { has_title_flag = first_step_feudal } # Don't want the same to fire twice
 			}
 		}
 		government = sub_roman_government
@@ -382,7 +382,7 @@ character_event = {
 		# Vassal pleased
 		any_realm_province = {
 			add_province_modifier = {
-				name = abandoned_roman_taxation_infrastructure
+				name = neglected_roman_taxation_infrastructure
 				duration = -1 
 			}
 		}
@@ -395,7 +395,8 @@ character_event = {
 		}
 		FROM = {
 			character_event	= {
-				id = WtWSMS_govs.8
+				id = WtWSMS_govs.8 # Liege accepts vassal request of abandoning Roman fiscal system
+				days = 3 # Instant events can cause issues for AI calculation
 			}
 		}
 	}
@@ -412,14 +413,39 @@ character_event = {
 				years = 10
 			}
 			character_event	= {
-				id = WtWSMS_govs.9
+				id = WtWSMS_govs.9 # Liege refuses vassal request of abandoning Roman fiscal system
+				days = 3 # Instant events can cause issues for AI calculation
 			}
 		}
 	}
 }
 
-# vassal getting notified
-# Modifiers that add up
+# Liege accepts vassal request of abandoning Roman fiscal system
+character_event = {
+	id = WtWSMS_govs.8
+	desc = WtWSMS_govs.8.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_govs.8.a
+	}
+}
+
+# Liege refuses vassal request of abandoning Roman fiscal system
+character_event = {
+	id = WtWSMS_govs.9
+	desc = WtWSMS_govs.9.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_govs.9.a
+	}
+}
+
 # crisis (in-game war and looting)
 # sources of money spending (in-game the amount of retinues vs levies) 
 # changed cultural values of the aristocracy and social status of the army (in-game vassals with military education and strong martial but weak other stats)
