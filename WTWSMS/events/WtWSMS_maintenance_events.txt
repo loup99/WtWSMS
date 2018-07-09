@@ -311,3 +311,123 @@ character_event = {
 		}
 	}
 }
+
+# War-torn province after siege
+character_event = {
+	id = misc_event.14
+	
+	hide_window = yes
+	
+	is_triggered_only = yes # On-action
+	
+	trigger = {
+		FROM = {
+			location = {
+				NOT = {
+					has_province_modifier = devastated_war
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		if = { # has been sieged once and gets the war-torn modifier
+			limit = {
+				FROM = {
+					location = {
+						NOT = {
+							has_province_modifier = war_torn
+						}
+					}
+				}
+			}
+			FROM = {
+				location = {
+					add_province_modifier = {
+						name = war_torn
+						duration = 3650 # 10 years
+					}
+				}
+			}
+		}
+		if = { # Has been sieged once more within the year
+			limit = {
+				FROM = {
+					location = {
+						has_province_modifier = war_torn
+						NOT = {
+							check_variable = { 
+								which = sieged_variable 
+								value = 1
+							}
+						}
+					}
+				}
+			}
+			FROM = {
+				location = {
+					set_variable = { 
+						which = sieged_variable 
+						value = 1
+					}
+				}
+			}
+		}
+		if = { # Has been sieged once more and gets additional variable
+			limit = {
+				FROM = {
+					location = {
+						has_province_modifier = war_torn
+						check_variable = {
+							which = sieged_variable 
+							value = 1
+						}
+						NOT = {
+							check_variable = { 
+								which = sieged_variable 
+								value = 4
+							}
+						}
+					}
+				}
+			}
+			FROM = {
+				location = {
+					change_variable = { 
+						which = sieged_variable 
+						value = 1 
+					}
+				}
+			}
+		}
+		if = { # Has been sieged five times and gets the devastated modifier
+			limit = {
+				FROM = {
+					location = {
+						has_province_modifier = war_torn
+						check_variable = {
+							which = sieged_variable 
+							value = 4
+						}
+						NOT = {
+							has_province_modifier = devastated_war
+						}
+					}
+				}
+			}
+			FROM = {
+				location = {
+					add_province_modifier = {
+						name = devastated_war
+						duration = 9125 # 25 years
+					}
+					remove_province_modifier = war_torn
+					set_variable = { 
+						which = sieged_variable 
+						value = 0 
+					}
+				}
+			}
+		}		
+	}
+}
