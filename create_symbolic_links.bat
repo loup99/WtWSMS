@@ -6,4 +6,5 @@ mklink /J "%HOMEDRIVE%%HOMEPATH%\Documents\Paradox Interactive\Crusader Kings II
 mklink /J "%HOMEDRIVE%%HOMEPATH%\Documents\Paradox Interactive\Crusader Kings II\mod\WTWSMS_MediterraneanPortraits" ".\WTWSMS_MediterraneanPortraits"
 mklink /J "%HOMEDRIVE%%HOMEPATH%\Documents\Paradox Interactive\Crusader Kings II\mod\WTWSMS_Font" ".\WTWSMS_Font"
 mklink /J "%HOMEDRIVE%%HOMEPATH%\Documents\Paradox Interactive\Crusader Kings II\mod\WTWSMS_French" ".\WTWSMS_French"
+mklink /J "%HOMEDRIVE%%HOMEPATH%\Documents\Paradox Interactive\Crusader Kings II\mod\WtWSMS_EBS" ".\WtWSMS_EBS"
 pause

@@ -1,0 +1,187 @@
+feudal_governments = {
+	bureaucratic_government = {
+		preferred_holdings = { CASTLE CITY }
+		allowed_holdings = {
+			CASTLE
+			CITY
+			FORT
+			HOSPITAL
+		}
+		allowed_holdings_culture = { # Will not get the wrong government type penalty for tribes of the same culture
+			TRIBAL
+		}
+		accepts_liege_governments = { # Gets the wrong religion modifier instead
+			feudal_government
+			muslim_government
+			theocratic_feudal_government
+			chinese_imperial_government
+			sassanid_government
+		}
+		free_revoke_on_tiers = {
+			duke
+		}
+		free_revoke_on_governments_religion = { # Tribal vassals of other religions can have their titles revoked for free
+			tribal_government
+		}
+		potential = {
+			NAND = {
+				controls_religion = yes
+				NOT = {	primary_title = { is_landless_type_title = no }	}
+			}
+			NOT = { religion_group = muslim }
+			NOT = { religion = zoroastrian }
+			is_theocracy = no
+			primary_title = {
+				bureaucratic_government_trigger = yes
+			}
+			primary_title = {
+				sassanid_government_trigger = no
+			}
+		}
+		
+		color = { 153 0 36 }
+		
+		barons_need_dynasty = no
+		
+		can_build_tribal = no
+		
+		ignore_in_vassal_limit_calculation = {
+			tribal_government
+		}
+		capital_move_delay = 200
+		
+		vassal_government_opinion_penalties = no
+		can_grant_kingdoms_and_empires_to_other_government_group = yes
+		free_retract_vassalage = yes
+		allow_title_revokation = yes
+		
+		vassal_limit = 10
+		
+		character_modifier = {
+			levy_size = -0.25
+			city_vassal_min_levy = -0.1
+			castle_vassal_min_levy = -0.1
+			temple_vassal_min_levy = -0.1
+			city_vassal_max_levy = -0.25
+			castle_vassal_max_levy = -0.25
+			temple_vassal_max_levy = -0.25
+			global_tax_modifier = 0.15
+			city_vassal_tax_modifier = 0.15
+			temple_vassal_tax_modifier = 0.15
+			castle_vassal_tax_modifier = 0.15
+			land_morale = 0.1
+			land_organisation = 0.1
+			demesne_size = 5
+			#retinuesize_perc = 2
+		}
+		unit_modifier = {
+			retinuesize_perc = 2
+		}
+	}
+	
+	sassanid_government = {
+		preferred_holdings = { CASTLE CITY }
+		allowed_holdings = {
+			CASTLE
+			CITY
+			FORT
+			HOSPITAL
+		}
+		allowed_holdings_culture = { # Will not get the wrong government type penalty for tribes of the same culture
+			TRIBAL
+		}
+		accepts_liege_governments = { # Gets the wrong religion modifier instead
+			feudal_government
+			muslim_government
+			theocratic_feudal_government
+			chinese_imperial_government
+			bureaucratic_government
+		}
+		potential = {
+			NAND = {
+				controls_religion = yes
+				NOT = {	primary_title = { is_landless_type_title = no }	}
+			}
+			primary_title = {
+				bureaucratic_government_trigger = no
+			}
+			primary_title = {
+				sassanid_government_trigger = yes
+			}
+			is_patrician = no
+			is_theocracy = no
+		}
+		
+		color = { 255 153 51 }
+		
+		barons_need_dynasty = no
+		
+		ignore_in_vassal_limit_calculation = {
+			tribal_government
+			sassanid_government
+		}
+		
+		can_build_tribal = no
+		
+		allow_title_revokation = no
+		can_imprison_without_reason = yes
+		allow_looting = yes
+		vassal_call_to_arms = {
+			tribal_government
+			sassanid_government
+		}
+		
+		free_retract_vassalage = yes
+		can_grant_kingdoms_and_empires_to_other_government = yes
+		
+		character_modifier	= {
+			levy_size = -0.3
+			land_morale = -0.2
+			retinue_maintenence_cost = -0.5
+			vassal_opinion = -25
+		}
+		capital_move_delay = 600
+	}
+	
+	legion_government = {
+		preferred_holdings = { CASTLE }
+		allowed_holdings = { 
+		}
+		accepts_liege_governments = {
+			feudal_government
+			bureaucratic_government
+		}
+		potential = {
+			NAND = {
+				controls_religion = yes
+				OR = {
+					religion_group = christian
+					religion_group = pagan_group
+				}
+			}
+			primary_title = {
+				roman_legion_title_trigger = yes
+			}
+			is_landed = no
+		}
+		
+		color = { 73 15 9 }
+		
+		dukes_called_kings = no
+		barons_need_dynasty = no
+
+		can_build_holdings = no
+		can_build_forts = no
+		can_build_hospitals = no
+		
+		can_be_granted_kingdoms_and_empires_by_other_government = no
+		have_gender_laws = no
+		can_usurp_kingdoms_and_empires = no
+		can_create_kingdoms = no
+		can_create_empires = no
+		can_inherit = no
+		
+		capital_move_delay = 600
+	}
+
+}
