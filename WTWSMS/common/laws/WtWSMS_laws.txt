@@ -1,0 +1,1166 @@
+law_groups = {
+	stability = {
+		law_type = realm
+	}
+	aristocracy_plutocracy = {
+		law_type = realm
+	}
+	high_high_tribal_organization = {
+		law_type = realm
+	}
+}
+
+laws = {
+
+	# STABILITY
+	
+	stability_0 = { # Very low stability
+		group = stability
+		
+		feudal_opinion = -20
+		city_opinion = -20
+		temple_opinion = -20
+		
+		allow = {
+		    always = no
+		}
+		
+		potential = {
+			holder_scope = {
+				government = bureaucratic_government
+			}
+		}
+	
+		ai_will_do = {
+			factor = 1
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = stability_0
+				revoke_law = stability_1
+				revoke_law = stability_2
+			}
+			
+			set_the_kings_peace = no
+			set_the_kings_full_peace = no
+			
+			if = {
+				limit = { 
+					NOT = { has_dlc = "Charlemagne" } 
+				}
+				set_allow_free_duchy_revokation = yes
+			}
+			if = {
+				limit = { 
+					has_dlc = "Charlemagne" 
+				}
+				set_allow_vice_royalties = duke
+				set_allow_free_vice_royalty_revokation = yes
+			}
+			
+			set_protected_inheritance = yes
+		}
+		global_tax_modifier = -0.50
+		
+	}
+
+	stability_1 = { # Low stability
+		group = stability
+		
+		feudal_opinion = -10
+		city_opinion = -10
+		temple_opinion = -10
+		
+		allow = {
+		    has_law = stability_0
+		}
+		
+		potential = {
+			holder_scope = {
+				government = bureaucratic_government
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+
+		effect = {
+			hidden_tooltip = {
+				revoke_law = stability_0
+				revoke_law = stability_1
+				revoke_law = stability_2
+			}
+			
+			set_the_kings_peace = yes
+			set_the_kings_full_peace = no
+			
+			if = {
+				limit = { 
+					NOT = { has_dlc = "Charlemagne" } 
+				}
+				set_allow_free_duchy_revokation = yes
+			}
+			if = {
+				limit = { 
+					has_dlc = "Charlemagne" 
+				}
+				set_allow_vice_royalties = duke
+				set_allow_free_vice_royalty_revokation = yes
+			}
+			
+			set_protected_inheritance = yes
+		}
+		
+		global_tax_modifier = -0.25
+	}
+
+	stability_2 = { # Normal
+		group = stability
+		default = yes
+		
+		allow = {
+			OR = {
+				has_law = stability_1
+			}
+		}
+		
+		potential = {
+			holder_scope = {
+				government = bureaucratic_government
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+
+		effect = {
+			hidden_tooltip = {
+				revoke_law = stability_0
+				revoke_law = stability_1
+				revoke_law = stability_2
+			}
+			
+			set_the_kings_peace = yes
+			set_the_kings_full_peace = yes
+			
+			if = {
+				limit = { 
+					NOT = { has_dlc = "Charlemagne" } 
+				}
+				set_allow_free_duchy_revokation = yes
+			}
+			if = {
+				limit = { 
+					has_dlc = "Charlemagne" 
+				}
+				set_allow_vice_royalties = duke
+				set_allow_free_vice_royalty_revokation = yes
+			}
+			
+			set_protected_inheritance = yes
+		}
+	}
+	
+	# BUREAUCRACY	
+	
+	aristocracy_plutocracy_0 = {
+		group = aristocracy_plutocracy
+		feudal_opinion = -10
+		
+		allow = {
+			has_law = aristocracy_plutocracy_1
+		}
+		
+		potential = {
+			OR = {
+				NOT = { tier = baron }
+				holder_scope = { is_patrician = yes }
+			}
+			holder_scope = {
+				government = bureaucratic_government
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+
+		effect = {
+			hidden_tooltip = {
+				revoke_law = aristocracy_plutocracy_0
+				revoke_law = aristocracy_plutocracy_1
+				revoke_law = aristocracy_plutocracy_2
+				revoke_law = aristocracy_plutocracy_3
+				revoke_law = aristocracy_plutocracy_4
+			}
+		}
+		
+		castle_vassal_max_levy = -0.5
+		castle_vassal_tax_modifier = 0.5
+		vassal_limit = 10
+	}
+	
+	aristocracy_plutocracy_1 = {
+		group = aristocracy_plutocracy
+		feudal_opinion = -5
+		
+		allow = {
+			OR = {
+				has_law = aristocracy_plutocracy_0
+				has_law = aristocracy_plutocracy_2
+			}
+		}
+		
+		potential = {
+			OR = {
+				NOT = { tier = baron }
+				holder_scope = { is_patrician = yes }
+			}
+			holder_scope = {
+				government = bureaucratic_government
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+
+		effect = {
+			hidden_tooltip = {
+				revoke_law = aristocracy_plutocracy_0
+				revoke_law = aristocracy_plutocracy_1
+				revoke_law = aristocracy_plutocracy_2
+				revoke_law = aristocracy_plutocracy_3
+				revoke_law = aristocracy_plutocracy_4
+			}
+		}
+		
+		castle_vassal_max_levy = -0.5
+		castle_vassal_tax_modifier = 0.25
+		vassal_limit = 10
+	}
+	
+	aristocracy_plutocracy_2 = {
+		group = aristocracy_plutocracy
+		default = yes
+		
+		allow = {
+			OR = {
+				has_law = aristocracy_plutocracy_1
+				has_law = aristocracy_plutocracy_3
+			}
+		}
+		
+		potential = {
+			OR = {
+				NOT = { tier = baron }
+				holder_scope = { is_patrician = yes }
+			}
+			holder_scope = {
+				government = bureaucratic_government
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+
+		effect = {
+			hidden_tooltip = {
+				revoke_law = aristocracy_plutocracy_0
+				revoke_law = aristocracy_plutocracy_1
+				revoke_law = aristocracy_plutocracy_2
+				revoke_law = aristocracy_plutocracy_3
+				revoke_law = aristocracy_plutocracy_4
+			}
+		}
+		
+		castle_vassal_max_levy = -0.5
+		vassal_limit = 10
+	}
+	
+	aristocracy_plutocracy_3 = {
+		group = aristocracy_plutocracy
+		feudal_opinion = -5
+		
+		allow = {
+			OR = {
+				has_law = aristocracy_plutocracy_2
+				has_law = aristocracy_plutocracy_4
+			}
+		}
+		
+		potential = {
+			OR = {
+				NOT = { tier = baron }
+				holder_scope = { is_patrician = yes }
+			}
+			holder_scope = {
+				government = bureaucratic_government
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+
+		effect = {
+			hidden_tooltip = {
+				revoke_law = aristocracy_plutocracy_0
+				revoke_law = aristocracy_plutocracy_1
+				revoke_law = aristocracy_plutocracy_2
+				revoke_law = aristocracy_plutocracy_3
+				revoke_law = aristocracy_plutocracy_4
+			}
+		}
+		
+		castle_vassal_max_levy = -0.25
+		vassal_limit = 10
+	}
+	
+	aristocracy_plutocracy_4 = {
+		group = aristocracy_plutocracy
+		feudal_opinion = -10
+		
+		allow = {
+			has_law = aristocracy_plutocracy_3
+		}
+		
+		potential = {
+			OR = {
+				NOT = { tier = baron }
+				holder_scope = { is_patrician = yes }
+			}
+			holder_scope = {
+				government = bureaucratic_government
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+
+		effect = {
+			hidden_tooltip = {
+				revoke_law = aristocracy_plutocracy_0
+				revoke_law = aristocracy_plutocracy_1
+				revoke_law = aristocracy_plutocracy_2
+				revoke_law = aristocracy_plutocracy_3
+				revoke_law = aristocracy_plutocracy_4
+			}
+		}
+		
+		vassal_limit = 10
+	}	
+
+	# HIGH TRIBAL ORGANIZATION
+	##############################
+	
+	high_tribal_organization_0 = {
+		group = high_tribal_organization
+		default = yes
+		
+		feudal_opinion = 5
+		
+		allow = {
+			OR = {
+				has_law = high_tribal_organization_1
+				AND = {
+					NOT = { has_law = high_tribal_organization_0 }
+					NOT = { has_law = high_tribal_organization_1 }
+					NOT = { has_law = high_tribal_organization_2 }
+					NOT = { has_law = high_tribal_organization_3 }
+					NOT = { has_law = high_tribal_organization_4 }
+				}
+			}
+		}
+		potential = {
+			holder_scope = {
+				government = high_tribal_government
+				higher_tier_than = count
+			}
+		}
+	
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_law = high_tribal_organization_1
+				holder_scope = {
+					NOT = {
+						any_vassal = {
+							government = high_tribal_government
+							dislike_tribal_organization = yes
+							NOT = {
+								opinion = {
+									who = liege
+									value = 0
+								}
+							}
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				has_law = high_tribal_organization_1
+				holder_scope = { dislike_tribal_organization = no }
+			}
+		}
+		ai_will_revoke = {
+			factor = 0
+		}
+		effect = {
+			if = {
+				limit = { NOT = { has_dlc = "Zeus" } }
+				set_allow_title_revokation = no
+				set_allow_free_infidel_revokation = no
+				set_tribal_vassal_levy_control = no
+				set_tribal_vassal_tax_income = no
+			}
+			hidden_tooltip = {
+				if = {
+					limit = { has_dlc = "Zeus" }
+					revoke_law = law_voting_power_1
+					revoke_law = war_voting_power_1
+					disable_council_voting_on_issue = laws
+					disable_council_voting_on_issue = enforce_peace
+					disable_council_voting_on_issue = declare_war_interaction
+				}
+			}
+			if = {
+				limit = { 
+					has_law = high_tribal_organization_1
+				}
+				custom_tooltip = {
+					text = disables_centralization_1
+				}
+			}
+			if = {
+				limit = { 
+					has_law = high_tribal_organization_2
+				}
+				custom_tooltip = {
+					text = disables_centralization_2
+				}
+			}
+			if = {
+				limit = { 
+					has_law = high_tribal_organization_3
+				}
+				custom_tooltip = {
+					text = disables_centralization_3
+				}
+				custom_tooltip = {
+					text = disables_tribal_levy_laws
+				}
+				custom_tooltip = {
+					text = disables_tribal_tax_laws
+				}
+			}
+			if = {
+				limit = { 
+					has_law = high_tribal_organization_4
+				}
+				custom_tooltip = {
+					text = disables_centralization_4
+				}
+			}
+			if = {
+				limit = { 
+					has_law = high_tribal_organization_4
+				}
+				custom_tooltip = {
+					text = disallows_change_government
+				}
+			}
+			hidden_tooltip = {
+				if = {
+					limit = {
+						OR = {
+							has_law = centralization_1
+							has_law = centralization_2
+							has_law = centralization_3
+							has_law = centralization_4
+						}
+					}
+					add_law = centralization_0
+				}
+				revoke_law = high_tribal_organization_0
+				revoke_law = high_tribal_organization_1
+				revoke_law = high_tribal_organization_2
+				revoke_law = high_tribal_organization_3
+				revoke_law = high_tribal_organization_4
+				revoke_law = tribal_contract_0
+				revoke_law = tribal_contract_1
+				revoke_law = tribal_contract_2
+				revoke_law = tribal_contract_3
+				revoke_law = tribal_tax_0
+				revoke_law = tribal_tax_1
+				revoke_law = tribal_tax_2
+				revoke_law = tribal_tax_3
+			}
+		}
+	}
+	
+	high_tribal_organization_1 = {
+		group = high_tribal_organization
+		
+		feudal_opinion = -5
+		
+		allow = {
+			OR = {
+				has_law = high_tribal_organization_0
+				has_law = high_tribal_organization_2
+			}
+		}
+		potential = {
+			holder_scope = {
+				government = high_tribal_government
+				higher_tier_than = count
+			}
+		}
+					
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				has_law = high_tribal_organization_0
+				holder_scope = {
+					any_vassal = {
+						government = high_tribal_government
+						dislike_tribal_organization = yes
+						NOT = {
+							opinion = {
+								who = liege
+								value = 10
+							}
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				has_law = high_tribal_organization_2
+				holder_scope = {
+					NOT = {
+						any_vassal = {
+							government = high_tribal_government
+							dislike_tribal_organization = yes
+							NOT = {
+								opinion = {
+									who = liege
+									value = 0
+								}
+							}
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				has_law = high_tribal_organization_0
+				holder_scope = { dislike_tribal_organization = no }
+			}
+			modifier = {
+				factor = 0.5
+				has_law = high_tribal_organization_2
+				holder_scope = { dislike_tribal_organization = no }
+			}
+		}
+		ai_will_revoke = {
+			factor = 0
+		}
+		pass_effect = {
+			hidden_tooltip = {
+				if = { 
+					limit = {
+						has_law = high_tribal_organization_0
+					}
+					holder_scope = {
+						any_vassal = {
+							limit = {
+								government = high_tribal_government
+								dislike_tribal_organization = yes
+							}
+							opinion = {
+								who = ROOT
+								modifier = opinion_increased_high_tribal_organization
+								months = 60
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = { NOT = { has_dlc = "Zeus" } }
+				set_allow_title_revokation = yes
+				set_allow_free_infidel_revokation = no
+				set_tribal_vassal_levy_control = no
+				set_tribal_vassal_tax_income = no
+			}
+			if = {
+				limit = { 
+					has_law = high_tribal_organization_0
+				}
+				custom_tooltip = {
+					text = enables_centralization_1
+				}
+			}
+			if = {
+				limit = { 
+					has_law = high_tribal_organization_2
+				}
+				custom_tooltip = {
+					text = disables_centralization_2
+				}
+			}
+			if = {
+				limit = { 
+					has_law = high_tribal_organization_3
+				}
+				custom_tooltip = {
+					text = disables_centralization_3
+				}
+				custom_tooltip = {
+					text = disables_tribal_levy_laws
+				}
+				custom_tooltip = {
+					text = disables_tribal_tax_laws
+				}
+			}
+			if = {
+				limit = { 
+					has_law = high_tribal_organization_4
+				}
+				custom_tooltip = {
+					text = disables_centralization_4
+				}
+			}
+			if = {
+				limit = { 
+					has_law = high_tribal_organization_4
+				}
+				custom_tooltip = {
+					text = disallows_change_government
+				}
+			}
+			if = {
+				limit = { has_dlc = "Zeus" }
+				add_law = law_voting_power_1
+				add_law = war_voting_power_1
+			}
+			hidden_tooltip = {
+				if = {
+					limit = {
+						OR = {
+							has_law = centralization_2
+							has_law = centralization_3
+							has_law = centralization_4
+						}
+					}
+					add_law = centralization_1
+				}
+				if = { 
+					limit = { has_dlc = "Zeus" } 
+					hidden_tooltip = {
+						revoke_law = revoke_title_voting_power_1
+						revoke_law = grant_title_voting_power_1
+						disable_council_voting_on_issue = revoke_title_interaction
+						disable_council_voting_on_issue = grant_landed_title_interaction
+					}
+				}
+				revoke_law = high_tribal_organization_0
+				revoke_law = high_tribal_organization_1
+				revoke_law = high_tribal_organization_2
+				revoke_law = high_tribal_organization_3
+				revoke_law = high_tribal_organization_4
+				revoke_law = tribal_contract_0
+				revoke_law = tribal_contract_1
+				revoke_law = tribal_contract_2
+				revoke_law = tribal_contract_3
+				revoke_law = tribal_tax_0
+				revoke_law = tribal_tax_1
+				revoke_law = tribal_tax_2
+				revoke_law = tribal_tax_3
+			}
+		}
+	}
+	
+	high_tribal_organization_2 = {
+		group = high_tribal_organization
+		
+		feudal_opinion = -10
+		
+		allow = {
+			OR = {
+				has_law = high_tribal_organization_1
+				has_law = high_tribal_organization_3
+			}
+		}
+		potential = {
+			holder_scope = {
+				government = high_tribal_government
+				higher_tier_than = count
+			}
+		}
+					
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				has_law = high_tribal_organization_1
+				holder_scope = {
+					any_vassal = {
+						government = high_tribal_government
+						dislike_tribal_organization = yes
+						NOT = {
+							opinion = {
+								who = liege
+								value = 5
+							}
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				has_law = high_tribal_organization_3
+				holder_scope = {
+					NOT = {
+						any_vassal = {
+							government = high_tribal_government
+							dislike_tribal_organization = yes
+							NOT = {
+								opinion = {
+									who = liege
+									value = 0
+								}
+							}
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				has_law = high_tribal_organization_1
+				holder_scope = { dislike_tribal_organization = no }
+			}
+			modifier = {
+				factor = 0.5
+				has_law = high_tribal_organization_3
+				holder_scope = { dislike_tribal_organization = no }
+			}
+		}
+		ai_will_revoke = {
+			factor = 0
+		}
+		pass_effect = {
+			hidden_tooltip = {
+				if = { 
+					limit = {
+						has_law = high_tribal_organization_1
+					}
+					holder_scope = {
+						any_vassal = {
+							limit = {
+								government = high_tribal_government
+								dislike_tribal_organization = yes
+							}
+							opinion = {
+								who = ROOT
+								modifier = opinion_increased_high_tribal_organization
+								months = 60
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = { NOT = { has_dlc = "Zeus" } }
+				set_allow_title_revokation = yes
+				set_tribal_vassal_levy_control = no
+				set_tribal_vassal_tax_income = no
+			}
+			if = {
+				limit = { 
+					OR = {
+						has_law = high_tribal_organization_0
+						has_law = high_tribal_organization_1
+					}
+				}
+				custom_tooltip = {
+					text = enables_centralization_2
+				}
+			}
+			if = {
+				limit = { 
+					has_law = high_tribal_organization_3
+				}
+				custom_tooltip = {
+					text = disables_centralization_3
+				}
+				custom_tooltip = {
+					text = disables_tribal_levy_laws
+				}
+				custom_tooltip = {
+					text = disables_tribal_tax_laws
+				}
+			}
+			if = {
+				limit = { 
+					has_law = high_tribal_organization_4
+				}
+				custom_tooltip = {
+					text = disables_centralization_4
+				}
+			}
+			if = {
+				limit = { 
+					has_law = high_tribal_organization_4
+				}
+				custom_tooltip = {
+					text = disallows_change_government
+				}
+			}
+			if = {
+				limit = { has_dlc = "Zeus" }
+				add_law = revoke_title_voting_power_1
+				add_law = grant_title_voting_power_1
+			}
+			hidden_tooltip = {
+				if = {
+					limit = {
+						OR = {
+							has_law = centralization_3
+							has_law = centralization_4
+						}
+					}
+					add_law = centralization_2
+				}
+				if = {
+					limit = { has_dlc = "Zeus" }
+					hidden_tooltip = {
+						revoke_law = imprison_voting_power_1
+						revoke_law = banish_voting_power_1
+						revoke_law = execution_voting_power_1
+						disable_council_voting_on_issue = imprison_character_interaction
+						disable_council_voting_on_issue = exile_imprisoned_interaction
+						disable_council_voting_on_issue = execute_imprisoned_interaction
+					}
+				}
+				revoke_law = high_tribal_organization_0
+				revoke_law = high_tribal_organization_1
+				revoke_law = high_tribal_organization_2
+				revoke_law = high_tribal_organization_3
+				revoke_law = high_tribal_organization_4
+				revoke_law = tribal_contract_0
+				revoke_law = tribal_contract_1
+				revoke_law = tribal_contract_2
+				revoke_law = tribal_contract_3
+				revoke_law = tribal_tax_0
+				revoke_law = tribal_tax_1
+				revoke_law = tribal_tax_2
+				revoke_law = tribal_tax_3
+			}
+		}
+	}
+	
+	high_tribal_organization_3 = {
+		group = high_tribal_organization
+		
+		feudal_opinion = -20
+		
+		allow = {
+			OR = {
+				has_law = high_tribal_organization_2
+				has_law = high_tribal_organization_4
+			}
+		}
+		potential = {
+			holder_scope = {
+				government = high_tribal_government
+				higher_tier_than = count
+			}
+		}
+					
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				has_law = high_tribal_organization_2
+				holder_scope = {
+					any_vassal = {
+						government = high_tribal_government
+						dislike_tribal_organization = yes
+						NOT = {
+							opinion = {
+								who = liege
+								value = 10
+							}
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				has_law = high_tribal_organization_4
+				holder_scope = {
+					NOT = {
+						any_vassal = {
+							government = high_tribal_government
+							dislike_tribal_organization = yes
+							NOT = {
+								opinion = {
+									who = liege
+									value = 0
+								}
+							}
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				has_law = high_tribal_organization_2
+				holder_scope = { dislike_tribal_organization = no }
+			}
+			modifier = {
+				factor = 0.5
+				has_law = high_tribal_organization_4
+				holder_scope = { dislike_tribal_organization = no }
+			}
+		}
+		ai_will_revoke = {
+			factor = 0
+		}
+		pass_effect = {
+			hidden_tooltip = {
+				if = { 
+					limit = {
+						has_law = high_tribal_organization_2
+					}
+					holder_scope = {
+						any_vassal = {
+							limit = {
+								government = high_tribal_government
+								dislike_tribal_organization = yes
+							}
+							opinion = {
+								who = ROOT
+								modifier = opinion_increased_high_tribal_organization
+								months = 60
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = { NOT = { has_dlc = "Zeus" } }
+				set_allow_title_revokation = yes
+				set_tribal_vassal_levy_control = yes
+				set_tribal_vassal_tax_income = yes
+			}
+			if = {
+				limit = { has_dlc = "Zeus" }
+				add_law = imprison_voting_power_1
+				add_law = banish_voting_power_1
+				add_law = execution_voting_power_1
+				hidden_tooltip = {
+					add_law = law_voting_power_1
+					add_law = war_voting_power_1
+					add_law = revoke_title_voting_power_1
+					add_law = grant_title_voting_power_1
+				}
+			}
+			if = {
+				limit = { 
+					OR = {
+						has_law = high_tribal_organization_0
+						has_law = high_tribal_organization_1
+						has_law = high_tribal_organization_2
+					}
+				}
+				if = {
+					limit = { NOT = { has_dlc = "Zeus" } }
+					custom_tooltip = {
+						text = enables_tribal_levy_laws
+					}
+					custom_tooltip = {
+						text = enables_tribal_tax_laws
+					}
+					hidden_tooltip = {
+						add_law = tribal_contract_0
+						add_law = tribal_tax_0
+					}
+				}
+				custom_tooltip = {
+					text = enables_centralization_3
+				}
+			}
+			if = {
+				limit = { 
+					has_law = high_tribal_organization_4
+				}
+				custom_tooltip = {
+					text = disables_centralization_4
+				}
+			}
+			if = {
+				limit = { 
+					has_law = high_tribal_organization_4
+				}
+				custom_tooltip = {
+					text = disallows_change_government
+				}
+			}
+			hidden_tooltip = {
+				if = {
+					limit = {
+						has_law = centralization_4
+					}
+					add_law = centralization_3
+				}
+				revoke_law = high_tribal_organization_0
+				revoke_law = high_tribal_organization_1
+				revoke_law = high_tribal_organization_2
+				revoke_law = high_tribal_organization_3
+				revoke_law = high_tribal_organization_4
+			}
+		}
+	}
+	
+	high_tribal_organization_4 = {
+		group = high_tribal_organization
+		
+		feudal_opinion = -30
+		
+		allow = {
+			has_law = high_tribal_organization_3
+		}
+		potential = {
+			holder_scope = {
+				government = high_tribal_government
+				higher_tier_than = count
+			}
+		}
+					
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				has_law = high_tribal_organization_3
+				holder_scope = {
+					any_vassal = {
+						government = high_tribal_government
+						dislike_tribal_organization = yes
+						NOT = {
+							opinion = {
+								who = liege
+								value = 10
+							}
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				has_law = high_tribal_organization_3
+				holder_scope = { dislike_tribal_organization = no }
+			}
+		}
+		ai_will_revoke = {
+			factor = 0
+		}
+		pass_effect = {
+			hidden_tooltip = {
+				if = { 
+					limit = {
+						has_law = high_tribal_organization_3
+					}
+					holder_scope = {
+						any_vassal = {
+							limit = {
+								government = high_tribal_government
+								dislike_tribal_organization = yes
+							}
+							opinion = {
+								who = ROOT
+								modifier = opinion_increased_high_tribal_organization
+								months = 60
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = { NOT = { has_dlc = "Zeus" } }
+				set_allow_title_revokation = yes
+				set_tribal_vassal_levy_control = yes
+				set_tribal_vassal_tax_income = yes
+			}
+			if = {
+				limit = { 
+					OR = {
+						has_law = high_tribal_organization_0
+						has_law = high_tribal_organization_1
+						has_law = high_tribal_organization_2
+						has_law = high_tribal_organization_3
+					}
+				}
+				custom_tooltip = {
+					text = enables_centralization_4
+				}
+			}
+			if = {
+				limit = { 
+					OR = {
+						has_law = high_tribal_organization_0
+						has_law = high_tribal_organization_1
+						has_law = high_tribal_organization_2
+					}
+					NOT = { has_dlc = "Zeus" }
+				}
+				custom_tooltip = {
+					text = enables_tribal_levy_laws
+				}
+				custom_tooltip = {
+					text = enables_tribal_tax_laws
+				}
+				hidden_tooltip = {
+					add_law = tribal_contract_0
+					add_law = tribal_tax_0
+				}
+			}
+			if = {
+				limit = { 
+					OR = {
+						has_law = high_tribal_organization_0
+						has_law = high_tribal_organization_1
+						has_law = high_tribal_organization_2
+						has_law = high_tribal_organization_3
+					}
+				}
+				custom_tooltip = {
+					text = allows_change_government
+				}
+			}
+			hidden_tooltip = {
+				revoke_law = high_tribal_organization_0
+				revoke_law = high_tribal_organization_1
+				revoke_law = high_tribal_organization_2
+				revoke_law = high_tribal_organization_3
+				revoke_law = high_tribal_organization_4
+			}
+		}
+	}
+}
