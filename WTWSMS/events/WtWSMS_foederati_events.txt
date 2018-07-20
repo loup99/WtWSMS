@@ -1111,6 +1111,9 @@ long_character_event = {
 				}
 			}
 			NOT = { war_with = event_target:barbarian_negotiator }
+			event_target:barbarian_negotiator = { # Character needs land for the war to be valid
+				is_landed = yes
+			}
 		}
 		ai_chance = {
 			factor = 50
@@ -1140,29 +1143,8 @@ long_character_event = {
 	}
 	option = { # Barbarians declare war upon Romans to impose their demands after failed negotiations
 		name = WtWSMS_foederati.12.c
-		trigger = { # Is Barbarian
-			independent = yes
-			mercenary = no
-			holy_order = no
-			is_landed = yes
-			is_tributary = no			
-			OR = {
-                is_tribal = yes
-                is_nomadic = yes
-                primary_title = { title = k_arabia_petraea }
-                primary_title = { title = k_ostrogoths } # Ostrogoths
-            }
-            OR = {
-                has_romance_culture_trigger = no
-                primary_title = { title = k_ostrogoths } # Ostrogoths
-            }
-			NOR = {
-				primary_title = { 
-					higher_tier_than = KING
-					bureaucratic_government_trigger = yes
-					sassanid_government_trigger = yes
-				}
-			}
+		trigger = { 
+			foederati_barbarian_trigger = yes # Is Barbarian
 			NOT = { # Avoid edge case with Ostrogoths
 				AND = {
 					event_target:roman_negotiator = {
@@ -1172,6 +1154,9 @@ long_character_event = {
 				}
 			}
 			NOT = { war_with = event_target:roman_negotiator }
+			event_target:roman_negotiator = { # Character needs land for the war to be valid
+				is_landed = yes
+			}
 		}
 		ai_chance = {
 			factor = 50
@@ -1510,6 +1495,9 @@ long_character_event = {
 
 	option = { # Grant promised territory
 		name = WtWSMS_foederati.16.a
+		trigger = {
+			is_landed = yes
+		}
 		ai_chance = {
             factor = 25
             modifier = {
@@ -1625,6 +1613,9 @@ long_character_event = {
 	}
 	option = { # Attempt to delay further
 		name = WtWSMS_foederati.16.b
+		trigger = {
+			is_landed = yes
+		}
 		ai_chance = {
             factor = 25
             modifier = {
@@ -1645,6 +1636,9 @@ long_character_event = {
 	}
 	option = { # Break promise
 		name = WtWSMS_foederati.16.c
+		trigger = {
+			is_landed = yes
+		}
 		ai_chance = {
             factor = 25
             modifier = {
@@ -1669,6 +1663,12 @@ long_character_event = {
 	}
 	option = { # War to impose concessions
 		name = WtWSMS_foederati.16.d
+		trigger = {
+			event_target:barbarian_negotiator = { # Character needs land for the war to be valid
+				is_landed = yes
+			}
+			is_landed = yes
+		}
 		ai_chance = {
             factor = 25
             modifier = {
@@ -1697,6 +1697,12 @@ long_character_event = {
 			remove_tributary = event_target:barbarian_negotiator
 		}
 	}
+	option = { # Unlanded
+		name = WtWSMS_foederati.16.e
+		trigger = {
+			is_landed = no
+		}
+	}
 }
 
 # Broken territory promise
@@ -1708,7 +1714,7 @@ long_character_event = {
     is_triggered_only = yes
 
 	option = { # Then war it is
-		name = WtWSMS_foederati.17.a		
+		name = WtWSMS_foederati.17.a
 		custom_tooltip = {
 			text = WtWSMS_foederati.17.a.tooltip # War
 		}
