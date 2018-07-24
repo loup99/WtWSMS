@@ -1318,4 +1318,67 @@ decisions = {
 			factor = 1
 		}
 	}
+	
+	close_platonic_academy = {
+		only_independent = yes
+		is_high_prio = yes # Will show an alert once decision is enabled
+		
+		potential = {
+			religion_group = christian
+			war = no
+			age = 16
+			prisoner = no
+			NOT = { trait = incapable }
+			is_title_active = d_platonic_academy
+			NOT = { has_global_flag = closed_platonic_academy }
+			higher_tier_than = king
+			OR = {
+				d_platonic_academy = {
+					holder_scope = {
+						is_liege_or_above = ROOT
+					}
+				}
+				completely_controls = k_achaia
+				has_landed_title = k_achaia
+				any_vassal = {
+					has_landed_title = k_achaia
+				}
+			}
+		}
+		
+		allow = {
+			d_platonic_academy = {
+				has_holder = yes
+			}
+			prestige = 200
+		}
+		
+		effect = {
+			activate_title = { title = d_platonic_academy status = no }
+			piety = 100
+			prestige = -100
+			narrative_event = { id = hist.27 }
+			set_global_flag = closed_platonic_academy
+		}
+		
+		ai_will_do = {
+			factor = 0.01
+			modifier = {
+				factor = 10
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.1
+				trait = sympathy_pagans
+			}
+			modifier = {
+				factor = 0.1
+				trait = scholar
+			}
+			modifier = {
+				factor = 0.001 # Slow it down
+				always = yes
+			}
+		}
+	}
 }
