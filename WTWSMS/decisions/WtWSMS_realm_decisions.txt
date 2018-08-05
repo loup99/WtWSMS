@@ -1388,4 +1388,60 @@ decisions = {
 			}
 		}
 	}
+	hold_a_chariot_race = {
+		only_independent = yes
+		is_high_prio = yes
+		
+		potential = {
+			is_playable = yes
+			has_romance_culture_trigger = yes
+			has_dlc = "Legacy of Rome"
+			independent = yes
+			NOT = { is_nomadic = yes }
+			OR = {
+				gender_equality_trigger = yes
+				NOT = { is_female = yes	}
+			}
+			OR = {
+				tier = king
+				tier = emperor 
+			}
+			location = {
+				owner = { character = ROOT }
+			}
+			NOT = { has_character_modifier = held_a_chariot_race }
+		}
+		allow = {
+			war = no
+			prisoner = no
+			in_command = no
+			NOT = { is_inaccessible_trigger = yes }
+			age = 16
+			prestige = 500
+			wealth = 200
+			custom_tooltip = {
+				text = is_not_busy_trigger_tooltip
+				hidden_tooltip = { NOT = { has_character_flag = do_not_disturb } }
+			}
+		}
+		effect = {
+			character_event = { id = LoR.500 }
+			add_character_modifier = {
+				name = held_a_chariot_race
+				duration = 365
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = {
+					OR = {
+						wealth = 1000
+						scaled_wealth = 3.0
+					}
+				}
+			}
+		}
+	}	
 }
