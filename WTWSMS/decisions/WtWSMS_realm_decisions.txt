@@ -1404,7 +1404,7 @@ decisions = {
 			}
 			OR = {
 				tier = king
-				tier = emperor 
+				tier = emperor
 			}
 			location = {
 				owner = { character = ROOT }
@@ -1430,6 +1430,8 @@ decisions = {
 				name = held_a_chariot_race
 				duration = 365
 			}
+			wealth = -200
+			prestige = 100
 		}
 		ai_will_do = {
 			factor = 1
@@ -1443,5 +1445,44 @@ decisions = {
 				}
 			}
 		}
-	}	
+	}
+	forge_iron_crown_of_lombardy = {
+		only_independent = yes
+		is_high_prio = yes
+		
+		potential = {
+			is_playable = yes
+			culture = lombard
+			has_dlc = "Mystics"
+			independent = yes
+			start_date < 570.1.1
+			NOT = { has_global_flag = iron_crown_of_lombardy_forged } #no need to set this flag in history
+		}
+		allow = {
+			has_landed_title = k_lombardia
+			war = no
+			prisoner = no
+			age = 16
+			prestige = 500
+			wealth = 500
+		}
+		effect = {
+			wealth = -500
+			prestige = 200
+			add_artifact = iron_crown_of_lombardy
+			set_global_flag = iron_crown_of_lombardy_forged
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = {
+					OR = {
+						wealth = 1000
+						scaled_wealth = 3.0
+					}
+				}
+			}
+		}
+	}
 }
