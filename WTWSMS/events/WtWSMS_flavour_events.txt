@@ -2588,3 +2588,82 @@ character_event = {
         prestige = 100
     }
 }
+
+# First Continental Celtic Emperor of Hispania
+# on_create_title
+# on_new_holder
+# ROOT is character, FROM is title
+narrative_event = {
+	id = WtWSMS_flavour.49
+	title = WtWSMS_flavour.49.title
+	desc = WtWSMS_flavour.49.desc
+	picture = GFX_evt_y_mab_darogan
+
+	major = yes
+	show_ROOT = yes
+	hide_from = yes
+	
+	only_playable = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		NOT = {
+			has_global_flag = WtWSMS_viriatus
+		}
+		OR = {
+			religion = celtic_pagan
+			religion = celtic_pagan_reformed
+		}
+		culture_group = continental_celtic
+		e_spain = {
+			title = FROM
+		}
+	}
+
+	immediate = {
+		give_nickname = nick_viriatus
+		set_global_flag = WtWSMS_viriatus
+		prestige = 200
+		piety = 100
+	}
+	
+	weight_multiplier = {
+		factor = 1
+	}
+
+	option = {
+		trigger = {
+			OR = {
+				religion = celtic_pagan
+				religion = celtic_pagan_reformed
+			}
+		}
+		name = WtWSMS_flavour.49.a #Ok
+	}
+
+	option = {
+		trigger = {
+			OR = {
+				religion_group = christian
+				religion_group = muslim
+				religion_group = zoroastrian_group
+				AND = {
+					religion_group = pagan_group
+					NOR = {
+						religion = celtic_pagan
+						religion = celtic_pagan_reformed
+					}
+				}
+			}
+		}
+		name = WtWSMS_flavour.49.b
+	}
+
+	option = {
+		trigger = {
+			religion_group = indian_group
+		}
+		name = WtWSMS_flavour.49.c
+	}
+}

@@ -1212,3 +1212,52 @@ narrative_event = {
 		name = hist.26.a
 	}
 }
+
+# Platonic Academy closed
+narrative_event = {
+	id = hist.27
+	title = hist.27.name
+	desc = hist.27.desc
+	picture = GFX_evt_roman_temple 
+	border = GFX_event_narrative_frame_religion
+
+	is_triggered_only = yes
+	
+	major = yes
+	
+	option = {
+		name = hist.27.a
+		trigger = { 
+			religion_group = christian 
+		}
+		piety = 50
+	}
+	
+	option = {
+		name = hist.27.b
+		trigger = { 
+			religion_openly_in_hellenic_subgroup_trigger = yes 
+		}
+		piety = -50
+	}
+	
+	option = {
+		name = hist.27.c
+		trigger = {
+			NOT = { religion_group = christian }
+			religion_openly_in_hellenic_subgroup_trigger = no 
+		}
+	}
+	
+	option = {
+		name = hist.27.d
+		trigger = { 
+			has_landed_title = e_persia 
+		}
+		prestige = 50
+		scaled_wealth = -0.01
+		custom_tooltip = { 
+			text = hist.27.d.tooltip
+		}
+	}
+}
