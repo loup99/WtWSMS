@@ -18,7 +18,10 @@ narrative_event = {
 	hide_from = yes
 	
 	trigger = {
-		has_landed_title = k_garamantes
+		OR = {
+			has_landed_title = k_garamantes
+			liege = { has_landed_title = k_garamantes }
+		}
 		war = no
 		age = 16
 	}
@@ -251,12 +254,19 @@ narrative_event = {
 	trigger = {
 		had_global_flag = { flag = first_garamantes_event_chain_completed days = 3600 }
 		year > 520
-		has_landed_title = k_garamantes
+		OR = {
+			has_landed_title = k_garamantes
+			liege = { has_landed_title = k_garamantes }
+		}
 		war = no
 		age = 16
-		OR = {
-			religion = egyptian_pagan
-			religion = aten_pagan
+		k_garamantes = {
+			holder_scope = {
+				OR = {
+					religion = egyptian_pagan
+					religion = aten_pagan
+				}
+			}
 		}
 		any_realm_lord = {
 			religion = central_african_pagan
@@ -265,11 +275,23 @@ narrative_event = {
 		NOT = { any_realm_province = { region = custom_diocese_aegyptus } }
 	}
 	
-	mean_time_to_happen = { years = 10 }
+	mean_time_to_happen = { months = 6 } #some randomness
 	
 	immediate = {
 		set_global_flag = second_garamantes_event_chain_started
-		narrative_event = { id = WtWSMS_garama.7 days = 360 }
+		any_realm_lord = {
+			limit = {
+				religion = {
+					OR = {
+						religion = central_african_pagan
+						religion = central_african_pagan_reformed
+					}
+				}
+			}
+			set_character_flag = garama_central_african_conspirant
+		}
+		k_garamantes = { holder_scope = { narrative_event = { id = WtWSMS_garama.7 days = 360 } } }
+		narrative_event = { id = WtWSMS_garama.10 days = 540 }
 	}
 	
 	option = {
@@ -301,7 +323,7 @@ narrative_event = {
 		add_character_modifier = { name = peasant_crisis days = 720 }
 	}
 }
-narrative_event = {
+narrative_event = { #fires for a Kemetic or Atenic Pharaoh only
 	id = WtWSMS_garama.7
 	title = WtWSMS_garama.7.name
 	desc = WtWSMS_garama.7.desc
@@ -311,6 +333,13 @@ narrative_event = {
 	hide_from = yes
 	
 	is_triggered_only = yes
+	
+	trigger = {
+		OR = {
+			religion = egyptian_pagan
+			religion = aten_pagan
+		}
+	}
 	
 	option = {
 		name = WtWSMS_garama.7.a
@@ -373,7 +402,80 @@ narrative_event = {
 	
 	is_triggered_only = yes
 	
+	immediate = { set_character_flag = light_in_the_dark_good_result }
+	
 	option = {
 		name = WtWSMS_garama.9.a
+	}
+}
+narrative_event = {
+	id = WtWSMS_garama.10
+	title = WtWSMS_garama.10.name
+	desc = WtWSMS_garama.10.desc
+	picture = GFX_evt_small_town_east_african
+	border = GFX_event_narrative_frame_religion
+	
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_character_flag = garama_central_african_conspirant
+	}
+	
+	option = {
+		name = WtWSMS_garama.10.a
+		ai_chance = {
+			factor = 50
+		}
+	}
+	option = {
+		name = WtWSMS_garama.10.b
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0
+				k_garamantes = { holder_scope = { ROOT = { opinion = { who = PREV value >= 40 } } } }
+			}
+		}
+		k_garamantes = { holder_scope = { ROOT = { opinion = { modifier = opinion_hate who = PREV years = 20 } } } }
+		add_trait = traveling
+		narrative_event = { id = WtWSMS_garama.11 days = 90 }
+	}
+}
+narrative_event = {
+	id = WtWSMS_garama.11
+	title = WtWSMS_garama.11.name
+	desc = WtWSMS_garama.11.desc
+	picture = GFX_evt_small_town_east_african
+	border = GFX_event_narrative_frame_religion
+	
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = WtWSMS_garama.11.a
+		
+		remove_trait = traveling
+		random = { chance = 20 add_trait = zealous }
+		k_garamantes = { holder_scope = { narrative_event = WtWSMS_garama.12 days = 30 }
+	}
+}
+narrative_event = {
+	id = WtWSMS_garama.12
+	title = WtWSMS_garama.12.name
+	desc = WtWSMS_garama.12.desc
+	picture = GFX_evt_small_town_east_african
+	border = GFX_event_narrative_frame_religion
+	
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	trigger = { has_character_flag = light_in_the_dark_good_result }
+	
+	option = {
+		name = WtWSMS_garama.12.a
 	}
 }
