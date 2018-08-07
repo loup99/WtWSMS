@@ -3,17 +3,42 @@
 #
 # Story written by Hatefig, events written by IhateTrains
 #
-# WtWSMS_garama.1 -> WtWSMS_garama.9
+# WtWSMS_garama.1 -> WtWSMS_garama.5
 ##########################################################
 
 namespace = WtWSMS_garama
 
-# Placeholder
 narrative_event = {
 	id = WtWSMS_garama.1
 	title = WtWSMS_garama.1.name
 	desc = WtWSMS_garama.1.desc
-	picture = GFX_evt_viking_throneroom_oldgods
+	picture = GFX_evt_pyramid
+	border = GFX_event_narrative_frame_religion
+	
+	hide_from = yes
+	
+	trigger = {
+		has_landed_title = k_garamantes
+		war = no
+		age = 16
+	}
+	
+	mean_time_to_happen = { months = 6 }
+	
+	option = {
+		name = WtWSMS_garama.1.a #Event chain starts
+		narrative_event = { id = WtWSMS_garama.2 days = 10 }
+		set_global_flag = first_garamantes_event_chain_started
+	}
+	option = {
+		name = WtWSMS_garama.1.b #Player will not get the event chain
+	}
+}
+narrative_event = {
+	id = WtWSMS_garama.2
+	title = WtWSMS_garama.2.name
+	desc = WtWSMS_garama.2.desc
+	picture = GFX_evt_pyramid
 	border = GFX_event_narrative_frame_religion
 	
 	hide_from = yes
@@ -21,9 +46,194 @@ narrative_event = {
 	is_triggered_only = yes
 	
 	option = {
-		name = WtWSMS_garama.1.a #Event chain starts
+		name = WtWSMS_garama.2.a
+		narrative_event = { id = WtWSMS_garama.3 days = 1800 random = 1800 }
+	}
+}
+narrative_event = {
+	id = WtWSMS_garama.3
+	title = WtWSMS_garama.3.name
+	desc = WtWSMS_garama.3.desc
+	picture = GFX_evt_pyramid
+	border = GFX_event_narrative_frame_religion
+	
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = WtWSMS_garama.3.a
+		narrative_event = { id = WtWSMS_garama.4 days = 1800 }
+	}
+}
+narrative_event = {
+	id = WtWSMS_garama.4
+	title = WtWSMS_garama.4.name
+	desc = WtWSMS_garama.4.desc
+	picture = GFX_evt_pyramid
+	border = GFX_event_narrative_frame_religion
+	
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = WtWSMS_garama.4.a
+		trigger = { religion = aten_pagan }
+		if = {
+			limit = { any_province = { religion = aten_pagan } }
+			random_province = {
+				limit = { religion = aten_pagan }
+				religion_authority = {
+					modifier = recent_events_positive
+					years = 20
+				}
+			}
+		}
+		else = {
+			random_character = {
+				limit = { religion = aten_pagan }
+				religion_authority = {
+					modifier = recent_events_positive
+					years = 20
+				}
+			}
+		}
+		if = {
+			limit = { any_province = { religion = egyptian_pagan } }
+			random_province = {
+				limit = { religion = egyptian_pagan }
+				religion_authority = {
+					modifier = recent_events_negative
+					years = 20
+				}
+			}
+		}
+		else = {
+			random_character = {
+				limit = { religion = egyptian_pagan }
+				religion_authority = {
+					modifier = recent_events_negative
+					years = 20
+				}
+			}
+		}
+		narrative_event = { id = WtWSMS_garama.5 days = 1800 }
 	}
 	option = {
-		name = WtWSMS_garama.1.b #Player will not get the event chain
+		name = WtWSMS_garama.4.b
+		trigger = { NOT = { religion = aten_pagan } }
+		if = {
+			limit = { any_province = { religion = aten_pagan } }
+			random_province = {
+				limit = { religion = aten_pagan }
+				religion_authority = {
+					modifier = recent_events_positive
+					years = 20
+				}
+			}
+		}
+		else = {
+			random_character = {
+				limit = { religion = aten_pagan }
+				religion_authority = {
+					modifier = recent_events_positive
+					years = 20
+				}
+			}
+		}
+		if = {
+			limit = { any_province = { religion = egyptian_pagan } }
+			random_province = {
+				limit = { religion = egyptian_pagan }
+				religion_authority = {
+					modifier = recent_events_negative
+					years = 20
+				}
+			}
+		}
+		else = {
+			random_character = {
+				limit = { religion = egyptian_pagan }
+				religion_authority = {
+					modifier = recent_events_negative
+					years = 20
+				}
+			}
+		}
+		narrative_event = { id = WtWSMS_garama.5 days = 1800 }
+	}
+}
+narrative_event = {
+	id = WtWSMS_garama.5
+	title = WtWSMS_garama.5.name
+	desc = WtWSMS_garama.5.desc
+	picture = GFX_evt_pyramid
+	border = GFX_event_narrative_frame_religion
+	
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_global_flag = first_garamantes_event_chain_completed
+		clr_global_flag = first_garamantes_event_chain_started
+	}
+	
+	option = {
+		name = WtWSMS_garama.5.a
+		trigger = {
+			OR = {
+				religion = central_african_pagan_reformed
+				religion = central_african_pagan
+			}
+		}
+		if = {
+			limit = { any_character = { religion = central_african_pagan_reformed } }
+			random_character = {
+				limit = { religion = central_african_pagan_reformed }
+				religion_authority = {
+					modifier = recent_events_positive
+					years = 20
+				}
+			}
+		}
+		else = {
+			random_character = {
+				limit = { religion = central_african_pagan }
+				religion_authority = {
+					modifier = recent_events_positive
+					years = 20
+				}
+			}
+		}
+	}
+	option = {
+		name = WtWSMS_garama.5.b
+		trigger = {
+			NOR = {
+				religion = central_african_pagan_reformed
+				religion = central_african_pagan
+			}
+		}
+		if = {
+			limit = { any_character = { religion = central_african_pagan_reformed } }
+			random_character = {
+				limit = { religion = central_african_pagan_reformed }
+				religion_authority = {
+					modifier = recent_events_positive
+					years = 20
+				}
+			}
+		}
+		else = {
+			random_character = {
+				limit = { religion = central_african_pagan }
+				religion_authority = {
+					modifier = recent_events_positive
+					years = 20
+				}
+			}
+		}
 	}
 }
