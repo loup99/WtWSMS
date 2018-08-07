@@ -1,10 +1,10 @@
-##########################################################
+##############################################################################################################
 # Garamantes event chain
 #
-# Story written by Hatefig, events written by IhateTrains
-#
-# WtWSMS_garama.1 -> WtWSMS_garama.5
-##########################################################
+# Story written by Hatefig, events implemented by IhateTrains
+# https://forum.paradoxplaza.com/forum/index.php?threads/wtwsms-suggestions-ideas.827029/page-60#post-23673893
+# WtWSMS_garama.1 -> WtWSMS_garama.9
+##############################################################################################################
 
 namespace = WtWSMS_garama
 
@@ -235,5 +235,145 @@ narrative_event = {
 				}
 			}
 		}
+	}
+}
+
+#Second event chain
+narrative_event = {
+	id = WtWSMS_garama.6
+	title = WtWSMS_garama.6.name
+	desc = WtWSMS_garama.6.desc
+	picture = GFX_evt_pyramid
+	border = GFX_event_narrative_frame_religion
+	
+	hide_from = yes
+	
+	trigger = {
+		had_global_flag = { flag = first_garamantes_event_chain_completed days = 3600 }
+		year > 520
+		has_landed_title = k_garamantes
+		war = no
+		age = 16
+		OR = {
+			religion = egyptian_pagan
+			religion = aten_pagan
+		}
+		any_realm_lord = {
+			religion = central_african_pagan
+			religion = central_african_pagan_reformed
+		}
+		NOT = { any_realm_province = { region = custom_diocese_aegyptus } }
+	}
+	
+	mean_time_to_happen = { years = 10 }
+	
+	immediate = {
+		set_global_flag = second_garamantes_event_chain_started
+		narrative_event = { id = WtWSMS_garama.7 days = 360 }
+	}
+	
+	option = {
+		name = WtWSMS_garama.6.a
+		
+		add_character_modifier = { name = peasant_unrest days = 1800 }
+		gold = -5
+	}
+	option = {
+		name = WtWSMS_garama.6.b
+		trigger = {
+			OR = {
+				trait = kind
+				trait = generous
+			}
+		}
+		
+		add_character_modifier = { name = minor_food_shortage days = 360 }
+	}
+	option = {
+		name = WtWSMS_garama.6.c
+		
+		trigger = {
+			OR = {
+				trait = cruel
+				trait = zealous
+			}
+		}
+		add_character_modifier = { name = peasant_crisis days = 720 }
+	}
+}
+narrative_event = {
+	id = WtWSMS_garama.7
+	title = WtWSMS_garama.7.name
+	desc = WtWSMS_garama.7.desc
+	picture = GFX_evt_nightmare
+	border = GFX_event_narrative_frame_religion
+	
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = WtWSMS_garama.7.a
+		
+		narrative_event = { id = WtWSMS_garama.8 } #bad result
+	}
+	option = {
+		name = WtWSMS_garama.7.b
+		
+		hidden_tooltip = {
+			random_list = {
+				50 = {
+					narrative_event = { id = WtWSMS_garama.8 } #bad result
+				}
+				50 = {
+					narrative_event = { id = WtWSMS_garama.9 } #good result
+				}
+			}
+		}
+		
+	}
+	option = {
+		name = WtWSMS_garama.7.c
+		
+		hidden_tooltip = {
+			random_list = {
+				20 = {
+					death = { death_reason = death_murder_unknown_butchered }
+				}
+				80 = {
+					narrative_event = { id = WtWSMS_garama.9 } #good result
+				}
+			}
+		}
+	}
+}
+narrative_event = { #bad result
+	id = WtWSMS_garama.8
+	title = WtWSMS_garama.8.name
+	desc = WtWSMS_garama.8.desc
+	picture = GFX_evt_nightmare
+	border = GFX_event_narrative_frame_religion
+	
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = WtWSMS_garama.8.a
+	}
+}
+narrative_event = {
+	id = WtWSMS_garama.9 #good result
+	title = WtWSMS_garama.9.name
+	desc = WtWSMS_garama.9.desc
+	picture = GFX_evt_nightmare
+	border = GFX_event_narrative_frame_religion
+	
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = WtWSMS_garama.9.a
 	}
 }
