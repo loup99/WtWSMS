@@ -263,11 +263,32 @@ narrative_event = {
 	
 	is_triggered_only = yes
 	
+	option = {
+		name = WtWSMS_garama.0.a #read more
+		narrative_event = { id = WtWSMS_garama.500 }
+	}
+	
+}
+narrative_event = {
+	id = WtWSMS_garama.500
+	title = WtWSMS_garama.5.name
+	desc = WtWSMS_garama.500.desc
+	picture = GFX_evt_pyramid
+	border = GFX_event_narrative_frame_religion
+	
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
 	immediate = {
 		set_global_flag = first_garamantes_event_chain_completed
 		clr_global_flag = first_garamantes_event_chain_started
 	}
 	
+	option = {
+		name = WtWSMS_garama.0.b #return to first page
+		narrative_event = { id = WtWSMS_garama.5 }
+	}
 	option = {
 		name = WtWSMS_garama.5.a
 		trigger = {
@@ -362,7 +383,12 @@ narrative_event = {
 	
 	mean_time_to_happen = { months = 6 } #some randomness
 	
-	immediate = {
+	option = {
+		name = WtWSMS_garama.6.a
+		
+		add_character_modifier = { name = peasant_unrest days = 1800 }
+		gold = -5
+		
 		set_global_flag = second_garamantes_event_chain_started
 		any_realm_lord = {
 			limit = {
@@ -378,13 +404,6 @@ narrative_event = {
 		k_garamantes = { holder_scope = { narrative_event = { id = WtWSMS_garama.7 days = 360 } } }
 		narrative_event = { id = WtWSMS_garama.10 days = 540 }
 	}
-	
-	option = {
-		name = WtWSMS_garama.6.a
-		
-		add_character_modifier = { name = peasant_unrest days = 1800 }
-		gold = -5
-	}
 	option = {
 		name = WtWSMS_garama.6.b
 		trigger = {
@@ -395,6 +414,21 @@ narrative_event = {
 		}
 		
 		add_character_modifier = { name = minor_food_shortage days = 360 }
+		
+		set_global_flag = second_garamantes_event_chain_started
+		any_realm_lord = {
+			limit = {
+				religion = {
+					OR = {
+						religion = central_african_pagan
+						religion = central_african_pagan_reformed
+					}
+				}
+			}
+			set_character_flag = garama_central_african_conspirant
+		}
+		k_garamantes = { holder_scope = { narrative_event = { id = WtWSMS_garama.7 days = 360 } } }
+		narrative_event = { id = WtWSMS_garama.10 days = 540 }
 	}
 	option = {
 		name = WtWSMS_garama.6.c
@@ -406,6 +440,21 @@ narrative_event = {
 			}
 		}
 		add_character_modifier = { name = peasant_crisis days = 720 }
+		
+		set_global_flag = second_garamantes_event_chain_started
+		any_realm_lord = {
+			limit = {
+				religion = {
+					OR = {
+						religion = central_african_pagan
+						religion = central_african_pagan_reformed
+					}
+				}
+			}
+			set_character_flag = garama_central_african_conspirant
+		}
+		k_garamantes = { holder_scope = { narrative_event = { id = WtWSMS_garama.7 days = 360 } } }
+		narrative_event = { id = WtWSMS_garama.10 days = 540 }
 	}
 }
 narrative_event = { #fires for a Kemetic or Atenic Pharaoh only
