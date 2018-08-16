@@ -1130,6 +1130,8 @@ narrative_event = {
 	picture = GFX_evt_roman_senate
 	border = GFX_event_narrative_frame_religion
 	
+	only_playable = yes
+	
 	is_triggered_only = yes
 	
 	trigger = {
@@ -1168,17 +1170,48 @@ narrative_event = {
 	
 	option = {
 		name = SENATE.10006.a
-		event_target:consul_candidate_1 = { d_senate = { holder_scope = { abdicate_to = PREVPREV } } }
+		trigger = {
+			event_target:consul_candidate_1 = { is_alive = yes }
+		}
+		d_senate = { event_target:consul_candidate_1 = { grant_title_no_opinion = PREV } }
+		if {
+			limit = { c_roma = { holder_scope = { d_senate = { holder_scope = { character = PREVPREV } } } } }
+			c_roma = { event_target:consul_candidate_1 = { grant_title_no_opinion = PREV } }
+		}
+		if {
+			limit = { b_ostia = { holder_scope = { d_senate = { holder_scope = { character = PREVPREV } } } } }
+			b_ostia = { event_target:consul_candidate_1 = { grant_title_no_opinion = PREV } }
+		}
 	}
 	
 	option = {
 		name = SENATE.10006.b
-		event_target:consul_candidate_2 = { d_senate = { holder_scope = { abdicate_to = PREVPREV } } }
+		trigger = {
+			event_target:consul_candidate_2 = { is_alive = yes }
+		}
+		
+		d_senate = { event_target:consul_candidate_2 = { grant_title_no_opinion = PREV } }
+		if {
+			limit = { c_roma = { holder_scope = { d_senate = { holder_scope = { character = PREVPREV } } } } }
+			c_roma = { event_target:consul_candidate_2 = { grant_title_no_opinion = PREV } }
+		}
+		if {
+			limit = { b_ostia = { holder_scope = { d_senate = { holder_scope = { character = PREVPREV } } } } }
+			b_ostia = { event_target:consul_candidate_2 = { grant_title_no_opinion = PREV } }
+		}
 	}
 	
 	option = {
 		name = SENATE.10006.c
 		trigger = { has_dlc = "The Republic" }
-		ROOT = { d_senate = { holder_scope = { abdicate_to = PREVPREV } } }
+		d_senate = { ROOT = { grant_title_no_opinion = PREV } }
+		if {
+			limit = { c_roma = { holder_scope = { d_senate = { holder_scope = { character = PREVPREV } } } } }
+			c_roma = { ROOT = { grant_title_no_opinion = PREV } }
+		}
+		if {
+			limit = { b_ostia = { holder_scope = { d_senate = { holder_scope = { character = PREVPREV } } } } }
+			b_ostia = { ROOT = { grant_title_no_opinion = PREV } }
+		}
 	}
 }
