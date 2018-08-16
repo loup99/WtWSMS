@@ -718,6 +718,50 @@ character_event = {
 				
 				random_list = {
 					700 = { } # Fall back dead weight
+					# WtWSMS
+					100 = {
+						trigger = {
+							can_join_society = monastic_order_insular
+						}
+						modifier = {
+							factor = 3
+							OR = {
+								trait = zealous
+								trait = scholar
+								trait = theologian
+								trait = gardener
+								trait = monk
+								trait = nun
+								learning = 16
+								is_priest = yes
+							}
+						}
+						join_society = monastic_order_insular
+						random_list = { # Artificially increase society influence for balance purposes
+							75 = {
+								modifier = {
+									factor = 0
+									society_influence >= 30
+								}
+								add_mission_succeed_influence_effect = yes
+							}
+							25 = {
+							}
+						}
+						if = {
+							limit = {
+								NOT = {
+									society = {
+										any_society_member = {
+											is_society_grandmaster = yes
+										}
+									}
+								}
+							}
+							set_society_grandmaster = yes
+						}
+					}
+					# Vanilla
 					100 = {
 						trigger = {
 							can_join_society = monastic_order_benedictine
@@ -2771,9 +2815,7 @@ character_event = { #Save game conversion of secret_traits to secret religions
 				secretly_qadariyya = { set_secret_religion = qadariyya remove_trait = secretly_qadariyya }
 				secretly_khawariji = { set_secret_religion = khawariji remove_trait = secretly_khawariji }
 				secretly_haruriyyah = { set_secret_religion = haruriyyah remove_trait = secretly_haruriyyah }
-				secretly_wahhabi = { set_secret_religion = wahhabi remove_trait = secretly_wahhabi }
 				secretly_mahdi = { set_secret_religion = mahdi remove_trait = secretly_mahdi }
-				secretly_salafi = { set_secret_religion = salafi remove_trait = secretly_salafi }
 				secretly_twelver = { set_secret_religion = twelver remove_trait = secretly_twelver }
 				secretly_zayid = { set_secret_religion = zayid remove_trait = secretly_zayid }
 				secretly_ismaili = { set_secret_religion = ismaili remove_trait = secretly_ismaili }

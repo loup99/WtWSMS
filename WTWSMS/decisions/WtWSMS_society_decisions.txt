@@ -2098,73 +2098,6 @@ title_decisions = {
 			factor = 0
 		}
 	}
-	secretly_convert_to_wahhabi_holy_site = {
-		filter = owned
-		ai_target_filter = self
-	
-		only_playable = yes
-		
-		from_potential = {
-			ai = no
-			NOT = { trait = incapable }
-			NOT = { secret_religion = wahhabi }
-			OR = {
-				has_global_flag = bedouin_arabic_arrived
-				has_global_flag = birth_of_islam
-			}
-			NOT = { religion = wahhabi }
-			NOT = { controls_religion = yes }
-		}
-		
-		potential = {
-			tier = COUNT
-			NOT = {
-				location = { religion = wahhabi }
-			}
-			OR = {
-				is_holy_site = wahhabi
-				any_de_jure_vassal_title = {
-					is_holy_site = wahhabi
-				}
-			}
-			OR = {
-				holder_scope = {
-					character = FROM
-				}
-				AND = {
-					tier = BARON
-					holder_scope = {
-						liege = {
-							character = FROM
-						}
-					}
-				}
-			}
-		}
-		
-		allow = {
-			FROM = {
-				piety = 250
-				prisoner = no
-				NOT = { trait = incapable }
-				NOT = { is_inaccessible_trigger = yes }
-				NOT = { society_member_of = secret_religious_cult }
-			}
-		}
-		
-		effect = {
-			FROM = {
-				piety = -250
-				set_secret_religion = wahhabi
-			}
-		}
-		
-		
-		
-		ai_will_do = {
-			factor = 0
-		}
-	}
 	secretly_convert_to_mahdi_holy_site = {
 		filter = owned
 		ai_target_filter = self
@@ -2223,73 +2156,6 @@ title_decisions = {
 			FROM = {
 				piety = -250
 				set_secret_religion = mahdi
-			}
-		}
-		
-		
-		
-		ai_will_do = {
-			factor = 0
-		}
-	}
-	secretly_convert_to_salafi_holy_site = {
-		filter = owned
-		ai_target_filter = self
-	
-		only_playable = yes
-		
-		from_potential = {
-			ai = no
-			NOT = { trait = incapable }
-			NOT = { secret_religion = salafi }
-			OR = {
-				has_global_flag = bedouin_arabic_arrived
-				has_global_flag = birth_of_islam
-			}
-			NOT = { religion = salafi }
-			NOT = { controls_religion = yes }
-		}
-		
-		potential = {
-			tier = COUNT
-			NOT = {
-				location = { religion = salafi }
-			}
-			OR = {
-				is_holy_site = salafi
-				any_de_jure_vassal_title = {
-					is_holy_site = salafi
-				}
-			}
-			OR = {
-				holder_scope = {
-					character = FROM
-				}
-				AND = {
-					tier = BARON
-					holder_scope = {
-						liege = {
-							character = FROM
-						}
-					}
-				}
-			}
-		}
-		
-		allow = {
-			FROM = {
-				piety = 250
-				prisoner = no
-				NOT = { trait = incapable }
-				NOT = { is_inaccessible_trigger = yes }
-				NOT = { society_member_of = secret_religious_cult }
-			}
-		}
-		
-		effect = {
-			FROM = {
-				piety = -250
-				set_secret_religion = salafi
 			}
 		}
 		
@@ -3151,6 +3017,7 @@ title_decisions = {
 			ai = no
 			NOT = { trait = incapable }
 			NOT = { secret_religion = west_pagan }
+			always = no # Wodenic is unused
 			NOT = { religion = west_pagan }
 			NOT = { controls_religion = yes }
 		}

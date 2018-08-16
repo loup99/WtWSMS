@@ -213,6 +213,7 @@ character_event = {
 				copy_title_laws = PREV
 			}
 		}
+		clr_global_flag = bureaucratic_dalmatia
 	}
 }
 
@@ -553,18 +554,18 @@ narrative_event = {
 	border = "GFX_event_narrative_frame_war"
 
 	trigger = {
-				year = 550
-				NOT = { year = 600 }
+		year = 550
+		NOT = { year = 600 }
 		NOT = { has_global_flag = avar_arrived }
 		has_global_flag = gokturk_arrived
-				   496 = { 
-						  owner = {
-								OR = {
-					  is_liege_or_above = ROOT
-					  character = ROOT
-								 }
-								  } 
-							  }
+		496 = { 
+			owner = {
+				OR = {
+					is_liege_or_above = ROOT
+					character = ROOT
+				}
+			} 
+		}
 		e_avar = {
 			has_holder = no
 		}
@@ -574,61 +575,61 @@ narrative_event = {
 		years = 15
 	}
 	
-		option = {
-				name = ZUSK29OP1
+	option = {
+		name = ZUSK29OP1
 		ai_chance = {
 			factor = 90
-			}
+		}
 
-				treasury = -500
+		treasury = -500
 
 		set_global_flag = avar_arrived
 
-				custom_tooltip = { 
-				text = avar_attack_tooltip
-				hidden_tooltip = {
-				 
+		custom_tooltip = {
+			text = avar_attack_tooltip
+			hidden_tooltip = {
+				
 				activate_title = { title = e_avar status = yes }
 
 				521 = {
-		create_random_soldier = {
+					create_random_soldier = {
 						name = Bayan
-			random_traits = no
-			dynasty = random
-			religion = tengri_pagan
+						random_traits = no
+						dynasty = random
+						religion = tengri_pagan
 						culture = avar
-			female = no
-			age = 45
-		}
+						female = no
+						age = 45
+					}
 		
-		new_character = {
+					new_character = {
 
 						wealth = 500
-									 
+						
 						add_claim = e_dacia
-		
-						e_avar = {
-			grant_title = PREV
-			}
-						set_defacto_liege = THIS
 					
+						e_avar = {
+							grant_title = PREV
+						}
+						set_defacto_liege = THIS
+						
 						character_event = { id = zusk_event.28 days = 25 }
 
-			   }
+					}
 
 			   }
 
 
-			   }
+			}
 			   
-			   }
-}
+		}
+	}
 
 	option = {
 		name = ZUSK29OP2
 		ai_chance = {
 			factor = 10
-			}
+		}
 		set_global_flag = avar_arrived
 	}
 }
@@ -676,11 +677,15 @@ narrative_event = {
 				}
 			}
 			event_target:defeated_western_emperor = {
-				any_artifact = {
-					limit = { has_artifact_flag = western_regalia } # it's kind of a workaround
-					transfer_artifact = {
-						from = PREV
-						to = ROOT
+				if = {
+					limit = { is_landed = no } #don't transfer the regalia if the defeated emperor remains landed
+					
+					any_artifact = {
+						limit = { has_artifact_flag = western_regalia } # it's kind of a workaround
+						transfer_artifact = {
+							from = PREV
+							to = ROOT
+						}
 					}
 				}
 			}

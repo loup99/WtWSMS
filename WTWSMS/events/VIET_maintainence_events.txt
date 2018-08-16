@@ -1,0 +1,141 @@
+###########################################
+#
+# Various Maintenance Events
+#
+#
+#
+###########################################
+
+namespace = VIETmaintenance
+
+#Remove Caste Traits which don't make sense for non-Indian cultures
+character_event = {
+	id = VIETmaintenance.1
+	
+	hide_window = yes
+	
+	trigger = {
+		religion = buddhist
+		NOT = { culture_group = indo_aryan_group }
+		NOT = { culture_group = dravidian_group }
+		NOT = { culture = afghan }
+		NOT = { culture = baloch }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				trait = brahmin
+			}
+			remove_trait = brahmin
+		}
+		if = {
+			limit = {
+				trait = kshatriya
+			}
+			remove_trait = kshatriya
+		}
+		if = {
+			limit = {
+				trait = vaishya
+			}
+			remove_trait = vaishya
+		}
+	}
+
+	option = { name = OK }
+}
+
+#Remove Buddhist sect modifiers in situations where they don't make sense
+character_event = {
+	id = VIETmaintenance.2
+	
+	hide_window = yes
+	
+	#min_age = 16
+	is_triggered_only = yes
+	
+	trigger = {
+		OR = {
+			AND = { #no longer buddhist
+				NOT = { religion = buddhist }
+				OR = {
+					has_character_modifier = zen_supporter
+					has_character_modifier = pure_land_supporter
+					has_character_modifier = lotus_school_supporter
+					has_character_modifier = yogacara_supporter
+					has_character_modifier = gelug_supporter
+					has_character_modifier = sakya_supporter
+					has_character_modifier = kagyu_supporter
+					has_character_modifier = nyingma_supporter
+					has_character_modifier = mahavihara_supporter
+					has_character_modifier = abhayagiri_vihara_supporter
+				}
+			}
+			AND = { #no longer a ruler
+				religion = buddhist
+				is_ruler = no
+				OR = {
+					has_character_modifier = zen_supporter
+					has_character_modifier = pure_land_supporter
+					has_character_modifier = lotus_school_supporter
+					has_character_modifier = yogacara_supporter
+					has_character_modifier = gelug_supporter
+					has_character_modifier = sakya_supporter
+					has_character_modifier = kagyu_supporter
+					has_character_modifier = nyingma_supporter
+					has_character_modifier = mahavihara_supporter
+					has_character_modifier = abhayagiri_vihara_supporter
+				}
+			}
+			AND = { #no longer mahayana
+				religion = buddhist
+				NOT = { trait = mahayana_buddhist }
+				OR = {
+					has_character_modifier = zen_supporter
+					has_character_modifier = pure_land_supporter
+					has_character_modifier = lotus_school_supporter
+					has_character_modifier = yogacara_supporter
+				}
+			}
+			AND = { #no longer vajrayana
+				religion = buddhist
+				NOT = { trait = vajrayana_buddhist }
+				OR = {
+					has_character_modifier = gelug_supporter
+					has_character_modifier = sakya_supporter
+					has_character_modifier = kagyu_supporter
+					has_character_modifier = nyingma_supporter
+				}
+			}
+			AND = { #no longer theravada
+				religion = buddhist
+				NOT = { trait = theravada_buddhist }
+				OR = {
+					has_character_modifier = mahavihara_supporter
+					has_character_modifier = abhayagiri_vihara_supporter
+				}
+			}
+		}
+	}
+
+	immediate = {
+		remove_character_modifier = zen_supporter
+		remove_character_modifier = pure_land_supporter
+		remove_character_modifier = lotus_school_supporter
+		remove_character_modifier = yogacara_supporter
+		remove_character_modifier = gelug_supporter
+		remove_character_modifier = sakya_supporter
+		remove_character_modifier = kagyu_supporter
+		remove_character_modifier = nyingma_supporter
+		remove_character_modifier = mahavihara_supporter
+		remove_character_modifier = abhayagiri_vihara_supporter
+		remove_character_modifier = recently_chose_buddhist_sect
+	}
+
+	option = { name = OK }
+}

@@ -180,11 +180,16 @@ province_event = {
 	desc = WtWSMS_pots.4.desc
 	picture = GFX_evt_stone_church
 	border = GFX_event_normal_frame_religion
-		
+	
 	trigger = { 
 		owner = {
 			religion_group = pagan_group
 			is_tribal = yes
+			NOT = {
+				any_demesne_province = {
+					has_province_flag = spread_of_christianity # Once the flag is set the event chain can fire
+				}
+			}
 		}
 		OR = {
 			owner = { # Germanic
@@ -1343,6 +1348,11 @@ province_event = {
 			religion_group = christian
 			is_tribal = yes
 			NOT = { has_character_flag = adopted_feudalism }
+			NOT = {
+				any_demesne_province = {
+					has_province_flag = adopt_feudalism # Once the flag is set the event chain can fire
+				}
+			}
 		}
 		OR = {
 			owner = { # Germanic
@@ -1482,6 +1492,11 @@ province_event = {
 			is_feudal = yes
 			NOT = { religion = ROOT } # Is not of the province religion
 			NOT = { has_character_flag = converted_christian_branch }
+			NOT = {
+				any_demesne_province = {
+					has_province_flag = heretic_christian # Once the flag is set the event chain can fire
+				}
+			}
 		}
 		OR = {
 			owner = { # Germanic
