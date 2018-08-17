@@ -1122,7 +1122,7 @@ narrative_event = {
 	}
 }
 
-# Yearly assignment of the consul (or assignment of a consul suffectus)
+# Yearly assignment of the consul
 narrative_event = {
 	id = SENATE.10006
 	title = SENATE.10006.name
@@ -1132,10 +1132,15 @@ narrative_event = {
 	
 	only_playable = yes
 	
-	is_triggered_only = yes
-	
 	trigger = {
 		NOT = { has_global_flag = senate_not_active }
+		month == 0 #January
+		OR = {
+			NOT = { has_global_flag = { name = recent_consul_assignment }
+			had_global_flag = { name = recent_consul_assignment days = 50 } #just to ensure this doesn't happen twice in January
+		}
+		
+		
 		OR = {
 			has_landed_title = e_roman_empire
 			has_landed_title = e_wre
@@ -1151,8 +1156,15 @@ narrative_event = {
 		}
 	}
 	
+	mean_time_to_happen = { days = 1 }
+	
 	immediate = {
-		d_senate = { holder_scope = { random_vassal = { save_event_target_as = consul_candidate_1 } } }
+		clr_global_flag = recent_consul_assignment
+		set_global_flag = recent_consul_assignment
+		d_senate = { holder_scope = { random_vassal = {
+			limit = { is_landed = no }
+			save_event_target_as = consul_candidate_1 
+		} } }
 		random_character = {
 			limit = {
 				age = 16
@@ -1173,7 +1185,6 @@ narrative_event = {
 		trigger = {
 			event_target:consul_candidate_1 = { is_alive = yes }
 		}
-		d_senate = { event_target:consul_candidate_1 = { grant_title_no_opinion = PREV } }
 		if = {
 			limit = { c_roma = { holder_scope = { d_senate = { holder_scope = { character = PREVPREV } } } } }
 			c_roma = { event_target:consul_candidate_1 = { grant_title_no_opinion = PREV } }
@@ -1182,6 +1193,7 @@ narrative_event = {
 			limit = { b_ostia = { holder_scope = { d_senate = { holder_scope = { character = PREVPREV } } } } }
 			b_ostia = { event_target:consul_candidate_1 = { grant_title_no_opinion = PREV } }
 		}
+		d_senate = { event_target:consul_candidate_1 = { grant_title_no_opinion = PREV } }
 	}
 	
 	option = {
@@ -1190,7 +1202,7 @@ narrative_event = {
 			event_target:consul_candidate_2 = { is_alive = yes }
 		}
 		
-		d_senate = { event_target:consul_candidate_2 = { grant_title_no_opinion = PREV } }
+		
 		if = {
 			limit = { c_roma = { holder_scope = { d_senate = { holder_scope = { character = PREVPREV } } } } }
 			c_roma = { event_target:consul_candidate_2 = { grant_title_no_opinion = PREV } }
@@ -1199,12 +1211,12 @@ narrative_event = {
 			limit = { b_ostia = { holder_scope = { d_senate = { holder_scope = { character = PREVPREV } } } } }
 			b_ostia = { event_target:consul_candidate_2 = { grant_title_no_opinion = PREV } }
 		}
+		d_senate = { event_target:consul_candidate_2 = { grant_title_no_opinion = PREV } }
 	}
 	
 	option = {
 		name = SENATE.10006.c
 		trigger = { has_dlc = "The Republic" }
-		d_senate = { ROOT = { grant_title_no_opinion = PREV } }
 		if = {
 			limit = { c_roma = { holder_scope = { d_senate = { holder_scope = { character = PREVPREV } } } } }
 			c_roma = { ROOT = { grant_title_no_opinion = PREV } }
@@ -1213,5 +1225,25 @@ narrative_event = {
 			limit = { b_ostia = { holder_scope = { d_senate = { holder_scope = { character = PREVPREV } } } } }
 			b_ostia = { ROOT = { grant_title_no_opinion = PREV } }
 		}
+		d_senate = { ROOT = { grant_title_no_opinion = PREV } }
 	}
+}
+# Hidden 
+narrative_event = {    #FINISH THE MAINTENANCE EVENT
+	id = SENATE.10007
+	hide_window = yes
+	is_triggered_only = yes #on startup
+	
+	only_rulers = yes
+	
+	trigger = { has_landed_title = c_roma }
+	
+	immediate = {
+		if = {
+			limit = { month > 1 }
+			set_global_flag = recent_consul_assignment
+		}
+		
+	}
+	
 }
