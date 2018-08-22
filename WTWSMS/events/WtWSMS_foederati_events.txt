@@ -71,14 +71,14 @@ long_character_event = {
 			text = WtWSMS_foederati.1.a.tooltip # Negotiations begin
 		}
 		event_target:barbarian_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.2 # Negotiations begin - settle in empire or not?
 				days = 7
 				random = 3
 			}
 		}
 	}
-    option = { # No, negotiations break
+	option = { # No, negotiations break
 		name = WtWSMS_foederati.1.b
 		ai_chance = {
 			# In case the Barbarian is menacing or otherwise too hostile
@@ -122,7 +122,7 @@ long_character_event = {
 				event_target:barbarian_negotiator = {
 					infamy = 50
 				}
-			}		
+			}
 			modifier = {
 				factor = 2
 				event_target:roman_negotiator = {
@@ -139,7 +139,7 @@ long_character_event = {
 			text = WtWSMS_foederati.1.b.tooltip # Negotiations do not start, risk of war
 		}
 		event_target:barbarian_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.12 # Negotiations break
 				days = 7
 				random = 3
@@ -150,11 +150,11 @@ long_character_event = {
 
 # Negotiations begin - settle in empire or not?
 long_character_event = {
-    id = WtWSMS_foederati.2
+	id = WtWSMS_foederati.2
 	desc = WtWSMS_foederati.2.desc
 	picture = GFX_evt_emissary
 	
-    is_triggered_only = yes
+	is_triggered_only = yes
 
 	option = { # Yes
 		name = WtWSMS_foederati.2.a
@@ -184,7 +184,7 @@ long_character_event = {
 				factor = 2
 				event_target:barbarian_negotiator = {
 					any_neighbor_independent_ruler = {
-						relative_power_including_allies_attacker = { 
+						relative_power_including_allies_attacker = {
 							who = PREV
 							power = 2
 						}
@@ -193,7 +193,7 @@ long_character_event = {
 			}
 		}
 		event_target:roman_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.3 # Barbarian negotiator wishes to settle in the empire
 				days = 7
 				random = 3
@@ -213,22 +213,22 @@ long_character_event = {
 			}
 		}
 		event_target:roman_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.11 # Barbarian negotiator does not wish to settle in the empire
 				days = 7
 				random = 3
 			}
 		}
 	}
-}	
+}
 
 # Barbarian negotiator wishes to settle in the empire
 long_character_event = {
-    id = WtWSMS_foederati.3
+	id = WtWSMS_foederati.3
 	desc = WtWSMS_foederati.3.desc
 	picture = GFX_evt_emissary
 	
-    is_triggered_only = yes
+	is_triggered_only = yes
 
 	option = { # Accept it and offer a territory
 		name = WtWSMS_foederati.3.a
@@ -245,9 +245,9 @@ long_character_event = {
 			text = WtWSMS_foederati.3.a.tooltip # Offering territory
 		}
 		event_target:roman_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.4 # Pick a territory to offer
-			}			
+			}
 			set_character_flag = offered_territory_flag
 		}
 	}
@@ -266,7 +266,7 @@ long_character_event = {
 			text = WtWSMS_foederati.3.b.tooltip # Promising territory
 		}
 		event_target:roman_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.7 # Pick a territory to promise
 			}
 			set_character_flag = promised_territory_to_@event_target:barbarian_negotiator
@@ -287,7 +287,7 @@ long_character_event = {
 			text = WtWSMS_foederati.3.c.tooltip # Settle outside counter-offer
 		}
 		event_target:barbarian_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.10 # Makes the offer to settle outside it
 			}
 		}
@@ -296,15 +296,15 @@ long_character_event = {
 			set_character_flag = counter_offer
 		}
 	}
-}	
+}
 
 # Pick a territory to offer
 long_character_event = {
-    id = WtWSMS_foederati.4
+	id = WtWSMS_foederati.4
 	desc = WtWSMS_foederati.4.desc
 	picture = GFX_evt_emissary
 	
-    is_triggered_only = yes
+	is_triggered_only = yes
 	
 	immediate = {
 		if = { # Pick in priority a neighbouring duvhy
@@ -324,7 +324,7 @@ long_character_event = {
 							}
 						}
 					}
-				} 
+				}
 			}
 			random_realm_title = {
 				limit = {
@@ -343,7 +343,7 @@ long_character_event = {
 					}
 				}
 				save_event_target_as = offered_territory
-			} 
+			}
 		}
 		else_if	= { # Otherwise other duchies can get selected
 			limit = {
@@ -357,14 +357,14 @@ long_character_event = {
 							any_neighbor_province = {
 								holder_scope = {
 									AND = { # Any dejure vassal county of the duchy has a neighbouring county which is not held by event_target:barbarian_negotiator but still not in the realm
-										NOT = { character = event_target:barbarian_negotiator } 
-										NOT = { same_realm = event_target:roman_negotiator } 	
+										NOT = { character = event_target:barbarian_negotiator }
+										NOT = { same_realm = event_target:roman_negotiator }
 									}
 								}
 							}
 						}
 					}
-				} 
+				}
 			}
 			random_realm_title = {
 				limit = {
@@ -377,8 +377,8 @@ long_character_event = {
 							any_neighbor_province = {
 								holder_scope = {
 									AND = { # Any dejure vassal county of the duchy has a neighbouring county which is not held by event_target:barbarian_negotiator but still not in the realm
-										NOT = { character = event_target:barbarian_negotiator } 
-										NOT = { same_realm = event_target:roman_negotiator } 	
+										NOT = { character = event_target:barbarian_negotiator }
+										NOT = { same_realm = event_target:roman_negotiator }
 									}
 								}
 							}
@@ -386,7 +386,7 @@ long_character_event = {
 					}
 				}
 				save_event_target_as = offered_territory
-			} 
+			}
 		}
 		else = { # No such duchies exists, grants a county instead
 			random_realm_title = {
@@ -400,8 +400,8 @@ long_character_event = {
 							any_neighbor_province = {
 								holder_scope = {
 									AND = { # Any dejure vassal barony of the county has a neighbouring county which is not held by event_target:barbarian_negotiator but still not in the realm
-										NOT = { character = event_target:barbarian_negotiator } 
-										NOT = { same_realm = event_target:roman_negotiator } 	
+										NOT = { character = event_target:barbarian_negotiator }
+										NOT = { same_realm = event_target:roman_negotiator }
 									}
 								}
 							}
@@ -424,7 +424,7 @@ long_character_event = {
 			text = WtWSMS_foederati.4.a.tooltip # Proposing offered_territory to barbarian_negotiator
 		}
 		event_target:barbarian_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.5 # Makes the offer
 				days = 7
 				random = 3
@@ -440,7 +440,7 @@ long_character_event = {
 		custom_tooltip = {
 			text = WtWSMS_foederati.4.b.tooltip # Settle barbarian_negotiator in offered_territory
 		}
-		event_target:barbarian_negotiator = {			
+		event_target:barbarian_negotiator = {
 			any_realm_province = { # Set flag to give away land
 				limit = {
 					NOT = { has_province_flag = foederati_give_away }
@@ -449,7 +449,7 @@ long_character_event = {
 			}
 		}
 		event_target:roman_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.21 # Victorious Roman enforcing demands upon barbarian
 			}
 		}
@@ -464,7 +464,7 @@ long_character_event = {
 			text = WtWSMS_foederati.4.c.tooltip # Look for another territory
 		}
 		event_target:roman_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.4 # Pick a territory to offer
 			}
 		}
@@ -475,7 +475,7 @@ long_character_event = {
 
 # Makes the offer
 long_character_event = {
-    id = WtWSMS_foederati.5
+	id = WtWSMS_foederati.5
 	desc = {
 		trigger = {
 			event_target:roman_negotiator = {
@@ -485,7 +485,7 @@ long_character_event = {
 		text = WtWSMS_foederati.5.desc.a
 	}
 	desc = {
-		trigger = {			
+		trigger = {
 			event_target:roman_negotiator = {
 				has_character_flag = counter_offer
 			}
@@ -494,7 +494,7 @@ long_character_event = {
 	}
 	picture = GFX_evt_emissary
 	
-    is_triggered_only = yes
+	is_triggered_only = yes
 
 	option = { # Accept the offer
 		name = WtWSMS_foederati.5.a
@@ -505,7 +505,7 @@ long_character_event = {
 			text = WtWSMS_foederati.5.a.tooltip # Negotiations successful
 		}
 		event_target:barbarian_negotiator = {
-			long_character_event = { 				
+			long_character_event = {
 				id = WtWSMS_foederati.13 # Negotiations successful, with both parties having accepted
 			}
 			any_realm_province = { # Set flag to give away land
@@ -516,7 +516,7 @@ long_character_event = {
 			}
 		}
 		event_target:roman_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.13 # Negotiations successful, with both parties having accepted
 				days = 7
 				random = 3
@@ -540,22 +540,22 @@ long_character_event = {
 		}
 		clear_event_target = offered_territory
 		event_target:roman_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.6 # Barbarian refuses province offer
 				days = 7
 				random = 3
 			}
 		}
 	}
-}	
+}
 
 # Barbarian refuses province offer
 long_character_event = {
-    id = WtWSMS_foederati.6
+	id = WtWSMS_foederati.6
 	desc = WtWSMS_foederati.6.desc
 	picture = GFX_evt_emissary
 	
-    is_triggered_only = yes
+	is_triggered_only = yes
 
 	option = { # Pick another territory to offer
 		name = WtWSMS_foederati.6.a
@@ -572,13 +572,13 @@ long_character_event = {
 			text = WtWSMS_foederati.6.a.tooltip # Offer another territory
 		}
 		event_target:roman_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.4 # Pick a territory to offer
 			}
 			set_character_flag = picking_another_offer_territory
 		}
 	}
-	option = { 	# Break negotiations
+	option = {	# Break negotiations
 		name = WtWSMS_foederati.6.b
 		ai_chance = {
 			factor = 75
@@ -593,12 +593,12 @@ long_character_event = {
 			text = WtWSMS_foederati.6.b.tooltip # Negotiations break
 		}
 		event_target:barbarian_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.12 # Negotiations break
 			}
 		}
 		event_target:roman_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.12 # Negotiations break
 			}
 		}
@@ -607,13 +607,13 @@ long_character_event = {
 
 # Pick a territory to promise
 long_character_event = {
-    id = WtWSMS_foederati.7
+	id = WtWSMS_foederati.7
 	desc = WtWSMS_foederati.7.desc
 	picture = GFX_evt_emissary
 	
-    is_triggered_only = yes
+	is_triggered_only = yes
 	
-	immediate = {		
+	immediate = {
 		if = { # Pick in priority a neighbouring duvhy
 			limit = {
 				NOT = { has_character_flag = picking_another_promise_territory }
@@ -631,7 +631,7 @@ long_character_event = {
 							}
 						}
 					}
-				} 
+				}
 			}
 			random_realm_title = {
 				limit = {
@@ -650,7 +650,7 @@ long_character_event = {
 					}
 				}
 				save_event_target_as = promised_territory
-			} 
+			}
 		}
 		else_if	= { # Otherwise other duchies can get selected
 			limit = {
@@ -664,14 +664,14 @@ long_character_event = {
 							any_neighbor_province = {
 								holder_scope = {
 									AND = { # Any dejure vassal county of the duchy has a neighbouring county which is not held by event_target:barbarian_negotiator but still not in the realm
-										NOT = { character = event_target:barbarian_negotiator } 
-										NOT = { same_realm = event_target:roman_negotiator } 	
+										NOT = { character = event_target:barbarian_negotiator }
+										NOT = { same_realm = event_target:roman_negotiator }
 									}
 								}
 							}
 						}
 					}
-				} 
+				}
 			}
 			random_realm_title = {
 				limit = {
@@ -684,8 +684,8 @@ long_character_event = {
 							any_neighbor_province = {
 								holder_scope = {
 									AND = { # Any dejure vassal county of the duchy has a neighbouring county which is not held by event_target:barbarian_negotiator but still not in the realm
-										NOT = { character = event_target:barbarian_negotiator } 
-										NOT = { same_realm = event_target:roman_negotiator } 	
+										NOT = { character = event_target:barbarian_negotiator }
+										NOT = { same_realm = event_target:roman_negotiator }
 									}
 								}
 							}
@@ -693,7 +693,7 @@ long_character_event = {
 					}
 				}
 				save_event_target_as = promised_territory
-			} 
+			}
 		}
 		else = { # No such duchies exists, grants a county instead
 			random_realm_title = {
@@ -707,8 +707,8 @@ long_character_event = {
 							any_neighbor_province = {
 								holder_scope = {
 									AND = { # Any dejure vassal barony of the county has a neighbouring county which is not held by event_target:barbarian_negotiator but still not in the realm
-										NOT = { character = event_target:barbarian_negotiator } 
-										NOT = { same_realm = event_target:roman_negotiator } 	
+										NOT = { character = event_target:barbarian_negotiator }
+										NOT = { same_realm = event_target:roman_negotiator }
 									}
 								}
 							}
@@ -726,12 +726,12 @@ long_character_event = {
 			text = WtWSMS_foederati.7.a.tooltip # Promising promised_territory to barbarian_negotiator
 		}
 		event_target:barbarian_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.8 # Makes the promise
 				days = 7
 				random = 3
 			}
-		}		
+		}
 		clr_character_flag = picking_another_promise_territory
 	}
 	option = { # Find another one than the suggested, reloads same event
@@ -743,7 +743,7 @@ long_character_event = {
 			text = WtWSMS_foederati.7.b.tooltip # Look for another territory
 		}
 		event_target:roman_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.7 # Pick a territory to promise
 			}
 		}
@@ -754,7 +754,7 @@ long_character_event = {
 
 # Makes the promise
 long_character_event = {
-    id = WtWSMS_foederati.8	
+	id = WtWSMS_foederati.8
 	desc = {
 		trigger = {
 			event_target:roman_negotiator = {
@@ -764,7 +764,7 @@ long_character_event = {
 		text = WtWSMS_foederati.8.desc.a
 	}
 	desc = {
-		trigger = {			
+		trigger = {
 			event_target:roman_negotiator = {
 				has_character_flag = counter_offer
 			}
@@ -773,7 +773,7 @@ long_character_event = {
 	}
 	picture = GFX_evt_emissary
 	
-    is_triggered_only = yes
+	is_triggered_only = yes
 
 	option = { # Accept the promise
 		name = WtWSMS_foederati.8.a
@@ -784,7 +784,7 @@ long_character_event = {
 			text = WtWSMS_foederati.8.a.tooltip # Negotiations successful
 		}
 		event_target:barbarian_negotiator = {
-			long_character_event = { 				
+			long_character_event = {
 				id = WtWSMS_foederati.13 # Negotiations successful, with both parties having accepted
 			}
 			any_realm_province = { # Set flag to give away land
@@ -795,7 +795,7 @@ long_character_event = {
 			}
 		}
 		event_target:roman_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.13 # Negotiations successful, with both parties having accepted
 				days = 7
 				random = 3
@@ -826,15 +826,15 @@ long_character_event = {
 			}
 		}
 	}
-}	
+}
 
 # Barbarian refuses province promise
 long_character_event = {
-    id = WtWSMS_foederati.9
+	id = WtWSMS_foederati.9
 	desc = WtWSMS_foederati.9.desc
 	picture = GFX_evt_emissary
 	
-    is_triggered_only = yes
+	is_triggered_only = yes
 
 	option = { # Pick another territory to promise
 		name = WtWSMS_foederati.9.a
@@ -851,13 +851,13 @@ long_character_event = {
 			text = WtWSMS_foederati.9.a.tooltip # Promise another territory
 		}
 		event_target:roman_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.7 # Pick a territory to promise
 			}
 			set_character_flag = picking_another_promise_territory
 		}
 	}
-	option = { 	# Break negotiations
+	option = {	# Break negotiations
 		name = WtWSMS_foederati.9.b
 		ai_chance = {
 			factor = 75
@@ -872,12 +872,12 @@ long_character_event = {
 			text = WtWSMS_foederati.9.b.tooltip # Negotiations break
 		}
 		event_target:barbarian_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.12 # Negotiations break
 			}
 		}
 		event_target:roman_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.12 # Negotiations break
 			}
 		}
@@ -886,11 +886,11 @@ long_character_event = {
 	
 # Makes the offer to settle outside it
 long_character_event = {
-    id = WtWSMS_foederati.10
+	id = WtWSMS_foederati.10
 	desc = WtWSMS_foederati.10.desc
 	picture = GFX_evt_emissary
 	
-    is_triggered_only = yes
+	is_triggered_only = yes
 
 	option = { # Barbarian accepts
 		name = WtWSMS_foederati.10.a
@@ -907,12 +907,12 @@ long_character_event = {
 			text = WtWSMS_foederati.10.a.tooltip # Negotiations successful
 		}
 		event_target:barbarian_negotiator = {
-			long_character_event = { 				
+			long_character_event = {
 				id = WtWSMS_foederati.13 # Negotiations successful, with both parties having accepted
 			}
 		}
 		event_target:roman_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.13 # Negotiations successful, with both parties having accepted
 				days = 7
 				random = 3
@@ -928,7 +928,7 @@ long_character_event = {
 				event_target:barbarian_negotiator = {
 					trait = proud
 				}
-			}			
+			}
 			# More likely to refuse if counter-offer
 			modifier = {
 				factor = 2
@@ -941,12 +941,12 @@ long_character_event = {
 			text = WtWSMS_foederati.10.b.tooltip # Negotiations break
 		}
 		event_target:barbarian_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.12 # Negotiations break
 			}
 		}
 		event_target:roman_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.12 # Negotiations break
 			}
 		}
@@ -955,13 +955,13 @@ long_character_event = {
 	
 # Barbarian negotiator does not wish to settle in the empire
 long_character_event = {
-    id = WtWSMS_foederati.11
+	id = WtWSMS_foederati.11
 	desc = WtWSMS_foederati.11.desc
 	picture = GFX_evt_emissary
 	
-    is_triggered_only = yes
+	is_triggered_only = yes
 
-	option = { # Accept it 
+	option = { # Accept it
 		name = WtWSMS_foederati.11.a
 		ai_chance = {
 			factor = 40
@@ -977,19 +977,19 @@ long_character_event = {
 		}
 		event_target:roman_negotiator = {
 			set_character_flag = settling_outside_empire_flag
-		}		
+		}
 		event_target:barbarian_negotiator = {
-			long_character_event = { 				
+			long_character_event = {
 				id = WtWSMS_foederati.13 # Negotiations successful, with both parties having accepted
 				days = 7
 				random = 3
 			}
 		}
 		event_target:roman_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.13 # Negotiations successful, with both parties having accepted
 			}
-		}	
+		}
 	}
 	option = { # Refuse it, offer a territory to settle within the empire
 		name = WtWSMS_foederati.11.b
@@ -1006,9 +1006,9 @@ long_character_event = {
 			text = WtWSMS_foederati.11.b.tooltip # Offering territory counter-offer
 		}
 		event_target:roman_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.4 # Pick a territory to offer
-			}			
+			}
 			set_character_flag = offered_territory_flag
 			set_character_flag = counter_offer
 		}
@@ -1028,7 +1028,7 @@ long_character_event = {
 			text = WtWSMS_foederati.11.c.tooltip # Promising territory counter-offer
 		}
 		event_target:roman_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.7 # Pick a territory to promise
 			}
 			set_character_flag = promised_territory_to_@event_target:barbarian_negotiator
@@ -1039,11 +1039,11 @@ long_character_event = {
 
 # Negotiations break
 long_character_event = {
-    id = WtWSMS_foederati.12
+	id = WtWSMS_foederati.12
 	desc = WtWSMS_foederati.12.desc
 	picture = GFX_evt_emissary
 	
-    is_triggered_only = yes
+	is_triggered_only = yes
 	
 	immediate = {
 		event_target:roman_negotiator = {
@@ -1061,19 +1061,19 @@ long_character_event = {
 			}
 		}
 		if = {
-			limit = { 
+			limit = {
 				has_character_flag = offered_territory_flag
 			}
 			clr_character_flag = offered_territory_flag
 		}
 		if = {
-			limit = { 
+			limit = {
 				has_character_flag = promised_territory_to_@event_target:barbarian_negotiator
 			}
 			clr_character_flag = promised_territory_to_@event_target:barbarian_negotiator
 		}
 		if = {
-			limit = { 
+			limit = {
 				has_character_flag = settling_outside_empire_flag
 			}
 			clr_character_flag = settling_outside_empire_flag
@@ -1099,7 +1099,7 @@ long_character_event = {
 			OR = { # Is Roman
 				has_romance_culture_trigger = yes
 				has_landed_title = e_wre
-				has_landed_title = e_byzantium 
+				has_landed_title = e_byzantium
 				has_landed_title = e_roman_empire
 			}
 			NOT = { # Avoid edge case with Ostrogoths
@@ -1121,7 +1121,7 @@ long_character_event = {
 				factor = 2
 				event_target:barbarian_negotiator = {
 					event_target:roman_negotiator = {
-						relative_power = { 
+						relative_power = {
 							who = PREV
 							power = 2
 						}
@@ -1133,17 +1133,17 @@ long_character_event = {
 			text = WtWSMS_foederati.12.b.tooltip # War
 		}
 		unsafe_war = { # always = no CB
-			target = event_target:barbarian_negotiator 
-			casus_belli = tributary_foederati_cb 
+			target = event_target:barbarian_negotiator
+			casus_belli = tributary_foederati_cb
 			infamy = 0
 		}
 		event_target:roman_negotiator = {
 			set_character_flag = declared_tributary_foederati_cb_war_on_@event_target:barbarian_negotiator
-		}		
+		}
 	}
 	option = { # Barbarians declare war upon Romans to impose their demands after failed negotiations
 		name = WtWSMS_foederati.12.c
-		trigger = { 
+		trigger = {
 			foederati_barbarian_trigger = yes # Is Barbarian
 			NOT = { # Avoid edge case with Ostrogoths
 				AND = {
@@ -1164,7 +1164,7 @@ long_character_event = {
 				factor = 2
 				event_target:roman_negotiator = {
 					event_target:barbarian_negotiator = {
-						relative_power = { 
+						relative_power = {
 							who = PREV
 							power = 2
 						}
@@ -1190,7 +1190,7 @@ long_character_event = {
 						NOT = { higher_tier_than = KING } # No Emperors
 						NOT = { culture = FROM }
 						independent = yes # No vassals
-						war = no # Ensures that the events activate correctly  
+						war = no # Ensures that the events activate correctly
 					}
 					event_target:roman_negotiator = {
 						independent = yes
@@ -1205,40 +1205,40 @@ long_character_event = {
 			}
 		}
 		else = {
-            event_target:roman_negotiator = {
-                random_realm_province = {
-                    limit = {
-                        any_neighbor_province = {
-                            OR = {
-                                owner = { character = event_target:barbarian_negotiator }
-                                owner = { top_liege = { character = event_target:barbarian_negotiator } }
-                            }
-                        }
-                    }
-                    duchy = {
-                        dejure_liege_title = { #dejure kingdom
-                            save_event_target_as = tribal_invasion_target
-                        }
-                    }
-                }
-            }
-            unsafe_war = {
-                target = event_target:roman_negotiator
-                casus_belli = tribal_invasion
-                thirdparty_title = event_target:tribal_invasion_target
-                infamy = 0
-            }
-        }
+			event_target:roman_negotiator = {
+				random_realm_province = {
+					limit = {
+						any_neighbor_province = {
+							OR = {
+								owner = { character = event_target:barbarian_negotiator }
+								owner = { top_liege = { character = event_target:barbarian_negotiator } }
+							}
+						}
+					}
+					duchy = {
+						dejure_liege_title = { #dejure kingdom
+							save_event_target_as = tribal_invasion_target
+						}
+					}
+				}
+			}
+			unsafe_war = {
+				target = event_target:roman_negotiator
+				casus_belli = tribal_invasion
+				thirdparty_title = event_target:tribal_invasion_target
+				infamy = 0
+			}
+		}
 	}
 }
 
 # Negotiations successful, with both parties having accepted
 long_character_event = {
-    id = WtWSMS_foederati.13
+	id = WtWSMS_foederati.13
 	desc = WtWSMS_foederati.13.desc
 	picture = GFX_evt_emissary
 	
-    is_triggered_only = yes
+	is_triggered_only = yes
 	
 	immediate = {
 		event_target:roman_negotiator = {
@@ -1263,11 +1263,11 @@ long_character_event = {
 				OR = { # Is Roman
 					has_romance_culture_trigger = yes
 					has_landed_title = e_wre
-					has_landed_title = e_byzantium 
+					has_landed_title = e_byzantium
 					has_landed_title = e_roman_empire
 				}
 				NOT = { # Avoid edge case with Ostrogoths
-					AND = { 
+					AND = {
 						event_target:barbarian_negotiator = {
 							has_landed_title = k_ostrogoths
 						}
@@ -1276,7 +1276,7 @@ long_character_event = {
 				}
 			}
 			event_target:roman_negotiator = {
-				long_character_event = { 
+				long_character_event = {
 					id = WtWSMS_foederati.14 # Becomes foederati after sucessful negotiations and gets land
 				}
 			}
@@ -1286,11 +1286,11 @@ long_character_event = {
 
 # Becomes foederati after successful negotiations and gets land
 long_character_event = {
-    id = WtWSMS_foederati.14
+	id = WtWSMS_foederati.14
 	desc = WtWSMS_foederati.14.desc
 	picture = GFX_evt_emissary
 	
-    is_triggered_only = yes
+	is_triggered_only = yes
 	
 	immediate = {
 		event_target:roman_negotiator = {
@@ -1356,7 +1356,7 @@ long_character_event = {
 						tier = DUKE
 					}
 				}
-				event_target:offered_territory = { 
+				event_target:offered_territory = {
 					any_de_jure_vassal_title = { # Vassal county of the duchy
 						limit = {
 							tier = COUNT
@@ -1366,13 +1366,13 @@ long_character_event = {
 				}
 			}
 			else = { # Grant offered county
-				event_target:offered_territory = { 
+				event_target:offered_territory = {
 					grant_title	= event_target:barbarian_negotiator
 				}
 			}
 			any_demesne_title = {
 				limit = {
-					OR = { 
+					OR = {
 						tier = DUKE
 						tier = KING
 					}
@@ -1421,8 +1421,8 @@ long_character_event = {
 		custom_tooltip = {
 			text = WtWSMS_foederati.14.b.tooltip # Promised land
 		}
-		event_target:barbarian_negotiator = { 
-			long_character_event = { 				
+		event_target:barbarian_negotiator = {
+			long_character_event = {
 				id = WtWSMS_foederati.15 # Barbarian reminded of promise
 				days = 1825 # Five years
 			}
@@ -1440,7 +1440,7 @@ long_character_event = {
 		}
 		event_target:roman_negotiator = {
 			clr_character_flag = settling_outside_empire_flag
-		}		
+		}
 		# Log foederati negotiations to check if ai_will_do is good
 		log = "Foederati [barbarian_negotiator.GetTitledName] became a tributary of [roman_negotiator.GetTitledName] and will protect the border."
 	}
@@ -1448,11 +1448,11 @@ long_character_event = {
 
 # Barbarian reminded of promise
 long_character_event = {
-    id = WtWSMS_foederati.15
+	id = WtWSMS_foederati.15
 	desc = WtWSMS_foederati.15.desc
 	picture = GFX_evt_emissary
 
-    is_triggered_only = yes
+	is_triggered_only = yes
 	
 	option = { # Ask for promised territory
 		name = WtWSMS_foederati.15.a
@@ -1460,7 +1460,7 @@ long_character_event = {
 			text = WtWSMS_foederati.15.a.tooltip # Remind Roman
 		}
 		event_target:roman_negotiator = {
-			long_character_event = { 				
+			long_character_event = {
 				id = WtWSMS_foederati.16 # Barbarian reminds Roman of promise
 				days = 7
 				random = 3
@@ -1476,8 +1476,8 @@ long_character_event = {
 			text = WtWSMS_foederati.15.b.tooltip # Wait and see
 		}
 		prestige = -50
-		event_target:barbarian_negotiator = { 
-			long_character_event = { 				
+		event_target:barbarian_negotiator = {
+			long_character_event = {
 				id = WtWSMS_foederati.15 # Barbarian reminded of promise
 				days = 1825 # Five years
 			}
@@ -1487,11 +1487,11 @@ long_character_event = {
 
 # Barbarian reminds Roman of promise
 long_character_event = {
-    id = WtWSMS_foederati.16
+	id = WtWSMS_foederati.16
 	desc = WtWSMS_foederati.16.desc
 	picture = GFX_evt_emissary
 	
-    is_triggered_only = yes
+	is_triggered_only = yes
 
 	option = { # Grant promised territory
 		name = WtWSMS_foederati.16.a
@@ -1499,16 +1499,16 @@ long_character_event = {
 			is_landed = yes
 		}
 		ai_chance = {
-            factor = 25
-            modifier = {
-                factor = 1.25
-                trait = honest
-            }
-            modifier = {
-                factor = 1.25
-                trait = content
-            }
-        }
+			factor = 25
+			modifier = {
+				factor = 1.25
+				trait = honest
+			}
+			modifier = {
+				factor = 1.25
+				trait = content
+			}
+		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.16.a.tooltip # Grant land
 		}
@@ -1554,7 +1554,7 @@ long_character_event = {
 						tier = DUKE
 					}
 				}
-				event_target:promised_territory = { 
+				event_target:promised_territory = {
 					any_de_jure_vassal_title = { # Vassal county of the duchy
 						limit = {
 							tier = COUNT
@@ -1564,13 +1564,13 @@ long_character_event = {
 				}
 			}
 			else = { # Grant promised county
-				event_target:promised_territory = { 
+				event_target:promised_territory = {
 					grant_title	= event_target:barbarian_negotiator
 				}
 			}
 			any_demesne_title = {
 				limit = {
-					OR = { 
+					OR = {
 						tier = DUKE
 						tier = KING
 					}
@@ -1617,17 +1617,17 @@ long_character_event = {
 			is_landed = yes
 		}
 		ai_chance = {
-            factor = 25
-            modifier = {
-                factor = 1.25
-                trait = socializer
-            }
-        }
+			factor = 25
+			modifier = {
+				factor = 1.25
+				trait = socializer
+			}
+		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.16.b.tooltip # Delay further
 		}
 		event_target:barbarian_negotiator = {
-			long_character_event = { 				
+			long_character_event = {
 				id = WtWSMS_foederati.18 # Postponed territory promise
 				days = 7
 				random = 3
@@ -1640,17 +1640,17 @@ long_character_event = {
 			is_landed = yes
 		}
 		ai_chance = {
-            factor = 25
-            modifier = {
-                factor = 1.25
-                trait = deceitful
-            }
-        }
+			factor = 25
+			modifier = {
+				factor = 1.25
+				trait = deceitful
+			}
+		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.16.c.tooltip # Break pledge
 		}
 		event_target:barbarian_negotiator = {
-			long_character_event = { 				
+			long_character_event = {
 				id = WtWSMS_foederati.17 # Broken territory promise
 				days = 7
 				random = 3
@@ -1670,26 +1670,26 @@ long_character_event = {
 			is_landed = yes
 		}
 		ai_chance = {
-            factor = 25
-            modifier = {
-                factor = 1.25
-                trait = brave
-            }
+			factor = 25
 			modifier = {
-                factor = 1.25
-                trait = wroth
-            }
+				factor = 1.25
+				trait = brave
+			}
 			modifier = {
-                factor = 2
-                war = no
-            }
-        }
+				factor = 1.25
+				trait = wroth
+			}
+			modifier = {
+				factor = 2
+				war = no
+			}
+		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.16.d.tooltip # War
 		}
 		unsafe_war = { # always = no CB
-			target = event_target:barbarian_negotiator 
-			casus_belli = tributary_foederati_cb 
+			target = event_target:barbarian_negotiator
+			casus_belli = tributary_foederati_cb
 			infamy = 0
 		}
 		event_target:roman_negotiator = {
@@ -1707,11 +1707,11 @@ long_character_event = {
 
 # Broken territory promise
 long_character_event = {
-    id = WtWSMS_foederati.17
+	id = WtWSMS_foederati.17
 	desc = WtWSMS_foederati.17.desc
 	picture = GFX_evt_emissary
 	
-    is_triggered_only = yes
+	is_triggered_only = yes
 
 	option = { # Then war it is
 		name = WtWSMS_foederati.17.a
@@ -1733,7 +1733,7 @@ long_character_event = {
 						NOT = { higher_tier_than = KING } # No Emperors
 						NOT = { culture = FROM }
 						independent = yes # No vassals
-						war = no # Ensures that the events activate correctly  
+						war = no # Ensures that the events activate correctly
 					}
 					event_target:roman_negotiator = {
 						independent = yes
@@ -1748,30 +1748,30 @@ long_character_event = {
 			}
 		}
 		else = {
-            event_target:roman_negotiator = {
-                random_realm_province = {
-                    limit = {
-                        any_neighbor_province = {
-                            OR = {
-                                owner = { character = event_target:barbarian_negotiator }
-                                owner = { top_liege = { character = event_target:barbarian_negotiator } }
-                            }
-                        }
-                    }
-                    duchy = {
-                        dejure_liege_title = { #dejure kingdom
-                            save_event_target_as = tribal_invasion_target
-                        }
-                    }
-                }
-            }
-            unsafe_war = {
-                target = event_target:roman_negotiator
-                casus_belli = tribal_invasion
-                thirdparty_title = event_target:tribal_invasion_target
-                infamy = 0
-            }
-        }
+			event_target:roman_negotiator = {
+				random_realm_province = {
+					limit = {
+						any_neighbor_province = {
+							OR = {
+								owner = { character = event_target:barbarian_negotiator }
+								owner = { top_liege = { character = event_target:barbarian_negotiator } }
+							}
+						}
+					}
+					duchy = {
+						dejure_liege_title = { #dejure kingdom
+							save_event_target_as = tribal_invasion_target
+						}
+					}
+				}
+			}
+			unsafe_war = {
+				target = event_target:roman_negotiator
+				casus_belli = tribal_invasion
+				thirdparty_title = event_target:tribal_invasion_target
+				infamy = 0
+			}
+		}
 		event_target:roman_negotiator = {
 			remove_tributary = event_target:barbarian_negotiator
 		}
@@ -1780,21 +1780,21 @@ long_character_event = {
 
 # Postponed territory promise
 long_character_event = {
-    id = WtWSMS_foederati.18
+	id = WtWSMS_foederati.18
 	desc = WtWSMS_foederati.18.desc
 	picture = GFX_evt_emissary
 	
-    is_triggered_only = yes
+	is_triggered_only = yes
 
 	option = { # Then war it is
 		name = WtWSMS_foederati.18.a
 		ai_chance = {
-            factor = 45
-            modifier = {
-                factor = 1.25
-                trait = wroth
-            }
-        }	
+			factor = 45
+			modifier = {
+				factor = 1.25
+				trait = wroth
+			}
+		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.18.a.tooltip # War
 		}
@@ -1813,7 +1813,7 @@ long_character_event = {
 						NOT = { higher_tier_than = KING } # No Emperors
 						NOT = { culture = FROM }
 						independent = yes # No vassals
-						war = no # Ensures that the events activate correctly  
+						war = no # Ensures that the events activate correctly
 					}
 					event_target:roman_negotiator = {
 						independent = yes
@@ -1828,30 +1828,30 @@ long_character_event = {
 			}
 		}
 		else = {
-            event_target:roman_negotiator = {
-                random_realm_province = {
-                    limit = {
-                        any_neighbor_province = {
-                            OR = {
-                                owner = { character = event_target:barbarian_negotiator }
-                                owner = { top_liege = { character = event_target:barbarian_negotiator } }
-                            }
-                        }
-                    }
-                    duchy = {
-                        dejure_liege_title = { #dejure kingdom
-                            save_event_target_as = tribal_invasion_target
-                        }
-                    }
-                }
-            }
-            unsafe_war = {
-                target = event_target:roman_negotiator
-                casus_belli = tribal_invasion
-                thirdparty_title = event_target:tribal_invasion_target
-                infamy = 0
-            }
-        }
+			event_target:roman_negotiator = {
+				random_realm_province = {
+					limit = {
+						any_neighbor_province = {
+							OR = {
+								owner = { character = event_target:barbarian_negotiator }
+								owner = { top_liege = { character = event_target:barbarian_negotiator } }
+							}
+						}
+					}
+					duchy = {
+						dejure_liege_title = { #dejure kingdom
+							save_event_target_as = tribal_invasion_target
+						}
+					}
+				}
+			}
+			unsafe_war = {
+				target = event_target:roman_negotiator
+				casus_belli = tribal_invasion
+				thirdparty_title = event_target:tribal_invasion_target
+				infamy = 0
+			}
+		}
 		event_target:roman_negotiator = {
 			remove_tributary = event_target:barbarian_negotiator
 		}
@@ -1859,18 +1859,18 @@ long_character_event = {
 	option = { # Wait and see
 		name = WtWSMS_foederati.18.b
 		ai_chance = {
-            factor = 55
-            modifier = {
-                factor = 1.25
-                trait = patient
-            }
-        }
+			factor = 55
+			modifier = {
+				factor = 1.25
+				trait = patient
+			}
+		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.18.b.tooltip # Wait and see
-		}		
+		}
 		prestige = -50
-		event_target:barbarian_negotiator = { 
-			long_character_event = { 				
+		event_target:barbarian_negotiator = {
+			long_character_event = {
 				id = WtWSMS_foederati.15 # Barbarian reminded of promise
 				days = 1825 # Five years
 			}
@@ -1902,46 +1902,46 @@ long_character_event = {
 		name = WtWSMS_foederati.19.a
 		ai_chance = {
 			factor = 70
-            modifier = {
-                factor = 2
-                trait = grey_eminence
-            }
-			modifier = { 
+			modifier = {
+				factor = 2
+				trait = grey_eminence
+			}
+			modifier = {
 				factor = 1.5
-				trait = roman_nostalgia 
-			}			
-			modifier = { 
-                factor = 0.5
+				trait = roman_nostalgia
+			}
+			modifier = {
+				factor = 0.5
 				realm_size > 50
-            }
-			modifier = { 
-                factor = 0.25
-                realm_size > 100				
-            }
+			}
+			modifier = {
+				factor = 0.25
+				realm_size > 100
+			}
 		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.19.a.tooltip # Negotiations begin
 		}
 		event_target:barbarian_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.2 # Negotiations begin - settle in empire or not?
 			}
 		}
 	}
-    option = { # No, negotiations break
+	option = { # No, negotiations break
 		name = WtWSMS_foederati.19.b
 		ai_chance = {
 			factor = 30
-            modifier = {
-                factor = 1.25
-                trait = proud
-            }
+			modifier = {
+				factor = 1.25
+				trait = proud
+			}
 		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.19.b.tooltip # Negotiations do not start, risk of war
 		}
 		event_target:roman_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.12 # Negotiations break
 				days = 7
 				random = 3
@@ -1952,7 +1952,7 @@ long_character_event = {
 
 # Victorious Roman force barbarians into foederati status after enforcing demands
 long_character_event = {
-    id = WtWSMS_foederati.20
+	id = WtWSMS_foederati.20
 	desc = WtWSMS_foederati.20.desc
 	picture = GFX_evt_emissary
 	
@@ -2040,11 +2040,11 @@ long_character_event = {
 
 # Victorious Roman enforcing demands upon barbarian
 long_character_event = {
-    id = WtWSMS_foederati.21
+	id = WtWSMS_foederati.21
 	desc = WtWSMS_foederati.21.desc
 	picture = GFX_evt_emissary
 	
-    is_triggered_only = yes
+	is_triggered_only = yes
 
 	immediate = {
 		event_target:roman_negotiator = {
@@ -2108,7 +2108,7 @@ long_character_event = {
 						tier = DUKE
 					}
 				}
-				event_target:offered_territory = { 
+				event_target:offered_territory = {
 					any_de_jure_vassal_title = { # Vassal county of the duchy
 						limit = {
 							tier = COUNT
@@ -2118,13 +2118,13 @@ long_character_event = {
 				}
 			}
 			else = { # Grant offered county
-				event_target:offered_territory = { 
+				event_target:offered_territory = {
 					grant_title	= event_target:barbarian_negotiator
 				}
 			}
 			any_demesne_title = {
 				limit = {
-					OR = { 
+					OR = {
 						tier = DUKE
 						tier = KING
 					}
@@ -2183,7 +2183,7 @@ long_character_event = {
 
 # Barbarians can open foederati negotiations with the Romans after white peace (ROOT is Roman)
 long_character_event = {
-    id = WtWSMS_foederati.22
+	id = WtWSMS_foederati.22
 	
 	is_triggered_only = yes # On_actions event
 	
@@ -2204,7 +2204,7 @@ long_character_event = {
 	immediate = {
 		FROM = {
 			save_event_target_as = barbarian_negotiator
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.31
 			}
 		}
@@ -2220,7 +2220,7 @@ long_character_event = {
 
 # Following the death of the foederati ruler, the new one has the choice to leave (ROOT is the dead ruler)
 long_character_event = {
-    id = WtWSMS_foederati.23
+	id = WtWSMS_foederati.23
 	
 	is_triggered_only = yes # On_actions event
 	
@@ -2235,9 +2235,9 @@ long_character_event = {
 	}
 	
 	immediate = {
-		current_heir = { 
+		current_heir = {
 			save_event_target_as = foederati # Used for localisation
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.24
 				days = 1
 			}
@@ -2247,7 +2247,7 @@ long_character_event = {
 
 # Following the death of the foederati ruler, the new one has the choice to leave (ROOT is the heir of the dead ruler)
 long_character_event = {
-    id = WtWSMS_foederati.24
+	id = WtWSMS_foederati.24
 	desc = WtWSMS_foederati.24.desc
 	picture = GFX_evt_emissary
 	
@@ -2376,10 +2376,10 @@ long_character_event = {
 		custom_tooltip = {
 			text = WtWSMS_foederati.24.b.tooltip # Does not renew contract, risk of war
 		}
-		suzerain = { 
+		suzerain = {
 			remove_tributary = PREV
-			long_character_event = { 
-				id = WtWSMS_foederati.25 
+			long_character_event = {
+				id = WtWSMS_foederati.25
 				days = 7
 				random = 3
 			}
@@ -2498,11 +2498,11 @@ long_character_event = {
 
 # Turn foederati into vassal by force diploaction
 long_character_event = {
-    id = WtWSMS_foederati.26
+	id = WtWSMS_foederati.26
 	desc = WtWSMS_foederati.26.desc
 	picture = GFX_evt_emissary
 	
-    is_triggered_only = yes
+	is_triggered_only = yes
 
 	immediate = {
 		save_event_target_as = foederati # Used for localisation
@@ -2512,18 +2512,18 @@ long_character_event = {
 		name = WtWSMS_foederati.26.a
 		ai_chance = {
 			# Rather unlikely
-            factor = 20
-            modifier = {
-                factor = 2
-                event_target:barbarian_negotiator = {
-                    event_target:roman_negotiator = {
-                        relative_power = { 
-                            who = PREV
-                            power = 2
-                        }
-                    }
-                }
-            }
+			factor = 20
+			modifier = {
+				factor = 2
+				event_target:barbarian_negotiator = {
+					event_target:roman_negotiator = {
+						relative_power = {
+							who = PREV
+							power = 2
+						}
+					}
+				}
+			}
 		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.26.a.tooltip # Becomes vassal
@@ -2537,39 +2537,39 @@ long_character_event = {
 				id = WtWSMS_foederati.27 # Foederati accepts to become vassal
 				days = 7
 				random = 3
-			} 
+			}
 		}
 	}
-	option = { # Refuse 
+	option = { # Refuse
 		name = WtWSMS_foederati.26.b
 		ai_chance = {
-            factor = 80
-            modifier = {
-                factor = 1.5
-                trait = proud
-            }
-        }
+			factor = 80
+			modifier = {
+				factor = 1.5
+				trait = proud
+			}
+		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.26.b.tooltip # Refuses to become vassal
 		}
 		suzerain = {
 			remove_tributary = PREV
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.28 # Foederati refuses to accept demands
 				days = 7
 				random = 3
-			} 
+			}
 		}
 	}
 }
 
 # Foederati accepts to become vassal
 long_character_event = {
-    id = WtWSMS_foederati.27
+	id = WtWSMS_foederati.27
 	desc = WtWSMS_foederati.27.desc
 	picture = GFX_evt_emissary
 	
-    is_triggered_only = yes
+	is_triggered_only = yes
 
 	option = { # Excellent!
 		name = WtWSMS_foederati.27.a
@@ -2579,11 +2579,11 @@ long_character_event = {
 
 # Foederati refuses to accept demands
 long_character_event = {
-    id = WtWSMS_foederati.28
+	id = WtWSMS_foederati.28
 	desc = WtWSMS_foederati.28.desc
 	picture = GFX_evt_emissary
 	
-    is_triggered_only = yes
+	is_triggered_only = yes
 
 	option = { # War it is
 		name = WtWSMS_foederati.28.a
@@ -2661,7 +2661,7 @@ long_character_event = {
 				factor = 2
 				ROOT = {
 					FROM = {
-						relative_power = { 
+						relative_power = {
 							who = PREV
 							power = 1
 						}
@@ -2673,8 +2673,8 @@ long_character_event = {
 			text = WtWSMS_foederati.28.b.tooltip # Accept independence
 		}
 		prestige = -100
-		FROM = { 
-			long_character_event = { 
+		FROM = {
+			long_character_event = {
 				id = WtWSMS_foederati.29 # Former suzerain concedes
 				days = 7
 				random = 3
@@ -2685,11 +2685,11 @@ long_character_event = {
 
 # Former suzerain concedes
 long_character_event = {
-    id = WtWSMS_foederati.29
+	id = WtWSMS_foederati.29
 	desc = WtWSMS_foederati.29.desc
 	picture = GFX_evt_emissary
 	
-    is_triggered_only = yes
+	is_triggered_only = yes
 
 	option = { # Weaklings!
 		name = WtWSMS_foederati.29.a
@@ -2703,7 +2703,7 @@ long_character_event = {
 
 # Victorious Roman force barbarians into foederati status after enforcing demands
 long_character_event = {
-    id = WtWSMS_foederati.30
+	id = WtWSMS_foederati.30
 	desc = WtWSMS_foederati.30.desc
 	picture = GFX_evt_emissary
 	
@@ -2713,7 +2713,7 @@ long_character_event = {
 	only_independent = yes
 	
 	trigger = {
-		ROOT = {	
+		ROOT = {
 			has_character_flag = declared_tributary_foederati_cb_war_on_@event_target:target_loser # Event target set in CB
 		}
 	}
@@ -2765,34 +2765,34 @@ long_character_event = {
 
 # Barbarians can open foederati negotiations with the Romans after white peace (ROOT is Barbarian)
 long_character_event = {
-    id = WtWSMS_foederati.31
+	id = WtWSMS_foederati.31
 	desc = WtWSMS_foederati.31.desc
 	picture = GFX_evt_emissary
 	
-	is_triggered_only = yes 
+	is_triggered_only = yes
 	
 	option = { # Open negotiations
 		name = WtWSMS_foederati.31.a
 		ai_chance = {
-            factor = 50
-            modifier = {
-                factor = 1.5
-                event_target:roman_negotiator = {
-                    trait = strategist
-                }
-            }
-            modifier = {
-                factor = 1.5
-                event_target:roman_negotiator = {
-                    trait = trusting
-                }
-            }
-        }
+			factor = 50
+			modifier = {
+				factor = 1.5
+				event_target:roman_negotiator = {
+					trait = strategist
+				}
+			}
+			modifier = {
+				factor = 1.5
+				event_target:roman_negotiator = {
+					trait = trusting
+				}
+			}
+		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.31.a.tooltip # Negotiations begin
 		}
 		event_target:roman_negotiator = {
-			long_character_event = { 
+			long_character_event = {
 				id = WtWSMS_foederati.1 # Romans accept or refuse to start negotiating with barbarian
 				days = 7
 				random = 3
@@ -2802,20 +2802,20 @@ long_character_event = {
 	option = { # Refuse to open negotiations
 		name = WtWSMS_foederati.31.b
 		ai_chance = {
-            factor = 50
-            modifier = {
-                factor = 1.5
-                event_target:roman_negotiator = {
-                    trait = stubborn
-                }
-            }
-            modifier = {
-                factor = 1.5
-                event_target:roman_negotiator = {
-                    opinion = { who = event_target:barbarian_negotiator value < -20 }
-                }
-            }
-        }
+			factor = 50
+			modifier = {
+				factor = 1.5
+				event_target:roman_negotiator = {
+					trait = stubborn
+				}
+			}
+			modifier = {
+				factor = 1.5
+				event_target:roman_negotiator = {
+					opinion = { who = event_target:barbarian_negotiator value < -20 }
+				}
+			}
+		}
 		custom_tooltip = {
 			text = WtWSMS_foederati.31.b.tooltip # Negotiations do not start
 		}
