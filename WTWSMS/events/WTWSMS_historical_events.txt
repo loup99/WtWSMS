@@ -417,7 +417,7 @@ narrative_event = {
 		name = hist.9.a
 		hidden_tooltip = {
 			narrative_event = {
-				id = hist.10 
+				id = hist.10 # The Henotikon Fails
 				days = 30 random = 10
 			} 
 		}
@@ -458,6 +458,11 @@ narrative_event = {
 			modifier = the_henotikon
 			years = 40
 		}
+		narrative_event = {
+			id = hist.11 # The Acacian Schism
+			days =  730 # 2 years
+			random = 30
+		} 
 	}
 	
 	option = {
@@ -482,6 +487,58 @@ narrative_event = {
 		}
 	}
 }
+
+# The Acacian Schism
+narrative_event = {
+	id = hist.11
+	title = hist.11.name
+	desc = {
+		trigger = {
+			has_landed_title = e_byzantium
+		}
+		text = hist.11.desc.a
+	}
+	desc = {
+		trigger = {			
+			NOT = { has_landed_title = e_byzantium }
+		}
+		text = hist.11.desc.b
+	}
+	picture = GFX_evt_great_schism
+	border = GFX_event_narrative_frame_religion
+	
+	is_triggered_only = yes
+	
+	major = yes
+	
+	immediate = { 
+		set_global_flag = acacian_schism
+	}
+	
+	option = {
+		name = hist.11.a
+		trigger = {
+			has_landed_title = e_byzantium
+			religion_group = christian
+		}
+		piety = -50
+	}
+	option = {
+		name = hist.11.b
+		trigger = {
+			NOT = { religion_group = christian }
+		}
+	}
+	option = {
+		name = hist.11.c
+		trigger = {
+			religion_group = christian
+			NOT = { has_landed_title = e_byzantium }
+		}
+		piety = -50
+	}
+}
+
 
 # The Leontius Revolt
 character_event = {
@@ -952,7 +1009,7 @@ narrative_event = {
 				random_traits = yes
 				dynasty = culture
 				religion = karaite
-				culture = aramaic
+				culture = aramean
 				female = no
 				age = 45
 				trait = house_of_david
@@ -1128,11 +1185,88 @@ narrative_event = {
 	}
 }
 
-# Extreme weather events of 535-536
+# Resolution of Acacian Schism
 narrative_event = {
 	id = hist.26
 	title = hist.26.name
-	desc = hist.26.desc
+	desc = {
+		trigger = {
+			has_landed_title = e_byzantium
+		}
+		text = hist.26.desc.a
+	}
+	desc = {
+		trigger = {			
+			NOT = { has_landed_title = e_byzantium }
+		}
+		text = hist.26.desc.b
+	}
+	picture = GFX_evt_stone_church 
+	border = GFX_event_narrative_frame_religion
+		
+	is_triggered_only = yes
+	
+	major = yes
+	
+	option = {
+		name = hist.26.a
+	}
+}
+
+# Platonic Academy closed
+narrative_event = {
+	id = hist.27
+	title = hist.27.name
+	desc = hist.27.desc
+	picture = GFX_evt_roman_temple 
+	border = GFX_event_narrative_frame_religion
+
+	is_triggered_only = yes
+	
+	major = yes
+	
+	option = {
+		name = hist.27.a
+		trigger = { 
+			religion_group = christian 
+		}
+		piety = 50
+	}
+	
+	option = {
+		name = hist.27.b
+		trigger = { 
+			religion_openly_in_hellenic_subgroup_trigger = yes 
+		}
+		piety = -50
+	}
+	
+	option = {
+		name = hist.27.c
+		trigger = {
+			NOT = { religion_group = christian }
+			religion_openly_in_hellenic_subgroup_trigger = no 
+		}
+	}
+	
+	option = {
+		name = hist.27.d
+		trigger = { 
+			has_landed_title = e_persia 
+		}
+		prestige = 50
+		scaled_wealth = -0.01
+		custom_tooltip = { 
+			text = hist.27.d.tooltip
+		}
+	}
+}
+
+# Extreme weather events of 535-536
+narrative_event = {
+	id = hist.28
+	title = hist.28.name
+	desc = hist.28.desc
 	picture = GFX_evt_autumn_harvest
 	border = GFX_event_narrative_frame_diplomacy
 	
@@ -1149,7 +1283,7 @@ narrative_event = {
 	}
 	
     option = {
-		name = hist.26.a
+		name = hist.28.a
 		set_global_flag = 535_536_weather_events
 		any_realm_province = { add_province_modifier = { name = failed_crops duration = 3650 } }
     }
