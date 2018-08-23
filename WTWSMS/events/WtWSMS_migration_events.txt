@@ -1,7 +1,7 @@
 #########################
 #
 #	Migrations
-# 
+#
 #	Written by Zusk
 #
 ########################
@@ -85,8 +85,8 @@ character_event = {
 			set_province_flag = migration_give_away
 		}
 		# Sets the flag for the timer to prevent migration within 10 years
-		ROOT = { 
-			add_character_modifier = { 
+		ROOT = {
+			add_character_modifier = {
 				modifier = launched_migration_war
 				duration = 3650
 			}
@@ -149,7 +149,7 @@ character_event = {
 					owner = ROOT
 					troops = { light_infantry = { 100 100 } }
 					earmark = mirgation_unit # Used for army name localization
-		 		}
+				}
 			}
 		}
 		if = {
@@ -249,6 +249,7 @@ character_event = {
 	
 	only_independent = yes
 	only_rulers = yes
+	war = no # Ensures that the events activate correctly
 	
 	trigger = {
 		NOT = { year = 800 } # The migration period ended around 800
@@ -262,7 +263,6 @@ character_event = {
 		}
 		independent = yes
 		is_landed = yes # Need lands to settle, so exclude mercenaries, etc.
-		war = no # Ensures that the events activate correctly
 	}
 	
 	mean_time_to_happen = {
@@ -275,7 +275,7 @@ character_event = {
 				ai = yes # Don't force the player to migrate
 				independent = yes
 				mercenary = no
-				NOT = { higher_tier_than = KING } # If you are an empire, you dont migrate	
+				NOT = { higher_tier_than = KING } # If you are an empire, you dont migrate
 				war = no # Ensures that the events activate correctly
 				NOT = {
 					culture = old_frankish # Western german AI's dont migrate
@@ -283,7 +283,7 @@ character_event = {
 					culture = thuringian
 					culture = alamannian
 					culture = burgundian
- 				}
+				}
 				OR = {
 					AND = {
 						religion = germanic_pagan # Most germanic pagans can migrate into Christian lands
@@ -361,9 +361,9 @@ province_event = {
 	
 	trigger = {
 		always = no # Disabled until further notice, pending either help from Zusk or another change
-        NOT = { year = 800 }
-        NOT = { has_province_flag = no_slavs }
-        NOT = { holder_scope = { top_liege = { religion = slavic_pagan } } }
+		NOT = { year = 800 }
+		NOT = { has_province_flag = no_slavs }
+		NOT = { holder_scope = { top_liege = { religion = slavic_pagan } } }
 		OR = {
 			religion = slavic_pagan
 			AND = {
@@ -376,27 +376,27 @@ province_event = {
 					religion = slavic_pagan
 				}
 			}
-			NOT = { 
+			NOT = {
 				any_neighbor_province = {
 					has_province_modifier = zusk_slav_timer
 					religion = slavic_pagan
-                }
+				}
 			}
-        }
-       
+		}
+	
 		any_neighbor_province = {
-            OR = {
+			OR = {
 				holder_scope = {
 					top_liege = {
 						religion = slavic_pagan # Use this instead of the culture, Slavs should stop migrating if they are converted
 					}
 				}
-                religion = slavic_pagan
-            }
-        }
-    }
+				religion = slavic_pagan
+			}
+		}
+	}
 
-    mean_time_to_happen = {
+	mean_time_to_happen = {
 		years = 15
 
 		modifier = {
@@ -442,24 +442,24 @@ province_event = {
 		ai_chance = {
 			factor = 70
 		}
-        set_province_flag = no_slavs
+		set_province_flag = no_slavs
 		add_province_modifier = {
 			name = zusk_slav_timer
 			duration = 9125
 			hidden = yes
 		}
-        IF = {
-            limit = {
-                owner = {
-                    NOT = { religion = slavic_pagan }
-                    NOT = { character = ROOT }
-                }
-            }
+		IF = {
+			limit = {
+				owner = {
+					NOT = { religion = slavic_pagan }
+					NOT = { character = ROOT }
+				}
+			}
 			holder_scope = {
 				character_event = { id = zusk_event.36 } #TODO: missing zusk_event.36
 			}
 		}
-        county = {
+		county = {
 			create_character = {
 				random_traits = yes
 				dynasty = none
@@ -475,206 +475,206 @@ province_event = {
 
 			new_character = {
 				IF = {
-                    limit = {
-                        NOT = { has_character_flag = decided_culture }
-                        location = {
-                            culture = bolghar
-                        }
-                    }
+					limit = {
+						NOT = { has_character_flag = decided_culture }
+						location = {
+							culture = bolghar
+						}
+					}
 					culture = bulgarian
-                    set_character_flag = decided_culture
-                }
+					set_character_flag = decided_culture
+				}
 				IF = {
-                    limit = {
-                        NOT = { has_character_flag = decided_culture }
-                        location = {
-                            OR = {
+					limit = {
+						NOT = { has_character_flag = decided_culture }
+						location = {
+							OR = {
 								culture = roman
 								culture = latin
-                            }
-                        }
-                    }
-                    #culture = slovene
+							}
+						}
+					}
+					#culture = slovene
 					culture = karantanci #ancestors of Slovenes
-                    set_character_flag = decided_culture
-                }
+					set_character_flag = decided_culture
+				}
 				IF = {
-                    limit = {
-                        NOT = { has_character_flag = decided_culture }
-                        location = {
-                            OR = {
-                                culture = heruli
-                                culture = lusitanian
-                            }
-                        }
-                    }
-                    culture = polish
-                    set_character_flag = decided_culture
-                }
+					limit = {
+						NOT = { has_character_flag = decided_culture }
+						location = {
+							OR = {
+								culture = heruli
+								culture = lusitanian
+							}
+						}
+					}
+					culture = polish
+					set_character_flag = decided_culture
+				}
 				IF = {
-                    limit = {
-                        NOT = { has_character_flag = decided_culture }
-                        location = {
-                            culture = dacian
-                        }
-                    }
-                    culture = romanian
-                    set_character_flag = decided_culture
-                }
+					limit = {
+						NOT = { has_character_flag = decided_culture }
+						location = {
+							culture = dacian
+						}
+					}
+					culture = romanian
+					set_character_flag = decided_culture
+				}
 				IF = {
-                    limit = {
-                        NOT = { has_character_flag = decided_culture }
-                        location = {
-                            culture = illyrian
-                        }
-                    }
-                    culture = serbian
-                    set_character_flag = decided_culture
-                }
+					limit = {
+						NOT = { has_character_flag = decided_culture }
+						location = {
+							culture = illyrian
+						}
+					}
+					culture = serbian
+					set_character_flag = decided_culture
+				}
 				IF = {
-                    limit = {
-                        NOT = { has_character_flag = decided_culture }
-                        location = {
+					limit = {
+						NOT = { has_character_flag = decided_culture }
+						location = {
 							OR = {
 								culture = illyro_roman
 								culture = ostrogothic
 							}
 						}
 					}
-                    culture = croatian
-                    set_character_flag = decided_culture
-                }
+					culture = croatian
+					set_character_flag = decided_culture
+				}
 				IF = {
-                    limit = {
-                        NOT = { has_character_flag = decided_culture }
-                        location = {
-                            OR = {
+					limit = {
+						NOT = { has_character_flag = decided_culture }
+						location = {
+							OR = {
 								culture = rygir
 								culture = gepid
 								culture = iazyges
-                            }
-                        }
-                    }
-                    culture = bohemian
-                    set_character_flag = decided_culture
-                }
+							}
+						}
+					}
+					culture = bohemian
+					set_character_flag = decided_culture
+				}
 				IF = {
-                    limit = {
-                        NOT = { has_character_flag = decided_culture }
-                        location = {
-                            OR = {
-                                culture = lombard
-                                culture = german
-                            }
-                        }
-                    }
-                    culture = pommeranian
-                    set_character_flag = decided_culture
-                }
+					limit = {
+						NOT = { has_character_flag = decided_culture }
+						location = {
+							OR = {
+								culture = lombard
+								culture = german
+							}
+						}
+					}
+					culture = pommeranian
+					set_character_flag = decided_culture
+				}
 				IF = {
-                    limit = {
-                        NOT = { has_character_flag = decided_culture }
-                        location = {
-                            OR = {
-                                culture_group = central_germanic
-                                culture_group = east_germanic
-                            }
-                        }
-                    }
-                    culture = wends
-                    set_character_flag = decided_culture
-                }
+					limit = {
+						NOT = { has_character_flag = decided_culture }
+						location = {
+							OR = {
+								culture_group = central_germanic
+								culture_group = east_germanic
+							}
+						}
+					}
+					culture = wends
+					set_character_flag = decided_culture
+				}
 				IF = {
-                    limit = {
-                        NOT = { has_character_flag = decided_culture }
-                        location = {
-                            OR = {
-                                culture = romano_british
-                                culture = romano_gallic
-                                culture = frankish
-                                culture = norman
-                                culture = old_frankish
-                                culture_group = west_germanic
-                                culture_group = celtic
-                                culture_group = latin
-                            }
-                        }
-                    }
-                    culture = galliya
-                    set_character_flag = decided_culture
-                }
-                IF = {
-                    limit = {
-                        NOT = { has_character_flag = decided_culture }
-                        location = {
-                            OR = {
-                                culture = african_romance
-                                culture = berber_germanic
-                                culture = ethiopian
-                                culture_group = west_african
-                                culture_group = east_african
-                                culture_group = central_african
-                            }
-                        }
-                    }
-                    culture = afriki
-                    set_character_flag = decided_culture
-                }
+					limit = {
+						NOT = { has_character_flag = decided_culture }
+						location = {
+							OR = {
+								culture = romano_british
+								culture = romano_gallic
+								culture = frankish
+								culture = norman
+								culture = old_frankish
+								culture_group = west_germanic
+								culture_group = celtic
+								culture_group = latin
+							}
+						}
+					}
+					culture = galliya
+					set_character_flag = decided_culture
+				}
 				IF = {
-                    limit = {
-                        NOT = { has_character_flag = decided_culture }
-                        location = {
-                            OR = {
-                                culture_group = byzantine
-                                culture_group = proto_carpathian
-                                culture_group = phrygian_group
-                            }
-                        }
-                    }
-                    culture = macedonian
-                    set_character_flag = decided_culture
-                }
+					limit = {
+						NOT = { has_character_flag = decided_culture }
+						location = {
+							OR = {
+								culture = african_romance
+								culture = berber_germanic
+								culture = ethiopian
+								culture_group = west_african
+								culture_group = east_african
+								culture_group = central_african
+							}
+						}
+					}
+					culture = afriki
+					set_character_flag = decided_culture
+				}
 				IF = {
-                    limit = {
-                        NOT = { has_character_flag = decided_culture }
-                        location = { 
-                            OR = {
+					limit = {
+						NOT = { has_character_flag = decided_culture }
+						location = {
+							OR = {
+								culture_group = byzantine
+								culture_group = proto_carpathian
+								culture_group = phrygian_group
+							}
+						}
+					}
+					culture = macedonian
+					set_character_flag = decided_culture
+				}
+				IF = {
+					limit = {
+						NOT = { has_character_flag = decided_culture }
+						location = {
+							OR = {
 								culture_group = central_semitic
 								culture_group = south_semitic
-                                culture_group = iranian
-                            }
-                        }
-                    }
-                    culture = akhemenidov
-                    set_character_flag = decided_culture
-                }
+								culture_group = iranian
+							}
+						}
+					}
+					culture = akhemenidov
+					set_character_flag = decided_culture
+				}
 				IF = {
-                    limit = {
-                        NOT = { has_character_flag = decided_culture }
-                        location = {
-                            OR = {
-                                culture_group = dravidian_group
-                                culture_group = indo_aryan_group
-                            }
-                        }
-                    }
-                    culture = ved
-                    set_character_flag = decided_culture
-                }
-                
-				usurp_title_plus_barony_if_unlanded = PREV
-                set_defacto_liege = THIS
-                reverse_culture = ROOT
-                reverse_religion = ROOT
+					limit = {
+						NOT = { has_character_flag = decided_culture }
+						location = {
+							OR = {
+								culture_group = dravidian_group
+								culture_group = indo_aryan_group
+							}
+						}
+					}
+					culture = ved
+					set_character_flag = decided_culture
+				}
 				
-                spawn_unit = {
+				usurp_title_plus_barony_if_unlanded = PREV
+				set_defacto_liege = THIS
+				reverse_culture = ROOT
+				reverse_religion = ROOT
+				
+				spawn_unit = {
 					province = PREV
 					owner = ROOT
 					match_character = ROOT
 					match_mult = 0.75
 					attrition = 0.000
 				}
-            }
+			}
 		}
 	}
 
@@ -683,8 +683,8 @@ province_event = {
 		ai_chance = {
 			factor = 30
 		}
-        set_province_flag = no_slavs
-        add_province_modifier = {
+		set_province_flag = no_slavs
+		add_province_modifier = {
 			name = zusk_slav_timer
 			duration = 9125
 			hidden = yes
@@ -826,7 +826,7 @@ province_event = {
 					}
 					culture = wends
 					set_character_flag = decided_culture
-				} 
+				}
 				IF = {
 					limit = {
 						NOT = { has_character_flag = decided_culture }
