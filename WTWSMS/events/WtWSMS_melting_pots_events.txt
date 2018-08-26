@@ -16,19 +16,19 @@ namespace = WtWSMS_pots
 province_event = {
 	id = WtWSMS_pots.1
 
-	hide_window = yes	
+	hide_window = yes
 	
 	trigger = {
 		has_game_rule = { # Has enabled new melting pot events
-			name = melting_pots 
-			value = new 
+			name = melting_pots
+			value = new
 		}
 		owner = {
-			OR = { 
+			OR = {
 				religion_group = pagan_group
 				religion_group = christian # Can already be Christian at arrival
 			}
-			OR = { 
+			OR = {
 				is_tribal = yes
 				is_feudal = yes # Can already be Feudal at arrival
 			}
@@ -38,7 +38,7 @@ province_event = {
 				has_germanic_culture_trigger = yes
 			}
 			AND = { # Celtic alternative for Romano-Gallic and Romano-British
-				owner = { 
+				owner = {
 					has_celtic_culture_trigger = yes
 				}
 				OR = {
@@ -47,30 +47,30 @@ province_event = {
 				}
 			}
 			AND = { # Slavic alternative for Thraco-Roman and Rumanescu
-				owner = { 
+				owner = {
 					has_slavic_culture_trigger = yes
 				}
-				OR = { 
+				OR = {
 					culture = thraco_roman
 					culture = romano_dacian
 				}
 			}
 			AND = { # Arabic alternative for Andalusian
-				owner = { 
+				owner = {
 					has_arabic_culture_trigger = yes
 				}
 				culture = romano_hispanic
 			}
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 	}
 	
@@ -87,17 +87,17 @@ province_event = {
 province_event = {
 	id = WtWSMS_pots.2
 
-	hide_window = yes	
+	hide_window = yes
 	
 	trigger = {
 		has_province_flag = melting_pot_target
-		NAND = { 
+		NAND = {
 			owner = {
-				OR = { 
+				OR = {
 					religion_group = pagan_group
 					religion_group = christian # Can already be Christian at arrival
 				}
-				OR = { 
+				OR = {
 					is_tribal = yes
 					is_feudal = yes # Can already be Feudal at arrival
 				}
@@ -107,7 +107,7 @@ province_event = {
 					has_germanic_culture_trigger = yes
 				}
 				AND = { # Celtic alternative for Romano-Gallic and Romano-British
-					owner = { 
+					owner = {
 						has_celtic_culture_trigger = yes
 					}
 					OR = {
@@ -116,16 +116,16 @@ province_event = {
 					}
 				}
 				AND = { # Slavic alternative for Thraco-Roman and Rumanescu
-					owner = { 
+					owner = {
 						has_slavic_culture_trigger = yes
 					}
-					OR = { 
+					OR = {
 						culture = thraco_roman
 						culture = romano_dacian
 					}
 				}
 				AND = { # Arabic alternative for Andalusian
-					owner = { 
+					owner = {
 						has_arabic_culture_trigger = yes
 					}
 					culture = romano_hispanic
@@ -147,13 +147,13 @@ province_event = {
 province_event = {
 	id = WtWSMS_pots.3
 
-	hide_window = yes	
+	hide_window = yes
 	
 	trigger = {
 		has_province_flag = melting_pot_target
-		NOR = { 
+		NOR = {
 			religion_group = christian
-			county = { 
+			county = {
 				is_feudal = yes
 			}
 			has_romance_culture_trigger = yes
@@ -181,7 +181,7 @@ province_event = {
 	picture = GFX_evt_stone_church
 	border = GFX_event_normal_frame_religion
 	
-	trigger = { 
+	trigger = {
 		owner = {
 			religion_group = pagan_group
 			is_tribal = yes
@@ -196,7 +196,7 @@ province_event = {
 				has_germanic_culture_trigger = yes
 			}
 			AND = { # Celtic alternative for Romano-Gallic and Romano-British
-				owner = { 
+				owner = {
 					has_celtic_culture_trigger = yes
 				}
 				OR = {
@@ -205,30 +205,30 @@ province_event = {
 				}
 			}
 			AND = { # Slavic alternative for Thraco-Roman and Rumanescu
-				owner = { 
+				owner = {
 					has_slavic_culture_trigger = yes
 				}
-				OR = { 
+				OR = {
 					culture = thraco_roman
 					culture = romano_dacian
 				}
 			}
 			AND = { # Arabic alternative for Andalusian
-				owner = { 
+				owner = {
 					has_arabic_culture_trigger = yes
 				}
 				culture = romano_hispanic
 			}
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 	}
@@ -254,6 +254,8 @@ character_event = {
 	border = GFX_event_normal_frame_religion
 	
 	only_playable = yes
+	prisoner = no
+	capable_only = yes
 	
 	trigger = {
 		liege = {
@@ -270,8 +272,6 @@ character_event = {
 		relative_power_to_liege = 0.1 # Testing placeholder
 		is_theocracy = no
 		is_adult = yes
-		is_incapable = no
-		prisoner = no
 	}
 	
 	mean_time_to_happen = {
@@ -288,7 +288,7 @@ character_event = {
 			}
 		}
 		liege = {
-			character_event = { 
+			character_event = {
 				id = WtWSMS_pots.6 # Mighty Christian landed vassal brings it up with Pagan liege
 				days = 5
 			}
@@ -336,7 +336,7 @@ character_event = {
 					chance = 50
 					add_trait = sympathy_pagans
 				}
-			}		
+			}
 			hidden_tooltip = {
 				religion_authority = {
 					modifier = ruler_converted_to
@@ -344,10 +344,10 @@ character_event = {
 			}
 			piety = 200
 			character_event = {
-				id = WtWSMS_pots.17  # Conversion to Christianity
+				id = WtWSMS_pots.17 # Conversion to Christianity
 			}
 		}
-		FROM = { 
+		FROM = {
 			character_event = {
 				id = WtWSMS_pots.125 # Liege converts to Christianity
 			}
@@ -356,7 +356,7 @@ character_event = {
 	
 	option = {
 		name = WtWSMS_pots.6.b # Make vague statement
-		character_event = { 
+		character_event = {
 			id = WtWSMS_pots.15 # Insists after first step
 			days = 100
 		}
@@ -365,7 +365,7 @@ character_event = {
 	option = {
 		name = WtWSMS_pots.6.c # Refuse
 		set_character_flag = refused_conversion_christianity
-		FROM = { 
+		FROM = {
 			character_event = {
 				id = WtWSMS_pots.126 # Liege refuses conversion to Christianity
 			}
@@ -381,6 +381,8 @@ character_event = {
 	border = GFX_event_normal_frame_religion
 	
 	only_playable = yes
+	prisoner = no
+	capable_only = yes
 	
 	trigger = {
 		liege = {
@@ -396,8 +398,6 @@ character_event = {
 		religion_group = christian
 		is_theocracy = yes
 		is_adult = yes
-		is_incapable = no
-		prisoner = no
 	}
 	
 	mean_time_to_happen = {
@@ -414,7 +414,7 @@ character_event = {
 			}
 		}
 		liege = {
-			character_event = { 
+			character_event = {
 				id = WtWSMS_pots.8 # Bishop from the realm visits your court
 				days = 5
 			}
@@ -462,7 +462,7 @@ character_event = {
 					chance = 50
 					add_trait = sympathy_pagans
 				}
-			}		
+			}
 			hidden_tooltip = {
 				religion_authority = {
 					modifier = ruler_converted_to
@@ -470,14 +470,14 @@ character_event = {
 			}
 			piety = 200
 			character_event = {
-				id = WtWSMS_pots.17  # Conversion to Christianity
+				id = WtWSMS_pots.17 # Conversion to Christianity
 			}
 		}
 	}
 	
 	option = {
 		name = WtWSMS_pots.8.b # Make vague statement
-		character_event = { 
+		character_event = {
 			id = WtWSMS_pots.15 # Insists after first step
 			days = 100
 		}
@@ -497,6 +497,8 @@ character_event = {
 	border = GFX_event_normal_frame_religion
 	
 	only_playable = yes
+	prisoner = no
+	capable_only = yes
 	
 	trigger = {
 		any_demesne_province = {
@@ -504,10 +506,8 @@ character_event = {
 			has_province_flag = melting_pot_target
 		}
 		is_adult = yes
-		is_incapable = no
-		prisoner = no
 		NOT = { has_character_flag = refused_conversion_christianity }
-		any_vassal = { 
+		any_vassal = {
 			religion_group = christian
 			is_adult = yes
 			is_incapable = no
@@ -523,7 +523,7 @@ character_event = {
 	}
 	
 	immediate = {
-		any_vassal = { 
+		any_vassal = {
 			limit = {
 				religion_group = christian
 				is_adult = yes
@@ -566,7 +566,7 @@ character_event = {
 					chance = 50
 					add_trait = sympathy_pagans
 				}
-			}		
+			}
 			hidden_tooltip = {
 				religion_authority = {
 					modifier = ruler_converted_to
@@ -574,14 +574,14 @@ character_event = {
 			}
 			piety = 200
 			character_event = {
-				id = WtWSMS_pots.17  # Conversion to Christianity
+				id = WtWSMS_pots.17 # Conversion to Christianity
 			}
 		}
 	}
 	
 	option = {
 		name = WtWSMS_pots.9.b # Make vague statement
-		character_event = { 
+		character_event = {
 			id = WtWSMS_pots.15 # Insists after first step
 			days = 100
 		}
@@ -601,6 +601,8 @@ character_event = {
 	border = GFX_event_normal_frame_religion
 	
 	only_rulers = yes
+	prisoner = no
+	capable_only = yes
 	
 	trigger = {
 		any_demesne_province = {
@@ -608,8 +610,6 @@ character_event = {
 			has_province_flag = melting_pot_target
 		}
 		is_adult = yes
-		is_incapable = no
-		prisoner = no
 		NOT = { has_character_flag = refused_conversion_christianity }
 		any_spouse = {
 			religion_group = christian
@@ -668,7 +668,7 @@ character_event = {
 					chance = 50
 					add_trait = sympathy_pagans
 				}
-			}		
+			}
 			hidden_tooltip = {
 				religion_authority = {
 					modifier = ruler_converted_to
@@ -676,14 +676,14 @@ character_event = {
 			}
 			piety = 200
 			character_event = {
-				id = WtWSMS_pots.17  # Conversion to Christianity
+				id = WtWSMS_pots.17 # Conversion to Christianity
 			}
 		}
 	}
 	
 	option = {
 		name = WtWSMS_pots.10.b # We will see, my dear
-		character_event = { 
+		character_event = {
 			id = WtWSMS_pots.15 # Insists after first step
 			days = 100
 		}
@@ -703,6 +703,8 @@ character_event = {
 	border = GFX_event_normal_frame_religion
 	
 	only_rulers = yes
+	prisoner = no
+	capable_only = yes
 	
 	trigger = {
 		any_demesne_province = {
@@ -710,8 +712,6 @@ character_event = {
 			has_province_flag = melting_pot_target
 		}
 		is_adult = yes
-		is_incapable = no
-		prisoner = no
 		NOT = { has_character_flag = refused_conversion_christianity }
 		any_consort = { # Scopes to all of a character's consorts (not only concubines, works for both genders)
 			religion_group = christian
@@ -729,13 +729,13 @@ character_event = {
 	}
 	
 	immediate = {
-		any_consort = { 
+		any_consort = {
 			limit = {
 				religion_group = christian
 				is_adult = yes
 				is_incapable = no
 				prisoner = no
-				is_consort = yes 
+				is_consort = yes
 				is_abroad = no
 				is_alive = yes
 			}
@@ -772,7 +772,7 @@ character_event = {
 					chance = 50
 					add_trait = sympathy_pagans
 				}
-			}		
+			}
 			hidden_tooltip = {
 				religion_authority = {
 					modifier = ruler_converted_to
@@ -780,14 +780,14 @@ character_event = {
 			}
 			piety = 200
 			character_event = {
-				id = WtWSMS_pots.17  # Conversion to Christianity
+				id = WtWSMS_pots.17 # Conversion to Christianity
 			}
 		}
 	}
 	
 	option = {
 		name = WtWSMS_pots.11.b # We will see, my dear
-		character_event = { 
+		character_event = {
 			id = WtWSMS_pots.15 # Insists after first step
 			days = 100
 		}
@@ -807,6 +807,8 @@ character_event = {
 	border = GFX_event_normal_frame_religion
 	
 	only_playable = yes
+	prisoner = no
+	capable_only = yes
 	
 	trigger = {
 		any_demesne_province = {
@@ -814,10 +816,8 @@ character_event = {
 			has_province_flag = melting_pot_target
 		}
 		is_adult = yes
-		is_incapable = no
-		prisoner = no
 		NOT = { has_character_flag = refused_conversion_christianity }
-		any_courtier = { 
+		any_courtier = {
 			religion_group = christian
 			is_adult = yes
 			is_incapable = no
@@ -832,7 +832,7 @@ character_event = {
 	}
 	
 	immediate = {
-		any_courtier = { 
+		any_courtier = {
 			limit = {
 				religion_group = christian
 				is_adult = yes
@@ -874,7 +874,7 @@ character_event = {
 					chance = 50
 					add_trait = sympathy_pagans
 				}
-			}		
+			}
 			hidden_tooltip = {
 				religion_authority = {
 					modifier = ruler_converted_to
@@ -882,14 +882,14 @@ character_event = {
 			}
 			piety = 200
 			character_event = {
-				id = WtWSMS_pots.17  # Conversion to Christianity
+				id = WtWSMS_pots.17 # Conversion to Christianity
 			}
 		}
 	}
 	
 	option = {
 		name = WtWSMS_pots.12.b # Make vague statement
-		character_event = { 
+		character_event = {
 			id = WtWSMS_pots.15 # Insists after first step
 			days = 100
 		}
@@ -909,6 +909,8 @@ character_event = {
 	border = GFX_event_normal_frame_religion
 	
 	only_playable = yes
+	prisoner = no
+	capable_only = yes
 	
 	trigger = {
 		any_demesne_province = {
@@ -916,10 +918,8 @@ character_event = {
 			has_province_flag = melting_pot_target
 		}
 		is_adult = yes
-		is_incapable = no
-		prisoner = no
 		NOT = { has_character_flag = refused_conversion_christianity }
-		any_courtier = { 
+		any_courtier = {
 			religion_group = christian
 			is_adult = yes
 			is_incapable = no
@@ -933,13 +933,13 @@ character_event = {
 	}
 	
 	immediate = {
-		any_courtier = { 
+		any_courtier = {
 			limit = {
 				religion_group = christian
 				is_adult = yes
 				is_incapable = no
 				prisoner = no
-				has_job_title = yes 
+				has_job_title = yes
 			}
 			save_event_target_as = christian_councillour
 		}
@@ -974,7 +974,7 @@ character_event = {
 					chance = 50
 					add_trait = sympathy_pagans
 				}
-			}		
+			}
 			hidden_tooltip = {
 				religion_authority = {
 					modifier = ruler_converted_to
@@ -982,14 +982,14 @@ character_event = {
 			}
 			piety = 200
 			character_event = {
-				id = WtWSMS_pots.17  # Conversion to Christianity
+				id = WtWSMS_pots.17 # Conversion to Christianity
 			}
 		}
 	}
 	
 	option = {
 		name = WtWSMS_pots.13.b # Make vague statement
-		character_event = { 
+		character_event = {
 			id = WtWSMS_pots.15 # Insists after first step
 			days = 100
 		}
@@ -1009,6 +1009,8 @@ character_event = {
 	border = GFX_event_normal_frame_religion
 	
 	only_rulers = yes
+	prisoner = no
+	capable_only = yes
 	
 	trigger = {
 		any_demesne_province = {
@@ -1016,8 +1018,6 @@ character_event = {
 			has_province_flag = melting_pot_target
 		}
 		is_adult = yes
-		is_incapable = no
-		prisoner = no
 		NOT = { has_character_flag = refused_conversion_christianity }
 		any_neighbor_independent_ruler = {
 			any_realm_character	= {
@@ -1027,7 +1027,7 @@ character_event = {
 				prisoner = no
 				is_priest = yes
 			}
-		}		
+		}
 	}
 
 	mean_time_to_happen = {
@@ -1036,8 +1036,8 @@ character_event = {
 	
 	immediate = {
 		any_neighbor_independent_ruler = {
-			limit = { 
-				any_realm_character	= { 
+			limit = {
+				any_realm_character	= {
 					religion_group = christian
 					is_adult = yes
 					is_incapable = no
@@ -1078,7 +1078,7 @@ character_event = {
 					chance = 50
 					add_trait = sympathy_pagans
 				}
-			}		
+			}
 			hidden_tooltip = {
 				religion_authority = {
 					modifier = ruler_converted_to
@@ -1086,14 +1086,14 @@ character_event = {
 			}
 			piety = 200
 			character_event = {
-				id = WtWSMS_pots.17  # Conversion to Christianity
+				id = WtWSMS_pots.17 # Conversion to Christianity
 			}
 		}
 	}
 	
 	option = {
 		name = WtWSMS_pots.14.b # Make vague statement
-		character_event = { 
+		character_event = {
 			id = WtWSMS_pots.15 # Insists after first step
 			days = 100
 		}
@@ -1165,7 +1165,7 @@ character_event = {
 					chance = 50
 					add_trait = sympathy_pagans
 				}
-			}		
+			}
 			hidden_tooltip = {
 				religion_authority = {
 					modifier = ruler_converted_to
@@ -1173,10 +1173,10 @@ character_event = {
 			}
 			piety = 200
 			character_event = {
-				id = WtWSMS_pots.17  # Conversion to Christianity
+				id = WtWSMS_pots.17 # Conversion to Christianity
 			}
 		}
-		FROMFROM = { 
+		FROMFROM = {
 			character_event = {
 				id = WtWSMS_pots.125 # Liege converts to Christianity
 			}
@@ -1188,8 +1188,8 @@ character_event = {
 		ai_chance = {
 			factor = 25
 		}
-		set_character_flag = refused_conversion_christianity		
-		FROMFROM = { 
+		set_character_flag = refused_conversion_christianity
+		FROMFROM = {
 			character_event = {
 				id = WtWSMS_pots.126 # Liege refuses conversion to Christianity
 			}
@@ -1208,14 +1208,15 @@ character_event = {
 	
 	is_triggered_only = yes # On_actions event
 	
+	prisoner = no
+	capable_only = yes
+	
 	trigger = {
 		any_demesne_province = {
 			has_province_flag = spread_of_christianity
 			has_province_flag = melting_pot_target
 		}
 		is_adult = yes
-		is_incapable = no
-		prisoner = no
 		NOT = { has_character_flag = refused_conversion_christianity }
 	}
 		
@@ -1260,7 +1261,7 @@ character_event = {
 					chance = 50
 					add_trait = sympathy_pagans
 				}
-			}		
+			}
 			hidden_tooltip = {
 				religion_authority = {
 					modifier = ruler_converted_to
@@ -1268,7 +1269,7 @@ character_event = {
 			}
 			piety = 200
 			character_event = {
-				id = WtWSMS_pots.17  # Conversion to Christianity
+				id = WtWSMS_pots.17 # Conversion to Christianity
 			}
 		}
 	}
@@ -1297,7 +1298,7 @@ character_event = {
 	immediate = {
 		any_realm_province = {
 			limit = {
-				has_province_flag = spread_of_christianity 
+				has_province_flag = spread_of_christianity
 			}
 			clr_province_flag = spread_of_christianity
 		}
@@ -1316,9 +1317,9 @@ character_event = {
 	hide_window = yes
 	
 	only_rulers = yes
+	has_character_flag = converted_to_christianity
 	
 	trigger = {
-		has_character_flag = converted_to_christianity
 		NOT = { religion_group = christian }
 	}
 	
@@ -1343,7 +1344,7 @@ province_event = {
 	picture = GFX_evt_stone_church
 	border = GFX_event_normal_frame_religion
 	
-	trigger = { 
+	trigger = {
 		owner = {
 			religion_group = christian
 			is_tribal = yes
@@ -1359,7 +1360,7 @@ province_event = {
 				has_germanic_culture_trigger = yes
 			}
 			AND = { # Celtic alternative for Romano-Gallic and Romano-British
-				owner = { 
+				owner = {
 					has_celtic_culture_trigger = yes
 				}
 				OR = {
@@ -1368,30 +1369,30 @@ province_event = {
 				}
 			}
 			AND = { # Slavic alternative for Thraco-Roman and Rumanescu
-				owner = { 
+				owner = {
 					has_slavic_culture_trigger = yes
 				}
-				OR = { 
+				OR = {
 					culture = thraco_roman
 					culture = romano_dacian
 				}
 			}
 			AND = { # Arabic alternative for Andalusian
-				owner = { 
+				owner = {
 					has_arabic_culture_trigger = yes
 				}
 				culture = romano_hispanic
 			}
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 	}
@@ -1419,17 +1420,17 @@ character_event = {
 	
 	only_rulers = yes
 	
-	trigger = { 
+	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		OR = { 
+		OR = {
 			has_germanic_culture_trigger = yes
 			has_celtic_culture_trigger = yes
 			has_slavic_culture_trigger = yes
 			has_arabic_culture_trigger = yes
 		}
 		any_realm_province = {
-			has_province_flag = adopt_feudalism 
+			has_province_flag = adopt_feudalism
 		}
 	}
 	
@@ -1440,7 +1441,7 @@ character_event = {
 	immediate = {
 		any_realm_province = {
 			limit = {
-				has_province_flag = adopt_feudalism 
+				has_province_flag = adopt_feudalism
 			}
 			clr_province_flag = adopt_feudalism
 		}
@@ -1459,9 +1460,9 @@ character_event = {
 	hide_window = yes
 	
 	only_rulers = yes
+	has_character_flag = adopted_feudalism
 	
 	trigger = {
-		has_character_flag = adopted_feudalism
 		is_feudal = no
 	}
 	
@@ -1486,7 +1487,7 @@ province_event = {
 	picture = GFX_evt_stone_church
 	border = GFX_event_normal_frame_religion
 	
-	trigger = { 
+	trigger = {
 		owner = {
 			religion_group = christian
 			is_feudal = yes
@@ -1503,7 +1504,7 @@ province_event = {
 				has_germanic_culture_trigger = yes
 			}
 			AND = { # Celtic alternative for Romano-Gallic and Romano-British
-				owner = { 
+				owner = {
 					has_celtic_culture_trigger = yes
 				}
 				OR = {
@@ -1512,30 +1513,30 @@ province_event = {
 				}
 			}
 			AND = { # Slavic alternative for Thraco-Roman and Rumanescu
-				owner = { 
+				owner = {
 					has_slavic_culture_trigger = yes
 				}
-				OR = { 
+				OR = {
 					culture = thraco_roman
 					culture = romano_dacian
 				}
 			}
 			AND = { # Arabic alternative for Andalusian
-				owner = { 
+				owner = {
 					has_arabic_culture_trigger = yes
 				}
 				culture = romano_hispanic
 			}
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 	}
@@ -1564,6 +1565,8 @@ character_event = {
 	border = GFX_event_normal_frame_religion
 	
 	only_playable = yes
+	capable_only = yes
+	prisoner = no
 	
 	trigger = {
 		liege = {
@@ -1581,8 +1584,6 @@ character_event = {
 		relative_power_to_liege = 0.1 # Testing placeholder
 		is_theocracy = no
 		is_adult = yes
-		is_incapable = no
-		prisoner = no
 	}
 	
 	mean_time_to_happen = {
@@ -1599,7 +1600,7 @@ character_event = {
 			}
 		}
 		liege = {
-			character_event = { 
+			character_event = {
 				id = WtWSMS_pots.24 # Mighty Christian landed vassal brings it up with Heretic liege
 				days = 5
 			}
@@ -1647,7 +1648,7 @@ character_event = {
 					chance = 50
 					add_trait = sympathy_pagans
 				}
-			}		
+			}
 			hidden_tooltip = {
 				religion_authority = {
 					modifier = ruler_converted_to
@@ -1658,7 +1659,7 @@ character_event = {
 				id = WtWSMS_pots.33 # Abandoning of heresy
 			}
 		}
-		FROM = { 
+		FROM = {
 			character_event = {
 				id = WtWSMS_pots.127 # Liege abandons heresy
 			}
@@ -1667,7 +1668,7 @@ character_event = {
 	
 	option = {
 		name = WtWSMS_pots.24.b # Make vague statement
-		character_event = { 
+		character_event = {
 			id = WtWSMS_pots.32 # Insists after first step
 			days = 100
 		}
@@ -1676,7 +1677,7 @@ character_event = {
 	option = {
 		name = WtWSMS_pots.24.c # Refuse
 		set_character_flag = refused_conversion_christian_branch
-		FROM = { 
+		FROM = {
 			character_event = {
 				id = WtWSMS_pots.128 # Liege refuses to abandon heresy
 			}
@@ -1692,6 +1693,8 @@ character_event = {
 	border = GFX_event_normal_frame_religion
 	
 	only_playable = yes
+	capable_only = yes
+	prisoner = no
 	
 	trigger = {
 		liege = {
@@ -1708,8 +1711,6 @@ character_event = {
 		religion = event_target:christian_branch_of_province
 		is_theocracy = yes
 		is_adult = yes
-		is_incapable = no
-		prisoner = no
 	}
 	
 	mean_time_to_happen = {
@@ -1726,7 +1727,7 @@ character_event = {
 			}
 		}
 		liege = {
-			character_event = { 
+			character_event = {
 				id = WtWSMS_pots.26 # Bishop from the realm visits your court
 				days = 5
 			}
@@ -1774,7 +1775,7 @@ character_event = {
 					chance = 50
 					add_trait = sympathy_pagans
 				}
-			}		
+			}
 			hidden_tooltip = {
 				religion_authority = {
 					modifier = ruler_converted_to
@@ -1789,7 +1790,7 @@ character_event = {
 	
 	option = {
 		name = WtWSMS_pots.26.b # Make vague statement
-		character_event = { 
+		character_event = {
 			id = WtWSMS_pots.32 # Insists after first step
 			days = 100
 		}
@@ -1809,6 +1810,8 @@ character_event = {
 	border = GFX_event_normal_frame_religion
 	
 	only_playable = yes
+	capable_only = yes
+	prisoner = no
 	
 	trigger = {
 		any_demesne_province = {
@@ -1817,10 +1820,8 @@ character_event = {
 			religion = event_target:christian_branch_of_province
 		}
 		is_adult = yes
-		is_incapable = no
-		prisoner = no
 		NOT = { has_character_flag = refused_conversion_christian_branch }
-		any_vassal = { 
+		any_vassal = {
 			religion = event_target:christian_branch_of_province
 			is_adult = yes
 			is_incapable = no
@@ -1836,7 +1837,7 @@ character_event = {
 	}
 	
 	immediate = {
-		any_vassal = { 
+		any_vassal = {
 			limit = {
 				religion = event_target:christian_branch_of_province
 				is_adult = yes
@@ -1879,7 +1880,7 @@ character_event = {
 					chance = 50
 					add_trait = sympathy_pagans
 				}
-			}		
+			}
 			hidden_tooltip = {
 				religion_authority = {
 					modifier = ruler_converted_to
@@ -1894,7 +1895,7 @@ character_event = {
 	
 	option = {
 		name = WtWSMS_pots.27.b # Make vague statement
-		character_event = { 
+		character_event = {
 			id = WtWSMS_pots.32 # Insists after first step
 			days = 100
 		}
@@ -1914,6 +1915,8 @@ character_event = {
 	border = GFX_event_normal_frame_religion
 	
 	only_rulers = yes
+	capable_only = yes
+	prisoner = no
 	
 	trigger = {
 		any_demesne_province = {
@@ -1922,8 +1925,6 @@ character_event = {
 			religion = event_target:christian_branch_of_province
 		}
 		is_adult = yes
-		is_incapable = no
-		prisoner = no
 		NOT = { has_character_flag = refused_conversion_christian_branch }
 		any_spouse = {
 			religion = event_target:christian_branch_of_province
@@ -1982,7 +1983,7 @@ character_event = {
 					chance = 50
 					add_trait = sympathy_pagans
 				}
-			}		
+			}
 			hidden_tooltip = {
 				religion_authority = {
 					modifier = ruler_converted_to
@@ -1997,7 +1998,7 @@ character_event = {
 	
 	option = {
 		name = WtWSMS_pots.28.b # We will see, my dear
-		character_event = { 
+		character_event = {
 			id = WtWSMS_pots.32 # Insists after first step
 			days = 100
 		}
@@ -2017,6 +2018,8 @@ character_event = {
 	border = GFX_event_normal_frame_religion
 	
 	only_rulers = yes
+	capable_only = yes
+	prisoner = no
 	
 	trigger = {
 		any_demesne_province = {
@@ -2025,8 +2028,6 @@ character_event = {
 			religion = event_target:christian_branch_of_province
 		}
 		is_adult = yes
-		is_incapable = no
-		prisoner = no
 		NOT = { has_character_flag = refused_conversion_christian_branch }
 		any_consort = { # Scopes to all of a character's consorts (not only concubines, works for both genders)
 			religion = event_target:christian_branch_of_province
@@ -2044,13 +2045,13 @@ character_event = {
 	}
 	
 	immediate = {
-		any_consort = { 
+		any_consort = {
 			limit = {
 				religion = event_target:christian_branch_of_province
 				is_adult = yes
 				is_incapable = no
 				prisoner = no
-				is_consort = yes 
+				is_consort = yes
 				is_abroad = no
 				is_alive = yes
 			}
@@ -2087,7 +2088,7 @@ character_event = {
 					chance = 50
 					add_trait = sympathy_pagans
 				}
-			}		
+			}
 			hidden_tooltip = {
 				religion_authority = {
 					modifier = ruler_converted_to
@@ -2102,7 +2103,7 @@ character_event = {
 	
 	option = {
 		name = WtWSMS_pots.29.b # We will see, my dear
-		character_event = { 
+		character_event = {
 			id = WtWSMS_pots.32 # Insists after first step
 			days = 100
 		}
@@ -2122,6 +2123,8 @@ character_event = {
 	border = GFX_event_normal_frame_religion
 	
 	only_playable = yes
+	capable_only = yes
+	prisoner = no
 	
 	trigger = {
 		any_demesne_province = {
@@ -2130,10 +2133,8 @@ character_event = {
 			religion = event_target:christian_branch_of_province
 		}
 		is_adult = yes
-		is_incapable = no
-		prisoner = no
 		NOT = { has_character_flag = refused_conversion_christian_branch }
-		any_courtier = { 
+		any_courtier = {
 			religion = event_target:christian_branch_of_province
 			is_adult = yes
 			is_incapable = no
@@ -2148,7 +2149,7 @@ character_event = {
 	}
 	
 	immediate = {
-		any_courtier = { 
+		any_courtier = {
 			limit = {
 				religion = event_target:christian_branch_of_province
 				is_adult = yes
@@ -2190,7 +2191,7 @@ character_event = {
 					chance = 50
 					add_trait = sympathy_pagans
 				}
-			}		
+			}
 			hidden_tooltip = {
 				religion_authority = {
 					modifier = ruler_converted_to
@@ -2205,7 +2206,7 @@ character_event = {
 	
 	option = {
 		name = WtWSMS_pots.30.b # Make vague statement
-		character_event = { 
+		character_event = {
 			id = WtWSMS_pots.32 # Insists after first step
 			days = 100
 		}
@@ -2225,6 +2226,8 @@ character_event = {
 	border = GFX_event_normal_frame_religion
 	
 	only_playable = yes
+	capable_only = yes
+	prisoner = no
 	
 	trigger = {
 		any_demesne_province = {
@@ -2233,10 +2236,8 @@ character_event = {
 			religion = event_target:christian_branch_of_province
 		}
 		is_adult = yes
-		is_incapable = no
-		prisoner = no
 		NOT = { has_character_flag = refused_conversion_christian_branch }
-		any_courtier = { 
+		any_courtier = {
 			religion = event_target:christian_branch_of_province
 			is_adult = yes
 			is_incapable = no
@@ -2250,13 +2251,13 @@ character_event = {
 	}
 	
 	immediate = {
-		any_courtier = { 
+		any_courtier = {
 			limit = {
 				religion = event_target:christian_branch_of_province
 				is_adult = yes
 				is_incapable = no
 				prisoner = no
-				has_job_title = yes 
+				has_job_title = yes
 			}
 			save_event_target_as = christian_branch_councillour
 		}
@@ -2291,7 +2292,7 @@ character_event = {
 					chance = 50
 					add_trait = sympathy_pagans
 				}
-			}		
+			}
 			hidden_tooltip = {
 				religion_authority = {
 					modifier = ruler_converted_to
@@ -2306,7 +2307,7 @@ character_event = {
 	
 	option = {
 		name = WtWSMS_pots.31.b # Make vague statement
-		character_event = { 
+		character_event = {
 			id = WtWSMS_pots.32 # Insists after first step
 			days = 100
 		}
@@ -2378,7 +2379,7 @@ character_event = {
 					chance = 50
 					add_trait = sympathy_pagans
 				}
-			}		
+			}
 			hidden_tooltip = {
 				religion_authority = {
 					modifier = ruler_converted_to
@@ -2388,8 +2389,8 @@ character_event = {
 			character_event = {
 				id = WtWSMS_pots.33 # Abandoning of heresy
 			}
-		}		
-		FROMFROM = { 
+		}
+		FROMFROM = {
 			character_event = {
 				id = WtWSMS_pots.127 # Liege abandons heresy
 			}
@@ -2402,7 +2403,7 @@ character_event = {
 			factor = 25
 		}
 		set_character_flag = refused_conversion_christian_branch
-		FROMFROM = { 
+		FROMFROM = {
 			character_event = {
 				id = WtWSMS_pots.128 # Liege refuses to abandon heresy
 			}
@@ -2422,7 +2423,7 @@ character_event = {
 	immediate = {
 		any_realm_province = {
 			limit = {
-				has_province_flag = heretic_christian 
+				has_province_flag = heretic_christian
 			}
 			clr_province_flag = heretic_christian
 		}
@@ -2441,9 +2442,9 @@ character_event = {
 	hide_window = yes
 	
 	only_rulers = yes
+	has_character_flag = converted_christian_branch
 	
 	trigger = {
-		has_character_flag = converted_christian_branch
 		NOT = { religion = event_target:christian_branch_of_province }
 	}
 	
@@ -2471,7 +2472,7 @@ province_event = {
 	picture = GFX_evt_stone_church # Placeholder
 	border = GFX_event_normal_frame_religion
 	
-	trigger = { 
+	trigger = {
 		owner = {
 			religion_group = christian
 			is_feudal = yes
@@ -2479,14 +2480,14 @@ province_event = {
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = roman
@@ -2496,43 +2497,43 @@ province_event = {
 		months = 1200 # Testing placeholder
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 7
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 9
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 11
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 13
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 5 }
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 3 }
 			}
 		}
 		modifier = {
 			factor = 2.0
-			owner = { 
+			owner = {
 				NOT = { learning = 1 }
 			}
 		}
@@ -2579,14 +2580,14 @@ province_event = {
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = roman
@@ -2611,7 +2612,7 @@ province_event = {
 
 	option = {
 		name = WtWSMS_pots.36.a
-		culture = italian 
+		culture = italian
 	}
 }
 
@@ -2622,11 +2623,11 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_rulers = yes
+	culture = italian
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = italian
 		any_courtier = {
 			has_germanic_culture_trigger = yes
 			religion_group = christian
@@ -2674,11 +2675,11 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_playable = yes
+	culture = italian
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = italian
 		any_vassal = {
 			has_germanic_culture_trigger = yes
 			religion_group = christian
@@ -2741,14 +2742,14 @@ province_event = {
 	border = GFX_event_normal_frame_diplomacy
 
 	trigger = {
-		had_global_flag = { 
+		had_global_flag = {
 			flag = italian_melting_pot
-			days = 3650 # 10 years 
+			days = 3650 # 10 years
 		}
 		NOT = { # Lack of strong Roman realm remaining
 			any_independent_ruler = {
 				culture = roman
-				OR = { 
+				OR = {
 					higher_tier_than = duke
 					realm_size = 35
 					any_demesne_title = {
@@ -2759,9 +2760,9 @@ province_event = {
 			}
 		}
 		NOT = {
-			owner = { 
-				OR = { 
-					culture = roman 
+			owner = {
+				OR = {
+					culture = roman
 					top_liege = {
 						culture = roman
 					}
@@ -2792,7 +2793,7 @@ province_event = {
 	picture = GFX_evt_stone_church # Placeholder
 	border = GFX_event_normal_frame_religion
 	
-	trigger = { 
+	trigger = {
 		owner = {
 			religion_group = christian
 			is_feudal = yes
@@ -2800,14 +2801,14 @@ province_event = {
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = romano_gallic
@@ -2818,43 +2819,43 @@ province_event = {
 		months = 1200 # Testing placeholder
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 7
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 9
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 11
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 13
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 5 }
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 3 }
 			}
 		}
 		modifier = {
 			factor = 2.0
-			owner = { 
+			owner = {
 				NOT = { learning = 1 }
 			}
 		}
@@ -2901,14 +2902,14 @@ province_event = {
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = romano_gallic
@@ -2934,7 +2935,7 @@ province_event = {
 
 	option = {
 		name = WtWSMS_pots.42.a
-		culture = frankish 
+		culture = frankish
 	}
 }
 
@@ -2945,11 +2946,11 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_rulers = yes
+	culture = frankish
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = frankish
 		any_courtier = {
 			culture = old_frankish
 			religion_group = christian
@@ -2997,11 +2998,11 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_playable = yes
+	culture = frankish
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = frankish
 		any_vassal = {
 			culture = old_frankish
 			religion_group = christian
@@ -3063,11 +3064,11 @@ province_event = {
 	picture = GFX_evt_stone_church # Placeholder
 	border = GFX_event_normal_frame_religion
 	
-	trigger = { 
+	trigger = {
 		owner = {
 			religion_group = christian
 			is_feudal = yes
-			OR = { 
+			OR = {
 				has_germanic_culture_trigger = yes
 				has_celtic_culture_trigger = yes
 			}
@@ -3075,14 +3076,14 @@ province_event = {
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = romano_gallic
@@ -3093,43 +3094,43 @@ province_event = {
 		months = 1200 # Testing placeholder
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 7
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 9
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 11
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 13
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 5 }
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 3 }
 			}
 		}
 		modifier = {
 			factor = 2.0
-			owner = { 
+			owner = {
 				NOT = { learning = 1 }
 			}
 		}
@@ -3176,14 +3177,14 @@ province_event = {
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = romano_gallic
@@ -3209,7 +3210,7 @@ province_event = {
 
 	option = {
 		name = WtWSMS_pots.47.a
-		culture = gallo_romance 
+		culture = gallo_romance
 	}
 }
 
@@ -3220,13 +3221,13 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_rulers = yes
+	culture = frankish
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = frankish
 		any_courtier = {
-			OR = { 
+			OR = {
 				has_germanic_culture_trigger = yes
 				has_celtic_culture_trigger = yes
 			}
@@ -3257,7 +3258,7 @@ character_event = {
 		name = WtWSMS_pots.48.a
 		random_courtier = {
 			limit = {
-				OR = { 
+				OR = {
 					has_germanic_culture_trigger = yes
 					has_celtic_culture_trigger = yes
 				}
@@ -3280,13 +3281,13 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_playable = yes
+	culture = gallo_romance
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = gallo_romance
 		any_vassal = {
-			OR = { 
+			OR = {
 				has_germanic_culture_trigger = yes
 				has_celtic_culture_trigger = yes
 			}
@@ -3317,7 +3318,7 @@ character_event = {
 		name = WtWSMS_pots.49.a
 		random_vassal = {
 			limit = {
-				OR = { 
+				OR = {
 					has_germanic_culture_trigger = yes
 					has_celtic_culture_trigger = yes
 				}
@@ -3354,7 +3355,7 @@ province_event = {
 	picture = GFX_evt_stone_church # Placeholder
 	border = GFX_event_normal_frame_religion
 	
-	trigger = { 
+	trigger = {
 		owner = {
 			religion_group = christian
 			is_feudal = yes
@@ -3362,14 +3363,14 @@ province_event = {
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = romano_gallic
@@ -3380,43 +3381,43 @@ province_event = {
 		months = 1200 # Testing placeholder
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 7
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 9
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 11
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 13
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 5 }
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 3 }
 			}
 		}
 		modifier = {
 			factor = 2.0
-			owner = { 
+			owner = {
 				NOT = { learning = 1 }
 			}
 		}
@@ -3463,14 +3464,14 @@ province_event = {
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = romano_gallic
@@ -3496,7 +3497,7 @@ province_event = {
 
 	option = {
 		name = WtWSMS_pots.52.a
-		culture = occitan 
+		culture = occitan
 	}
 }
 
@@ -3507,11 +3508,11 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_rulers = yes
+	culture = occitan
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = occitan
 		any_courtier = {
 			has_germanic_culture_trigger = yes
 			religion_group = christian
@@ -3559,11 +3560,11 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_playable = yes
+	culture = occitan
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = occitan
 		any_vassal = {
 			has_germanic_culture_trigger = yes
 			religion_group = christian
@@ -3626,24 +3627,24 @@ province_event = {
 	border = GFX_event_normal_frame_diplomacy
 
 	trigger = {
-		OR = { 
-			had_global_flag = { 
+		OR = {
+			had_global_flag = {
 				flag = old_french_melting_pot
-				days = 3650 # 10 years 
+				days = 3650 # 10 years
 			}
-			had_global_flag = { 
+			had_global_flag = {
 				flag = gallo_romance_melting_pot
-				days = 3650 # 10 years 
+				days = 3650 # 10 years
 			}
-			had_global_flag = { 
+			had_global_flag = {
 				flag = occitan_melting_pot
-				days = 3650 # 10 years 
+				days = 3650 # 10 years
 			}
 		}
 		NOT = { # Lack of strong Romano-Gallic realm remaining
 			any_independent_ruler = {
 				culture = romano_gallic
-				OR = { 
+				OR = {
 					higher_tier_than = duke
 					realm_size = 35
 					any_demesne_title = {
@@ -3654,9 +3655,9 @@ province_event = {
 			}
 		}
 		NOT = {
-			owner = { 
-				OR = { 
-					culture = romano_gallic 
+			owner = {
+				OR = {
+					culture = romano_gallic
 					top_liege = {
 						culture = romano_gallic
 					}
@@ -3714,7 +3715,7 @@ province_event = {
 	picture = GFX_evt_stone_church # Placeholder
 	border = GFX_event_normal_frame_religion
 	
-	trigger = { 
+	trigger = {
 		owner = {
 			religion_group = christian
 			is_feudal = yes
@@ -3722,14 +3723,14 @@ province_event = {
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = romano_hispanic
@@ -3740,43 +3741,43 @@ province_event = {
 		months = 1200 # Testing placeholder
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 7
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 9
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 11
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 13
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 5 }
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 3 }
 			}
 		}
 		modifier = {
 			factor = 2.0
-			owner = { 
+			owner = {
 				NOT = { learning = 1 }
 			}
 		}
@@ -3820,17 +3821,17 @@ province_event = {
 			culture = catalan
 			religion_group = christian
 			is_feudal = yes
-			religion = ROOT		
+			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = romano_hispanic
@@ -3856,7 +3857,7 @@ province_event = {
 
 	option = {
 		name = WtWSMS_pots.58.a
-		culture = catalan 
+		culture = catalan
 	}
 }
 
@@ -3867,11 +3868,11 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_rulers = yes
+	culture = catalan
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = catalan
 		any_courtier = {
 			has_germanic_culture_trigger = yes
 			religion_group = christian
@@ -3919,11 +3920,11 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_playable = yes
+	culture = catalan
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = catalan
 		any_vassal = {
 			has_germanic_culture_trigger = yes
 			religion_group = christian
@@ -3985,7 +3986,7 @@ province_event = {
 	picture = GFX_evt_stone_church # Placeholder
 	border = GFX_event_normal_frame_religion
 		
-	trigger = { 
+	trigger = {
 		owner = {
 			religion_group = christian
 			is_feudal = yes
@@ -3993,14 +3994,14 @@ province_event = {
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = romano_hispanic
@@ -4011,43 +4012,43 @@ province_event = {
 		months = 1200 # Testing placeholder
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 7
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 9
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 11
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 13
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 5 }
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 3 }
 			}
 		}
 		modifier = {
 			factor = 2.0
-			owner = { 
+			owner = {
 				NOT = { learning = 1 }
 			}
 		}
@@ -4094,14 +4095,14 @@ province_event = {
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = romano_hispanic
@@ -4127,7 +4128,7 @@ province_event = {
 
 	option = {
 		name = WtWSMS_pots.63.a
-		culture = portuguese 
+		culture = portuguese
 	}
 }
 
@@ -4138,11 +4139,11 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_rulers = yes
+	culture = portuguese
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = portuguese
 		any_courtier = {
 			has_germanic_culture_trigger = yes
 			religion_group = christian
@@ -4190,11 +4191,11 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_playable = yes
+	culture = portuguese
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = portuguese
 		any_vassal = {
 			has_germanic_culture_trigger = yes
 			religion_group = christian
@@ -4256,7 +4257,7 @@ province_event = {
 	picture = GFX_evt_stone_church # Placeholder
 	border = GFX_event_normal_frame_religion
 		
-	trigger = { 
+	trigger = {
 		owner = {
 			religion_group = christian
 			is_feudal = yes
@@ -4264,14 +4265,14 @@ province_event = {
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = romano_hispanic
@@ -4282,43 +4283,43 @@ province_event = {
 		months = 1200 # Testing placeholder
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 7
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 9
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 11
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 13
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 5 }
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 3 }
 			}
 		}
 		modifier = {
 			factor = 2.0
-			owner = { 
+			owner = {
 				NOT = { learning = 1 }
 			}
 		}
@@ -4365,14 +4366,14 @@ province_event = {
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = romano_hispanic
@@ -4398,7 +4399,7 @@ province_event = {
 
 	option = {
 		name = WtWSMS_pots.68.a
-		culture = castillan 
+		culture = castillan
 	}
 }
 
@@ -4409,11 +4410,11 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_rulers = yes
+	culture = castillan
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = castillan
 		any_courtier = {
 			has_germanic_culture_trigger = yes
 			religion_group = christian
@@ -4461,11 +4462,11 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_playable = yes
+	culture = castillan
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = castillan
 		any_vassal = {
 			has_germanic_culture_trigger = yes
 			religion_group = christian
@@ -4527,7 +4528,7 @@ province_event = {
 	picture = GFX_evt_stone_church # Placeholder
 	border = GFX_event_normal_frame_religion
 		
-	trigger = { 
+	trigger = {
 		owner = {
 			religion_group = christian
 			is_feudal = yes
@@ -4535,14 +4536,14 @@ province_event = {
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = romano_hispanic
@@ -4553,43 +4554,43 @@ province_event = {
 		months = 1200 # Testing placeholder
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 7
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 9
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 11
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 13
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 5 }
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 3 }
 			}
 		}
 		modifier = {
 			factor = 2.0
-			owner = { 
+			owner = {
 				NOT = { learning = 1 }
 			}
 		}
@@ -4636,14 +4637,14 @@ province_event = {
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = romano_hispanic
@@ -4669,7 +4670,7 @@ province_event = {
 
 	option = {
 		name = WtWSMS_pots.73.a
-		culture = leonese 
+		culture = leonese
 	}
 }
 
@@ -4680,11 +4681,11 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_rulers = yes
+	culture = leonese
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = leonese
 		any_courtier = {
 			has_germanic_culture_trigger = yes
 			religion_group = christian
@@ -4732,11 +4733,11 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_playable = yes
+	culture = leonese
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = leonese
 		any_vassal = {
 			has_germanic_culture_trigger = yes
 			religion_group = christian
@@ -4798,7 +4799,7 @@ province_event = {
 	picture = GFX_evt_stone_church # Placeholder
 	border = GFX_event_normal_frame_religion
 		
-	trigger = { 
+	trigger = {
 		owner = {
 			religion_group = christian
 			is_feudal = yes
@@ -4806,14 +4807,14 @@ province_event = {
 			religion = ROOT
 		}
 		religion_group = christian # Realised this was slightly problematic for this one
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = romano_hispanic
@@ -4824,43 +4825,43 @@ province_event = {
 		months = 1200 # Testing placeholder
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 7
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 9
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 11
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 13
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 5 }
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 3 }
 			}
 		}
 		modifier = {
 			factor = 2.0
-			owner = { 
+			owner = {
 				NOT = { learning = 1 }
 			}
 		}
@@ -4907,14 +4908,14 @@ province_event = {
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = romano_hispanic
@@ -4940,7 +4941,7 @@ province_event = {
 
 	option = {
 		name = WtWSMS_pots.78.a
-		culture = andalusian_arabic 
+		culture = andalusian_arabic
 	}
 }
 
@@ -4951,11 +4952,11 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_rulers = yes
+	culture = andalusian_arabic
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = andalusian_arabic
 		any_courtier = {
 			has_arabic_culture_trigger = yes
 			religion_group = christian
@@ -5003,11 +5004,11 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_playable = yes
+	culture = andalusian_arabic
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = andalusian_arabic
 		any_vassal = {
 			has_arabic_culture_trigger = yes
 			religion_group = christian
@@ -5070,32 +5071,32 @@ province_event = {
 	border = GFX_event_normal_frame_diplomacy
 
 	trigger = {
-		OR = { 
-			had_global_flag = { 
+		OR = {
+			had_global_flag = {
 				flag = catalan_melting_pot
-				days = 3650 # 10 years 
+				days = 3650 # 10 years
 			}
-			had_global_flag = { 
+			had_global_flag = {
 				flag = portugese_melting_pot
-				days = 3650 # 10 years 
+				days = 3650 # 10 years
 			}
-			had_global_flag = { 
+			had_global_flag = {
 				flag = castillan_melting_pot
-				days = 3650 # 10 years 
+				days = 3650 # 10 years
 			}
-			had_global_flag = { 
+			had_global_flag = {
 				flag = leonese_melting_pot
-				days = 3650 # 10 years 
+				days = 3650 # 10 years
 			}
-			had_global_flag = { 
+			had_global_flag = {
 				flag = andalusian_melting_pot
-				days = 3650 # 10 years 
+				days = 3650 # 10 years
 			}
 		}
 		NOT = { # Lack of strong Romano-Hispanic realm remaining
 			any_independent_ruler = {
 				culture = romano_hispanic
-				OR = { 
+				OR = {
 					higher_tier_than = duke
 					realm_size = 35
 					any_demesne_title = {
@@ -5106,9 +5107,9 @@ province_event = {
 			}
 		}
 		NOT = {
-			owner = { 
-				OR = { 
-					culture = romano_hispanic 
+			owner = {
+				OR = {
+					culture = romano_hispanic
 					top_liege = {
 						culture = romano_hispanic
 					}
@@ -5171,25 +5172,25 @@ province_event = {
 	picture = GFX_evt_stone_church # Placeholder
 	border = GFX_event_normal_frame_religion
 	
-	trigger = { 
+	trigger = {
 		owner = {
 			religion_group = christian
 			is_feudal = yes
-			OR = { 
+			OR = {
 				has_germanic_culture_trigger = yes
 				has_celtic_culture_trigger = yes
 			}
-			religion = ROOT			
+			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = romano_british
@@ -5199,43 +5200,43 @@ province_event = {
 		months = 1200 # Testing placeholder
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 7
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 9
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 11
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 13
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 5 }
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 3 }
 			}
 		}
 		modifier = {
 			factor = 2.0
-			owner = { 
+			owner = {
 				NOT = { learning = 1 }
 			}
 		}
@@ -5282,14 +5283,14 @@ province_event = {
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = romano_british
@@ -5314,7 +5315,7 @@ province_event = {
 
 	option = {
 		name = WtWSMS_pots.84.a
-		culture = british_romance 
+		culture = british_romance
 	}
 }
 
@@ -5325,13 +5326,13 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_rulers = yes
+	culture = british_romance
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = british_romance
 		any_courtier = {
-			OR = { 
+			OR = {
 				has_germanic_culture_trigger = yes
 				has_celtic_culture_trigger = yes
 			}
@@ -5361,7 +5362,7 @@ character_event = {
 		name = WtWSMS_pots.85.a
 		random_courtier = {
 			limit = {
-				OR = { 
+				OR = {
 					has_germanic_culture_trigger = yes
 					has_celtic_culture_trigger = yes
 				}
@@ -5383,13 +5384,13 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_playable = yes
+	culture = british_romance
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = british_romance
 		any_vassal = {
-			OR = { 
+			OR = {
 				has_germanic_culture_trigger = yes
 				has_celtic_culture_trigger = yes
 			}
@@ -5456,14 +5457,14 @@ province_event = {
 	border = GFX_event_normal_frame_diplomacy
 
 	trigger = {
-		had_global_flag = { 
+		had_global_flag = {
 			flag = british_romance_melting_pot
-			days = 3650 # 10 years 
+			days = 3650 # 10 years
 		}
 		NOT = { # Lack of strong Romano-British realm remaining
 			any_independent_ruler = {
 				culture = romano_british
-				OR = { 
+				OR = {
 					higher_tier_than = duke
 					realm_size = 35
 					any_demesne_title = {
@@ -5474,9 +5475,9 @@ province_event = {
 			}
 		}
 		NOT = {
-			owner = { 
-				OR = { 
-					culture = romano_british 
+			owner = {
+				OR = {
+					culture = romano_british
 					top_liege = {
 						culture = romano_british
 					}
@@ -5507,7 +5508,7 @@ province_event = {
 	picture = GFX_evt_stone_church # Placeholder
 	border = GFX_event_normal_frame_religion
 		
-	trigger = { 
+	trigger = {
 		owner = {
 			religion_group = christian
 			is_feudal = yes
@@ -5515,14 +5516,14 @@ province_event = {
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = african_romance
@@ -5532,43 +5533,43 @@ province_event = {
 		months = 1200 # Testing placeholder
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 7
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 9
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 11
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 13
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 5 }
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 3 }
 			}
 		}
 		modifier = {
 			factor = 2.0
-			owner = { 
+			owner = {
 				NOT = { learning = 1 }
 			}
 		}
@@ -5615,14 +5616,14 @@ province_event = {
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = african_romance
@@ -5647,7 +5648,7 @@ province_event = {
 
 	option = {
 		name = WtWSMS_pots.90.a
-		culture = arreyanu 
+		culture = arreyanu
 	}
 }
 
@@ -5658,11 +5659,11 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_rulers = yes
+	culture = arreyanu
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = arreyanu
 		any_courtier = {
 			has_germanic_culture_trigger = yes
 			religion_group = christian
@@ -5710,11 +5711,11 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_playable = yes
+	culture = arreyanu
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = arreyanu
 		any_vassal = {
 			has_germanic_culture_trigger = yes
 			religion_group = christian
@@ -5777,14 +5778,14 @@ province_event = {
 	border = GFX_event_normal_frame_diplomacy
 
 	trigger = {
-		had_global_flag = { 
+		had_global_flag = {
 			flag = arreyanu_melting_pot
-			days = 3650 # 10 years 
+			days = 3650 # 10 years
 		}
 		NOT = { # Lack of strong Romano-British realm remaining
 			any_independent_ruler = {
 				culture = african_romance
-				OR = { 
+				OR = {
 					higher_tier_than = duke
 					realm_size = 35
 					any_demesne_title = {
@@ -5795,9 +5796,9 @@ province_event = {
 			}
 		}
 		NOT = {
-			owner = { 
-				OR = { 
-					culture = african_romance 
+			owner = {
+				OR = {
+					culture = african_romance
 					top_liege = {
 						culture = african_romance
 					}
@@ -5828,7 +5829,7 @@ province_event = {
 	picture = GFX_evt_stone_church # Placeholder
 	border = GFX_event_normal_frame_religion
 		
-	trigger = { 
+	trigger = {
 		owner = {
 			religion_group = christian
 			is_feudal = yes
@@ -5836,14 +5837,14 @@ province_event = {
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = illyro_roman
@@ -5853,43 +5854,43 @@ province_event = {
 		months = 1200 # Testing placeholder
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 7
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 9
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 11
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 13
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 5 }
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 3 }
 			}
 		}
 		modifier = {
 			factor = 2.0
-			owner = { 
+			owner = {
 				NOT = { learning = 1 }
 			}
 		}
@@ -5933,17 +5934,17 @@ province_event = {
 			culture = dalmatian
 			religion_group = christian
 			is_feudal = yes
-			religion = ROOT			
+			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = illyro_roman
@@ -5968,7 +5969,7 @@ province_event = {
 
 	option = {
 		name = WtWSMS_pots.96.a
-		culture = dalmatian 
+		culture = dalmatian
 	}
 }
 
@@ -5979,11 +5980,11 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_rulers = yes
+	culture = dalmatian
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = dalmatian
 		any_courtier = {
 			has_germanic_culture_trigger = yes
 			religion_group = christian
@@ -6031,11 +6032,11 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_playable = yes
+	culture = dalmatian
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = dalmatian
 		any_vassal = {
 			has_germanic_culture_trigger = yes
 			religion_group = christian
@@ -6098,14 +6099,14 @@ province_event = {
 	border = GFX_event_normal_frame_diplomacy
 
 	trigger = {
-		had_global_flag = { 
+		had_global_flag = {
 			flag = dalmatian_melting_pot
-			days = 3650 # 10 years 
+			days = 3650 # 10 years
 		}
 		NOT = { # Lack of strong Romano-British realm remaining
 			any_independent_ruler = {
 				culture = illyro_roman
-				OR = { 
+				OR = {
 					higher_tier_than = duke
 					realm_size = 35
 					any_demesne_title = {
@@ -6116,9 +6117,9 @@ province_event = {
 			}
 		}
 		NOT = {
-			owner = { 
-				OR = { 
-					culture = illyro_roman 
+			owner = {
+				OR = {
+					culture = illyro_roman
 					top_liege = {
 						culture = illyro_roman
 					}
@@ -6149,7 +6150,7 @@ province_event = {
 	picture = GFX_evt_stone_church # Placeholder
 	border = GFX_event_normal_frame_religion
 		
-	trigger = { 
+	trigger = {
 		owner = {
 			religion_group = christian
 			is_feudal = yes
@@ -6157,14 +6158,14 @@ province_event = {
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = noricroman
@@ -6174,43 +6175,43 @@ province_event = {
 		months = 1200 # Testing placeholder
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 7
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 9
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 11
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 13
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 5 }
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 3 }
 			}
 		}
 		modifier = {
 			factor = 2.0
-			owner = { 
+			owner = {
 				NOT = { learning = 1 }
 			}
 		}
@@ -6254,17 +6255,17 @@ province_event = {
 			culture = romansh
 			religion_group = christian
 			is_feudal = yes
-			religion = ROOT			
+			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = noricroman
@@ -6289,7 +6290,7 @@ province_event = {
 
 	option = {
 		name = WtWSMS_pots.102.a
-		culture = romansh 
+		culture = romansh
 	}
 }
 
@@ -6300,11 +6301,11 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_rulers = yes
+	culture = romansh
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = romansh
 		any_courtier = {
 			has_germanic_culture_trigger = yes
 			religion_group = christian
@@ -6352,11 +6353,11 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_playable = yes
+	culture = romansh
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = romansh
 		any_vassal = {
 			has_germanic_culture_trigger = yes
 			religion_group = christian
@@ -6419,14 +6420,14 @@ province_event = {
 	border = GFX_event_normal_frame_diplomacy
 
 	trigger = {
-		had_global_flag = { 
+		had_global_flag = {
 			flag = romansh_melting_pot
-			days = 3650 # 10 years 
+			days = 3650 # 10 years
 		}
 		NOT = { # Lack of strong Romano-British realm remaining
 			any_independent_ruler = {
 				culture = noricroman
-				OR = { 
+				OR = {
 					higher_tier_than = duke
 					realm_size = 35
 					any_demesne_title = {
@@ -6437,9 +6438,9 @@ province_event = {
 			}
 		}
 		NOT = {
-			owner = { 
-				OR = { 
-					culture = noricroman 
+			owner = {
+				OR = {
+					culture = noricroman
 					top_liege = {
 						culture = noricroman
 					}
@@ -6470,7 +6471,7 @@ province_event = {
 	picture = GFX_evt_stone_church # Placeholder
 	border = GFX_event_normal_frame_religion
 		
-	trigger = { 
+	trigger = {
 		owner = {
 			religion_group = christian
 			is_feudal = yes
@@ -6478,14 +6479,14 @@ province_event = {
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = raetoroman
@@ -6495,43 +6496,43 @@ province_event = {
 		months = 1200 # Testing placeholder
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 7
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 9
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 11
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 13
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 5 }
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 3 }
 			}
 		}
 		modifier = {
 			factor = 2.0
-			owner = { 
+			owner = {
 				NOT = { learning = 1 }
 			}
 		}
@@ -6578,14 +6579,14 @@ province_event = {
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = raetoroman
@@ -6610,7 +6611,7 @@ province_event = {
 
 	option = {
 		name = WtWSMS_pots.108.a
-		culture = romansh 
+		culture = romansh
 	}
 }
 
@@ -6623,14 +6624,14 @@ province_event = {
 	border = GFX_event_normal_frame_diplomacy
 
 	trigger = {
-		had_global_flag = { 
+		had_global_flag = {
 			flag = romansh_melting_pot
-			days = 3650 # 10 years 
+			days = 3650 # 10 years
 		}
 		NOT = { # Lack of strong Romano-British realm remaining
 			any_independent_ruler = {
 				culture = raetoroman
-				OR = { 
+				OR = {
 					higher_tier_than = duke
 					realm_size = 35
 					any_demesne_title = {
@@ -6641,9 +6642,9 @@ province_event = {
 			}
 		}
 		NOT = {
-			owner = { 
-				OR = { 
-					culture = raetoroman 
+			owner = {
+				OR = {
+					culture = raetoroman
 					top_liege = {
 						culture = raetoroman
 					}
@@ -6674,25 +6675,25 @@ province_event = {
 	picture = GFX_evt_stone_church # Placeholder
 	border = GFX_event_normal_frame_religion
 		
-	trigger = { 
+	trigger = {
 		owner = {
 			religion_group = christian
 			is_feudal = yes
-			OR = { 
+			OR = {
 				has_germanic_culture_trigger = yes
 				has_slavic_culture_trigger = yes
 			}
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = romano_dacian
@@ -6702,43 +6703,43 @@ province_event = {
 		months = 1200 # Testing placeholder
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 7
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 9
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 11
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 13
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 5 }
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 3 }
 			}
 		}
 		modifier = {
 			factor = 2.0
-			owner = { 
+			owner = {
 				NOT = { learning = 1 }
 			}
 		}
@@ -6785,14 +6786,14 @@ province_event = {
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = romano_dacian
@@ -6817,7 +6818,7 @@ province_event = {
 
 	option = {
 		name = WtWSMS_pots.111.a
-		culture = romanian 
+		culture = romanian
 	}
 }
 
@@ -6828,13 +6829,13 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_rulers = yes
+	culture = romanian
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = romanian
 		any_courtier = {
-			OR = { 
+			OR = {
 				has_germanic_culture_trigger = yes
 				has_slavic_culture_trigger = yes
 			}
@@ -6864,7 +6865,7 @@ character_event = {
 		name = WtWSMS_pots.112.a
 		random_courtier = {
 			limit = {
-				OR = { 
+				OR = {
 					has_germanic_culture_trigger = yes
 					has_slavic_culture_trigger = yes
 				}
@@ -6886,13 +6887,13 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_playable = yes
+	culture = romanian
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = romanian
 		any_vassal = {
-			OR = { 
+			OR = {
 				has_germanic_culture_trigger = yes
 				has_slavic_culture_trigger = yes
 			}
@@ -6922,7 +6923,7 @@ character_event = {
 		name = WtWSMS_pots.113.a
 		random_vassal = {
 			limit = {
-				OR = { 
+				OR = {
 					has_germanic_culture_trigger = yes
 					has_slavic_culture_trigger = yes
 				}
@@ -6959,14 +6960,14 @@ province_event = {
 	border = GFX_event_normal_frame_diplomacy
 
 	trigger = {
-		had_global_flag = { 
+		had_global_flag = {
 			flag = romanian_melting_pot
-			days = 3650 # 10 years 
+			days = 3650 # 10 years
 		}
 		NOT = { # Lack of strong Romano-British realm remaining
 			any_independent_ruler = {
 				culture = romano_dacian
-				OR = { 
+				OR = {
 					higher_tier_than = duke
 					realm_size = 35
 					any_demesne_title = {
@@ -6977,9 +6978,9 @@ province_event = {
 			}
 		}
 		NOT = {
-			owner = { 
-				OR = { 
-					culture = romano_dacian 
+			owner = {
+				OR = {
+					culture = romano_dacian
 					top_liege = {
 						culture = romano_dacian
 					}
@@ -7010,25 +7011,25 @@ province_event = {
 	picture = GFX_evt_stone_church # Placeholder
 	border = GFX_event_normal_frame_religion
 		
-	trigger = { 
+	trigger = {
 		owner = {
 			religion_group = christian
 			is_feudal = yes
-			OR = { 
+			OR = {
 				has_germanic_culture_trigger = yes
 				has_slavic_culture_trigger = yes
 			}
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = thraco_roman
@@ -7038,43 +7039,43 @@ province_event = {
 		months = 1200 # Testing placeholder
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 7
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 9
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 11
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 13
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 5 }
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 3 }
 			}
 		}
 		modifier = {
 			factor = 2.0
-			owner = { 
+			owner = {
 				NOT = { learning = 1 }
 			}
 		}
@@ -7121,14 +7122,14 @@ province_event = {
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = thraco_roman
@@ -7153,7 +7154,7 @@ province_event = {
 
 	option = {
 		name = WtWSMS_pots.117.a
-		culture = romanian 
+		culture = romanian
 	}
 }
 
@@ -7166,14 +7167,14 @@ province_event = {
 	border = GFX_event_normal_frame_diplomacy
 
 	trigger = {
-		had_global_flag = { 
+		had_global_flag = {
 			flag = romanian_melting_pot
-			days = 3650 # 10 years 
+			days = 3650 # 10 years
 		}
 		NOT = { # Lack of strong Romano-British realm remaining
 			any_independent_ruler = {
 				culture = thraco_roman
-				OR = { 
+				OR = {
 					higher_tier_than = duke
 					realm_size = 35
 					any_demesne_title = {
@@ -7184,9 +7185,9 @@ province_event = {
 			}
 		}
 		NOT = {
-			owner = { 
-				OR = { 
-					culture = thraco_roman 
+			owner = {
+				OR = {
+					culture = thraco_roman
 					top_liege = {
 						culture = thraco_roman
 					}
@@ -7217,7 +7218,7 @@ province_event = {
 	picture = GFX_evt_stone_church # Placeholder
 	border = GFX_event_normal_frame_religion
 		
-	trigger = { 
+	trigger = {
 		owner = {
 			religion_group = christian
 			is_feudal = yes
@@ -7225,14 +7226,14 @@ province_event = {
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = pannonian
@@ -7242,43 +7243,43 @@ province_event = {
 		months = 1200 # Testing placeholder
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 7
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 9
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 11
 			}
 		}
 		modifier = {
 			factor = 0.75
-			owner = { 
+			owner = {
 				learning = 13
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 5 }
 			}
 		}
 		modifier = {
 			factor = 1.5
-			owner = { 
+			owner = {
 				NOT = { learning = 3 }
 			}
 		}
 		modifier = {
 			factor = 2.0
-			owner = { 
+			owner = {
 				NOT = { learning = 1 }
 			}
 		}
@@ -7326,14 +7327,14 @@ province_event = {
 			religion = ROOT
 		}
 		religion_group = christian
-		county = { 
+		county = {
 			is_feudal = yes
 		}
 		has_romance_culture_trigger = yes
-		NOR = { 
+		NOR = {
 			any_province_holding = {
 				has_holding_modifier = recently_conquered
-			} 
+			}
 		}
 		has_province_flag = melting_pot_target
 		culture = pannonian
@@ -7358,7 +7359,7 @@ province_event = {
 
 	option = {
 		name = WtWSMS_pots.120.a
-		culture = pannonian_romance 
+		culture = pannonian_romance
 	}
 }
 
@@ -7369,11 +7370,11 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_rulers = yes
+	culture = pannonian_romance
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = pannonian_romance
 		any_courtier = {
 			has_germanic_culture_trigger = yes
 			religion_group = christian
@@ -7421,11 +7422,11 @@ character_event = {
 	picture = GFX_evt_throne_room
 	
 	only_playable = yes
+	culture = pannonian_romance
 
 	trigger = {
 		religion_group = christian
 		is_feudal = yes
-		culture = pannonian_romance
 		any_vassal = {
 			has_germanic_culture_trigger = yes
 			religion_group = christian
@@ -7488,14 +7489,14 @@ province_event = {
 	border = GFX_event_normal_frame_diplomacy
 
 	trigger = {
-		had_global_flag = { 
+		had_global_flag = {
 			flag = pannonian_romance_melting_pot
-			days = 3650 # 10 years 
+			days = 3650 # 10 years
 		}
 		NOT = { # Lack of strong pannonian realm remaining
 			any_independent_ruler = {
 				culture = pannonian
-				OR = { 
+				OR = {
 					higher_tier_than = duke
 					realm_size = 35
 					any_demesne_title = {
@@ -7506,9 +7507,9 @@ province_event = {
 			}
 		}
 		NOT = {
-			owner = { 
-				OR = { 
-					culture = pannonian 
+			owner = {
+				OR = {
+					culture = pannonian
 					top_liege = {
 						culture = pannonian
 					}
