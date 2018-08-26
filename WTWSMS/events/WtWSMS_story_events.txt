@@ -1,10 +1,11 @@
-#########################
+###################################
+# Fall of Rome, historical invasions, etc..
 #
-#  Fall of Rome, historical invasions, etc..
-#
-#  Written by Zusk
-#
-########################
+# Written by Zusk
+# 
+# zusk_event.22 -> zusk_event.50
+# historical_wtwsms.1 -> historical_wtwsms.6
+###################################
 
 namespace = zusk_event
 namespace = historical_wtwsms
@@ -126,9 +127,9 @@ character_event = {
 	only_playable = yes
 	only_independent = yes
 	min_age = 16
+	has_global_flag = historical_events_fall_of_rome
 	
 	trigger = {
-		has_global_flag = historical_events_fall_of_rome
 		NOT = { has_global_flag = justinian_adopted }
 		has_landed_title = e_byzantium
 		independent = yes
@@ -140,8 +141,6 @@ character_event = {
 		}
 		NOT = { trait = pregnant }
 		NOT = { any_spouse = { trait = pregnant } }
-		age = 16
-		
 	}
 	
 	mean_time_to_happen = {
@@ -158,17 +157,17 @@ character_event = {
 			culture = roman #Actually Illyrian or Thracian
 			age = 5
 			attributes = {
-				martial=10
-				diplomacy=5
-				intrigue=6
-				stewardship=5
+				martial = 10
+				diplomacy = 5
+				intrigue = 6
+				stewardship = 5
 			}
-			trait="ambitious"
-			trait="just"
-			trait="mystic"
-			trait="genius"
-			trait="midas_touched"
-			trait="legendary_leader"
+			trait = "ambitious"
+			trait = "just"
+			trait = "mystic"
+			trait = "genius"
+			trait = "midas_touched"
+			trait = "legendary_leader"
 		}
 		if = {
 			limit = {
@@ -183,7 +182,7 @@ character_event = {
 				ROOT = { is_female = no }
 			}
 			new_character = {
-				set_father = ROOT 
+				set_father = ROOT
 			}
 		}
 		recalc_succession = yes
@@ -196,7 +195,7 @@ character_event = {
 }
 
 # Julius Nepos gets WRE
-character_event = {  
+character_event = {
 	id = zusk_event.26
 	desc = zusk_event.26.desc
 	picture = GFX_evt_heretic
@@ -227,9 +226,9 @@ character_event = {
 
 	only_playable = yes
 	only_independent = yes
+	has_global_flag = historical_events_fall_of_rome
 	
 	trigger = {
-		has_global_flag = historical_events_fall_of_rome
 		has_landed_title = k_franks
 		NOT = { has_global_flag = franks_religion_flag }
 		religion = germanic_pagan
@@ -245,10 +244,10 @@ character_event = {
 		name = ZUSK27OP1
 		ai_chance = { factor = 50 }
 
-		religion = nicene	 
-		culture = frankish	
+		religion = nicene
+		culture = frankish
 
-		set_global_flag = franks_religion_flag		  
+		set_global_flag = franks_religion_flag
 
 		if = {
 			limit = {
@@ -273,7 +272,7 @@ character_event = {
 				chance = 50
 				add_trait = sympathy_pagans
 			}
-		}		
+		}
 		
 		prestige = -500
 		piety = -50
@@ -335,8 +334,8 @@ character_event = {
 		name = ZUSK27OP2
 		ai_chance = { factor = 20 }
 
-		religion = arian   
-		culture = frankish	   
+		religion = arian
+		culture = frankish
 
 		set_global_flag = franks_religion_flag
 
@@ -353,7 +352,7 @@ character_event = {
 		}
 		if = {
 			limit = {
-				NOT = { 
+				NOT = {
 					trait = cynical
 					trait = zealous
 				}
@@ -363,7 +362,7 @@ character_event = {
 				chance = 50
 				add_trait = sympathy_pagans
 			}
-		}		
+		}
 		
 		prestige = -500
 		piety = -50
@@ -403,7 +402,7 @@ character_event = {
 				culture = old_frankish
 			}
 			religion = arian
-			culture = frankish   
+			culture = frankish
 		}
 		create_random_priest = {
 			random_traits = yes
@@ -549,22 +548,22 @@ narrative_event = {
 	id = zusk_event.29
 	title = zusk_event.29.name
 	desc = zusk_event.29.desc
-	
 	picture = "GFX_evt_mongols"
 	border = "GFX_event_narrative_frame_war"
+	
+	has_global_flag = gokturk_arrived
 
 	trigger = {
 		year = 550
 		NOT = { year = 600 }
 		NOT = { has_global_flag = avar_arrived }
-		has_global_flag = gokturk_arrived
-		496 = { 
+		496 = {
 			owner = {
 				OR = {
 					is_liege_or_above = ROOT
 					character = ROOT
 				}
-			} 
+			}
 		}
 		e_avar = {
 			has_holder = no
@@ -619,7 +618,7 @@ narrative_event = {
 						character_event = { id = zusk_event.28 days = 25 }
 
 					}
-			    }
+				}
 			}
 		}
 	}
@@ -768,7 +767,7 @@ narrative_event = {
 		religion_authority = {
 			modifier = fall_of_rome_moral_authority
 			years = 100
-		}	
+		}
 		piety = -1000
 		prestige = -1000
 	}
@@ -778,13 +777,14 @@ narrative_event = {
 character_event = {
 	id = zusk_event.31
 	hide_window = yes
+	
+	religion = zoroastrian
 
 	trigger = {
 		e_persia = {
 			has_holder = no
 		}
 		NOT = { has_global_flag = fall_of_persia }
-		religion = zoroastrian
 		controls_religion = yes
 	}
 	
@@ -794,9 +794,9 @@ character_event = {
 
 	option = {
 		name = OK
-		  
+		
 		trigger = {
-			NOT = { 
+			NOT = {
 				any_playable_ruler = {
 					culture = persian
 					primary_title = { tier = EMPEROR }
@@ -811,7 +811,7 @@ character_event = {
 
 	option = {
 		name = OK
-		  
+		
 		trigger = {
 			any_playable_ruler = {
 				culture = persian
@@ -835,7 +835,7 @@ narrative_event = {
 	option = {
 		name = ZUSK32OP1
 		trigger = {
-			NOT = { 
+			NOT = {
 				AND = {
 					controls_religion = yes
 					religion = zoroastrian
@@ -862,7 +862,7 @@ narrative_event = {
 	option = {
 		name = ZUSK32OP3
 		trigger = {
-			NOT = { 
+			NOT = {
 				AND = {
 					controls_religion = yes
 					religion = zoroastrian
@@ -886,7 +886,7 @@ narrative_event = {
 	option = {
 		name = ZUSK32OP4
 		trigger = {
-			NOT = { 
+			NOT = {
 				AND = {
 					controls_religion = yes
 					religion = zoroastrian
@@ -895,7 +895,7 @@ narrative_event = {
 			culture = persian
 			NOT = { dynasty = 1029100 }
 			NOT = { higher_tier_than = DUKE }
-			NOT = {   
+			NOT = {
 				e_persia = {
 					any_previous_holder = {
 						character = ROOT
@@ -921,7 +921,7 @@ narrative_event = {
 		religion_authority = {
 			modifier = fall_of_persia #Helps muslims convert Persia
 			years = 100
-		}	
+		}
 		piety = -1000
 		prestige = -1000
 	}
@@ -931,13 +931,14 @@ narrative_event = {
 character_event = {
 	id = zusk_event.33
 	hide_window = yes
+	
+	religion = miaphysite
 
 	trigger = {
 		e_byzantium = {
 			has_holder = no
 		}
 		NOT = { has_global_flag = fall_of_constantinople }
-		religion = miaphysite
 		controls_religion = yes
 	}
 	
@@ -947,12 +948,12 @@ character_event = {
 
 	option = {
 		name = OK
-		  
+		
 		trigger = {
 			e_roman_empire = {
 				has_holder = no
 			}
-			NOT = { 
+			NOT = {
 				any_playable_ruler = {
 					culture_group = byzantine
 					primary_title = { tier = EMPEROR }
@@ -967,7 +968,7 @@ character_event = {
 
 	option = {
 		name = OK
-		  
+		
 		trigger = {
 			OR = {
 				e_roman_empire = {
@@ -1004,20 +1005,21 @@ character_event = {
 	desc = zusk_event.37.desc
 	picture = GFX_evt_council
 	
+	has_global_flag = historical_events_fall_of_rome
+	
 	trigger = {
-		has_global_flag = historical_events_fall_of_rome
 		year = 490
 		NOT = { year = 550 }
 		NOT = { has_global_flag = ostrogoths_arrived }
 		NOT = { k_ostrogoths = { holder_scope = { war_with = ROOT } } }
 		has_global_flag = fall_of_rome
-		496 = { 
+		496 = {
 			owner = {
 				OR = {
 					is_liege_or_above = ROOT
 					character = ROOT
 				}
-			} 
+			}
 		}
 		k_ostrogoths = {
 			has_holder = yes
@@ -1042,19 +1044,19 @@ character_event = {
 		ai_chance = {
 			factor = 90
 		}
-	 	treasury = -50		
-		custom_tooltip = { 
+		treasury = -50
+		custom_tooltip = {
 			text = ostrogoth_attack_tooltip
 			hidden_tooltip = {
 				any_playable_ruler = {
 					limit = {
 						has_landed_title = k_ostrogoths
-					}		 
+					}
 					treasury = 50
-				 	character_event = { id = zusk_event.22 days = 25 }
+					character_event = { id = zusk_event.22 days = 25 }
 				}
-		  	}
-	  	}
+			}
+		}
 	}
 	option = {
 		name = ZUSK37OP2
@@ -1073,25 +1075,25 @@ province_event = {
 	border = GFX_event_normal_frame_war
 
 	trigger = {
-        year = 500
+		year = 500
 		NOT = { has_global_flag = rouran_arrived }
-        province_id = 1423
+		province_id = 1423
 	}
 	
 	mean_time_to_happen = {
 		years = 20
 	}
 	
-    immediate = {
+	immediate = {
 		set_global_flag = rouran_arrived
-        activate_title = { title = e_rouran status = yes }
+		activate_title = { title = e_rouran status = yes }
 		
 		create_character = {
-            name = Nagai
+			name = Nagai
 			random_traits = no
 			dynasty = 100
 			religion = tengri_pagan
-             culture = mongol
+			 culture = mongol
 			female = no
 			age = 45
 		}
@@ -1099,14 +1101,14 @@ province_event = {
 		new_character = {
 			save_event_target_as = target_rouran
 
-            wealth = 500
+			wealth = 500
 
-            e_rouran = {
+			e_rouran = {
 				grant_title = PREV
 			}
-            set_defacto_liege = THIS
+			set_defacto_liege = THIS
 
-            c_fergana = {
+			c_fergana = {
 				grant_title = PREV
 			}
 
@@ -1259,7 +1261,7 @@ province_event = {
 				}
 			}
 		}
-    }
+	}
 
 	option = {
 		name = "EVTOPTA_TOG_1000"
@@ -1277,9 +1279,9 @@ province_event = {
 	border = GFX_event_normal_frame_war
 
 	trigger = {
-				year = 550
+		year = 550
 		NOT = { has_global_flag = gokturk_arrived }
-				province_id = 1423
+		province_id = 1423
 	}
 	
 	mean_time_to_happen = {
@@ -1289,7 +1291,7 @@ province_event = {
 		immediate = {
 		set_global_flag = gokturk_arrived
 
-		 	activate_title = { title = e_turkestan status = yes }
+			activate_title = { title = e_turkestan status = yes }
 
 		create_character = {
 						name = Bumin
@@ -1527,7 +1529,7 @@ province_event = {
 			}
 
 			add_claim = e_tartaria
-					   
+					
 			create_character = {
 				random_traits = yes
 				dynasty = none
@@ -1697,9 +1699,9 @@ province_event = {
 	border = GFX_event_normal_frame_war
 
 	trigger = {
-				year = 900
+		year = 900
 		NOT = { has_global_flag = khanid_arrived }
-				province_id = 1423
+		province_id = 1423
 	}
 	
 	mean_time_to_happen = {
@@ -1709,7 +1711,7 @@ province_event = {
 		immediate = {
 		set_global_flag = khanid_arrived
 
-		 	activate_title = { title = e_khanid status = yes }
+			activate_title = { title = e_khanid status = yes }
 
 		create_character = {
 						name = Bilge
@@ -1909,44 +1911,44 @@ province_event = {
 	border = GFX_event_normal_frame_war
 
 	trigger = {
-				year = 1100
+		year = 1100
 		NOT = { has_global_flag = khitan_arrived }
-				province_id = 1423
+		province_id = 1423
 	}
 	
 	mean_time_to_happen = {
 		years = 20
 	}
 	
-		immediate = {
+	immediate = {
 		set_global_flag = khitan_arrived
 
-		 	activate_title = { title = e_khitan status = yes }
+		 activate_title = { title = e_khitan status = yes }
 
 		create_character = {
-						name = Yelu
+			name = Yelu
 			random_traits = no
 			dynasty = random
 			religion = tengri_pagan
-						culture = khitan
+			culture = khitan
 			female = no
 			age = 45
 		}
 		
 		new_character = {
 			save_event_target_as = target_khitan
-						wealth = 500
+			wealth = 500
 
-						e_khitan = {
-			grant_title = PREV
+			e_khitan = {
+				grant_title = PREV
 			}
-						set_defacto_liege = THIS
+			set_defacto_liege = THIS
 
-						c_fergana = {
-			grant_title = PREV
+			c_fergana = {
+				grant_title = PREV
 			}
 
-						add_claim = e_tartaria
+			add_claim = e_tartaria
 
 			create_character = {
 				random_traits = yes
@@ -1962,20 +1964,20 @@ province_event = {
 			}
 			new_character = {
 				spawn_unit = {
-				province = ROOT
-				home = ROOT
-				owner = PREV
-				troops =
-				{
-					horse_archers = { 2700 2700 }
-					light_cavalry = { 1600 1600 }
-					light_infantry = { 541 541 }
-					heavy_infantry = { 210 210 }
-					knights = { 47 47 }
-				}
-				attrition = 0.25
-							 }
+					province = ROOT
+					home = ROOT
+					owner = PREV
+					troops =
+					{
+						horse_archers = { 2700 2700 }
+						light_cavalry = { 1600 1600 }
+						light_infantry = { 541 541 }
+						heavy_infantry = { 210 210 }
+						knights = { 47 47 }
 					}
+					attrition = 0.25
+				}
+			}
 			create_character = {
 				random_traits = yes
 				dynasty = random
@@ -1990,20 +1992,20 @@ province_event = {
 			}
 			new_character = {
 				spawn_unit = {
-				province = ROOT
-				home = ROOT
-				owner = PREV
-				troops =
-				{
-					horse_archers = { 2700 2700 }
-					light_cavalry = { 1600 1600 }
-					light_infantry = { 541 541 }
-					heavy_infantry = { 210 210 }
-					knights = { 47 47 }
-				}
-				attrition = 0.25
-							 }
+					province = ROOT
+					home = ROOT
+					owner = PREV
+					troops =
+					{
+						horse_archers = { 2700 2700 }
+						light_cavalry = { 1600 1600 }
+						light_infantry = { 541 541 }
+						heavy_infantry = { 210 210 }
+						knights = { 47 47 }
 					}
+					attrition = 0.25
+				}
+			}
 			create_character = {
 				random_traits = yes
 				dynasty = random
@@ -2090,26 +2092,24 @@ province_event = {
 			}
 			
 			# DoW on the province top liege
-					1425 = {
-			empire = {
-				event_target:target_khitan = {
-					war = {
-						casus_belli = unification
-						target = PREVPREV # The top liege of the owner
-						thirdparty_title = PREV # The de jure kingdom
+			1425 = {
+				empire = {
+					event_target:target_khitan = {
+						war = {
+							casus_belli = unification
+							target = PREVPREV # The top liege of the owner
+							thirdparty_title = PREV # The de jure kingdom
+						}
 					}
 				}
 			}
 		}
-	}
 	
-		}
+	}
 
 	option = {
 		name = "EVTOPTA_TOG_1000"
 	}
-
-
 }
 
 # Fall of Roman Culture
@@ -2120,8 +2120,8 @@ character_event = {
 	
 	trigger = {
 		has_game_rule = { # Has enabled old melting pot events
-			name = melting_pots 
-			value = old 
+			name = melting_pots
+			value = old
 		}
 		NOT = { year = 800 }
 		OR = {
@@ -2334,15 +2334,15 @@ province_event = {
 character_event = {
 	id = zusk_event.44
 	desc = zusk_event.44.desc
-	
 	picture = GFX_evt_heretic
 	border = GFX_event_normal_frame_religion
 	
+	has_global_flag = historical_events_fall_of_rome
+	religion = tengri_pagan
+	
 	trigger = {
-		has_global_flag = historical_events_fall_of_rome
 		has_landed_title = k_hunas
 		NOT = { has_global_flag = hunas_religion_flag }
-		religion = tengri_pagan
 		independent = yes
 		year = 500
 		NOT = { year = 550 }
@@ -2356,7 +2356,7 @@ character_event = {
 		name = ZUSK44OP1
 		ai_chance = { factor = 90 }
 
-		religion = hindu			
+		religion = hindu
 
 		set_global_flag = hunas_religion_flag
 
@@ -2373,7 +2373,7 @@ character_event = {
 		}
 		if = {
 			limit = {
-				NOT = { 
+				NOT = {
 					trait = cynical
 					trait = zealous
 				}
@@ -2383,7 +2383,7 @@ character_event = {
 				chance = 50
 				add_trait = sympathy_pagans
 			}
-		}		
+		}
 		
 		prestige = -500
 		piety = -50
@@ -2483,13 +2483,13 @@ character_event = {
 character_event = {
 	id = zusk_event.45
 	desc = zusk_event.45.desc
-	
 	picture = GFX_evt_heretic
 	border = GFX_event_normal_frame_religion
 
+	has_global_flag = historical_events_fall_of_rome
+	religion = germanic_pagan
 	
 	trigger = {
-		has_global_flag = historical_events_fall_of_rome
 		has_landed_title = k_england
 		NOT = { has_global_flag = england_religion_flag }
 		OR = {
@@ -2497,7 +2497,6 @@ character_event = {
 			culture_group = west_germanic
 			culture_group = central_germanic
 		}
-		religion = germanic_pagan
 		independent = yes
 		year = 530
 	}
@@ -2682,7 +2681,7 @@ character_event = {
 				religion = celtic_pagan
 			}
 		}
-		religion = celtic_pagan	   
+		religion = celtic_pagan
 
 		set_global_flag = england_religion_flag
 
@@ -2690,7 +2689,7 @@ character_event = {
 		random = {
 			chance = 50
 			add_trait = zealous
-		}	
+		}
 		
 		prestige = -500
 		piety = -50
@@ -2762,15 +2761,16 @@ narrative_event = {
 	id = zusk_event.46
 	title = zusk_event.46.name
 	desc = zusk_event.46.desc
-	
 	picture = GFX_evt_fall_of_constantinople
 	border = GFX_event_narrative_frame_diplomacy
+	
+	has_global_flag = fall_of_constantinople
+	war = no
 	
 	trigger = {
 		e_byzantium = {
 			has_holder = no
 		}
-		has_global_flag = fall_of_constantinople
 		NOT = { has_global_flag = byzantine_egypt }
 		k_egypt = {
 			holder_scope = {
@@ -2778,7 +2778,6 @@ narrative_event = {
 			}
 		}
 		prestige = 1000
-		war = no
 	}
 	
 	mean_time_to_happen = {
@@ -2889,8 +2888,8 @@ narrative_event = {
 		piety = 1000
 		give_nickname = nick_the_great
 		k_egypt = {
-			set_name="BYZANTINE_EGYPT"
-			adjective="BYZANTINE_EGYPT_ADJ"
+			set_name = "BYZANTINE_EGYPT"
+			adjective = "BYZANTINE_EGYPT_ADJ"
 		}
 		add_claim = e_byzantium
 	}
@@ -2900,9 +2899,10 @@ narrative_event = {
 character_event = {
 	id = zusk_event.47
 	hide_window = yes
+	
+	has_global_flag = historical_events_fall_of_rome
 
 	trigger = {
-		has_global_flag = historical_events_fall_of_rome
 		e_wre = {
 			has_holder = no
 		}
@@ -2924,7 +2924,7 @@ character_event = {
 			e_roman_empire = {
 				has_holder = no
 			}
-			NOT = { 
+			NOT = {
 				any_playable_ruler = {
 					culture_group = latin
 					primary_title = { tier = EMPEROR }
@@ -3045,11 +3045,12 @@ character_event = {
 	id = zusk_event.49
 	hide_window = yes
 	
+	culture = romano_hispanic
+	ai = yes
+	religion = arian
+	
 	trigger = {
 		NOT = { year = 800 }
-		culture = romano_hispanic
-		ai = yes
-		religion = arian
 		independent = yes
 		any_realm_province = { #Still a sizable amount of Romano-Hispanics left within the realm
 			religion = nicene
@@ -3109,16 +3110,16 @@ character_event = {
 			text = vandal_slave_tooltip
 			hidden_tooltip = {
 				create_character = {
-					name="Gaudentius"
+					name = "Gaudentius"
 					random_traits = no
 					age = 36
 					female = no
 					religion = hellenic_pagan
 					culture = roman
 					dynasty = none
-					trait="zealous"
-					trait="ambitious"
-					trait="diligent"
+					trait = "zealous"
+					trait = "ambitious"
+					trait = "diligent"
 				}
 				new_character = {
 					imprison = yes
@@ -3339,7 +3340,7 @@ narrative_event = {
 		text = historical_wtwsms.1.desc.a
 	}
 	desc = {
-		trigger = {			
+		trigger = {
 			NOT = { has_landed_title = e_byzantium }
 		}
 		text = historical_wtwsms.1.desc.b
@@ -3353,7 +3354,7 @@ narrative_event = {
 	
 	trigger = {
 		start_date = 476.2.2
-		NOT = { year = 500 } # Zeno's war is in 476, this prevents the event from firing later in case vassals would rebel and Zeno had failed the rebellion 
+		NOT = { year = 500 } # Zeno's war is in 476, this prevents the event from firing later in case vassals would rebel and Zeno had failed the rebellion
 		ROOT = {
 			has_landed_title = e_byzantium
 			character = 70515 # Zeno
@@ -3373,7 +3374,7 @@ narrative_event = {
 	}
 	
 	option = {
-		name = OK # To expand, maybe banquet event with Odoacer?	
+		name = OK # To expand, maybe banquet event with Odoacer?
 		trigger = {
 			has_landed_title = e_byzantium
 		}
@@ -3389,7 +3390,7 @@ narrative_event = {
 		}
 	}
 	option = {
-		name = OK # To expand/look into options with WRE		
+		name = OK # To expand/look into options with WRE
 		trigger = {
 			NOT = { has_landed_title = e_byzantium }
 		}
@@ -3407,26 +3408,26 @@ narrative_event = {
 		text = historical_wtwsms.2.desc.a
 	}
 	desc = {
-		trigger = {			
+		trigger = {
 			NOT = { has_landed_title = k_ostrogoths }
 		}
 		text = historical_wtwsms.2.desc.b
 	}
 	picture = GFX_evt_heretic
 	
-	only_rulers = yes
-	only_independent = yes
-	
 	major = yes
 	
+	only_rulers = yes
+	only_independent = yes
+	has_global_flag = ostrogoths_arrived
+	
 	trigger = {
-		has_global_flag = ostrogoths_arrived
 		ROOT = {
 			has_landed_title = k_ostrogoths
 			character = 63 # Theodoric the Great
 		}
 		k_italy = {
-			any_previous_holder = { 
+			any_previous_holder = {
 				ROOT = { has_truce = PREV }
 			}
 		}
@@ -3464,9 +3465,9 @@ narrative_event = {
 		}
 		
 		disband_event_forces = theodoric_italy_invasion
-		prestige = 100 
+		prestige = 100
 		change_infamy = { # To avoid huge coalition
-			value = -100 
+			value = -100
 			localisation = CHANGE_INFAMY_EFFECT
 		}
 	}
@@ -3490,37 +3491,37 @@ narrative_event = {
 		text = historical_wtwsms.3.desc.a
 	}
 	desc = {
-		trigger = {			
+		trigger = {
 			NOT = { has_landed_title = e_wre }
 		}
 		text = historical_wtwsms.3.desc.b
 	}
 	picture = GFX_evt_heretic
 	
-	only_rulers = yes
-	only_independent = yes
-	
 	major = yes
 	
+	only_rulers = yes
+	only_independent = yes
+	has_global_flag = julis_nepos_wre
+	
 	trigger = {
-		has_global_flag = julis_nepos_wre
 		OR = {
 			start_date = 476.2.2
 			start_date = 480.5.1
 		}
-		ROOT = { 
+		ROOT = {
 			has_landed_title = e_wre
 			character = 175110 # Julius Nepos
 		}
-		OR = { 
-			k_italy = { 
-				any_previous_holder = { 
-					ROOT = { has_truce = PREV}
+		OR = {
+			k_italy = {
+				any_previous_holder = {
+					ROOT = { has_truce = PREV }
 				}
 			}
-			k_ostrogoths = { 
-				any_previous_holder = { 
-					ROOT = { has_truce = PREV}
+			k_ostrogoths = {
+				any_previous_holder = {
+					ROOT = { has_truce = PREV }
 				}
 			}
 		}
@@ -3557,7 +3558,7 @@ narrative_event = {
 			has_landed_title = e_wre
 		}
 		
-		prestige = 100 
+		prestige = 100
 		if = {
 			limit = {
 				k_ostrogoths = {
@@ -3572,14 +3573,14 @@ narrative_event = {
 					abdicate_to = ROOT
 				}
 			}
-			k_ostrogoths = { 
+			k_ostrogoths = {
 				destroy_landed_title = THIS
 			}
 		}
 		if = {
 			limit = {
 				k_italy = {
-					holder_scope = { 
+					holder_scope = {
 						vassal_of = ROOT
 					}
 				}
@@ -3587,7 +3588,7 @@ narrative_event = {
 			k_italy = {
 				holder_scope = {
 					imprison = ROOT
-					abdicate_to = ROOT 
+					abdicate_to = ROOT
 				}
 			}
 			k_italy = {
@@ -3595,14 +3596,14 @@ narrative_event = {
 			}
 		}
 		change_infamy = { # To avoid huge coalition
-			value = -100 
+			value = -100
 			localisation = CHANGE_INFAMY_EFFECT
 		}
 	}
-	option = { 
+	option = {
 		name = historical_wtwsms.3.b
 		trigger = {
-			NOT = { has_landed_title = e_wre }		
+			NOT = { has_landed_title = e_wre }
 		}
 	}
 }

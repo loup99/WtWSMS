@@ -56,17 +56,17 @@ character_event = {
 	picture = GFX_evt_tughra
 	
 	only_rulers = yes
+	has_global_flag = fall_of_constantinople
+	culture = turkish
+	prisoner = no
+	war = no
 	
 	trigger = {
-		has_global_flag = fall_of_constantinople
 		NOT = { has_global_flag = byzantium_eliminated }
 		is_adult = yes
-		culture = turkish
 		religion_group = muslim
 		independent = yes
 		has_landed_title = e_turkish
-		prisoner = no
-		war = no
 		e_byzantium = {
 			owner = {
 				war = no
@@ -124,9 +124,9 @@ character_event = {
 	picture = GFX_evt_turkish_sultan
 	
 	only_rulers = yes
+	culture = turkish
 	
 	trigger = {
-		culture = turkish
 		religion_group = muslim
 		has_landed_title = e_turkish
 		NOT = { trait = kayser_i_rum }
@@ -184,9 +184,9 @@ narrative_event = {
 	
 	option = {
 		name = "ottoman.6.a"
-		trigger = { 
-			NOT = { religion_group = muslim } 
-			NOT = { religion_group = christian } 
+		trigger = {
+			NOT = { religion_group = muslim }
+			NOT = { religion_group = christian }
 		}
 	}
 	option = {
@@ -207,14 +207,14 @@ character_event = {
 	picture = GFX_evt_turkish_sultan
 	
 	only_rulers = yes
+	culture = turkish
 	
 	trigger = {
 		has_landed_title = e_turkish
 		religion_group = muslim
-		culture = turkish
 	}
 	
-	mean_time_to_happen = { 
+	mean_time_to_happen = {
 		months = 1000
 		modifier = {
 			factor = 3
@@ -354,7 +354,7 @@ character_event = {
 # Inform Byzantine Emperor of his title loss
 letter_event = {
 	id = ottoman.8
-	desc = ottoman.8.desc
+	desc =  ottoman.8.desc
 	#picture = GFX_evt_emissary #letter events don't have pictures
 	
 	is_triggered_only = yes
@@ -381,14 +381,15 @@ character_event = {
 	
 	is_triggered_only = yes
 	
+	religion_group = muslim
+	culture = turkish
+	
 	trigger = {
 		OR = {
 			has_landed_title = e_turkish
 			father = { has_landed_title = e_turkish }
 			any_sibling = { has_landed_title = e_turkish }
 		}
-		religion_group = muslim
-		culture = turkish
 		NOT = { num_of_spouses = 4 }
 	}
 	
@@ -409,7 +410,7 @@ character_event = {
 			name = VIET_virile_ottoman
 			duration = 730
 		}
-		##########################		
+		##########################
 		#15 Circassian
 		#10 Turks
 		#10 Greeks
@@ -1061,7 +1062,7 @@ character_event = {
 				}
 			}
 		}
-	}	
+	}
 	option = {
 		name = "ottoman.9.b"
 		trigger = {
@@ -1082,6 +1083,8 @@ character_event = {
 	only_rulers = yes
 	capable_only = yes
 	prisoner = no
+	culture = turkish
+	is_married = yes
 	
 	trigger = {
 		OR = {
@@ -1090,16 +1093,14 @@ character_event = {
 			any_sibling = { has_landed_title = e_turkish }
 		}
 		religion_group = muslim
-		culture = turkish
-		is_married = yes
 		any_spouse = {
 			NOT = { age = 35 }
 			NOT = { trait = incapable }
 			is_pregnant = no
 		}
-	}	
+	}
 	
-	mean_time_to_happen = { 
+	mean_time_to_happen = {
 		months = 1000
 		modifier = {
 			factor = 2
@@ -1152,7 +1153,7 @@ character_event = {
 			random = {
 				chance = 20
 				impregnate = ROOT
-			}			
+			}
 		}
 		random_list = {
 			70 = { add_trait = stressed }
@@ -1163,7 +1164,7 @@ character_event = {
 			name = VIET_virile_ottoman
 			duration = 365
 		}
-	}	
+	}
 	option = {
 		name = "ottoman.10.b"
 		set_character_flag = ottoman_enough_sex_already
@@ -1176,7 +1177,7 @@ character_event = {
 				modifier = opinion_sad
 				who = ROOT
 				years = 1
-			}		
+			}
 		}
 		prestige = -20
 		if = {
@@ -1202,14 +1203,14 @@ character_event = {
 	only_rulers = yes
 	only_playable = yes
 	capable_only = yes
-	prisoner = no	
+	prisoner = no
 	
 	trigger = {
 		OR = {
 			top_liege = {
 				has_landed_title = e_turkish
 				NOT = { trait = incapable }
-				is_adult = yes			
+				is_adult = yes
 			}
 			has_landed_title = e_turkish
 		}
@@ -1223,10 +1224,10 @@ character_event = {
 			any_demesne_province = {
 				has_province_modifier = VIET_muafname_granted
 			}
-		}				
+		}
 	}
 	
-	mean_time_to_happen = { 
+	mean_time_to_happen = {
 		months = 2000
 	}
 	
@@ -1238,7 +1239,7 @@ character_event = {
 		top_liege = {
 			letter_event = { id = ottoman.13 days = 5 random = 5 tooltip = ottoman.13.tooltip }
 		}
-	}	
+	}
 	option = {
 		name = "ottoman.12.b" #No
 		trigger = {
@@ -1250,7 +1251,7 @@ character_event = {
 				duration = 3650
 			}
 		}
-	}	
+	}
 	option = {
 		name = "ottoman.12.c" #No
 		trigger = {
@@ -1261,8 +1262,8 @@ character_event = {
 				name = VIET_muafname_granted
 				duration = 1095
 			}
-		}		
-	}	
+		}
+	}
 	option = {
 		name = "ottoman.12.d" #No
 	}
@@ -1303,11 +1304,11 @@ letter_event = {
 				add_province_modifier = {
 					name = VIET_muafname_granted
 					duration = 7300
-				}			
+				}
 			}
 			letter_event = { id = ottoman.14 days = 5 random = 5 tooltip = ottoman.14.tooltip }
 		}
-	}	
+	}
 	option = {
 		name = ottoman.13.b
 		ai_chance = {
@@ -1335,7 +1336,7 @@ letter_event = {
 				add_province_modifier = {
 					name = VIET_muafname_granted
 					duration = 1095
-				}				
+				}
 			}
 			letter_event = { id = ottoman.15 days = 5 random = 5 tooltip = ottoman.15.tooltip }
 		}
@@ -1411,7 +1412,7 @@ letter_event = {
 	option = {
 		name = ottoman.16.a
 		prestige = -15
-	}	
+	}
 	option = {
 		name = ottoman.16.b
 		prestige = -15

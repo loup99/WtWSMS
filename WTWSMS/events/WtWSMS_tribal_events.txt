@@ -1,3 +1,9 @@
+###############################
+# Tribal events
+#
+# WtWSMS_tribal.1 -> WtWSMS_tribal.2
+###############################
+
 namespace = WtWSMS_tribal
 
 # Tribal kingdom fractures on death of ruler (ROOT is the dead ruler)
@@ -38,13 +44,13 @@ character_event = {
 			NOR = {
 				has_law	= tribal_organization_4 # Absolute Tribal Organization
 				has_law	= centralization_3 # High Centralization
-			} 
+			}
 		}
 	}
 	
 	immediate = {
-		current_heir = { 
-			long_character_event = { 
+		current_heir = {
+			long_character_event = {
 				id = WtWSMS_tribal.2
 				days = 1
 			}
@@ -54,11 +60,11 @@ character_event = {
 
 # Weak heir looses kingdom title
 long_character_event = {
-    id = WtWSMS_tribal.2
+	id = WtWSMS_tribal.2
 	desc = WtWSMS_tribal.2.desc
 	picture = GFX_evt_death
 	
-	is_triggered_only = yes 
+	is_triggered_only = yes
 
 	immediate = {
 		random_demesne_title = {
@@ -70,16 +76,16 @@ long_character_event = {
 		}
 		any_vassal = {
 			limit = {
-				OR = { 
+				OR = {
 					tier = DUKE
 					AND = {
 						tier = COUNT
-						NOT = { 
+						NOT = {
 							primary_title = { dejure_liege_title = { NOT = { holder_scope = { character = ROOT } } } } # Not a de jure vassal of any duchy kept
 						}
 					}
 				}
-			} 
+			}
 			set_defacto_liege = THIS # Independent
 		}
 		if = { # Clear up AI borders
@@ -93,12 +99,12 @@ long_character_event = {
 			event_target:destroyed_kingdom = {
 				random_direct_de_jure_vassal_title = {
 					limit = {
-						#tier = duke  #probably not needed
+						#tier = duke #probably not needed
 						OR = {
 							holder_scope = { # Heir holds the duchy
 								character = ROOT
 							}
-							any_direct_de_jure_vassal_title = { 
+							any_direct_de_jure_vassal_title = {
 								holder_scope = { # Heir holds a county in duchy
 									character = ROOT
 								}
@@ -116,7 +122,7 @@ long_character_event = {
 				}
 			}
 			if = {
-				limit={
+				limit = {
 					NOT = { has_landed_title = event_target:capital_duchy }
 				}
 				event_target:capital_duchy = {
