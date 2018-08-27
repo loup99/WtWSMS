@@ -1296,3 +1296,78 @@ narrative_event = {
 		any_realm_province = { add_province_modifier = { name = failed_crops duration = 3650 } }
     }
 }
+
+# 1138 Aleppo earthquake
+narrative_event = {
+	id = hist.29
+	title = hist.29.name
+	desc = hist.29.desc
+	picture = GFX_evt_falling_statue
+	border = GFX_event_narrative_frame_diplomacy
+	
+	only_playable = yes
+	
+	major = yes
+
+	trigger = {
+		year = 1138
+		NOT = { has_global_flag = 1138_aleppo_earthquake }
+		b_aleppo = {
+			holder_scope = { top_liege = { character = ROOT } }
+		}
+	}
+	
+    mean_time_to_happen = {
+        months = 5
+	}
+	
+	immediate = {
+		set_global_flag = 1138_aleppo_earthquake
+		b_harim = { destroy_settlement = THIS }
+	}
+    option = {
+		name = hist.29.a
+		
+		trigger = {
+			b_aleppo = {
+				holder_scope = { top_liege = { character = ROOT } }
+			}
+		}
+		
+		b_aleppo = {
+			destroy_random_building = yes
+			destroy_random_building = yes
+			destroy_random_building = yes
+			destroy_random_building = yes
+			destroy_random_building = yes
+			location = {
+				add_province_modifier = { name = horrible_earthquake duration = 730 }
+			}
+		}
+	}
+	option = {
+		name = hist.29.b #we must send help
+		trigger = {
+			b_aleppo = {
+				holder_scope = { top_liege = { character = ROOT } }
+			}
+		}
+		
+		b_aleppo = {
+			destroy_random_building = yes
+			destroy_random_building = yes
+			location = {
+				add_province_modifier = { name = horrible_earthquake duration = 365 }
+			}
+		}
+		scaled_wealth = -0.25
+		piety = 200
+	}
+	
+	option = {
+		name = hist.29.c
+		trigger = {
+			NOT = { b_aleppo = { holder_scope = { top_liege = { character = ROOT } } } }
+		}
+	}
+}
