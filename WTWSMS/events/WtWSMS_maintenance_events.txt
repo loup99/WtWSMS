@@ -1,4 +1,8 @@
+###############################
 # Maintenance events
+#
+# misc_event.1 -> misc_event.13
+###############################
 
 namespace = misc_event
 
@@ -13,7 +17,7 @@ character_event	= {
 	
 	trigger = {
 		has_landed_title = d_bagaudae
-		ROOT = { 
+		ROOT = {
 			NOT = {
 				primary_title = {
 					title = d_bagaudae
@@ -29,7 +33,7 @@ character_event	= {
 	immediate = {
 		activate_title	= {
 			title = d_bagaudae
-			status = no 
+			status = no
 		}
 	}
 }
@@ -89,6 +93,8 @@ character_event	= {
 	}
 }
 
+# misc_event.4 -> misc_event.5 free
+
 # Adds not recognised by Senate modifier to all new independent holders of the WRE or Italy
 character_event = {
 	id = misc_event.6
@@ -106,7 +112,7 @@ character_event = {
 			has_landed_title = e_wre
 			has_landed_title = k_italy
 		}
-		is_title_active	= d_senate 
+		is_title_active	= d_senate
 		NOT = { has_character_flag = had_senate_recognition_event }
 	}
 	
@@ -130,7 +136,7 @@ character_event = {
 	}
 }
 
-# Destroy Senate 
+# Destroy Senate
 character_event = {
 	id = misc_event.7
 
@@ -158,7 +164,7 @@ character_event = {
 	immediate = {
 		activate_title = {
 			title = d_senate
-			status = no 
+			status = no
 		}
 	}
 }
@@ -232,7 +238,7 @@ character_event = {
 		FROM = { # FROM is the character recieving the event
 			is_theocracy = yes
 		}
-		OR = { 
+		OR = {
 			d_papal_state = {
 				any_previous_holder	= {
 					character = FROMFROM
@@ -286,7 +292,39 @@ character_event = {
 	}
 }
 
-#misc_event.12 reserved for a while
+# Give all provinces the effects of extreme weather events of 535-536 if game started between 536 and 546
+character_event = {
+	id = misc_event.12
+
+	hide_window = yes
+	
+	only_playable = yes
+	
+	is_triggered_only = yes # On-action
+	
+	trigger = {
+		has_global_flag = 535_536_weather_events
+		start_date < 546.1.1
+		owns = 496 #provinces are always held by someone
+	}
+
+	immediate = {
+		trigger_switch = {
+			on_trigger = year
+			#the order is important here
+			545	= { any_province = { add_province_modifier = { name = failed_crops duration = 365 } } }
+			544	= { any_province = { add_province_modifier = { name = failed_crops duration = 730 } } }
+			543	= { any_province = { add_province_modifier = { name = failed_crops duration = 1095 } } }
+			542	= { any_province = { add_province_modifier = { name = failed_crops duration = 1460 } } }
+			541	= { any_province = { add_province_modifier = { name = failed_crops duration = 1825 } } }
+			540	= { any_province = { add_province_modifier = { name = failed_crops duration = 2190 } } }
+			539	= { any_province = { add_province_modifier = { name = failed_crops duration = 2555 } } }
+			538	= { any_province = { add_province_modifier = { name = failed_crops duration = 2920 } } }
+			537	= { any_province = { add_province_modifier = { name = failed_crops duration = 3285 } } }
+			536	= { any_province = { add_province_modifier = { name = failed_crops duration = 3650 } } }
+		}
+	}
+}
 
 # Destroy the temple of Zeus after 426
 character_event = {

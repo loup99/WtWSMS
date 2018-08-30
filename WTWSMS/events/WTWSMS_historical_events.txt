@@ -1,9 +1,9 @@
 ###################################
-#
 # Historical Events
 #
+# hist.1 -> hist.28
+# 
 # Id 60000 - 61000 is reserved
-#
 ###################################
 
 namespace = hist
@@ -124,6 +124,8 @@ character_event = {
 	}
 }
 
+# hist.3 free
+
 # The Hagiography of Germanus of Auxerre
 character_event = {
 	id = hist.4
@@ -191,6 +193,8 @@ character_event = {
 	}
 }
 
+# hist.5 free
+
 # The Death of Strabo
 character_event = {
 	id = hist.6
@@ -199,10 +203,10 @@ character_event = {
 	border = GFX_event_normal_frame_war
 	
 	only_playable = yes
+	culture = ostrogothic
 	
 	trigger = {
 		has_landed_title = d_thracian_goths
-		culture = ostrogothic
 		e_byzantium = { holder_scope = { war_with = ROOT } }
 		NOT = { has_global_flag = death_strabo }
 	}
@@ -539,7 +543,6 @@ narrative_event = {
 	}
 }
 
-
 # The Leontius Revolt
 character_event = {
 	id = hist.12
@@ -745,6 +748,8 @@ narrative_event = {
 	}
 }
 
+# hist.15 free
+
 # Saxons take Deva Victrix
 narrative_event = {
 	id = hist.16
@@ -756,9 +761,9 @@ narrative_event = {
 	major = yes
 	
 	only_playable = yes
+	culture_group = central_germanic
 	
 	trigger = {
-		culture_group = central_germanic  
 		completely_controls = c_lancaster
 		NOT = { has_global_flag = saxon_lancaster }
 	}
@@ -864,6 +869,8 @@ narrative_event = {
 	}
 }
 
+# hist.18 free
+
 # Invention of the Greek fire
 narrative_event = {
 	id = hist.19
@@ -873,9 +880,9 @@ narrative_event = {
 	border = GFX_event_narrative_frame_war
 	
 	only_playable = yes
+	has_dlc = "Legacy of Rome"
 
 	trigger = {
-		has_dlc = "Legacy of Rome"
 		OR = {
 			has_landed_title = e_byzantium
 			has_landed_title = e_roman_empire
@@ -907,9 +914,9 @@ narrative_event = {
 	
 	only_playable = yes
 	religion_group = christian
+	has_dlc = "Mystics"
 	
 	trigger = {
-		has_dlc = "Mystics"
 		year = 525 # Around 529
 		NOT = { has_global_flag = foundation_of_benedictines }
 		religion = miaphysite
@@ -1203,7 +1210,7 @@ narrative_event = {
 	}
 	picture = GFX_evt_stone_church 
 	border = GFX_event_narrative_frame_religion
-		
+	
 	is_triggered_only = yes
 	
 	major = yes
@@ -1260,4 +1267,32 @@ narrative_event = {
 			text = hist.27.d.tooltip
 		}
 	}
+}
+
+# Extreme weather events of 535-536
+narrative_event = {
+	id = hist.28
+	title = hist.28.name
+	desc = hist.28.desc
+	picture = GFX_evt_autumn_harvest
+	border = GFX_event_narrative_frame_diplomacy
+	
+	only_playable = yes
+	major = yes
+	
+	hide_from = yes
+
+	is_triggered_only = yes #on_action
+	
+	trigger = {
+		year = 536
+		NOT = { has_global_flag = 535_536_weather_events }
+		owns = 496 #provinces are always held by someone
+	}
+	
+    option = {
+		name = hist.28.a
+		set_global_flag = 535_536_weather_events
+		any_realm_province = { add_province_modifier = { name = failed_crops duration = 3650 } }
+    }
 }
