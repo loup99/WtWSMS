@@ -4,6 +4,7 @@
 # SENATE.100 -> SENATE.101 Circus Maximus
 # SENATE.9000 -> SENATE.9003 Trait flavour
 # SENATE.10000 -> SENATE.10005 Senate approval and disappearance
+# SENATE.10006 -> SENATE.10007 Annual change of consul
 # 
 # SENATE.9000-9999 reserved
 ###################################
@@ -1137,12 +1138,7 @@ narrative_event = {
 	trigger = {
 		NOT = { has_global_flag = senate_not_active }
 		month == 0 #January
-		OR = {
-			NOT = { has_global_flag = { name = recent_consul_assignment }
-			had_global_flag = { name = recent_consul_assignment days = 50 } #just to ensure this doesn't happen twice in January
-		}
-		
-		
+		had_global_flag = { name = recent_consul_assignment days = 50 } #just to ensure this doesn't happen twice in January
 		OR = {
 			has_landed_title = e_roman_empire
 			has_landed_title = e_wre
@@ -1163,10 +1159,14 @@ narrative_event = {
 	immediate = {
 		clr_global_flag = recent_consul_assignment
 		set_global_flag = recent_consul_assignment
-		d_senate = { holder_scope = { random_vassal = {
-			limit = { is_landed = no }
-			save_event_target_as = consul_candidate_1 
-		} } }
+		d_senate = {
+			holder_scope = {
+				random_vassal = {
+					limit = { is_landed = no }
+					save_event_target_as = consul_candidate_1
+				}
+			}
+		}
 		random_character = {
 			limit = {
 				age = 16
@@ -1236,16 +1236,11 @@ narrative_event = {    #FINISH THE MAINTENANCE EVENT
 	hide_window = yes
 	is_triggered_only = yes #on startup
 	
-	only_rulers = yes
+	ai = no
 	
-	trigger = { has_landed_title = c_roma }
+	trigger = { month == 0 }
 	
 	immediate = {
-		if = {
-			limit = { month > 1 }
-			set_global_flag = recent_consul_assignment
-		}
-		
+		set_global_flag = recent_consul_assignment
 	}
-	
 }
