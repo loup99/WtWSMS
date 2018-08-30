@@ -1138,7 +1138,10 @@ narrative_event = {
 	trigger = {
 		NOT = { has_global_flag = senate_not_active }
 		month == 0 #January
-		had_global_flag = { name = recent_consul_assignment days = 50 } #just to ensure this doesn't happen twice in January
+		OR = {
+			had_global_flag = { flag = recent_consul_assignment days = 50 }
+			NOT = { has_global_flag = recent_consul_assignment }
+		}
 		OR = {
 			has_landed_title = e_roman_empire
 			has_landed_title = e_wre
@@ -1147,7 +1150,7 @@ narrative_event = {
 			has_romance_culture_trigger = yes
 			primary_title = { bureaucratic_government_trigger = yes }
 		}
-		d_senate = { any_liege = { character = ROOT } }
+		d_senate = { holder_scope = { any_liege = { character = ROOT } } }
 	}
 	
 	mean_time_to_happen = { days = 1 }
