@@ -292,7 +292,39 @@ character_event = {
 	}
 }
 
-#misc_event.12 reserved for a while
+# Give all provinces the effects of extreme weather events of 535-536 if game started between 536 and 546
+character_event = {
+	id = misc_event.12
+
+	hide_window = yes
+	
+	only_playable = yes
+	
+	is_triggered_only = yes # On-action
+	
+	trigger = {
+		has_global_flag = 535_536_weather_events
+		start_date < 546.1.1
+		owns = 496 #provinces are always held by someone
+	}
+
+	immediate = {
+		trigger_switch = {
+			on_trigger = year
+			#the order is important here
+			545	= { any_province = { add_province_modifier = { name = failed_crops duration = 365 } } }
+			544	= { any_province = { add_province_modifier = { name = failed_crops duration = 730 } } }
+			543	= { any_province = { add_province_modifier = { name = failed_crops duration = 1095 } } }
+			542	= { any_province = { add_province_modifier = { name = failed_crops duration = 1460 } } }
+			541	= { any_province = { add_province_modifier = { name = failed_crops duration = 1825 } } }
+			540	= { any_province = { add_province_modifier = { name = failed_crops duration = 2190 } } }
+			539	= { any_province = { add_province_modifier = { name = failed_crops duration = 2555 } } }
+			538	= { any_province = { add_province_modifier = { name = failed_crops duration = 2920 } } }
+			537	= { any_province = { add_province_modifier = { name = failed_crops duration = 3285 } } }
+			536	= { any_province = { add_province_modifier = { name = failed_crops duration = 3650 } } }
+		}
+	}
+}
 
 # Destroy the temple of Zeus after 426
 character_event = {
