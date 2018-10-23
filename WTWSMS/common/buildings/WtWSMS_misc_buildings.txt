@@ -104,7 +104,7 @@ castle = {
 		build_time = 450
 		
 		convert_to_city = ct_aqueduct_2
-		#convert_to_temple = tp_aqueduct
+		convert_to_temple = tp_aqueduct_2
 		
 		ai_creation_factor = 95
 		
@@ -162,7 +162,7 @@ castle = {
 		build_time = 450
 		
 		convert_to_city = ct_aqueduct_3
-		#convert_to_temple = tp_aqueduct
+		convert_to_temple = tp_aqueduct_3
 		
 		ai_creation_factor = 95
 		
@@ -220,7 +220,7 @@ castle = {
 		build_time = 450
 		
 		convert_to_city = ct_aqueduct_4
-		#convert_to_temple = tp_aqueduct
+		convert_to_temple = tp_aqueduct_4
 		
 		ai_creation_factor = 95
 		
@@ -768,7 +768,7 @@ castle = {
 		
 		local_revolt_risk = -0.025
 		
-		#convert_to_city = ct_public_baths
+		convert_to_city = ct_public_baths_2
 		#convert_to_temple = tp_public_baths
 		
 		extra_tech_building_start = 10.0 # Never get at start of game
@@ -798,7 +798,7 @@ castle = {
 		
 		local_revolt_risk = -0.025
 		
-		#convert_to_city = ct_public_baths
+		convert_to_city = ct_public_baths_3
 		#convert_to_temple = tp_public_baths
 		
 		extra_tech_building_start = 10.0 # Never get at start of game
@@ -828,7 +828,7 @@ castle = {
 		
 		local_revolt_risk = -0.025
 		
-		#convert_to_city = ct_public_baths
+		convert_to_city = ct_public_baths_4
 		#convert_to_temple = tp_public_baths
 		
 		extra_tech_building_start = 10.0 # Never get at start of game
@@ -940,7 +940,7 @@ city = {
 		build_time = 450
 		
 		convert_to_castle = ca_aqueduct_2
-		#convert_to_temple = tp_aqueduct
+		convert_to_temple = tp_aqueduct_2
 		
 		ai_creation_factor = 95
 		
@@ -998,7 +998,7 @@ city = {
 		build_time = 450
 		
 		convert_to_castle = ca_aqueduct_3
-		#convert_to_temple = tp_aqueduct
+		convert_to_temple = tp_aqueduct_3
 		
 		ai_creation_factor = 95
 		
@@ -1056,7 +1056,7 @@ city = {
 		build_time = 450
 		
 		convert_to_castle = ca_aqueduct_4
-		#convert_to_temple = tp_aqueduct
+		convert_to_temple = tp_aqueduct_4
 		
 		ai_creation_factor = 95
 		
@@ -1562,6 +1562,10 @@ city = {
 		}
 		gold_cost = 125
 		build_time = 90
+		
+		convert_to_castle = ca_public_baths
+		convert_to_temple = tp_public_baths
+		
 		ai_creation_factor = 95
 		
 		local_revolt_risk = -0.025
@@ -1589,6 +1593,72 @@ city = {
 		}
 		gold_cost = 125
 		build_time = 90
+		
+		convert_to_castle = ca_public_baths_2
+		#convert_to_temple = tp_public_baths
+		
+		ai_creation_factor = 95
+		
+		local_revolt_risk = -0.025
+		
+		extra_tech_building_start = 10.0 # Never get at start of game
+	}
+	ct_public_baths_3 = {	# Public baths
+		potential = {
+			FROMFROM = { is_capital = yes }
+			FROM = {
+				OR = {
+					has_romance_culture_trigger = yes
+					#bureaucratic_government_trigger = yes
+					trait = roman_nostalgia
+					any_liege = { has_romance_culture_trigger = yes }
+					#any_liege = { bureaucratic_government_trigger = yes }
+					any_liege = { trait = roman_nostalgia }
+				}
+			}
+		}
+		desc = public_baths_desc
+		upgrades_from = ct_public_baths_2
+		trigger = {
+			TECH_CONSTRUCTION = 3
+		}
+		gold_cost = 125
+		build_time = 90
+		
+		convert_to_castle = ca_public_baths_3
+		#convert_to_temple = tp_public_baths
+		
+		ai_creation_factor = 95
+		
+		local_revolt_risk = -0.025
+		
+		extra_tech_building_start = 10.0 # Never get at start of game
+	}
+	ct_public_baths_4 = {	# Public baths
+		potential = {
+			FROMFROM = { is_capital = yes }
+			FROM = {
+				OR = {
+					has_romance_culture_trigger = yes
+					#bureaucratic_government_trigger = yes
+					trait = roman_nostalgia
+					any_liege = { has_romance_culture_trigger = yes }
+					#any_liege = { bureaucratic_government_trigger = yes }
+					any_liege = { trait = roman_nostalgia }
+				}
+			}
+		}
+		desc = public_baths_desc
+		upgrades_from = ct_public_baths_3
+		trigger = {
+			TECH_CONSTRUCTION = 4
+		}
+		gold_cost = 125
+		build_time = 90
+		
+		convert_to_castle = ca_public_baths_4
+		#convert_to_temple = tp_public_baths
+		
 		ai_creation_factor = 95
 		
 		local_revolt_risk = -0.025
@@ -1640,17 +1710,191 @@ temple = {
 		trigger = {
 			TECH_CONSTRUCTION = 1
 		}
-		gold_cost = 800
-		build_time = 1825
+		gold_cost = 200
+		build_time = 450
 		
 		convert_to_castle = ca_aqueduct
 		convert_to_city = ct_aqueduct
 		
 		ai_creation_factor = 95
 		
-		siege_defence = 0.1
-		disease_defence = 0.1
-		supply_limit = 0.1
+		siege_defence = 0.025
+		disease_defence = 0.025
+		supply_limit = 0.025
+		
+		extra_tech_building_start = 10.0 # Never get at start of game
+	}
+	tp_aqueduct_2 = {	# Aqueduct
+		potential = {
+			OR = {
+					borders_lake = yes
+					borders_major_river = yes
+					terrain = mountain
+					port = yes
+					any_neighbor_province = { terrain = mountain }
+			}
+			FROM = {
+				OR = {
+					has_romance_culture_trigger = yes
+					#bureaucratic_government_trigger = yes
+					trait = roman_nostalgia
+					any_liege = { has_romance_culture_trigger = yes }
+					#any_liege = { bureaucratic_government_trigger = yes  }
+					any_liege = { trait = roman_nostalgia }
+				}
+			}
+			FROMFROM = {
+				OR = {
+					region = custom_imperium_romanum
+					region = world_asia_minor
+					region = world_europe
+					region = world_persia
+				}
+			}
+			FROMFROM = {
+				NOR = {
+					title = b_roma
+					title = b_constantinople
+					title = b_split
+					title = b_seleukeia
+					title = b_segovia
+					title = b_nimes
+					title = b_cartaghe
+				}
+			}
+		}
+		desc = aqueduct_desc
+		upgrades_from = tp_aqueduct
+		trigger = {
+			TECH_CONSTRUCTION = 2
+		}
+		gold_cost = 200
+		build_time = 450
+		
+		convert_to_castle = ca_aqueduct_2
+		convert_to_city = ct_aqueduct_2
+		
+		ai_creation_factor = 95
+		
+		siege_defence = 0.025
+		disease_defence = 0.025
+		supply_limit = 0.025
+		
+		extra_tech_building_start = 10.0 # Never get at start of game
+	}
+	tp_aqueduct_3 = {	# Aqueduct
+		potential = {
+			OR = {
+					borders_lake = yes
+					borders_major_river = yes
+					terrain = mountain
+					port = yes
+					any_neighbor_province = { terrain = mountain }
+			}
+			FROM = {
+				OR = {
+					has_romance_culture_trigger = yes
+					#bureaucratic_government_trigger = yes
+					trait = roman_nostalgia
+					any_liege = { has_romance_culture_trigger = yes }
+					#any_liege = { bureaucratic_government_trigger = yes  }
+					any_liege = { trait = roman_nostalgia }
+				}
+			}
+			FROMFROM = {
+				OR = {
+					region = custom_imperium_romanum
+					region = world_asia_minor
+					region = world_europe
+					region = world_persia
+				}
+			}
+			FROMFROM = {
+				NOR = {
+					title = b_roma
+					title = b_constantinople
+					title = b_split
+					title = b_seleukeia
+					title = b_segovia
+					title = b_nimes
+					title = b_cartaghe
+				}
+			}
+		}
+		desc = aqueduct_desc
+		upgrades_from = tp_aqueduct_2
+		trigger = {
+			TECH_CONSTRUCTION = 3
+		}
+		gold_cost = 200
+		build_time = 450
+		
+		convert_to_castle = ca_aqueduct_3
+		convert_to_city = ct_aqueduct_3
+		
+		ai_creation_factor = 95
+		
+		siege_defence = 0.025
+		disease_defence = 0.025
+		supply_limit = 0.025
+		
+		extra_tech_building_start = 10.0 # Never get at start of game
+	}
+	tp_aqueduct_4 = {	# Aqueduct
+		potential = {
+			OR = {
+					borders_lake = yes
+					borders_major_river = yes
+					terrain = mountain
+					port = yes
+					any_neighbor_province = { terrain = mountain }
+			}
+			FROM = {
+				OR = {
+					has_romance_culture_trigger = yes
+					#bureaucratic_government_trigger = yes
+					trait = roman_nostalgia
+					any_liege = { has_romance_culture_trigger = yes }
+					#any_liege = { bureaucratic_government_trigger = yes  }
+					any_liege = { trait = roman_nostalgia }
+				}
+			}
+			FROMFROM = {
+				OR = {
+					region = custom_imperium_romanum
+					region = world_asia_minor
+					region = world_europe
+					region = world_persia
+				}
+			}
+			FROMFROM = {
+				NOR = {
+					title = b_roma
+					title = b_constantinople
+					title = b_split
+					title = b_seleukeia
+					title = b_segovia
+					title = b_nimes
+					title = b_cartaghe
+				}
+			}
+		}
+		desc = aqueduct_desc
+		upgrades_from = tp_aqueduct_3
+		trigger = {
+			TECH_CONSTRUCTION = 4
+		}
+		gold_cost = 200
+		build_time = 450
+		
+		convert_to_castle = ca_aqueduct_4
+		convert_to_city = ct_aqueduct_4
+		
+		ai_creation_factor = 95
+		
+		siege_defence = 0.025
+		disease_defence = 0.025
+		supply_limit = 0.025
 		
 		extra_tech_building_start = 10.0 # Never get at start of game
 	}
