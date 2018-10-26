@@ -405,7 +405,7 @@ decisions = {
 		only_playable = yes
 		is_high_prio = yes
 		potential = {
-		    has_landed_title = e_byzantium
+			has_landed_title = e_byzantium
 			NOT = { has_global_flag = spania_created }
 			completely_controls = k_baetica
 			k_spania = {
@@ -429,6 +429,38 @@ decisions = {
 				narrative_event ={ id = hist.29 }
 			}
 		}
-	}	
+	}
+	
+	restore_roman_republic = {
+		only_playable = yes
+		is_high_prio = yes
+		potential = {
+			has_landed_title = d_senate
+			NOT = { is_title_active = k_republic }
+		}
+		allow = {
+			culture = roman
+			age = 25
+			prisoner = no
+			NOT = { trait = incapable }
+			is_republic = yes
+			prestige = 200
+			independent = yes
+			realm_size = 5
+		}
+		effect = {
+			prestige = -200
+			k_republic = {
+				activate_title = { title = THIS status = yes } # Otherwise grant_title doesn't work
+				grant_title = ROOT
+			}
+			destroy_landed_title = d_senate
+			activate_title = { title = d_senate status = no }
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
 
 }
