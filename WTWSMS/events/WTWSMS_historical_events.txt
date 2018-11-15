@@ -1,9 +1,9 @@
 ###################################
-#
 # Historical Events
 #
+# hist.1 -> hist.28
+# 
 # Id 60000 - 61000 is reserved
-#
 ###################################
 
 namespace = hist
@@ -124,6 +124,8 @@ character_event = {
 	}
 }
 
+# hist.3 free
+
 # The Hagiography of Germanus of Auxerre
 character_event = {
 	id = hist.4
@@ -191,6 +193,8 @@ character_event = {
 	}
 }
 
+# hist.5 free
+
 # The Death of Strabo
 character_event = {
 	id = hist.6
@@ -199,10 +203,10 @@ character_event = {
 	border = GFX_event_normal_frame_war
 	
 	only_playable = yes
+	culture = ostrogothic
 	
 	trigger = {
 		has_landed_title = d_thracian_goths
-		culture = ostrogothic
 		e_byzantium = { holder_scope = { war_with = ROOT } }
 		NOT = { has_global_flag = death_strabo }
 	}
@@ -417,7 +421,7 @@ narrative_event = {
 		name = hist.9.a
 		hidden_tooltip = {
 			narrative_event = {
-				id = hist.10 
+				id = hist.10 # The Henotikon Fails
 				days = 30 random = 10
 			} 
 		}
@@ -458,6 +462,11 @@ narrative_event = {
 			modifier = the_henotikon
 			years = 40
 		}
+		narrative_event = {
+			id = hist.11 # The Acacian Schism
+			days =  730 # 2 years
+			random = 30
+		} 
 	}
 	
 	option = {
@@ -480,6 +489,57 @@ narrative_event = {
 			religion_group = christian
 			NOT = { has_landed_title = e_byzantium }
 		}
+	}
+}
+
+# The Acacian Schism
+narrative_event = {
+	id = hist.11
+	title = hist.11.name
+	desc = {
+		trigger = {
+			has_landed_title = e_byzantium
+		}
+		text = hist.11.desc.a
+	}
+	desc = {
+		trigger = {			
+			NOT = { has_landed_title = e_byzantium }
+		}
+		text = hist.11.desc.b
+	}
+	picture = GFX_evt_great_schism
+	border = GFX_event_narrative_frame_religion
+	
+	is_triggered_only = yes
+	
+	major = yes
+	
+	immediate = { 
+		set_global_flag = acacian_schism
+	}
+	
+	option = {
+		name = hist.11.a
+		trigger = {
+			has_landed_title = e_byzantium
+			religion_group = christian
+		}
+		piety = -50
+	}
+	option = {
+		name = hist.11.b
+		trigger = {
+			NOT = { religion_group = christian }
+		}
+	}
+	option = {
+		name = hist.11.c
+		trigger = {
+			religion_group = christian
+			NOT = { has_landed_title = e_byzantium }
+		}
+		piety = -50
 	}
 }
 
@@ -688,6 +748,8 @@ narrative_event = {
 	}
 }
 
+# hist.15 free
+
 # Saxons take Deva Victrix
 narrative_event = {
 	id = hist.16
@@ -699,9 +761,9 @@ narrative_event = {
 	major = yes
 	
 	only_playable = yes
+	culture_group = central_germanic
 	
 	trigger = {
-		culture_group = central_germanic  
 		completely_controls = c_lancaster
 		NOT = { has_global_flag = saxon_lancaster }
 	}
@@ -807,6 +869,8 @@ narrative_event = {
 	}
 }
 
+# hist.18 free
+
 # Invention of the Greek fire
 narrative_event = {
 	id = hist.19
@@ -816,9 +880,9 @@ narrative_event = {
 	border = GFX_event_narrative_frame_war
 	
 	only_playable = yes
+	has_dlc = "Legacy of Rome"
 
 	trigger = {
-		has_dlc = "Legacy of Rome"
 		OR = {
 			has_landed_title = e_byzantium
 			has_landed_title = e_roman_empire
@@ -850,9 +914,9 @@ narrative_event = {
 	
 	only_playable = yes
 	religion_group = christian
+	has_dlc = "Mystics"
 	
 	trigger = {
-		has_dlc = "Mystics"
 		year = 525 # Around 529
 		NOT = { has_global_flag = foundation_of_benedictines }
 		religion = miaphysite
@@ -1125,5 +1189,125 @@ narrative_event = {
 			has_germanic_culture_trigger = yes 
 		}
 		prestige = 50 
+	}
+}
+
+# Resolution of Acacian Schism
+narrative_event = {
+	id = hist.26
+	title = hist.26.name
+	desc = {
+		trigger = {
+			has_landed_title = e_byzantium
+		}
+		text = hist.26.desc.a
+	}
+	desc = {
+		trigger = {			
+			NOT = { has_landed_title = e_byzantium }
+		}
+		text = hist.26.desc.b
+	}
+	picture = GFX_evt_stone_church 
+	border = GFX_event_narrative_frame_religion
+	
+	is_triggered_only = yes
+	
+	major = yes
+	
+	option = {
+		name = hist.26.a
+	}
+}
+
+# Platonic Academy closed
+narrative_event = {
+	id = hist.27
+	title = hist.27.name
+	desc = hist.27.desc
+	picture = GFX_evt_roman_temple 
+	border = GFX_event_narrative_frame_religion
+
+	is_triggered_only = yes
+	
+	major = yes
+	
+	option = {
+		name = hist.27.a
+		trigger = { 
+			religion_group = christian 
+		}
+		piety = 50
+	}
+	
+	option = {
+		name = hist.27.b
+		trigger = { 
+			religion_openly_in_hellenic_subgroup_trigger = yes 
+		}
+		piety = -50
+	}
+	
+	option = {
+		name = hist.27.c
+		trigger = {
+			NOT = { religion_group = christian }
+			religion_openly_in_hellenic_subgroup_trigger = no 
+		}
+	}
+	
+	option = {
+		name = hist.27.d
+		trigger = { 
+			has_landed_title = e_persia 
+		}
+		prestige = 50
+		scaled_wealth = -0.01
+		custom_tooltip = { 
+			text = hist.27.d.tooltip
+		}
+	}
+}
+
+# Extreme weather events of 535-536
+narrative_event = {
+	id = hist.28
+	title = hist.28.name
+	desc = hist.28.desc
+	picture = GFX_evt_autumn_harvest
+	border = GFX_event_narrative_frame_diplomacy
+	
+	only_playable = yes
+	major = yes
+	
+	hide_from = yes
+
+	is_triggered_only = yes #on_action
+	
+	trigger = {
+		year = 536
+		NOT = { has_global_flag = 535_536_weather_events }
+		owns = 496 #provinces are always held by someone
+	}
+	
+    option = {
+		name = hist.28.a
+		set_global_flag = 535_536_weather_events
+		any_realm_province = { add_province_modifier = { name = failed_crops duration = 3650 } }
+    }
+}
+
+# Form the Provincia Spaniae
+narrative_event = {
+	id = hist.29
+	title = hist.29.name
+	desc = hist.29.desc
+	picture = GFX_evt_nicene_preacher 
+	border = GFX_event_narrative_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = hist.29.a
 	}
 }

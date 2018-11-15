@@ -131,7 +131,7 @@ decisions = {
 					NOT = { has_landed_title = e_assyria }
 					ai = no
 				}
-				narrative_event = { id = zusk_event.19 }
+				narrative_event = { id = zusk_event.19 } 
 			}
 		}
 			
@@ -267,7 +267,6 @@ decisions = {
 				}
 			}
 		}
-		
 		ai_will_do = {
 			factor = 1
 		}
@@ -298,8 +297,7 @@ decisions = {
 				  copy_title_laws = PREV
 					}
 			}
-		}
-			
+		}	
 		ai_will_do = {
 			factor = 1
 		}
@@ -330,8 +328,6 @@ decisions = {
 					}
 			}
 		}
-			
-		
 		ai_will_do = {
 			factor = 1
 		}
@@ -364,8 +360,6 @@ decisions = {
 				}
 			}
 		}
-			
-		
 		ai_will_do = {
 			factor = 1
 		}
@@ -401,11 +395,46 @@ decisions = {
 			wealth = -300
 			prestige = 1000
 		}
-			
-		
-
 		ai_will_do = {
 			factor = 1
 		}
 	}
+
+
+	form_spania = {
+		only_playable = yes
+		is_high_prio = yes
+		potential = {
+		    has_landed_title = e_byzantium
+			NOT = { has_global_flag = spania_created }
+			completely_controls = k_baetica
+			k_spania = {
+				has_holder = no
+			}
+		}
+		allow = {
+			prestige = 500
+			war = no
+			is_adult = yes
+			prisoner = no
+			is_incapable = no
+		}
+		effect = {
+			set_global_flag = spania_created
+			
+			k_spania = {
+				activate_title = { title = THIS status = yes } # Otherwise grant_title doesn't work
+				grant_title = ROOT
+			}
+			ROOT = {
+				primary_title = {
+					k_spania = {
+						copy_title_laws = PREV
+					}
+				}
+				narrative_event = { id = hist.29 }
+			}
+		}
+	}
+
 }

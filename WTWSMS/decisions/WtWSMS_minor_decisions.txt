@@ -281,10 +281,8 @@ decisions = {
                 text = is_not_busy_trigger_tooltip
                 hidden_tooltip = { NOT = { has_character_flag = do_not_disturb } }
             }
-			OR = { 
-				month = 6
-				month = 7
-			}
+			month = 6
+			NOT = { month = 8 }
         }
         effect = {
             scaled_wealth = -0.2
@@ -333,5 +331,28 @@ decisions = {
             }
         }
     }
-
+	visigothic_conversion = {
+        only_playable = yes
+        potential = {
+            is_playable = yes
+            is_adult = yes
+            independent = yes
+            prisoner = no
+            has_landed_title = k_visigoths
+			completely_controls = d_lucensis
+            NOT = { has_character_flag = church_built }
+        }
+		allow = {
+            war = no
+			wealth = 100
+			prisoner = no
+		}
+        effect = {
+            set_character_flag = church_built
+            set_character_flag = recent_minor_decision
+            hidden_tooltip = {
+                narrative_event = { id = WtWSMS_flavour.50 }
+            }
+        }
+	}
 }

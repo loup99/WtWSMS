@@ -29,7 +29,7 @@ decisions = {
 					holder_scope = {
 						character_event = { id = spirit.3 days = 5 random = 12 tooltip = "hre_ask" }
 					}
-				} 
+				}
 			}
 		}
 		ai_will_do = {
@@ -263,7 +263,7 @@ decisions = {
 				has_landed_title = e_wre
 				has_landed_title = e_roman_empire
 			}
-			NOT = { is_title_active = d_imperial_fleet_wre } 
+			NOT = { is_title_active = d_imperial_fleet_wre }
 		}
 		allow = {
 			wealth = 2000
@@ -301,7 +301,7 @@ decisions = {
 				has_landed_title = e_byzantium
 				has_landed_title = e_roman_empire
 			}
-			NOT = { is_title_active = d_imperial_fleet_ere } 
+			NOT = { is_title_active = d_imperial_fleet_ere }
 		}
 		allow = {
 			wealth = 2000
@@ -1442,6 +1442,7 @@ decisions = {
 
 	assign_poet = { # For the AI, because they are dumb enough not to hand out minor titles
 		only_playable = yes
+		
 		potential = {
 			ai = yes
 			OR = {
@@ -1631,6 +1632,173 @@ decisions = {
 		}
 		ai_will_do = {
 			factor = 1
+		}
+	}
+	
+	close_platonic_academy = {
+		only_independent = yes
+		is_high_prio = yes # Will show an alert once decision is enabled
+		
+		potential = {
+			religion_group = christian
+			war = no
+			age = 16
+			prisoner = no
+			NOT = { trait = incapable }
+			is_title_active = d_platonic_academy
+			NOT = { has_global_flag = closed_platonic_academy }
+			higher_tier_than = king
+			OR = {
+				d_platonic_academy = {
+					holder_scope = {
+						is_liege_or_above = ROOT
+					}
+				}
+				completely_controls = k_achaia
+				AND = { 
+					has_landed_title = k_achaia
+					has_landed_title = c_atheniai
+				}
+				any_vassal = {
+					AND = { 
+						has_landed_title = k_achaia
+						has_landed_title = c_atheniai
+					}
+				}
+			}
+		}
+		
+		allow = {
+			d_platonic_academy = {
+				has_holder = yes
+			}
+			prestige = 200
+		}
+		
+		effect = {
+			activate_title = { title = d_platonic_academy status = no }
+			piety = 100
+			prestige = -100
+			narrative_event = { id = hist.27 }
+			set_global_flag = closed_platonic_academy
+			save_event_target_as = target_academy_closer_title #for localisation
+		}
+		
+		ai_will_do = {
+			factor = 0.01
+			modifier = {
+				factor = 10
+				trait = zealous
+			}
+			modifier = {
+				factor = 0.1
+				trait = sympathy_pagans
+			}
+			modifier = {
+				factor = 0.1
+				trait = scholar
+			}
+			modifier = {
+				factor = 0.001 # Slow it down
+				always = yes
+			}
+		}
+	}
+	hold_a_chariot_race = {
+		only_independent = yes
+		is_high_prio = yes
+		
+		potential = {
+			is_playable = yes
+			has_romance_culture_trigger = yes
+			has_dlc = "Legacy of Rome"
+			independent = yes
+			NOT = { is_nomadic = yes }
+			OR = {
+				gender_equality_trigger = yes
+				NOT = { is_female = yes	}
+			}
+			OR = {
+				tier = king
+				tier = emperor
+			}
+			location = {
+				owner = { character = ROOT }
+			}
+			NOT = { has_character_modifier = held_a_chariot_race }
+		}
+		allow = {
+			war = no
+			prisoner = no
+			in_command = no
+			NOT = { is_inaccessible_trigger = yes }
+			age = 16
+			prestige = 500
+			wealth = 200
+			custom_tooltip = {
+				text = is_not_busy_trigger_tooltip
+				hidden_tooltip = { NOT = { has_character_flag = do_not_disturb } }
+			}
+		}
+		effect = {
+			character_event = { id = LoR.500 }
+			add_character_modifier = {
+				name = held_a_chariot_race
+				duration = 365
+			}
+			wealth = -200
+			prestige = 100
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = {
+					OR = {
+						wealth = 1000
+						scaled_wealth = 3.0
+					}
+				}
+			}
+		}
+	}
+	forge_iron_crown_of_lombardy = {
+		only_independent = yes
+		is_high_prio = yes
+		
+		potential = {
+			is_playable = yes
+			culture = lombard
+			has_dlc = "Mystics"
+			independent = yes
+			start_date < 570.1.1
+			NOT = { has_global_flag = iron_crown_of_lombardy_forged } #no need to set this flag in history
+		}
+		allow = {
+			has_landed_title = k_lombardia
+			war = no
+			prisoner = no
+			age = 16
+			prestige = 500
+			wealth = 500
+		}
+		effect = {
+			wealth = -500
+			prestige = 200
+			add_artifact = iron_crown_of_lombardy
+			set_global_flag = iron_crown_of_lombardy_forged
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = {
+					OR = {
+						wealth = 1000
+						scaled_wealth = 3.0
+					}
+				}
+			}
 		}
 	}
 }

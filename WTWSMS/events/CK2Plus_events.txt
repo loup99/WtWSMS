@@ -1,0 +1,98 @@
+namespace = Plus
+
+#  Antinomian/Iconoclast/Paulician/Total Depravity wins siege over a Christian temple
+character_event = { 
+	id = Plus.2016
+	desc = EVTDESC_Plus_2016
+	picture = GFX_evt_siege
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		mercenary = no
+		OR = {
+			religion = antinomianism
+			religion = iconoclast
+			religion = paulician
+			religion = total_depravity
+		}
+		FROM = { 
+			holding_type = temple
+			owner = {
+				wealth = 50
+				religion_group = christian
+				NOR = {
+					religion = antinomianism
+					religion = iconoclast
+					religion = paulician
+					religion = total_depravity
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = EVTOPTA_Plus_2016
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				religion = iconoclast
+			}
+			modifier = {
+				factor = 5
+				trait = zealous
+			}
+			modifier = {
+				factor = 1.5
+				trait = greedy
+			}
+			modifier = {
+				factor = 1.5
+				trait = wroth
+			}
+		}
+		if = {
+			limit = { NOT = { trait = iconoclast_trait } }
+			add_trait = iconoclast_trait
+		}
+		wealth = 50
+		piety = -25
+		hidden_tooltip = {
+			FROM = {
+				owner = {
+					wealth = -50
+					opinion = { who = ROOT modifier = insulted years = 20 }
+				}
+			}
+		}
+	}
+	option = {
+		name = EVTOPTB_Plus_2016
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0
+				trait = iconoclast_trait
+			}
+			modifier = {
+				factor = 0
+				NOT = { piety = 0 }
+			}
+			modifier = {
+				factor = 2
+				trait = cynical
+			}
+			modifier = {
+				factor = 1.5
+				trait = kind
+			}
+			modifier = {
+				factor = 1.5
+				trait = humble
+			}
+		}
+		piety = 10
+	}
+}
