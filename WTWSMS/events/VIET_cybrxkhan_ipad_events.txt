@@ -2967,8 +2967,336 @@ character_event = {
 }
 
 
+####################################
+# Cornish
+####################################
+
+# Loud Cornish Fishers
+character_event = {
+	id = VIETmisc.2030
+	desc = VIETmisc.2030.desc
+	picture = GFX_evt_ocean_blue
+
+	is_triggered_only = yes
+
+	min_age = 16
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+
+	trigger = { 
+		war = no 
+		in_command = no 
+		is_abroad = no
+		culture = cornish
+		capital_scope = {
+			port = yes
+			culture = cornish
+		}
+		has_game_rule = {
+			name = VIET_events
+			value = on
+		}
+	}
+
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			trait = diligent
+		}
+		modifier = {
+			factor = 0.5
+			trait = slothful
+		}
+		modifier = {
+			factor = 2
+			trait = ambitious
+		}
+		modifier = {
+			factor = 0.5
+			trait = content
+		}
+		modifier = {
+			factor = 2
+			trait = wroth 
+		}
+		modifier = {
+			factor = 0.5
+			trait = patient
+		}
+		modifier = {
+			factor = 2
+			trait = honest
+		}
+		modifier = {
+			factor = 0.5
+			trait = deceitful
+		}
+		modifier = {
+			factor = 2
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 0.5
+			trait = temperate
+		}
+	}
+
+	option = {#help him
+		name = VIETmisc.2030.a
+		random = {
+			chance = 15
+			add_trait = stressed
+		}
+		if = {
+			limit = {
+				trait = content
+			}
+			random = {
+				chance = 25
+				remove_trait = content
+			}
+		}
+	}
+}
 
 
+# Bad luck pastries
+character_event = {
+	id = VIETmisc.2031
+	desc = VIETmisc.2031.desc
+	picture = GFX_evt_ocean_blue
+
+	is_triggered_only = yes
+
+	min_age = 16
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+
+	trigger = { 
+		war = no 
+		in_command = no 
+		is_abroad = no
+		culture = cornish
+		any_demesne_province = {
+			port = yes
+			culture = cornish
+		}
+		has_game_rule = {
+			name = VIET_events
+			value = on
+		}
+	}
+
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			trait = diligent
+		}
+		modifier = {
+			factor = 0.5
+			trait = slothful
+		}
+		modifier = {
+			factor = 2
+			trait = ambitious
+		}
+		modifier = {
+			factor = 0.5
+			trait = content
+		}
+		modifier = {
+			factor = 2
+			trait = humble 
+		}
+		modifier = {
+			factor = 0.5
+			trait = proud
+		}
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		modifier = {
+			factor = 2
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 0.5
+			trait = temperate
+		}
+	}
+
+	option = {#ok
+		name = VIETmisc.2031.a
+		random = {
+			chance = 15
+			add_character_modifier = {
+				name = VIET_believed_superstition
+				duration = 1460
+			}
+		}
+		if = {
+			limit = {
+				trait = cynical
+			}
+			random = {
+				chance = 40
+				remove_trait = cynical
+			}
+		}
+	}
+
+	option = {#no way
+		name = VIETmisc.2031.b
+		random_list = {
+			20 = { add_trait = brave }
+			15 = { add_trait = gluttonous }
+			15 = { add_trait = cynical }
+		}
+		random = {
+			chance = 15
+			add_character_modifier = {
+				name = VIET_ignored_superstition
+				duration = 1460
+			}
+		}
+		if = {
+			limit = {
+				trait = paranoid
+			}
+			random = {
+				chance = 20
+				remove_trait = paranoid
+			}
+		}
+	}
+}
+
+
+# Monastery clotted cream
+character_event = {
+	id = VIETmisc.2032
+	desc = VIETmisc.2032.desc
+	picture = GFX_evt_monastery_monks
+
+	is_triggered_only = yes
+
+	min_age = 16
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+
+	trigger = { 
+		war = no 
+		in_command = no 
+		is_abroad = no
+		culture = cornish
+		religion_group = christian
+		has_game_rule = {
+			name = VIET_events
+			value = on
+		}
+	}
+
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			trait = diligent
+		}
+		modifier = {
+			factor = 0.5
+			trait = slothful
+		}
+		modifier = {
+			factor = 2
+			trait = kind
+		}
+		modifier = {
+			factor = 0.5
+			trait = cruel
+		}
+		modifier = {
+			factor = 2
+			trait = humble 
+		}
+		modifier = {
+			factor = 0.5
+			trait = proud
+		}
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		modifier = {
+			factor = 2
+			trait = zealous
+		}
+		modifier = {
+			factor = 0.5
+			trait = cynical
+		}
+		modifier = {
+			factor = 2
+			trait = just
+		}
+		modifier = {
+			factor = 0.5
+			trait = arbitrary
+		}
+	}
+
+	option = {#ok
+		name = VIETmisc.2032.a
+		add_character_modifier = {
+			name = eating_good_food
+			duration = 365
+		}
+	}
+
+	option = {#no way
+		name = VIETmisc.2032.b
+		trigger = {
+			NOT = { trait = greedy }
+			NOT = { trait = gluttonous }
+		}
+		piety = 4
+		random = {
+			chance = 33
+			add_trait = charitable
+		}
+		if = {
+			limit = {
+				any_demesne_province = {
+					culture = cornish
+					religion_group = christian
+				}
+			}
+			random_demesne_province = {
+				limit = {
+					culture = cornish
+					religion_group = christian
+				}
+				add_province_modifier = {
+					name = VIET_leader_who_cares
+					duration = 730
+				}
+			}
+		}
+	}
+}
 
 
 ####################
@@ -2988,9 +3316,9 @@ character_event = {
 	capable_only = yes
 	prisoner = no
 
-	trigger = { 
-		war = no 
-		in_command = no 
+	trigger = {
+		war = no
+		in_command = no
 		is_abroad = no
 		OR = {
 			culture = breton
@@ -3004,7 +3332,7 @@ character_event = {
 			culture = briton
 			}
 			NOT = { has_province_modifier = VIET_rowan_tree }
-		}			
+		}
 	}
 
 	weight_multiplier = {
@@ -3098,9 +3426,9 @@ character_event = {
 	capable_only = yes
 	prisoner = no
 
-	trigger = { 
-		war = no 
-		in_command = no 
+	trigger = {
+		war = no
+		in_command = no
 		is_abroad = no
 		OR = {
 			culture = breton
@@ -3114,10 +3442,10 @@ character_event = {
 				culture = briton
 			}
 			OR = {
-				empire = { title = e_britannia  }
+				empire = { title = e_britannia }
 				kingdom = { title = k_brittany }
 			}
-		}			
+		}
 	}
 
 	weight_multiplier = {
@@ -3210,15 +3538,15 @@ character_event = {
 	capable_only = yes
 	prisoner = no
 
-	trigger = { 
-		war = no 
+	trigger = {
+		war = no
 		in_command = no 
 		is_abroad = no
 		OR = {
 			culture = breton
 			culture = welsh
 			culture = briton
-		}	
+		}
 	}
 
 	weight_multiplier = {
@@ -25442,106 +25770,119 @@ character_event = {
 }
 
 # stone dicks
-#character_event = {
-#	id = VIETmisc.2275
-#	desc = VIETmisc.2275.desc
-#	picture = GFX_evt_skyrim_forest
-#
-#	is_triggered_only = yes
-#	
-#	min_age = 16
-#	only_rulers = yes
-#	capable_only = yes
-#	prisoner = no
-#	
-#	trigger = {
-#		war = no
-#		in_command = no
-#		is_abroad = no
-#		NOT = { religion_group = indian_group }
-#		NOT = { culture_group = indo_aryan_group }
-#		NOT = { culture_group = dravidian_group }
-#		NOT = { culture_group = iranian }
-#		NOT = {
-#			any_realm_province = {
-#				OR = {
-#					#empire = { title = e_south_india } #this title doesn't exist in the mod
-#					empire = { title = e_tamil }
-#					empire = { title = e_deccan }
-#					empire = { title = e_rajastan }
-#					empire = { title = e_india }
-#				}
-#			}
-#		}
-#	}
-#	
-#	weight_multiplier = {
-#		days = 1
-#		modifier = {
-#			factor = 2
-#			trait = diligent  
-#		}
-#		modifier = {
-#			factor = 0.5
-#			trait = slothful
-#		}
-#		modifier = {
-#			factor = 2
-#			learning = 15   
-#		}
-#		modifier = {
-#			factor = 0.5
-#			NOT = { learning = 7 }
-#		}
-#		modifier = {
-#			factor = 2
-#			trait = humble
-#		}
-#		modifier = {
-#			factor = 0.5
-#			trait = proud
-#		}
-#		modifier = {
-#			factor = 2
-#			trait = kind
-#		}
-#		modifier = {
-#			factor = 0.5
-#			trait = envious
-#		}
-#		modifier = {
-#			factor = 2
-#			trait = gregarious
-#		}
-#		modifier = {
-#			factor = 0.5
-#			trait = shy
-#		}
-#	}
-#
-#	option = {#yes
-#		name = VIETmisc.2275.a
-#		piety = 5
-#		random = {
-#			add_trait = zealous
-#			chance = 5
-#		}
-#	}
-#	option = {#yes
-#		name = VIETmisc.2275.b
-#		add_character_modifier = {
-#			name = highly_amused_ruler
-#			duration = 294
-#		}
-#	}
-#	option = {#yes
-#		name = VIETmisc.2275.c
-#		add_character_modifier = {
-#			name = VIET_religiously_tolerant_ruler
-#			duration = 294
-#		}
-#	}
-#}
+character_event = {
+	id = VIETmisc.2275
+	desc = VIETmisc.2275.desc
+	picture = GFX_evt_skyrim_forest
+
+	is_triggered_only = yes
+	
+	min_age = 16
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		war = no
+		in_command = no
+		is_abroad = no
+		NOT = { religion_group = indian_group }
+		NOT = { culture_group = indo_aryan_group }
+		NOT = { culture_group = dravidian_group }
+		NOT = { culture_group = iranian }
+		NOT = {
+			any_realm_province = {
+				OR = {
+					#empire = { title = e_south_india } #this title doesn't exist in the mod
+					empire = { title = e_tamil }
+					empire = { title = e_deccan }
+					empire = { title = e_rajastan }
+					empire = { title = e_india }
+				}
+			}
+		}
+		has_game_rule = {
+			name = VIET_events
+			value = on
+		}
+		any_realm_province = { #WtWSMS addition, rulers of Ireland shouldn't get this event
+			OR = {
+				region = world_asia_minor
+				region = world_persia
+				region = world_middle_east_arabia
+				region = world_steppe_tarim
+				region = world_steppe_west
+			}
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			trait = diligent
+		}
+		modifier = {
+			factor = 0.5
+			trait = slothful
+		}
+		modifier = {
+			factor = 2
+			learning = 15
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { learning = 7 }
+		}
+		modifier = {
+			factor = 2
+			trait = humble
+		}
+		modifier = {
+			factor = 0.5
+			trait = proud
+		}
+		modifier = {
+			factor = 2
+			trait = kind
+		}
+		modifier = {
+			factor = 0.5
+			trait = envious
+		}
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+	}
+
+	option = {#yes
+		name = VIETmisc.2275.a
+		piety = 5
+		random = {
+			add_trait = zealous
+			chance = 5
+		}
+	}
+	option = {#yes
+		name = VIETmisc.2275.b
+		add_character_modifier = {
+			name = highly_amused_ruler
+			duration = 294
+		}
+	}
+	option = {#yes
+		name = VIETmisc.2275.c
+		add_character_modifier = {
+			name = VIET_religiously_tolerant_ruler
+			duration = 294
+		}
+	}
+}
 
 # German kobolds in mines
 #character_event = {
