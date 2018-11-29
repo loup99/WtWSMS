@@ -124,7 +124,7 @@ decisions = {
 		}
 	}
 
-	expell_cranemasters = {
+	expel_cranemasters = {
 		only_playable = yes
 		ai = no
 		
@@ -184,6 +184,71 @@ decisions = {
 		
 		ai_will_do = {
 			factor = 0
+		}
+	}
+	
+	donate_money_to_cranemasters = {
+		only_playable = yes
+		potential = {
+			religion = root_west_pagan_reformed
+			
+			is_title_active = d_cranemasters
+			
+			has_dlc = "Sons of Abraham"
+			
+			NOT = { has_character_modifier = expelled_d_cranemasters }
+			
+			d_cranemasters = {
+				holder_scope = {
+					liege = {
+						NOT = { character = ROOT }
+					}
+				}
+			}
+		}
+		
+		allow = {
+			wealth = 300
+		}
+		
+		effect = {
+			if = {
+				limit = { 
+					NOT = { has_character_modifier = donated_to_holy_order }
+				}
+				add_character_modifier = {
+					name = donated_to_holy_order
+					duration = -1
+				}
+			}
+			
+			hidden_tooltip = {
+				d_cranemasters = {
+					holder_scope = {
+						character_event = {
+							id = holy.2040
+						}
+					}
+				}
+			}
+			
+			wealth = -300
+			piety = 300
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				OR = {
+					piety = 1000
+					NOT = { wealth = 1000 }
+					NOT = { controls_religion = root_west_pagan_reformed }
+				}
+			}
+			modifier = {
+				factor = 0.002 # Slow it down
+			}
 		}
 	}
 
@@ -304,6 +369,130 @@ decisions = {
 					piety = 1000
 					NOT = { wealth = 1000 }
 					NOT = { controls_religion = dacian_pagan_reformed }
+				}
+			}
+			modifier = {
+				factor = 0.002 # Slow it down
+			}
+		}
+	}
+	
+	expel_sanamahi_warriors = {
+		only_playable = yes
+		ai = no
+		potential = {
+			religion = sanimahi_reformed
+			higher_tier_than = DUKE
+			independent = yes
+			is_title_active = d_sanamahi_warriors
+			NOT = { has_character_modifier = expelled_d_sanamahi_warriors }
+			
+			any_realm_province = {
+				any_province_lord = {
+					d_sanamahi_warriors = {
+						holder_scope = {
+							OR = {
+								character = PREVPREV
+								is_vassal_or_below = PREVPREV
+							}
+						}
+					}
+				}
+			}
+			
+			has_dlc = "Sons of Abraham"
+		}
+		
+		allow = {
+			piety = 1000
+		}
+		
+		effect = {
+			piety = -1000
+			
+			religion_authority = {
+				modifier = holy_order_expelled
+				years = 20
+			}
+			
+			hidden_tooltip = {
+				d_sanamahi_warriors = {
+					holder_scope = {
+						character_event = {
+							id = holy.2060
+						}
+					}
+				}
+				add_character_modifier = {
+					name = expelled_d_sanamahi_warriors
+					duration = -1
+					inherit = yes
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	donate_money_to_sanamahi_warriors = {
+		only_playable = yes
+		potential = {
+			religion = sanimahi_reformed
+			
+			is_title_active = d_sanamahi_warriors
+			
+			has_dlc = "Sons of Abraham"
+			
+			NOT = { has_character_modifier = expelled_d_sanamahi_warriors }
+			
+			d_sanamahi_warriors = {
+				holder_scope = {
+					liege = {
+						NOT = { character = ROOT }
+					}
+				}
+			}
+		}
+		
+		allow = {
+			wealth = 300
+		}
+		
+		effect = {
+			if = {
+				limit = { 
+					NOT = { has_character_modifier = donated_to_holy_order }
+				}
+				add_character_modifier = {
+					name = donated_to_holy_order
+					duration = -1
+				}
+			}
+			
+			hidden_tooltip = {
+				d_sanamahi_warriors = {
+					holder_scope = {
+						character_event = {
+							id = holy.2040
+						}
+					}
+				}
+			}
+			
+			wealth = -300
+			piety = 300
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				OR = {
+					piety = 1000
+					NOT = { wealth = 1000 }
+					NOT = { controls_religion = sanimahi_reformed }
 				}
 			}
 			modifier = {
