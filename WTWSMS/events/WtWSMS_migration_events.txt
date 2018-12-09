@@ -461,7 +461,7 @@ province_event = {
 				character_event = { id = zusk_event.36 } #TODO: missing zusk_event.36
 			}
 		}
-		county = {
+		owner = {
 			create_character = {
 				random_traits = yes
 				dynasty = none
@@ -664,15 +664,23 @@ province_event = {
 					set_character_flag = decided_culture
 				}
 				
-				usurp_title_plus_barony_if_unlanded = PREV
+				ROOT = { county = { usurp_title_plus_barony_if_unlanded = PREVPREV } }
 				set_defacto_liege = THIS
 				reverse_culture = ROOT
 				reverse_religion = ROOT
 				
+				#spawn_unit = { #original code by Zusk, doesn't working properly
+				#	province = PREV
+				#	owner = ROOT
+				#	match_character = ROOT
+				#	match_mult = 0.75
+				#	attrition = 0.000
+				#}
+				# I suggest rewriting the entire unit block
 				spawn_unit = {
-					province = PREV
-					owner = ROOT
-					match_character = ROOT
+					province = ROOT
+					owner = THIS
+					match_character = THIS #not sure who was meant to be here, either the tribal leader or previous holder of the province
 					match_mult = 0.75
 					attrition = 0.000
 				}
