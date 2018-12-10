@@ -357,9 +357,8 @@ character_event = {
 
 # Slavs
 province_event = {
-	id = zusk_event.8
-	desc = zusk_event.8.desc
-	picture = GFX_evt_tribal_life
+	id = zusk_event.80
+	hide_window = yes
 	
 	trigger = {
 		#always = no # Disabled until further notice, pending either help from Zusk or another change
@@ -397,7 +396,7 @@ province_event = {
 			}
 		}
 	}
-
+	
 	mean_time_to_happen = {
 		years = 15
 
@@ -439,11 +438,30 @@ province_event = {
 		}
 	}
 	
+	immediate = {
+		holder_scope = {
+			top_liege = {
+				character_event = { id = zusk_event.8 }
+			}
+		}
+	}
+}
+
+# Slavs
+# FROM is the province being settled
+character_event = {
+	id = zusk_event.8
+	desc = zusk_event.8.desc
+	picture = GFX_evt_tribal_life
+	
+	is_triggered_only = yes
+	
 	option = {
 		name = ZUSK8OP1
 		ai_chance = {
 			factor = 70
 		}
+		FROM = {
 		set_province_flag = no_slavs
 		add_province_modifier = {
 			name = zusk_slav_timer
@@ -458,7 +476,7 @@ province_event = {
 				}
 			}
 			holder_scope = {
-				character_event = { id = zusk_event.36 } #TODO: missing zusk_event.36
+				character_event = { id = zusk_event.36 }
 			}
 		}
 		owner = {
@@ -664,10 +682,10 @@ province_event = {
 					set_character_flag = decided_culture
 				}
 				
-				ROOT = { county = { usurp_title_plus_barony_if_unlanded = PREVPREV } }
+				FROM = { county = { usurp_title_plus_barony_if_unlanded = PREVPREV } }
 				set_defacto_liege = THIS
-				reverse_culture = ROOT
-				reverse_religion = ROOT
+				reverse_culture = FROM
+				reverse_religion = FROM
 				
 				#spawn_unit = { #original code by Zusk, doesn't work properly
 				#	province = PREV
@@ -678,13 +696,14 @@ province_event = {
 				#}
 				# I suggest rewriting the entire unit block
 				spawn_unit = {
-					province = ROOT
+					province = FROM
 					owner = THIS
 					match_character = THIS #not sure who was meant to be here, either the tribal leader or previous holder of the province
 					match_mult = 0.75
 					attrition = 0.000
 				}
 			}
+		}
 		}
 	}
 
@@ -693,6 +712,7 @@ province_event = {
 		ai_chance = {
 			factor = 30
 		}
+		FROM = {
 		set_province_flag = no_slavs
 		add_province_modifier = {
 			name = zusk_slav_timer
@@ -915,15 +935,15 @@ province_event = {
 					set_character_flag = decided_culture
 				}
 
-				reverse_culture = ROOT
-				reverse_religion = ROOT
+				reverse_culture = FROM
+				reverse_religion = FROM
 
 				create_title = {
 					tier = DUKE
 					landless = yes
 					temporary = yes
 					rebel = yes
-					culture = ROOT
+					culture = FROM
 					name = "PEASANT_REVOLT"
 					holder = THIS
 				}
@@ -931,8 +951,8 @@ province_event = {
 				random_list = {
 				17 = {
 					spawn_unit = {
-						province = ROOT
-						home = ROOT
+						province = FROM
+						home = FROM
 						owner = THIS
 						leader = THIS
 						scaled_by_biggest_garrison = 0.75
@@ -955,8 +975,8 @@ province_event = {
 					}
 					new_character = {
 						spawn_unit = {
-							province = ROOT
-							home = ROOT
+							province = FROM
+							home = FROM
 							owner = PREV
 							scaled_by_biggest_garrison = 0.75
 							troops = {
@@ -980,8 +1000,8 @@ province_event = {
 					}
 					new_character = {
 						spawn_unit = {
-							province = ROOT
-							home = ROOT
+							province = FROM
+							home = FROM
 							owner = PREV
 							scaled_by_biggest_garrison = 0.75
 							troops = {
@@ -996,8 +1016,8 @@ province_event = {
 				}
 				17 = {
 					spawn_unit = {
-						province = ROOT
-						home = ROOT
+						province = FROM
+						home = FROM
 						owner = THIS
 						leader = THIS
 						scaled_by_biggest_garrison = 0.5
@@ -1020,8 +1040,8 @@ province_event = {
 					}
 					new_character = {
 						spawn_unit = {
-							province = ROOT
-							home = ROOT
+							province = FROM
+							home = FROM
 							owner = PREV
 							scaled_by_biggest_garrison = 0.5
 							troops = {
@@ -1045,8 +1065,8 @@ province_event = {
 					}
 					new_character = {
 						spawn_unit = {
-							province = ROOT
-							home = ROOT
+							province = FROM
+							home = FROM
 							owner = PREV
 							scaled_by_biggest_garrison = 0.5
 							troops = {
@@ -1061,8 +1081,8 @@ province_event = {
 				}
 				16 = {
 					spawn_unit = {
-						province = ROOT
-						home = ROOT
+						province = FROM
+						home = FROM
 						owner = THIS
 						leader = THIS
 						scaled_by_biggest_garrison = 0.75
@@ -1085,8 +1105,8 @@ province_event = {
 					}
 					new_character = {
 						spawn_unit = {
-							province = ROOT
-							home = ROOT
+							province = FROM
+							home = FROM
 							owner = PREV
 							scaled_by_biggest_garrison = 0.75
 							troops = {
@@ -1110,8 +1130,8 @@ province_event = {
 					}
 					new_character = {
 						spawn_unit = {
-							province = ROOT
-							home = ROOT
+							province = FROM
+							home = FROM
 							owner = PREV
 							scaled_by_biggest_garrison = 0.75
 							troops = {
@@ -1126,8 +1146,8 @@ province_event = {
 				}
 				17 = {
 					spawn_unit = {
-						province = ROOT
-						home = ROOT
+						province = FROM
+						home = FROM
 						owner = THIS
 						leader = THIS
 						scaled_by_biggest_garrison = 0.5
@@ -1150,8 +1170,8 @@ province_event = {
 					}
 					new_character = {
 						spawn_unit = {
-							province = ROOT
-							home = ROOT
+							province = FROM
+							home = FROM
 							owner = PREV
 							scaled_by_biggest_garrison = 0.5
 							troops = {
@@ -1175,8 +1195,8 @@ province_event = {
 					}
 					new_character = {
 						spawn_unit = {
-							province = ROOT
-							home = ROOT
+							province = FROM
+							home = FROM
 							owner = PREV
 							scaled_by_biggest_garrison = 0.5
 							troops = {
@@ -1191,8 +1211,8 @@ province_event = {
 				}
 				16 = {
 					spawn_unit = {
-						province = ROOT
-						home = ROOT
+						province = FROM
+						home = FROM
 						owner = THIS
 						leader = THIS
 						scaled_by_biggest_garrison = 0.75
@@ -1214,8 +1234,8 @@ province_event = {
 					}
 					new_character = {
 						spawn_unit = {
-							province = ROOT
-							home = ROOT
+							province = FROM
+							home = FROM
 							owner = PREV
 							scaled_by_biggest_garrison = 0.75
 							troops = {
@@ -1238,8 +1258,8 @@ province_event = {
 					}
 					new_character = {
 						spawn_unit = {
-							province = ROOT
-							home = ROOT
+							province = FROM
+							home = FROM
 							owner = PREV
 							scaled_by_biggest_garrison = 0.75
 							troops = {
@@ -1253,8 +1273,8 @@ province_event = {
 				}
 				17 = {
 					spawn_unit = {
-						province = ROOT
-						home = ROOT
+						province = FROM
+						home = FROM
 						owner = THIS
 						leader = THIS
 						scaled_by_biggest_garrison = 0.5
@@ -1276,8 +1296,8 @@ province_event = {
 					}
 					new_character = {
 						spawn_unit = {
-							province = ROOT
-							home = ROOT
+							province = FROM
+							home = FROM
 							owner = PREV
 							scaled_by_biggest_garrison = 0.5
 							troops = {
@@ -1300,8 +1320,8 @@ province_event = {
 					}
 					new_character = {
 						spawn_unit = {
-							province = ROOT
-							home = ROOT
+							province = FROM
+							home = FROM
 							owner = PREV
 							scaled_by_biggest_garrison = 0.5
 							troops = {
@@ -1316,14 +1336,14 @@ province_event = {
 			}
 			
 				# DoW on the province top liege
-				ROOT = {
+				FROM = {
 					owner = {
 						top_liege = {
 #							set_defacto_vassal = PREVPREVPREV
 							reverse_war = {
 								target = PREVPREVPREV
 								casus_belli = peasant_revolt
-								thirdparty_title = ROOT # The county
+								thirdparty_title = FROM # The county
 							}
 							reverse_opinion = {
 								who = PREVPREVPREV
@@ -1333,6 +1353,7 @@ province_event = {
 					}
 				}
 			}
+		}
 		}
 	}
 }
