@@ -459,7 +459,7 @@ character_event = {
 	option = { # Let them settle
 		name = ZUSK8OP1
 		ai_chance = {
-			factor = 70
+			factor = 40
 		}
 		FROM = {
 		set_province_flag = no_slavs
@@ -468,7 +468,7 @@ character_event = {
 			duration = 9125
 			hidden = yes
 		}
-		IF = {
+		IF = { #if province owner is not the top liege
 			limit = {
 				owner = {
 					NOT = { religion = slavic_pagan }
@@ -683,7 +683,7 @@ character_event = {
 				}
 				
 				FROM = { county = { usurp_title_plus_barony_if_unlanded = PREVPREV } }
-				set_defacto_liege = THIS
+				set_defacto_liege = PREV # top liege of the realm
 				reverse_culture = FROM
 				reverse_religion = FROM
 				
@@ -934,10 +934,10 @@ character_event = {
 					culture = ved
 					set_character_flag = decided_culture
 				}
-
-				reverse_culture = FROM
-				reverse_religion = FROM
-
+				
+				#reverse_culture = FROM
+				#reverse_religion = FROM
+				
 				create_title = {
 					tier = DUKE
 					landless = yes
@@ -947,7 +947,7 @@ character_event = {
 					name = "PEASANT_REVOLT"
 					holder = THIS
 				}
-			
+				
 				random_list = {
 				17 = {
 					spawn_unit = {
@@ -1359,6 +1359,253 @@ character_event = {
 	
 	option = { # Give away the province
 		name = ZUSK8OP3
+		ai_chance = {
+			factor = 30
+		}
+		FROM = {
+		set_province_flag = no_slavs
+		add_province_modifier = {
+			name = zusk_slav_timer
+			duration = 9125
+			hidden = yes
+		}
+		IF = {
+			limit = {
+				owner = {
+					NOT = { religion = slavic_pagan }
+					NOT = { character = ROOT }
+				}
+			}
+			holder_scope = {
+				character_event = { id = zusk_event.36 }
+			}
+		}
+		owner = {
+			create_character = {
+				random_traits = yes
+				dynasty = none
+				religion = slavic_pagan
+				culture = old_slavic
+				female = no
+				age = 25
+				attributes = {
+					martial = 5
+				}
+				trait = peasant_leader
+			}
+
+			new_character = {
+				IF = {
+					limit = {
+						NOT = { has_character_flag = decided_culture }
+						location = {
+							culture = bolghar
+						}
+					}
+					culture = bulgarian
+					set_character_flag = decided_culture
+				}
+				IF = {
+					limit = {
+						NOT = { has_character_flag = decided_culture }
+						location = {
+							OR = {
+								culture = roman
+								culture = latin
+							}
+						}
+					}
+					#culture = slovene
+					culture = karantanci #ancestors of Slovenes
+					set_character_flag = decided_culture
+				}
+				IF = {
+					limit = {
+						NOT = { has_character_flag = decided_culture }
+						location = {
+							OR = {
+								culture = heruli
+								culture = lusitanian
+							}
+						}
+					}
+					culture = polish
+					set_character_flag = decided_culture
+				}
+				IF = {
+					limit = {
+						NOT = { has_character_flag = decided_culture }
+						location = {
+							culture = dacian
+						}
+					}
+					culture = romanian
+					set_character_flag = decided_culture
+				}
+				IF = {
+					limit = {
+						NOT = { has_character_flag = decided_culture }
+						location = {
+							culture = illyrian
+						}
+					}
+					culture = serbian
+					set_character_flag = decided_culture
+				}
+				IF = {
+					limit = {
+						NOT = { has_character_flag = decided_culture }
+						location = {
+							OR = {
+								culture = illyro_roman
+								culture = ostrogothic
+							}
+						}
+					}
+					culture = croatian
+					set_character_flag = decided_culture
+				}
+				IF = {
+					limit = {
+						NOT = { has_character_flag = decided_culture }
+						location = {
+							OR = {
+								culture = rygir
+								culture = gepid
+								culture = iazyges
+							}
+						}
+					}
+					culture = bohemian
+					set_character_flag = decided_culture
+				}
+				IF = {
+					limit = {
+						NOT = { has_character_flag = decided_culture }
+						location = {
+							OR = {
+								culture = lombard
+								culture = german
+							}
+						}
+					}
+					culture = pommeranian
+					set_character_flag = decided_culture
+				}
+				IF = {
+					limit = {
+						NOT = { has_character_flag = decided_culture }
+						location = {
+							OR = {
+								culture_group = central_germanic
+								culture_group = east_germanic
+							}
+						}
+					}
+					culture = wends
+					set_character_flag = decided_culture
+				}
+				IF = {
+					limit = {
+						NOT = { has_character_flag = decided_culture }
+						location = {
+							OR = {
+								culture = romano_british
+								culture = romano_gallic
+								culture = frankish
+								culture = norman
+								culture = old_frankish
+								culture_group = west_germanic
+								culture_group = celtic
+								culture_group = latin
+							}
+						}
+					}
+					culture = galliya
+					set_character_flag = decided_culture
+				}
+				IF = {
+					limit = {
+						NOT = { has_character_flag = decided_culture }
+						location = {
+							OR = {
+								culture = african_romance
+								culture = berber_germanic
+								culture = ethiopian
+								culture_group = west_african
+								culture_group = east_african
+								culture_group = central_african
+							}
+						}
+					}
+					culture = afriki
+					set_character_flag = decided_culture
+				}
+				IF = {
+					limit = {
+						NOT = { has_character_flag = decided_culture }
+						location = {
+							OR = {
+								culture_group = byzantine
+								culture_group = proto_carpathian
+								culture_group = phrygian_group
+							}
+						}
+					}
+					culture = macedonian
+					set_character_flag = decided_culture
+				}
+				IF = {
+					limit = {
+						NOT = { has_character_flag = decided_culture }
+						location = {
+							OR = {
+								culture_group = central_semitic
+								culture_group = south_semitic
+								culture_group = iranian
+							}
+						}
+					}
+					culture = akhemenidov
+					set_character_flag = decided_culture
+				}
+				IF = {
+					limit = {
+						NOT = { has_character_flag = decided_culture }
+						location = {
+							OR = {
+								culture_group = dravidian_group
+								culture_group = indo_aryan_group
+							}
+						}
+					}
+					culture = ved
+					set_character_flag = decided_culture
+				}
+				
+				FROM = { county = { usurp_title_plus_barony_if_unlanded = PREVPREV } }
+				set_defacto_liege = THIS
+				reverse_culture = FROM
+				reverse_religion = FROM
+				
+				#spawn_unit = { #original code by Zusk, doesn't work properly
+				#	province = PREV
+				#	owner = ROOT
+				#	match_character = ROOT
+				#	match_mult = 0.75
+				#	attrition = 0.000
+				#}
+				# I suggest rewriting the entire unit block
+				spawn_unit = {
+					province = FROM
+					owner = THIS
+					match_character = THIS #not sure who was meant to be here, either the tribal leader or previous holder of the province
+					match_mult = 0.75
+					attrition = 0.000
+				}
+			}
+		}
+		}
 	}
 }
 
