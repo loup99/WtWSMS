@@ -8317,6 +8317,15 @@ peasant_revolt = {
 
 	on_success_title = {
 		usurp_title_plus_barony_if_unlanded = { target = ROOT type = revolt }
+		if = { # only for Slavic Migration
+			limit = { ROOT = { has_character_flag = decided_culture } }
+			location = {
+				ROOT = {
+					reverse_culture = PREV
+					reverse_religion = PREV
+				}
+			}
+		}
 		ROOT = { set_defacto_liege = ROOT }
 		FROM = {
 			prestige = -100
