@@ -3,8 +3,8 @@
 #
 # Written by Zusk
 #
-# zusk_event.8 Slavs
 # zusk_event.11 -> zusk_event.15, zusk_event.53 General migration
+# zusk_event.8, zusk_event.35 Slavic migration mechanic
 ###############################
 
 
@@ -355,7 +355,7 @@ character_event = {
 	}
 }
 
-# Slavs
+# Slavic Migration
 province_event = {
 	id = zusk_event.8
 	desc = zusk_event.8.desc
@@ -439,7 +439,7 @@ province_event = {
 		}
 	}
 	
-	option = {
+	option = { # Let them settle
 		name = ZUSK8OP1
 		ai_chance = {
 			factor = 70
@@ -680,7 +680,7 @@ province_event = {
 		}
 	}
 
-	option = {
+	option = { # Fight them
 		name = ZUSK8OP2
 		ai_chance = {
 			factor = 30
@@ -1330,5 +1330,273 @@ province_event = {
 
 	}
 
+	option = { # Give away the province
+		name = ZUSK8OP3
+	}
+	
 }
 
+# Slavs settle in realm province of a Slavic top liege
+province_event = {
+	id = zusk_event.35
+	desc = zusk_event.35.desc
+	
+	picture = GFX_evt_tribal_life
+	
+	trigger = {
+		always = no # Disabled until further notice, pending either help from Zusk or another change
+		owner = {
+			top_liege = {
+				religion = slavic_pagan
+			}
+		}
+		NOT = { has_province_modifier = zusk_slav_timer }
+		NOT = { has_province_flag = slav_culture_flag }
+		OR = {
+			AND = {
+				NOT = { culture_group = east_slavic }
+				NOT = { culture_group = west_slavic }
+				NOT = { culture_group = south_slavic }
+			}
+			NOT = { religion = slavic_pagan }
+		}
+		NOT = { year = 800 }
+	}
+	
+	mean_time_to_happen = {
+		years = 25
+
+		modifier = {
+			factor = 1.1
+			year = 500
+		}
+		modifier = {
+			factor = 1.2
+			year = 550
+		}
+		modifier = {
+			factor = 1.4
+			year = 600
+		}
+		modifier = {
+			factor = 1.8
+			year = 650
+		}
+		modifier = {
+			factor = 2
+			year = 700
+		}
+		modifier = {
+			factor = 2.5
+			year = 750
+		}
+	}
+	
+	option = {
+		name = OK
+		IF = {
+			limit = {
+				NOT = { has_province_modifier = zusk_slav_timer }
+				location = {
+					culture = bolghar
+				}
+			}
+			culture = bulgarian
+			add_province_modifier = {  name = zusk_slav_timer duration = 10 hidden = yes }
+		}
+		IF = {
+			limit = {
+				NOT = { has_province_modifier = zusk_slav_timer }
+				location = {
+					OR = {
+						culture = roman
+						culture = latin
+					}
+				}
+			}
+			culture = slovene
+			add_province_modifier = {  name = zusk_slav_timer duration = 10 hidden = yes }
+		}
+		IF = {
+			limit = {
+				NOT = { has_province_modifier = zusk_slav_timer }
+				location = {
+					OR = {
+						culture = heruli
+						culture = lusitanian
+					}
+				}
+			}
+			culture = polish
+			add_province_modifier = {  name = zusk_slav_timer duration = 10 hidden = yes }
+		}
+		IF = {
+			limit = {
+				NOT = { has_province_modifier = zusk_slav_timer }
+				location = {
+					culture = dacian
+				}
+			}
+			culture = romanian
+			add_province_modifier = {  name = zusk_slav_timer duration = 10 hidden = yes }
+		}
+		IF = {
+			limit = {
+				NOT = { has_province_modifier = zusk_slav_timer }
+				location = {
+					culture = illyrian
+				}
+			}
+			culture = serbian
+			add_province_modifier = {  name = zusk_slav_timer duration = 10 hidden = yes }
+		}
+		IF = {
+			limit = {
+				NOT = { has_province_modifier = zusk_slav_timer }
+				location = {
+					OR = {
+						culture = dalmatian
+						culture = ostrogothic
+					}
+				}
+			}
+			culture = croatian
+			add_province_modifier = { name = zusk_slav_timer duration = 10 hidden = yes }
+		}
+		IF = {
+			limit = {
+				NOT = { has_province_modifier = zusk_slav_timer }
+				location = {
+					OR = {
+						culture = rygir
+						culture = gepid
+						culture = iazyges
+					}
+				}
+			}
+			culture = bohemian
+			add_province_modifier = { name = zusk_slav_timer duration = 10 hidden = yes }
+		}
+		IF = {
+			limit = {
+				NOT = { has_province_modifier = zusk_slav_timer }
+				location = {
+					OR = {
+						culture = lombard
+						culture = german
+					}
+				}
+			}
+			culture = pommeranian
+			add_province_modifier = { name = zusk_slav_timer duration = 10 hidden = yes }
+		}
+		IF = {
+			limit = {
+				NOT = { has_province_modifier = zusk_slav_timer }
+				location = {
+					OR = {
+						culture_group = central_germanic
+						culture_group = east_germanic
+					}
+				}
+			}
+			culture = wends
+			add_province_modifier = { name = zusk_slav_timer duration = 10 hidden = yes }
+		}
+		IF = {
+			limit = {
+				NOT = { has_province_modifier = zusk_slav_timer }
+				location = {
+					OR = {
+						culture = romano_british
+						culture = romano_gallic
+						culture = french
+						culture = norman
+						culture = frankish
+						culture_group = west_germanic
+						culture_group = celtic
+						culture_group = latin
+					}
+				}
+			}
+			culture = galliya
+			add_province_modifier = { name = zusk_slav_timer duration = 10 hidden = yes }
+		}
+		IF = {
+			limit = {
+				NOT = { has_province_modifier = zusk_slav_timer }
+				location = {
+					OR = {
+						culture = african_romance
+						culture = berber_germanic
+						culture = ethiopian
+						culture_group = west_african
+						culture_group = east_african
+						culture_group = central_african
+					}
+				}
+			}
+			culture = afriki
+			add_province_modifier = { name = zusk_slav_timer duration = 10 hidden = yes }
+		}
+		IF = {
+			limit = {
+				NOT = { has_province_modifier = zusk_slav_timer }
+				location = {
+					OR = {
+						culture_group = byzantine
+						culture_group = proto_carpathian
+						culture_group = phyrygian_group
+					}
+				}
+			}
+			culture = macedonian
+			add_province_modifier = { name = zusk_slav_timer duration = 10 hidden = yes }
+		}
+		IF = {
+			limit = {
+				NOT = { has_province_modifier = zusk_slav_timer }
+				location = {
+					OR = {
+						culture_group = central_semitic
+						culture_group = south_semitic
+						culture_group = iranian
+					}
+				}
+			}
+			culture = akhemenidov
+			add_province_modifier = { name = zusk_slav_timer duration = 10 hidden = yes }
+		}
+		IF = {
+			limit = {
+				NOT = { has_province_modifier = zusk_slav_timer }
+				location = {
+					OR = {
+						culture_group = dravidian_group
+						culture_group = indo_aryan_group
+					}
+				}
+			}
+			culture = ved
+			add_province_modifier = { name = zusk_slav_timer duration = 10 hidden = yes }
+		}
+		IF = {
+			limit = {
+				NOT = { has_province_modifier = zusk_slav_timer }
+			}
+			culture = old_slavic
+			add_province_modifier = { name = zusk_slav_timer duration = 10 hidden = yes }
+		}
+		religion = slavic_pagan
+		set_province_flag = slav_culture_flag
+		IF = {
+			limit = {
+				owner = {
+					NOT = { religion = slavic_pagan }
+					NOT = { character = ROOT }
+				}
+			}
+			character_event = { id = zusk_event.36 } #TODO: missing zusk_event.36
+		}
+	}
+}
