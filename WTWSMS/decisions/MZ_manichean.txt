@@ -1,0 +1,66 @@
+decisions = {
+	restore_archegos = {
+		is_high_prio = yes
+		potential = {
+			has_dlc = "The Old Gods"
+			NOT = { has_global_flag = archegos_restored }
+			religion = manichean
+		}
+		allow = {
+			completely_controls = d_samarkand
+		}
+		effect = {
+			set_global_flag = archegos_restored 
+			piety = -300
+			d_manichean = {
+				holder_scope = {
+					FROM = {
+						holder_scope = {
+							set_defacto_vassal = PREVPREV
+						}
+					}
+				}
+			}
+
+			d_manichean = {
+					holder_scope = {
+						b_khokand = {
+							grant_title = PREV
+						}
+					}
+				}
+			}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	form_guardians_of_light = {
+		potential = {
+			religion = manichean
+			NOT = { has_global_flag = guardians_of_light_founded }
+			independent = yes
+			has_global_flag = archegos_restored 
+			OR = {
+				tier = king
+				tier = emperor
+			}
+		}
+		allow = {
+			war = no
+			piety = 500
+			wealth = 250
+		}
+
+		effect = {
+			narrative_event = { id = RoM.26091 }
+			set_global_flag = guardians_of_light_founded
+			prestige = 500
+			scaled_wealth = -1
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}
