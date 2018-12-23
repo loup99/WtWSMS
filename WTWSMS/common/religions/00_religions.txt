@@ -13,6 +13,10 @@ secret_religion_visibility_trigger = {
 	}
 }
 
+# women_can_take_consorts = yes # If set, women can take consorts as well, not just men. Defaults to "no". Has no effect if max_consorts is 0
+# men_can_take_consorts = no # If set, men cannot take consorts any more. Defaults to "yes". Has no effect if max_consorts is 0
+# male_temple_holders = no # If set to no, men cannot hold temples. Defaults to "yes". You might need to update your law scripts for this to fully work (see trigger "religion_allows_male_temple_holders")
+
 christian = {
 	has_coa_on_barony_only = yes
 	graphical_culture = westerngfx
@@ -47,6 +51,8 @@ christian = {
 		color = { 0.8 0.8 0.6 }
 		
 		crusade_name = CRUSADE
+		use_new_crusade = yes
+		crusade_cb = new_crusade
 		scripture_name = THE_BIBLE
 		priest_title = PRIEST
 		
@@ -69,14 +75,32 @@ christian = {
 		can_call_crusade = yes
 		can_retire_to_monastery = yes
 		priests_can_inherit = no
+		rel_head_defense = yes
 		
 		religious_clothing_head = 0
 		religious_clothing_priest = 1
+
+		#intermarry = catholic
+		intermarry = orthodox
+		intermarry = miaphysite
+		intermarry = nestorian
+
+		intermarry = cathar
+		intermarry = fraticelli
+		intermarry = waldensian
+		intermarry = lollard
+		intermarry = monophysite
+		intermarry = bogomilist
+		intermarry = monothelite
+		intermarry = iconoclast
+		intermarry = paulician
+		intermarry = messalian
 		
 		allow_in_ruler_designer = no # Not available before Great Schism
 	}
 	cathar = {
 		graphical_culture = westerngfx
+		alternate_start = { has_alternate_start_parameter = { key = religion value = full_random } }
 
 		icon = 1
 		heresy_icon = 6
@@ -91,7 +115,22 @@ christian = {
 		feminist = yes      # Nullifies the negative opinion modifier that vassals normally get if ruler is female or has female heir
 		
 		religious_clothing_head = 0
-		religious_clothing_priest = 0
+		religious_clothing_priest = 1
+
+		intermarry = catholic
+		intermarry = orthodox
+		intermarry = miaphysite
+		intermarry = nestorian
+
+		intermarry = fraticelli
+		intermarry = waldensian
+		intermarry = lollard
+		intermarry = monophysite
+		intermarry = bogomilist
+		intermarry = monothelite
+		intermarry = iconoclast
+		intermarry = paulician
+		intermarry = messalian
 		
 		allow_in_ruler_designer = no # Catholic heresy
 		
@@ -101,6 +140,7 @@ christian = {
 	}
 	fraticelli = {
 		graphical_culture = westerngfx
+		alternate_start = { has_alternate_start_parameter = { key = religion value = full_random } }
 
 		icon = 1
 		heresy_icon = 6
@@ -109,6 +149,8 @@ christian = {
 		parent = catholic
 		
 		crusade_name = CRUSADE
+		use_new_crusade = yes
+		crusade_cb = new_crusade
 
 		investiture = yes
 		can_have_antipopes = yes
@@ -122,6 +164,21 @@ christian = {
 		
 		religious_clothing_head = 0
 		religious_clothing_priest = 1
+
+		intermarry = catholic
+		intermarry = orthodox
+		intermarry = miaphysite
+		intermarry = nestorian
+
+		intermarry = cathar
+		intermarry = waldensian
+		intermarry = lollard
+		intermarry = monophysite
+		intermarry = bogomilist
+		intermarry = monothelite
+		intermarry = iconoclast
+		intermarry = paulician
+		intermarry = messalian
 		
 		allow_in_ruler_designer = no # Catholic heresy
 		
@@ -131,6 +188,7 @@ christian = {
 	}
 	waldensian = {
 		graphical_culture = westerngfx
+		alternate_start = { has_alternate_start_parameter = { key = religion value = full_random } }
 
 		icon = 1
 		heresy_icon = 6
@@ -146,6 +204,21 @@ christian = {
 		religious_clothing_head = 0
 		religious_clothing_priest = 1
 		
+		intermarry = catholic
+		intermarry = orthodox
+		intermarry = miaphysite
+		intermarry = nestorian
+
+		intermarry = cathar
+		intermarry = fraticelli
+		intermarry = lollard
+		intermarry = monophysite
+		intermarry = bogomilist
+		intermarry = monothelite
+		intermarry = iconoclast
+		intermarry = paulician
+		intermarry = messalian
+		
 		allow_in_ruler_designer = no # Catholic heresy
 		
 		general_opinion = -10
@@ -154,6 +227,7 @@ christian = {
 	}
 	lollard = {
 		graphical_culture = westerngfx
+		alternate_start = { has_alternate_start_parameter = { key = religion value = full_random } }
 
 		icon = 1
 		heresy_icon = 6
@@ -168,6 +242,21 @@ christian = {
 		
 		religious_clothing_head = 5 # Lollards would not have worn anything beyond basic robes due to asceticism
 		religious_clothing_priest = 5
+		
+		intermarry = catholic
+		intermarry = orthodox
+		intermarry = miaphysite
+		intermarry = nestorian
+
+		intermarry = cathar
+		intermarry = fraticelli
+		intermarry = waldensian
+		intermarry = monophysite
+		intermarry = bogomilist
+		intermarry = monothelite
+		intermarry = iconoclast
+		intermarry = paulician
+		intermarry = messalian
 		
 		allow_in_ruler_designer = no # Catholic heresy
 	}
@@ -196,6 +285,7 @@ christian = {
 		}
 		
 		autocephaly = yes
+		pentarchy = yes
 		can_excommunicate = yes
 		can_grant_divorce = yes
 		can_grant_invasion_cb = invasion
@@ -207,10 +297,26 @@ christian = {
 		religious_clothing_head = 2
 		religious_clothing_priest = 2
 		
+		intermarry = catholic
+		intermarry = miaphysite
+		intermarry = nestorian
+
+		intermarry = cathar
+		intermarry = fraticelli
+		intermarry = waldensian
+		intermarry = lollard
+		intermarry = monophysite
+		intermarry = bogomilist
+		intermarry = monothelite
+		intermarry = iconoclast
+		intermarry = paulician
+		intermarry = messalian
+		
 		allow_in_ruler_designer = no # Not available before Great Schism
 	}
 	adoptionism = {
 		graphical_culture = westerngfx
+		alternate_start = { has_alternate_start_parameter = { key = religion value = full_random } }
 
 		icon = 133 # FIXME
 		heresy_icon = 134
@@ -231,10 +337,26 @@ christian = {
 		religious_clothing_head = 2
 		religious_clothing_priest = 2
 		
+		intermarry = catholic
+		intermarry = miaphysite
+		intermarry = nestorian
+
+		intermarry = cathar
+		intermarry = fraticelli
+		intermarry = waldensian
+		intermarry = lollard
+		intermarry = monophysite
+		intermarry = bogomilist
+		intermarry = monothelite
+		intermarry = iconoclast
+		intermarry = paulician
+		intermarry = messalian
+		
 		allow_in_ruler_designer = no # Orthodox heresy
 	}
 	bogomilist = {
 		graphical_culture = westerngfx
+		alternate_start = { has_alternate_start_parameter = { key = religion value = full_random } }
 
 		icon = 2
 		heresy_icon = 7
@@ -251,6 +373,21 @@ christian = {
 		religious_clothing_head = 2
 		religious_clothing_priest = 2
 		
+		intermarry = catholic
+		intermarry = miaphysite
+		intermarry = nestorian
+
+		intermarry = cathar
+		intermarry = fraticelli
+		intermarry = waldensian
+		intermarry = lollard
+		intermarry = monophysite
+		intermarry = bogomilist
+		intermarry = monothelite
+		intermarry = iconoclast
+		intermarry = paulician
+		intermarry = messalian
+		
 		allow_in_ruler_designer = no # Orthodox heresy
 		
 		general_opinion = -20
@@ -259,6 +396,7 @@ christian = {
 	}
 	monothelite = {
 		graphical_culture = westerngfx
+		alternate_start = { has_alternate_start_parameter = { key = religion value = full_random } }
 
 		icon = 2
 		heresy_icon = 7
@@ -269,6 +407,7 @@ christian = {
 		crusade_name = CRUSADE
 
 		autocephaly = yes
+		pentarchy = yes
 		can_excommunicate = yes
 		can_grant_divorce = yes
 		can_grant_invasion_cb = invasion
@@ -279,10 +418,26 @@ christian = {
 		religious_clothing_head = 2
 		religious_clothing_priest = 2
 		
+		intermarry = catholic
+		intermarry = miaphysite
+		intermarry = nestorian
+
+		intermarry = cathar
+		intermarry = fraticelli
+		intermarry = waldensian
+		intermarry = lollard
+		intermarry = monophysite
+		intermarry = bogomilist
+		intermarry = monothelite
+		intermarry = iconoclast
+		intermarry = paulician
+		intermarry = messalian
+		
 		allow_in_ruler_designer = no # Orthodox heresy
 	}
 	iconoclast = {
 		graphical_culture = westerngfx
+		alternate_start = { has_alternate_start_parameter = { key = religion value = full_random } }
 
 		icon = 2
 		heresy_icon = 7
@@ -293,6 +448,7 @@ christian = {
 		crusade_name = CRUSADE
 
 		autocephaly = yes
+		pentarchy = yes
 		can_excommunicate = yes
 		can_grant_divorce = yes
 		can_grant_invasion_cb = invasion
@@ -303,6 +459,21 @@ christian = {
 		religious_clothing_head = 5
 		religious_clothing_priest = 5
 		
+		intermarry = catholic
+		intermarry = miaphysite
+		intermarry = nestorian
+
+		intermarry = cathar
+		intermarry = fraticelli
+		intermarry = waldensian
+		intermarry = lollard
+		intermarry = monophysite
+		intermarry = bogomilist
+		intermarry = monothelite
+		intermarry = iconoclast
+		intermarry = paulician
+		intermarry = messalian
+		
 		allow_in_ruler_designer = no # Orthodox heresy
 		
 		general_opinion = -10
@@ -311,6 +482,7 @@ christian = {
 	}
 	paulician = {
 		graphical_culture = westerngfx
+		alternate_start = { has_alternate_start_parameter = { key = religion value = full_random } }
 
 		icon = 2
 		heresy_icon = 7
@@ -326,6 +498,7 @@ christian = {
 		}
 
 		autocephaly = yes
+		pentarchy = yes
 		can_excommunicate = yes
 		can_grant_divorce = yes
 		can_grant_invasion_cb = invasion
@@ -336,10 +509,26 @@ christian = {
 		religious_clothing_head = 2
 		religious_clothing_priest = 2
 		
+		intermarry = catholic
+		intermarry = miaphysite
+		intermarry = nestorian
+
+		intermarry = cathar
+		intermarry = fraticelli
+		intermarry = waldensian
+		intermarry = lollard
+		intermarry = monophysite
+		intermarry = bogomilist
+		intermarry = monothelite
+		intermarry = iconoclast
+		intermarry = paulician
+		intermarry = messalian
+		
 		allow_in_ruler_designer = no # Orthodox heresy
 	}
 	sabellianism = {
 		graphical_culture = westerngfx
+		alternate_start = { has_alternate_start_parameter = { key = religion value = full_random } }
 
 		icon = 133 # FIXME
 		heresy_icon = 134
@@ -352,11 +541,27 @@ christian = {
 		
 		religious_clothing_head = 2
 		religious_clothing_priest = 2
-				
+		
+		intermarry = catholic
+		intermarry = miaphysite
+		intermarry = nestorian
+
+		intermarry = cathar
+		intermarry = fraticelli
+		intermarry = waldensian
+		intermarry = lollard
+		intermarry = monophysite
+		intermarry = bogomilist
+		intermarry = monothelite
+		intermarry = iconoclast
+		intermarry = paulician
+		intermarry = messalian
+		
 		allow_in_ruler_designer = no # Orthodox heresy
 	}
 	psilanthropism = {
 		graphical_culture = westerngfx
+		alternate_start = { has_alternate_start_parameter = { key = religion value = full_random } }
 
 		icon = 133 # FIXME
 		heresy_icon = 134
@@ -369,6 +574,21 @@ christian = {
 		
 		religious_clothing_head = 2
 		religious_clothing_priest = 2
+		
+		intermarry = catholic
+		intermarry = miaphysite
+		intermarry = nestorian
+
+		intermarry = cathar
+		intermarry = fraticelli
+		intermarry = waldensian
+		intermarry = lollard
+		intermarry = monophysite
+		intermarry = bogomilist
+		intermarry = monothelite
+		intermarry = iconoclast
+		intermarry = paulician
+		intermarry = messalian
 		
 		allow_in_ruler_designer = no # Orthodox heresy
 	}	
@@ -448,6 +668,7 @@ christian = {
 	}
 	total_depravity = {
 		graphical_culture = westerngfx
+		alternate_start = { has_alternate_start_parameter = { key = religion value = full_random } }
 
 		icon = 107
 		heresy_icon = 134
@@ -465,6 +686,7 @@ christian = {
 	}
 	eutychian = {
 		graphical_culture = westerngfx
+		alternate_start = { has_alternate_start_parameter = { key = religion value = full_random } }
 
 		icon = 98
 		heresy_icon = 134
@@ -1136,6 +1358,21 @@ christian = {
 		
 		religious_clothing_head = 2
 		religious_clothing_priest = 2
+		
+		intermarry = catholic
+		intermarry = orthodox
+		intermarry = nestorian
+
+		intermarry = cathar
+		intermarry = fraticelli
+		intermarry = waldensian
+		intermarry = lollard
+		intermarry = monophysite
+		intermarry = bogomilist
+		intermarry = monothelite
+		intermarry = iconoclast
+		intermarry = paulician
+		intermarry = messalian
 	}
 	audianistic = {
 		graphical_culture = westerngfx
@@ -1154,6 +1391,7 @@ christian = {
 	}
 	monophysite = {
 		graphical_culture = westerngfx
+		alternate_start = { has_alternate_start_parameter = { key = religion value = full_random } }
 
 		icon = 11
 		heresy_icon = 13
@@ -1173,6 +1411,21 @@ christian = {
 		
 		religious_clothing_head = 2
 		religious_clothing_priest = 2
+		
+		intermarry = catholic
+		intermarry = orthodox
+		intermarry = miaphysite
+		intermarry = nestorian
+
+		intermarry = cathar
+		intermarry = fraticelli
+		intermarry = waldensian
+		intermarry = lollard
+		intermarry = bogomilist
+		intermarry = monothelite
+		intermarry = iconoclast
+		intermarry = paulician
+		intermarry = messalian
 	}
 	monarchianism = {
 		graphical_culture = westerngfx
@@ -1231,11 +1484,27 @@ christian = {
 		religious_clothing_head = 2
 		religious_clothing_priest = 2
 		
+		intermarry = catholic
+		intermarry = orthodox
+		intermarry = miaphysite
+		intermarry = nestorian
+
+		intermarry = cathar
+		intermarry = fraticelli
+		intermarry = waldensian
+		intermarry = lollard
+		intermarry = monophysite
+		intermarry = bogomilist
+		intermarry = monothelite
+		intermarry = iconoclast
+		intermarry = paulician
+		intermarry = messalian
+		
 		intermarry = taoist
 		intermarry = bon
+		intermarry = bon_reformed
 		intermarry = buddhist
-		intermarry = zoroastrian_group		
-		intermarry = muslim
+		intermarry = zoroastrian_group
 		
 		general_opinion = -10
 		same_opinion_if_same_religion = 20
@@ -1290,9 +1559,16 @@ muslim = {
 	
 	color = { 0 0.6 0 }
 	
+	interface_skin = { muslim_interface }
+	
 	# Names given only to Muslim characters (base names)
 	male_names = {
 		Abbas Abdul Abdullah Abolhassan Abu-Bakr Ahmad Akbar Allahyar Ali Ali-Fay Ali-Kolon Ali-Zalil Hasan Hossein Hussayn Ismail Mahmud Muammar Muhammad
+	}
+	
+	# Names given only to Muslim characters (base names)
+	female_names = {
+		Ayesha Abrar Afifah Anabia Hijrah Hind Hareem Iqra Judi Karida Khadijah Khalidah Khawlah Madeeha Maryam Mariyah Maymunah Mariam Mina Nuwwarrah Qismah Ruqayyah Saba Safaa Safiyyah Salma Shahrazad Sirin Sumaiyah Thuwaibah Umamah Zainab Zubaidah Zainab 
 	}
 
 	islamic = {
@@ -1329,7 +1605,6 @@ muslim = {
 		uses_decadence = yes
 		uses_jizya_tax = yes
 	}
-	
 	sunni = {
 		graphical_culture = muslimgfx
 
@@ -1362,9 +1637,19 @@ muslim = {
 		attacking_same_religion_piety_loss = yes
 		uses_decadence = yes
 		uses_jizya_tax = yes
+
+		#intermarry = sunni
+		intermarry = zikri
+		intermarry = yazidi
+		intermarry = ibadi
+		intermarry = kharijite
+		intermarry = shiite
+		intermarry = druze
+		intermarry = hurufi
 	}
 	zikri = {
 		graphical_culture = muslimgfx
+		alternate_start = { has_alternate_start_parameter = { key = religion value = full_random } }
 
 		icon = 3
 		heresy_icon = 8
@@ -1383,10 +1668,19 @@ muslim = {
 		attacking_same_religion_piety_loss = yes
 		uses_decadence = yes
 		uses_jizya_tax = yes
+
+		intermarry = sunni
+		intermarry = yazidi
+		intermarry = ibadi
+		intermarry = kharijite
+		intermarry = shiite
+		intermarry = druze
+		intermarry = hurufi
 	}
 	yazidi = {
 		graphical_culture = persiangfx #Yazidis ain't Islamic
 		coa_on_barony_only = yes
+		alternate_start = { has_alternate_start_parameter = { key = religion value = full_random } }
 
 		icon = 3
 		heresy_icon = 8
@@ -1434,6 +1728,14 @@ muslim = {
 
 		religious_clothing_head = 5 #The Sheikh wears white but can wear a pink headdress
 		religious_clothing_priest = 5 #Different orders of Yazidi clergy wear different colors (lowest rank wears black), but white is considered universally accepted
+		
+		intermarry = sunni
+		intermarry = zikri
+		intermarry = ibadi
+		intermarry = kharijite
+		intermarry = shiite
+		intermarry = druze
+		intermarry = hurufi
 
 		general_opinion = -20
 		same_opinion_if_same_religion = 40
@@ -1470,6 +1772,14 @@ muslim = {
 		attacking_same_religion_piety_loss = yes
 		uses_decadence = yes
 		uses_jizya_tax = yes
+		
+		intermarry = sunni
+		intermarry = zikri
+		intermarry = yazidi
+		intermarry = kharijite
+		intermarry = shiite
+		intermarry = druze
+		intermarry = hurufi
 	}
 	kharijite = {
 		graphical_culture = muslimgfx
@@ -1488,12 +1798,22 @@ muslim = {
 		matrilineal_marriages = no
 		
 		landed_kin_prestige_bonus = yes
+		attacking_same_religion_piety_loss = yes
+		uses_decadence = yes
+		uses_jizya_tax = yes
+		
+		intermarry = sunni
+		intermarry = zikri
+		intermarry = yazidi
+		intermarry = ibadi
+		intermarry = shiite
+		intermarry = druze
+		intermarry = hurufi
 		
 		general_opinion = -20
 		same_opinion_if_same_religion = 40
 		infidel_opinion = -40
 	}
-	
 	abadites = {
 		graphical_culture = muslimgfx
 
@@ -1652,12 +1972,21 @@ muslim = {
 		uses_decadence = yes
 		uses_jizya_tax = yes
 		
+		intermarry = sunni
+		intermarry = zikri
+		intermarry = yazidi
+		intermarry = ibadi
+		intermarry = kharijite
+		intermarry = druze
+		intermarry = hurufi
+		
 		general_opinion = -10
 		same_opinion_if_same_religion = 20
 		infidel_opinion = -20
 	}
 	druze = {
 		graphical_culture = muslimgfx
+		alternate_start = { has_alternate_start_parameter = { key = religion value = full_random } }
 
 		icon = 4
 		heresy_icon = 9
@@ -1683,9 +2012,18 @@ muslim = {
 
 		religious_clothing_head = 5
 		religious_clothing_priest = 5
+		
+		intermarry = sunni
+		intermarry = zikri
+		intermarry = yazidi
+		intermarry = ibadi
+		intermarry = kharijite
+		intermarry = shiite
+		intermarry = hurufi
 	}
 	hurufi = {
 		graphical_culture = muslimgfx
+		alternate_start = { has_alternate_start_parameter = { key = religion value = full_random } }
 
 		icon = 4
 		heresy_icon = 9
@@ -1700,8 +2038,19 @@ muslim = {
 		can_call_crusade = yes
 		max_wives = 4
 		matrilineal_marriages = no
-
+		
 		landed_kin_prestige_bonus = yes
+		attacking_same_religion_piety_loss = yes
+		uses_decadence = yes
+		uses_jizya_tax = yes
+		
+		intermarry = sunni
+		intermarry = zikri
+		intermarry = yazidi
+		intermarry = ibadi
+		intermarry = kharijite
+		intermarry = shiite
+		intermarry = druze
 		
 		general_opinion = -10
 		same_opinion_if_same_religion = 20
@@ -1817,7 +2166,7 @@ muslim = {
 	
 pagan_group = {
 	has_coa_on_barony_only = yes
-	graphical_culture = westerngfx
+	graphical_culture = norsegfx
 	crusade_cb = crusade
 	playable = yes
 	
@@ -1826,6 +2175,8 @@ pagan_group = {
 	ai_fabricate_claims = no
 	
 	color = { 0.6 0.0 0.0 }
+	
+	interface_skin = { pagan_interface }
 	
 	# Names given only to Pagan characters (base names)
 	male_names = {
@@ -1838,7 +2189,8 @@ pagan_group = {
 	}
 
 	pagan = { # Use for misc other pagans
-		graphical_culture = norsegfx
+		graphical_culture = pagangfx
+		alternate_start = { always = no }
 
 		icon = 5
 		heresy_icon = 67
@@ -1872,6 +2224,7 @@ pagan_group = {
 	root_west_pagan_reformed = {
 		graphical_culture = buddhistgfx
 		secondary_event_pictures = tengri_pagan
+		alternate_start = { always = no }
 		
 		icon = 95
 		heresy_icon = 96
@@ -1960,6 +2313,7 @@ pagan_group = {
 	}
 	sanamahi_reformed = { # Manipuran Paganism
 		graphical_culture = mesoamericangfx
+		alternate_start = { always = no }
 
 		icon = 100 # FIXME
 		heresy_icon = 67 # FIXME
@@ -1983,27 +2337,28 @@ pagan_group = {
 	
 		reformed = sanamahi_reformed
 		
-		unit_modifier = {
-			garrison_size = 0.4
-			
-			key = "DEF_RELIGION"
-		}
-		unit_home_modifier = {
-			land_morale = 0.8
-			light_infantry_defensive = 0.8
-			heavy_infantry_defensive = 0.8
-			pikemen_defensive = 0.8
-			light_cavalry_defensive = 0.8
-			knights_defensive = 0.8
-			archers_defensive = 0.8
-			horse_archers_defensive = 0.8
-			camel_cavalry_defensive = 0.8
-			war_elephants_defensive = 0.8
-			
-			garrison_size = 0.4
-			
-			key = "DEF_RELIGION_HOME_TERRITORY"
-		}
+	#	unit_modifier = {		 		#Special features are added via reformation. If HF is not installed, default features are applied on reformed religion by event.
+	#		garrison_size = 0.2
+	#		levy_size = 0.2
+	#		
+	#		key = "DEF_RELIGION"
+	#	}
+	#	unit_home_modifier = {
+	#		land_morale = 0.8
+	#		light_infantry_defensive = 0.8
+	#		heavy_infantry_defensive = 0.8
+	#		pikemen_defensive = 0.8
+	#		light_cavalry_defensive = 0.8
+	#		knights_defensive = 0.8
+	#		archers_defensive = 0.8
+	#		horse_archers_defensive = 0.8
+	#		camel_cavalry_defensive = 0.8
+	#		war_elephants_defensive = 0.8
+	#		
+	#		garrison_size = 0.4
+	#		
+	#		key = "DEF_RELIGION_HOME_TERRITORY"
+	#	}
 		
 		religious_clothing_head = 3
 		religious_clothing_priest = 3
@@ -2063,7 +2418,6 @@ pagan_group = {
 
 		intermarry = buddhist
 	}
-
 	georgian_pagan = { # Armazi, used for misc other pagans
 		graphical_culture = norsegfx
 		
@@ -2116,10 +2470,10 @@ pagan_group = {
 		religious_clothing_head = 3
 		religious_clothing_priest = 3
 	}
-
 	norse_pagan_reformed = {
 		graphical_culture = norsegfx
 		secondary_event_pictures = norse_pagan
+		alternate_start = { always = no }
 
 		icon = 20
 		heresy_icon = 21
@@ -2152,10 +2506,10 @@ pagan_group = {
 		join_crusade_if_bordering_hostile = yes
 		
 		allow_looting = yes
-		allow_rivermovement = yes
+		#allow_rivermovement = yes 		#Special features are added via reformation. If HF is not installed, default features are applied on reformed religion by event.´
 		female_temple_holders = yes
-		allow_viking_invasion = yes
-		seafarer = yes
+		#allow_viking_invasion = yes
+		#seafarer = yes
 		
 		short_reign_opinion_year_mult = 1.5
 		
@@ -2163,16 +2517,16 @@ pagan_group = {
 		
 		max_consorts = 3
 		
-		religious_clothing_head = 3
+		religious_clothing_head = 15
 		religious_clothing_priest = 3
 		
 		intermarry = norse_pagan
 		intermarry = germanic_pagan
 		intermarry = germanic_pagan_reformed
 		
-		allow_in_ruler_designer = no
+		allow_in_ruler_designer = no		
+		#reformer_head_of_religion = yes #make the character that reforms this religion the head of the new reformed faith
 	}
-	
 	norse_pagan = {
 		graphical_culture = norsegfx
 
@@ -2214,22 +2568,22 @@ pagan_group = {
 		max_consorts = 3
 		independence_war_score_bonus = 30 # Overrides define CONTESTED_TITLE_OCCUPIED_WARSCORE_BONUS_INDEP
 		reformed = norse_pagan_reformed
-		reformer_head_of_religion = yes #make the character that reforms this religion the head of the new reformed faith
 		
 		aggression = 2.0 # AI aggression factor
 		
 		short_reign_opinion_year_mult = 2.5
-		
-		religious_clothing_head = 3
+
+		religious_clothing_head = 15
 		religious_clothing_priest = 3
 		
 		intermarry = norse_pagan_reformed
 		intermarry = germanic_pagan_reformed
 		intermarry = germanic_pagan
+		intermarry = baltic_pagan
+		intermarry = slavic_pagan
 		
 		dislike_tribal_organization = yes
 	}
-	
 	illyran_pagan = { # Eiateuta
 		graphical_culture = norsegfx
 
@@ -2288,6 +2642,7 @@ pagan_group = {
 	germanic_pagan_reformed = {
 		graphical_culture = norsegfx
 		secondary_event_pictures = norse_pagan
+		alternate_start = { always = no }
 
 		ai_convert_other_group = 2 # always try to convert
 
@@ -2321,7 +2676,7 @@ pagan_group = {
 		join_crusade_if_bordering_hostile = yes
 		
 		allow_looting = yes
-		allow_rivermovement = yes
+		#allow_rivermovement = yes 		#Special features are added via reformation. If HF is not installed, default features are applied on reformed religion by event.´
 		female_temple_holders = yes
 		
 		short_reign_opinion_year_mult = 1.5 # The default is 2
@@ -2330,7 +2685,7 @@ pagan_group = {
 		
 		max_consorts = 3
 		
-		religious_clothing_head = 3
+		religious_clothing_head = 15
 		religious_clothing_priest = 3
 		
 		intermarry = norse_pagan
@@ -2384,7 +2739,7 @@ pagan_group = {
 		
 		short_reign_opinion_year_mult = 2.5 # The default is 2
 		
-		religious_clothing_head = 3
+		religious_clothing_head = 15
 		religious_clothing_priest = 3
 		
 		intermarry = norse_pagan_reformed
@@ -2449,6 +2804,7 @@ pagan_group = {
 	}
 	celtic_pagan_reformed = { # Druidic
 		graphical_culture = norsegfx
+		alternate_start = { always = no }
 
 		icon = 155
 		heresy_icon = 156
@@ -2587,6 +2943,7 @@ pagan_group = {
 	}
 	tengri_pagan_reformed = { # Mongols
 		graphical_culture = mongolgfx
+		alternate_start = { always = no }
 		
 		secondary_event_pictures = tengri_pagan
 
@@ -2625,7 +2982,9 @@ pagan_group = {
 		
 		aggression = 2.0 # AI aggression factor
 		
-		religious_clothing_head = 6
+		short_reign_opinion_year_mult = 1.25
+
+		religious_clothing_head = 13		
 		religious_clothing_priest = 4
 		
 		allow_in_ruler_designer = no
@@ -2634,7 +2993,6 @@ pagan_group = {
 		intermarry = buddhist
 		intermarry = zoroastrian_group
 	}
-	
 	tengri_pagan = { # This tag is used in code to override Nomad religions for purposes of Coats of Arms, etc
 		graphical_culture = mongolgfx
 
@@ -2677,16 +3035,16 @@ pagan_group = {
 		
 		aggression = 2.0 # AI aggression factor
 		
-		religious_clothing_head = 6
+		religious_clothing_head = 13
 		religious_clothing_priest = 4
 
 		intermarry = hepthal_religion
 		intermarry = buddhist
 		intermarry = zoroastrian_group
 	}
-
 	scythian_pagan_reformed = { #Reformed Iranian steppe paganism
 		graphical_culture = persiangfx
+		alternate_start = { always = no }
 		
 		secondary_event_pictures = tengri_pagan
 
@@ -2730,7 +3088,6 @@ pagan_group = {
 
 		allow_in_ruler_designer = no
 	}
-
 	scythian_pagan = { # Iranian Steppe Paganism / Tabitian
 		graphical_culture = mongolgfx
 
@@ -2778,9 +3135,9 @@ pagan_group = {
 		
 		dislike_tribal_organization = yes
 	}
-
 	semitic_pagan_reformed = {
 		graphical_culture = muslimgfx
+		alternate_start = { always = no }
 
 		icon = 147
 		heresy_icon = 148
@@ -2835,7 +3192,6 @@ pagan_group = {
 
 		allow_in_ruler_designer = no
 	}
-	
 	semitic_pagan = { 
 		graphical_culture = mongolgfx
 
@@ -2894,9 +3250,9 @@ pagan_group = {
 		religious_clothing_head = 6
 		religious_clothing_priest = 4
 	}
-
 	semitic_pagan_heresy = {
 		graphical_culture = mongolgfx
+		alternate_start = { always = no }
 
 		icon = 146
 		heresy_icon = 148
@@ -2915,9 +3271,9 @@ pagan_group = {
 
 		allow_in_ruler_designer = no
 	}
-	
 	baltic_pagan_reformed = {
-		graphical_culture = norsegfx
+		graphical_culture = pagangfx
+		alternate_start = { always = no }
 		
 		secondary_event_pictures = baltic_pagan
 
@@ -2940,28 +3296,28 @@ pagan_group = {
 			VELNIAS
 		}
 		
-		unit_modifier = {
-			garrison_size = 0.2
-			levy_size = 0.2
-			
-			key = "DEF_RELIGION"
-		}
-		unit_home_modifier = {
-			land_morale = 0.8
-			light_infantry_defensive = 0.8
-			heavy_infantry_defensive = 0.8
-			pikemen_defensive = 0.8
-			light_cavalry_defensive = 0.8
-			knights_defensive = 0.8
-			archers_defensive = 0.8
-			horse_archers_defensive = 0.8
-			camel_cavalry_defensive = 0.8
-			war_elephants_defensive = 0.8
-			
-			garrison_size = 0.4
-			
-			key = "DEF_RELIGION_HOME_TERRITORY"
-		}
+	#	unit_modifier = {		 		#Special features are added via reformation. If HF is not installed, default features are applied on reformed religion by event.
+	#		garrison_size = 0.2
+	#		levy_size = 0.2
+	#		
+	#		key = "DEF_RELIGION"
+	#	}
+	#	unit_home_modifier = {
+	#		land_morale = 0.8
+	#		light_infantry_defensive = 0.8
+	#		heavy_infantry_defensive = 0.8
+	#		pikemen_defensive = 0.8
+	#		light_cavalry_defensive = 0.8
+	#		knights_defensive = 0.8
+	#		archers_defensive = 0.8
+	#		horse_archers_defensive = 0.8
+	#		camel_cavalry_defensive = 0.8
+	#		war_elephants_defensive = 0.8
+	#		
+	#		garrison_size = 0.4
+	#		
+	#		key = "DEF_RELIGION_HOME_TERRITORY"
+	#	}
 
 		priests_can_marry = yes
 		female_temple_holders = yes
@@ -2970,14 +3326,18 @@ pagan_group = {
 		allow_looting = yes
 		max_consorts = 3
 		
-		religious_clothing_head = 3
-		religious_clothing_priest = 3
+		short_reign_opinion_year_mult = 1.5
+		
+		religious_clothing_head = 14
+		religious_clothing_priest = 6
 		
 		allow_in_ruler_designer = no
+		
+		intermarry = baltic_pagan
 	}
 	
 	baltic_pagan = {
-		graphical_culture = norsegfx
+		graphical_culture = pagangfx
 
 		icon = 31
 		heresy_icon = 33
