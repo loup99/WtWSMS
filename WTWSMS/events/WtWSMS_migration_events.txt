@@ -361,6 +361,9 @@ province_event = {
 	hide_window = yes
 	
 	trigger = {
+		#start of the new part of trigger, should be made more dynamic in the future
+		year = 500
+		#end of the new part of the trigger
 		NOT = { year = 800 }
 		NOT = { has_province_flag = no_slavs }
 		NOT = { holder_scope = { top_liege = { religion = slavic_pagan } } }
@@ -397,7 +400,8 @@ province_event = {
 	}
 	
 	mean_time_to_happen = {
-		years = 15
+		#years = 15 #original base MTTH
+		years = 10 #base MTTH after start date addition
 
 		modifier = {
 			factor = 10
@@ -478,6 +482,13 @@ province_event = {
 		modifier = {
 			factor = 1.05
 			capital_holding = { has_building = tp_wall_5 }
+		}
+		modifier = {
+			factor = 0.5
+			OR = {
+				e_dacia = { e_avar = { holder_scope = { num_of_realm_counties = { value = 10 title = PREVPREV } } } }
+				e_dacia = { d_avars = { holder_scope = { num_of_realm_counties = { value = 10 title = PREVPREV } } } }
+			}
 		}
 	}
 	
