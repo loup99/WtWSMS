@@ -1,0 +1,1546 @@
+#################################################################################
+#
+# VIET style flavor events coded for WTWSMS
+#
+# VIETmisc.4000-4999 reserved
+#
+# 4000-4003: Noric
+# 4004-4010: Bosporan
+# 4011-4015 Corduenian
+#
+#
+#
+#
+#
+#################################################################################
+
+namespace = VIETmisc
+
+###########################################################
+# NORIC
+###########################################################
+
+
+# Noric smiths on the rise
+province_event = {
+	id = VIETmisc.4000
+	desc = VIETmisc.4000.desc
+	picture = GFX_evt_weaponsmith
+	
+	trigger = {
+		NOT = { has_province_modifier = VIET_noric_smiths }
+		culture = noricroman
+	}
+	
+	mean_time_to_happen = {
+		months = 5000
+		modifier = {
+			factor = 1.5
+			NOT = { num_of_max_settlements = 5 }
+		}
+		modifier = {
+			factor = 1.2
+			NOT = { num_of_max_settlements = 3 }
+		}
+		modifier = {
+			factor = 2
+			NOT = {
+				region = custom_diocese_raetia_noricum
+			}
+		}
+	}
+	
+
+	option = { # Good
+		name = VIETmisc.4000.a
+		random_list = {
+			40 = {
+				add_province_modifier = {
+					name = VIET_noric_smiths
+					duration = 1000
+				}			
+			}
+			30 = {
+				add_province_modifier = {
+					name = VIET_noric_smiths
+					duration = 2000
+				}			
+			}
+			20 = {
+				add_province_modifier = {
+					name = VIET_noric_smiths
+					duration = 3000
+				}			
+			}
+			10 = {
+				add_province_modifier = {
+					name = VIET_noric_smiths
+					duration = 4000
+				}			
+			}
+		}	
+		if = {
+			limit = {
+				has_dlc = "Reapers"
+			}
+			custom_tooltip = {
+				text = increase_prosperity_custom_tooltip
+				hidden_tooltip = {
+					change_variable = { which = prosperity_value value = 6 }
+				}
+			}
+		}
+	}
+	option = { # Why didn't you invest in eastern Noricum?
+		name = VIETmisc.4000.b
+		tooltip_info = stewardship
+		trigger = {
+			owner = {
+				stewardship = 10
+				wealth = 50
+			}
+		}
+		custom_tooltip = { text = VIET_invest_in_eastern_noricum }
+		owner = { wealth = -50 }
+		random_list = {
+			40 = {
+				add_province_modifier = {
+					name = VIET_noric_smiths
+					duration = 3000
+				}			
+			}
+			30 = {
+				add_province_modifier = {
+					name = VIET_noric_smiths
+					duration = 4000
+				}			
+			}
+			20 = {
+				add_province_modifier = {
+					name = VIET_noric_smiths
+					duration = 5000
+				}			
+			}
+			10 = {
+				add_province_modifier = {
+					name = VIET_noric_smiths
+					duration = 6000
+				}			
+			}
+		}	
+		if = {
+			limit = {
+				has_dlc = "Reapers"
+			}
+			custom_tooltip = {
+				text = increase_prosperity_custom_tooltip
+				hidden_tooltip = {
+					change_variable = { which = prosperity_value value = 10 }
+				}
+			}
+		}
+	}
+}
+
+# Legends of Noreia
+province_event = {
+	id = VIETmisc.4001
+	desc = VIETmisc.4001.desc
+	picture = GFX_evt_ancient_cairn
+	
+	trigger = {
+		NOT = { has_province_modifier = VIET_noric_legendary_capital }
+		culture = noricroman
+		OR = {
+			region = custom_diocese_raetia_noricum
+			region = custom_diocese_pannoniae
+			region = custom_diocese_sevenprovinces
+			region = custom_diocese_italia_annonaria
+			region = custom_diocese_germania_magna
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 15000
+		modifier = {
+			factor = 1.5
+			NOT = { num_of_max_settlements = 5 }
+		}
+		modifier = {
+			factor = 1.2
+			NOT = { num_of_max_settlements = 3 }
+		}
+		modifier = { #unlikely for other regions, but possible
+			factor = 5
+			NOT = {
+				region = custom_diocese_raetia_noricum
+			}
+		}
+		modifier = { #don't make it happen too much
+			factor = 2
+			has_global_flag = VIET_noreia_found
+		}
+		modifier = { #make it less likely for AI
+			factor = 1.5
+			owner = {
+				ai = yes
+			}
+		}
+	}
+	
+	
+	immediate = {
+		set_global_flag = VIET_noreia_found
+	}
+	
+
+	option = { # Good
+		name = VIETmisc.4001.a		
+		add_province_modifier = {
+			name = VIET_noric_legendary_capital
+			duration = 20000
+		}			
+	}
+	option = { # Disbelief
+		name = VIETmisc.4001.b
+		owner = {
+			random = {
+				add_trait = cynical
+				chance = 25
+			}
+		}
+		add_province_modifier = {
+			name = VIET_noric_legendary_capital
+			duration = 20000
+		}			
+	}	
+	option = { # Scholarly disbelief
+		name = VIETmisc.4001.c
+		tooltip_info = learning
+		trigger = {
+			owner = {
+				learning = 13
+				NOT = { trait = genius }
+				NOT = { trait = quick }
+				NOT = { trait = shrewd }			
+			}
+		}
+		owner = {
+			prestige = 10
+			random = {
+				add_trait = cynical
+				chance = 25
+			}
+		}
+		add_province_modifier = {
+			name = VIET_noric_legendary_capital
+			duration = 20000
+		}	
+	}			
+	option = { # Scholarly disbelief
+		name = VIETmisc.4001.c
+		tooltip_info = genius
+		trigger = {
+			owner = { trait = genius }
+		}
+		owner = {
+			prestige = 10
+			random = {
+				add_trait = cynical
+				chance = 25
+			}
+		}
+		add_province_modifier = {
+			name = VIET_noric_legendary_capital
+			duration = 20000
+		}	
+	}			
+	option = { # Scholarly disbelief
+		name = VIETmisc.4001.c
+		tooltip_info = quick
+		trigger = {
+			owner = { trait = quick }
+		}
+		owner = {
+			prestige = 10
+			random = {
+				add_trait = cynical
+				chance = 25
+			}
+		}
+		add_province_modifier = {
+			name = VIET_noric_legendary_capital
+			duration = 20000
+		}	
+	}				
+	option = { # Scribe made copies
+		name = VIETmisc.4001.c
+		tooltip_info = shrewd
+		trigger = {
+			owner = { trait = shrewd }
+		}
+		owner = {
+			prestige = 10
+			random = {
+				add_trait = cynical
+				chance = 25
+			}
+		}
+		add_province_modifier = {
+			name = VIET_noric_legendary_capital
+			duration = 20000
+		}	
+	}
+}
+
+
+
+# Saliunca herb perfume
+character_event = {
+	id = VIETmisc.4002
+	desc = VIETmisc.4002.desc
+	picture = GFX_evt_skyrim_forest
+	
+	is_triggered_only = yes
+	
+	min_age = 16
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+	war = no
+	
+	trigger = {
+		in_command = no
+		OR = {
+			culture = noricroman
+			any_demesne_province = {
+				culture = noricroman
+			}
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 1.2
+			trait = trusting
+		}
+		modifier = {
+			factor = 0.8
+			trait = paranoid
+		}	
+		modifier = {
+			factor = 1.2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.8
+			trait = shy
+		}			
+		modifier = {
+			factor = 1.2
+			trait = just
+		}
+		modifier = {
+			factor = 0.8
+			trait = arbitrary
+		}			
+		modifier = {
+			factor = 1.2
+			trait = diligent
+		}
+		modifier = {
+			factor = 0.8
+			trait = slothful
+		}			
+		modifier = {
+			factor = 1.2
+			trait = ambitious
+		}
+		modifier = {
+			factor = 0.8
+			trait = content
+		}
+	}
+	
+	option = { # good!
+		name = VIETmisc.4002.a
+		add_character_modifier = {
+			name = VIET_saliunca_perfume
+			duration = 730
+		}
+		any_courtier = {
+			add_character_modifier = {
+				name = VIET_saliunca_perfume
+				duration = 730
+			}		
+		}
+	}
+	
+	option = { # no!
+		name = VIETmisc.4002.b
+		add_character_modifier = {
+			name = the_prude
+			duration = 730
+		}
+	}
+}
+
+
+# Gentian plant
+character_event = {
+	id = VIETmisc.4003
+	desc = VIETmisc.4003.desc
+	picture = GFX_evt_skyrim_forest
+	
+	is_triggered_only = yes
+	
+	min_age = 16
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+	war = no
+	
+	trigger = {
+		in_command = no
+		OR = {
+			culture = noricroman
+			any_demesne_province = {
+				culture = noricroman
+			}
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 1.2
+			trait = trusting
+		}
+		modifier = {
+			factor = 0.8
+			trait = paranoid
+		}	
+		modifier = {
+			factor = 1.2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.8
+			trait = shy
+		}			
+		modifier = {
+			factor = 1.2
+			trait = just
+		}
+		modifier = {
+			factor = 0.8
+			trait = arbitrary
+		}			
+		modifier = {
+			factor = 1.2
+			trait = kind
+		}
+		modifier = {
+			factor = 0.8
+			trait = cruel
+		}			
+		modifier = {
+			factor = 1.2
+			trait = humble
+		}
+		modifier = {
+			factor = 0.8
+			trait = proud
+		}
+	}
+
+	
+	option = { # ok
+		name = VIETmisc.4003.a
+		set_character_flag = VIET_gentian_herb_already
+		add_character_modifier = {
+			name = VIET_gentian_herb
+			duration = 365
+		}
+		if = {
+			limit = {
+				NOT = { has_character_flag = VIET_gentian_herb_already }
+			}
+			random_list = {
+				25 = { health = 0.15 }
+				25 = { health = 0.3 }
+				25 = { health = 0.45 }
+				25 = { health = 0.6 }
+			}
+		}
+	}
+}
+
+#######################################################
+# BOSPORAN
+#######################################################
+
+# Greek insults the Bosporan level of Greek-ness
+character_event = {
+	id = VIETmisc.4004
+	desc = VIETmisc.4004.desc
+	picture = GFX_evt_scandal
+	
+	is_triggered_only = yes
+	
+	min_age = 16
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+	war = no
+	culture = bosporan
+	
+	trigger = {
+		in_command = no
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 1.2
+			trait = wroth
+		}
+		modifier = {
+			factor = 0.8
+			trait = patient
+		}	
+		modifier = {
+			factor = 1.2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.8
+			trait = shy
+		}			
+		modifier = {
+			factor = 1.2
+			trait = envious
+		}
+		modifier = {
+			factor = 0.8
+			trait = kind
+		}			
+		modifier = {
+			factor = 1.2
+			trait = proud
+		}
+		modifier = {
+			factor = 0.8
+			trait = humble
+		}
+	}
+
+	
+	option = { # We can learn from barbarians
+		name = VIETmisc.4004.a
+		add_character_modifier = {
+			name = VIET_learn_from_steppe_nomads
+			duration = 365
+		}
+	}	
+	option = { # We are Greeks
+		name = VIETmisc.4004.b
+		add_character_modifier = {
+			name = VIET_proud_mixed_greek
+			duration = 365
+		}
+	}
+	option = { # Corrupted
+		name = VIETmisc.4004.c
+		prestige = -10
+		random = {
+			add_trait = humble
+			chance = 60
+		}
+	}
+	option = { # Pointless squabbles
+		name = VIETmisc.4004.d
+		piety = 10
+		random_list = {
+			15 = { add_trait = humble }
+			15 = { add_trait = cynical }
+			70 = { }
+		}
+	}
+}
+
+# What sort of pottery?
+character_event = {
+	id = VIETmisc.4005
+	desc = VIETmisc.4005.desc
+	picture = GFX_evt_castle_construction
+	
+	is_triggered_only = yes
+	
+	min_age = 16
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+	war = no
+	culture = bosporan
+	
+	trigger = {
+		in_command = no
+		wealth = 10
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 1.2
+			trait = ambitious
+		}
+		modifier = {
+			factor = 0.8
+			trait = content
+		}	
+		modifier = {
+			factor = 1.2
+			trait = greedy
+		}
+		modifier = {
+			factor = 0.8
+			trait = temperate
+		}			
+		modifier = {
+			factor = 1.2
+			trait = envious
+		}
+		modifier = {
+			factor = 0.8
+			trait = slothful
+		}			
+		modifier = {
+			factor = 1.2
+			trait = humble
+		}
+		modifier = {
+			factor = 0.8
+			trait = proud
+		}
+	}
+
+	
+	option = { # Greek style
+		name = VIETmisc.4005.a
+		wealth = -5
+		prestige = 5
+	}	
+	option = { # Bosporan style
+		name = VIETmisc.4005.b
+		wealth = -5
+		piety = 5
+	}
+	option = { # Why not both?
+		name = VIETmisc.4005.c
+		wealth = -5
+		random_list = {
+			50 = { prestige = 5 }
+			50 = { piety = 5 }
+		}
+	}
+}
+
+# Loot the burial mound or not?
+province_event = {
+	id = VIETmisc.4006
+	desc = VIETmisc.4006.desc
+	picture = GFX_evt_ancient_cairn
+	
+	trigger = {
+		OR = {
+			province_id = 559
+			province_id = 560
+			province_id = 561
+			province_id = 562
+			province_id = 598
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 6500
+	}
+
+	
+	option = { # Don't loot
+		name = VIETmisc.4006.a
+		owner = {
+			piety = 15
+		}
+	}	
+	option = { # Don't loot
+		name = VIETmisc.4006.b
+		owner = {
+			wealth = -20
+			piety = -15
+			hidden_tooltip = {
+				random_list = {
+					25 = { set_character_flag = VIET_bosporan_burial_disappointing }
+					25 = { set_character_flag = VIET_bosporan_burial_mediocre }
+					25 = { set_character_flag = VIET_bosporan_burial_good }
+					25 = { set_character_flag = VIET_bosporan_burial_great }
+				}
+			}
+			character_event = { id = VIETmisc.4007 tooltip = VIETmisc.4007.tooltip days = 3 random = 5 }		
+		}
+	}
+}
+
+# Result of burial mound search
+character_event = {
+	id = VIETmisc.4007
+	desc = VIETmisc.4007.desc
+	picture = GFX_evt_ancient_cairn
+	
+	is_triggered_only = yes
+
+	
+	option = { # Disappointing
+		name = VIETmisc.4007.a
+		trigger = {
+			has_character_flag = VIET_bosporan_burial_disappointing
+		}
+		clr_character_flag = VIET_bosporan_burial_disappointing
+		wealth = 10
+		prestige = -5
+	}	
+	option = { # Mediocre
+		name = VIETmisc.4007.b
+		trigger = {
+			has_character_flag = VIET_bosporan_burial_mediocre
+		}
+		clr_character_flag = VIET_bosporan_burial_mediocre
+		wealth = 25
+		prestige = 10
+	}
+	option = { # Good
+		name = VIETmisc.4007.c
+		trigger = {
+			has_character_flag = VIET_bosporan_burial_good
+		}
+		clr_character_flag = VIET_bosporan_burial_good
+		wealth = 50
+		prestige = 25
+	}
+	option = { # Great
+		name = VIETmisc.4007.d
+		trigger = {
+			has_character_flag = VIET_bosporan_burial_great
+		}
+		clr_character_flag = VIET_bosporan_burial_great
+		wealth = 100
+		prestige = 50
+	}	
+	option = { # Failsafe in case no character flag
+		name = VIETmisc.4007.a
+		trigger = {
+			NOT = { has_character_flag = VIET_bosporan_burial_disappointing } 
+			NOT = { has_character_flag = VIET_bosporan_burial_mediocre } 
+			NOT = { has_character_flag = VIET_bosporan_burial_good } 
+			NOT = { has_character_flag = VIET_bosporan_burial_great } 
+		}
+		wealth = 10
+		prestige = -5
+	}	
+}
+
+# Bosporan shipowner guild
+province_event = {
+	id = VIETmisc.4008
+	desc = VIETmisc.4008.desc
+	picture = GFX_evt_busy_trading_dock_republic
+	
+	trigger = {
+		culture = bosporan
+		port = yes
+		NOT = { has_province_modifier = VIET_bosporan_shipowner_cool }
+	}
+	
+	mean_time_to_happen = {
+		months = 5000
+	}
+
+	option = { # Don't loot
+		name = VIETmisc.4008.a
+		add_province_modifier = {
+			name = VIET_bosporan_shipowner_cool
+			duration = 1453
+		}	
+		if = {
+			limit = {
+				has_dlc = "Reapers"
+			}
+			custom_tooltip = {
+				text = increase_prosperity_custom_tooltip
+				hidden_tooltip = {
+					change_variable = { which = prosperity_value value = 12 }
+				}
+			}
+		}
+	}
+}
+
+# Legends of the Tauri
+character_event = {
+	id = VIETmisc.4009
+	desc = VIETmisc.4009.desc
+	picture = GFX_evt_tuscan_country
+	
+	is_triggered_only = yes
+	
+	min_age = 16
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+	war = no
+	culture = bosporan
+	
+	#trigger = {
+	#	in_command = no
+	#}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 1.2
+			trait = erudite
+		}
+		modifier = {
+			factor = 0.8
+			is_dumb_trigger = yes
+		}	
+		modifier = {
+			factor = 1.2
+			trait = content
+		}
+		modifier = {
+			factor = 0.8
+			trait = ambitious
+		}			
+		modifier = {
+			factor = 1.2
+			trait = shy
+		}
+		modifier = {
+			factor = 0.8
+			trait = gregarious
+		}			
+		modifier = {
+			factor = 1.2
+			trait = cynical
+		}
+		modifier = {
+			factor = 0.8
+			trait = zealous
+		}			
+		modifier = {
+			factor = 1.2
+			learning = 13
+		}
+		modifier = {
+			factor = 0.8
+			NOT = { learning = 8 }
+		}
+	}
+
+	
+	option = { # More civilized times
+		name = VIETmisc.4009.a
+		add_character_modifier = {
+			name = VIET_thankful_legends
+			duration = 365
+		}
+	}	
+	option = { # Made up stories?
+		name = VIETmisc.4009.b
+		random = {
+			add_trait = cynical
+			chance = 25
+		}
+	}
+}
+
+# Bosporans love Greek wine
+character_event = {
+	id = VIETmisc.4010
+	desc = VIETmisc.4010.desc
+	picture = GFX_evt_busy_trading_dock_republic
+	
+	is_triggered_only = yes
+	
+	min_age = 16
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+	war = no
+	#culture = bosporan
+	
+	trigger = {
+		in_command = no
+		wealth = 20
+		OR = {
+			culture = bosporan
+			any_demesne_province = {
+				culture = bosporan
+			}
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1	
+		modifier = {
+			factor = 1.2
+			trait = charitable
+		}
+		modifier = {
+			factor = 0.8
+			trait = greedy
+		}			
+		modifier = {
+			factor = 1.2
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 0.8
+			trait = temperate
+		}			
+		modifier = {
+			factor = 1.2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.8
+			trait = shy
+		}			
+		modifier = {
+			factor = 1.2
+			trait = kind
+		}
+		modifier = {
+			factor = 0.8
+			trait = cruel
+		}
+	}
+
+	
+	option = { # Sure
+		name = VIETmisc.4010.a
+		wealth = -20
+		capital_scope = {
+			add_province_modifier = {
+				name = VIET_Greek_wine_imports
+				duration = 888
+			}		
+		}
+	}	
+	option = { # No
+		name = VIETmisc.4010.b
+		random_list = {
+			70 = {}
+			10 = { add_trait = greedy }
+			10 = { add_trait = diligent }
+			10 = { add_trait = content }
+		}
+	}
+}
+
+
+###########################################################
+# CORDUENIAN
+###########################################################
+
+
+# Semitic travelers praise Corduenian beauty
+character_event = {
+	id = VIETmisc.4011
+	desc = VIETmisc.4011.desc
+	picture = GFX_evt_emissary
+	
+	is_triggered_only = yes
+	
+	min_age = 16
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+	war = no
+	culture = corduenian
+	
+	trigger = {
+		in_command = no
+	}
+	
+	weight_multiplier = {
+		days = 1	
+		modifier = {
+			factor = 1.2
+			trait = ambitious
+		}
+		modifier = {
+			factor = 0.8
+			trait = content
+		}			
+		modifier = {
+			factor = 1.2
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 0.8
+			trait = temperate
+		}			
+		modifier = {
+			factor = 1.2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.8
+			trait = shy
+		}			
+		modifier = {
+			factor = 1.2
+			trait = kind
+		}
+		modifier = {
+			factor = 0.8
+			trait = cruel
+		}		
+		modifier = {
+			factor = 1.2
+			trait = trusting
+		}
+		modifier = {
+			factor = 0.8
+			trait = paranoid
+		}
+	}
+
+	
+	option = { # We are hot
+		name = VIETmisc.4011.a
+		prestige = 5
+		if = {
+			limit = {
+				trait = humble
+			}
+			random = {
+				remove_trait = humble
+				chance = 40
+			}
+		}
+		else = {
+			random = {
+				add_trait = proud
+				chance = 40
+			}
+		}
+	}	
+	option = { # We are as hot as anyone else
+		name = VIETmisc.4011.b
+		piety = 5
+		if = {
+			limit = {
+				trait = proud
+			}
+			random = {
+				remove_trait = proud
+				chance = 40
+			}
+		}
+		else = {
+			random = {
+				add_trait = humble
+				chance = 40
+			}
+		}
+	}	
+	option = { # Exaggerated stories
+		name = VIETmisc.4011.c
+		add_character_modifier = {
+			name = VIET_skeptical_ruler
+			duration = 444
+		}
+	}	
+	option = { # Trying to flatter me, are you?
+		name = VIETmisc.4011.d
+		random_list = {
+			25 = { add_trait = cynical }
+			25 = { add_trait = paranoid }
+			50 = { }
+		}
+	}
+}
+
+
+# Hire a Corduenian siege expert
+character_event = {
+	id = VIETmisc.4012
+	desc = VIETmisc.4012.desc
+	picture = GFX_evt_machines_of_war
+	
+	is_triggered_only = yes
+	
+	min_age = 16
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+	#war = no
+	#culture = corduenian
+	
+	trigger = {
+		in_command = no
+		wealth = 20
+		OR = {
+			culture = corduenian
+			any_demesne_province = {
+				culture = corduenian
+			}
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1	
+		modifier = {
+			factor = 1.2
+			trait = ambitious
+		}
+		modifier = {
+			factor = 0.8
+			trait = content
+		}			
+		modifier = {
+			factor = 1.2
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 0.8
+			trait = temperate
+		}			
+		modifier = {
+			factor = 1.2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.8
+			trait = shy
+		}			
+		modifier = {
+			factor = 1.2
+			trait = kind
+		}
+		modifier = {
+			factor = 0.8
+			trait = cruel
+		}		
+		modifier = {
+			factor = 1.2
+			trait = trusting
+		}
+		modifier = {
+			factor = 0.8
+			trait = paranoid
+		}
+	}
+
+	
+	option = { # Hire one
+		name = VIETmisc.4012.a
+		wealth = -20
+		create_random_soldier = {
+			random_traits = yes
+			dynasty = random
+			religion = ROOT
+			culture = corduenian
+			female = no
+			attributes = {
+				martial = 8
+			}
+			trait = siege_leader
+		}
+		new_character = {
+			opinion = {
+				modifier = opinion_loyal_servant
+				who = ROOT
+				years = 100
+			}				
+		}
+	}	
+	option = { # No need
+		name = VIETmisc.4012.b
+	}
+}
+
+
+# Look for a Corduenian mistress
+character_event = {
+	id = VIETmisc.4013
+	desc = VIETmisc.4013.desc
+	picture = GFX_evt_maiden
+	
+	is_triggered_only = yes
+	
+	min_age = 16
+	only_rulers = yes
+	only_men = yes
+	capable_only = yes
+	prisoner = no
+	war = no
+	#culture = corduenian
+	
+	trigger = {
+		in_command = no
+		prestige = 20
+		OR = {
+			culture = corduenian
+			any_demesne_province = {
+				culture = corduenian
+			}
+		}
+		NOT = { trait = chaste }
+		NOT = { trait = celibate }
+		NOT = { trait = eunuch }
+		NOT = { trait = homosexual }
+	}
+	
+	weight_multiplier = {
+		days = 1	
+		modifier = {
+			factor = 1.2
+			trait = lustful
+		}
+		modifier = {
+			factor = 0.8
+			trait = content
+		}			
+		modifier = {
+			factor = 1.2
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 0.8
+			trait = temperate
+		}			
+		modifier = {
+			factor = 1.2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.8
+			trait = shy
+		}			
+		modifier = {
+			factor = 1.2
+			trait = greedy
+		}
+		modifier = {
+			factor = 0.8
+			trait = temperate
+		}		
+		modifier = {
+			factor = 1.2
+			trait = arbitrary
+		}
+		modifier = {
+			factor = 0.8
+			trait = just
+		}		
+		modifier = {
+			factor = 1.2
+			trait = hedonist
+		}
+		modifier = {
+			factor = 0.8
+			has_lover = yes
+		}
+	}
+
+	
+	option = { # Find one
+		name = VIETmisc.4013.a
+		prestige = -20
+		create_character = {
+			random_traits = no
+			dynasty = none
+			religion = ROOT
+			culture = corduenian
+			female = yes
+		}
+		new_character = {
+			add_lover = ROOT
+			add_trait = fair
+			random = {
+				chance = 25
+				add_trait = fertile
+			}
+			random = {
+				chance = 10
+				add_trait = tall
+			}
+			random_list = {
+				10 = { add_random_education_trait = diplomacy }
+				10 = { add_random_education_trait = stewardship }
+				10 = { add_random_education_trait = intrigue }
+			}
+			#Personality Archetypes
+			random_list = {
+				20 = { # Sassy girl
+					set_character_flag = VIET_corduenian_sassy
+					add_trait = cynical
+					add_trait = erudite
+					add_trait = stubborn
+					add_trait = honest
+				}
+				20 = { # Social climber
+					set_character_flag = VIET_corduenian_ambitions
+					add_trait = greedy
+					add_trait = diligent
+					add_trait = ambitious
+					add_trait = gregarious
+				}
+				20 = { # Wallflower
+					set_character_flag = VIET_corduenian_wallflower
+					add_trait = shy
+					add_trait = humble
+					add_trait = slothful
+					add_trait = kind
+				}
+				20 = { # tomboy
+					set_character_flag = VIET_corduenian_tomboy
+					add_trait = brave
+					add_trait = gregarious
+					add_trait = wroth
+					add_trait = diligent
+				}
+				20 = { # religious
+					set_character_flag = VIET_corduenian_pious
+					add_trait = zealous
+					add_trait = temperate
+					add_trait = charitable
+					add_trait = chaste
+				}
+				20 = { # asshole
+					set_character_flag = VIET_corduenian_asshole
+					add_trait = cruel
+					add_trait = envious
+					add_trait = arbitrary
+					add_trait = proud
+				}
+				20 = { # wolf in sheep's clothing
+					set_character_flag = VIET_corduenian_wolfsheep
+					add_trait = deceitful
+					add_trait = cynical
+					add_trait = gregarious
+					add_trait = patient
+				}
+				20 = { # wholesome good girl
+					set_character_flag = VIET_corduenian_wholesome
+					add_trait = kind
+					add_trait = trusting
+					add_trait = humble
+					add_trait = content
+				}
+				20 = { # nerd
+					set_character_flag = VIET_corduenian_nerd
+					add_trait = kind
+					add_trait = erudite
+					add_trait = just
+					add_trait = shy
+				}
+				20 = { # People person
+					set_character_flag = VIET_corduenian_personable
+					add_trait = kind
+					add_trait = gregarious
+					add_trait = charitable
+					add_trait = gluttonous
+				}
+			}
+		}
+	}	
+	option = { # Waste of time
+		name = VIETmisc.4013.b
+		piety = 5
+		if = {
+			limit = {
+				trait = lustful
+			}
+			random = {
+				remove_trait = lustful
+				chance = 45
+			}
+		}
+	}
+	option = { # Study the stories and legends
+		name = VIETmisc.4013.c
+		prestige = 5
+		random_list = {
+			10 = { add_trait = erudite }
+			10 = { change_learning = 1 }
+			70 = { }
+		}
+	}
+	option = { # What's so special?
+		name = VIETmisc.4013.d
+		add_character_modifier = {
+			name = VIET_skeptical_ruler
+			duration = 365
+		}
+	}
+}
+
+
+# Come across a Corduenian ruin
+character_event = {
+	id = VIETmisc.4014
+	desc = VIETmisc.4014.desc
+	picture = GFX_evt_ancient_cairn
+	
+	is_triggered_only = yes
+	
+	min_age = 16
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+	#war = no
+	#culture = corduenian
+	
+	trigger = {
+		in_command = no		
+		any_demesne_province = {
+			#Where Corduenians are in the start of the WTWSMS game
+			OR = {
+				province_id = 683
+				province_id = 699
+				province_id = 700
+				province_id = 701
+				province_id = 708			
+			}
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1	
+		modifier = {
+			factor = 1.2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.8
+			trait = shy
+		}			
+		modifier = {
+			factor = 1.2
+			trait = ambitious
+		}
+		modifier = {
+			factor = 0.8
+			trait = content
+		}			
+		modifier = {
+			factor = 1.2
+			trait = greedy
+		}
+		modifier = {
+			factor = 0.8
+			trait = temperate
+		}		
+		modifier = {
+			factor = 1.2
+			trait = paranoid
+		}
+		modifier = {
+			factor = 0.8
+			trait = trusting
+		}
+	}
+
+	
+	option = { # Amazing
+		name = VIETmisc.4014.a
+		prestige = 5
+	}	
+	option = { # No longer in use
+		name = VIETmisc.4014.b
+		piety = 5
+	}
+}
+
+# Corduenian builders can build a lot
+character_event = {
+	id = VIETmisc.4015
+	desc = VIETmisc.4015.desc
+	picture = GFX_evt_castle_construction
+	
+	is_triggered_only = yes
+	
+	min_age = 16
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+	war = no
+	#culture = corduenian
+	
+	trigger = {
+		in_command = no		
+		any_demesne_province = {
+			culture = corduenian
+		}
+		wealth = -40
+	}
+	
+	weight_multiplier = {
+		days = 1	
+		modifier = {
+			factor = 1.2
+			trait = diligent
+		}
+		modifier = {
+			factor = 0.8
+			trait = slothful
+		}			
+		modifier = {
+			factor = 1.2
+			trait = ambitious
+		}
+		modifier = {
+			factor = 0.8
+			trait = content
+		}			
+		modifier = {
+			factor = 1.2
+			trait = greedy
+		}
+		modifier = {
+			factor = 0.8
+			trait = temperate
+		}		
+		modifier = {
+			factor = 1.2
+			trait = proud
+		}
+		modifier = {
+			factor = 0.8
+			trait = humble
+		}
+	}
+
+	
+	option = { # Hire them
+		name = VIETmisc.4015.a
+		wealth = -40
+		add_character_modifier = {
+			name = VIET_hiring_corduenian_builders
+			duration = 1825
+		}
+	}	
+	option = { # No need
+		name = VIETmisc.4015.b
+		random = {
+			add_trait = content
+			chance = 20
+		}
+	}
+}
