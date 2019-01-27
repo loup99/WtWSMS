@@ -1136,6 +1136,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		always = no # going for a simpler event for now
 		has_game_rule = {
 			name = roman_senate
 			value = advanced
@@ -1233,11 +1234,11 @@ narrative_event = {
 		d_senate = { ROOT = { grant_title_no_opinion = PREV } }
 	}
 }
-# Hidden 
-narrative_event = {    #FINISH THE MAINTENANCE EVENT
+# Maintenance event event to make sure the current consul is not changed if you start the game in January
+narrative_event = {
 	id = SENATE.10007
 	hide_window = yes
-	is_triggered_only = yes #on startup
+	is_triggered_only = yes #on_chronicle_start
 	
 	ai = no
 	
@@ -1251,5 +1252,42 @@ narrative_event = {    #FINISH THE MAINTENANCE EVENT
 	
 	immediate = {
 		set_global_flag = recent_consul_assignment
+	}
+}
+# Yearly election of the consul
+narrative_event = {
+	id = SENATE.10008
+	title = SENATE.10006.name
+	desc = SENATE.10006.desc
+	picture = GFX_evt_roman_senate
+	border = GFX_event_narrative_frame_religion
+	
+	only_playable = yes
+	
+	trigger = {
+		has_game_rule = {
+			name = roman_senate
+			value = advanced
+		}
+		NOT = { has_global_flag = senate_not_active }
+		month == 0 #January
+		OR = {
+			had_global_flag = { flag = recent_consul_assignment days = 50 }
+			NOT = { has_global_flag = recent_consul_assignment }
+		}
+	}
+	
+	mean_time_to_happen = { days = 1 }
+	
+	immediate = {
+		clr_global_flag = recent_consul_assignment
+		set_global_flag = recent_consul_assignment
+		d_senate = {
+			holder_scope = {
+				random_vassal = {
+					hold_election = yes
+				}
+			}
+		}
 	}
 }
