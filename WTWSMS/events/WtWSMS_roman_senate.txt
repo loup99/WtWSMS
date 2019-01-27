@@ -1257,12 +1257,7 @@ narrative_event = {
 # Yearly election of the consul
 narrative_event = {
 	id = SENATE.10008
-	title = SENATE.10006.name
-	desc = SENATE.10006.desc
-	picture = GFX_evt_roman_senate
-	border = GFX_event_narrative_frame_religion
-	
-	only_playable = yes
+	hide_window = yes
 	
 	trigger = {
 		has_game_rule = {
@@ -1275,6 +1270,7 @@ narrative_event = {
 			had_global_flag = { flag = recent_consul_assignment days = 50 }
 			NOT = { has_global_flag = recent_consul_assignment }
 		}
+		has_landed_title = d_senate
 	}
 	
 	mean_time_to_happen = { days = 1 }
@@ -1284,9 +1280,7 @@ narrative_event = {
 		set_global_flag = recent_consul_assignment
 		d_senate = {
 			holder_scope = {
-				random_vassal = {
-					hold_election = yes
-				}
+				hold_election = yes
 			}
 		}
 	}
