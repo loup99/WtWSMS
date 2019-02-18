@@ -2742,7 +2742,7 @@ targetted_decisions = {
 			OR = {
 				culture_group = latin
 				AND = {
-					culture_group = arabic
+					culture_group = central_semitic
 					religion_group = christian
 					liege = {
 						culture_group = latin
@@ -2772,7 +2772,7 @@ targetted_decisions = {
 			}
 			OR = {
 				any_realm_province = {
-					culture_group = arabic
+					culture_group = central_semitic
 				}
 				top_liege = {
 					culture = outremer
@@ -2802,7 +2802,7 @@ targetted_decisions = {
 			custom_tooltip = { text = tooltip_provinces_embrace_outremer }
 			if = {
 				limit = {
-					capital_scope = { culture_group = arabic }
+					capital_scope = { culture_group = central_semitic }
 				}
 				custom_tooltip = { text = tooltip_capital_embrace_outremer }
 			}
@@ -2823,7 +2823,7 @@ targetted_decisions = {
 				}
 				if = {
 					limit = {
-						capital_scope = { culture_group = arabic }
+						capital_scope = { culture_group = central_semitic }
 					}
 					capital_scope = { culture = outremer }
 				}
@@ -2839,7 +2839,7 @@ targetted_decisions = {
 			#modifier = {
 			#	factor = 0.01
 			#	capital_scope = {
-			#		NOT = { culture_group = arabic }
+			#		NOT = { culture_group = central_semitic }
 			#	}
 			#}
 			modifier = { #Small Crusader States will balkanize with their own culture or go native.
@@ -2902,198 +2902,7 @@ targetted_decisions = {
 			}
 		}
 	}
-
-	convert_to_spouse_religion= {
-		only_playable = yes
-		filter = home_court
-		ai_target_filter = home_court
-		ai_check_interval = 60
-	
-		from_potential = {
-			ai = no
-			is_playable = yes
-			religion_group = pagan_group
-			controls_religion = no
-		}
-		
-		potential = {
-			OR = {
-				spouse = {
-					character = FROM
-				}
-				consort = {
-					character = FROM
-				}
-			}
-			OR = {
-				religion_group = christian
-				religion_group = muslim
-				religion_group = zoroastrian_group
-				religion_group = jewish_group
-				religion_group = indian_group
-			}
-			is_alive = yes
-		}
-		
-		allow = {
-			FROM = { NOT = { trait = zealous } }
-		}
-		
-		effect = {
-			FROM = {
-				prestige = -500
-				religion_authority = {
-					modifier = ruler_converted_from
-				}
-			
-				if = {
-					limit = {
-						trait = cynical
-					}
-					random = {
-						chance = 60
-						add_trait = sympathy_pagans
-					}
-				}
-				if = {
-					limit = {
-						NOT = { trait = cynical }
-					}
-					random = {
-						chance = 50
-						add_trait = sympathy_pagans
-					}
-				}		
-			
-				religion = ROOT
-				
-				#When spouse is Hindu
-				if = {
-					limit = {
-						ROOT = {
-							trait = shaivist_hindu
-						}
-					}
-					add_trait = shaivist_hindu
-				}
-				if = {
-					limit = {
-						ROOT = {
-							trait = vaishnavist_hindu
-						}
-					}
-					add_trait = vaishnavist_hindu
-				}
-				if = {
-					limit = {
-						ROOT = {
-							trait = shaktist_hindu
-						}
-					}
-					add_trait = shaktist_hindu
-				}
-				if = {
-					limit = {
-						ROOT = {
-							trait = smartist_hindu
-						}
-					}
-					add_trait = smartist_hindu
-				}
-				
-				#When spouse is Buddhist
-				if = {
-					limit = {
-						ROOT = {
-							trait = mahayana_buddhist
-						}
-					}
-					add_trait = mahayana_buddhist
-				}
-				if = {
-					limit = {
-						ROOT = {
-							trait = vajrayana_buddhist
-						}
-					}
-					add_trait = vajrayana_buddhist
-				}
-				if = {
-					limit = {
-						ROOT = {
-							trait = theravada_buddhist
-						}
-					}
-					add_trait = theravada_buddhist
-				}
-				
-				#When spouse is Jain
-				if = {
-					limit = {
-						ROOT = {
-							trait = digambara_jain
-						}
-					}
-					add_trait = digambara_jain
-				}
-				if = {
-					limit = {
-						ROOT = {
-							trait = svetambara_jain
-						}
-					}
-					add_trait = svetambara_jain
-				}
-				if = {
-					limit = {
-						ROOT = {
-							trait = pagan_branch_1
-						}
-					}
-					add_trait = pagan_branch_1
-				}
-				if = {
-					limit = {
-						ROOT = {
-							trait = pagan_branch_2
-						}
-					}
-					add_trait = pagan_branch_2
-				}
-				if = {
-					limit = {
-						ROOT = {
-							trait = pagan_branch_3
-						}
-					}
-					add_trait = pagan_branch_3
-				}
-				if = {
-					limit = {
-						ROOT = {
-							trait = pagan_branch_4
-						}
-					}
-					add_trait = pagan_branch_4
-				}
-				
-				hidden_tooltip = {
-					religion_authority = {
-						modifier = ruler_converted_to
-					}
-				}
-				piety = 200
-			}
-		}
-		
-		revoke_allowed = {
-			always = no
-		}
-		
-		ai_will_do = {
-			factor = 0
-		}
-	}
+	# convert_to_spouse_religion -> LI_target_decisions
 }
 
 decisions = {
