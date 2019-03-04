@@ -19,7 +19,7 @@ targetted_decisions = {
 		only_playable = yes
 		filter = vassals				# Only those under me
 		ai_target_filter = vassals		# Only those under me
-		ai_check_interval = 6
+		ai_check_interval = 18
 
 		from_potential = {
 			is_playable = yes
@@ -92,6 +92,9 @@ targetted_decisions = {
 			OR = {
 				culture_group = byzantine
 				culture_group = sinic
+				any_owned_bloodline = {
+					has_bloodline_flag = bloodline_castration
+				}
 			}
 		}
 	
@@ -244,7 +247,12 @@ targetted_decisions = {
 		from_potential = {
 			has_dlc = "Legacy of Rome"
 			is_playable = yes
-			culture_group = byzantine
+			OR = {
+				culture_group = byzantine
+				any_owned_bloodline = {
+					has_bloodline_flag = bloodline_blinding
+				}
+			}
 		}
 	
 		potential = {
@@ -401,6 +409,9 @@ targetted_decisions = {
 				religion = zun_pagan
 				religion = zun_pagan_reformed
 			}
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
 		}
 	
 		potential = {
@@ -452,6 +463,7 @@ targetted_decisions = {
 	prisoner_to_oubilette = {
 		filter = court
 		ai_target_filter = court
+		ai_check_interval = 24
 
 		from_potential = {
 			ai = no
@@ -488,6 +500,7 @@ targetted_decisions = {
 	prisoner_to_dungeon = {
 		filter = court
 		ai_target_filter = court
+		ai_check_interval = 36
 
 		from_potential = {
 			ai = no
@@ -527,6 +540,7 @@ targetted_decisions = {
 	prisoner_to_suite = {
 		filter = court
 		ai_target_filter = court
+		ai_check_interval = 36
 
 		from_potential = {
 			ai = no
@@ -559,6 +573,5 @@ targetted_decisions = {
 		ai_will_do = {
 			factor = 0
 		}
-	}
-	
+	}	
 }
