@@ -155,7 +155,10 @@ narrative_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		year = 793
+		NOT = {
+			has_alternate_start_parameter = { key = religion_names value = random }
+		}
+		year = 800
 		NOT = { year = 867 }
 		NOT = { has_global_flag = viking_age_started }
 		controls_religion = yes # Let it happen for the Pope - he's always around
@@ -164,7 +167,10 @@ narrative_event = {
 	immediate = {
 		set_global_flag = viking_age_started
 		enable_prepared_invasion = norse_pagan
-		enable_prepared_invasion = norse_pagan_reformed
+		if = {
+			limit = { NOT = { has_dlc = "Holy Fury" } }
+			enable_prepared_invasion = norse_pagan_reformed ## Important Viking age effect
+		}
 		any_playable_ruler = {
 			limit = { 
 				liege = { character = PREV } #independent = yes and any_independent_ruler exclude revolts
@@ -315,6 +321,7 @@ narrative_event = {
 				capital_scope = {
 					NOT = { region = world_india }
 					NOT = { region = world_africa_west }
+					NOT = { region = world_africa_central }
 					NOT = { region = world_africa_east }
 				}
 			}
@@ -332,6 +339,7 @@ narrative_event = {
 			capital_scope = {
 				NOT = { region = world_india }
 				NOT = { region = world_africa_west }
+				NOT = { region = world_africa_central }
 				NOT = { region = world_africa_east }
 			}
 		}
@@ -354,6 +362,7 @@ narrative_event = {
 				OR = {
 					region = world_india
 					region = world_africa_west
+					region = world_africa_central
 					region = world_africa_east
 				}
 			}
