@@ -67,7 +67,20 @@ character_event = {
 #For the recruit: Do you approve of "alternative views"?
 character_event = {
 	id = MNM.7001
-	desc = EVTDESC_MNM_7001_A
+	desc = {
+		trigger = {
+			NOT = {
+				has_character_flag = being_recruited_by_the_bacchants
+			}
+		}
+		text = EVTDESC_MNM_7001_A
+	}
+	desc = { #Zeus doesn't deal with Salvation.
+		trigger = {
+			has_character_flag = being_recruited_by_the_bacchants
+		}
+		text = EVTDESC_MNM_7001_B
+	}
 	picture = GFX_evt_shady_meeting
 	border = GFX_event_normal_frame_intrigue
 
@@ -91,12 +104,27 @@ character_event = {
 		clr_character_flag = being_recruited_by_the_cult_of_kali
 		clr_character_flag = being_recruited_by_the_cold_ones
 		clr_character_flag = being_recruited_by_the_plaguebringers
+		clr_character_flag = being_recruited_by_the_vodouns
+		clr_character_flag = being_recruited_by_the_bacchants
 	}
 
 	#Approving of heretics
 	option = {
 		name = {
 			text = EVTOPTA_7001 #If God didn't want us to ask questions, why did he make us curious?
+			trigger = {
+				NOT = {
+					has_character_flag = being_recruited_by_the_bacchants
+				}
+			}
+		}
+		name = {
+			text = EVTOPTA_7001_B
+			trigger = {
+				NOT = {
+					has_character_flag = being_recruited_by_the_bacchants
+				}
+			}
 		}
 		
 		trigger = {
@@ -178,6 +206,16 @@ character_event = {
 				trait = cynical
 			}
 			modifier = {
+				factor = 1.75
+				has_character_flag = being_recruited_by_the_bacchants
+				culture = roman 	#Decadence
+			}
+			modifier = {
+				factor = 1.5
+				has_character_flag = being_recruited_by_the_bacchants
+				is_close_relative = yes 	#Decadence
+			}
+			modifier = {
 				factor = 0.2
 				OR = {
 					AND = {
@@ -208,6 +246,15 @@ character_event = {
 						true_religion_tengri_pagan_trigger = no
 						true_religion_tengri_pagan_reformed_trigger = no
 					}
+					AND = {
+						has_character_flag = being_recruited_by_the_vodouns
+						true_religion_west_african_pagan_trigger = no
+						true_religion_west_african_pagan_reformed_trigger = no
+					}
+					AND = {
+						has_character_flag = being_recruited_by_the_bacchants
+						true_religion_hellenic_pagan_trigger = no
+					}
 
 					### ACR ###
 					AND = {
@@ -229,7 +276,9 @@ character_event = {
 
 	#Disapproving of heretics
 	option = {
-		name = EVTOPTB_7001
+		name = {
+			text = EVTOPTB_7001
+		}
 		
 		custom_tooltip = { text = EVTOPTB_7001_TT }
 
@@ -246,6 +295,8 @@ character_event = {
 		clr_character_flag = being_recruited_by_the_cult_of_kali
 		clr_character_flag = being_recruited_by_the_cold_ones
 		clr_character_flag = being_recruited_by_the_plaguebringers
+		clr_character_flag = being_recruited_by_the_vodouns
+		clr_character_flag = being_recruited_by_the_bacchants
 
 		### ACR ###
 		clr_character_flag = being_recruited_by_the_unseelie
@@ -293,6 +344,7 @@ character_event = {
 				event_target:satanists_recruiter = {
 					is_alive = yes
 					is_devil_worshiper_trigger = yes
+					prisoner = no
 				}
 			}
 			event_target:satanists_recruiter = { 
@@ -326,6 +378,7 @@ character_event = {
 				event_target:satanists_recruiter = {
 					is_alive = yes
 					is_devil_worshiper_trigger = yes
+					prisoner = no
 				}
 			}
 			event_target:satanists_recruiter = { 
@@ -348,7 +401,10 @@ character_event = {
 	immediate = {
 		if = {
 			limit = {
-				prisoner = yes
+				OR = {
+					prisoner = yes
+					event_target:satanists_recruiter = { prisoner = yes }
+				}
 			}
 			set_character_flag = dw_recruitment_end_unable
 			character_event = { id = MNM.6995 }
@@ -359,6 +415,7 @@ character_event = {
 				event_target:satanists_recruiter = {
 					is_alive = yes
 					is_devil_worshiper_trigger = yes
+					prisoner = no
 				}
 			}
 			event_target:satanists_recruiter = { 
@@ -381,7 +438,10 @@ character_event = {
 	immediate = {
 		if = {
 			limit = {
-				prisoner = yes
+				OR = {
+					prisoner = yes
+					event_target:satanists_recruiter = { prisoner = yes }
+				}
 			}
 			set_character_flag = dw_recruitment_end_unable
 			character_event = { id = MNM.6995 }
@@ -392,6 +452,7 @@ character_event = {
 				event_target:satanists_recruiter = {
 					is_alive = yes
 					is_devil_worshiper_trigger = yes
+					prisoner = no
 				}
 			}
 			event_target:satanists_recruiter = { 
@@ -436,6 +497,8 @@ character_event = { # event notifying recruitee that "Something must've gone wro
 		clr_character_flag = being_recruited_by_the_cult_of_kali
 		clr_character_flag = being_recruited_by_the_cold_ones
 		clr_character_flag = being_recruited_by_the_plaguebringers
+		clr_character_flag = being_recruited_by_the_vodouns
+		clr_character_flag = being_recruited_by_the_bacchants
 		clr_character_flag = dw_recruitment_end_unable
 
 		### ACR ###
@@ -458,6 +521,18 @@ character_event = {
 	desc = {
 		trigger = { FROM = { has_character_flag = disapproves_of_satanism } } #They seemed kinda hesitant to the whole thing
 		text = EVTDESC_MNM_7002_B
+	}
+	desc = {
+		trigger = { 
+			society_member_of = the_bacchants
+			FROM = { has_character_flag = approves_of_satanism } } #They seemed kinda fine with it
+		text = EVTDESC_MNM_7002_C
+	}
+	desc = {
+		trigger = { 
+			society_member_of = the_bacchants
+			FROM = { has_character_flag = disapproves_of_satanism } } #They seemed kinda hesitant to the whole thing
+		text = EVTDESC_MNM_7002_D
 	}
 
 	is_triggered_only = yes
@@ -609,7 +684,7 @@ character_event = {
 			}
 			modifier = {
 				factor = 1.1
-				FROM = { trait = fair }
+				FROM = { has_fair_trait_trigger = yes }
 			}
 			modifier = {
 				factor = 1.1
@@ -640,6 +715,9 @@ character_event = {
 		clr_character_flag = being_recruited_by_the_cult_of_kali
 		clr_character_flag = being_recruited_by_the_cold_ones
 		clr_character_flag = being_recruited_by_the_plaguebringers
+		clr_character_flag = being_recruited_by_the_bacchants
+		clr_character_flag = being_recruited_by_the_vodouns
+
 
 		### ACR ###
 		clr_character_flag = being_recruited_by_the_unseelie
@@ -740,6 +818,10 @@ character_event = {
 		trigger = { event_target:satanists_recruiter = { NOT = { society_member_of = the_satanists } } } 
 		text = EVTDESC_MNM_7005_ALT
 	}
+	desc = {
+		trigger = { event_target:satanists_recruiter = { society_member_of = the_bacchants } } 
+		text = EVTDESC_MNM_7005_ALT2
+	}
 
 	is_triggered_only = yes
 
@@ -819,6 +901,8 @@ character_event = {
 		clr_character_flag = being_recruited_by_the_cult_of_kali
 		clr_character_flag = being_recruited_by_the_cold_ones
 		clr_character_flag = being_recruited_by_the_plaguebringers
+		clr_character_flag = being_recruited_by_the_vodouns
+		clr_character_flag = being_recruited_by_the_bacchants
 
 		### ACR ###
 		clr_character_flag = being_recruited_by_the_unseelie
@@ -938,6 +1022,7 @@ character_event = {
 					OR = {
 						is_alive = no
 						is_devil_worshiper_trigger = no
+						prisoner = yes
 					}
 				}
 			}
@@ -1060,6 +1145,7 @@ character_event = {
 					OR = {
 						is_alive = no
 						is_devil_worshiper_trigger = no
+						prisoner = yes
 					}
 				}
 			}
@@ -1333,6 +1419,50 @@ letter_event = {
 					break = yes
 				}
 			}
+			if = {
+				limit = {
+					prefers_men_trigger = yes
+					has_character_flag = being_recruited_by_the_bacchants
+					any_society_member = {
+						society_member_of = the_bacchants
+						is_female = no
+						is_attractive_trigger = yes
+					}
+				}
+				random_society_member = {
+					limit = {
+						society_member_of = the_bacchants
+						is_female = no
+						is_attractive_trigger = yes
+					}
+					save_event_target_as = satanists_inductor
+					set_character_flag = event_MNM_7015
+					character_event = { id = MNM.7013 }
+					break = yes
+				}
+			}
+			if = {
+				limit = {
+					prefers_men_trigger = yes
+					has_character_flag = being_recruited_by_the_vodouns
+					any_society_member = {
+						society_member_of = the_vodouns
+						is_female = no
+						is_attractive_trigger = yes
+					}
+				}
+				random_society_member = {
+					limit = {
+						society_member_of = the_vodouns
+						is_female = no
+						is_attractive_trigger = yes
+					}
+					save_event_target_as = satanists_inductor
+					set_character_flag = event_MNM_7015
+					character_event = { id = MNM.7013 }
+					break = yes
+				}
+			}
 			### ACR ###
 			if = {
 				limit = {
@@ -1511,6 +1641,50 @@ letter_event = {
 					break = yes
 				}
 			}
+			if = {
+				limit = {
+					prefers_men_trigger = no
+					has_character_flag = being_recruited_by_the_bacchants
+					any_society_member = {
+						society_member_of = the_bacchants
+						is_female = yes
+						is_attractive_trigger = yes
+					}
+				}
+				random_society_member = {
+					limit = {
+						society_member_of = the_bacchants
+						is_female = yes
+						is_attractive_trigger = yes
+					}
+					save_event_target_as = satanists_inductor
+					set_character_flag = event_MNM_7015
+					character_event = { id = MNM.7013 }
+					break = yes
+				}
+			}
+			if = {
+				limit = {
+					prefers_men_trigger = no
+					has_character_flag = being_recruited_by_the_vodouns
+					any_society_member = {
+						society_member_of = the_vodouns
+						is_female = yes
+						is_attractive_trigger = yes
+					}
+				}
+				random_society_member = {
+					limit = {
+						society_member_of = the_vodouns
+						is_female = yes
+						is_attractive_trigger = yes
+					}
+					save_event_target_as = satanists_inductor
+					set_character_flag = event_MNM_7015
+					character_event = { id = MNM.7013 }
+					break = yes
+				}
+			}
 			### ACR ###
 			if = {
 				limit = {
@@ -1610,6 +1784,8 @@ letter_event = {
 							being_recruited_by_the_cult_of_kali = { PREV = { join_society = the_cult_of_kali } }
 							being_recruited_by_the_cold_ones = { PREV = { join_society = the_cold_ones } }
 							being_recruited_by_the_plaguebringers = { PREV = { join_society = the_plaguebringers } }
+							being_recruited_by_the_vodouns = { PREV = { join_society = the_vodouns } }
+							being_recruited_by_the_bacchants = { PREV = { join_society = the_bacchants } }
 
 							### ACR ###
 							being_recruited_by_the_unseelie = { PREV = { join_society = unseelie_petitioners } }
@@ -1651,6 +1827,8 @@ letter_event = {
 							being_recruited_by_the_cult_of_kali = { PREV = { join_society = the_cult_of_kali } }
 							being_recruited_by_the_cold_ones = { PREV = { join_society = the_cold_ones } }
 							being_recruited_by_the_plaguebringers = { PREV = { join_society = the_plaguebringers } }
+							being_recruited_by_the_vodouns = { PREV = { join_society = the_vodouns } }
+							being_recruited_by_the_bacchants = { PREV = { join_society = the_bacchants } }
 
 							### ACR ###
 							being_recruited_by_the_unseelie = { PREV = { join_society = unseelie_petitioners } }
@@ -1896,6 +2074,8 @@ character_event = {
 		clr_character_flag = being_recruited_by_the_cult_of_kali
 		clr_character_flag = being_recruited_by_the_cold_ones
 		clr_character_flag = being_recruited_by_the_plaguebringers
+		clr_character_flag = being_recruited_by_the_vodouns
+		clr_character_flag = being_recruited_by_the_bacchants
 		clr_character_flag = dw_recruitment_end_unable
 
 		### ACR ###
@@ -1994,11 +2174,25 @@ character_event = {
 	option = {
 		name = {
 			text = EVTOPTB_7017
-			trigger = { is_married = no }
+			trigger = {
+				OR = {
+					is_married = no
+					any_spouse = {
+						character = event_target:satanists_inductor
+					}
+				}
+			}
 		}
 		name = {
-			text = EVTOPTC_7017
-			trigger = { is_married = yes }
+			text = EVTOPTC_7017 #I am married! (and not to the inductor)
+			trigger = {
+				is_married = yes
+				NOT = {
+					any_spouse = {
+						character = event_target:satanists_inductor
+					}
+				}
+			}
 		}
 		custom_tooltip = { text = EVTOPTB_7017_TT }
 		
@@ -2022,15 +2216,15 @@ character_event = {
 					}
 					modifier = {
 						factor = 1.4
-						combat_rating_diff = { character = FROM value = 1 }
+						combat_rating_diff = { character = FROM value = 10 }
 					}
 					modifier = {
 						factor = 1.4
-						combat_rating_diff = { character = FROM value = 2 }
+						combat_rating_diff = { character = FROM value = 20 }
 					}
 					modifier = {
 						factor = 1.4
-						combat_rating_diff = { character = FROM value = 3 }
+						combat_rating_diff = { character = FROM value = 30 }
 					}
 				}
 				#Injured
@@ -2054,15 +2248,15 @@ character_event = {
 					}
 					modifier = {
 						factor = 1.4
-						FROM = { combat_rating_diff = { character = ROOT value = 1 } }
+						FROM = { combat_rating_diff = { character = ROOT value = 10 } }
 					}
 					modifier = {
 						factor = 1.4
-						FROM = { combat_rating_diff = { character = ROOT value = 2 } }
+						FROM = { combat_rating_diff = { character = ROOT value = 20 } }
 					}
 					modifier = {
 						factor = 1.4
-						FROM = { combat_rating_diff = { character = ROOT value = 3 } }
+						FROM = { combat_rating_diff = { character = ROOT value = 30 } }
 					}
 				}
 			}
@@ -2145,7 +2339,32 @@ character_event = {
 						save_event_target_as = grand_master
 					}
 				}
-
+				if = { limit = { has_character_flag = being_recruited_by_the_vodouns }
+					random_society_member = {
+						limit = {
+							society_rank = {
+								rank == 4
+								society = the_vodouns
+							}
+						}
+						save_event_target_as = grand_master
+					}
+				}
+				if = { limit = { has_character_flag = being_recruited_by_the_bacchants }
+					random_society_member = {
+						limit = {
+							society_rank = {
+								rank == 4
+								society = the_bacchants
+							}
+						}
+						save_event_target_as = grand_master
+					}
+				}
+				event_target:grand_master = { character_event = { id = MNM.7021 } }
+			}
+		}
+	}
 				### ACR ###
 				if = { limit = { has_character_flag = being_recruited_by_the_unseelie }
 					random_society_member = {
@@ -2208,6 +2427,14 @@ character_event = {
 			limit = { has_character_flag = being_recruited_by_the_plaguebringers }
 			join_society = the_plaguebringers
 		}
+		if = {
+			limit = { has_character_flag = being_recruited_by_the_vodouns }
+			join_society = the_vodouns
+		}
+		if = {
+			limit = { has_character_flag = being_recruited_by_the_bacchants }
+			join_society = the_bacchants
+		}
 
 		### ACR ###
 		if = {
@@ -2245,6 +2472,8 @@ character_event = {
 			clr_character_flag = being_recruited_by_the_cult_of_kali
 			clr_character_flag = being_recruited_by_the_cold_ones
 			clr_character_flag = being_recruited_by_the_plaguebringers
+			clr_character_flag = being_recruited_by_the_vodouns
+			clr_character_flag = being_recruited_by_the_bacchants
 
 			### ACR ###
 			clr_character_flag = being_recruited_by_the_unseelie
@@ -2274,6 +2503,14 @@ character_event = {
 		if = {
 			limit = { has_character_flag = being_recruited_by_the_plaguebringers }
 			join_society = the_plaguebringers
+		}
+		if = {
+			limit = { has_character_flag = being_recruited_by_the_vodouns }
+			join_society = the_vodouns
+		}
+		if = {
+			limit = { has_character_flag = being_recruited_by_the_bacchants }
+			join_society = the_bacchants
 		}
 
 		### ACR ###
@@ -2356,6 +2593,30 @@ character_event = {
 						save_event_target_as = grand_master
 					}
 				}
+				if = { limit = { has_character_flag = being_recruited_by_the_bacchants }
+					random_society_member = {
+						limit = {
+							society_rank = {
+								rank == 4
+								society = the_bacchants
+							}
+						}
+						save_event_target_as = grand_master
+					}
+				}
+				if = { limit = { has_character_flag = being_recruited_by_the_vodouns }
+					random_society_member = {
+						limit = {
+							society_rank = {
+								rank == 4
+								society = the_vodouns
+							}
+						}
+						save_event_target_as = grand_master
+					}
+				}
+				event_target:grand_master = { character_event = { id = MNM.7021 } }
+			}
 
 				### ACR ###
 				if = { limit = { has_character_flag = being_recruited_by_the_unseelie }
@@ -2398,6 +2659,8 @@ character_event = {
 			clr_character_flag = being_recruited_by_the_cult_of_kali
 			clr_character_flag = being_recruited_by_the_cold_ones
 			clr_character_flag = being_recruited_by_the_plaguebringers
+			clr_character_flag = being_recruited_by_the_vodouns
+			clr_character_flag = being_recruited_by_the_bacchants
 
 			### ACR ###
 			clr_character_flag = being_recruited_by_the_unseelie
@@ -2490,7 +2753,31 @@ character_event = {
 						save_event_target_as = grand_master
 					}
 				}
-
+				if = { limit = { has_character_flag = being_recruited_by_the_vodouns }
+					random_society_member = {
+						limit = {
+							society_rank = {
+								rank == 4
+								society = the_vodouns
+							}
+						}
+						save_event_target_as = grand_master
+					}
+				}
+				if = { limit = { has_character_flag = being_recruited_by_the_bacchants }
+					random_society_member = {
+						limit = {
+							society_rank = {
+								rank == 4
+								society = the_bacchants
+							}
+						}
+						save_event_target_as = grand_master
+					}
+				}
+				event_target:grand_master = { character_event = { id = MNM.7021 } }
+			}
+		}
 				### ACR ###
 				if = { limit = { has_character_flag = being_recruited_by_the_unseelie }
 					random_society_member = {
@@ -2534,6 +2821,8 @@ character_event = {
 		clr_character_flag = being_recruited_by_the_cult_of_kali
 		clr_character_flag = being_recruited_by_the_cold_ones
 		clr_character_flag = being_recruited_by_the_plaguebringers
+		clr_character_flag = being_recruited_by_the_vodouns
+		clr_character_flag = being_recruited_by_the_bacchants
 
 		### ACR ###
 		clr_character_flag = being_recruited_by_the_unseelie
@@ -2590,6 +2879,8 @@ character_event = {
 		clr_character_flag = being_recruited_by_the_cult_of_kali
 		clr_character_flag = being_recruited_by_the_cold_ones
 		clr_character_flag = being_recruited_by_the_plaguebringers
+		clr_character_flag = being_recruited_by_the_vodouns
+		clr_character_flag = being_recruited_by_the_bacchants
 
 		### ACR ###
 		clr_character_flag = being_recruited_by_the_unseelie
@@ -2662,6 +2953,8 @@ character_event = {
 							has_character_flag = being_recruited_by_the_cult_of_kali
 							has_character_flag = being_recruited_by_the_cold_ones
 							has_character_flag = being_recruited_by_the_plaguebringers
+							has_character_flag = being_recruited_by_the_vodouns
+							has_character_flag = being_recruited_by_the_bacchants
 							has_character_flag = assassins_attempted_recruitment
 
 							### ACR ###
@@ -2726,6 +3019,41 @@ character_event = {
 						save_event_target_as = grand_master
 					}
 				}
+				if = { limit = { has_character_flag = being_recruited_by_the_vodouns }
+					random_society_member = {
+						limit = {
+							society_rank = {
+								rank == 4
+								society = the_vodouns
+							}
+						}
+						save_event_target_as = grand_master
+					}
+				}
+				if = { limit = { has_character_flag = being_recruited_by_the_bacchants }
+					random_society_member = {
+						limit = {
+							society_rank = {
+								rank == 4
+								society = the_bacchants
+							}
+						}
+						save_event_target_as = grand_master
+					}
+				}
+				if = { limit = { has_character_flag = assassins_attempted_recruitment }
+					random_society_member = {
+						limit = {
+							society_rank = {
+								rank == 4
+								society = the_assassins
+							}
+						}
+						save_event_target_as = grand_master
+					}
+				}
+				event_target:grand_master = { character_event = { id = MNM.7031 } }
+			}
 				if = { limit = { has_character_flag = assassins_attempted_recruitment }
 					random_society_member = {
 						limit = {
@@ -2852,6 +3180,14 @@ letter_event = {
 			join_society = the_plaguebringers
 		}
 		if = {
+			limit = { has_character_flag = being_recruited_by_the_vodouns }
+			join_society = the_vodouns
+		}
+		if = {
+			limit = { has_character_flag = being_recruited_by_the_bacchants }
+			join_society = the_bacchants
+		}
+		if = {
 			limit = { has_character_flag = assassins_attempted_recruitment }
 			join_society = the_assassins
 		}
@@ -2876,6 +3212,8 @@ letter_event = {
 			clr_character_flag = being_recruited_by_the_cult_of_kali
 			clr_character_flag = being_recruited_by_the_cold_ones
 			clr_character_flag = being_recruited_by_the_plaguebringers
+			clr_character_flag = being_recruited_by_the_vodouns
+			clr_character_flag = being_recruited_by_the_bacchants
 			clr_character_flag = assassins_attempted_recruitment
 
 			### ACR ###
@@ -2890,7 +3228,7 @@ letter_event = {
 		event_target:grand_master = {
 			opinion = {
 				who = ROOT
-				modifier = opinion_refused_society_membership
+				modifier = opinion_very_disappointed
 			}
 		}
 		hidden_effect = {
@@ -2899,6 +3237,8 @@ letter_event = {
 			clr_character_flag = being_recruited_by_the_cult_of_kali
 			clr_character_flag = being_recruited_by_the_cold_ones
 			clr_character_flag = being_recruited_by_the_plaguebringers
+			clr_character_flag = being_recruited_by_the_vodouns
+			clr_character_flag = being_recruited_by_the_bacchants
 			clr_character_flag = assassins_attempted_recruitment
 
 			### ACR ###
@@ -3086,28 +3426,39 @@ character_event = {
 #Soul corruption adds corrupting_magic_major
 character_event = {
     id = MNM.7057
-    desc = EVTDESC_MNM_7057
+    desc = EVTDESC_MNM_7057_NEW
     picture = GFX_evt_illness
     border = GFX_event_normal_frame_intrigue
+	
+	notification = yes
 
     is_triggered_only = yes
     hide_from = yes
     
-    trigger = {
-    	NOR = { 
-			NOT = { health = 3 }
-			has_character_modifier = corrupting_magic_minor
-			has_character_modifier = corrupting_magic_major
-		}
-    }
+    #trigger = {
+    #	NOR = { 
+	#		NOT = { health = 3 }
+	#		has_character_modifier = corrupting_magic_minor
+	#		has_character_modifier = corrupting_magic_major
+	#	}
+    #}
 
+	immediate = {
+		add_character_modifier = {
+        	name = corrupting_magic_minor
+        	years = 5
+			stacking = yes
+        }
+		add_character_modifier = {
+        	name = corrupting_magic_minor
+        	years = 5
+			stacking = yes
+        }
+	}
+	
     option = { 
         name = EVTOPTA_MNM_7051
         custom_tooltip = { text = EVTOPTA_MNM_7051_TT }
-        add_character_modifier = {
-        	name = corrupting_magic_major
-        	years = 3
-        }
     }
 }
 
@@ -3115,28 +3466,34 @@ character_event = {
 #Soul corruption adds corrupting_magic_minor
 character_event = {
     id = MNM.7058
-    desc = EVTDESC_MNM_7058
+    desc = EVTDESC_MNM_7057_NEW
     picture = GFX_evt_illness
     border = GFX_event_normal_frame_intrigue
+	
+	notification = yes
 
     is_triggered_only = yes
     hide_from = yes
     
-    trigger = {
-    	NOR = { 
-			NOT = { health = 3 }
-			has_character_modifier = corrupting_magic_minor
-			has_character_modifier = corrupting_magic_major
-		}
-    }
+    #trigger = {
+    #	NOR = { 
+	#		NOT = { health = 3 }
+	#		has_character_modifier = corrupting_magic_minor
+	#		has_character_modifier = corrupting_magic_major
+	#	}
+    #}
+	
+	immediate = {
+		add_character_modifier = {
+        	name = corrupting_magic_minor
+        	years = 5
+			stacking = yes
+        }
+	}
 
     option = { 
         name = EVTOPTA_MNM_7051
         custom_tooltip = { text = EVTOPTA_MNM_7051_TT }
-       	add_character_modifier = {
-        	name = corrupting_magic_minor
-        	years = 3
-        }
     }
 }
 
@@ -4119,6 +4476,10 @@ character_event = {
 	border = GFX_event_normal_frame_intrigue
 
 	is_triggered_only = yes
+	
+	trigger = {
+		is_alive = yes
+	}
 
 	option = {
 		name = EVTOPTA_MNM_7834
@@ -4986,7 +5347,9 @@ character_event = {
 		if = { limit = { trait = severely_injured } remove_trait = severely_injured }
 		if = { limit = { trait = ill } remove_trait = ill }
 		
-		if = { limit = { trait = wounded } remove_trait = wounded }
+		if = { limit = { trait = wounded } remove_trait = wounded 
+			add_scarred_tiered_effect = yes
+		}
 
 		if = {
 			limit = { has_character_flag = dark_healing_infirm }
@@ -5476,6 +5839,14 @@ character_event = {
 			if = {
 				limit = { ROOT = { society_member_of = the_plaguebringers } }
 				join_society = the_plaguebringers
+			}
+			if = {
+				limit = { ROOT = { society_member_of = the_vodouns } }
+				join_society = the_vodouns
+			}
+			if = {
+				limit = { ROOT = { society_member_of = the_bacchants } }
+				join_society = the_bacchants
 			}
 			
 			### ACR ###
@@ -6557,7 +6928,7 @@ character_event = {
 						factor = 0
 						NAND = {
 							is_female = yes
-							trait = fair
+							has_fair_trait_trigger = yes
 						}
 					}
 					give_nickname = nick_the_fair
@@ -6567,7 +6938,7 @@ character_event = {
 						factor = 0
 						NAND = {
 							is_female = no
-							trait = fair
+							has_fair_trait_trigger = yes
 						}
 					}
 					give_nickname = nick_the_handsome
@@ -6801,12 +7172,69 @@ character_event = { #birth
 	}
 	
 	immediate = {
+		add_trait = lefthanded
 		set_character_flag = demon_child_non_pagan
 		set_global_flag = demon_child_born
 		add_character_modifier = {
 			name = demon_child_non_pagan
 			hidden = yes
 			days = -1
+		}
+		if = {
+			limit = {
+				mother = { society_member_of = the_satanists }
+			}
+			ROOT = {
+				set_character_flag = demonspawn_will_join_satanists
+			}
+		}
+		if = {
+			limit = {
+				mother = { society_member_of = the_cold_ones }
+			}
+			ROOT = {
+				set_character_flag = demonspawn_will_join_cold_ones
+			}
+		}
+		if = {
+			limit = {
+				mother = { society_member_of = the_plaguebringers }
+			}
+			ROOT = {
+				set_character_flag = demonspawn_will_join_plaguebringers
+			}
+		}
+		if = {
+			limit = {
+				mother = { society_member_of = the_cult_of_kali }
+			}
+			ROOT = {
+				set_character_flag = demonspawn_will_join_cult_of_kali
+			}
+		}
+		if = {
+			limit = {
+				mother = { society_member_of = the_trollcrafters }
+			}
+			ROOT = {
+				set_character_flag = demonspawn_will_join_trollcrafters
+			}
+		}
+		if = {
+			limit = {
+				mother = { society_member_of = the_bacchants }
+			}
+			ROOT = {
+				set_character_flag = demonspawn_will_join_bacchants
+			}
+		}
+		if = {
+			limit = {
+				mother = { society_member_of = the_vodouns }
+			}
+			ROOT = {
+				set_character_flag = demonspawn_will_join_vodouns
+			}
 		}
 		remove_trait = sickly
 		character_event = { id = SoA.3019 days = 90 random = 90 } # Demon child tombola
@@ -6872,7 +7300,7 @@ character_event = { #prolong life sacrifice
 	option = {
 		name = MNM.7509.a
 		FROM = {
-			hidden_effect = { long_character_event = { id = MNM.7506 } }
+			hidden_effect = { character_event = { id = MNM.7506 } }
 			death = {
 				death_reason = death_missing
 			}
@@ -7313,7 +7741,7 @@ character_event = {
 			has_character_flag = desecration_violent
 			OR = {
 				martial = 14
-				combat_rating = 3
+				combat_rating = 30
 			}
 		}
 		tooltip_info = martial
@@ -7497,7 +7925,7 @@ character_event = {
 				is_richer_holding = no
 			}
 		}
-		picture = GFX_event_treasure_chamber
+		picture = GFX_evt_treasure_chamber
 		text = EVTDESC_MNM_7116_RICH
 	}
 
@@ -7508,7 +7936,7 @@ character_event = {
 				is_richer_holding = yes
 			}
 		}
-		picture = GFX_event_treasure_chamber
+		picture = GFX_evt_treasure_chamber
 		text = EVTDESC_MNM_7116_RICHER
 	}
 
@@ -8850,7 +9278,9 @@ character_event = {
 				has_character_flag = orgy_murder
 			}
 			event_target:orgy_casualty = {
-				death = { death_reason = death_murder_unknown killer = ROOT }
+				tooltip = {
+					death = { death_reason = death_murder_unknown killer = ROOT }
+				}
 				show_portrait = yes
 			}
 		}
@@ -9103,7 +9533,13 @@ character_event = {
 		text = EVTDESC_MNM_20014
 		picture = GFX_evt_stone_church
 		trigger = {
-			society_member_of = the_satanists
+			OR = {
+				society_member_of = the_satanists
+				society_member_of = the_cold_ones
+				society_member_of = the_cult_of_kali
+				society_member_of = the_trollcrafters
+				society_member_of = the_vodouns
+			}
 		}
 	}
 	desc = {
@@ -9121,14 +9557,47 @@ character_event = {
 			NOT = { has_dlc = "Horse Lords" }
 		}
 	}
+	desc = {
+		text = EVTDESC_MNM_20014_BACCHANALIS
+		picture = GFX_evt_bacchants_initiation
+		trigger = {
+			society_member_of = the_bacchants
+		}
+	}
 
-	option = {
-		name = EVTOPTA_MNM_20014 # Head for the town
+	option = { 
+		name = {
+			text = EVTOPTA_MNM_20014 # Head for the town
+			trigger = {
+				NOT = {
+					society_member_of = the_bacchants
+				}
+			}
+		}
+		name = {
+			text = EVTOPTA_MNM_20014_B # Prefers orgy to murder.
+			trigger = {
+					society_member_of = the_bacchants
+			}
+		}
 		FROM = { character_event = { id = MNM.20020 days = 2 portrait = no } }
 	}
 	
 	option = {
-		name = EVTOPTB_MNM_20014 # Home Invasion
+		name = {
+			text = EVTOPTB_MNM_20014 # Home Invasion
+			trigger = {
+				NOT = {
+					society_member_of = the_bacchants
+				}
+			}
+		}
+		name = {
+			text = EVTOPTB_MNM_20014_B # Intoxicated massacre.
+			trigger = {
+					society_member_of = the_bacchants
+			}
+		}
 		character_event = { id = MNM.20015 days = 2 tooltip = EVT_TT_20015 }
 	}
 }
@@ -9254,6 +9723,7 @@ character_event = {
 		trigger = {
 			has_dlc = "Reapers"
 			NOT = { has_character_flag = home_invasion_buddy_dies }
+			NOT = { society_member_of = the_bacchants }
 		}
 		picture = GFX_evt_impalement
 		text = EVTDESC_MNM_20015
@@ -9262,6 +9732,7 @@ character_event = {
 		trigger = {
 			NOT = { has_dlc = "Reapers" }
 			NOT = { has_character_flag = home_invasion_buddy_dies }
+			NOT = { society_member_of = the_bacchants }
 		}
 		text = EVTDESC_MNM_20015
 	}
@@ -9269,6 +9740,7 @@ character_event = {
 		trigger = {
 			has_dlc = "Reapers"
 			has_character_flag = home_invasion_buddy_dies
+			NOT = { society_member_of = the_bacchants }
 		}
 		picture = GFX_evt_impalement
 		text = EVTDESC_MNM_20015_DEATH
@@ -9277,13 +9749,43 @@ character_event = {
 		trigger = {
 			NOT = { has_dlc = "Reapers" }
 			has_character_flag = home_invasion_buddy_dies
+			NOT = { society_member_of = the_bacchants }
 		}
 		text = EVTDESC_MNM_20015_DEATH
 	}
+	desc =  {
+		trigger = {
+			society_member_of = the_bacchants
+			NOT = { has_character_flag = home_invasion_buddy_dies }
+		}
+		picture = GFX_evt_bacchants_initiation
+		text = EVTDESC_MNM_20015_B
+	}
+	desc =  {
+		trigger = {
+			society_member_of = the_bacchants
+			has_character_flag = home_invasion_buddy_dies
+		}
+		picture = GFX_evt_bacchants_initiation
+		text = EVTDESC_MNM_20015_DEATH_B
+	}
 	
 	option = {
-		name = EVTOPTA_MNM_20015 # Burn everything! No one must know.
 		
+		name = {
+			text = EVTOPTA_MNM_20015 # Burn everything! No one must know.
+			trigger = {
+				NOT = {
+					society_member_of = the_bacchants
+				}
+			}
+		}
+		name = {
+			text = EVTOPTA_MNM_20015_B # Clean up the mess.
+			trigger = {
+				society_member_of = the_bacchants
+			}
+		}
 		add_society_currency_minor_effect = yes
 		
 		# Buddy dies
@@ -9431,6 +9933,20 @@ character_event = {
 	option = {
 		name = EVTOPTB_MNM_20015 # Leave it as a monument (risk of revolt)
 		
+		name = {
+			text = EVTOPTB_MNM_20015 # Leave it as a monument (risk of revolt)
+			trigger = {
+				NOT = {
+					society_member_of = the_bacchants
+				}
+			}
+		}
+		name = {
+			text = EVTOPTB_MNM_20015_B # Leave it as a monument (risk of revolt)
+			trigger = {
+				society_member_of = the_bacchants
+			}
+		}
 		add_society_currency_medium_effect = yes
 		
 		# Buddy dies
@@ -9793,6 +10309,10 @@ character_event = {
 				factor = 5.0
 				trait = imbecile
 			}
+			modifier = { #Taking drugs is the whole point of the ritual.
+				factor = 0
+				society_member_of = the_bacchants
+			}
 			set_character_flag = nt_drank_the_beer
 		}
 	}
@@ -9800,6 +10320,7 @@ character_event = {
 	desc = {
 		trigger = {
 			NOT = { has_character_flag = nt_rivalry }
+			NOT = { society_member_of = the_bacchants }
 		}
 		text = EVTDESC_MNM_20021
 	}
@@ -9807,8 +10328,26 @@ character_event = {
 	desc = {
 		trigger = {
 			has_character_flag = nt_rivalry
+			NOT = { society_member_of = the_bacchants }
 		}
 		text = EVTDESC_MNM_20021_RIVALRY
+	}
+	desc = {
+		trigger = {
+			NOT = { has_character_flag = nt_rivalry }
+			society_member_of = the_bacchants
+		}
+		picture = GFX_evt_magic_ritual
+		text = EVTDESC_MNM_20021_B
+	}
+	
+	desc = {
+		trigger = {
+			has_character_flag = nt_rivalry
+			society_member_of = the_bacchants
+		}
+		picture = GFX_evt_magic_ritual
+		text = EVTDESC_MNM_20021_RIVALRY_B
 	}
 	
 	option = {
@@ -9824,8 +10363,18 @@ character_event = {
 			trigger = {
 				NOT = { has_character_flag = nt_drank_the_beer }
 				NOT = { has_character_flag = nt_rivalry }
+				NOT = { society_member_of = the_bacchants }
 			}
 			text = EVTOPTA_MNM_20021
+		}
+		
+		name = {
+			trigger = {
+				NOT = { has_character_flag = nt_drank_the_beer }
+				NOT = { has_character_flag = nt_rivalry }
+				society_member_of = the_bacchants
+			}
+			text = EVTOPTA_MNM_20021_B
 		}
 		
 		name = {
@@ -10208,7 +10757,7 @@ character_event = {
 	is_triggered_only = yes
 	
 	immediate = {
-		FROM = { narrative_event = { id = MNM.20032 } }
+		FROM = { character_event = { id = MNM.20032 } }
 	}
 }
 
@@ -10284,7 +10833,7 @@ character_event = {
 	is_triggered_only = yes
 	
 	immediate = {
-		FROM = { narrative_event = { id = MNM.20034 days = 3  } }
+		FROM = { character_event = { id = MNM.20034 days = 3  } }
 	}
 }
 
@@ -11303,7 +11852,7 @@ character_event = {
 			}
 		}
 		
-		FROMFROMFROM = { character_event = { id = MNM.20046 tooltip = EVT_TT_20046 } }
+		FROMFROMFROM = { province_event = { id = MNM.20046 tooltip = EVT_TT_20046 } }
 	}
 	
 	option = {
@@ -11325,7 +11874,7 @@ character_event = {
 				}
 			}
 		}
-		FROMFROMFROM = { character_event = { id = MNM.20047 tooltip = EVT_TT_20047 } }
+		FROMFROMFROM = { province_event = { id = MNM.20047 tooltip = EVT_TT_20047 } }
 	}
 	
 }
@@ -11470,14 +12019,14 @@ character_event = {
 			}
 			if = {
 				limit = {
-					NOT = { has_character_flag = honest }
-					NOT = { has_character_flag = deceitful }
+					NOT = { trait = honest }
+					NOT = { trait = deceitful }
 				}
 				add_trait = deceitful
 			}
 			if = {
 				limit = {
-					has_character_flag = honest
+					trait = honest
 				}
 				remove_trait = honest
 			}
@@ -11489,14 +12038,14 @@ character_event = {
 			}
 			if = {
 				limit = {
-					NOT = { has_character_flag = shy }
-					NOT = { has_character_flag = gregarious }
+					NOT = { trait = shy }
+					NOT = { trait = gregarious }
 				}
 				add_trait = gregarious
 			}
 			if = {
 				limit = {
-					has_character_flag = shy
+					trait = shy
 				}
 				remove_trait = shy
 			}
@@ -11794,7 +12343,7 @@ character_event = {
 					}
 				}
 				save_event_target_as = dw_buddy
-				ROOT = { narrative_event = { id = MNM.20061 } }
+				ROOT = { character_event = { id = MNM.20061 } }
 			}
 		}
 	}
@@ -11992,7 +12541,7 @@ narrative_event = {
 			limit =  {
 				NOT = { has_character_flag = dw_double_cross }
 			}
-			FROM = { narrative_event = { id = MNM.20065 } }
+			FROM = { character_event = { id = MNM.20065 } }
 		}
 		
 		if = {
@@ -12399,22 +12948,6 @@ character_event = {
 					}
 				}
 				modifier = {
-					factor = 2.0
-					society_influence < 5
-				}
-				modifier = {
-					factor = 2.0
-					society_influence < 10
-				}
-				modifier = {
-					factor = 0.5
-					society_influence >= 50
-				}
-				modifier = {
-					factor = 0.5
-					society_influence >= 80
-				}
-				modifier = {
 					factor = 0.25
 					FROMFROM = {
 						is_ruler = no
@@ -12760,7 +13293,7 @@ character_event = {
 		ai_chance = {
 			factor = 10
 		}
-		character_event = { id = MNM.20100 tooltip = EVTTOOLTIP_MNM_20103 }
+		character_event = { id = MNM.20100 }
 	}
 	
 	option = {
@@ -13151,23 +13684,23 @@ character_event = {
     		30 = { #You are injured
  				modifier = {
    					factor = 0.9
-  					combat_rating = 1
+  					combat_rating = 10
    				}
  				modifier = {
    					factor = 0.9
-  					combat_rating = 2
+  					combat_rating = 20
    				}
    				modifier = {
    					factor = 0.9
-  					combat_rating = 3
+  					combat_rating = 30
    				}
    				modifier = {
    					factor = 0.9
-  					combat_rating = 4
+  					combat_rating = 40
    				}
    				modifier = {
    					factor = 0.9
-  					combat_rating = 5
+  					combat_rating = 50
    				}
    				custom_tooltip = {
     				text = you_are_seriously_injured_TT
@@ -13177,23 +13710,23 @@ character_event = {
     		50 = { #You are slain in personal combat
     			modifier = {
    					factor = 0.9
-  					combat_rating = 1
+  					combat_rating = 10
    				}
  				modifier = {
    					factor = 0.9
-  					combat_rating = 2
+  					combat_rating = 20
    				}
    				modifier = {
    					factor = 0.9
-  					combat_rating = 3
+  					combat_rating = 30
    				}
    				modifier = {
    					factor = 0.9
-  					combat_rating = 4
+  					combat_rating = 40
    				}
    				modifier = {
    					factor = 0.9
-  					combat_rating = 5
+  					combat_rating = 50
    				}
    				modifier = {
    					factor = 0.9
