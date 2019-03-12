@@ -34,6 +34,7 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		NOT = {
@@ -69,32 +70,68 @@ character_event = {
 		modifier = {
 			factor = 0.75
 			liege = {
+				any_owned_bloodline = {
+					has_bloodline_flag = bloodline_better_inquisition
+					bloodline_is_active_for = PREV
+				}
+			}
+		}
+		modifier = {
+			factor = 0.75
+			#If chaplain is also your relative.
+			any_owned_bloodline = {
+				has_bloodline_flag = bloodline_better_inquisition
+				bloodline_is_active_for = PREV
+			}
+		}
+		modifier = {
+			factor = 0.6
+			has_religion_feature = religion_proselytizing
+		}
+		modifier = {
+			factor = 2.5
+			has_religion_feature = religion_cosmopolitan
+		}
+		modifier = {
+			factor = 0.75
+			liege = {
 				has_artifact = finger_of_st_john
 			}
 		}
 		modifier = {
 			factor = 0.75
+			has_job_action = action_inquisition
 			location = { culture_group = ROOT }
 		}
 		modifier = {
 			factor = 0.75
+			has_job_action = action_inquisition
 			location = { culture = ROOT }
 		}
 		modifier = {
 			factor = 0.5
+			has_job_action = action_inquisition
 			location = { religion_group = ROOT }
 		}
 		modifier = {
 			factor = 0.75
+			has_job_action = action_inquisition
 			location = { has_province_modifier = depopulated_1 }
 		}
 		modifier = {
 			factor = 0.50
+			has_job_action = action_inquisition
 			location = { has_province_modifier = depopulated_2 }
 		}
 		modifier = {
 			factor = 0.25
+			has_job_action = action_inquisition
 			location = { has_province_modifier = depopulated_3 }
+		}
+		modifier = {
+			factor = 3.0
+			has_job_action = action_inquisition
+			location = { is_hard_to_convert = yes }
 		}
 		modifier = {
 			factor = 1.25
@@ -172,6 +209,28 @@ character_event = {
 			}
 		}
 
+		modifier = {
+			factor = 0.6
+			NOT = {
+				any_owned_bloodline = {
+					has_bloodline_flag = inquisitional_bloodline
+					bloodline_is_active_for = PREV
+				}
+			}
+	    	any_owned_bloodline = {
+    			has_bloodline_flag = inquisitional_saintly_bloodline
+    			founder = {
+    				religion = ROOT
+    			}
+    		}
+		}
+		modifier = {
+			factor = 0.4
+			any_owned_bloodline = {
+				has_bloodline_flag = inquisitional_bloodline
+				bloodline_is_active_for = PREV
+			}
+		}
 		modifier = { # Conversion bonus
 			factor = 0.5
 			proselyte_religion_trigger = yes
@@ -206,18 +265,19 @@ character_event = {
 		}
 		modifier = {
 			factor = 1.5
-			location = {
-				is_heresy_of = ROOT
-			}
+			has_job_action = action_inquisition
+			location = { is_heresy_of = ROOT }
 		}
 		modifier = {
 			factor = 0.75
+			has_job_action = action_inquisition
 			location = {
 				has_province_modifier = force_converting
 			}
 		}
 		modifier = {
 			factor = 3.0
+			has_job_action = action_inquisition
 			location = {
 				has_province_modifier = heretic_stronghold
 			}
@@ -329,6 +389,7 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		NOT = {
@@ -372,6 +433,14 @@ character_event = {
 	mean_time_to_happen = {
 		months = 120
 	
+		modifier = {
+			factor = 0.75
+			has_religion_feature = religion_proselytizing
+		}
+		modifier = {
+			factor = 2.75
+			has_religion_feature = religion_cosmopolitan
+		}
 		modifier = {
 			factor = 1.25
 			NOT = { learning = 2 }
@@ -522,6 +591,8 @@ letter_event = {
 		
 		religion = FROM
 		
+		save_event_target_as = portrait_target
+		
 		if = {
 			limit = { higher_tier_than = BARON }
 			religion_authority = {
@@ -559,6 +630,7 @@ letter_event = {
 	
 	option = {
 		name = "EVTOPTA20011"
+		show_portrait = event_target:portrait_target
 	}
 }
 
@@ -573,10 +645,12 @@ letter_event = {
 	option = {
 		name = "EVTOPTA20012"
 		trigger = { FROM = { religion = ROOT } }
+		show_portrait = event_target:portrait_target
 	}
 	option = {
 		name = "EVTOPTB20012"
 		trigger = { FROM = { NOT = { religion = ROOT } } }
+		show_portrait = event_target:portrait_target
 	}
 }
 
@@ -592,6 +666,7 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_inquisition
@@ -620,6 +695,36 @@ character_event = {
 	
 	mean_time_to_happen = {
 		months = 120
+
+		modifier = {
+			factor = 1.5
+			liege = {
+				any_owned_bloodline = {
+					has_bloodline_flag = bloodline_better_inquisition
+					bloodline_is_active_for = PREV
+				}
+			}
+		}
+		modifier = {
+			factor = 1.5
+			#If chaplain is also your relative.
+			any_owned_bloodline = {
+				has_bloodline_flag = bloodline_better_inquisition
+				bloodline_is_active_for = PREV
+			}
+		}
+		modifier = {
+			factor = 0.75
+			has_religion_feature = religion_dogmatic
+		}
+		modifier = {
+			factor = 1.25
+			has_religion_feature = religion_proselytizing
+		}
+		modifier = {
+			factor = 2.75
+			has_religion_feature = religion_cosmopolitan
+		}
 	
 		modifier = {
 			factor = 0.75
@@ -815,6 +920,7 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		NOR = {
@@ -854,6 +960,10 @@ character_event = {
 	mean_time_to_happen = {
 		months = 240
 	
+		modifier = {
+			factor = 1.5
+			has_religion_feature = religion_dogmatic
+		}
 		modifier = {
 			factor = 1.25
 			NOT = { learning = 2 }
@@ -926,8 +1036,10 @@ character_event = {
 	
 	option = {
 		name = "EVTOPTA903"
-		event_target:suspected_heretic = {
-			character_event = { id = 20030 days = 7 tooltip = "EVTTOOLTIP20030" }
+		location = {
+			event_target:suspected_heretic = {
+				character_event = { id = 20030 days = 7 tooltip = "EVTTOOLTIP20030" }
+			}
 		}
 	}
 }
@@ -1121,6 +1233,7 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_inquisition
@@ -1136,6 +1249,10 @@ character_event = {
 	mean_time_to_happen = {
 		months = 240
 	
+		modifier = {
+			factor = 1.25
+			has_religion_feature = religion_dogmatic
+		}
 		modifier = {
 			factor = 0.75
 			NOT = { learning = 2 }
@@ -1321,6 +1438,7 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_inquisition
@@ -1349,6 +1467,8 @@ character_event = {
 				NOT = { religion = ROOT }
 				religion_group = pagan_group
 				NOT = { same_realm = ROOT }
+				NOT = { has_character_flag = flag_converting_baptism }
+				NOT = { has_character_modifier = baptism_request_cooldown }
 				controls_religion = no
 			}
 		}
@@ -1380,6 +1500,7 @@ character_event = {
 	capable_only = yes
 	prisoner = no
 	has_character_flag = preacher_arrives
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_inquisition
@@ -1404,6 +1525,8 @@ character_event = {
 				}
 				is_reformed_religion = no
 				controls_religion = no
+				NOT = { has_character_flag = flag_converting_baptism }
+				NOT = { has_character_modifier = baptism_request_cooldown }
 				# at_location = ROOT
 			}
 		}
@@ -1412,6 +1535,10 @@ character_event = {
 	mean_time_to_happen = {
 		months = 120
 	
+		modifier = {
+			factor = 1.5
+			has_religion_feature = religion_proselytizing
+		}
 		modifier = {
 			factor = 1.25
 			NOT = { learning = 2 }
@@ -1537,6 +1664,7 @@ character_event = {
 	capable_only = yes
 	prisoner = no
 	has_character_flag = preacher_arrives
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_inquisition
@@ -1571,6 +1699,10 @@ character_event = {
 	mean_time_to_happen = {
 		months = 120
 	
+		modifier = {
+			factor = 1.5
+			has_religion_feature = religion_proselytizing
+		}
 		modifier = {
 			factor = 1.25
 			NOT = { learning = 2 }
@@ -1673,6 +1805,7 @@ character_event = {
 	capable_only = yes
 	prisoner = no
 	has_character_flag = preacher_arrives
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_inquisition
@@ -1775,6 +1908,7 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_improve_rel_relations
@@ -1914,6 +2048,7 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_improve_rel_relations
@@ -2056,6 +2191,7 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_advance_cul_tech
@@ -2073,6 +2209,14 @@ character_event = {
 				has_focus = focus_scholarship
 				liege = { has_focus = focus_scholarship }
 			}
+		}
+		modifier = {
+			factor = 2
+			has_religion_feature = religion_dogmatic
+		}
+		modifier = {
+			factor = 0.75
+			has_religion_feature = religion_cosmopolitan
 		}
 		modifier = {
 			factor = 1.25
@@ -2105,6 +2249,23 @@ character_event = {
 		modifier = {
 			factor = 0.75
 			learning = 13
+		}
+		modifier = {
+			factor = 0.5
+			liege = {
+				any_owned_bloodline = {
+					has_bloodline_flag = bloodline_more_philosophers
+					bloodline_is_active_for = PREV
+				}
+			}
+		}
+		modifier = {
+			factor = 0.5
+			#If chaplain is also your relative.
+			any_owned_bloodline = {
+				has_bloodline_flag = bloodline_more_philosophers
+				bloodline_is_active_for = PREV
+			}
 		}
 	}
 	
@@ -2159,6 +2320,7 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_advance_cul_tech
@@ -2189,6 +2351,10 @@ character_event = {
 	mean_time_to_happen = {
 		months = 1000
 		
+		modifier = {
+			factor = 2
+			has_religion_feature = religion_dogmatic
+		}
 		modifier = {
 			factor = 1.25
 			NOT = { learning = 2 }
@@ -2289,13 +2455,38 @@ letter_event = {
 		hidden_tooltip = {
 			liege = { letter_event = { id = 20271 } }
 		}
-		
 		ai_chance = { factor = 10 }
 	}
 	option = {
 		name = EVTOPTB20271
-		
+		hidden_tooltip = {
+			liege = { letter_event = { id = 20273 } }
+		}
 		ai_chance = { factor = 5 }
+	}
+}
+
+letter_event = {
+	id = 20272
+	desc = EVTDESC20272
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA20272
+	}
+}
+
+letter_event = {
+	id = 20273
+	desc = EVTDESC20273
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA20273
 	}
 }
 
@@ -2315,6 +2506,7 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_charity
@@ -2451,6 +2643,7 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_charity
@@ -2614,7 +2807,7 @@ character_event = {
 	}
 }
 
-# 20048: The Mufti pockets money meant for the pooor 
+# 20048: The Mufti pockets money meant for the poor 
 character_event = {
 	id = 20048
 	desc = "EVTDESC20048"
@@ -2625,6 +2818,7 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_charity
@@ -2701,6 +2895,7 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_charity
@@ -2783,6 +2978,7 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_build_zeal
@@ -2790,6 +2986,10 @@ character_event = {
 		NOT = { has_character_modifier = bedridden_illness }
 		NOT = { trait = incapable }
 		liege = {
+			OR = { # The AI pretty much always just let their warriors stand around, getting a piety hit when they disband
+				war = yes
+				ai = no
+			}
 			is_adult = yes
 			prisoner = no
 			piety = 10
