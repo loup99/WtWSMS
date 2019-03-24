@@ -119,7 +119,6 @@ character_event = {
 
 			### ACR ###
 			interested_in_society = unseelie_petitioners
-			interested_in_society = the_coven
 			interested_in_society = the_sand_snakes
 		}
 	}
@@ -150,7 +149,6 @@ character_event = {
 
 			### ACR ###
 			interested_in_society = unseelie_petitioners
-			interested_in_society = the_coven
 			interested_in_society = the_sand_snakes
 		}
 	}
@@ -306,22 +304,6 @@ character_event = {
 				}
 				save_event_target_as = satanists_recruiter
 				character_event = { id = ancrel.9900 }
-			}
-		}
-		# Coven
-		if = {
-			limit = {
-				interested_in_society = the_coven
-				NOT = { has_character_flag = being_recruited_by_the_coven }
-			}
-			random_society_member = {
-				limit = {
-					society_member_of = the_coven
-					#is_within_diplo_range = ROOT
-					is_society_grandmaster = no
-				}
-				save_event_target_as = satanists_recruiter
-				character_event = { id = ancrel.9901 }
 			}
 		}
 		# Fangs
@@ -515,7 +497,6 @@ character_event = {
 	immediate = { 
 		FROM = {
 			set_character_flag = coven_attempted_recruitment
-			set_character_flag = being_recruited_by_the_coven
 			character_event = { id = MNM.7001 }
 		}
 	}
@@ -2628,45 +2609,6 @@ character_event = {
 							}
 						}
 						join_society = unseelie_petitioners
-						random_list = { # Artificially increase society influence for balance purposes
-							75 = {
-								modifier = {
-									factor = 0
-									society_influence >= 30
-								}
-								add_mission_succeed_influence_effect = yes
-							}
-							25 = {
-							}
-						}
-						if = {
-							limit = {
-								NOT = {
-									society = {
-										any_society_member = {
-											is_society_grandmaster = yes
-										}
-									}
-								}
-							}
-							set_society_grandmaster = yes
-						}
-					}
-					50 = {
-						trigger = {
-							can_join_society = the_coven
-						}
-						modifier = {
-							factor = 5
-							OR = {
-								has_impious_trait_trigger = yes
-								has_vice_trigger = yes
-								trait = drunkard
-								trait = possessed
-								trait = lunatic
-							}
-						}
-						join_society = the_coven
 						random_list = { # Artificially increase society influence for balance purposes
 							75 = {
 								modifier = {
