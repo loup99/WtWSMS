@@ -105,6 +105,7 @@ targetted_decisions = {
 				has_religion_feature = religion_stable
 				has_religion_feature = religion_feature_slavic
 				has_religion_feature = religion_feature_finnish
+                has_religion_feature = religion_feature_egyptian
 			}
 			has_dlc = "Holy Fury"
 		}
@@ -353,6 +354,7 @@ targetted_decisions = {
 				has_religion_feature = religion_stable
 				has_religion_feature = religion_feature_slavic
 				has_religion_feature = religion_feature_finnish
+                has_religion_feature = religion_feature_egyptian
 			}
 			has_dlc = "Holy Fury"
 		}
@@ -1084,6 +1086,155 @@ decisions = {
 		}
 	}
 
+	# Create Myrmidons - Hellenic Holy Order
+	create_myrmidons = {
+		only_playable = yes
+		is_high_prio = yes
+		ai_check_interval = 120 #check only once every 120 months.
+		
+		potential = {
+			NOT = { is_title_active = d_myrmidons }
+			#NOT = { has_landed_title = e_roman_empire } #To activate in the event of special case being defined for Roman Emperors. (!!!!)
+			OR = {
+				independent = yes
+				tier = king
+			}
+			religion = hellenic_pagan
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
+		
+		allow = {
+			OR = {
+				AND = {
+					completely_controls = c_thessalonike
+					completely_controls = c_atheniai
+					completely_controls = c_siracusa
+					completely_controls = c_roma
+					completely_controls = c_alexandria
+					piety = 1000
+				}
+				AND = {
+					year = 1100
+					piety = 200
+				}
+			}
+		}
+		
+		effect = {
+			custom_tooltip = { text = create_myrmidons_tooltip }
+			hidden_tooltip = {
+				activate_title = { title = d_myrmidons status = yes }
+				create_character = {
+					random_traits = no
+					dynasty = random
+					religion = ROOT
+					culture = greek
+					female = no
+					age = 33
+					trait = brilliant_strategist
+					trait = zealous
+					trait = humble
+					trait = ambitious
+					trait = strategist
+					trait = holy_warrior
+				}
+				new_character = {
+					wealth = 500
+					d_myrmidons = {
+						grant_title = PREV
+					}
+					set_government_type = feudal_government
+					save_event_target_as = leader_of_myrmidons
+					create_character = {
+						random_traits = yes
+						dynasty = random
+						religion = ROOT
+						culture = greek
+						female = no
+						age = 16
+					}
+					create_character = {
+						random_traits = yes
+						dynasty = random
+						religion = ROOT
+						culture = greek
+						female = no
+						age = 18
+					}
+					create_character = {
+						random_traits = yes
+						dynasty = random
+						religion = ROOT
+						culture = greek
+						female = no
+						age = 18
+					}
+					create_character = {
+						random_traits = yes
+						dynasty = random
+						religion = ROOT
+						culture = greek
+						female = no
+						age = 20
+					}
+					create_character = {
+						random_traits = yes
+						dynasty = random
+						religion = ROOT
+						culture = greek
+						female = no
+						age = 25
+					}
+					create_character = {
+						random_traits = yes
+						dynasty = random
+						religion = ROOT
+						culture = greek
+						female = no
+						age = 26
+					}
+					create_character = {
+						random_traits = yes
+						dynasty = random
+						religion = ROOT
+						culture = greek
+						female = no
+						age = 28
+					}
+					create_character = {
+						random_traits = yes
+						dynasty = random
+						religion = ROOT
+						culture = greek
+						female = yes
+						age = 16
+					}
+					create_character = {
+						random_traits = yes
+						dynasty = random
+						religion = ROOT
+						culture = greek
+						female = yes
+						age = 17
+					}
+				}
+				any_player = {
+					limit = {
+						OR = {
+							religion = hellenic_pagan
+							capital_scope = { region = world_europe_west }
+						}
+					}
+					narrative_event = { id = HF.23120 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
 	# Create Bacchants - Hellenic Satanists
 	create_bacchants = {
 		only_playable = yes

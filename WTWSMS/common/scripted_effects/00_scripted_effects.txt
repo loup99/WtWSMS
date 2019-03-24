@@ -4032,7 +4032,10 @@ add_crusade_trait_effect = {
 		limit = {
 			OR = {
 				religion = celtic_pagan
-				religion = celtic_pagan_reformed
+				AND = {
+					religion = celtic_pagan_reformed
+					NOT = { has_religion_feature = religion_matriarchal }
+				}
 			}
 		}
 		add_trait = lughs_own
@@ -40923,6 +40926,52 @@ root_secret_religion_provinces_convert_effect = {
 					}
 				}
 			} 
+#TODO WtWSMS
+			### ACR ###
+			secret_religious_society_celtic_pagan = { 
+				PREV = {
+					any_demesne_province = {
+						limit = {
+							has_province_modifier = secret_celtic_pagan_community
+						}
+						religion = celtic_pagan 
+						remove_province_modifier = secret_celtic_pagan_community
+					}
+				}
+			} 
+			secret_religious_society_celtic_pagan_reformed = { 
+				PREV = {
+					any_demesne_province = {
+						limit = {
+							has_province_modifier = secret_celtic_pagan_reformed_community
+						}
+						religion = celtic_pagan_reformed
+						remove_province_modifier = secret_celtic_pagan_reformed_community
+					}
+				}
+			} 
+			secret_religious_society_egyptian_pagan = { 
+				PREV = {
+					any_demesne_province = {
+						limit = {
+							has_province_modifier = secret_egyptian_pagan_community
+						}
+						religion = egyptian_pagan 
+						remove_province_modifier = secret_egyptian_pagan_community
+					}
+				}
+			} 
+			secret_religious_society_aten_pagan = { 
+				PREV = {
+					any_demesne_province = {
+						limit = {
+							has_province_modifier = secret_aten_pagan_community
+						}
+						religion = aten_pagan 
+						remove_province_modifier = secret_aten_pagan_community
+					}
+				}
+			} 
 		}
 	}
 }
@@ -44304,22 +44353,25 @@ tiered_high_piety_negative_effect = {
 #Used for gluttonous and hedonistic actions.
 gain_weight_small_effect = {
 	custom_tooltip = {
+		text = acr_weight_gain_small
 		hidden_tooltip = {
-		change_variable = { which = physique_variable value = 5 }
+			change_variable = { which = physique_variable value = 5 }
 		}
 	}
 } 
 gain_weight_medium_effect = {
 	custom_tooltip = {
+		text = acr_weight_gain_medium
 		hidden_tooltip = {
-		change_variable = { which = physique_variable value = 10 }
+			change_variable = { which = physique_variable value = 10 }
 		}
 	}
 } 
 gain_weight_large_effect = {
 	custom_tooltip = {
+		text = acr_weight_gain_large
 		hidden_tooltip = {
-		change_variable = { which = physique_variable value = 15 }
+			change_variable = { which = physique_variable value = 15 }
 		}
 	}
 }
@@ -44327,6 +44379,7 @@ gain_weight_large_effect = {
 #Used for training and balanced lifestyle.
 balance_weight_small_effect =  {
 	custom_tooltip = {
+		text = acr_weight_balance_small
 		hidden_tooltip = {
 			#If variable is above 1, reduce it. If it's below 1 increase it.
 			if = { 
@@ -44346,6 +44399,7 @@ balance_weight_small_effect =  {
 } 
 balance_weight_medium_effect = {
 	custom_tooltip = {
+		text = acr_weight_balance_medium
 		hidden_tooltip = {
 			#If variable is above 1, reduce it. If it's below 1 increase it.
 			if = { 
@@ -44366,6 +44420,7 @@ balance_weight_medium_effect = {
 
 balance_weight_large_effect = { #Should be used rarely.
 	custom_tooltip = {
+		text = acr_weight_balance_large
 		hidden_tooltip = {
 			#If variable is above 1, reduce it. If it's below 1 increase it.
 			if = { 
@@ -44387,22 +44442,25 @@ balance_weight_large_effect = { #Should be used rarely.
 #Used for seclusions, fasting, dungeon starvation, etc.
 lose_weight_small_effect = {
 	custom_tooltip = {
+		text = acr_weight_loss_small
 		hidden_tooltip = {
-		change_variable = { which = physique_variable value = -6 } #Because of the way trigger works, checks if you are below -5/-10/-15
+			change_variable = { which = physique_variable value = -6 } #Because of the way trigger works, checks if you are below -5/-10/-15
 		}
 	}
 } 
 lose_weight_medium_effect = {
 	custom_tooltip = {
+		text = acr_weight_loss_medium
 		hidden_tooltip = {
-	change_variable = { which = physique_variable value = -11 }
+			change_variable = { which = physique_variable value = -11 }
 		}
 	}
 } 
 lose_weight_large_effect = {
 	custom_tooltip = {
+		text = acr_weight_loss_large
 		hidden_tooltip = {
-	change_variable = { which = physique_variable value = -16 }
+			change_variable = { which = physique_variable value = -16 }
 		}
 	}
 }  
@@ -45635,6 +45693,14 @@ add_warrior_lodge_leader_trait_effect = {
 		warrior_lodge_hellenic = {
 			add_trait = hellenic_leader
 		}
+		
+		### ACR ###
+		warrior_lodge_celtic = {
+			add_trait = celtic_leader
+		}
+		warrior_lodge_egyptian = {
+			add_trait = egyptian_leader
+		}
 	}
 }
 fire_haruspicy_event_effect = {
@@ -45645,6 +45711,7 @@ fire_haruspicy_event_effect = {
 					OR = { 
 						religion = hellenic_pagan 
 						has_religion_feature = religion_haruspicy 
+						has_religion_feature = religion_feature_celtic
 					} 
 				} 
 			}
@@ -45658,6 +45725,7 @@ fire_haruspicy_event_effect = {
 					OR = { 
 						religion = hellenic_pagan 
 						has_religion_feature = religion_haruspicy 
+						has_religion_feature = religion_feature_celtic
 					} 
 				} 
 			}
@@ -46656,6 +46724,21 @@ transfer_crown_on_abdication_effect = {
 				} 
 			}
 	}
+	if = {
+		limit = { 
+			has_landed_title = d_celtic_pagan_reformed
+			any_artifact = { artifact_type = crown_celtic_fylkir }
+		}
+			current_heir = { save_event_target_as = crown_celtic_fylkir_heir }
+			any_artifact = { 
+				limit = { artifact_type = crown_celtic_fylkir }
+				transfer_artifact = {
+					from = PREV
+					to = event_target:crown_celtic_fylkir_heir
+				} 
+			}
+	}
+#TODO WtWSMS
 	#Now transfer all other remaining artifacts to the player_heir, who may or may not be the current_heir.
 	player_heir = { save_event_target_as = scoped_player_heir }
 	any_artifact = { 
@@ -46674,6 +46757,7 @@ transfer_crown_on_abdication_effect = {
 				artifact_type = scepter_bon_fylkir 
 				artifact_type = crown_aztec_fylkir
 				artifact_type = scepter_hellenic_fylkir 
+				artifact_type = crown_celtic_fylkir
 			}
 		}
 		transfer_artifact = {
@@ -49094,6 +49178,7 @@ landless_pope_effect = {
 				}
 			}
 		}
+		add_trait = levy_coordinator
 		if = {
 			limit = {
 				NOR = {
@@ -49335,7 +49420,7 @@ change_rain_effect = { # Needs a province scope...
 			}
 		}
 	}
-	else = {
+	else_if = {
 		limit = { has_province_modifier = africa_drought }
 		random_list = {
 			10 = { # Make it better (heavy rain)...
@@ -49658,6 +49743,7 @@ calculate_weather_status_in_demesne_effect = {
 		}
 		set_character_flag = mostly_light_rain
 	}
+
 	if = {
 		limit = {
 			check_variable = { # if heavy rain is more common than drought risk...
@@ -50239,7 +50325,10 @@ reformation_god_names_changes_effect = { #Reforming religion with certain Doctri
 			}
 			if = {
 				limit = { #Reformer himself, but only if he is not becoming the High God due to synergy.
-					NOT = { has_religion_feature = religion_temporal_head }
+					OR = {
+						NOT = { has_religion_feature = religion_temporal_head }
+						has_religion_feature = religion_feature_egyptian
+					}
 					OR = { 
 						AND = { 
 							is_female = no

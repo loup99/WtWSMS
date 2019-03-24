@@ -146,7 +146,7 @@ character_event = {
 			interested_in_society = the_plaguebringers
 			interested_in_society = the_vodouns
 			interested_in_society = the_bacchants
-			interested_in_society = secret_religious_cult		
+			interested_in_society = secret_religious_cult
 
 			### ACR ###
 			interested_in_society = unseelie_petitioners
@@ -305,7 +305,7 @@ character_event = {
 					is_society_grandmaster = no
 				}
 				save_event_target_as = satanists_recruiter
-				character_event = { id = ancrel.9100 }
+				character_event = { id = ancrel.9900 }
 			}
 		}
 		# Coven
@@ -321,7 +321,7 @@ character_event = {
 					is_society_grandmaster = no
 				}
 				save_event_target_as = satanists_recruiter
-				character_event = { id = ancrel.9101 }
+				character_event = { id = ancrel.9901 }
 			}
 		}
 		# Fangs
@@ -337,7 +337,7 @@ character_event = {
 					is_society_grandmaster = no
 				}
 				save_event_target_as = satanists_recruiter
-				character_event = { id = ancrel.9102 }
+				character_event = { id = ancrel.9902 }
 			}
 		}
 		#Secret religious society
@@ -488,16 +488,11 @@ character_event = {
 	}
 }
 
-
-
-
-
-
 ### ACR ###
 namespace = ancrel
 
 character_event = {
-	id = ancrel.9100
+	id = ancrel.9900
 	hide_window = yes
 
 	is_triggered_only = yes
@@ -512,7 +507,7 @@ character_event = {
 }
 
 character_event = {
-	id = ancrel.9101
+	id = ancrel.9901
 	hide_window = yes
 
 	is_triggered_only = yes
@@ -527,7 +522,7 @@ character_event = {
 }
 
 character_event = {
-	id = ancrel.9102
+	id = ancrel.9902
 	hide_window = yes
 
 	is_triggered_only = yes
@@ -824,9 +819,9 @@ character_event = {
 	
 	immediate = {
 		random_list = {
-			95 = { # do nothing
+			80 = { # do nothing
 			}
-			5 = { # try to join a society
+			20 = { # try to join a society
 				modifier = {
 					factor = 2
 					higher_tier_than = BARON
@@ -1311,6 +1306,150 @@ character_event = {
 							monastic_order_stoics = { num_of_society_members < 10 }
 						}
 						join_society = monastic_order_stoics
+						random_list = { # Artificially increase society influence for balance purposes
+							75 = {
+								modifier = {
+									factor = 0
+									society_influence >= 30
+								}
+								add_mission_succeed_influence_effect = yes
+							}
+							25 = {
+							}
+						}
+						if = {
+							limit = {
+								NOT = {
+									society = {
+										any_society_member = {
+											is_society_grandmaster = yes
+										}
+									}
+								}
+							}
+							set_society_grandmaster = yes
+						}
+					}
+					100 = {
+						trigger = {
+							can_join_society = monastic_order_stoics
+						}
+						modifier = {
+							factor = 3
+							OR = {
+								trait = stoic
+								trait = erudite
+								trait = scholar
+								trait = theologian
+								trait = diligent
+								learning = 16
+							}
+						}
+						modifier = {
+							factor = 2
+							monastic_order_stoics = { num_of_society_members < 15 }
+						}
+						modifier = {
+							factor = 2
+							monastic_order_stoics = { num_of_society_members < 10 }
+						}
+						join_society = monastic_order_stoics
+						random_list = { # Artificially increase society influence for balance purposes
+							75 = {
+								modifier = {
+									factor = 0
+									society_influence >= 30
+								}
+								add_mission_succeed_influence_effect = yes
+							}
+							25 = {
+							}
+						}
+						if = {
+							limit = {
+								NOT = {
+									society = {
+										any_society_member = {
+											is_society_grandmaster = yes
+										}
+									}
+								}
+							}
+							set_society_grandmaster = yes
+						}
+					}
+					100 = {
+						trigger = {
+							can_join_society = monastic_order_skeptics
+						}
+						modifier = {
+							factor = 3
+							OR = {
+								trait = skeptic
+								trait = erudite
+								trait = scholar
+								trait = theologian
+								trait = diligent
+								learning = 16
+							}
+						}
+						modifier = {
+							factor = 2
+							monastic_order_skeptics = { num_of_society_members < 15 }
+						}
+						modifier = {
+							factor = 2
+							monastic_order_skeptics = { num_of_society_members < 10 }
+						}
+						join_society = monastic_order_skeptics
+						random_list = { # Artificially increase society influence for balance purposes
+							75 = {
+								modifier = {
+									factor = 0
+									society_influence >= 30
+								}
+								add_mission_succeed_influence_effect = yes
+							}
+							25 = {
+							}
+						}
+						if = {
+							limit = {
+								NOT = {
+									society = {
+										any_society_member = {
+											is_society_grandmaster = yes
+										}
+									}
+								}
+							}
+							set_society_grandmaster = yes
+						}
+					}
+					100 = {
+						trigger = {
+							can_join_society = monastic_order_epicureans
+						}
+						modifier = {
+							factor = 3
+							OR = {
+								trait = epicurean
+								trait = erudite
+								trait = scholar
+								trait = theologian
+								trait = diligent
+								learning = 16
+							}
+						}
+						modifier = {
+							factor = 2
+							monastic_order_epicureans = { num_of_society_members < 15 }
+						}
+						modifier = {
+							factor = 2
+							monastic_order_epicureans = { num_of_society_members < 10 }
+						}
+						join_society = monastic_order_epicureans
 						random_list = { # Artificially increase society influence for balance purposes
 							75 = {
 								modifier = {
@@ -2208,6 +2347,100 @@ character_event = {
 							the_plaguebringers = { num_of_society_members < 10 }
 						}
 						join_society = the_plaguebringers
+						random_list = { # Artificially increase society influence for balance purposes
+							75 = {
+								modifier = {
+									factor = 0
+									society_influence >= 30
+								}
+								add_mission_succeed_influence_effect = yes
+							}
+							25 = {
+							}
+						}
+						if = {
+							limit = {
+								NOT = {
+									society = {
+										any_society_member = {
+											is_society_grandmaster = yes
+										}
+									}
+								}
+							}
+							set_society_grandmaster = yes
+						}
+					}	50 = {
+						trigger = {
+							can_join_society = the_vodouns
+						}
+						modifier = {
+							factor = 5
+							OR = {
+								has_impious_trait_trigger = yes
+								has_vice_trigger = yes
+								trait = drunkard
+								trait = possessed
+								trait = lunatic
+							}
+						}
+						modifier = {
+							factor = 2
+							the_vodouns = { num_of_society_members < 15 }
+						}
+						modifier = {
+							factor = 2
+							the_vodouns = { num_of_society_members < 10 }
+						}
+						join_society = the_vodouns
+						random_list = { # Artificially increase society influence for balance purposes
+							75 = {
+								modifier = {
+									factor = 0
+									society_influence >= 30
+								}
+								add_mission_succeed_influence_effect = yes
+							}
+							25 = {
+							}
+						}
+						if = {
+							limit = {
+								NOT = {
+									society = {
+										any_society_member = {
+											is_society_grandmaster = yes
+										}
+									}
+								}
+							}
+							set_society_grandmaster = yes
+						}
+					}
+					50 = {
+						trigger = {
+							can_join_society = the_bacchants
+						}
+						modifier = {
+							factor = 5
+							OR = {
+								has_impious_trait_trigger = yes
+								has_vice_trigger = yes
+								trait = drunkard
+								trait = possessed
+								trait = lunatic
+							}
+						}
+						modifier = {
+							factor = 2
+							the_bacchants = { num_of_society_members < 15 }
+						}
+						modifier = {
+							factor = 2
+							the_bacchants = { num_of_society_members < 10 }
+						}
+						join_society = the_bacchants
+						random_list = { # Artificially increase society influence for balance purposes
 							75 = {
 								modifier = {
 									factor = 0
@@ -2379,87 +2612,6 @@ character_event = {
 							set_society_grandmaster = yes
 						}
 					}
-					50 = {
-						trigger = {
-							can_join_society = the_vodouns
-						}
-						modifier = {
-							factor = 5
-							OR = {
-								has_impious_trait_trigger = yes
-								has_vice_trigger = yes
-								trait = drunkard
-								trait = possessed
-								trait = lunatic
-							}
-						}
-						modifier = {
-							factor = 2
-							the_vodouns = { num_of_society_members < 15 }
-						}
-						modifier = {
-							factor = 2
-							the_vodouns = { num_of_society_members < 10 }
-						}
-						join_society = the_vodouns
-						random_list = { # Artificially increase society influence for balance purposes
-							75 = {
-								modifier = {
-									factor = 0
-									society_influence >= 30
-								}
-								add_mission_succeed_influence_effect = yes
-							}
-							25 = {
-							}
-						}
-						if = {
-							limit = {
-								NOT = {
-									society = {
-										any_society_member = {
-											is_society_grandmaster = yes
-										}
-									}
-								}
-							}
-							set_society_grandmaster = yes
-						}
-					}
-					50 = {
-						trigger = {
-							can_join_society = the_bacchants
-						}
-						modifier = {
-							factor = 5
-							OR = {
-								has_impious_trait_trigger = yes
-								has_vice_trigger = yes
-								trait = drunkard
-								trait = possessed
-								trait = lunatic
-							}
-						}
-						modifier = {
-							factor = 2
-							the_bacchants = { num_of_society_members < 15 }
-						}
-						modifier = {
-							factor = 2
-							the_bacchants = { num_of_society_members < 10 }
-						}
-						join_society = the_bacchants
-						random_list = { # Artificially increase society influence for balance purposes
-							75 = {
-								modifier = {
-									factor = 0
-									society_influence >= 30
-								}
-								add_mission_succeed_influence_effect = yes
-							}
-							25 = {
-							}
-						}
 					# Devil Woshippers
 					50 = {
 						trigger = {
@@ -3128,6 +3280,7 @@ character_event = {
 			has_quest = quest_devil_worshipers_corrupt_priest
 			has_quest = quest_the_devil_worshipers_demonic_possession
 			has_quest = quest_the_assassins_protege
+			has_quest = quest_hermetics_find_text
 			has_quest = quest_secret_religious_societies_induct_ruler
 			has_quest = quest_secret_religious_societies_sympathy_ruler
 			has_quest = quest_the_devil_worshipers_demonic_impregnation

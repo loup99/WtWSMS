@@ -1,8 +1,8 @@
 # Character has a religion allowing women to hold councillor positions, equal succession laws, etc.
 is_feminist_religion_trigger = {
 	OR = {
-		religion = celtic_pagan_reformed
 		religion = celtic_pagan
+		religion = egyptian_pagan
 		religion = messalian
 		religion = cathar
 		religion = valentinianism
@@ -12,6 +12,11 @@ is_feminist_religion_trigger = {
 		religion = buddhist
 		religion = semitic_pagan_heresy
 		religion = bogomilist
+		has_religion_feature = religion_matriarchal
+		has_religion_feature = religion_equal
+		has_religion_feature = religion_feature_bon
+		has_religion_feature = religion_feature_celtic
+		has_religion_feature = religion_feature_egyptian
 	}
 }
 
@@ -57,6 +62,27 @@ is_neoplatonist_trigger = {
 		trait = stoic
 		trait = skeptic
 		trait = epicurean
+	}
+}
+
+is_celtic_clergy_in_good_standing_trigger = {
+	OR = {
+		trait = druid
+		#trait = vates
+	}
+}
+
+is_celtic_clergy_in_bad_standing_trigger = {
+	OR = {
+		trait = bad_druid
+		#trait = bad_vates
+	}
+}
+
+is_celtic_clergy_trigger = {
+	OR = {
+		is_celtic_clergy_in_good_standing_trigger = yes
+		is_celtic_clergy_in_bad_standing_trigger = yes
 	}
 }
 
@@ -225,6 +251,8 @@ has_character_was_religion_flag_trigger = {
 		has_character_flag = character_was_manichean
 		has_character_flag = character_was_khurmazta
 		has_character_flag = character_was_bon
+		has_character_flag = character_was_bon_reformed
+		has_character_flag = character_was_hellenic_pagan
 		has_character_flag = character_was_taoist
 		has_character_flag = character_was_hindu
 		has_character_flag = character_was_buddhist
@@ -245,7 +273,7 @@ has_character_was_religion_flag_trigger = {
 		has_character_flag = character_was_zun_pagan
 		has_character_flag = character_was_aztec
 		has_character_flag = character_was_aztec_reformed
-		
+
 		has_character_flag = character_was_celtic_pagan
 		has_character_flag = character_was_celtic_pagan_reformed
 		has_character_flag = character_was_hellenic_pagan
@@ -254,14 +282,52 @@ has_character_was_religion_flag_trigger = {
 	}
 }
 
+religion_openly_celtic_or_reformed_trigger = {
+	OR = {
+		religion = celtic_pagan
+		religion = celtic_pagan_reformed
+	}
+}
+
+religion_secretly_celtic_or_reformed_trigger = {
+	OR = {
+		secret_religion = celtic_pagan
+		secret_religion = celtic_pagan_reformed
+	}
+}
+
+true_religion_celtic_or_reformed_trigger = {
+	OR = {
+		true_religion = celtic_pagan
+		true_religion = celtic_pagan_reformed
+	}
+}
+
+religion_secretly_hellenic_or_reformed_trigger = {
+	secret_religion = hellenic_pagan
+}
+
+true_religion_hellenic_or_reformed_trigger = {
+	true_religion = hellenic_pagan
+}
+
+religion_openly_egyptian_or_reformed_trigger = {
+	religion = egyptian_pagan
+}
+
+religion_secretly_egyptian_or_reformed_trigger = {
+	secret_religion = egyptian_pagan
+}
+
+true_religion_egyptian_or_reformed_trigger = {
+	true_religion = egyptian_pagan
+}
+
 religion_openly_in_celtic_subgroup_trigger = {
 	custom_tooltip = {
-		text = religion_openly_celtic_or_reformed_tooltip
+		text = religion_openly_in_celtic_subgroup_tt
 		hidden_trigger = {
-			OR = {
-				religion = celtic_pagan
-				religion = celtic_pagan_reformed
-			}
+				religion_openly_celtic_or_reformed_trigger = yes
 		}
 	}
 }
@@ -271,7 +337,7 @@ religion_openly_in_hellenic_subgroup_trigger = {
 		text = religion_openly_in_hellenic_subgroup_tooltip
 		hidden_trigger = {
 			OR = {
-				religion = hellenic_pagan
+				religion_openly_hellenic_or_reformed_trigger = yes
 				religion = neoplatonist
 				religion = cybelian_pagan
 				religion = mastimani
@@ -286,7 +352,7 @@ religion_openly_in_egyptian_subgroup_trigger = {
 		text = religion_openly_in_egyptian_subgroup_tooltip
 		hidden_trigger = {
 			OR = {
-				religion = egyptian_pagan
+				religion_openly_egyptian_or_reformed_trigger = yes
 				religion = aten_pagan
 			}
 		}
@@ -297,10 +363,7 @@ religion_secretly_in_celtic_subgroup_trigger = {
 	custom_tooltip = {
 		text = secret_religion_in_celtic_subgroup_tooltip
 		hidden_trigger = {
-			OR = {
-				secret_religion = celtic_pagan
-				secret_religion = celtic_pagan_reformed
-			}
+				religion_secretly_celtic_or_reformed_trigger = yes
 		}
 	}
 }
@@ -310,7 +373,7 @@ religion_secretly_in_hellenic_subgroup_trigger = {
 		text = secret_religion_in_hellenic_subgroup_tooltip
 		hidden_trigger = {
 			OR = {
-				secret_religion = hellenic_pagan
+				religion_secretly_hellenic_or_reformed_trigger = yes
 			}
 		}
 	}
@@ -321,7 +384,7 @@ religion_secretly_in_egyptian_subgroup_trigger = {
 		text = secret_religion_in_egyptian_subgroup_tooltip
 		hidden_trigger = {
 			OR = {
-				secret_religion = egyptian_pagan
+				religion_secretly_egyptian_or_reformed_trigger = yes
 				secret_religion = aten_pagan
 			}
 		}
@@ -332,10 +395,7 @@ true_religion_in_celtic_subgroup_trigger = {
 	custom_tooltip = {
 		text = true_religion_in_celtic_subgroup_tooltip
 		hidden_trigger = {
-			OR = {
-				true_religion = celtic_pagan
-				true_religion = celtic_pagan_reformed
-			}
+				true_religion_celtic_or_reformed_trigger = yes
 		}
 	}
 }
@@ -344,7 +404,7 @@ true_religion_in_hellenic_subgroup_trigger = {
 	custom_tooltip = {
 		text = true_religion_in_hellenic_subgroup_tooltip
 		hidden_trigger = {
-				true_religion = hellenic_pagan
+				true_religion_hellenic_or_reformed_trigger = yes
 		}
 	}
 }
@@ -354,7 +414,7 @@ true_religion_in_egyptian_subgroup_trigger = {
 		text = true_religion_in_egyptian_subgroup_tooltip
 		hidden_trigger = {
 			OR = {
-				true_religion = egyptian_pagan
+				true_religion_egyptian_or_reformed_trigger = yes
 				true_religion = aten_pagan
 			}
 		}
@@ -374,7 +434,232 @@ is_depopulated_trigger = {
 		has_province_modifier = depopulated_1
 		has_province_modifier = depopulated_2
 		has_province_modifier = depopulated_3
-	}	
+	}
+}
+
+# character scope, checks if the given character
+# is someone who could potentially donate land
+# to a holy order of their faith
+is_potential_land_doner_trigger = {
+	any_mercenary_band = {
+		holder_scope = { religion = ROOT }
+		is_castle_building_holy_order_trigger = yes
+		ROOT = {
+			NOR = {
+				has_character_flag = expelled_@PREV
+				any_liege = {
+					has_character_flag = expelled_@PREVPREV
+				}
+			}
+		}
+	}
+	OR = {
+		AND = {
+			religion_openly_in_celtic_subgroup_trigger = yes
+			has_land_in_celtic_regions_of_interest_trigger = yes
+		}
+		AND = {
+			religion_openly_in_hellenic_subgroup_trigger = yes
+			has_land_in_hellenic_regions_of_interest_trigger = yes
+		}
+		AND = {
+			religion_openly_in_egyptian_subgroup_trigger = yes
+			has_land_in_egyptian_regions_of_interest_trigger = yes
+		}
+	}
+	is_heretic = no
+}
+
+# character scope
+has_land_in_celtic_regions_of_interest_trigger = {
+	any_demesne_province = {
+		has_empty_holding = yes
+		is_in_celtic_regions_of_interest_trigger = yes
+	}
+}
+
+# province scope
+is_in_celtic_regions_of_interest_trigger = {
+	OR = {
+		kingdom = {
+			title = k_sicily
+		}
+		empire = {
+			OR = {
+				title = e_gaul
+				title = e_germania
+				title = e_spain
+				title = e_britannia
+				title = e_italy
+			}
+		}
+	}
+}
+
+# character scope
+has_land_in_hellenic_regions_of_interest_trigger = {
+	any_demesne_province = {
+		has_empty_holding = yes
+		is_in_hellenic_regions_of_interest_trigger = yes
+	}
+}
+
+# province scope
+is_in_hellenic_regions_of_interest_trigger = {
+	OR = {
+		region = world_middle_east_jerusalem
+		region = world_africa_north
+		duchy = {
+			title = d_sinai
+		}
+		empire = {
+			OR = {
+				title = e_byzantium
+				title = e_italy
+				title = e_gaul
+				title = e_spain
+			}
+		}
+	}
+}
+
+# character scope
+has_land_in_egyptian_regions_of_interest_trigger = {
+	any_demesne_province = {
+		has_empty_holding = yes
+		is_in_egyptian_regions_of_interest_trigger = yes
+	}
+}
+
+# province scope
+is_in_egyptian_regions_of_interest_trigger = {
+	empire = {
+		OR = {
+			title = e_africa
+			title = e_arabia
+			title = e_abyssinia
+			title = e_byzantium
+		}
+	}
+}
+
+# province scope
+is_in_root_religion_regions_of_interest_trigger = {
+	OR = {
+		AND = {
+			ROOT = { religion_openly_in_celtic_subgroup_trigger = yes }
+			is_in_celtic_regions_of_interest_trigger = yes
+		}
+		AND = {
+			ROOT = { religion_openly_in_hellenic_subgroup_trigger = yes }
+			is_in_hellenic_regions_of_interest_trigger = yes
+		}
+		AND = {
+			ROOT = { religion_openly_in_egyptian_subgroup_trigger = yes }
+			is_in_egyptian_regions_of_interest_trigger = yes
+		}
+	}
+}
+
+# title scope, checks if the given title is a holy order
+# that would request a ruler to grant them permission
+# to build a castle on their lands
+is_castle_building_holy_order_trigger = {
+	OR = {
+		title = d_fianna
+		title = d_anubis
+		title = d_horus
+		title = d_legio_hellenica
+		title = d_sacred_band
+		title = d_burning_blades
+	}
+
+	holder_scope = {
+		independent = yes
+		wealth = 300
+		NOT = {
+			realm_size = 10
+		}
+		NOT = {
+			num_of_count_titles = 1
+		}
+	}
+}
+
+# title scope, checks if the given title is a holy order
+# that can give loans right now
+is_banking_holy_order_trigger = {
+	OR = {
+		title = d_fianna
+		title = d_anubis
+		title = d_horus
+		title = d_legio_hellenica
+		title = d_sacred_band
+		title = d_burning_blades
+	}
+}
+
+# character scope, checks if the currently scoped character
+# can borrow from a holy order
+can_borrow_from_a_holy_order_trigger = {
+	is_heretic = no
+	is_ancient_religion_trigger = yes
+}
+
+# title scope, checks if PREV can borrow from
+# THIS. Does NOT check that THIS is a banking holy order
+prev_can_borrow_from_this_holy_order_trigger = {
+	custom_tooltip = {
+		text = no_loans_or_expulsion
+		hidden_tooltip = {
+			PREV = {
+				NOR = {
+					has_character_flag = borrowed_from_@PREV
+					has_character_flag = expelled_@PREV
+					any_liege = {
+						has_character_flag = expelled_@PREVPREV
+					}
+				}
+			}
+		}
+	}
+}
+
+# title scope, checks that FROM can vassalize the currently scoped holy order
+# NOTE: This trigger is currently unused!
+this_holy_order_can_be_vassalized_by_from_trigger = {
+	OR = {
+		AND = { # hellenic legion
+			title = d_legio_hellenica
+			e_roman_empire = {
+				holder_scope = {
+					character = FROM
+				}
+			}
+		}
+		AND = {
+			title = d_sacred_band
+			k_hellenic_pagan = {
+				holder_scope = {
+					character = FROM
+				}
+			}
+		}
+		AND = { # kemetic/atenic HOs
+			holder_scope = {
+				religion_openly_in_egyptian_subgroup_trigger = yes
+			}
+			FROM = {
+				OR = {
+					controls_religion = yes
+					any_vassal = {
+						religion = FROM
+						controls_religion = yes
+					}
+				}
+			}
+		}
+	}
 }
 
 #Society triggers
@@ -386,13 +671,6 @@ has_unseelie_prerequisites = {
 	}
 }
 
-has_coven_prerequisites = {
-	has_common_devilworship_prerequisites = yes
-	OR = {
-		religion_openly_in_hellenic_subgroup_trigger = yes
-		religion_secretly_in_hellenic_subgroup_trigger = yes
-	}
-}
 
 has_sand_snakes_prerequisites = {
 	has_common_devilworship_prerequisites = yes
@@ -402,16 +680,33 @@ has_sand_snakes_prerequisites = {
 	}
 }
 
-# Missing true religion triggers
-true_religion_celtic_pagan_trigger = {
-	true_religion = celtic_pagan
+has_dionysus_prerequisites = {
+	age = 16
+	OR = {
+		true_religion_hellenic_or_reformed_trigger = yes
+		trait = mystic
+		trait = hedonist
+		trait = decadent
+	}
 }
-true_religion_celtic_pagan_reformed_trigger = {
-	true_religion = celtic_pagan_reformed
+
+has_shezmu_prerequisites = {
+	age = 16
+	OR = {
+		religion_openly_in_egyptian_subgroup_trigger = yes
+		religion_secretly_in_egyptian_subgroup_trigger = yes
+	}
+	NOT = { has_common_devilworship_prerequisites = yes }
 }
-true_religion_egyptian_pagan_trigger = {
-	true_religion = egyptian_pagan
+
+is_hellenic_monastic_order_member_trigger = {
+	OR = {
+		is_in_society = monastic_order_stoics
+		is_in_society = monastic_order_skeptics
+		is_in_society = monastic_order_epicureans
+	}
 }
-true_religion_aten_pagan_trigger = {
-	true_religion = aten_pagan
+
+is_celtic_monastic_order_member_trigger = {
+	always = no # none exist yet!
 }

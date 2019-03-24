@@ -2,7 +2,7 @@
 #
 #  Ancient Religions Reborn
 #  - Events for the Red Dragon Knights
-#  		Event IDs ancrel.1319 - ancrel.1332
+#  		Event IDs celtic.1319 - celtic.1332
 #
 ############################################
 
@@ -11,13 +11,13 @@
 # and Adam 'xirsoi/theStormWeaver' Chevalier
 #
 
-namespace = ancrel
+namespace = celtic
 
 # The birth of the Red Dragon Knights
 narrative_event = {
-	id = ancrel.1319
-	title = EVTTITLEancrel.1319
-	desc = EVTDESCancrel.1319
+	id = celtic.1319
+	title = celtic.1319.title
+	desc = celtic.1319.desc
 	picture = GFX_evt_celtic_warriors
 	border = GFX_event_narrative_frame_religion
 
@@ -25,10 +25,10 @@ narrative_event = {
 	hide_from = yes
 	
 	only_rulers = yes
+	has_dlc = "The Old Gods"
+	has_global_flag = celtic_pagan_reformation
 	
 	trigger = {
-		has_dlc = "The Old Gods"
-		has_global_flag = celtic_pagan_reformation
 		NOT = {
 			is_title_active = d_red_dragons
 		}
@@ -137,25 +137,24 @@ narrative_event = {
 
 # request to join red dragons (courtier)
 character_event = {
-	id = ancrel.1320
-	desc = EVTDESCancrel.1320
+	id = celtic.1320
+	desc = celtic.1320.desc
 	picture = GFX_evt_warrior_banners
 	border = GFX_event_normal_frame_religion
 	
+	religion = celtic_pagan_reformed
 	only_men = yes
 	min_age = 16
 	max_age = 45
 	only_capable = yes
 	prisoner = no
+	has_dlc = "Sons of Abraham"
 	
 	trigger = {
 		is_ruler = no
-		religion = celtic_pagan_reformed
 		is_heretic = no
 		is_councillor = no
-		
 		martial = 5
-		
 		is_title_active = d_red_dragons
 		
 		OR = {
@@ -173,8 +172,6 @@ character_event = {
 				holy_order = no
 			}
 		}
-		
-		has_dlc = "Sons of Abraham"
 		
 		NOT = { has_character_modifier = expelled_d_red_dragons }
 		NOT = {
@@ -243,29 +240,29 @@ character_event = {
 	}
 	
 	option = {
-		name =  EVTOPTAancrel.1320 # Ask to go
+		name =  celtic.1320.a # Ask to go
 		liege = {
 			character_event = {
-				id = ancrel.1321
+				id = celtic.1321
 			}
 		}
 	}
 	option = {
-		name =  EVTOPTBancrel.1320 # It's a bad idea
+		name =  celtic.1320.b # It's a bad idea
 	}
 }
 
 # Son or brother asks to join the Red Dragons
 character_event = {
-	id = ancrel.1321
-	desc = EVTDESCancrel.1321
+	id = celtic.1321
+	desc = celtic.1321.desc
 	picture = GFX_evt_warrior_banners
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name =  EVTOPTAancrel.1321 # Agree
+		name =  celtic.1321.a # Agree
 		ai_chance = {
 			factor = 100
 		}
@@ -274,21 +271,21 @@ character_event = {
 		
 		FROM = {
 			character_event = {
-				id = ancrel.1322
-				tooltip =  EVTTOOLTIPancrel.1322
+				id = celtic.1322
+				tooltip =  celtic.1322.tt
 			}
 		}
 	}
 	
 	option = {
-		name =  EVTOPTBancrel.1321 # Refuse
+		name =  celtic.1321.b # Refuse
 		
 		piety = -100
 		
 		FROM = {
 			character_event = {
-				id = ancrel.1323
-				tooltip =  EVTTOOLTIPancrel.1323
+				id = celtic.1323
+				tooltip =  celtic.1323.tt
 			}
 		}
 	}
@@ -296,8 +293,8 @@ character_event = {
 
 # Son or brother joins the Red Dragons
 character_event = {
-	id = ancrel.1322
-	desc = EVTDESCancrel.1322
+	id = celtic.1322
+	desc = celtic.1322.desc
 	picture = GFX_evt_warrior_banners
 	border = GFX_event_normal_frame_religion
 	
@@ -322,15 +319,15 @@ character_event = {
 
 # Liege refuses request to join the Red Dragons
 character_event = {
-	id = ancrel.1323
-	desc = EVTDESCancrel.1323
+	id = celtic.1323
+	desc = celtic.1323.desc
 	picture = GFX_evt_warrior_banners
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name =  EVTOPTAancrel.1323
+		name =  celtic.1323.a
 		
 		opinion = {
 			who = FROM
@@ -341,10 +338,11 @@ character_event = {
 
 # The Grand Master humbly requests the right to build a castle in your demesne
 character_event = {
-	id = ancrel.1324	
+	id = celtic.1324	
 	hide_window = yes
 	
 	only_playable = yes
+	has_dlc = "Sons of Abraham"
 	
 	trigger = {
 		religion = celtic_pagan_reformed
@@ -373,8 +371,6 @@ character_event = {
 				}
 			}
 		}
-		
-		has_dlc = "Sons of Abraham"
 		
 		NOT = { has_character_modifier = expelled_d_red_dragons }
 		NOT = {
@@ -426,14 +422,14 @@ character_event = {
 				}
 			}
 			province_event = {
-				id = ancrel.1325
+				id = celtic.1325
 			}
 		}
 	}
 }
 
 province_event = {
-	id = ancrel.1325
+	id = celtic.1325
 	hide_window = yes
 	
 	is_triggered_only = yes
@@ -442,7 +438,7 @@ province_event = {
 		d_red_dragons = {
 			holder_scope = {
 				character_event = {
-					id = ancrel.1326
+					id = celtic.1326
 				}
 			}
 		}
@@ -450,7 +446,7 @@ province_event = {
 }
 
 character_event = {
-	id = ancrel.1326
+	id = celtic.1326
 	hide_window = yes
 	
 	is_triggered_only = yes
@@ -458,21 +454,21 @@ character_event = {
 	immediate = {
 		FROMFROM = {
 			letter_event = {
-				id = ancrel.1327
+				id = celtic.1327
 			}
 		}
 	}
 }
 
 letter_event = {
-	id = ancrel.1327
-	desc = EVTDESCancrel.1327
+	id = celtic.1327
+	desc = celtic.1327.desc
 	border = GFX_event_letter_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name =  EVTOPTAancrel.1327 # Agree
+		name =  celtic.1327.a # Agree
 		ai_chance = {
 			factor = 80
 			modifier = {
@@ -483,7 +479,7 @@ letter_event = {
 		
 		hidden_tooltip = {
 			FROMFROM = {
-				province_event = { id = ancrel.1328 }
+				province_event = { id = celtic.1328 }
 			}
 			remove_character_modifier = expelled_d_red_dragons
 		}
@@ -493,7 +489,7 @@ letter_event = {
 	}
 	
 	option = {
-		name =  EVTOPTBancrel.1321 # Refuse
+		name =  celtic.1321.b # Refuse
 		ai_chance = {
 			factor = 20
 		}
@@ -504,8 +500,8 @@ letter_event = {
 
 # Castle has been erected
 province_event = {
-	id = ancrel.1328
-	desc = EVTDESCancrel.1328
+	id = celtic.1328
+	desc = celtic.1328.desc
 	picture = GFX_evt_castle_construction
 	border = GFX_event_normal_frame_religion
 	
@@ -528,7 +524,7 @@ province_event = {
 
 # Ping event when expelling the Red Dragon
 character_event = {
-	id = ancrel.1329
+	id = celtic.1329
 	hide_window = yes
 	
 	is_triggered_only = yes
@@ -551,7 +547,7 @@ character_event = {
 	
 		FROM = {
 			letter_event = {
-				id = ancrel.1330
+				id = celtic.1330
 			}
 		}
 		
@@ -564,20 +560,20 @@ character_event = {
 
 # Notification event when expelling the Red Dragon
 letter_event = {
-	id = ancrel.1330
-	desc = EVTDESCancrel.1330
+	id = celtic.1330
+	desc = celtic.1330.desc
 	border = GFX_event_letter_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name =  EVTOPTAancrel.1330
+		name =  celtic.1330.a
 	}
 }
 
 # Ping event when donating money to the Red dragon
 character_event = {
-	id = ancrel.1331
+	id = celtic.1331
 	hide_window = yes
 	
 	is_triggered_only = yes
@@ -586,7 +582,7 @@ character_event = {
 		wealth = 300
 		FROM = {
 			letter_event = {
-				id = ancrel.1332
+				id = celtic.1332
 			}
 		}
 		opinion = {
@@ -598,8 +594,8 @@ character_event = {
 
 # Notification event when donating money to the Red Dragon
 letter_event = {
-	id = ancrel.1332
-	desc = EVTDESCancrel.1332
+	id = celtic.1332
+	desc = celtic.1332.desc
 	border = GFX_event_letter_frame_religion
 	
 	is_triggered_only = yes

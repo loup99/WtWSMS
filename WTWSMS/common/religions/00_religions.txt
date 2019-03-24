@@ -5,10 +5,14 @@
 # This trigger defines who can see a character's secret religion. The character with the secret religion is FROM, while the viewer is ROOT
 # Characters can always see their own secret religion. The observer can see all secret religions
 secret_religion_visibility_trigger = {
-	OR = { 
+	OR = {
 		secret_religion = FROM
 		FROM = {
 			has_character_flag = confessed_secret_religion_to_@ROOT
+		}
+		AND = {
+			ai = no
+			has_global_flag = ancrel_debug
 		}
 	}
 }

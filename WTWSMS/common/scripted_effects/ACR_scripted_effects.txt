@@ -64,12 +64,8 @@ decrease_prosperity_effect = {
 	if = {
 		limit = {
 			NOR = {
-				has_province_modifier = prosperity_modifier_3
-				has_province_modifier = prosperity_modifier_2
-				has_province_modifier = prosperity_modifier_1
-				has_province_modifier = depopulated_1
-				has_province_modifier = depopulated_2
-				has_province_modifier = depopulated_3
+				is_prosperous_trigger = yes
+				is_depopulated_trigger = yes
 			}
 		}
 		add_province_modifier = { name = depopulated_1 duration = -1 }
@@ -168,11 +164,676 @@ random_province_conversion_from_colonists_effect = {
 			50 = { # nothing!
 			}
 		}
-	}
 
-	event_target:receiver_province = {
 		clr_province_flag = received_one_prosperity
 		clr_province_flag = received_two_prosperity
 		clr_province_flag = received_three_prosperity
+	}
+}
+
+create_diplomacy_mystic_effect = {
+	random_list = {
+		25 = {
+			create_character = {
+				random_traits = no
+				name = "Idunn"
+				dna = chaehghfacw
+				dynasty = none
+				religion = norse_pagan
+				culture = norse
+				female = yes
+				age = 17
+				health = 15
+				trait = grey_eminence
+				trait = gregarious
+				trait = mystic
+				trait = lustful
+				trait = charitable
+				trait = fair
+				trait = trusting
+				trait = poet
+			}
+		}
+		25 = {
+			create_character = {
+				random_traits = no
+				name = "Nestor"
+				dynasty = none
+				religion = hellenic_pagan
+				culture = greek
+				female = no
+				age = 62
+				health = 15
+				trait = grey_eminence
+				trait = gregarious
+				trait = mystic
+				trait = charitable
+				trait = fair
+				trait = trusting
+				trait = poet
+			}
+		}
+	}
+}
+
+create_martial_mystic_effect = {
+	random_list = {
+		25 = {
+			create_character = {
+				random_traits = no
+				dynasty = none
+				religion = west_african_pagan
+				culture = manden
+				female = yes
+				age = 36
+				health = 15
+				trait = brilliant_strategist
+				trait = mystic
+				trait = robust
+				trait = wroth
+				trait = diligent
+				trait = proud
+				trait = brave
+				trait = aggressive_leader
+			}
+		}
+		25 = {
+			create_character = {
+				random_traits = no
+				dynasty = none
+				religion = celtic_pagan
+				culture = gallic
+				female = no
+				age = 36
+				health = 15
+				trait = brilliant_strategist
+				trait = mystic
+				trait = robust
+				trait = wroth
+				trait = diligent
+				trait = proud
+				trait = brave
+				trait = light_foot_leader
+			}
+		}
+		25 = {
+			create_character = {
+				random_traits = no
+				dynasty = none
+				religion = hellenic_pagan
+				culture = greek
+				female = no
+				age = 31
+				health = 15
+				trait = brilliant_strategist
+				trait = mystic
+				trait = robust
+				trait = wroth
+				trait = diligent
+				trait = proud
+				trait = brave
+				trait = heavy_infantry_leader
+			}
+		}
+	}
+}
+
+create_intrigue_mystic_effect = {
+	random_list = {
+		25 = {
+			create_character = {
+				random_traits = no
+				dynasty = none
+				religion = semitic_pagan
+				culture = bedouin_arabic
+				female = yes
+				age = 72
+				health = 15
+				trait = elusive_shadow
+				trait = mystic
+				trait = hunchback
+				trait = slothful
+				trait = proud
+				trait = paranoid
+				trait = ambitious
+				trait = deceitful
+				trait = erudite		
+			}
+		}
+		25 = {
+			create_character = {
+				name = "Cleopatra"
+				random_traits = no
+				dynasty = none
+				religion = egyptian_pagan
+				culture = coptic
+				female = yes
+				age = 34
+				health = 15
+				trait = elusive_shadow
+				trait = mystic
+				trait = fair
+				trait = slothful
+				trait = proud
+				trait = paranoid
+				trait = ambitious
+				trait = deceitful
+				trait = erudite		
+			}
+		}
+	}
+}
+
+create_learning_mystic_effect = {
+	random_list = {
+		25 = {
+			create_character = {
+				random_traits = no
+				dynasty = none
+				religion = buddhist
+				culture = sinhala
+				female = yes
+				age = 9
+				health = 15
+				trait = mystic
+				trait = brahmin
+				trait = theravada_buddhist
+				trait = quick
+				trait = fussy
+				trait = conscientious
+			}
+		}
+		25 = {
+			create_character = {
+				random_traits = no
+				name = "Seneca"
+				dynasty = none
+				religion = hellenic_pagan
+				culture = roman
+				female = no
+				age = 72
+				health = 15
+				trait = mystic
+				trait = genius
+				trait = stoic
+				trait = mastermind_theologian
+				trait = chaste
+				trait = diligent
+			}
+		}
+		25 = {
+			create_character = {
+				random_traits = no
+				name = "Lucan"
+				dynasty = none
+				religion = hellenic_pagan
+				culture = roman
+				female = no
+				age = 25
+				health = 15
+				trait = poet
+				trait = genius
+				trait = mastermind_theologian
+				trait = fair
+				trait = stoic
+				trait = diligent
+				trait = proud
+			}
+		}
+	}	
+}
+
+# will set appropriate character flags
+# if the target character has a
+# "Borrowed from $holy_order" or "Expelled $holy_order" 
+# character modifier. This makes generic holy order
+# events actually work, without even uglier hacks
+set_flag_for_holy_order_modifiers_effect = {
+	# Extant Loan
+	if = {
+		limit = { has_character_modifier = borrowed_from_d_fianna }
+		set_character_flag = borrowed_from_d_fianna
+	}
+	if = {
+		limit = { has_character_modifier = borrowed_from_d_red_dragons }
+		set_character_flag = borrowed_from_d_red_dragons
+	}
+	if = {
+		limit = { has_character_modifier = borrowed_from_d_anubis }
+		set_character_flag = borrowed_from_d_anubis
+	}
+	if = {
+		limit = { has_character_modifier = borrowed_from_d_horus }
+		set_character_flag = borrowed_from_d_horus
+	}
+	if = {
+		limit = { has_character_modifier = borrowed_from_d_legio_hellenica }
+		set_character_flag = borrowed_from_d_legio_hellenica
+	}
+	if = {
+		limit = { has_character_modifier = borrowed_from_d_sacred_band }
+		set_character_flag = borrowed_from_d_sacred_band
+	}
+	if = {
+		limit = { has_character_modifier = borrowed_from_d_burning_blades }
+		set_character_flag = borrowed_from_d_burning_blades
+	}
+
+	# Expelled from the Realm
+	if = {
+		limit = { has_character_modifier = expelled_d_fianna }
+		set_character_flag = expelled_d_fianna
+	}
+	if = {
+		limit = { has_character_modifier = expelled_d_red_dragons }
+		set_character_flag = expelled_d_red_dragons
+	}
+	if = {
+		limit = { has_character_modifier = expelled_d_anubis }
+		set_character_flag = expelled_d_anubis
+	}
+	if = {
+		limit = { has_character_modifier = expelled_d_horus }
+		set_character_flag = expelled_d_horus
+	}
+	if = {
+		limit = { has_character_modifier = expelled_d_legio_hellenica }
+		set_character_flag = expelled_d_legio_hellenica
+	}
+	if = {
+		limit = { has_character_modifier = expelled_d_sacred_band }
+		set_character_flag = expelled_d_sacred_band
+	}
+	if = {
+		limit = { has_character_modifier = expelled_d_burning_blades }
+		set_character_flag = expelled_d_burning_blades
+	}
+}
+
+# opposite of set_flag, this will check for the right
+# flags and apply the corresponding modifier, if the
+# character doesn't already have that modifier
+set_character_modifier_for_holy_order_flags_effect = {
+	# Extant Loan
+	if = {
+		limit = {
+			NOT = { has_character_modifier = borrowed_from_d_fianna }
+			has_character_flag = borrowed_from_d_fianna
+		}
+		add_character_modifier = { 
+			name = borrowed_from_d_fianna
+			duration = -1
+			inherit = yes
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_character_modifier = borrowed_from_d_red_dragons }
+			has_character_flag = borrowed_from_d_red_dragons
+		}
+		add_character_modifier = { 
+			name = borrowed_from_d_red_dragons
+			duration = -1
+			inherit = yes
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_character_modifier = borrowed_from_d_anubis }
+			has_character_flag = borrowed_from_d_anubis
+		}
+		add_character_modifier = { 
+			name = borrowed_from_d_anubis
+			duration = -1
+			inherit = yes
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_character_modifier = borrowed_from_d_horus }
+			has_character_flag = borrowed_from_d_horus
+		}
+		add_character_modifier = { 
+			name = borrowed_from_d_horus
+			duration = -1
+			inherit = yes
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_character_modifier = borrowed_from_d_legio_hellenica }
+			has_character_flag = borrowed_from_d_legio_hellenica
+		}
+		add_character_modifier = { 
+			name = borrowed_from_d_legio_hellenica
+			duration = -1
+			inherit = yes
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_character_modifier = borrowed_from_d_sacred_band }
+			has_character_flag = borrowed_from_d_sacred_band
+		}
+		add_character_modifier = { 
+			name = borrowed_from_d_sacred_band
+			duration = -1
+			inherit = yes
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_character_modifier = borrowed_from_d_burning_blades }
+			has_character_flag = borrowed_from_d_burning_blades
+		}
+		add_character_modifier = { 
+			name = borrowed_from_d_burning_blades
+			duration = -1
+			inherit = yes
+		}
+	}
+
+	# Expelled from the Realm
+	if = {
+		limit = {
+			NOT = { has_character_modifier = expelled_d_fianna }
+			has_character_flag = expelled_d_fianna
+		}
+		add_character_modifier = { 
+			name = expelled_d_fianna
+			duration = -1
+			inherit = yes
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_character_modifier = expelled_d_red_dragons }
+			has_character_flag = expelled_d_red_dragons
+		}
+		add_character_modifier = { 
+			name = expelled_d_red_dragons
+			duration = -1
+			inherit = yes
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_character_modifier = expelled_d_anubis }
+			has_character_flag = expelled_d_anubis
+		}
+		add_character_modifier = { 
+			name = expelled_d_anubis
+			duration = -1
+			inherit = yes
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_character_modifier = expelled_d_horus }
+			has_character_flag = expelled_d_horus
+		}
+		add_character_modifier = { 
+			name = expelled_d_horus
+			duration = -1
+			inherit = yes
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_character_modifier = expelled_d_legio_hellenica }
+			has_character_flag = expelled_d_legio_hellenica
+		}
+		add_character_modifier = { 
+			name = expelled_d_legio_hellenica
+			duration = -1
+			inherit = yes
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_character_modifier = expelled_d_sacred_band }
+			has_character_flag = expelled_d_sacred_band
+		}
+		add_character_modifier = { 
+			name = expelled_d_sacred_band
+			duration = -1
+			inherit = yes
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_character_modifier = expelled_d_burning_blades }
+			has_character_flag = expelled_d_burning_blades
+		}
+		add_character_modifier = { 
+			name = expelled_d_burning_blades
+			duration = -1
+			inherit = yes
+		}
+	}
+}
+
+# requires event_target:holy_order to be defined
+clear_borrowed_from_holy_order_modifier_effect = {
+	clr_character_flag = borrowed_from_@event_target:holy_order
+	
+	event_target:holy_order = {
+		holder_scope = {
+			trigger_switch = { 
+				on_trigger = title
+				d_fianna = { PREVPREV = { remove_character_modifier = borrowed_from_d_fianna } }
+				d_red_dragons = { PREVPREV = { remove_character_modifier = borrowed_from_d_red_dragons } }
+				d_anubis = { PREVPREV = { remove_character_modifier = borrowed_from_d_anubis } }
+				d_horus = {	PREVPREV = { remove_character_modifier = borrowed_from_d_horus } }
+				d_legio_hellenica = { PREVPREV = { remove_character_modifier = borrowed_from_d_legio_hellenica } }
+				d_sacred_band = { PREVPREV = { remove_character_modifier = borrowed_from_d_sacred_band } }
+				d_burning_blades = { PREVPREV = { remove_character_modifier = borrowed_from_d_burning_blades } }
+			}
+		}
+	}
+}
+
+# requires event_target:holy_order to be defined
+clear_expelled_holy_order_modifier_effect = {
+	clr_character_flag = expelled_@event_target:holy_order
+	
+	event_target:holy_order = {
+		holder_scope = {
+			trigger_switch = { 
+				on_trigger = title
+				d_fianna = { PREVPREV = { remove_character_modifier = expelled_d_fianna } }
+				d_red_dragons = { PREVPREV = { remove_character_modifier = expelled_d_red_dragons } }
+				d_anubis = { PREVPREV = { remove_character_modifier = expelled_d_anubis } }
+				d_horus = { PREVPREV = { remove_character_modifier = expelled_d_horus } }
+				d_legio_hellenica = { PREVPREV = { remove_character_modifier = expelled_d_legio_hellenica } }
+				d_sacred_band = { PREVPREV = { remove_character_modifier = expelled_d_sacred_band } }
+				d_burning_blades = { PREVPREV = { remove_character_modifier = expelled_d_burning_blades } }
+			}
+		}
+	}
+}
+
+lower_temple_tax_obligation_effect = {
+	if = {
+		limit = { has_law = temple_tax_1 }
+		add_law = temple_tax_0
+	}
+	if = {
+		limit = { has_law = temple_tax_2 }
+		add_law = temple_tax_1
+	}
+	if = {
+		limit = { has_law = temple_tax_3 }
+		add_law = temple_tax_2
+	}
+}
+
+lower_temple_levy_obligation_effect = {
+	if = {
+		limit = { has_law = temple_contract_1 }
+		add_law = temple_contract_0
+	}
+	if = {
+		limit = { has_law = temple_contract_2 }
+		add_law = temple_contract_1
+	}
+	if = {
+		limit = { has_law = temple_contract_3 }
+		add_law = temple_contract_2
+	}
+}
+
+move_temple_obligations_toward_balanced_effect = {
+	if = {
+		limit = { has_law = tax_levy_law_theocracy_3 }
+		add_law = tax_levy_law_theocracy_4
+	}
+	if = {
+		limit = { has_law = tax_levy_law_theocracy_2 }
+		add_law = tax_levy_law_theocracy_3
+	}
+	if = {
+		limit = { has_law = tax_levy_law_theocracy_1 }
+		add_law = tax_levy_law_theocracy_2
+	}
+	if = {
+		limit = { has_law = tax_levy_law_theocracy_0 }
+		add_law = tax_levy_law_theocracy_1
+	}
+
+	if = {
+		limit = { has_law = tax_levy_law_theocracy_5 }
+		add_law = tax_levy_law_theocracy_4
+	}
+	if = {
+		limit = { has_law = tax_levy_law_theocracy_6 }
+		add_law = tax_levy_law_theocracy_5
+	}
+	if = {
+		limit = { has_law = tax_levy_law_theocracy_7 }
+		add_law = tax_levy_law_theocracy_6
+	}
+	if = {
+		limit = { has_law = tax_levy_law_theocracy_8 }
+		add_law = tax_levy_law_theocracy_7
+	}
+}
+
+give_random_tier_5_artifact_to_prev_effect = {
+	random_list = {
+		25 = {
+			add_artifact = silver_hand_of_nuada
+		}
+		25 = {
+			add_artifact = trident_of_britannia
+		}
+		25 = {
+			add_artifact = helm_of_britannia
+		}
+		25 = {
+			add_artifact = shield_of_britannia
+		}
+	}
+
+	new_artifact = {
+		set_creation_date = 1.1.1
+		transfer_artifact = {
+			from = PREV
+			to = PREVPREV
+		}
+	}
+}
+
+give_random_tier_4_artifact_to_prev_effect = {
+	random_list = {
+		50 = {
+			add_artifact = skull_of_brigid
+		}
+		50 = {
+			add_artifact = horn_of_bran_galed
+		}
+	}
+
+	new_artifact = {
+		set_creation_date = 1.1.1
+		transfer_artifact = {
+			from = PREV
+			to = PREVPREV
+		}
+	}
+}
+
+give_random_tier_3_artifact_to_prev_effect = {
+	random_list = {
+		25 = {
+			add_artifact = tusk_of_torc_triath
+		}
+	}
+	
+	new_artifact = {
+		set_creation_date = 1.1.1
+		transfer_artifact = {
+			from = PREV
+			to = PREVPREV
+		}
+	}
+}
+
+give_random_tier_2_artifact_to_prev_effect = {
+	random_list = {
+		25 = {
+			add_artifact = torque_of_boudicca
+		}
+		25 = {
+			add_artifact = old_carnyx
+		}
+		25 = {
+			add_artifact = horned_helm
+		}
+		25 = {
+			add_artifact = battersea_shield
+		}
+	}
+	
+	new_artifact = {
+		set_creation_date = 1.1.1
+		transfer_artifact = {
+			from = PREV
+			to = PREVPREV
+		}
+	}
+}
+
+give_random_tier_1_artifact_to_prev_effect = {
+	random_list = {
+		10 = {
+			add_artifact = famous_tongue
+		}
+		10 = {
+			add_artifact = famous_head
+		}
+		10 = {
+			add_artifact = infamous_tongue
+		}
+		10 = {
+			add_artifact = famous_hand
+		}
+		10 = {
+			add_artifact = famous_arm
+		}
+		10 = {
+			add_artifact = famous_foot
+		}
+		10 = {
+			add_artifact = famous_ancient_weapon
+		}
+	}
+
+	new_artifact = {
+		set_creation_date = 1.1.1
+		transfer_artifact = {
+			from = PREV
+			to = PREVPREV
+		}
 	}
 }

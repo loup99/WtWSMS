@@ -74,6 +74,7 @@ religion_nature = {
 						religion = baltic_pagan
 						religion = finnish_pagan
 						religion = west_african_pagan
+						religion = egyptian_pagan
 					}
 				}
 			}
@@ -342,6 +343,7 @@ religion_nature = {
 		trigger = {
 			NOR = {
 				has_selected_religion_feature = religion_syncretic
+				has_selected_religion_feature = religion_feature_hellenic
 				has_selected_religion_feature = religion_no_leader
 			}
 		}
@@ -584,6 +586,7 @@ religion_doctrine = {
 		picture = GFX_religion_feature_meritocratic
 		trigger = {
 			NOR = { 
+				has_selected_religion_feature = religion_feature_hellenic # Redundant Doctrine
 				has_selected_religion_feature = religion_feature_bon # Redundant Doctrine
 				has_selected_religion_feature = religion_patriarchal # Incompatible
 				has_selected_religion_feature = religion_matriarchal # Incompatible
@@ -610,6 +613,7 @@ religion_doctrine = {
 			NOR = { 
 				has_selected_religion_feature = religion_feature_slavic # Redundant Doctrine
 				has_selected_religion_feature = religion_feature_finnish # Redundant Doctrine
+                has_selected_religion_feature = religion_feature_egyptian # Redundant Doctrine
 			}
 		}
 		effect = {
@@ -687,6 +691,7 @@ religion_doctrine = {
 			NOR = {
 				has_selected_religion_feature = religion_jizya
 				has_selected_religion_feature = religion_dogmatic
+				has_selected_religion_feature = religion_feature_hellenic # Redundant Doctrine
 			}
 		}
 		effect = {
@@ -716,6 +721,7 @@ religion_doctrine = {
 		picture = GFX_religion_feature_haruspicy
 		potential = {
 			NOT = { religion = hellenic_pagan } #Core feature of the religion itself.
+            NOT = { religion = celtic_pagan_reformed }
 		}
 
 		effect = {
@@ -759,6 +765,8 @@ religion_doctrine = {
 				has_selected_religion_feature = religion_equal
 				has_selected_religion_feature = religion_feature_bon
 				has_selected_religion_feature = religion_meritocratic
+                has_selected_religion_feature = religion_feature_egyptian
+                has_selected_religion_feature = religion_feature_celtic
 			}
 		}
 		effect = {
@@ -801,6 +809,8 @@ religion_doctrine = {
 				has_selected_religion_feature = religion_matriarchal
 				has_selected_religion_feature = religion_patriarchal
 				has_selected_religion_feature = religion_feature_bon
+                has_selected_religion_feature = religion_feature_celtic
+                has_selected_religion_feature = religion_feature_egyptian
 				trigger_if = {
 					limit = { has_game_started = yes }
 					FROM = { 
@@ -850,6 +860,8 @@ religion_doctrine = {
 				has_selected_religion_feature = religion_equal
 				has_selected_religion_feature = religion_feature_bon
 				has_selected_religion_feature = religion_meritocratic
+                has_selected_religion_feature = religion_feature_celtic
+                has_selected_religion_feature = religion_feature_egyptian
 				trigger_if = {
 					limit = { has_game_started = yes }
 					FROM = { 
@@ -1072,6 +1084,7 @@ religion_doctrine = {
 			NOR = {
 				religion = west_african_pagan #Redundant
 				religion = west_african_pagan_reformed #Redundant
+                has_selected_religion_feature = religion_feature_celtic
 			}
 		}
 		effect = {
@@ -1108,6 +1121,7 @@ religion_doctrine = {
 			NOR = {
 				has_selected_religion_feature = religion_no_leader
 				religion_group = christian #Random World redundancy.
+                has_selected_religion_feature = religion_feature_egyptian
 			}
 		}
 		effect = {
@@ -1428,6 +1442,167 @@ religion_doctrine = {
 			factor = 50
 		}
 	}
+	religion_feature_hellenic = {
+		picture = GFX_religion_feature_hellenic
+		potential = {
+			has_game_started = yes
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
+		trigger = {
+			NOR = { 
+				has_selected_religion_feature = religion_syncretic
+				has_selected_religion_feature = religion_dogmatic
+				has_selected_religion_feature = religion_meritocratic
+			}
+		}
+		effect = {
+			custom_tooltip = { text = tooltip_religion_feature_syncretic }
+			custom_tooltip = { text = tooltip_religion_feature_meritocratic }
+			custom_tooltip = { text = tooltip_religion_feature_war_levies }
+			hidden_tooltip = { 
+				set_heir_designation = yes
+				set_raised_vassal_opinion_loss = no
+			}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+	}
+
+    ### ACR ###
+
+    religion_feature_celtic = {
+        picture = GFX_religion_feature_celtic
+        potential = {
+            has_game_started = yes
+            religion = celtic_pagan_reformed
+            NOT = {
+                has_alternate_start_parameter = { key = religion_names value = random }
+            }
+        }
+        trigger = {
+            NOR = {
+                has_selected_religion_feature = religion_haruspicy
+                has_selected_religion_feature = religion_animistic
+                has_selected_religion_feature = religion_equal
+                has_selected_religion_feature = religion_matriarchal
+                has_selected_religion_feature = religion_patriarchal
+            }
+        }
+        effect = {
+			custom_tooltip = { text = tooltip_religion_feature_celtic_warriors }
+			custom_tooltip = { text = tooltip_religion_feature_adulthood_rite }
+            custom_tooltip = { text = tooltip_religion_feature_haruspicy }
+
+			hidden_tooltip = {
+                set_allows_matrilineal_marriage = yes
+                set_feminist = yes
+                set_women_can_take_consorts = yes
+                set_men_can_take_consorts = yes
+                set_female_temple_holders = yes
+                set_male_temple_holders = yes
+                set_allow_looting = yes
+
+				set_unit_modifier = { 
+                    levy_size = 0.15
+                    
+                    retinuesize_perc = 0.3	
+                    garrison_size = 0.2
+                    
+                    key = "HERO_RELIGION"
+				}
+                set_unit_home_modifier = {
+                    land_morale = 0.6
+                    light_infantry_defensive = 0.6
+                    heavy_infantry_defensive = 0.6
+                    pikemen_defensive = 0.6
+                    light_cavalry_defensive = 0.6
+                    knights_defensive = 0.6
+                    archers_defensive = 0.6
+                    horse_archers_defensive = 0.6
+                    camel_cavalry_defensive = 0.6
+                    war_elephants_defensive = 0.6
+                    
+                    garrison_size = 0.2
+                    
+                    key = "HERO_RELIGION_HOME_TERRITORY"
+                }
+			}
+        }
+        ai_will_do = {
+            factor = 50
+        }
+    }
+    religion_feature_egyptian = {
+        picture = GFX_religion_feature_egyptian
+        potential = {
+            has_game_started = yes
+            NOT = {
+                has_alternate_start_parameter = { key = religion_names value = random }
+            }
+        }
+        trigger = {
+            NOR = {
+                has_selected_religion_feature = religion_matriarchal
+                has_selected_religion_feature = religion_patriarchal
+                has_selected_religion_feature = religion_equal
+                has_selected_religion_feature = religion_beatification
+                has_selected_religion_feature = religion_stable
+                trigger_if = {
+                    limit = { has_game_started = yes }
+                    FROM = {
+                        character = yes
+                        government = merchant_republic_government
+                    }
+                }
+            }
+        }
+        effect = {
+			custom_tooltip = { text = tooltip_religion_feature_cognatic }
+			custom_tooltip = { text = tooltip_religion_feature_feminist }
+            custom_tooltip = { text = tooltip_religion_feature_egyptian_warriors }
+            custom_tooltip = { text = tooltip_religion_feature_beatification }
+			custom_tooltip = { text = tooltip_religion_feature_stable }
+			hidden_tooltip = { 
+				set_short_reign_opinion_year_mult = 0
+                set_max_wives = 1
+                set_max_consorts = 3
+				set_allows_matrilineal_marriage = yes
+				set_feminist = yes
+				set_women_can_take_consorts = yes
+				set_men_can_take_consorts = yes
+				set_female_temple_holders = yes
+				set_male_temple_holders = yes
+			}
+            set_unit_modifier = {		
+                garrison_size = 0.2
+                levy_size = 0.2
+                
+                key = "DEF_RELIGION"
+            }
+            set_unit_home_modifier = {
+                land_morale = 0.8
+                light_infantry_defensive = 0.8
+                heavy_infantry_defensive = 0.8
+                pikemen_defensive = 0.8
+                light_cavalry_defensive = 0.8
+                knights_defensive = 0.8
+                archers_defensive = 0.8
+                horse_archers_defensive = 0.8
+                camel_cavalry_defensive = 0.8
+                war_elephants_defensive = 0.8
+                
+                garrison_size = 0.4
+                
+                key = "DEF_RELIGION_HOME_TERRITORY"
+            }
+        }
+        ai_will_do = {
+            factor = 50
+        }
+    }
 }
 
 religion_leadership = {
@@ -1488,6 +1663,7 @@ religion_leadership = {
 					NOR = { 
 						religion = tengri_pagan
 						religion = zun_pagan
+                        religion = celtic_pagan
 					}
 				}
 			}
@@ -1534,6 +1710,7 @@ religion_leadership = {
 			NOT = {
 				has_selected_religion_feature = religion_dogmatic
 				has_selected_religion_feature = religion_beatification
+                has_selected_religion_feature = religion_feature_egyptian
 			}
 		}
 		effect = {
@@ -1797,6 +1974,7 @@ religion_leadership = {
 							religion_group = zoroastrian_group
 							religion_group = jewish_group
 							religion_group = indian_group
+                            religion_openly_in_celtic_subgroup_trigger = yes
 						} 
 						NOR = {
 							religion = cathar
