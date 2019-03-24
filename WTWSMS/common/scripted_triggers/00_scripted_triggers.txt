@@ -809,7 +809,7 @@ has_crusade_trait_trigger = {
 			trait = sun_warrior
 		}
 		AND = {
-			religion = hellenic_pagan
+			religion_openly_hellenic_or_reformed_trigger = yes
 			trait = ares_own
 		}
 		AND = {
@@ -836,7 +836,7 @@ has_crusade_trait_trigger = {
 			trait = ares_own
 		}
 		AND = {
-			religion = egyptian_pagan
+			religion_openly_egyptian_or_reformed_trigger = yes
 			trait = montu
 		}
 		AND = {
@@ -844,7 +844,7 @@ has_crusade_trait_trigger = {
 			trait = atens_chosen
 		}
 		AND = {
-			religion = celtic_pagan_reformed
+			religion_openly_celtic_or_reformed_trigger = yes
 			trait = lughs_own
 		}
 		AND = {
@@ -1034,7 +1034,9 @@ can_be_chancellor_trigger = {
 					OR = { 
 						liege = { has_religion_feature = religion_matriarchal } 
 						liege = { has_religion_feature = religion_equal } 
-						liege = { has_religion_feature = religion_feature_bon } 
+						liege = { has_religion_feature = religion_feature_bon }
+						liege = { has_religion_feature = religion_feature_celtic }
+						liege = { has_religion_feature = religion_feature_egyptian }
 					} 
 				}
 				trait = horse # So we can have female glitterhoofs! :D
@@ -1092,18 +1094,15 @@ can_be_chancellor_trigger = {
 				who = ROOT	
 				modifier = opinion_resigned_from_council 
 			} 
-		} 
-	}
-
-	OR = {
-		NOR = {
-			religion = celtic_pagan
-			religion = celtic_pagan_reformed
 		}
+	}
+	OR = {
+		NOT = { religion_openly_celtic_or_reformed_trigger = yes }
 
 		OR = {
 			trait = druid
 			trait = bad_druid
+
 			trait = poet
 		}
 	}
@@ -1122,7 +1121,9 @@ can_be_marshal_trigger = {
 					OR = { 
 						liege = { has_religion_feature = religion_matriarchal } 
 						liege = { has_religion_feature = religion_equal } 
-						liege = { has_religion_feature = religion_feature_bon } 
+						liege = { has_religion_feature = religion_feature_bon }
+						liege = { has_religion_feature = religion_feature_celtic }
+						liege = { has_religion_feature = religion_feature_egyptian }
 					} 
 				}
 				trait = horse # So we can have female glitterhoofs! :D
@@ -1212,6 +1213,8 @@ can_be_treasurer_trigger = {
 						liege = { has_religion_feature = religion_matriarchal } 
 						liege = { has_religion_feature = religion_equal } 
 						liege = { has_religion_feature = religion_feature_bon } 
+						liege = { has_religion_feature = religion_feature_celtic }
+						liege = { has_religion_feature = religion_feature_egyptian }
 					} 
 				}
 				trait = horse # So we can have female glitterhoofs! :D
@@ -1288,6 +1291,8 @@ can_be_spymaster_trigger = {
 						liege = { has_religion_feature = religion_matriarchal } 
 						liege = { has_religion_feature = religion_equal } 
 						liege = { has_religion_feature = religion_feature_bon } 
+						liege = { has_religion_feature = religion_feature_celtic }
+						liege = { has_religion_feature = religion_feature_egyptian }
 					} 
 				}
 				trait = horse # So we can have female glitterhoofs! :D
@@ -1305,6 +1310,16 @@ can_be_spymaster_trigger = {
 					religion_group = pagan_group
 					liege = {
 						religion_group = pagan_group
+						NOR = {
+							liege = { has_religion_feature = religion_matriarchal } 
+							liege = { has_religion_feature = religion_patriarchal } 
+						}
+					}
+				}
+				AND = {
+					religion = cathar
+					liege = { 
+						religion = cathar 
 						NOR = {
 							liege = { has_religion_feature = religion_matriarchal } 
 							liege = { has_religion_feature = religion_patriarchal } 
@@ -1407,6 +1422,11 @@ can_be_spiritual_trigger = {
 				trait = brahmin
 				is_ascetic_trigger = yes
 			}
+			OR = {
+				NOT = { religion_openly_in_celtic_subgroup_trigger = yes }
+
+				is_celtic_clergy_trigger = yes
+			}
 		}
 		has_character_flag = special_spiritual
 	}
@@ -1437,13 +1457,6 @@ can_be_spiritual_trigger = {
 		}
 	}
 	
-	OR = {
-		NOT = { religion_openly_in_celtic_subgroup_trigger = yes }
-
-		trait = druid
-		trait = bad_druid
-	}
-
 	OR = {
 		NOT = { religion_group = muslim }
 		NOT = { liege = { religion_group = muslim } }
@@ -1540,6 +1553,8 @@ can_be_councilmember_emperor_trigger = {
 						liege = { has_religion_feature = religion_matriarchal } 
 						liege = { has_religion_feature = religion_equal } 
 						liege = { has_religion_feature = religion_feature_bon } 
+						liege = { has_religion_feature = religion_feature_celtic }
+						liege = { has_religion_feature = religion_feature_egyptian }
 					} 
 				}
 				AND = {
@@ -1888,6 +1903,8 @@ death_accident_trigger = {
 		death_reason = death_accident_tiger
 		death_reason = death_accident_snakes
 		death_reason = death_accident_fall
+
+		death_reason = death_lost_desert
 	}
 }
 
@@ -1976,6 +1993,8 @@ female_can_hold_minor_title_trigger = {
 						religion = messalian
 						religion = bogomilist
 						religion = mazdaki
+						religion = celtic_pagan
+						religion = egyptian_pagan
 					}
 					liege = { religion = ROOT }
 				}
@@ -1985,10 +2004,14 @@ female_can_hold_minor_title_trigger = {
 				AND = {
 					OR = {
 						has_religion_feature = religion_equal
+						has_religion_feature = religion_feature_celtic
+						has_religion_feature = religion_feature_egyptian
 						has_religion_feature = religion_matriarchal
 					}
 					liege = {
 						has_religion_feature = religion_equal
+						has_religion_feature = religion_feature_celtic
+						has_religion_feature = religion_feature_egyptian
 						has_religion_feature = religion_matriarchal
 					}
 				}
@@ -2040,6 +2063,8 @@ female_can_hold_minor_commander_title_trigger = {
 						religion = messalian
 						religion = bogomilist
 						religion = mazdaki
+						religion = celtic_pagan
+						religion = egyptian_pagan
 					}
 					liege = { religion = ROOT }
 				}
@@ -2050,10 +2075,14 @@ female_can_hold_minor_commander_title_trigger = {
 					OR = {
 						has_religion_feature = religion_equal
 						has_religion_feature = religion_matriarchal
+						has_religion_feature = religion_feature_celtic
+						has_religion_feature = religion_feature_egyptian
 					}
 					liege = {
 						has_religion_feature = religion_equal
 						has_religion_feature = religion_matriarchal
+						has_religion_feature = religion_feature_celtic
+						has_religion_feature = religion_feature_egyptian
 					}
 				}
 			}
@@ -2401,7 +2430,7 @@ FROMs_religion_is_playable_trigger = {
 			}
 			NOT = { has_dlc = "The Old Gods" }
 		}
-		AND = { #Means you're not allowed to play the Bön religion (Pagan)
+		AND = { #Means you're not allowed to play the Bon religion (Pagan)
 			FROM = { 
 				OR = { 
 					religion = bon
@@ -2698,9 +2727,7 @@ has_society_currency_major_trigger = {
 }
 
 is_ill_trigger = {
-	OR = {
-		has_disease_trigger = yes
-	}
+	has_disease_trigger = yes
 }
 
 is_devil_worshiper_trigger = {
@@ -2717,7 +2744,6 @@ is_devil_worshiper_trigger = {
 
 			### ACR ###
 			society_member_of = unseelie_petitioners
-			society_member_of = the_coven
 			society_member_of = the_sand_snakes
 		}
 	}
@@ -2765,7 +2791,7 @@ is_monastic_member_trigger = {
 	OR = {
 		is_dharmic_monastic_member_trigger = yes
 		is_christian_monastic_member_trigger = yes
-		society_member_of = monastic_order_stoics
+		is_hellenic_monastic_order_member_trigger = yes
 	}
 }
 
@@ -2929,6 +2955,9 @@ is_bon_secret_religious_society_member_trigger = {
 	}
 }
 
+is_hellenic_secret_religious_society_member_trigger = {
+		society_member_of = secret_religious_society_hellenic_pagan
+}
 is_taoist_secret_religious_society_member_trigger = {
 	society_member_of = secret_religious_society_taoist
 }
@@ -5728,7 +5757,7 @@ looting_artifact_event_religious_artifacts_trigger = {
 			any_artifact = {
 				has_artifact_flag = looted_artifact_tooltip_1
 				has_artifact_flag = egyptian_pagan
-				ROOT = { religion = egyptian_pagan }
+				ROOT = { religion_openly_egyptian_or_reformed_trigger = yes }
 			}
 		}
 		NAND = {
@@ -6378,6 +6407,7 @@ has_unsafe_secret_religion = {
 				secret_religion = west_african_pagan_reformed
 				secret_religion = zun_pagan
 				secret_religion = zun_pagan_reformed
+				secret_religion = hellenic_pagan
 				secret_religion = pagan
 				secret_religion = aztec
 				secret_religion = aztec_reformed
@@ -6385,7 +6415,6 @@ has_unsafe_secret_religion = {
 				### ACR ###
 				secret_religion = celtic_pagan
 				secret_religion = celtic_pagan_reformed
-				secret_religion = hellenic_pagan
 				secret_religion = egyptian_pagan
 				secret_religion = aten_pagan
 			}
@@ -8363,6 +8392,7 @@ this_is_warrior_culture_trigger = { #Not really about culture - Used in AI votin
 		religion = norse_pagan
 		religion = tengri_pagan
 		religion = aztec
+		religion = celtic_pagan
 		has_religion_feature = religion_warlike
 		is_tribal = yes
 		is_nomadic = yes
@@ -8377,6 +8407,10 @@ this_is_warrior_culture_trigger = { #Not really about culture - Used in AI votin
 		AND = { 
 			NOT = { has_dlc = "Holy Fury"}
 			religion = aztec_reformed
+		}
+		AND = { 
+			NOT = { has_dlc = "Holy Fury"}
+			religion = celtic_pagan_reformed
 		}
 	}
 }
@@ -9791,6 +9825,8 @@ can_still_be_marshal_byzantine_trigger = {
 						liege = { has_religion_feature = religion_matriarchal } 
 						liege = { has_religion_feature = religion_equal } 
 						liege = { has_religion_feature = religion_feature_bon } 
+						liege = { has_religion_feature = religion_feature_celtic } 
+						liege = { has_religion_feature = religion_feature_egyptian } 
 					} 
 				}
 				trait = horse # So we can have female glitterhoofs! :D
