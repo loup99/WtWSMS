@@ -89,6 +89,7 @@ succession_laws = {
 				OR = { 
 					title = e_byzantium
 					title = e_roman_empire
+					title = e_wre
 				}
 			}
 			holder_scope = {
@@ -193,6 +194,7 @@ succession_laws = {
 				OR = { 
 					title = e_byzantium
 					title = e_roman_empire
+					title = e_wre
 				}
 			}
 			holder_scope = {
@@ -296,6 +298,7 @@ succession_laws = {
 				OR = { 
 					title = e_byzantium
 					title = e_roman_empire
+					title = e_wre
 				}
 			}
 			holder_scope = {
@@ -309,6 +312,7 @@ succession_laws = {
 						religion = west_african_pagan
 					}
 					has_religion_feature = religion_beatification
+					has_religion_feature = religion_feature_egyptian
 					has_religion_feature = religion_feature_baltic
 					has_religion_feature = religion_feature_west_african
 				}
@@ -372,6 +376,7 @@ succession_laws = {
 							religion = west_african_pagan
 						}
 						has_religion_feature = religion_beatification
+						has_religion_feature = religion_feature_egyptian
 						has_religion_feature = religion_feature_baltic
 						has_religion_feature = religion_feature_west_african
 					}
@@ -418,6 +423,7 @@ succession_laws = {
 				OR = { 
 					title = e_byzantium
 					title = e_roman_empire
+					title = e_wre
 				}
 			}
 			holder_scope = {
@@ -588,6 +594,7 @@ succession_laws = {
 				OR = { 
 					title = e_byzantium
 					title = e_roman_empire
+					title = e_wre
 				}
 			}
 			holder_scope = {
@@ -750,6 +757,7 @@ succession_laws = {
 				OR = { 
 					title = e_byzantium
 					title = e_roman_empire
+					title = e_wre
 				}
 			}
 			holder_scope = {
@@ -857,6 +865,7 @@ succession_laws = {
 				OR = { 
 					title = e_byzantium
 					title = e_roman_empire
+					title = e_wre
 				}
 			}
 			OR = {
@@ -960,6 +969,7 @@ succession_laws = {
 				OR = {
 					has_landed_title = e_byzantium
 					has_landed_title = e_roman_empire
+					has_landed_title = e_wre
 				}
 				NOT = { religion_group = muslim }
 				is_nomadic = no
@@ -1020,6 +1030,7 @@ succession_laws = {
 				OR = { 
 					title = e_byzantium
 					title = e_roman_empire
+					title = e_wre
 				}
 			}
 			holder_scope = {
@@ -1036,11 +1047,10 @@ succession_laws = {
 				is_patrician = no
 				OR = {
 					culture_group = celtic
+					religion_openly_in_celtic_subgroup_trigger = yes
 					any_owned_bloodline = {
 						has_bloodline_flag = bloodline_tanistry
 					}
-					religion = celtic_pagan
-					religion = celtic_pagan_reformed
 				}
 				OR = {
 					independent = yes
@@ -1148,6 +1158,7 @@ succession_laws = {
 				OR = { 
 					title = e_byzantium
 					title = e_roman_empire
+					title = e_wre
 				}
 			}
 			holder_scope = {
@@ -1161,7 +1172,7 @@ succession_laws = {
 				}
 				OR = {
 					culture = mongol
-					religion = bon					
+					religion = bon				
 					is_reformed_religion = no
 				}
 				
@@ -1306,6 +1317,7 @@ succession_laws = {
 				OR = { 
 					title = e_byzantium
 					title = e_roman_empire
+					title = e_wre
 				}
 			}
 			holder_scope = {
@@ -1405,14 +1417,18 @@ succession_laws = {
 	
 	succ_open_elective = {
 		potential = {
+			NOR = { 
+				title = k_papal_state
+				title = d_celtic_pagan_reformed
+			}
 			NAND = { 
 				has_law = succ_byzantine_elective 
 				OR = { 
 					title = e_byzantium
 					title = e_roman_empire
+					title = e_wre
 				}
 			}
-			NOT = { title = k_papal_state }
 			temporary = no
 			OR = {
 				is_primary_type_title = yes
@@ -1587,6 +1603,8 @@ gender_laws = {
 			holder_scope = {
 				NOT = { has_religion_feature = religion_matriarchal }
 				NOT = { has_religion_feature = religion_equal }
+				NOT = { has_religion_feature = religion_feature_egyptian }
+				NOT = { has_religion_feature = religion_feature_celtic }
 				OR = {
 					NOT = { tier = baron }
 					is_theocracy = yes
@@ -1682,6 +1700,8 @@ gender_laws = {
 			holder_scope = { 
 				NOT = { has_religion_feature = religion_matriarchal } 
 				NOT = { has_religion_feature = religion_equal }
+				NOT = { has_religion_feature = religion_feature_egyptian }
+				NOT = { has_religion_feature = religion_feature_celtic }
 			}
 		}
 		effect = {
@@ -1766,6 +1786,8 @@ gender_laws = {
 							}
 						}
 						has_religion_feature = religion_equal
+						has_religion_feature = religion_feature_egyptian
+						has_religion_feature = religion_feature_celtic
 						has_religion_feature = religion_feature_bon
 						AND = {
 							has_dlc = "Zeus"
@@ -1802,7 +1824,11 @@ gender_laws = {
 					}
 				}
 				holder_scope = {
-					has_religion_feature = religion_equal
+					OR = {
+						has_religion_feature = religion_equal
+						has_religion_feature = religion_feature_egyptian
+						has_religion_feature = religion_feature_celtic
+					}
 				}
 			}
 			
@@ -1820,6 +1846,8 @@ gender_laws = {
 						culture = zhangzhung
 						culture = sumpa
 						has_religion_feature = religion_equal
+						has_religion_feature = religion_feature_egyptian
+						has_religion_feature = religion_feature_celtic
 					}
 				}
 				OR = {
@@ -1843,9 +1871,11 @@ gender_laws = {
 			
 			modifier = {
 				factor = 0.1
-				NOT = {
-					holder_scope = {
+				holder_scope = {
+					NOR = {
 						has_religion_feature = religion_equal
+						has_religion_feature = religion_feature_egyptian
+						has_religion_feature = religion_feature_celtic
 					}
 				}
 			}
@@ -1853,7 +1883,11 @@ gender_laws = {
 			modifier = {
 				factor = 100
 				holder_scope = {
-					has_religion_feature = religion_equal
+					OR = {
+						has_religion_feature = religion_equal
+						has_religion_feature = religion_feature_egyptian
+						has_religion_feature = religion_feature_celtic
+					}
 				}
 			}
 		}

@@ -399,7 +399,10 @@ character_event = {
                 OR = {
                     has_global_flag = qa_testing
                     event_target:saint_person = {
-                        has_religion_feature = religion_beatification
+                        OR = {
+                            has_religion_feature = religion_beatification
+                            has_religion_feature = religion_feature_egyptian
+                        }
                     }
                 }
             }
@@ -430,6 +433,7 @@ province_event = {
             OR = {
                 trait = beatified
                 has_religion_feature = religion_beatification
+                has_religion_feature = religion_feature_egyptian
             }
             NOT = {
                 has_character_flag = blessed_ancestor_prestige
@@ -1135,6 +1139,22 @@ character_event = {
                                 }
                             }
                         }
+                        else_if = {
+                            limit = {
+                                religion = celtic_pagan_reformed
+                            }
+                            if = {
+                                limit = {
+                                    is_female = yes
+                                }
+                                create_bloodline = {
+                                    type = saintly_bloodline_celtic_01
+                                    religion = celtic_pagan_reformed
+                                    inheritance = matrilineal
+                                }
+                            }
+						}
+						# TODO WTWSMS
                         else = {
                             create_bloodline = {
                                 type = saintly_bloodline_catholic_01
@@ -2311,7 +2331,7 @@ character_event = {
                     }
                 }
             }
-        }
+		}
 
         ai_chance = {
             factor = 1
@@ -2393,7 +2413,7 @@ narrative_event = {
             sound_effect = saint_proclaimed
         }
         opinion = {
-            name = opinion_very_grateful_donation
+            modifier = opinion_very_grateful_donation
             who = FROM
             years = 30
         }

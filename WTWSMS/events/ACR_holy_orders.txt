@@ -1,0 +1,873 @@
+##############################################
+#
+# Ancient Religions Reborn
+# - Generic Holy Order Events
+#
+# Event Ids: ancrel.9100 - 9299 reserved
+##############################################
+
+# request to join the order (courtier)
+character_event = {
+	id = ancrel.9100
+	hide_window = yes # only shows for ai
+	
+	only_men = yes
+	min_age = 16
+	max_age = 45
+	only_capable = yes
+	prisoner = no
+	has_dlc = "Sons of Abraham"
+	
+	trigger = {
+		is_ruler = no
+		is_heretic = no
+		is_councillor = no
+		
+		martial = 5
+		
+		OR = {
+			father_even_if_dead = {
+				primary_title = { higher_tier_than = BARON }
+			}
+			mother_even_if_dead = {
+				primary_title = { higher_tier_than = BARON }
+			}
+		}
+		
+		any_liege = {
+			holy_order = no
+		}
+		
+		any_mercenary_band = {
+			is_title_active = THIS
+			holy_order = yes
+			holder_scope = { religion = ROOT }
+			ROOT = {
+				NOR = {
+					has_character_flag = expelled_@PREV
+					any_liege = {
+						has_character_flag = expelled_@PREVPREV
+					}
+				}
+			}
+		}
+
+		NOT = {
+			any_spouse = {
+				OR = {
+					is_landed = yes
+					AND = { # Won't happen if spouse is pregnant with non-bastard child
+						is_pregnant = yes
+						father_of_unborn = { character = ROOT } 
+					}
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		random_character = {
+			limit = {
+				primary_title = {
+					holy_order = yes
+					holder_scope = { religion = ROOT }
+					ROOT = {
+						NOR = {
+							has_character_flag = expelled_@PREV
+							any_liege = {
+								has_character_flag = expelled_@PREVPREV
+							}
+						}
+					}
+				}
+			}
+
+			primary_title = { save_event_target_as = holy_order }
+		}
+	}
+
+	mean_time_to_happen = {
+		years = 100
+		modifier = {
+			factor = 0.25
+			trait = zealous
+		}
+		modifier = {
+			factor = 2.0
+			trait = celibate
+		}
+		modifier = {
+			factor = 0.5
+			trait = homosexual
+		}
+		modifier = {
+			factor = 0.7
+			trait = content
+		}
+		modifier = {
+			factor = 1.25
+			trait = chaste
+		}
+		modifier = {
+			factor = 0.75
+			NOT = { age = 25 }
+		}
+		modifier = {
+			factor = 1.5
+			trait = slothful
+		}
+		modifier = {
+			factor = 0.5
+			trait = lustful
+		}
+		modifier = {
+			factor = 2.0
+			trait = cynical
+		}
+		modifier = {
+			factor = 0.5
+			trait = hedonist
+		}
+		modifier = {
+			factor = 2.0
+			trait = ambitious
+		}
+		modifier = {
+			factor = 2.0
+			any_heir_title = {
+				always = yes
+			}
+		}
+		modifier = {
+			factor = 2.0
+			is_primary_heir = yes
+		}
+	}
+	
+	option = { # Ask to go
+		name = OK
+		liege = {
+			character_event = {
+				id = ancrel.9101
+			}
+		}
+	}
+	option = { # It's a bad idea
+		name = OK
+	}
+}
+
+character_event = {
+	id = ancrel.9101
+	desc = ancrel.9101.desc
+	picture = GFX_evt_warrior_banners
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name =  ancrel.9101.a # Agree
+		ai_chance = {
+			factor = 100
+		}
+		
+		piety = 100
+		
+		FROM = {
+			character_event = {
+				id = ancrel.9102
+				tooltip =  ancrel.9101.a.tt
+			}
+		}
+	}
+	
+	option = {
+		name =  ancrel.9101.b # Refuse
+		
+		piety = -100
+		
+		FROM = {
+			character_event = {
+				id = ancrel.9103
+				tooltip =  ancrel.9101.b.tt
+			}
+		}
+	}
+}
+
+character_event = {
+	id = ancrel.9102
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EXCELLENT
+		
+		event_target:holy_order = {
+			holder_scope = {
+				ROOT = {
+					move_character = PREV
+					hidden_tooltip = {
+						clear_wealth = PREV
+					}
+				}
+			}
+		}
+	}
+}
+
+character_event = {
+	id = ancrel.9103
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name =  OK
+		
+		opinion = {
+			who = FROM
+			modifier = opinion_refused_request_holy_order
+		}
+	}
+}
+
+# The Grand Master humbly requests the right to build a castle in your demesne
+character_event = {
+	id = ancrel.9104	
+	hide_window = yes
+	
+	only_playable = yes
+	has_dlc = "Sons of Abraham"
+	
+	trigger = {
+		is_potential_land_doner_trigger = yes
+	}
+
+	mean_time_to_happen = {
+		months = 240
+	}
+	
+	immediate = {
+		random_character = {
+			limit = {
+				primary_title = {
+					is_castle_building_holy_order_trigger = yes
+					holder_scope = { religion = ROOT }
+					NOT = {
+						ROOT = {
+							has_character_flag = expelled_@PREV
+						}
+					}
+				}
+			}
+
+			primary_title = { save_event_target_as = holy_order }
+		}
+
+		random_demesne_province = {
+			limit = {
+				is_in_root_religion_regions_of_interest_trigger = yes
+			}
+
+			province_event = { id = ancrel.9105 }
+		}
+	}
+}
+
+province_event = {
+	id = ancrel.9105
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		event_target:holy_order = {
+			holder_scope = {
+				character_event = {
+					id = ancrel.9106
+				}
+			}
+		}
+	}
+}
+
+character_event = {
+	id = ancrel.9106
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		FROMFROM = {
+			letter_event = {
+				id = ancrel.9107
+			}
+		}
+	}
+}
+
+letter_event = {
+	id = ancrel.9107
+	desc = ancrel.9107.desc
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name =  ancrel.9107.a # Agree
+		ai_chance = {
+			factor = 80
+		}
+		
+		hidden_tooltip = {
+			FROMFROM = {
+				province_event = { id = ancrel.9108 }
+			}
+			clear_expelled_holy_order_modifier_effect = yes
+		}
+		
+		piety = 200
+		wealth = 100
+	}
+	
+	option = {
+		name =  ancrel.9107.b # Refuse
+		ai_chance = {
+			factor = 20
+		}
+		
+		piety = -100
+	}
+}
+
+# Castle has been erected
+province_event = {
+	id = ancrel.9108
+	desc = ancrel.9108.desc
+	picture = GFX_evt_castle_construction
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		FROMFROM = {
+			wealth = -300
+		}
+	}
+	
+	option = {
+		name =  OK
+		build_holding = {
+		   type = castle
+		   holder = FROMFROM
+		}
+	}
+}
+
+# Ping event when expelling the holy order
+character_event = {
+	id = ancrel.9109
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		any_title_under = {
+			limit = {
+				tier = BARON
+				location = {
+					owner = {
+						OR = {
+							character = FROM
+							is_liege_or_above = FROM
+						}
+					}
+				}
+			}
+			usurp_title = FROM
+		}
+	
+		FROM = {
+			letter_event = {
+				id = ancrel.9110
+			}
+		}
+		
+		opinion = {
+			who = FROM
+			modifier = opinion_expelled_from_realm
+		}
+	}
+}
+
+# Notification event when expelling the holy order
+letter_event = {
+	id = ancrel.9110
+	desc = ancrel.9110.desc
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name =  ancrel.9110.a
+	}
+}
+
+# Ping event when donating money to the holy order
+character_event = {
+	id = ancrel.9111
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		wealth = 300
+		FROM = {
+			letter_event = {
+				id = ancrel.9112
+			}
+		}
+		opinion = {
+			who = FROM
+			modifier = opinion_generous_donation
+		}
+	}
+}
+
+# Notification event when donating money to the holy order
+letter_event = {
+	id = ancrel.9112
+	desc = ancrel.9112.desc
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EXCELLENT
+		
+	}
+}
+
+# The Grand Master demands one of your sons due to debt
+character_event = {
+	id = ancrel.9113
+	hide_window = yes
+	
+	min_age = 16
+	only_playable = yes
+	has_dlc = "Sons of Abraham"
+	prisoner = no
+	
+	trigger = {
+		any_mercenary_band = {
+			is_banking_holy_order_trigger = yes
+			holder_scope = { religion = ROOT }
+			ROOT = {
+				has_character_flag = borrowed_from_@PREV
+				is_heretic = no
+				NOT = { has_character_flag = sent_child_to_@PREV}
+			}
+		}
+
+		any_child = {
+			OR = {
+				is_female = no
+				is_feminist_religion_trigger = yes
+			}
+			is_adult = yes
+			is_ruler = no
+			NOT = { trait = incapable }
+			ROOT = {
+				NOT = { 
+					current_heir = { 
+						character = PREVPREV 
+					}
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 120
+	}
+	
+	immediate = {
+		random_character = {
+			limit = {
+				religion = ROOT
+				primary_title = {
+					is_banking_holy_order_trigger = yes
+					ROOT = {
+						has_character_flag = borrowed_from_@PREV
+						NOT = { has_character_flag = sent_child_to_@PREV}
+					}
+				}
+			}
+
+			primary_title = { save_event_target_as = holy_order }
+		}
+		random_child = {
+			limit = {
+				OR = {
+					is_female = no
+					is_feminist_religion_trigger = yes
+				}
+				is_adult = yes
+				is_ruler = no
+				prisoner = no
+				NOT = { trait = incapable }
+				ROOT = {
+					NOT = { 
+						current_heir = { 
+							character = PREVPREV 
+						}
+					}
+				}
+			}
+			character_event = {
+				id = ancrel.9114
+			}
+		}
+	}
+}
+
+# the child
+character_event = {
+	id = ancrel.9114
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		event_target:holy_order = {
+			holder_scope = {
+				character_event = {
+					id = ancrel.9115
+				}
+			}
+		}
+	}
+}
+
+character_event = {
+	id = ancrel.9115
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		FROMFROM = {
+			letter_event = {
+				id = ancrel.9116
+			}
+		}
+	}
+}
+
+letter_event = {
+	id = ancrel.9116
+	desc = ancrel.9116.desc
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ancrel.9116.a # Agree
+		ai_chance = {
+			factor = 100
+		}
+		
+		set_character_flag = sent_son_to_@event_target:holy_order
+		
+		piety = 100
+		
+		event_target:holy_order = {
+			holder_scope = {
+				FROMFROM = {
+					hidden_tooltip = {
+						clear_wealth = PREV
+					}
+					spouse = {
+						remove_spouse = spouse
+						hidden_tooltip = { character_event = { id = SoA.2862 } }
+					}
+					move_character = PREV
+					add_trait = celibate
+					end_inaccessibility_effect = yes #removes in_hiding or in_seclusion
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = ancrel.9116.b # Pay them back
+		wealth = -300
+		hidden_tooltip = {
+			clear_borrowed_from_holy_order_modifier_effect = yes
+		}
+		event_target:holy_order = {
+			holder_scope = {
+				wealth = 300
+			}
+		}
+	}
+	
+	option = {
+		name = EVTOPTC_SOA_1003 # Refuse
+		piety = -1000
+	}
+}
+
+# Ping event when borrowing money from the holy order
+character_event = {
+	id = ancrel.9117
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		wealth = -300
+		event_target:borrower = {
+			letter_event = {
+				id = ancrel.9118
+			}
+		}
+	}
+}
+
+# Notification event when borrowing money from the holy order
+letter_event = {
+	id = ancrel.9118
+	desc = ancrel.9118.desc
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EXCELLENT
+	}
+}
+
+# Ping event when vassalizing the holy order
+character_event = {
+	id = ancrel.9119
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_defacto_liege = event_target:new_liege
+		event_target:new_liege = {
+			letter_event = {
+				id = ancrel.9120
+			}
+		}
+	}
+}
+
+# Notification event when vassalizing the holy order
+letter_event = {
+	id = ancrel.9120
+	desc = ancrel.9120.desc
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EXCELLENT
+	}
+}
+
+# The Grand Master demands the right to build a castle in your demesne
+character_event = {
+	id = ancrel.9121
+	
+	hide_window = yes
+	
+	min_age = 16
+	only_playable = yes
+	has_dlc = "Sons of Abraham"
+	
+	trigger = {
+		any_mercenary_band = {
+			is_banking_holy_order_trigger = yes
+			holder_scope = {
+				religion = ROOT
+				wealth = 300
+			}
+			ROOT = {
+				is_heretic = no
+				has_character_flag = borrowed_from_@PREV
+				NOT = { has_character_flag = sent_son_to_@PREV }
+				NOT = { has_character_flag = expelled_@PREV }
+				NOT = {
+					any_liege = {
+						has_character_flag = expelled_@PREV
+					}
+				}
+			}
+		}
+		
+		any_demesne_province = { has_empty_holding = yes }
+	}
+	
+	mean_time_to_happen = {
+		months = 60
+	}
+	
+	immediate = {
+		random_character = {
+			limit = {
+				primary_title = {
+					is_banking_holy_order_trigger = yes 
+					ROOT = {
+						has_character_flag = borrowed_from_@PREV
+						NOT = { has_character_flag = sent_son_to_@PREV }
+						NOT = { has_character_flag = expelled_@PREV }
+						NOT = {
+							any_liege = {
+								has_character_flag = expelled_@PREV
+							}
+						}
+					}
+				}
+				religion = ROOT
+				wealth = 300
+			}
+
+			primary_title = {
+				save_event_target_as = holy_order			
+			}
+		}
+
+		random_demesne_province = {
+			limit = {
+				has_empty_holding = yes
+			}
+			save_event_target_as = target_land
+			province_event = {
+				id = ancrel.9122
+			}
+		}
+
+		save_event_target_as = borrower
+	}
+}
+
+province_event = {
+	id = ancrel.9122
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		event_target:holy_order = {
+			holder_scope = {
+				character_event = {
+					id = ancrel.9123
+				}
+			}
+		}
+	}
+}
+
+character_event = {
+	id = ancrel.9123
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		event_target:borrower = {
+			letter_event = {
+				id = ancrel.9124
+			}
+		}
+	}
+}
+
+letter_event = {
+	id = ancrel.9124
+	desc = ancrel.9124.desc
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ancrel.9124.a # Agree
+		ai_chance = {
+			factor = 100
+		}
+		
+		hidden_tooltip = {
+			clear_borrowed_from_holy_order_modifier_effect = yes
+			clear_expelled_holy_order_modifier_effect = yes
+			event_target:target_land = {
+				province_event = { id = ancrel.9125 }
+			}
+		}
+		
+		piety = 100
+	}
+	
+	option = {
+		name = ancrel.9124.b # Pay them back
+		wealth = -300
+		hidden_tooltip = {
+			clr_character_flag = borrowed_from_@event_target:holy_order
+		}
+		event_target:holy_order = {
+			holder_scope = { wealth = 300 }
+		}
+	}
+	
+	option = {
+		name = ancrel.9124.c # Refuse
+		piety = -1000
+	}
+}
+
+# Castle has been erected
+province_event = {
+	id = ancrel.9125
+	desc = ancrel.9125.desc
+	picture = GFX_evt_castle_construction
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		FROMFROM = {
+			wealth = -300
+		}
+	}
+	
+	option = {
+		name = ancrel.9125.a
+		build_holding = {
+		   type = castle
+		   holder = FROMFROM
+		}
+	}
+}
+
+# triggered on inheritance
+# works because borrowed_from_@holy_order and expelled_@holy_order
+# are inherited modifiers
+character_event = {
+	id = ancrel.9299
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	immediate = {
+		set_flag_for_holy_order_modifiers_effect = yes
+	}
+}

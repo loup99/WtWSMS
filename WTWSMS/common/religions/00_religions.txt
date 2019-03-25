@@ -5,10 +5,14 @@
 # This trigger defines who can see a character's secret religion. The character with the secret religion is FROM, while the viewer is ROOT
 # Characters can always see their own secret religion. The observer can see all secret religions
 secret_religion_visibility_trigger = {
-	OR = { 
+	OR = {
 		secret_religion = FROM
 		FROM = {
 			has_character_flag = confessed_secret_religion_to_@ROOT
+		}
+		AND = {
+			ai = no
+			has_global_flag = ancrel_debug
 		}
 	}
 }
@@ -4708,6 +4712,64 @@ pagan_group = {
 		
 		dislike_tribal_organization = yes
 	}
+	illyran_pagan_reformed = { # Reformed Eiateuta
+		graphical_culture = norsegfx
+		secondary_event_pictures = norse_pagan
+		alternate_start = { always = no }
+
+		icon = 129
+		heresy_icon = 130
+		
+		ai_convert_other_group = 2 # always try to convert
+		
+		color = { 0.647 0.341 0.192 }
+		crusade_name = GREAT_HOLY_WAR
+		scripture_name = THE_LEGENDS
+		priest_title = VOLHV
+		
+		high_god_name = GOD_EIA
+		god_names = {
+			GOD_EIA GOD_MALESOCUS GOD_BORIA GOD_IRIA GOD_ANZOTICA GOD_LATRA GOD_SENTONA GOD_ICA GOD_BINDUS GOD_JAPODES GOD_VIDASUS GOD_THANA GOD_MEDAURUS
+		}
+		evil_god_names = {
+			VELNIAS
+		}
+		
+		unit_modifier = {
+			garrison_size = 0.3
+			levy_size = 0.1
+			
+			key = "DEF_RELIGION"
+		}
+		unit_home_modifier = {
+			land_morale = 0.8
+			light_infantry_defensive = 0.8
+			heavy_infantry_defensive = 0.8
+			pikemen_defensive = 0.8
+			light_cavalry_defensive = 0.8
+			knights_defensive = 0.8
+			archers_defensive = 0.8
+			horse_archers_defensive = 0.8
+			camel_cavalry_defensive = 0.8
+			war_elephants_defensive = 0.8
+			
+			garrison_size = 0.4
+			
+			key = "DEF_RELIGION_HOME_TERRITORY"
+		}
+		
+		priests_can_marry = yes
+		female_temple_holders = yes
+		defensive_attrition = yes
+		allow_looting = yes
+		can_call_crusade = yes
+		join_crusade_if_bordering_hostile = yes
+		max_consorts = 3
+		
+		religious_clothing_head = 3
+		religious_clothing_priest = 3
+		allow_in_ruler_designer = no
+	}
 	illyran_pagan = { # Eiateuta
 		graphical_culture = norsegfx
 
@@ -4755,6 +4817,9 @@ pagan_group = {
 		defensive_attrition = yes
 		allow_looting = yes
 		max_consorts = 3
+		
+		reformed = illyran_pagan_reformed
+		
 		dislike_tribal_organization = yes
 		independence_war_score_bonus = 30 # Overrides define CONTESTED_TITLE_OCCUPIED_WARSCORE_BONUS_INDEP
 		
