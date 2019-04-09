@@ -4,10 +4,7 @@ decisions = {
 		is_high_prio = yes
 		potential = {
 			NOT = {	has_character_flag = aonach_tailteann }
-			OR = {
-				religion = celtic_pagan
-				religion = celtic_pagan_reformed
-			}
+			religion_openly_in_celtic_subgroup_trigger = yes
 			OR = {
 				culture = irish
 				culture = scottish
@@ -39,9 +36,9 @@ decisions = {
 			clr_character_flag = tailteann_has_ended
 			wealth = -200
 			prestige = 100
-			character_event = { id = ancrel.1193 tooltip = tailteann_invite }
+			character_event = { id = celtic.1193 tooltip = tailteann_invite }
 			hidden_tooltip = {
-				character_event = { id = ancrel.1191 days = 60 } # Aonach starts
+				character_event = { id = celtic.1191 days = 60 } # Aonach starts
 				clr_character_flag = tailteann_has_ended
 				any_realm_character = {
 					limit = {
@@ -49,7 +46,7 @@ decisions = {
 						prisoner = no
 					}
 					clr_character_flag = tailteann_has_ended
-					character_event = { id = ancrel.1190 }
+					character_event = { id = celtic.1190 }
 				}
 			}
 
@@ -122,7 +119,7 @@ decisions = {
 				set_character_flag = holding_divination
 				
 				hidden_tooltip = {
-					character_event = { id = ancrel.0020 }
+					character_event = { id = celtic.20 }
 				}
 			}
 
@@ -140,7 +137,6 @@ decisions = {
 				}
 			}
 		}
-
 		ai_will_do = {
 			factor = 1
 			
@@ -175,12 +171,24 @@ decisions = {
 			NOT = { has_global_flag = gwydion_founded }
 		}
 		allow = {
-			has_landed_title = e_britannia
+			#OR = { # detect alternate starts and only require an empire in that case
+				has_landed_title = e_britannia
+				
+			#}
 			prestige = 300
 			wealth = 300
 			d_celtic_pagan_reformed = {
 				holder_scope = {
-					is_liege_or_above = ROOT
+					show_scope_change = no
+					OR = {
+						is_liege_or_above = ROOT
+						AND = {
+							character = ROOT
+							celtic_pagan_reformed = { has_religion_feature = religion_temporal_head }
+						}
+						celtic_pagan_reformed = { has_religion_feature = religion_no_leader }
+						celtic_pagan_reformed = { has_religion_feature = religion_autocephaly }
+					}
 				}
 			}
 		}
@@ -191,7 +199,7 @@ decisions = {
 			wealth = -300
 			activate_title = { title = d_gwydion status = yes }
 			hidden_tooltip = {
-				narrative_event = { id = ancrel.0110 }
+				narrative_event = { id = celtic.110 }
 				create_character = {
 					random_traits = yes
 					religion = celtic_pagan_reformed
@@ -304,11 +312,7 @@ decisions = {
 				}
 				culture = irish
 			}
-			OR = {
-				tier = duke
-				tier = king
-				tier = emperor
-			}
+			tier > count
 			OR = {
 				religion = celtic_pagan
 				religion = celtic_pagan_reformed
@@ -334,10 +338,10 @@ decisions = {
 			wealth = -300
 			activate_title = { title = d_fianna status = yes }
 			hidden_tooltip = {
-				narrative_event = { id = ancrel.1150 }
+				narrative_event = { id = celtic.1150 }
 				create_character = {
 					random_traits = yes
-					religion = celtic_pagan
+					religion = ROOT
 					culture = ROOT
 					dynasty = NONE
 					female = no
@@ -349,6 +353,8 @@ decisions = {
 					d_fianna = {
 						grant_title = PREV
 					}
+					set_government_type = order_government
+					set_defacto_liege = this
 					prestige = 300
 					wealth = 300
 				}
@@ -367,7 +373,6 @@ decisions = {
 		}
 	}
 
-
 	vassalize_fianna = {
 		is_high_prio = yes
 		only_playable = yes
@@ -378,14 +383,21 @@ decisions = {
 			age = 16
 			is_title_active = d_fianna
 			
-			has_landed_title = k_ireland
-			
-			d_fianna = {
-				holder_scope = {
-					liege = {
-						NOT = { character = ROOT }
+			OR = {
+				has_landed_title = k_ireland
+				AND = {
+					has_landed_title = e_britannia
+					OR = {
+						completely_controls = k_ireland
+						any_vassal = {
+							has_landed_title = k_ireland
+						}
 					}
 				}
+			}
+			
+			d_fianna = {
+				independent = yes
 			}
 		}
 		
@@ -405,7 +417,7 @@ decisions = {
 						wealth = 500
 						prestige = 500
 						character_event = {
-							id = ancrel.0116
+							id = celtic.116
 						}
 					}
 				}
@@ -417,7 +429,6 @@ decisions = {
 			}
 		}
 		
-
 		
 		ai_will_do = {
 			factor = 1
@@ -463,7 +474,7 @@ decisions = {
 				d_fianna = {
 					holder_scope = {
 						character_event = {
-							id = ancrel.1333
+							id = celtic.1333
 						}
 					}
 				}
@@ -472,9 +483,7 @@ decisions = {
 			wealth = -300
 			piety = 300
 		}
-		
 
-		
 		ai_will_do = {
 			factor = 1
 			modifier = {
@@ -487,6 +496,131 @@ decisions = {
 			}
 			modifier = {
 				factor = 0.002 # Slow it down
+			}
+		}
+	}
+
+	expel_red_dragons = {
+		ai = no
+		only_playable = yes
+		potential = {
+			religion = celtic_pagan_reformed
+			higher_tier_than = DUKE
+			independent = yes
+			is_title_active = d_red_dragons
+			NOT = { has_character_modifier = expelled_d_red_dragons }
+			
+			any_realm_province = {
+				any_province_lord = {
+					d_red_dragons = {
+						holder_scope = {
+							OR = {
+								character = PREVPREV
+								is_vassal_or_below = PREVPREV
+							}
+						}
+					}
+				}
+			}
+			
+			has_dlc = "Sons of Abraham"
+		}
+		
+		allow = {
+			piety = 1000
+		}
+		
+		effect = {
+			piety = -1000
+			
+			religion_authority = {
+				modifier = holy_order_expelled
+				years = 20
+			}
+			
+			hidden_tooltip = {
+				d_red_dragons = {
+					holder_scope = {
+						character_event = {
+							id = celtic.1329
+						}
+					}
+				}
+				add_character_modifier = {
+					name = expelled_d_red_dragons
+					duration = -1
+					inherit = yes
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	donate_money_to_red_dragons = {
+		only_playable = yes
+		potential = {
+			religion = celtic_pagan_reformed
+			
+			is_title_active = d_red_dragons
+			
+			NOT = { has_character_modifier = expelled_d_red_dragons }
+			
+			has_dlc = "Sons of Abraham"
+			
+			d_red_dragons = {
+				holder_scope = {
+					liege = {
+						NOT = { character = ROOT }
+					}
+				}
+			}
+		}
+		
+		allow = {
+			wealth = 300
+		}
+		
+		effect = {
+			if = {
+				limit = { 
+					NOT = { has_character_modifier = donated_to_holy_order }
+				}
+				add_character_modifier = {
+					name = donated_to_holy_order
+					duration = -1
+				}
+			}
+			
+			hidden_tooltip = {
+				d_red_dragons = {
+					holder_scope = {
+						character_event = {
+							id = celtic.1331
+						}
+					}
+				}
+			}
+			
+			wealth = -300
+			piety = 300
+		}
+			
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				OR = {
+					piety = 1000
+					NOT = { wealth = 1000 }
+					NOT = { controls_religion = celtic_pagan_reformed }
+				}
+			}
+			modifier = {
+				factor = 0.002 # Slow it down
+				always = yes
 			}
 		}
 	}
@@ -511,7 +645,7 @@ decisions = {
 
 			hidden_tooltip = {
 				character_event = {
-					id = ancrel.0155
+					id = celtic.155
 					days = 3
 				}
 			}
@@ -563,10 +697,7 @@ decisions = {
 	invite_bard_to_court = {
 		only_playable = yes
 		potential = {
-			OR = {
-				religion = celtic_pagan
-				religion = celtic_pagan_reformed
-			}
+			religion_openly_in_celtic_subgroup_trigger = yes
 			primary_title = { higher_tier_than = BARON }
 		}
 		allow = {
@@ -711,12 +842,11 @@ decisions = {
 
 	assign_druid = { # For the AI, because they are dumb enough not to hand out minor titles
 		only_playable = yes
+				
 		potential = {
 			ai = yes
-			OR = {
-				religion = celtic_pagan
-				religion = celtic_pagan_reformed
-			}
+			primary_title = { higher_tier_than = BARON }
+			religion_openly_celtic_or_reformed_trigger = yes
 			NOT = { 
 				any_courtier = {
 					has_minor_title = title_court_druid
@@ -724,7 +854,6 @@ decisions = {
 			}
 		}
 		allow = {
-			primary_title = { higher_tier_than = BARON }
 			any_courtier = {
 				trait = druid
 				is_adult = yes
@@ -734,7 +863,6 @@ decisions = {
 			random_courtier = {
 				limit = {
 					is_adult = yes
-					is_female = no
 					trait = druid
 				}
 				give_minor_title = title_court_druid
@@ -752,12 +880,11 @@ decisions = {
 
 	assign_bard = { # For the AI, because they are dumb enough not to hand out minor titles
 		only_playable = yes
+		
 		potential = {
 			ai = yes
-			OR = {
-				religion = celtic_pagan
-				religion = celtic_pagan_reformed
-			}
+			primary_title = { higher_tier_than = BARON }
+			religion_openly_in_celtic_subgroup_trigger = yes
 			NOT = { 
 				any_courtier = {
 					has_minor_title = title_court_bard
@@ -765,7 +892,6 @@ decisions = {
 			}
 		}
 		allow = {
-			primary_title = { higher_tier_than = BARON }
 			any_courtier = {
 				trait = poet
 				is_adult = yes
@@ -798,17 +924,13 @@ decisions = {
 			is_ruler = yes
 			age = 16
 			prisoner = no
-			OR = {
-				religion = celtic_pagan
-				religion = celtic_pagan_reformed
-			}
-			NOT = {	
-				OR = {
-					has_character_modifier = sidhe_offerings_bad
-					has_character_modifier = sidhe_offerings_neutral
-					has_character_modifier = sidhe_offerings_good
-					has_character_flag = sidhe_offerings_giving
-				}
+			religion_openly_in_celtic_subgroup_trigger = yes
+			NOT = { has_religion_feature = religion_dogmatic }
+			NOR = {
+				has_character_modifier = sidhe_offerings_bad
+				has_character_modifier = sidhe_offerings_neutral
+				has_character_modifier = sidhe_offerings_good
+				has_character_flag = sidhe_offerings_giving
 			}
 		}
 		allow = {
@@ -835,18 +957,17 @@ decisions = {
 				scaled_wealth = -0.15
 				set_character_flag = sidhe_offerings_giving
 				hidden_tooltip = {
-					character_event = { id = ancrel.0248 }
+					character_event = { id = celtic.248 }
 				}
 			}
 		}
-
 		ai_will_do = {
 			factor = 1
 			
 			modifier = {
 				factor = 0
 				NOT = {
-					scaled_wealth = 3.0
+					scaled_wealth = 1.0
 				}
 			}
 			modifier = {
@@ -878,6 +999,7 @@ decisions = {
 		allow = {
 			war = no
 			any_demesne_title = {
+				NOT = { higher_tier_than = count }
 				is_occupied = no
 			}
 			prisoner = no
@@ -897,7 +1019,6 @@ decisions = {
 				abdicate = yes
 			}
 		}
-
 		ai_will_do = {
 			factor = 1
 			
@@ -926,135 +1047,6 @@ decisions = {
 			modifier = {
 				factor = 0
 				trait = ambitious
-			}
-		}
-	}
-	
-	expel_red_dragons = {
-		only_playable = yes
-		potential = {
-			ai = no
-			religion = celtic_pagan_reformed
-			higher_tier_than = DUKE
-			independent = yes
-			is_title_active = d_red_dragons
-			NOT = { has_character_modifier = expelled_d_red_dragons }
-			
-			any_realm_province = {
-				any_province_lord = {
-					d_red_dragons = {
-						holder_scope = {
-							OR = {
-								character = PREVPREV
-								is_vassal_or_below = PREVPREV
-							}
-						}
-					}
-				}
-			}
-			
-			has_dlc = "Sons of Abraham"
-		}
-		
-		allow = {
-			piety = 1000
-		}
-		
-		effect = {
-			piety = -1000
-			
-			religion_authority = {
-				modifier = holy_order_expelled
-				years = 20
-			}
-			
-			hidden_tooltip = {
-				d_red_dragons = {
-					holder_scope = {
-						character_event = {
-							id = ancrel.1329
-						}
-					}
-				}
-				add_character_modifier = {
-					name = expelled_d_red_dragons
-					duration = -1
-					inherit = yes
-				}
-			}
-		}
-		
-
-		
-		ai_will_do = {
-			factor = 0
-		}
-	}
-	
-	donate_money_to_red_dragons = {
-		only_playable = yes
-		potential = {
-			religion = celtic_pagan_reformed
-			
-			is_title_active = d_red_dragons
-			
-			NOT = { has_character_modifier = expelled_d_red_dragons }
-			
-			has_dlc = "Sons of Abraham"
-			
-			d_red_dragons = {
-				holder_scope = {
-					liege = {
-						NOT = { character = ROOT }
-					}
-				}
-			}
-		}
-		
-		allow = {
-			wealth = 300
-		}
-		
-		effect = {
-			if = {
-				limit = { 
-					NOT = { has_character_modifier = donated_to_holy_order }
-				}
-				add_character_modifier = {
-					name = donated_to_holy_order
-					duration = -1
-				}
-			}
-			
-			hidden_tooltip = {
-				d_red_dragons = {
-					holder_scope = {
-						character_event = {
-							id = ancrel.1331
-						}
-					}
-				}
-			}
-			
-			wealth = -300
-			piety = 300
-		}
-		
-
-		
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 0
-				OR = {
-					piety = 1000
-					NOT = { wealth = 1000 }
-					NOT = { controls_religion = celtic_pagan_reformed }
-				}
-			}
-			modifier = {
-				factor = 0.002 # Slow it down
-				always = yes
 			}
 		}
 	}

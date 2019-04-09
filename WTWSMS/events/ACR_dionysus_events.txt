@@ -3,32 +3,83 @@
 # Ancient Religions Reborn
 # - Mysteries of Dionysus
 #
-# Event Ids: ancrel.3200 - 3299 reserved
+# Event Ids: dionysus.0 - 3299 reserved
 ##############################################
 
-namespace = ancrel
+namespace = dionysus
 
 ####################
 ## Society events ##
 ####################
-# ancrel.3200 - 3249
+# dionysus.0 - 3249
+
+# ask to join society
+character_event = {
+	id = dionysus.0
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		FROM = { leader = { society_member_of = mysteries_dionysus}}
+	}
+
+	immediate = {
+		FROM = { leader = { character_event = { id = dionysus.1 } } }
+	}
+}
+
+# bounce invite off leader
+character_event = {
+	id = dionysus.1
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	immediate = { # bounce it back
+		FROM = { character_event = { id = dionysus.2 } }
+	}
+}
+
+# ask if they are ready for the initiation
+# FROM is society leader
+character_event = {
+	id = dionysus.2
+	desc = dionysus.2.desc
+	picture = GFX_evt_whisper
+
+	is_triggered_only = yes
+
+	option = { # i'm ready
+		name = dionysus.2.a
+		custom_tooltip = {
+			text = dionysus.2.tooltip
+			hidden_tooltip = {
+				character_event = { id = dionysus.3 }
+			}
+		}
+	}
+
+	option = { # on second thought...
+		name = dionysus.2.b
+	}
+}
 
 #####################
 ## Dionysia events ##
 #####################
-# ancrel.3250 - 3299
+# dionysus.50 - 3299
 
 character_event = {
-	id = ancrel.3250
-	desc = ancrel.3250.desc
+	id = dionysus.50
+	desc = dionysus.50.desc
 	picture = GFX_evt_roman_temple
 
 	is_triggered_only = yes
 
 	option = { # invitations have been sent!
-		name = ancrel.3250
+		name = dionysus.50
 		hidden_tooltip = {
-			character_event = { id = ancrel.3252 days = 5 } # Dionysia start
+			character_event = { id = dionysus.52 days = 5 } # Dionysia start
 			clr_character_flag = dionysia_has_ended
 			any_realm_character = {
 				limit = {
@@ -52,9 +103,9 @@ character_event = {
 
 # Invitation
 character_event = {
-	id = ancrel.3251
-	title = ancrel.3251.title
-	desc = ancrel.3251
+	id = dionysus.51
+	title = dionysus.51.title
+	desc = dionysus.51
 	picture = GFX_evt_market
 
 	is_triggered_only = yes
@@ -62,26 +113,26 @@ character_event = {
 	trigger = { NOT = { is_inaccessible_trigger = yes } }
 
 	option = {
-		name = ancrel.3251
+		name = dionysus.51
 		ai_chance = {
 			factor = 100
 		}
 		prestige = 50
 		set_character_flag = attending_dionysia
-		hidden_tooltip = { character_event = { id = ancrel.3299 days = 90 } } # safety catch flag-clearing
+		hidden_tooltip = { character_event = { id = dionysus.99 days = 90 } } # safety catch flag-clearing
 		
 	}
 	option = {
-		name = ancrel.3251
+		name = dionysus.51
 		ai_chance = {
 			factor = 0.1
 			modifier = {
 				factor = 100
-				religion_openly_in_hellenic_subgroup_trigger = no
+				NOT = { religion_openly_in_hellenic_subgroup_trigger = yes }
 			}
 			modifier = {
 				factor = 100
-				true_religion_in_hellenic_subgroup_trigger = no
+				NOT = { true_religion_in_hellenic_subgroup_trigger = yes }
 			}
 		}
 		prestige = -100
@@ -90,8 +141,8 @@ character_event = {
 
 # Dionysia start
 character_event = {
-	id = ancrel.3252
-	desc = ancrel.3252
+	id = dionysus.52
+	desc = dionysus.52.desc
 	picture = GFX_evt_market
 
 	is_triggered_only = yes
@@ -107,7 +158,7 @@ character_event = {
 
 # Safety catch - clears character flags and modifiers
 character_event = {
-	id = ancrel.3299
+	id = 3299
 
 	hide_window = yes
 	

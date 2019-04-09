@@ -3,17 +3,17 @@
 # ANCIENT RELIGIONS
 # - Vestales
 #
-# Event ID ancrel.2120 - ancrel.2129 reserved
+# Event ID hellenic.120 - hellenic.129 reserved
 #
 #######################################
 
 # Written by Jon Severinsson
 
-namespace = ancrel
+namespace = hellenic
 
 # The Vestalis Maxima should be the guardian of all underage Vestalis
 character_event = {
-	id = ancrel.2120
+	id = hellenic.120
 	hide_window = yes
 
 	mean_time_to_happen = {
@@ -49,8 +49,8 @@ character_event = {
 
 # A vestalis must retire after 30 years
 character_event = {
-	id = ancrel.2121
-	desc = EVTDESCancrel.2121
+	id = hellenic.121
+	desc = hellenic.121.desc
 	picture = GFX_evt_princess_byzantine
 
 	mean_time_to_happen = {
@@ -84,15 +84,16 @@ character_event = {
 
 # Cleanup when a Vestalis lost her title by some way other than retireing
 character_event = {
-	id = ancrel.2122
+	id = hellenic.122
 	hide_window = yes
 
 	mean_time_to_happen = {
 		days = 1
 	}
+	
+	has_character_flag = flag_vestalis
 
 	trigger = {
-		has_character_flag = flag_vestalis
 		NOT = { has_minor_title = title_vestalis }
 		NOT = { has_minor_title = title_vestalis_maxima }
 	}
@@ -108,14 +109,12 @@ character_event = {
 
 #[on_death] Cleanup when a Vestalis dies
 character_event = {
-	id = ancrel.2123
+	id = hellenic.123
 	hide_window = yes
 
 	is_triggered_only = yes
 
-	trigger = {
-		has_character_flag = flag_vestalis
-	}
+	has_character_flag = flag_vestalis
 
 	immediate = {
 		clr_character_flag = flag_vestalis
@@ -125,14 +124,14 @@ character_event = {
 
 # A vassal has nominated a vestalis
 character_event = {
-	id = ancrel.2124
-	desc = EVTDESCancrel.2124
+	id = hellenic.124
+	desc = hellenic.124.desc
 	picture = GFX_evt_princess_byzantine
 
 	is_triggered_only = yes
 
 	option = {
-		name = EVTOPTAancrel.2124
+		name = hellenic.124.a
 		trigger = {
 			NOT = { check_variable = { which = "num_vestales" value = 5 } }
 		}
@@ -170,6 +169,7 @@ character_event = {
 		FROM = { clr_character_flag = flag_nominated_as_vestalis }
 		hidden_tooltip = { FROM = { banish = ROOT } } # Move FROM to ROOT's court
 		FROM = {
+			show_scope_change = no
 			host = { prestige = 50 }
 			host = { piety = 50 }
 			host = { opinion = { modifier = opinion_nominated_vestalis who = ROOT } }
@@ -189,7 +189,7 @@ character_event = {
 	}
 
 	option = {
-		name = EVTOPTBancrel.2124
+		name = hellenic.124.b
 		trigger = {
 			NOT = { check_variable = { which = "num_vestales" value = 5 } }
 		}
@@ -197,15 +197,13 @@ character_event = {
 			factor = 40
 		}
 
-		FROM = { host = { prestige = -10 } }
+		FROM = { show_scope_change = no host = { prestige = -10 } }
 	}
 
 	option = {
-		name = EVTOPTCancrel.2124
+		name = hellenic.124.c
 		trigger = {
 			check_variable = { which = "num_vestales" value = 5 }
 		}
 	}
 }
-
-# Prosperity events

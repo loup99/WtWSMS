@@ -3,17 +3,17 @@
 # ANCIENT RELIGIONS
 # - Atenic Events
 #
-# Event ID ancrel.5000 - ancrel.5008 Decision Events
+# Event ID atenic.0 - atenic.8 Decision Events
 #
 ###################################################
 
-namespace = ancrel
+namespace = atenic
 
 # akhetaten Restoration Part 1
 province_event = {
-	id = ancrel.5000
-	title = ancrel.5000.title
-	desc = ancrel.5000.desc
+	id = atenic.0
+	title = atenic.0.title
+	desc = atenic.0.desc
 	picture = GFX_persepolis_ruin
 
 	is_triggered_only = yes
@@ -23,19 +23,20 @@ province_event = {
 	}	
 
 	option = {
-		name = ancrel.5000.a # Make it the greatest temple there ever was!
+		name = atenic.0.a # Make it the greatest temple there ever was!
 	}
 }
 
 # akhetaten Restoration Part 2 - Add Asyut bonus modifier ~8 years
 province_event = {
-	id = ancrel.5001
-	title = ancrel.5001.title
-	desc = ancrel.5001.desc
+	id = atenic.1
+	title = atenic.1.title
+	desc = atenic.1.desc
 	picture = GFX_evt_temple_egyptian_pagan
+	
+	has_global_flag = akhetaten_restoring
 
 	trigger = {
-		has_global_flag = akhetaten_restoring
 		province_id = 795 # Asyut
 		NOT = { has_global_flag = akhetaten_restored }
 		had_province_flag = { flag = reb_akhetaten_1 days = 2190 }
@@ -51,19 +52,19 @@ province_event = {
 	}
 	
 	option = {
-		name = ancrel.5001.a # Library
+		name = atenic.1.a # Library
 		795 = {
 			add_province_modifier = { name = akhetaten_library duration = -1 }
 		}
 	}
 	option = {
-		name = ancrel.5001.b # Promote Fanaticism
+		name = atenic.1.b # Promote Fanaticism
 		795 = {
 			add_province_modifier = { name = akhetaten_fanaticism duration = -1 }
 		}
 	}
 	option = {
-		name = ancrel.5001.c # Promote Tax Collection
+		name = atenic.1.c # Promote Tax Collection
 		795 = {
 			add_province_modifier = { name = akhetaten_admin duration = -1 }
 		}
@@ -73,13 +74,14 @@ province_event = {
 # akhetaten Restoration Part 3 ~2 years
 
 province_event = {
-	id = ancrel.5002
-	title = ancrel.5002.title
-	desc = ancrel.5002.desc
+	id = atenic.2
+	title = atenic.2.title
+	desc = atenic.2.desc
 	picture = GFX_evt_temple_egyptian_pagan
 	
+	has_global_flag = akhetaten_restoring
+	
 	trigger = {
-		has_global_flag = akhetaten_restoring
 		province_id = 795 # Asyut
 		NOT = { has_global_flag = akhetaten_restored }
 		has_province_flag = reb_akhetaten_1
@@ -98,7 +100,7 @@ province_event = {
 	}
 
 	option = {
-		name = ancrel.5002.a
+		name = atenic.2.a
 		owner = {
 			795 = {
 				build_holding = {
@@ -128,8 +130,8 @@ province_event = {
 		}
 		hidden_tooltip = {
 			owner = {
-				set_character_flag = event_ancrel_5003
-				character_event = { id = ancrel.5006 days = 7 }
+				set_character_flag = eventancrel.5003
+				character_event = { id = atenic.6 days = 7 }
 			}
 			increase_prosperity_effect = yes
 		}
@@ -138,21 +140,21 @@ province_event = {
 
 # Bounce through top liege to get localization to work
 character_event = {
-	id = ancrel.5006
+	id = atenic.6
 	hide_window = yes
 
 	is_triggered_only = yes
 
 	immediate = {
-		narrative_event = { id = ancrel.5003 }
+		narrative_event = { id = atenic.3 }
 	}
 }
 
 # News spread about akhetaten
 narrative_event = {
-	id = ancrel.5003
-	title = ancrel.5003.title
-	desc = ancrel.5003.desc
+	id = atenic.3
+	title = atenic.3.title
+	desc = atenic.3.desc
 	picture = GFX_evt_temple_egyptian_pagan
 	border = GFX_event_narrative_frame_religion
 	
@@ -163,30 +165,30 @@ narrative_event = {
 	option = {
 		trigger = {
 			OR = {
-				has_character_flag = event_ancrel_5003
+				has_character_flag = eventancrel.5003
 				religion = aten_pagan
 			}
 		}
 		if = {
-			limit = { has_character_flag = event_ancrel_5003 }
-			clr_character_flag = event_ancrel_5003
+			limit = { has_character_flag = eventancrel.5003 }
+			clr_character_flag = eventancrel.5003
 		}
-		name = ancrel.5003.a
+		name = atenic.3.a
 	}
 	
 	option = {
 		trigger = {
-			NOT = { has_character_flag = event_ancrel_5003 }
+			NOT = { has_character_flag = eventancrel.5003 }
 		}
-		name = ancrel.5003.b
+		name = atenic.3.b
 	}
 }
 
 # The Priesthood Restored
 narrative_event = {
-	id = ancrel.5004
-	title = ancrel.5004.title
-	desc = ancrel.5004.desc
+	id = atenic.4
+	title = atenic.4.title
+	desc = atenic.4.desc
 	picture = GFX_evt_bishop_muslim
 	border = GFX_event_narrative_frame_religion
 	
@@ -195,7 +197,7 @@ narrative_event = {
 	is_triggered_only = yes
 	
 	option = {
-		name = ancrel.5004.a
+		name = atenic.4.a
 		trigger = {
 			OR = {
 				religion = egyptian_pagan
@@ -204,7 +206,7 @@ narrative_event = {
 		}
 	}
 	option = {
-		name = ancrel.5004.a
+		name = atenic.4.a
 		trigger = {
 			NOT = {
 				religion = egyptian_pagan
@@ -216,9 +218,9 @@ narrative_event = {
 
 # Burning Blades founded
 narrative_event = {
-	id = ancrel.5005
-	title = ancrel.5005.title
-	desc = ancrel.5005.desc
+	id = atenic.5
+	title = atenic.5.title
+	desc = atenic.5.desc
 	picture = GFX_evt_anubis
 	border = GFX_event_narrative_frame_religion
 	
@@ -228,17 +230,17 @@ narrative_event = {
 	
 	option = {
 		trigger = {
-			has_character_flag = event_ancrel_5005
+			has_character_flag = eventancrel.5005
 		}
-		clr_character_flag = event_ancrel_5005
+		clr_character_flag = eventancrel.5005
 		name = OK
 	}
 	
 	option = {
 		trigger = {
-			NOT = { has_character_flag = event_ancrel_5005 }
+			NOT = { has_character_flag = eventancrel.5005 }
 		}
-		name = ancrel.5005.a
+		name = atenic.5.a
 	}
 }
 

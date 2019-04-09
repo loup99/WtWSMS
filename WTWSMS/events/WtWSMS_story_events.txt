@@ -451,24 +451,24 @@ character_event = {
 	option = {
 		name = OK
 
-			c_csanad = {
-				grant_title = PREV
-			}
+		c_csanad = {
+			grant_title = PREV
+		}
 
-			create_character = {
-				random_traits = yes
-				dynasty = none
-				religion = tengri_pagan
-				culture = avar
-				female = no
-				age = 23
-				attributes = {
-					martial = 6
-				}
-				trait = skilled_tactician
+		create_character = {
+			random_traits = yes
+			dynasty = none
+			religion = tengri_pagan
+			culture = avar
+			female = no
+			age = 23
+			attributes = {
+				martial = 6
 			}
-			new_character = {
-				spawn_unit = {
+			trait = skilled_tactician
+		}
+		new_character = {
+			spawn_unit = {
 				province = 521 # Olvia
 				troops =
 				{
@@ -479,22 +479,22 @@ character_event = {
 					knights = { 47 47 }
 				}
 				attrition = 0.25
-				}
 			}
-			create_character = {
-				random_traits = yes
-				dynasty = random
-				religion = tengri_pagan
-				culture = avar
-				female = no
-				age = 27
-				attributes = {
-					martial = 6
-				}
-				trait = skilled_tactician
+		}
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = tengri_pagan
+			culture = avar
+			female = no
+			age = 27
+			attributes = {
+				martial = 6
 			}
-			new_character = {
-				spawn_unit = {
+			trait = skilled_tactician
+		}
+		new_character = {
+			spawn_unit = {
 				province = 521 # Olvia
 				troops =
 				{
@@ -505,22 +505,22 @@ character_event = {
 					knights = { 47 47 }
 				}
 				attrition = 0.25
-							 }
-					}
-			create_character = {
-				random_traits = yes
-				dynasty = random
-				religion = tengri_pagan
-				culture = avar
-				female = no
-				age = 27
-				attributes = {
-					martial = 6
-				}
-				trait = skilled_tactician
 			}
-			new_character = {
-				spawn_unit = {
+		}
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = tengri_pagan
+			culture = avar
+			female = no
+			age = 27
+			attributes = {
+				martial = 6
+			}
+			trait = skilled_tactician
+		}
+		new_character = {
+			spawn_unit = {
 				province = 521 # Olvia
 				troops =
 				{
@@ -531,9 +531,9 @@ character_event = {
 					knights = { 47 47 }
 				}
 				attrition = 0.25
-							 }
-					}
-					522 = {
+			}
+		}
+		522 = {
 			kingdom = {
 				ROOT = {
 					war = {
@@ -3740,6 +3740,14 @@ narrative_event = {
 	
 	trigger = {
 		has_landed_title = e_wre
+		NOR = { #controls no land in Italia
+			any_realm_province = {
+				kingdom = { title = k_annonaria }
+			}
+			any_realm_province = {
+				kingdom = { title = k_italia }
+			}
+		}
 		character = 175110 # Julius Nepos
 		current_heir = {
 			from_ruler_dynasty = no # Doesn't have a heir
@@ -3755,5 +3763,398 @@ narrative_event = {
 	option = {
 		name = historical_wtwsms.6.a
 		prestige = -50
+	}
+}
+
+# Riots breaks out in Constantinople against an Isaurian emperor
+narrative_event = {
+	id = historical_wtwsms.7
+	title = historical_wtwsms.7.name
+	desc = historical_wtwsms.7.desc
+	picture = GFX_evt_riots_byzantine
+	
+	is_triggered_only = yes # On_actions event
+	
+	weight_multiplier = {
+		days = 1
+		#7 virtues
+		modifier = {
+			factor = 0.5
+			trait = chaste
+		}
+		modifier = {
+			factor = 0.5
+			trait = temperate
+		}
+		modifier = {
+			factor = 0.5
+			trait = charitable
+		}
+		modifier = {
+			factor = 0.5
+			trait = diligent
+		}
+		modifier = {
+			factor = 0.5
+			trait = patient
+		}
+		modifier = {
+			factor = 0.5
+			trait = kind
+		}
+		modifier = {
+			factor = 0.5
+			trait = humble
+		}
+		#7 sins
+		modifier = {
+			factor = 2
+			trait = lustful
+		}
+		modifier = {
+			factor = 2
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 2
+			trait = greedy
+		}
+		modifier = {
+			factor = 2
+			trait = slothful
+		}
+		modifier = {
+			factor = 2
+			trait = wroth
+		}
+		modifier = {
+			factor = 2
+			trait = envious
+		}
+		modifier = {
+			factor = 2
+			trait = proud
+		}
+		#other
+		# don't hesitate to add more here!
+		modifier = {
+			factor = 3
+			trait = excommunicated
+		}
+		modifier = {
+			factor = 2
+			is_any_kinslayer_trigger = yes
+		}
+		modifier = {
+			factor = 0.5
+			trait = born_in_the_purple
+		}
+		modifier = {
+			factor = 0.5
+			trait = socializer
+		}
+	}
+	
+	only_playable = yes
+	culture = isaurian
+	
+	trigger = {
+		has_landed_title = e_byzantium
+		capital_scope = {
+			province = 496 # Constantinople
+		}
+		496 = {
+			NOT = { culture = isaurian }
+		}
+		NOT = { 496 = { has_province_modifier = antiisaurian_revolt_timer } }
+	}
+	
+	immediate = {
+		if = { # use exiting claimants if available
+			limit = {
+				any_realm_character = {
+					has_claim = e_byzantium
+				}
+			}
+			random_realm_character = {
+				limit = { has_claim = e_byzantium }
+				save_event_target_as = target_antiisaurian_usurper
+				set_character_flag = antiisaurian_usurper
+			}
+		}
+		496 = {
+			add_province_modifier = {
+				name = antiisaurian_revolt_timer
+				duration = 3650
+				hidden = yes
+			}
+		}
+	}
+	
+	option = { #stay in capital and fight
+		name = historical_wtwsms.7.a
+		
+		496 = {
+			if = {
+				limit = { NOT = { ROOT = { any_realm_character = { has_character_flag = antiisaurian_usurper } } } }
+				create_character = {
+					random_traits = yes
+					religion = THIS
+					culture = THIS
+					employer = e_rebels
+					age = 35
+					female = no
+					attributes = {
+						diplomacy = 10
+						martial = 10
+						stewardship = 5
+						intrigue = 6
+						learning = 7
+					}
+				}
+				new_character = {
+					save_event_target_as = target_antiisaurian_usurper
+					add_claim = e_byzantium
+					prestige = 100
+					piety = 50
+				}
+			}
+			
+			event_target:target_antiisaurian_usurper = {
+				set_defacto_liege = THIS
+				create_title = {
+					tier = EMPEROR
+					culture = roman
+					rebel = yes
+					landless = yes
+					temporary = yes
+					#short_name = yes
+					name = ANTI_ISAURIAN_REVOLT
+					ruler = EMPEROR
+					ruler_female = EMPRESS
+					holder = THIS
+				}
+				spawn_unit = {
+					owner = THIS
+					leader = THIS
+					province = 	PREV
+					home = PREV
+					troops = {
+						archers = { 500 500 }
+						light_infantry = { 750 750 }
+						heavy_infantry = { 500 500 }
+						light_cavalry = { 750 750 }
+						knights = { 250 250 }
+					}
+					attrition = 1.0
+				}
+				spawn_unit = {
+					owner = THIS
+					province = PREV
+					home = PREV
+					troops = {
+						archers = { 500 500 }
+						light_infantry = { 750 750 }
+						heavy_infantry = { 500 500 }
+						light_cavalry = { 750 750 }
+						knights = { 250 250 }
+					}
+					attrition = 1.0
+				}
+				spawn_unit = {
+					owner = THIS
+					province = PREV
+					home = PREV
+					troops = {
+						archers = { 500 500 }
+						light_infantry = { 750 750 }
+						heavy_infantry = { 500 500 }
+						light_cavalry = { 750 750 }
+						knights = { 250 250 }
+					}
+					attrition = 1.0
+				}
+				
+				if = {
+					limit = {
+						ROOT = { any_realm_title = { title = e_byzantium } }
+					}
+					e_byzantium = {
+						ROOT = {
+							reverse_war = {
+								target = PREVPREV
+								casus_belli = claim
+								thirdparty_title = PREV
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { #abandon the capital and fight
+		name = historical_wtwsms.7.b
+		if = {
+			limit = {
+				any_demesne_province = {
+					duchy = { NOT = { title = d_europa } }
+				}
+			}
+			random_demesne_province = {
+				limit = {
+					duchy = { NOT = { title = d_europa } }
+				}
+				ROOT = { capital = PREV }
+			}
+		}
+		else_if = {
+			limit = {
+				any_demesne_province = {
+					NOT = { province_id = 496 } #has provinces other than Constantinople
+				}
+			}
+			random_demesne_province = {
+				limit = {
+					NOT = { province_id = 496 }
+				}
+				ROOT = { capital = PREV }
+			}
+		}
+		496 = {
+			if = {
+				limit = { NOT = { ROOT = { any_realm_character = { has_character_flag = antiisaurian_usurper } } } }
+				create_character = {
+					random_traits = yes
+					religion = THIS
+					culture = THIS
+					employer = e_rebels
+					age = 35
+					female = no
+					attributes = {
+						diplomacy = 10
+						martial = 10
+						stewardship = 5
+						intrigue = 6
+						learning = 7
+					}
+				}
+				new_character = {
+					save_event_target_as = target_antiisaurian_usurper
+					add_claim = e_byzantium
+					prestige = 100
+					piety = 50
+				}
+			}
+			
+			event_target:target_antiisaurian_usurper = {
+				set_defacto_liege = THIS
+				create_title = {
+					tier = EMPEROR
+					culture = roman
+					rebel = yes
+					landless = yes
+					temporary = yes
+					#short_name = yes
+					name = ANTI_ISAURIAN_REVOLT
+					ruler = EMPEROR
+					ruler_female = EMPRESS
+					holder = THIS
+				}
+				spawn_unit = {
+					owner = THIS
+					leader = THIS
+					province = 	PREV
+					home = PREV
+					troops = {
+						archers = { 500 500 }
+						light_infantry = { 750 750 }
+						heavy_infantry = { 500 500 }
+						light_cavalry = { 750 750 }
+						knights = { 250 250 }
+					}
+					attrition = 1.0
+				}
+				spawn_unit = {
+					owner = THIS
+					province = PREV
+					home = PREV
+					troops = {
+						archers = { 500 500 }
+						light_infantry = { 750 750 }
+						heavy_infantry = { 500 500 }
+						light_cavalry = { 750 750 }
+						knights = { 250 250 }
+					}
+					attrition = 1.0
+				}
+				spawn_unit = {
+					owner = THIS
+					province = PREV
+					home = PREV
+					troops = {
+						archers = { 500 500 }
+						light_infantry = { 750 750 }
+						heavy_infantry = { 500 500 }
+						light_cavalry = { 750 750 }
+						knights = { 250 250 }
+					}
+					attrition = 1.0
+				}
+				
+				if = {
+					limit = {
+						ROOT = { any_realm_title = { title = e_byzantium } }
+					}
+					e_byzantium = {
+						ROOT = {
+							reverse_war = {
+								target = PREVPREV
+								casus_belli = claim
+								thirdparty_title = PREV
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { #surrender
+		name = historical_wtwsms.7.c
+		
+		custom_tooltip = { text = historical_wtwsms.7.c.tooltip } #TODO: (after HF compatch) check if the title name in the tooltip displays properly!
+		496 = {
+			create_character = {
+				random_traits = yes
+				religion = THIS
+				culture = THIS
+				age = 35
+				female = no
+				attributes = {
+					diplomacy = 10
+					martial = 10
+					stewardship = 5
+					intrigue = 6
+					learning = 7
+				}
+			}
+			new_character = {
+				e_byzantium = {
+					usurp_title_plus_barony_if_unlanded = { target = PREV type = claim }
+				}
+				ROOT = {
+					any_demesne_title = {
+						limit = {
+							de_jure_liege_or_above = e_byzantium
+						}
+						usurp_title = { target = PREVPREV type = claim }
+					}
+					imprison = PREV
+				}
+			}
+		}
+	}
+	after = {
+		event_target:target_antiisaurian_usurper = { clr_character_flag = antiisaurian_usurper }
+		clear_event_target = target_antiisaurian_usurper
 	}
 }

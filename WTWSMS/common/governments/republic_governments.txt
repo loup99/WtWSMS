@@ -23,12 +23,16 @@ republic_governments = {
 		frame_suffix = "_merchantrepublic"
 		title_prefix = "city_"
 		potential = {
-			NAND = {
-				controls_religion = yes
-				NOT = { religion_group = muslim }
-				NOT = {	primary_title = { is_landless_type_title = no }	}
+			OR = {
+				controls_religion = no
+				religion_group = muslim
+				has_religion_feature = religion_temporal_head
+				AND = {
+					religion = norse_pagan_reformed
+					has_religion_features = no # Old saves, and campaigns without HF, need the Fylkirate to continue working
+				}
 			}
-			is_female = no
+			#is_female = no
 			OR = {
 				AND = {
 					is_patrician = yes
@@ -117,18 +121,15 @@ republic_governments = {
 			NAND = {
 				controls_religion = yes
 				NOT = { religion_group = muslim }
-				NOT = {	primary_title = { is_landless_type_title = no }	}
-			}
-			
-			NOT = { 
-				is_government_potential = merchant_republic_government
-			}
+				}
 			primary_title = {
 				bureaucratic_government_trigger = no
 			}
 			primary_title = {
 				sassanid_government_trigger = no
-			}			
+			}
+			NOT = { is_government_potential = merchant_republic_government }
+			holy_order = no
 		}
 		
 		color = { 209 125 130 }
