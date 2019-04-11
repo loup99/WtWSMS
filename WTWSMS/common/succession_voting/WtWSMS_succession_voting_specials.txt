@@ -14,15 +14,17 @@ gubernatorial_elective = {
 				holder_scope = { top_liege = { character = ROOT } }
 			}
 		}
-		additive_modifier = { #Emperor is always an Elector.
-			value = 30
+		additive_modifier = { #Current title holder is always an Elector.
+			value = 10
 			FROMFROM = { 
 				holder_scope = { character = ROOT }
 			}
 		}
 		additive_modifier = { #Then the Councilors.
 			value = 10
-			vassal_of = FROMFROM 
+			FROMFROM = { 
+				holder_scope = { top_liege = { ROOT = { vassal_of = PREV } } }
+			}
 			OR = { 
 				has_job_title = job_chancellor
 				has_job_title = job_marshal
@@ -32,11 +34,6 @@ gubernatorial_elective = {
 				has_minor_title = title_councilmember_king #Generic advisors
 				has_minor_title = title_councilmember_emperor
 			}
-		}
-		additive_modifier = { #And finally the generals.
-			value = 10
-			vassal_of = FROMFROM 
-			has_minor_title = title_commander
 		}
 	}
 	elector_vote_strength = { 
