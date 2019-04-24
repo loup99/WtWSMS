@@ -2024,6 +2024,8 @@ character_event = {
 	
 	min_age = 6
 	max_age = 16
+	
+	is_triggered_only = yes # on_yearly_childhood_pulse on-action
 
 	trigger = {
 		OR = {
@@ -2034,10 +2036,6 @@ character_event = {
 			trait = incapable
 			has_character_flag = had_zalmoxism_rite_of_passage
 		}
-	}
-	
-	mean_time_to_happen = {
-		days = 1
 	}
 	
 	option = {
@@ -2683,8 +2681,9 @@ narrative_event = {
 	}
 }
 
-####### Visigothic Churches ########
+####################### Visigothic Events #####################
 
+# Visigothic Churches
 narrative_event = {
 	id = WtWSMS_flavour.50
 	title = WtWSMS_flavour.50.title
@@ -2704,5 +2703,28 @@ narrative_event = {
 				add_province_modifier = { name = visigothic_conversion duration = 365 }
 			}
 		}
+	}
+}
+
+# Visigothic Kings table
+narrative_event = {
+	id = WtWSMS_flavour.51
+	title = WtWSMS_flavour.51.title
+	desc = WtWSMS_flavour.51.desc
+	picture = GFX_evt_viking_throneroom_oldgods
+	
+	only_playable = yes
+	culture = visigothic
+	
+	is_triggered_only = yes # on_decade_pulse on-action
+	
+	trigger = {
+		year = 1400
+		has_landed_title = k_visigoths
+	}
+	
+	option = {
+		name = WtWSMS_flavour.51.a #Ok
+		prestige = 100
 	}
 }
