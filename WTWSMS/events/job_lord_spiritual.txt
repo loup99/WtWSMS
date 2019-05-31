@@ -67,23 +67,7 @@ character_event = {
 	
 	mean_time_to_happen = {
 		months = 1920
-		modifier = {
-			factor = 0.75
-			liege = {
-				any_owned_bloodline = {
-					has_bloodline_flag = bloodline_better_inquisition
-					bloodline_is_active_for = PREV
-				}
-			}
-		}
-		modifier = {
-			factor = 0.75
-			#If chaplain is also your relative.
-			any_owned_bloodline = {
-				has_bloodline_flag = bloodline_better_inquisition
-				bloodline_is_active_for = PREV
-			}
-		}
+
 		modifier = {
 			factor = 0.6
 			has_religion_feature = religion_proselytizing
@@ -133,38 +117,9 @@ character_event = {
 			has_job_action = action_inquisition
 			location = { is_hard_to_convert = yes }
 		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 2 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 5 }
-		}
-		modifier = {
-			factor = 0.75
-			learning = 10
-		}
-		modifier = {
-			factor = 0.75
-			learning = 11
-		}
-		modifier = {
-			factor = 0.75
-			learning = 12
-		}
-		modifier = {
-			factor = 0.75
-			learning = 13
-		}
+
+		job_event_mtth_modifier_learning_score = yes
+
 		modifier = {
 			factor = 3.0
 			NOT = { religion_authority = 0.1 }
@@ -208,27 +163,74 @@ character_event = {
 				society_rank >= 4
 			}
 		}
-
+		#Bloodlines
 		modifier = {
-			factor = 0.6
-			NOT = {
+			factor = 0.75
+			liege = {
 				any_owned_bloodline = {
-					has_bloodline_flag = inquisitional_bloodline
+					has_bloodline_flag = bloodline_better_inquisition
 					bloodline_is_active_for = PREV
 				}
 			}
-	    	any_owned_bloodline = {
-    			has_bloodline_flag = inquisitional_saintly_bloodline
-    			founder = {
-    				religion = ROOT
+		}
+		modifier = {
+			factor = 0.75
+			#If chaplain is also your relative.
+			any_owned_bloodline = {
+				has_bloodline_flag = bloodline_better_inquisition
+				bloodline_is_active_for = PREV
+			}
+		}
+		modifier = {
+			factor = 0.6
+			NOT = {
+				liege = {
+					any_owned_bloodline = {
+						has_bloodline_flag = inquisitional_bloodline
+						bloodline_is_active_for = PREV
+					}
+				}
+			}
+			liege = {
+		    	any_owned_bloodline = {
+    				has_bloodline_flag = inquisitional_saintly_bloodline
+    				founder = {
+    					religion = ROOT
+    				}
     			}
     		}
 		}
 		modifier = {
 			factor = 0.4
-			any_owned_bloodline = {
-				has_bloodline_flag = inquisitional_bloodline
-				bloodline_is_active_for = PREV
+			liege = {
+				any_owned_bloodline = {
+					has_bloodline_flag = inquisitional_bloodline
+					bloodline_is_active_for = PREV
+				}
+			}
+		}
+		
+		modifier = {
+			factor = 0.6
+			religion = hindu
+	    	any_owned_bloodline = {
+    			has_bloodline_flag = bloodline_faster_hindu
+    		}
+		}
+
+		# Effect of wonder upgrades
+		modifier = {
+			factor = 0.6
+			liege = {
+				any_realm_wonder_upgrade = {
+					has_wonder_upgrade_flag = religion_conversion_faster
+					is_active = yes
+					wonder = {
+						original_wonder_owner = {
+							religion_group = PREVPREVPREV
+						}
+					}
+				}
 			}
 		}
 		modifier = { # Conversion bonus
@@ -295,6 +297,7 @@ character_event = {
 				value = slower
 			}
 		}
+
 	}
 
 	option = {
@@ -441,38 +444,9 @@ character_event = {
 			factor = 2.75
 			has_religion_feature = religion_cosmopolitan
 		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 2 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 5 }
-		}
-		modifier = {
-			factor = 0.75
-			learning = 10
-		}
-		modifier = {
-			factor = 0.75
-			learning = 11
-		}
-		modifier = {
-			factor = 0.75
-			learning = 12
-		}
-		modifier = {
-			factor = 0.75
-			learning = 13
-		}
+
+		job_event_mtth_modifier_learning_score = yes
+
 		modifier = {
 			factor = 2.0
 			NOT = { religion_authority = 0.4 }
@@ -726,44 +700,14 @@ character_event = {
 			has_religion_feature = religion_cosmopolitan
 		}
 	
-		modifier = {
-			factor = 0.75
-			NOT = { learning = 2 }
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { learning = 5 }
-		}
-		modifier = {
-			factor = 1.25
-			learning = 10
-		}
-		modifier = {
-			factor = 1.25
-			learning = 11
-		}
-		modifier = {
-			factor = 1.25
-			learning = 12
-		}
-		modifier = {
-			factor = 1.25
-			learning = 13
-		}
+		job_event_mtth_modifier_inverted_learning_score = yes
+
 		modifier = {
 			factor = 0.75
 			NOT = { religion_authority = 0.4 }
 		}
 		modifier = {
-			factor = 0.75
+			factor =0.75
 			NOT = { religion_authority = 0.2 }
 		}
 		modifier = {
@@ -964,38 +908,8 @@ character_event = {
 			factor = 1.5
 			has_religion_feature = religion_dogmatic
 		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 2 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 5 }
-		}
-		modifier = {
-			factor = 0.75
-			learning = 10
-		}
-		modifier = {
-			factor = 0.75
-			learning = 11
-		}
-		modifier = {
-			factor = 0.75
-			learning = 12
-		}
-		modifier = {
-			factor = 0.75
-			learning = 13
-		}
+		job_event_mtth_modifier_learning_score = yes
+
 		modifier = {
 			factor = 2.0
 			NOT = { religion_authority = 0.4 }
@@ -1249,41 +1163,11 @@ character_event = {
 	mean_time_to_happen = {
 		months = 240
 	
+		job_event_mtth_modifier_inverted_learning_score = yes
+
 		modifier = {
 			factor = 1.25
 			has_religion_feature = religion_dogmatic
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { learning = 2 }
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { learning = 5 }
-		}
-		modifier = {
-			factor = 1.25
-			learning = 10
-		}
-		modifier = {
-			factor = 1.25
-			learning = 11
-		}
-		modifier = {
-			factor = 1.25
-			learning = 12
-		}
-		modifier = {
-			factor = 1.25
-			learning = 13
 		}
 		modifier = {
 			factor = 0.75
@@ -1292,46 +1176,6 @@ character_event = {
 		modifier = {
 			factor =0.75
 			NOT = { religion_authority = 0.2 }
-		}
-		modifier = {
-			factor = 1.10
-			learning = 16
-		}
-		modifier = {
-			factor = 1.02
-			learning = 17
-		}
-		modifier = {
-			factor = 1.02
-			learning = 18
-		}
-		modifier = {
-			factor = 1.05
-			learning = 19
-		}
-		modifier = {
-			factor = 1.05
-			learning = 20
-		}
-		modifier = {
-			factor = 1.05
-			learning = 21
-		}
-		modifier = {
-			factor = 1.05
-			learning = 22
-		}
-		modifier = {
-			factor = 1.05
-			learning = 23
-		}
-		modifier = {
-			factor = 1.03
-			learning = 24
-		}
-		modifier = {
-			factor = 1.01
-			learning = 25
 		}
 		modifier = {
 			factor = 1.1
@@ -1534,42 +1378,12 @@ character_event = {
 	
 	mean_time_to_happen = {
 		months = 120
+
+		job_event_mtth_modifier_learning_score = yes
 	
 		modifier = {
 			factor = 1.5
 			has_religion_feature = religion_proselytizing
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 2 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 5 }
-		}
-		modifier = {
-			factor = 0.75
-			learning = 10
-		}
-		modifier = {
-			factor = 0.75
-			learning = 11
-		}
-		modifier = {
-			factor = 0.75
-			learning = 12
-		}
-		modifier = {
-			factor = 0.75
-			learning = 13
 		}
 		modifier = {
 			factor = 2.0
@@ -1699,41 +1513,11 @@ character_event = {
 	mean_time_to_happen = {
 		months = 120
 	
+		job_event_mtth_modifier_learning_score = yes
+
 		modifier = {
 			factor = 1.5
 			has_religion_feature = religion_proselytizing
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 2 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 5 }
-		}
-		modifier = {
-			factor = 0.75
-			learning = 10
-		}
-		modifier = {
-			factor = 0.75
-			learning = 11
-		}
-		modifier = {
-			factor = 0.75
-			learning = 12
-		}
-		modifier = {
-			factor = 0.75
-			learning = 13
 		}
 		modifier = {
 			factor = 2.0
@@ -1928,38 +1712,8 @@ character_event = {
 	mean_time_to_happen = { 
 		months = 240
 		
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 2 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 5 }
-		}
-		modifier = {
-			factor = 0.75
-			learning = 10
-		}
-		modifier = {
-			factor = 0.75
-			learning = 11
-		}
-		modifier = {
-			factor = 0.75
-			learning = 12
-		}
-		modifier = {
-			factor = 0.75
-			learning = 13
-		}
+		job_event_mtth_modifier_learning_score = yes
+
 		modifier = {
 			factor = 2.0
 			NOT = { religion_authority = 0.4 }
@@ -2075,39 +1829,7 @@ character_event = {
 	
 	mean_time_to_happen = {
 		months = 240
-		
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 2 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 5 }
-		}
-		modifier = {
-			factor = 0.75
-			learning = 10
-		}
-		modifier = {
-			factor = 0.75
-			learning = 11
-		}
-		modifier = {
-			factor = 0.75
-			learning = 12
-		}
-		modifier = {
-			factor = 0.75
-			learning = 13
-		}
+		job_event_mtth_modifier_learning_score = yes
 	}
 	
 	option = {
@@ -2218,38 +1940,9 @@ character_event = {
 			factor = 0.75
 			has_religion_feature = religion_cosmopolitan
 		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 2 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 5 }
-		}
-		modifier = {
-			factor = 0.75
-			learning = 10
-		}
-		modifier = {
-			factor = 0.75
-			learning = 11
-		}
-		modifier = {
-			factor = 0.75
-			learning = 12
-		}
-		modifier = {
-			factor = 0.75
-			learning = 13
-		}
+
+		job_event_mtth_modifier_learning_score = yes
+
 		modifier = {
 			factor = 0.5
 			liege = {
@@ -2355,44 +2048,8 @@ character_event = {
 			factor = 2
 			has_religion_feature = religion_dogmatic
 		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 2 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 5 }
-		}
-		modifier = {
-			factor = 0.75
-			learning = 10
-		}
-		modifier = {
-			factor = 0.75
-			learning = 11
-		}
-		modifier = {
-			factor = 0.75
-			learning = 12
-		}
-		modifier = {
-			factor = 0.75
-			learning = 13
-		}
-		
-		# NOTE: no PB employer opinion factors for heretic MTTH, only for AI chance to become one once the event's already triggered.
-		modifier = {
-			factor = 1.5
-				bastion_of_faith_religion_trigger = yes
-		}
+
+		job_event_mtth_modifier_learning_score = yes
 	}
 	
 	option = {
@@ -2524,38 +2181,8 @@ character_event = {
 	mean_time_to_happen = { 
 		months = 220
 		
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 2 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 5 }
-		}
-		modifier = {
-			factor = 0.75
-			learning = 10
-		}
-		modifier = {
-			factor = 0.75
-			learning = 11
-		}
-		modifier = {
-			factor = 0.75
-			learning = 12
-		}
-		modifier = {
-			factor = 0.75
-			learning = 13
-		}
+		job_event_mtth_modifier_learning_score = yes
+
 		modifier = {
 			factor = 2.0
 			NOT = { religion_authority = 0.4 }
@@ -2659,38 +2286,8 @@ character_event = {
 	mean_time_to_happen = {
 		months = 120
 	
-		modifier = {
-			factor = 0.75
-			NOT = { learning = 2 }
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { learning = 5 }
-		}
-		modifier = {
-			factor = 1.25
-			learning = 10
-		}
-		modifier = {
-			factor = 1.25
-			learning = 11
-		}
-		modifier = {
-			factor = 1.25
-			learning = 12
-		}
-		modifier = {
-			factor = 1.25
-			learning = 13
-		}
+		job_event_mtth_modifier_inverted_learning_score = yes
+
 		modifier = {
 			factor = 0.75
 			NOT = { religion_authority = 0.4 }
@@ -2906,39 +2503,8 @@ character_event = {
 	
 	mean_time_to_happen = {
 		months = 180
-		
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 2 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 5 }
-		}
-		modifier = {
-			factor = 0.75
-			learning = 10
-		}
-		modifier = {
-			factor = 0.75
-			learning = 11
-		}
-		modifier = {
-			factor = 0.75
-			learning = 12
-		}
-		modifier = {
-			factor = 0.75
-			learning = 13
-		}
+
+		job_event_mtth_modifier_learning_score = yes
 	}
 	
 	option = {
@@ -3042,42 +2608,8 @@ character_event = {
 			}
 		}
 		
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 2 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 5 }
-		}
-		modifier = {
-			factor = 0.75
-			learning = 9
-		}
-		modifier = {
-			factor = 0.75
-			learning = 10
-		}
-		modifier = {
-			factor = 0.75
-			learning = 11
-		}
-		modifier = {
-			factor = 0.75
-			learning = 12
-		}
-		modifier = {
-			factor = 0.75
-			learning = 13
-		}
+		job_event_mtth_modifier_learning_score = yes
+
 	}
 	
 	option = {
