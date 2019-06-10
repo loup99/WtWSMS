@@ -8,7 +8,7 @@ Bookmarks will feature the 476-700 period, with possible extensions.
 Some added bookmarks are Shattered Empire (480), The Gothic Wars (535) and Frankish steel (486). 
 Flavour, historical setup and accurate gameplay mechanics for the period are of course also featured.
 
-For more info, check the [WtWSMS wiki page](https://ck2.paradoxwikis.com/When_The_World_Stopped_Making_Sense).
+For more info, check the [WtWSMS wiki page](http://www.ckiiwiki.com/When_The_World_Stopped_Making_Sense).
 
 
 ### Players & Followers
