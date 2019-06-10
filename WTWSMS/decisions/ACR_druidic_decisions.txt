@@ -169,12 +169,23 @@ decisions = {
 			prisoner = no
 			age = 16
 			NOT = { has_global_flag = gwydion_founded }
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
 		}
 		allow = {
-			#OR = { # detect alternate starts and only require an empire in that case
+			trigger_if = {
+				limit = {
+					is_random_world = yes
+				}
+				tier = emperor
+			}
+			trigger_if = {
+				limit = {
+					is_random_world = no
+				}
 				has_landed_title = e_britannia
-				
-			#}
+			}
 			prestige = 300
 			wealth = 300
 			d_celtic_pagan_reformed = {
@@ -312,7 +323,7 @@ decisions = {
 				}
 				culture = irish
 			}
-			tier > count
+			higher_tier_than = count
 			OR = {
 				religion = celtic_pagan
 				religion = celtic_pagan_reformed
@@ -320,6 +331,9 @@ decisions = {
 			prisoner = no
 			age = 16
 			NOT = { has_global_flag = fianna_founded }
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
 		}
 		allow = {
 			OR = {
@@ -397,7 +411,9 @@ decisions = {
 			}
 			
 			d_fianna = {
-				independent = yes
+				holder_scope = {
+					independent = yes
+				}
 			}
 		}
 		
