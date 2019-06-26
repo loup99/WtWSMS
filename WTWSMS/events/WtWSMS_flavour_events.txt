@@ -11,6 +11,7 @@
 # WtWSMS_flavour.36 -> WtWSMS_flavour.39 Dravidian Events
 # WtWSMS_flavour.40 Gallic Events
 # WtWSMS_flavour.41 -> WtWSMS_flavour.49 Continental Celtic Events
+# WtWSMS_flavour.50 -> WtWSMS_flavour.51 Visigothic Events
 ###############################
 
 namespace = WtWSMS_flavour
@@ -2726,5 +2727,66 @@ narrative_event = {
 	option = {
 		name = WtWSMS_flavour.51.a #Ok
 		prestige = 100
+	}
+}
+
+####################### Romance Events #####################
+
+### Chariot racing
+
+# Chariot race
+character_event = {
+	id = WtWSMS_flavour.52
+	title = WtWSMS_flavour.52.name
+	desc = WtWSMS_flavour.52.desc
+	picture = GFX_evt_hippodrome_byzantine
+
+	is_triggered_only = yes
+	
+	immediate = {
+		character_event = { id = WtWSMS_flavour.53 days = 4 }
+	}
+
+	option = { # Support Blue Team
+		name = EVTOPTALoR.500
+		wealth = -25
+		random_list = {
+			50 = {
+				character_event = { id = LoR.501 days = 8 tooltip = EVTTOOLTIPLoR.501 }
+			}
+			50 = {
+				character_event = { id = LoR.502 days = 8 tooltip = EVTTOOLTIPLoR.502 }
+			}
+		}
+	}
+	option = { # Support Green Team
+		name = EVTOPTBLoR.500
+		wealth = -25
+		random_list = {
+			50 = {
+				character_event = { id = LoR.503 days = 8 tooltip = EVTTOOLTIPLoR.503 }
+			}
+			50 = {
+				character_event = { id = LoR.504 days = 8 tooltip = EVTTOOLTIPLoR.504 }
+			}
+		}
+	}
+	option = {
+		name = EVTOPTCLoR.500
+		custom_tooltip = { text = hippodrome_nobet }
+	}
+}
+
+# Chariot race begins
+character_event = {
+	id = WtWSMS_flavour.53
+	title = WtWSMS_flavour.53.name
+	desc = WtWSMS_flavour.53.desc
+	picture = GFX_evt_hippodrome_byzantine
+
+	is_triggered_only = yes
+	
+	option = {
+		name = WtWSMS_flavour.53.a
 	}
 }
