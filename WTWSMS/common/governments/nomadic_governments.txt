@@ -27,11 +27,14 @@ nomadic_governments = {
 		frame_suffix = "_nomadic"
 		title_prefix = "nomadic_"
 		potential = {
-			NAND = {
-				controls_religion = yes
-				NOT = { religion_group = muslim }
-				NOT = { religion = aten_pagan }
-				NOT = {	primary_title = { is_landless_type_title = no }	}
+			OR = {
+				controls_religion = no
+				religion_group = muslim
+				has_religion_feature = religion_temporal_head
+				AND = {
+					religion = norse_pagan_reformed
+					has_religion_features = no # Old saves, and campaigns without HF, need the Fylkirate to continue working
+				}
 			}
 			is_patrician = no
 			mercenary = no
@@ -57,6 +60,7 @@ nomadic_governments = {
 		can_build_hospitals = no
 		can_build_temple = yes
 		can_demand_religious_conversion = no
+		marriage_ignore_religion = yes
 		
 		vassal_limit = -10
 		commander_limit = -4

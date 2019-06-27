@@ -6,6 +6,7 @@ e_rebels = {
 	primary = yes
 
 	culture = swedish
+	religion = pagan
 	tribe = yes
 
 	color={ 0 0 0 }
@@ -18,6 +19,7 @@ e_pirates = {
 	primary = yes
 
 	culture = swedish
+	religion = pagan
 	tribe = yes
 
 	color={ 0 0 0 }
@@ -25,6 +27,85 @@ e_pirates = {
 }
 
 # SPECIAL TITLES
+
+e_outremer = {
+	color={ 180 180 180 }
+	color2={ 255 255 255 }
+
+	capital = 774
+
+	allow = {
+		conditional_tooltip = {
+			trigger = {
+				NOR = {
+					religion = catholic
+					religion = fraticelli
+				}
+			}
+			OR = {
+				religion = catholic
+				religion = fraticelli
+			}
+		}
+		conditional_tooltip = {
+			trigger = {
+				e_outremer = {
+					is_titular = yes
+				}
+			}
+			e_outremer = {
+				is_titular = no
+			}
+		}
+	}
+}
+
+e_nicaea = {
+	color={ 240 17 17 }
+	color2={ 255 255 20 }
+
+	capital = 750 # Nikaea
+
+	culture = greek
+
+	short_name = yes
+
+	has_top_de_jure_capital = yes
+
+	allow = {
+		conditional_tooltip = {
+			trigger = {
+				e_nicaea = {
+					is_titular = yes
+				}
+			}
+			e_nicaea = {
+				is_titular = no
+			}
+		}
+	}
+}
+
+e_lechczechrus = {
+	color={ 0 90 30 }
+	color2={ 255 255 255 }
+	short_name = yes
+
+	capital = 547	#Kiev
+
+	allow = {
+		conditional_tooltip = {
+			trigger = {
+				e_lechczechrus = {
+					is_titular = yes
+				}
+			}
+			e_lechczechrus = {
+				is_titular = no
+			}
+		}
+	}
+}
 
 k_papal_state = {
 	color={ 255 249 198 }
@@ -47,8 +128,12 @@ k_papal_state = {
 	
 	# Cannot be held as a secondary title
 	primary = yes
+
+	assimilate = no
 	
 	dynasty_title_names = no 	# Will not be named "Seljuk", etc.
+
+	dignity = 200
 	
 	# Regnal names
 	male_names = {
@@ -61,6 +146,36 @@ k_papal_state = {
 		Conon Sisinnius Constantine Zachary Valentine Formosus Romanus Lando
 	}
 }
+
+
+d_papal_guards = {
+	color={ 255 240 240 }
+	color2 = { 220 220 0}
+
+	capital = 333 # Rome
+
+	title = "CAPTAIN"
+	foa = "CAPTAIN_FOA"
+
+	allow = {
+		has_landed_title = k_papal_state
+	}
+
+	# Always exists
+	landless = yes
+
+	mercenary = yes
+
+	mercenary_type = papal_guard_composition
+
+	strength_growth_per_century = 1.00
+
+	religion = catholic
+
+	# Cannot be held as a secondary title
+	primary = yes
+}
+
 k_orthodox = {
 #	color={ 150 90 30 }
 	color={ 183 60 155 }
@@ -161,12 +276,65 @@ d_orthodox = {
 	}
 }
 
+k_antioch = {
+	color={ 228 53 53 }
+	color2={ 216 216 84 }
+
+	capital = 764 # Antioch
+
+	title = "principality_title"
+	title_female = "principality_title_female"
+	foa = "principality_foa"
+	title_prefix = "principality_prefix"
+
+	allow = {
+		conditional_tooltip = {
+			trigger = {
+				k_antioch = {
+					is_titular = yes
+				}
+			}
+			k_antioch = {
+				is_titular = no
+			}
+		}
+		hidden_tooltip = {
+			OR = {
+				ai = no
+				religion = catholic
+			}
+		}
+	}
+}
+
+k_switzerland = {
+	color={ 255 80 80 }
+	color2={ 200 50 50 }
+
+	capital = 244 #Bern
+
+	short_name = yes
+
+	allow = {
+		conditional_tooltip = {
+			trigger = {
+				k_switzerland = {
+					is_titular = yes
+				}
+			}
+			k_switzerland = {
+				is_titular = no
+			}
+		}
+	}
+}
+
 e_sunni = {
 	# OBSOLETE
 	color={ 40 160 40 }
 	color2={ 220 220 0 }
 	
-#	capital = 719 # Mecca
+	#capital = 719 # Mecca
 	
 	title = "CALIPH"
 	title_female = "CALIPHA"
@@ -185,7 +353,7 @@ e_shiite = {
 	color={ 60 190 60 }
 	color2={ 220 220 0 }
 	
-#	capital = 719 # Mecca
+	#capital = 719 # Mecca
 	
 	title = "CALIPH"
 	title_female = "CALIPHA"
@@ -220,35 +388,126 @@ d_sunni = {
 	controls_religion = sunni
 	
 	allow = {
-		custom_tooltip = {
-			text = sunni_creation_independent
-			hidden_tooltip = {
-				in_revolt = no
-				OR = {
-					independent = yes
-					NOT = {
-						any_liege = {
-							OR = {
-								in_revolt = yes
-								NOT = { religion = sunni }
+		conditional_tooltip = {
+			trigger = {
+				NOT = {
+					has_alternate_start_parameter = { key = religion_names value = random }
+				}
+			}
+			custom_tooltip = {
+				text = sunni_creation_independent
+				hidden_tooltip = {
+					in_revolt = no
+					OR = {
+						independent = yes
+						NOT = {
+							any_liege = {
+								OR = {
+									in_revolt = yes
+									NOT = { religion = sunni }
+								}
+							}
+						}
+					}
+				}
+			}
+		
+			OR = {
+				trait = mirza
+				trait = sayyid
+				piety = 1000
+			}
+			OR = {
+				AND = {
+					trait = sayyid
+					piety = 1000
+				}
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							has_global_flag = destroyed_caliphates
+						}
+					}
+
+					custom_tooltip = { 
+						text = controls_mecca_medina
+						hidden_tooltip = {
+							719 = { # Mecca
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+							718 = { # Medina
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+						}
+					}
+				}
+				custom_tooltip = {
+					text = controls_jerusalem_damascus_baghdad
+					hidden_tooltip = {
+						774 = { # Jerusalem
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
+							}
+						}
+						728 = { # Damascus
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
+							}
+						}
+						693 = { # Baghdad
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
 							}
 						}
 					}
 				}
 			}
 		}
-	
-		OR = {
-			trait = mirza
-			trait = sayyid
-			piety = 1000
-		}
-		OR = {
-			AND = {
+		conditional_tooltip = {
+			trigger = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+			religion = sunni
+			OR = {
+				trait = mirza
 				trait = sayyid
 				piety = 1000
 			}
-			custom_tooltip = { 
+			custom_tooltip = {
+				text = THREE_HOLY_SITES_TT
+				hidden_tooltip = {
+					any_realm_title = {
+						count = 3
+						is_holy_site = ROOT
+					}
+				}
+			}
+		}
+		conditional_tooltip = {
+			trigger = {
+				has_global_flag = destroyed_caliphates
+			}
+
+			custom_tooltip = {
 				text = controls_mecca_medina
 				hidden_tooltip = {
 					719 = { # Mecca
@@ -260,35 +519,6 @@ d_sunni = {
 						}
 					}
 					718 = { # Medina
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-				}
-			}
-			custom_tooltip = {
-				text = controls_jerusalem_damascus_baghdad
-				hidden_tooltip = {
-					774 = { # Jerusalem
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-					728 = { # Damascus
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-					693 = { # Baghdad
 						owner = {
 							OR = {
 								is_liege_or_above = ROOT
@@ -334,17 +564,126 @@ d_islamic = {
 	controls_religion = islamic
 	
 	allow = {
-		OR = {
-			trait = mirza
-			trait = sayyid
-			piety = 1000
-		}
-		OR = {
-			AND = {
+		conditional_tooltip = {
+			trigger = {
+				NOT = {
+					has_alternate_start_parameter = { key = religion_names value = random }
+				}
+			}
+			custom_tooltip = {
+				text = islamic_creation_independent
+				hidden_tooltip = {
+					in_revolt = no
+					OR = {
+						independent = yes
+						NOT = {
+							any_liege = {
+								OR = {
+									in_revolt = yes
+									NOT = { religion = islamic }
+								}
+							}
+						}
+					}
+				}
+			}
+		
+			OR = {
+				trait = mirza
 				trait = sayyid
 				piety = 1000
 			}
-			custom_tooltip = { 
+			OR = {
+				AND = {
+					trait = sayyid
+					piety = 1000
+				}
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							has_global_flag = destroyed_caliphates
+						}
+					}
+
+					custom_tooltip = { 
+						text = controls_mecca_medina
+						hidden_tooltip = {
+							719 = { # Mecca
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+							718 = { # Medina
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+						}
+					}
+				}
+				custom_tooltip = {
+					text = controls_jerusalem_damascus_baghdad
+					hidden_tooltip = {
+						774 = { # Jerusalem
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
+							}
+						}
+						728 = { # Damascus
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
+							}
+						}
+						693 = { # Baghdad
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		conditional_tooltip = {
+			trigger = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+			religion = islamic
+			OR = {
+				trait = mirza
+				trait = sayyid
+				piety = 1000
+			}
+			custom_tooltip = {
+				text = THREE_HOLY_SITES_TT
+				hidden_tooltip = {
+					any_realm_title = {
+						count = 3
+						is_holy_site = ROOT
+					}
+				}
+			}
+		}
+		conditional_tooltip = {
+			trigger = {
+				has_global_flag = destroyed_caliphates
+			}
+
+			custom_tooltip = {
 				text = controls_mecca_medina
 				hidden_tooltip = {
 					719 = { # Mecca
@@ -365,41 +704,10 @@ d_islamic = {
 					}
 				}
 			}
-			custom_tooltip = {
-				text = controls_jerusalem_damascus_baghdad
-				hidden_tooltip = {
-					774 = { # Jerusalem
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-					728 = { # Damascus
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-					693 = { # Baghdad
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-				}
-			}
 		}
 	}
 	
 	caliphate = yes
-
-
 	
 	coat_of_arms=
 	{
@@ -432,41 +740,133 @@ d_shiite = {
 	controls_religion = shiite
 	
 	allow = {
-		custom_tooltip = {
-			text = shia_creation_independent
-			hidden_tooltip = {
-				in_revolt = no
-				OR = {
-					independent = yes
-					NOT = {
-						any_liege = {
-							OR = {
-								in_revolt = yes
-								NOT = { religion = shiite }
+		conditional_tooltip = {
+			trigger = {
+				NOT = {
+					has_alternate_start_parameter = { key = religion_names value = random }
+				}
+			}
+			custom_tooltip = {
+				text = shia_creation_independent
+				hidden_tooltip = {
+					in_revolt = no
+					OR = {
+						independent = yes
+						NOT = {
+							any_liege = {
+								OR = {
+									in_revolt = yes
+									NOT = { religion = shiite }
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			OR = {
+				trait = mirza
+				trait = sayyid
+				piety = 1000
+			}
+
+			custom_tooltip = {
+				text = not_shia_caliphate_revolt_ongoing
+				hidden_tooltip = {
+					NOT = { has_global_flag = shia_caliphate_revolt_ongoing }
+				}
+			}
+			
+			OR = {
+				AND = {
+					trait = sayyid
+					piety = 1000
+				}
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							has_global_flag = destroyed_caliphates
+						}
+					}
+
+					custom_tooltip = {
+						text = controls_mecca_medina
+						hidden_tooltip = {
+							719 = { # Mecca
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+							718 = { # Medina
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+						}
+					}
+				}
+				custom_tooltip = {
+					text = controls_jerusalem_damascus_baghdad
+					hidden_tooltip = {
+						774 = { # Jerusalem
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
+							}
+						}
+						728 = { # Damascus
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
+							}
+						}
+						693 = { # Baghdad
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
 							}
 						}
 					}
 				}
 			}
 		}
-		
-		OR = {
-			trait = mirza
-			trait = sayyid
-			piety = 1000
-		}
-		custom_tooltip = {
-			text = not_shia_caliphate_revolt_ongoing
-			hidden_tooltip = {
-				NOT = { has_global_flag = shia_caliphate_revolt_ongoing }
+		conditional_tooltip = {
+			trigger = {
+				has_alternate_start_parameter = { key = religion_names value = random }
 			}
-		}
-		
-		OR = {
-			AND = {
+			religion = shiite
+			OR = {
+				trait = mirza
 				trait = sayyid
 				piety = 1000
 			}
+			custom_tooltip = {
+				text = THREE_HOLY_SITES_TT
+				hidden_tooltip = {
+					any_realm_title = {
+						count = 3
+						is_holy_site = ROOT
+					}
+				}
+			}
+		}
+		conditional_tooltip = {
+			trigger = {
+				has_global_flag = destroyed_caliphates
+			}
+
 			custom_tooltip = {
 				text = controls_mecca_medina
 				hidden_tooltip = {
@@ -479,35 +879,6 @@ d_shiite = {
 						}
 					}
 					718 = { # Medina
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-				}
-			}
-			custom_tooltip = {
-				text = controls_jerusalem_damascus_baghdad
-				hidden_tooltip = {
-					774 = { # Jerusalem
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-					728 = { # Damascus
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-					693 = { # Baghdad
 						owner = {
 							OR = {
 								is_liege_or_above = ROOT
@@ -546,7 +917,7 @@ e_golden_horde = {
 		always = no
 	}
 	
-	# tribe = yes
+	#tribe = yes
 	
 	culture = mongol
 	religion = tengri_pagan
@@ -566,7 +937,7 @@ e_il-khanate = {
 		always = no
 	}
 	
-	# tribe = yes
+	#tribe = yes
 	
 	culture = mongol
 	religion = tengri_pagan
@@ -593,6 +964,20 @@ e_mongol_empire = {
 	religion = tengri_pagan
 }
 
+e_chagatai = {
+	color = { 200 200 200 }
+	color2 = { 0 250 250 }
+	
+	capital = 903 # Samarkand
+	
+	allow = {
+		always = no
+	}
+	
+	culture = mongol
+	religion = tengri_pagan
+}
+
 e_timurids = {
 	color = { 120 20 20 }
 	
@@ -605,9 +990,9 @@ e_timurids = {
 	}
 	
 	# Always exists
-#	landless = yes
+	#landless = yes
 	
-	# tribe = yes
+	#tribe = yes
 	
 	culture = mongol
 	religion = sunni
@@ -2627,8 +3012,8 @@ e_germania = {
 				b_strelitz = {
 					pommeranian = Streltza
 				}
-				b_stargard = {
-				}
+				#b_stargard = {		#Outcommented from here in HF as it should be instead a barony in c_stettin
+				#}
 				b_ahrensberg = {
 				}
 			}
@@ -2767,7 +3152,7 @@ e_germania = {
 				}
 				b_wollin = {
 				} 
-				b_stestargard = {
+				b_stargard = {
 				}
 				b_kammin = {
 				}
@@ -4872,6 +5257,7 @@ e_byzantium = {
 				color2={ 255 255 20 }
 				
 				holy_site = illyran_pagan
+				holy_site = illyran_pagan_reformed
 				
 				b_butrint = {
 					greek = "Bouthroton"
@@ -4902,6 +5288,7 @@ e_byzantium = {
 				bulgarian = "Ohrid"
 				
 				holy_site = illyran_pagan
+				holy_site = illyran_pagan_reformed
 				
 				b_durazzo = {
 					greek = "Dyrrhachion"
@@ -6312,6 +6699,7 @@ e_byzantium = {
 				color2={ 255 255 255 }
 				
 				holy_site = georgian_pagan
+				holy_site = georgian_pagan_reformed
 				holy_site = bosporan_faith
 				
 				macronian = "Tzani"
@@ -6406,7 +6794,9 @@ e_byzantium = {
 
 				azeri = "Abasgi"
 				abaza = "Abasgi"
+				
 				holy_site = georgian_pagan
+				holy_site = georgian_pagan_reformed
 				
 				b_abaatha = {
 				}
@@ -16308,6 +16698,7 @@ e_serindia = {
 				color2={ 255 255 255 }
 				
 				holy_site = bon
+				holy_site = bon_reformed
 				
 				uyghur = "Hotan"				
 				han = "Yutian"
@@ -16517,6 +16908,7 @@ e_serindia = {
 				holy_site = confucianism
 				holy_site = taoist
 				holy_site = bon # Placeholder Tibet
+				holy_site = bon_reformed
 				
 				b_loulan = {
 					tocharian = "Krorän"
@@ -16772,6 +17164,7 @@ e_serindia = {
 				holy_site = confucianism
 				holy_site = taoist
 				holy_site = bon # Placeholder Tibet
+				holy_site = bon_reformed
 				
 				b_afrasiyab = {
 				}
@@ -17018,6 +17411,7 @@ e_tartaria = {
 				holy_site = confucianism
 				holy_site = taoist
 				holy_site = bon # Placeholder Tibet
+				holy_site = bon_reformed
 				holy_site = root_west_pagan
 				holy_site = root_west_pagan_reformed
 				
@@ -20718,6 +21112,7 @@ e_armenia = {
 				
 				holy_site = georgian_orthodox
 				holy_site = georgian_pagan
+				holy_site = georgian_pagan_reformed
 				
 				b_narikala = {
 				}
@@ -20933,7 +21328,9 @@ e_armenia = {
 				
 				turkish = "Kars"
 				persian = Gugark
+				
 				holy_site = georgian_pagan
+				holy_site = georgian_pagan_reformed
 				
 				b_midjnaberd = {
 				}
@@ -21152,6 +21549,7 @@ e_armenia = {
 				color2={ 255 255 255 }
 				
 				holy_site = georgian_pagan
+				holy_site = georgian_pagan_reformed
 				
 				b_baku = {
 				}
@@ -22637,6 +23035,7 @@ e_persia = {
 				color2={ 255 255 255 }
 				
 				holy_site = bon
+				holy_site = bon_reformed
 				holy_site = zoroastrian
 				
 				b_balkh = {
@@ -24166,7 +24565,6 @@ e_gaul = {
 					romano_persian = "Lutetia"
 					romano_frank = "Lutetia"
 					romano_gallic = "Lutetia"
-					romano_gallic = "Lutetia"
 				}
 				b_melun = {
 					roman = "Metlosedum"
@@ -24811,7 +25209,7 @@ e_gaul = {
 				
 				b_chateaudun = {
 					roman = "Dunense Castrum"
-					rromano_british = "Dunense Castrum"
+					romano_british = "Dunense Castrum"
 					illyro_roman = "Dunense Castrum"
 					thraco_roman = "Dunense Castrum"
 					romano_gothic = "Dunense Castrum"
@@ -26290,6 +26688,7 @@ e_gaul = {
 			gallic = "Pictones"
 			frankish = "Lusignan"
 			visigothic = "Thifalia"
+			old_frankish = "Thifalia"
 
 			c_perigord = {
 				color={ 66 22 255 }
@@ -28480,7 +28879,17 @@ e_gaul = {
 				
 				roman = "Sapaudia"
 				burgundian = "Sapaudia"
-				romano_gallic = "Sapaudia"
+				romano_british = "Sapaudia"
+				illyro_roman = "Sapaudia"
+			    thraco_roman = "Sapaudia"
+		        romano_gothic = "Sapaudia"
+			    romano_dacian = "Sapaudia"
+		     	romano_hispanic = "Sapaudia"
+		     	romano_vandalic = "Sapaudia"
+			    romano_aramean = "Sapaudia"
+			    romano_persian = "Sapaudia"
+			    romano_frank = "Sapaudia"
+			    romano_gallic = "Sapaudia"
 				
 				b_savosusa = {
 				}
@@ -28488,10 +28897,30 @@ e_gaul = {
 				}
 				b_ciamberi = {
 					roman = "Lemincum"
+					romano_british = "Lemincum"
+					illyro_roman = "Lemincum"
+					thraco_roman = "Lemincum"
+					romano_gothic = "Lemincum"
+					romano_dacian = "Lemincum"
+					romano_hispanic = "Lemincum"
+					romano_vandalic = "Lemincum"
+					romano_aramean = "Lemincum"
+					romano_persian = "Lemincum"
+					romano_frank = "Lemincum"
 					romano_gallic = "Lemincum"
 				}
 				b_aosta = {
 					roman = "Augusta"
+					romano_british = "Augusta"
+					illyro_roman = "Augusta"
+					thraco_roman = "Augusta"
+					romano_gothic = "Augusta"
+					romano_dacian = "Augusta"
+					romano_hispanic = "Augusta"
+					romano_vandalic = "Augusta"
+					romano_aramean = "Augusta"
+					romano_persian = "Augusta"
+					romano_frank = "Augusta"
 					romano_gallic = "Augusta"
 				}
 				b_pombia = {
@@ -28508,13 +28937,33 @@ e_gaul = {
 				color2={ 255 255 255 }
 				
 				roman = "Acaunum"
-				burgundian = "Acaunum"
+				romano_british = "Acaunum"
+				illyro_roman = "Acaunum"
+				thraco_roman = "Acaunum"
+				romano_gothic = "Acaunum"
+				romano_dacian = "Acaunum"
+				romano_hispanic = "Acaunum"
+				romano_vandalic = "Acaunum"
+				romano_aramean = "Acaunum"
+				romano_persian = "Acaunum"
+				romano_frank = "Acaunum"
 				romano_gallic = "Acaunum"
+				burgundian = "Acaunum"
 				
 				b_brig = {
 				}
 				b_monthey = {
 					roman = "Acaunum"
+					romano_british = "Acaunum"
+					illyro_roman = "Acaunum"
+					thraco_roman = "Acaunum"
+					romano_gothic = "Acaunum"
+					romano_dacian = "Acaunum"
+					romano_hispanic = "Acaunum"
+					romano_vandalic = "Acaunum"
+					romano_aramean = "Acaunum"
+					romano_persian = "Acaunum"
+					romano_frank = "Acaunum"
 					romano_gallic = "Acaunum"
 				}
 				b_aigle = {
@@ -28531,6 +28980,12 @@ e_gaul = {
 					pannonian = Martiniacum
 					dalmatian = Martiniacum
 					noricroman = Martiniacum
+					romano_gothic = Martiniacum
+					romano_dacian = Martiniacum
+					romano_vandalic = Martiniacum
+					romano_aramean = Martiniacum
+					romano_persian = Martiniacum
+					romano_frank = Martiniacum
 				}
 				b_siders = {
 				}
@@ -28546,6 +29001,12 @@ e_gaul = {
 					pannonian = Sedunum
 					dalmatian = Sedunum
 					noricroman = Sedunum
+					romano_gothic = Sedunum
+					romano_dacian = Sedunum
+					romano_vandalic = Sedunum
+					romano_aramean = Sedunum
+					romano_persian = Sedunum
+					romano_frank = Sedunum
 				}
 				b_greyerz = {
 				}
@@ -28558,34 +29019,61 @@ e_gaul = {
 				
 				roman = "Brenodunum"
 				romano_gallic = "Brenodunum"
+				romano_hispanic = "Brenodunum"
+				romano_british = "Brenodunum"
+				african_romance = "Brenodunum"
+				raetoroman = "Brenodunum"
+				thraco_roman = "Brenodunum"
+				illyro_roman = "Brenodunum"
+				pannonian = "Brenodunum"
+				dalmatian = "Brenodunum"
+				noricroman = "Brenodunum"
+				romano_gothic = "Brenodunum"
+				romano_dacian = "Brenodunum"
+				romano_vandalic = "Brenodunum"
+				romano_aramean = "Brenodunum"
+				romano_persian = "Brenodunum"
+				romano_frank = "Brenodunum"
 				burgundian = "Brenodunum"
 				alamannian = "Brenodunum"
 				
 				b_bern = {
 					roman = Brenodunum
-					romano_gallic = Brenodunum
-					romano_hispanic = Brenodunum
-					romano_british = Brenodunum
-					african_romance = Brenodunum
-					raetoroman = Brenodunum
-					thraco_roman = Brenodunum
-					illyro_roman = Brenodunum
-					pannonian = Brenodunum
-					dalmatian = Brenodunum
-					noricroman = Brenodunum
+					romano_gallic = "Brenodunum"
+					romano_hispanic = "Brenodunum"
+					romano_british = "Brenodunum"
+					african_romance = "Brenodunum"
+					raetoroman = "Brenodunum"
+					thraco_roman = "Brenodunum"
+					illyro_roman = "Brenodunum"
+					pannonian = "Brenodunum"
+					dalmatian = "Brenodunum"
+					noricroman = "Brenodunum"
+					romano_gothic = "Brenodunum"
+					romano_dacian = "Brenodunum"
+					romano_vandalic = "Brenodunum"
+					romano_aramean = "Brenodunum"
+					romano_persian = "Brenodunum"
+					romano_frank = "Brenodunum"
 				}
 				b_solothurn = {
 					roman = Salodurum
-					romano_gallic = Salodurum
-					romano_hispanic = Salodurum
-					romano_british = Salodurum
-					african_romance = Salodurum
-					raetoroman = Salodurum
-					thraco_roman = Salodurum
-					illyro_roman = Salodurum
-					pannonian = Salodurum
-					dalmatian = Salodurum
-					noricroman = Salodurum
+					romano_gallic = "Salodurum"
+					romano_hispanic = "Salodurum"
+					romano_british = "Salodurum"
+					african_romance = "Salodurum"
+					raetoroman = "Salodurum"
+					thraco_roman = "Salodurum"
+					illyro_roman = "Salodurum"
+					pannonian = "Salodurum"
+					dalmatian = "Salodurum"
+					noricroman = "Salodurum"
+					romano_gothic = "Salodurum"
+					romano_dacian = "Salodurum"
+					romano_vandalic = "Salodurum"
+					romano_aramean = "Salodurum"
+					romano_persian = "Salodurum"
+					romano_frank = "Salodurum"
 				}
 				b_interlaken = {
 				}
@@ -28612,16 +29100,22 @@ e_gaul = {
 				}
 				b_basel = {
 					roman = Basilica
-					romano_gallic = Basilica
-					romano_hispanic = Basilica
-					romano_british = Basilica
-					african_romance = Basilica
-					raetoroman = Basilica
-					thraco_roman = Basilica
-					illyro_roman = Basilica
-					pannonian = Basilica
-					dalmatian = Basilica
-					noricroman = Basilica
+					romano_gallic = "Basilica"
+					romano_hispanic = "Basilica"
+					romano_british = "Basilica"
+					african_romance = "Basilica"
+					raetoroman = "Basilica"
+					thraco_roman = "Basilica"
+					illyro_roman = "Basilica"
+					pannonian = "Basilica"
+					dalmatian = "Basilica"
+					noricroman = "Basilica"
+					romano_gothic = "Basilica"
+					romano_dacian = "Basilica"
+					romano_vandalic = "Basilica"
+					romano_aramean = "Basilica"
+					romano_persian = "Basilica"
+					romano_frank = "Basilica"
 				}
 				b_habsburg = {
 				}
@@ -31015,6 +31509,7 @@ e_abyssinia = {
 				color2={ 255 255 255 }
 				
 				holy_site = east_african_pagan
+				holy_site = east_african_pagan_reformed
 			
 				b_berbera = {
 				}
@@ -31073,6 +31568,7 @@ e_abyssinia = {
 				holy_site = miaphysite
 				holy_site = monophysite
 				holy_site = east_african_pagan
+				holy_site = east_african_pagan_reformed
 			
 				b_adwa = {
 				}
@@ -31433,6 +31929,7 @@ e_abyssinia = {
 				color2={ 255 255 255 }
 				
 				holy_site = east_african_pagan
+				holy_site = east_african_pagan_reformed
 			
 				b_gojjam = {
 				}
@@ -31726,7 +32223,8 @@ e_abyssinia = {
 				tuareg = "Patigga"
 				beja = "Patigga"
 				ethiopian = "Patigga"
-                holy_site = east_african_pagan				
+                holy_site = east_african_pagan	
+                holy_site = east_african_pagan_reformed					
 			
 				b_dongola = {
 				}
@@ -31858,6 +32356,7 @@ e_abyssinia = {
 				color2={ 255 255 255 }
 				
 				holy_site = east_african_pagan
+				holy_site = east_african_pagan_reformed
 			
 				b_kosti = {
 				}
@@ -36936,6 +37435,10 @@ e_africa = {
 				}
 				b_aynaw = {
 				}
+				b_csi_swarty = {
+				}
+				b_csi_swarty2 = {
+				}
 			}
 			c_refrus = {
 				color={ 125 138 5 }
@@ -36946,6 +37449,14 @@ e_africa = {
 				b_arr = {
 				}
 				b_ssmun = {
+				}
+				b_refrus2 = {
+				}
+				b_refrus3 = {
+				}
+				b_refrus4 = {
+				}
+				b_refrus5 = {
 				}
 			}
 			c_ttmentay = {
@@ -36960,6 +37471,12 @@ e_africa = {
 				}
 				b_tiatt = {
 				}
+				b_ttmentay2 = {
+				}
+				b_ttmentay3 = {
+				}
+				b_ttmentay4 = {
+				}
 			}
 			c_rhid = {
 				color={ 125 138 5 }
@@ -36970,6 +37487,14 @@ e_africa = {
 				b_yder = {
 				}
 				b_iyess = {
+				}
+				b_rhid2 = {
+				}
+				b_rhid3 = {
+				}
+				b_rhid4 = {
+				}
+				b_rhid5 = {
 				}
 			}
 			c_issha = {
@@ -36982,6 +37507,14 @@ e_africa = {
 				}
 				b_rxudat = {
 				}
+				b_issha2 = {
+				}
+				b_issha3 = {
+				}
+				b_issha4 = {
+				}
+				b_issha5 = {
+				}
 			}
 			c_tivremt = {
 				color={ 125 138 5 }
@@ -36992,6 +37525,14 @@ e_africa = {
 				b_uay = {
 				}
 				b_asemmad = {
+				}
+				b_tivremt2 = {
+				}
+				b_tivremt3 = {
+				}
+				b_tivremt4 = {
+				}
+				b_tivremt5 = {
 				}
 			}
 			c_ilcimara = {
@@ -37004,9 +37545,16 @@ e_africa = {
 				}
 				b_tifirasse = {
 				}
+				b_ilcimara2 = {
+				}
+				b_ilcimara3 = {
+				}
+				b_ilcimara4 = {
+				}
+				b_ilcimara5 = {
+				}
 			}
 		}
-		
 		d_tammuat = {
 			color={ 100 50 25 }
 			color2={ 255 255 255 }
@@ -37022,6 +37570,14 @@ e_africa = {
 				b_ruhi = {
 				}
 				b_hasat = {
+				}
+				b_arrimata2 = {
+				}
+				b_arrimata3 = {
+				}
+				b_arrimata4 = {
+				}
+				b_arrimata5 = {
 				}
 			}
 			c_tamuat = {
@@ -37053,6 +37609,14 @@ e_africa = {
 				}
 				b_tirmest = {
 				}
+				b_aziyra2 = {
+				}
+				b_aziyra3 = {
+				}
+				b_aziyra4 = {
+				}
+				b_aziyra5 = {
+				}
 			}
 			c_ymi = {
 				color={ 48 255 6 }
@@ -37063,6 +37627,14 @@ e_africa = {
 				b_asrix = {
 				}
 				b_wwet = {
+				}
+				b_ymi2 = {
+				}
+				b_ymi3 = {
+				}
+				b_ymi4 = {
+				}
+				b_ymi5 = {
 				}
 			}
 			c_taxseft = {
@@ -37075,9 +37647,16 @@ e_africa = {
 				}
 				b_dhes = {
 				}
+				b_taxseft2 = {
+				}
+				b_taxseft3 = {
+				}
+				b_taxseft4 = {
+				}
+				b_taxseft5 = {
+				}
 			} 
 		}
-
 		d_balun = {
 			color={ 150 75 10 }
 			color2={ 255 255 255 }
@@ -37094,6 +37673,14 @@ e_africa = {
 				}
 				b_hastruhi = {
 				}
+				b_bslama2 = {
+				}
+				b_bslama3 = {
+				}
+				b_bslama4 = {
+				}
+				b_bslama5 = {
+				}
 			}
 			c_sewwa = {
 				color={ 48 255 6 }
@@ -37105,6 +37692,14 @@ e_africa = {
 				}
 				b_ssiwer = {
 				}
+				b_sewwa2 = {
+				}
+				b_sewwa3 = {
+				}
+				b_sewwa4 = {
+				}
+				b_sewwa5 = {
+				}
 			}
 			c_alaykoom = {
 				color={ 48 255 6 }
@@ -37115,6 +37710,14 @@ e_africa = {
 				b_sbehcaya = {
 				}
 				b_ssifa = {
+				}
+				b_alaykoom2 = {
+				}
+				b_alaykoom3 = {
+				}
+				b_alaykoom4 = {
+				}
+				b_alaykoom5 = {
 				}
 			}
 		}
@@ -37156,8 +37759,15 @@ e_africa = {
 				}
 				b_amaz'ad = {
 				}
+				b_gewwed2 = {
+				}
+				b_gewwed3 = {
+				}
+				b_gewwed4 = {
+				}
+				b_gewwed5 = {
+				}
 			}
-			
 			c_temeddit = {
 				color={ 125 138 5 }
 				color2={ 255 255 255 }
@@ -37167,6 +37777,14 @@ e_africa = {
 				b_qqas = {
 				}
 				b_amet_t_a = {
+				}
+				b_temeddit2 = {
+				}
+				b_temeddit3 = {
+				}
+				b_temeddit4 = {
+				}
+				b_temeddit5 = {
 				}
 			}
 			c_azeggif = {
@@ -37181,6 +37799,12 @@ e_africa = {
 				}
 				b_ggifi = {
 				}
+				b_azeggif2 = {
+				}
+				b_azeggif3 = {
+				}
+				b_azeggif4 = {
+				}
 			}
 			c_aqey = {
 				color={ 48 255 6 }
@@ -37191,6 +37815,14 @@ e_africa = {
 				b_darr = {
 				}
 				b_abeccus = {
+				}
+				b_aqey2 = {
+				}
+				b_aqey3 = {
+				}
+				b_aqey4 = {
+				}
+				b_aqey5 = {
 				}
 			}
 			c_sidi = {
@@ -37203,6 +37835,14 @@ e_africa = {
 				}
 				b_aggey = {
 				}
+				b_sidi2 = {
+				}
+				b_sidi3 = {
+				}
+				b_sidi4 = {
+				}
+				b_sidi5 = {
+				}
 			}
 			c_mya = {
 				color={ 48 255 6 }
@@ -37214,9 +37854,16 @@ e_africa = {
 				}
 				b_asewwaf = {
 				}
+				b_mya2 = {
+				}
+				b_mya3 = {
+				}
+				b_mya4 = {
+				}
+				b_mya5 = {
+				}
 			}
 		}
-		
 		d_garama = {
 			color={ 162 133 85 }
 			color2={ 255 255 255 }
@@ -37252,6 +37899,14 @@ e_africa = {
 				}
 				b_bda_bda = {
 				}
+				b_rqa2 = {
+				}
+				b_rqa3 = {
+				}
+				b_rqa4 = {
+				}
+				b_rqa5 = {
+				}
 			}
 			c_talla = {
 				color={ 48 255 6 }
@@ -37262,6 +37917,14 @@ e_africa = {
 				b_adukkes = {
 				}
 				b_ndiruh = {
+				}
+				b_talla2 = {
+				}
+				b_talla3 = {
+				}
+				b_talla4 = {
+				}
+				b_talla5 = {
 				}
 			}
 			c_dhante = {
@@ -37274,6 +37937,14 @@ e_africa = {
 				}
 				b_ruhfser = {
 				}
+				b_dhante2 = {
+				}
+				b_dhante3 = {
+				}
+				b_dhante4 = {
+				}
+				b_dhante5 = {
+				}
 			}
 			c_nhasbisse = {
 				color={ 48 255 6 }
@@ -37284,6 +37955,14 @@ e_africa = {
 				b_nkammale = {
 				}
 				b_blayane = {
+				}
+				b_nhasbisse2 = {
+				}
+				b_nhasbisse3 = {
+				}
+				b_nhasbisse4 = {
+				}
+				b_nhasbisse5 = {
 				}
 			}
 			c_aggweh = {
@@ -37933,7 +38612,6 @@ e_africa = {
 				}
 			}		
 		}		
-		
 		d_berdoa = {
 			color={ 70 140 115 }
 			color2={ 255 255 255 }
@@ -39474,6 +40152,7 @@ e_italy = {
 				color2 = { 255 255 255 }
 				
 				holy_site = illyran_pagan
+				holy_site = illyran_pagan_reformed
 				
 				b_venezia = {
 				}
@@ -39976,6 +40655,7 @@ e_italy = {
 				romano_gothic = Senia
 				
 				holy_site = illyran_pagan
+				holy_site = illyran_pagan_reformed
 	
 				b_senj = {
 					greek = "Attienities"
@@ -41634,8 +42314,8 @@ e_italy = {
 				color2={ 255 255 255 }
 				
 				holy_site = illyran_pagan
+				holy_site = illyran_pagan_reformed
 
-				
 				b_melfi = {
 				}
 				b_trani = {
@@ -42046,7 +42726,7 @@ e_italy = {
 		color2={ 255 255 255 }
 		#capital = 235 # Lombardia
 		
-		capital = 248 # Rome
+		capital = 248 # St. Gallen
 		
 		culture = roman
 		
@@ -43010,7 +43690,6 @@ e_north_africa = {
 				libyan = "Metagutan"
 				garamantian = "Metagutan"
 				
-			
 				b_figuig = {
 					roman = "Herpis"
 					greek = "Herpis"
@@ -50351,17 +51030,108 @@ d_ibadi = {
 	controls_religion = ibadi
 	
 	allow = {
-		OR = {
-			trait = mirza
-			trait = sayyid
-			piety = 1000
-		}
-		OR = {
-			AND = {
+		conditional_tooltip = {
+			trigger = {
+				NOT = {
+					has_alternate_start_parameter = { key = religion_names value = random }
+				}
+			}
+			OR = {
+				trait = mirza
 				trait = sayyid
 				piety = 1000
 			}
-			custom_tooltip = { 
+			OR = {
+				AND = {
+					trait = sayyid
+					piety = 1000
+				}
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							has_global_flag = destroyed_caliphates
+						}
+					}
+
+					custom_tooltip = { 
+						text = controls_mecca_medina
+						hidden_tooltip = {
+							719 = { # Mecca
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+							718 = { # Medina
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+						}
+					}
+				}
+				custom_tooltip = {
+					text = controls_jerusalem_damascus_baghdad
+					hidden_tooltip = {
+						774 = { # Jerusalem
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
+							}
+						}
+						728 = { # Damascus
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
+							}
+						}
+						693 = { # Baghdad
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		conditional_tooltip = {
+			trigger = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+			religion = ibadi
+			OR = {
+				trait = mirza
+				trait = sayyid
+				piety = 1000
+			}
+			custom_tooltip = {
+				text = THREE_HOLY_SITES_TT
+				hidden_tooltip = {
+					any_realm_title = {
+						count = 3
+						is_holy_site = ROOT
+					}
+				}
+			}
+		}
+		conditional_tooltip = {
+			trigger = {
+				has_global_flag = destroyed_caliphates
+			}
+
+			custom_tooltip = {
 				text = controls_mecca_medina
 				hidden_tooltip = {
 					719 = { # Mecca
@@ -50373,35 +51143,6 @@ d_ibadi = {
 						}
 					}
 					718 = { # Medina
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-				}
-			}
-			custom_tooltip = {
-				text = controls_jerusalem_damascus_baghdad
-				hidden_tooltip = {
-					774 = { # Jerusalem
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-					728 = { # Damascus
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-					693 = { # Baghdad
 						owner = {
 							OR = {
 								is_liege_or_above = ROOT
@@ -50447,9 +51188,100 @@ d_kharijite = {
 	controls_religion = kharijite
 	
 	allow = {
-		piety = 1000
-		OR = {
-			custom_tooltip = { 
+		conditional_tooltip = {
+			trigger = {
+				NOT = {
+					has_alternate_start_parameter = { key = religion_names value = random }
+				}
+			}
+			piety = 1000
+			conditional_tooltip = {
+				trigger = {
+					NOT = {
+						has_global_flag = destroyed_caliphates
+					}
+				}
+
+				OR = {
+					custom_tooltip = { 
+						text = controls_mecca_medina
+						hidden_tooltip = {
+							719 = { # Mecca
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+							718 = { # Medina
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+						}
+					}
+					custom_tooltip = {
+						text = controls_jerusalem_damascus_baghdad
+						hidden_tooltip = {
+							774 = { # Jerusalem
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+							728 = { # Damascus
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+							693 = { # Baghdad
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		conditional_tooltip = {
+			trigger = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+			religion = kharijite
+			OR = {
+				trait = mirza
+				trait = sayyid
+				piety = 1000
+			}
+			custom_tooltip = {
+				text = THREE_HOLY_SITES_TT
+				hidden_tooltip = {
+					any_realm_title = {
+						count = 3
+						is_holy_site = ROOT
+					}
+				}
+			}
+		}
+		conditional_tooltip = {
+			trigger = {
+				has_global_flag = destroyed_caliphates
+			}
+
+			custom_tooltip = {
 				text = controls_mecca_medina
 				hidden_tooltip = {
 					719 = { # Mecca
@@ -50470,38 +51302,9 @@ d_kharijite = {
 					}
 				}
 			}
-			custom_tooltip = {
-				text = controls_jerusalem_damascus_baghdad
-				hidden_tooltip = {
-					774 = { # Jerusalem
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-					728 = { # Damascus
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-					693 = { # Baghdad
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-				}
-			}
 		}
 	}
-	
+
 	caliphate = yes
 	
 	coat_of_arms=
@@ -50535,16 +51338,107 @@ d_hurufi = {
 	controls_religion = hurufi
 	
 	allow = {
-		OR = {
-			trait = mirza
-			trait = sayyid
-			piety = 1000
-		}
-		OR = {
-			AND = {
+		conditional_tooltip = {
+			trigger = {
+				NOT = {
+					has_alternate_start_parameter = { key = religion_names value = random }
+				}
+			}
+			OR = {
+				trait = mirza
 				trait = sayyid
 				piety = 1000
 			}
+			OR = {
+				AND = {
+					trait = sayyid
+					piety = 1000
+				}
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							has_global_flag = destroyed_caliphates
+						}
+					}
+
+					custom_tooltip = {
+						text = controls_mecca_medina
+						hidden_tooltip = {
+							719 = { # Mecca
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+							718 = { # Medina
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+						}
+					}
+				}
+				custom_tooltip = {
+					text = controls_jerusalem_damascus_baghdad
+					hidden_tooltip = {
+						774 = { # Jerusalem
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
+							}
+						}
+						728 = { # Damascus
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
+							}
+						}
+						693 = { # Baghdad
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		conditional_tooltip = {
+			trigger = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+			religion = hurufi
+			OR = {
+				trait = mirza
+				trait = sayyid
+				piety = 1000
+			}
+			custom_tooltip = {
+				text = THREE_HOLY_SITES_TT
+				hidden_tooltip = {
+					any_realm_title = {
+						count = 3
+						is_holy_site = ROOT
+					}
+				}
+			}
+		}
+		conditional_tooltip = {
+			trigger = {
+				has_global_flag = destroyed_caliphates
+			}
+
 			custom_tooltip = {
 				text = controls_mecca_medina
 				hidden_tooltip = {
@@ -50557,35 +51451,6 @@ d_hurufi = {
 						}
 					}
 					718 = { # Medina
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-				}
-			}
-			custom_tooltip = {
-				text = controls_jerusalem_damascus_baghdad
-				hidden_tooltip = {
-					774 = { # Jerusalem
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-					728 = { # Damascus
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-					693 = { # Baghdad
 						owner = {
 							OR = {
 								is_liege_or_above = ROOT
@@ -56069,6 +56934,8 @@ e_china_west_governor = { #placeholder for the Chinese Empire Western Governor
 	
 	capital = 1448 # Dunhuang
 	
+	assimilate = no # Duchies cannot de jure drift IN or OUT of this title
+	
 	title_female = "WESTERN_GOVERNOR_FEMALE"
 	title = "WESTERN_GOVERNOR_MALE"
 	foa = "WESTERN_GOVERNOR_TITLE_FOA"
@@ -56094,7 +56961,18 @@ e_china_west_governor = { #placeholder for the Chinese Empire Western Governor
 k_sakya_trizin = {
 	color = { 95 190 50 }
 }
-
+e_russian_empire = {	
+	color={ 220 60 70 }
+	color2={ 255 255 255 }
+	
+	capital = 582 # Vladimir
+	
+	culture = russian
+	
+	allow = {
+		always = no # Only created through special event
+	}
+}
 e_landless = { # Used for legions to circumvent the bug which prevents county-level titles from being deactivated
 	color = { 0 0 0 }
 	color2 = { 255 255 255 }

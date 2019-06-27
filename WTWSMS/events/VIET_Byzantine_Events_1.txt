@@ -211,6 +211,123 @@ character_event = {
 	}
 }
 
+# Baklava
+character_event = {
+	id = VIETnam.114
+	desc = "EVTDESC1000109163"
+	picture = GFX_evt_baklava
+	
+	is_triggered_only = yes
+	
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	war = no
+	culture_group = byzantine
+	
+	trigger = {
+		in_command = no
+		OR = {
+			culture = greek
+			has_landed_title = e_byzantium
+			liege = { has_landed_title = e_byzantium }
+			top_liege = { has_landed_title = e_byzantium }
+		}
+		any_province = {
+			county = { region = world_asia_minor }
+			culture = turkish
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		
+		modifier = {
+			factor = 2
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 2
+			trait = greedy
+		}
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 2
+			trait = charitable
+		}
+		modifier = {
+			factor = 2
+			trait = kind
+		}
+		modifier = {
+			factor = 0.5
+			trait = shy
+		}
+		modifier = {
+			factor = 0.5
+			trait = temperate
+		}
+		modifier = {
+			factor = 0.5
+			trait = envious
+		}
+		modifier = {
+			factor = 0.5
+			trait = paranoid
+		}
+	}
+	
+	option = { #Buy some
+		name = "EVTOPTA1000109163"
+		wealth = -1
+		add_character_modifier = {
+			name = best_meal_in_ages
+			duration = 90
+		}
+	}
+	
+	option = { #Love it
+		name = "EVTOPTB1000109163"
+		tooltip_info = gluttonous
+		trigger = {
+			trait = gluttonous
+		}
+		wealth = -5
+		add_character_modifier = {
+			name = best_meal_in_ages
+			duration = 365
+		}
+	}
+	
+	option = { #A bit
+		name = "EVTOPTC1000109163"
+		tooltip_info = temperate
+		trigger = {
+			trait = temperate
+		}
+		add_character_modifier = {
+			name = best_meal_in_ages
+			duration = 7
+		}
+	}
+	
+	option = { #It's Turkish!
+		name = "EVTOPTD1000109163"
+		tooltip_info = learning
+		trigger = {
+			learning = 11
+		}
+		wealth = -3
+		add_character_modifier = {
+			name = best_meal_in_ages
+			duration = 180
+		}
+	}
+}
+
 # Courtier interested in western fashion
 character_event = {
 	id = VIETnam.115

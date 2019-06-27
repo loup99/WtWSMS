@@ -2,157 +2,15 @@
 #
 # Roman Empire Restored
 #
-# Event ID ancrel.2220 - ancrel.2229 reserved
+# Event ID hellenic.220 - hellenic.229 reserved
 #
 #######################################
 
-namespace = ancrel
-
-# The Restoration of Rome (Byzantium / Western Roman Empire / Latin Empire)
-narrative_event = {
-	id = ancrel.2220
-	title = EVTNAMELoR.20
-	
-	desc = {
-		trigger = {
-			has_landed_title = e_byzantium
-			NOT = { has_landed_title = e_wre }
-		}
-		text = EVTDESCLoR.20
-	}
-	desc = {
-		trigger = {
-			has_landed_title = e_wre
-			NOT = { has_landed_title = e_byzantium }
-		}
-		text = EVTDESCLoR.20.b
-	}
-	desc = {
-		trigger = {
-			has_landed_title = e_wre
-			has_landed_title = e_byzantium
-		}
-		text = EVTDESCLoR.20.c
-	}
-	
-	picture = GFX_evt_rome_restored_byzantine
-	
-	is_triggered_only = yes
-	
-	option = {
-		name = EVTOPTALoR.20
-		set_global_flag = rome_restored
-		primary_title = {
-			save_event_target_as = target_primary_title
-		}
-		e_roman_empire = {
-			grant_title = ROOT
-			make_primary_title = yes
-			if = {
-				limit = {
-					ROOT = {
-						has_landed_title = e_byzantium
-						has_landed_title = e_wre
-					}
-				}
-				event_target:target_primary_title = {
-					e_roman_empire = {
-						copy_title_laws = PREV
-						copy_title_history = PREV
-					}
-				}
-				set_global_flag = rome_reunited
-			}
-			if = {
-				limit = {
-					ROOT = { has_landed_title = e_byzantium } 
-					NOT = { ROOT = { has_landed_title = e_wre } }
-				}
-				copy_title_laws = e_byzantium
-				copy_title_history = e_byzantium
-				set_global_flag = rome_restored_by_byzantium
-			}
-			if = {
-				limit = {
-					ROOT = { has_landed_title = e_wre }
-					NOT = { ROOT = { has_landed_title = e_byzantium } }
-				}
-				copy_title_laws = e_wre
-				copy_title_history = e_wre
-				set_global_flag = rome_restored_by_western_roman_empire
-			}
-			if = {
-				limit = {
-					ROOT = { has_landed_title = e_latin_empire }
-					NOT = { ROOT = { has_landed_title = e_byzantium } }
-				}
-				copy_title_laws = e_latin_empire
-				copy_title_history = e_latin_empire
-				set_global_flag = rome_restored_by_latin_empire
-			}
-		}
-		add_trait = augustus
-		give_nickname = nick_the_glorious
-		hidden_tooltip = {
-			e_byzantium = {
-				if = {
-					limit = { ROOT = { has_landed_title = PREV } }
-					any_direct_de_jure_vassal_title = {
-						de_jure_liege = e_roman_empire
-					}
-					destroy_landed_title = THIS
-					activate_title = { title = e_byzantium status = no }
-				}
-			}
-			e_wre = {
-				if = {
-					limit = { ROOT = { has_landed_title = PREV } }
-					any_direct_de_jure_vassal_title = {
-						de_jure_liege = e_roman_empire
-					}
-					destroy_landed_title = THIS
-					activate_title = { title = e_wre status = no }
-				}
-			}
-			e_latin_empire = {
-				if = {
-					limit = { ROOT = { has_landed_title = PREV } }
-					any_direct_de_jure_vassal_title = {
-						de_jure_liege = e_roman_empire
-					}
-					destroy_landed_title = THIS
-					activate_title = { title = e_latin_empire status = no }
-				}
-			}
-			e_italy = {
-				if = {
-					limit = { ROOT = { has_landed_title = PREV } }
-					any_direct_de_jure_vassal_title = {
-						de_jure_liege = e_roman_empire
-					}
-					destroy_landed_title = THIS
-					activate_title = { title = e_italy status = no }
-				}
-			}
-			e_hre = {
-				set_name="Germania"
-			}
-			any_playable_ruler = {
-				if = {
-					limit = {
-						NOT = { character = ROOT }
-						ai = no
-					}
-					narrative_event = { id = ancrel.2221 }
-				}
-			}
-		}
-	}
-}
+namespace = hellenic
 
 # Informed about Restoration of Rome (Byzantium / Western Roman Empire / Latin Empire)
 narrative_event = {
-	id = ancrel.2221
+	id = hellenic.221
 	title = EVTNAMELoR.21
 	desc = EVTDESCLoR.21
 	
@@ -185,9 +43,9 @@ narrative_event = {
 
 # The Restoration of Rome (HRE)
 narrative_event = {
-	id = ancrel.2222
+	id = hellenic.222
 	title = EVTNAMELoR.20
-	desc = EVTDESCancrel.2222
+	desc = hellenic.222.desc
 	
 	picture = GFX_evt_rome_restored_byzantine
 	
@@ -230,9 +88,8 @@ narrative_event = {
 				if = {
 					limit = {
 						NOT = { character = ROOT }
-						ai = no
 					}
-					narrative_event = { id = ancrel.2223 }
+					narrative_event = { id = hellenic.223 }
 				}
 			}
 		}
@@ -241,9 +98,9 @@ narrative_event = {
 
 # Informed about Restoration of Rome (HRE)
 narrative_event = {
-	id = ancrel.2223
+	id = hellenic.223
 	title = EVTNAMELoR.21
-	desc = EVTDESCancrel.2223
+	desc = hellenic.223.desc
 	
 	picture = GFX_evt_rome_restored_byzantine
 	
@@ -274,9 +131,9 @@ narrative_event = {
 
 # The Creation of a new Rome
 narrative_event = {
-	id = ancrel.2224
+	id = hellenic.224
 	title = EVTNAMELoR.20
-	desc = EVTDESCancrel.2224
+	desc = hellenic.224.desc
 	
 	picture = GFX_evt_rome_restored_byzantine
 	
@@ -325,9 +182,8 @@ narrative_event = {
 				if = {
 					limit = {
 						NOT = { character = ROOT }
-						ai = no
 					}
-					narrative_event = { id = ancrel.2225 }
+					narrative_event = { id = hellenic.225 }
 				}
 			}
 		}
@@ -336,9 +192,9 @@ narrative_event = {
 
 # Informed about Creation of a new Rome
 narrative_event = {
-	id = ancrel.2225
+	id = hellenic.225
 	title = EVTNAMELoR.21
-	desc = EVTDESCancrel.2225
+	desc = hellenic.225.desc
 	
 	picture = GFX_evt_rome_restored_byzantine
 	

@@ -407,7 +407,6 @@ pragmatist_pattern_for = {
 			is_tribal = no
 		}
 	}
-	
 	high_tribal_organization_0 = {
 		OR = {
 			AND = {
@@ -477,7 +476,6 @@ pragmatist_pattern_for = {
 		}
 	}
 	
-
 	status_of_women_0 = { 
 		is_female = yes
 		NOT = { has_law = status_of_women_1 }
@@ -496,6 +494,55 @@ pragmatist_pattern_for = {
 	}
 	status_of_women_4 = { 
 		is_female = yes
+	}
+
+	enatic_succession = {
+		is_female = yes
+	}
+
+	enatic_cognatic_succession = {
+		OR = {
+			AND = {
+				is_female = yes
+				OR = {
+					FROMFROM = {
+						NOT = { has_law = enatic_succession }
+					}
+					NOT = {
+						any_child = {
+							is_female = yes
+						}
+					}
+				}
+			}
+			AND = {
+				is_female = no
+				FROMFROM = { has_law = enatic_succession }
+			}
+		}
+	}
+
+	true_cognatic_succession = {
+		OR = {
+			AND = {
+				is_female = yes
+				FROMFROM = {
+					NOR = {
+						has_law = enatic_succession
+						has_law = enatic_cognatic_succession
+					}
+				}
+			}
+			AND = {
+				is_female = no
+				FROMFROM = {
+					OR = {
+						has_law = enatic_succession
+						has_law = enatic_cognatic_succession
+					}
+				}
+			}
+		}
 	}
 	
 	revoke_title_law_0 = {
@@ -951,5 +998,93 @@ pragmatist_pattern_against = {
 	}
 	status_of_women_4 = { 
 		always = yes
+		is_female = yes
+		has_law = status_of_women_1
+	}
+	status_of_women_1 = { 
+		OR = {
+			AND = {
+				is_female = yes
+				has_law = status_of_women_2
+			}
+			AND = {
+				is_female = no
+				FROMFROM = { has_law = status_of_women_0 }
+			}
+		}
+	}
+	status_of_women_2 = { 
+		OR = {
+			AND = {
+				is_female = yes
+				has_law = status_of_women_3
+			}
+			AND = {
+				is_female = no
+				FROMFROM = { has_law = status_of_women_1 }
+			}
+		}
+	}
+	status_of_women_3 = { 
+		OR = {
+			AND = {
+				is_female = yes
+				has_law = status_of_women_4
+			}
+			AND = {
+				is_female = no
+				FROMFROM = { has_law = status_of_women_2 }
+			}
+		}
+	}
+	status_of_women_4 = { 
+		is_female = yes
+	}
+
+	enatic_succession = {
+		NOT = {
+			is_female = yes
+		}
+	}
+
+	enatic_cognatic_succession = {
+		OR = {
+			AND = {
+				is_female = no
+				FROMFROM = { NOT = { has_law = enatic_succession } }
+			}
+		}
+	}
+
+	true_cognatic_succession = {
+		OR = {
+			AND = {
+				is_female = yes
+				FROMFROM = {
+					NOR = {
+						has_law = enatic_succession
+						has_law = enatic_cognatic_succession
+					}
+				}
+			}
+			AND = {
+				is_female = no
+				FROMFROM = {
+					OR = {
+						has_law = enatic_succession
+						has_law = enatic_cognatic_succession
+					}
+				}
+			}
+		}
+	}
+
+	cognatic_succession = {
+			AND = {
+				is_female = yes
+				FROMFROM = {
+					NOT = { has_law = agnatic_succession }
+				}
+			}
 	}
 }

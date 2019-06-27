@@ -550,6 +550,25 @@ zealot_pattern_for = {
 	status_of_women_4 = { 
 		is_female = yes
 	}
+
+	enatic_succession = {
+		is_female = yes
+	}
+
+	enatic_cognatic_succession = {
+		OR = {
+			is_female = no
+			FROMFROM = {
+				NOT = { has_law = enatic_succession }
+			}
+		}
+	}
+
+	true_cognatic_succession = {
+		NOT = {
+			FROMFROM = { has_law = enatic_cognatic_succession }
+		}
+	}
 }
 
 zealot_pattern_against = {
@@ -990,5 +1009,23 @@ zealot_pattern_against = {
 	}
 	status_of_women_4 = { 
 		always = yes
+	}
+
+	enatic_succession = {
+		is_female = no
+	}
+
+	enatic_cognatic_succession = {
+		NOT = {
+			FROMFROM = {
+				has_law = enatic_succession
+			}
+		}
+	}
+
+	true_cognatic_succession = {
+		NOT = {
+			true_religion_celtic_or_reformed_trigger = yes
+		}
 	}
 }

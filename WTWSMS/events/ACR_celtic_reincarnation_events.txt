@@ -3,28 +3,25 @@
 # ANCIENT RELIGIONS
 # - Celtic Reincarnation
 #
-# Event ID  ancrel.0270 - ancrel.0279 reserved
+# Event ID  celtic.270 - celtic.279 reserved
 #
 #######################################
 
-namespace = ancrel
+namespace = celtic
 
 # [on_birth] Child might be a reincarnation
 # Duplicate event RoI.10000 for the religion check and to have Celtic specific text on chained event
 character_event = {
-	id = ancrel.0270
+	id = celtic.270
 	hide_window = yes
 	
 	is_triggered_only = yes
 	
 	only_men = yes
+	has_dlc = "Rajas of India"
 	
 	trigger = {
-		has_dlc = "Rajas of India"
-		OR = {
-			religion = celtic_pagan
-			religion = celtic_pagan_reformed
-		}
+		religion_openly_in_celtic_subgroup_trigger = yes
 		OR = {
 			father = {
 				supernatural_events_trigger = yes
@@ -110,7 +107,7 @@ character_event = {
 			
 			father = {
 				character_event = {
-					id = ancrel.0271
+					id = celtic.271
 					days = 3
 				}
 			}
@@ -157,7 +154,7 @@ character_event = {
 			
 			mother = {
 				character_event = {
-					id = ancrel.0271
+					id = celtic.271
 					days = 3
 				}
 			}
@@ -167,15 +164,15 @@ character_event = {
 
 # Reincarnation: Player notices the similarities
 character_event = {
-	id = ancrel.0271
-	desc = EVTDESCancrel.0271
+	id = celtic.271
+	desc = celtic.271.desc
 	picture = GFX_evt_reincarnation
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
-	option = {
-		name = EVTOPTAancrel.0271 # Yes, clearly
+	option = {# Yes, clearly
+		name = celtic.271.a 
 		
 		hidden_tooltip = {
 			FROM = {
@@ -188,8 +185,8 @@ character_event = {
 		}
 	}
 	
-	option = {
-		name = EVTOPTBancrel.0271 # Nonsense!
+	option = {# Nonsense!
+		name = celtic.271.b
 		
 		hidden_tooltip = {
 			FROM = {
@@ -202,20 +199,18 @@ character_event = {
 # [on_yearly_childhood_pulse] Reincarnation: Youth picks up a personality trait from the previous life
 # Duplicate event RoI.10010 for the religion check
 character_event = {
-	id = ancrel.0272
+	id = celtic.272
 	desc = EVTDESC_RoI_10010
 	picture = GFX_evt_reincarnation
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
+	has_dlc = "Rajas of India"
+	has_character_flag = reincarnation_education
+	
 	trigger = {
-		OR = {
-			religion = celtic_pagan
-			religion = celtic_pagan_reformed
-		}
-		has_dlc = "Rajas of India"
-		has_character_flag = reincarnation_education
+		religion_openly_in_celtic_subgroup_trigger = yes
 		NOT = { personality_traits = 5 }
 		reincarnation_scope = {
 			ROOT = {

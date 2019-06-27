@@ -22,7 +22,7 @@ title_censor = {
 				}
 			}
 		}
-		religion = hellenic_pagan
+		religion_openly_hellenic_or_reformed_trigger = yes
 	}
 	
 	allowed_to_grant = {
@@ -63,12 +63,12 @@ title_aedile = {
 				}
 			}
 		}
-		religion = hellenic_pagan
+		religion_openly_hellenic_or_reformed_trigger = yes
 	}
 	
 	allowed_to_grant = {
 		is_feudal = yes
-		religion = hellenic_pagan
+		religion_openly_hellenic_or_reformed_trigger = yes
 	}
 
 	gain_effect = {
@@ -111,7 +111,7 @@ title_magister_equitum = {
 			has_landed_title = e_byzantium
 			has_landed_title = e_roman_empire
 		}
-		religion = hellenic_pagan
+		religion_openly_hellenic_or_reformed_trigger = yes
 	}
 	
 	gain_effect = {
@@ -140,7 +140,7 @@ title_vestalis = {
 		is_married = no
 		is_consort = no
 		prisoner = no
-		religion = hellenic_pagan
+		religion_openly_hellenic_or_reformed_trigger = yes
 		OR = {
 			has_minor_title = title_vestalis
 			AND = {
@@ -149,8 +149,8 @@ title_vestalis = {
 				NOT = { trait = bastard }
 				NOT = { trait = legit_bastard }
 				NOT = { trait = child_of_consort }
-				father_even_if_dead = { religion = hellenic_pagan }
-				mother = { religion = hellenic_pagan }
+				father_even_if_dead = { religion_openly_hellenic_or_reformed_trigger = yes }
+				mother = { religion_openly_hellenic_or_reformed_trigger = yes }
 			}
 		}
 	}
@@ -188,7 +188,7 @@ title_vestalis_maxima = {
 		is_landed = no
 		is_married = no
 		is_consort = no
-		religion = hellenic_pagan
+		religion_openly_hellenic_or_reformed_trigger = yes
 		OR = {
 			has_minor_title = title_vestalis
 			has_minor_title = title_vestalis_maxima
@@ -226,11 +226,11 @@ title_flamen_dialis = {
 		is_adult = yes
 		is_female = no
 		OR = {
-			spouse = { religion = hellenic_pagan }
+			spouse = { religion_openly_hellenic_or_reformed_trigger = yes}
 			# We want to remove the title by event if his wife dies or converts
 			has_minor_title = title_flamen_dialis
 		}
-		religion = hellenic_pagan
+		religion_openly_hellenic_or_reformed_trigger = yes
 	}
 	
 	allowed_to_grant = {
@@ -291,11 +291,11 @@ title_flamen_martialis = {
 		is_adult = yes
 		is_female = no
 		OR = {
-			spouse = { religion = hellenic_pagan }
+			spouse = { religion_openly_hellenic_or_reformed_trigger = yes }
 			# We want to remove the title by event if his wife dies or converts
 			has_minor_title = title_flamen_martialis
 		}
-		religion = hellenic_pagan
+		religion_openly_hellenic_or_reformed_trigger = yes
 	}
 	
 	allowed_to_grant = {
@@ -360,11 +360,11 @@ title_flamen_quirinalis = {
 			is_ruler = no
 		}
 		OR = {
-			spouse = { religion = hellenic_pagan }
+			spouse = { religion_openly_hellenic_or_reformed_trigger = yes }
 			# We want to remove the title by event if his wife dies or converts
 			has_minor_title = title_flamen_quirinalis
 		}
-		religion = hellenic_pagan
+		religion_openly_hellenic_or_reformed_trigger = yes
 	}
 	allowed_to_grant = {
 		has_landed_title = d_hellenic_pagan
@@ -447,7 +447,7 @@ title_keeper_flock = {
 	allowed_to_hold = {
 		is_adult = yes
 		has_regent = no
-		religion = hellenic_pagan
+		religion_openly_hellenic_or_reformed_trigger = yes
 
 		OR = {
 			is_female = no
@@ -463,7 +463,7 @@ title_keeper_flock = {
 	}
 
 	allowed_to_grant = {
-		religion = hellenic_pagan
+		religion_openly_hellenic_or_reformed_trigger = yes
 	}
 
 	gain_effect = {
@@ -487,15 +487,32 @@ title_chiliarch = {
 	allowed_to_hold = {
 		is_adult = yes
 		has_regent = no
+		
 		OR = {
-			is_female = no
-			liege = { primary_title = {	has_law = status_of_women_4	} }
+			AND = {
+				is_female = no
+				liege = {
+					NOT = {
+						has_religion_feature = religion_matriarchal
+					}
+				}
+			}
+			AND = {
+				is_female = yes
+				liege = {
+					OR = {
+						has_religion_feature = religion_matriarchal
+						has_religion_feature = religion_equal
+					}
+				}
+			}
 		}
+
 		martial = 6
 	}
 
 	allowed_to_grant = {
-		religion = hellenic_pagan
+		religion_openly_hellenic_or_reformed_trigger = yes
 		OR = {
 			higher_tier_than = count
 			independent = yes
@@ -545,7 +562,7 @@ title_proxenos = {
 			independent = yes
 			higher_tier_than = duke
 		}
-		religion = hellenic_pagan
+		religion_openly_hellenic_or_reformed_trigger = yes
 	}
 
 	gain_effect = {
@@ -574,7 +591,7 @@ title_hellanodikos = {
 
 		OR = {
 			AND = {
-				liege = { religion = hellenic_pagan }
+				liege = { religion_openly_hellenic_or_reformed_trigger = yes }
 				OR = {
 					is_female = no
 					liege = {
@@ -594,7 +611,7 @@ title_hellanodikos = {
 	allowed_to_grant = {
 		independent = yes
 
-		religion = hellenic_pagan
+		religion_openly_in_hellenic_subgroup_trigger = yes
 	}
 
 	gain_effect = {
