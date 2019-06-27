@@ -2790,3 +2790,199 @@ character_event = {
 		name = WtWSMS_flavour.53.a
 	}
 }
+
+########### Build an Estela for the Cantabrians ##########
+
+character_event = {
+	id = WtWSMS_flavour.54
+	desc = WtWSMS_flavour.54.desc
+	picture = GFX_evt_basque_megaliths
+	border = GFX_event_normal_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	hide_from = yes
+	
+	option = {
+		name = WtWSMS_flavour.54.a # Religious for the Vasconic Pagans
+		
+		trigger = {
+		          culture = cantabrian
+			OR = {
+				religion = celtic_pagan
+				religion = celtic_pagan_pagan_reformed
+			}
+		}
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 10
+				trait = zealous
+			}
+			modifier = {
+				factor = 0
+				trait = cynical
+			}
+		}
+		custom_tooltip = {
+			text = WtWSMS_flavour.54.a.tooltip
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_flavour.55 }
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_flavour.54.b # Reign
+		
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 10
+				trait = ambitious
+			}
+			modifier = {
+				factor = 10
+				trait = proud
+			}
+			modifier = {
+				factor = 0
+				trait = content
+			}
+		}
+		custom_tooltip = {
+			text = WtWSMS_flavour.54.b.tooltip
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_flavour.56 }
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_flavour.54.c # Military
+		
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 10
+				trait = brave
+			}
+			modifier = {
+				factor = 10
+				trait = brilliant_strategist
+			}
+			modifier = {
+				factor = 0
+				trait = craven
+			}
+		}
+		custom_tooltip = {
+			text = WtWSMS_flavour.54.c.tooltip
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_flavour.57 }
+			}
+		}
+	}
+}
+
+# Erect an estela with a religious role
+character_event = {
+	id = WtWSMS_flavour.55
+	desc = WtWSMS_flavour.55.desc
+	picture = GFX_evt_basque_megaliths
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = WtWSMS_flavour.55.a
+		piety = 100
+		add_character_modifier = {
+			name = erected_estela
+			duration = 730
+		}
+		if = {
+			limit = {
+				NOT = { trait = zealous }
+			}
+			random = {
+				chance = 25
+				modifier = {
+					factor = 0
+					trait = cynical
+				}
+				add_trait = zealous
+			}
+		}
+	}
+}
+
+# Erect an estela in honour of your rule
+character_event = {
+	id = WtWSMS_flavour.56
+	desc = WtWSMS_flavour.56.desc
+	picture = GFX_evt_basque_megaliths
+	border = GFX_event_normal_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = WtWSMS_flavour.56.a
+		prestige = 200
+		add_character_modifier = {
+			name = erected_estela
+			duration = 730
+		}
+		if = {
+			limit = {
+				NOR = {
+					trait = ambitious
+					trait = proud
+				}
+			}
+			random = {
+				chance = 25
+				add_trait = ambitious
+			}
+			random = {
+				chance = 25
+				modifier = {
+					factor = 0
+					trait = content
+				}
+				add_trait = proud
+			}
+		}
+	}
+}
+
+# Erect an estela to highlight the important military events
+character_event = {
+	id = WtWSMS_flavour.57
+	desc = WtWSMS_flavour.57.desc
+	picture = GFX_evt_basque_megaliths
+	border = GFX_event_normal_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = WtWSMS_flavour.57.a
+		prestige = 200
+		add_character_modifier = {
+			name = erected_estela
+			duration = 730
+		}
+		random = {
+			chance = 25
+			modifier = {
+				factor = 0
+				martial = 5
+			}
+			modifier = {
+				factor = 0
+				trait = craven
+			}
+			change_martial = 1
+		}
+	}
+}
