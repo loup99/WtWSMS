@@ -232,25 +232,53 @@ character_event = {
         			religion_group = ROOT
         		}
         		narrative_event = { id = HF.40004 }
+                set_character_flag = had_beatification_notification #Flags to make sure you only get the event once
             }
     	}
         event_target:saint_person = {
             any_dynasty_member = {
                 limit = {
                     religion_group = ROOT
+                    NOT = { has_character_flag = had_beatification_notification }
                 }
                 narrative_event = { id = HF.40004 }
+                set_character_flag = had_beatification_notification
             }
         }
         top_liege = {
             if = {
                 limit = {
-                    NOT = {
+                    NOR = {
                         family = event_target:saint_person
+                        has_character_flag = had_beatification_notification
                     }
                     religion_group = ROOT
                 }
                 narrative_event = { id = HF.40004 }
+            }
+        }
+    }
+    after = { #To remove the flags
+        any_realm_character = {
+            limit = {
+                has_character_flag = had_beatification_notification
+            }
+            clr_character_flag = had_beatification_notification
+        }
+        event_target:saint_person = {
+            any_dynasty_member = {
+                limit = {
+                    has_character_flag = had_beatification_notification
+                }
+                clr_character_flag = had_beatification_notification
+            }
+        }
+        top_liege = {
+            if = {
+                limit = {
+                    has_character_flag = had_beatification_notification
+                }
+                clr_character_flag = had_beatification_notification
             }
         }
     }
@@ -1357,6 +1385,27 @@ character_event = {
                         }
 						else_if = { # WtWSMS
                             limit = {
+                                religion = georgian_pagan_reformed
+                            }
+                            if = {
+                                limit = {
+                                    is_female = yes
+                                }
+                                create_bloodline = {
+                                    type = saintly_bloodline_illyran_pagan_01
+                                    religion = georgian_pagan_reformed
+                                    inheritance = matrilineal
+                                }
+                            }
+                            else = {
+                                create_bloodline = {
+                                    type = saintly_bloodline_illyran_pagan_01
+                                    religion = georgian_pagan_reformed
+                                }
+                            }
+                        }						
+						else_if = { # WtWSMS
+                            limit = {
                                 religion = illyran_pagan_reformed
                             }
                             if = {
@@ -1954,6 +2003,27 @@ character_event = {
                         }
 						else_if = { # WtWSMS
                             limit = {
+                                religion = georgian_pagan_reformed
+                            }
+                            if = {
+                                limit = {
+                                    is_female = yes
+                                }
+                                create_bloodline = {
+                                    type = saintly_bloodline_illyran_pagan_03
+                                    religion = georgian_pagan_reformed
+                                    inheritance = matrilineal
+                                }
+                            }
+                            else = {
+                                create_bloodline = {
+                                    type = saintly_bloodline_illyran_pagan_03
+                                    religion = georgian_pagan_reformed
+                                }
+                            }
+                        }
+						else_if = { # WtWSMS
+                            limit = {
                                 religion = illyran_pagan_reformed
                             }
                             if = {
@@ -2447,6 +2517,27 @@ character_event = {
                         }
 						else_if = { # WtWSMS
                             limit = {
+                                religion = georgian_pagan_reformed
+                            }
+                            if = {
+                                limit = {
+                                    is_female = yes
+                                }
+                                create_bloodline = {
+                                    type = saintly_bloodline_illyran_pagan_04
+                                    religion = georgian_pagan_reformed
+                                    inheritance = matrilineal
+                                }
+                            }
+                            else = {
+                                create_bloodline = {
+                                    type = saintly_bloodline_illyran_pagan_04
+                                    religion = georgian_pagan_reformed
+                                }
+                            }
+                        }
+						else_if = { # WtWSMS
+                            limit = {
                                 religion = illyran_pagan_reformed
                             }
                             if = {
@@ -2934,6 +3025,27 @@ character_event = {
                         }
 						else_if = { # WtWSMS
                             limit = {
+                                religion = georgian_pagan_reformed
+                            }
+                            if = {
+                                limit = {
+                                    is_female = yes
+                                }
+                                create_bloodline = {
+                                    type = saintly_bloodline_illyran_pagan_05
+                                    religion = georgian_pagan_reformed
+                                    inheritance = matrilineal
+                                }
+                            }
+                            else = {
+                                create_bloodline = {
+                                    type = saintly_bloodline_illyran_pagan_05
+                                    religion = georgian_pagan_reformed
+                                }
+                            }
+                        }						
+						else_if = { # WtWSMS
+                            limit = {
                                 religion = illyran_pagan_reformed
                             }
                             if = {
@@ -3416,6 +3528,27 @@ character_event = {
                         }
 						else_if = { # WtWSMS
                             limit = {
+                                religion = georgian_pagan_reformed
+                            }
+                            if = {
+                                limit = {
+                                    is_female = yes
+                                }
+                                create_bloodline = {
+                                    type = saintly_bloodline_illyran_pagan_06
+                                    religion = georgian_pagan_reformed
+                                    inheritance = matrilineal
+                                }
+                            }
+                            else = {
+                                create_bloodline = {
+                                    type = saintly_bloodline_illyran_pagan_06
+                                    religion = georgian_pagan_reformed
+                                }
+                            }
+                        }
+						else_if = { # WtWSMS
+                            limit = {
                                 religion = illyran_pagan_reformed
                             }
                             if = {
@@ -3549,7 +3682,7 @@ narrative_event = {
             sound_effect = saint_proclaimed
         }
         opinion = {
-            modifier = opinion_very_grateful_donation
+            name = opinion_very_grateful_donation
             who = FROM
             years = 30
         }
