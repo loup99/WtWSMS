@@ -446,7 +446,50 @@ character_event = {
 	}
 }
 
-# crisis (in-game war and looting)
+###############################
+# Crisis
+###############################
+
+# Crisis caused by war and looting
+character_event = {
+	id = WtWSMS_govs.10
+	desc = WtWSMS_govs.10.desc
+	picture = GFX_evt_warband_on_hill
+	
+	only_playable = yes
+	
+	trigger = {
+		primary_title = {
+			has_title_flag = sub_roman_government_flag
+			NOT = { has_title_flag = war_crisis } # Don't want the event to fire again
+		}
+		government = sub_roman_government
+		war = yes
+		any_realm_province = {
+			has_province_modifier = devastated_war # Has been sieged five times
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 10 # A rather long period of war(s)
+	}
+	
+	immediate = {
+		primary_title = {
+			set_title_flag = war_crisis
+		}
+		set_variable = { 
+			which = feudal_transition_variable 
+			value = 1 
+		}
+	}
+
+	option = {
+		name = WtWSMS_govs.10.a
+		prestige = -100
+	}
+}
+
 # sources of money spending (in-game the amount of retinues vs levies) 
 # changed cultural values of the aristocracy and social status of the army (in-game vassals with military education and strong martial but weak other stats)
 # Minimum of 4 variables, but likelier the more you have
