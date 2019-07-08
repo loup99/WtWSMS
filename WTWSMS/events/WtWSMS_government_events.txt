@@ -490,6 +490,53 @@ character_event = {
 	}
 }
 
-# sources of money spending (in-game the amount of retinues vs levies) 
+# Crisis makes it hard for institutions to continue properly
+
+###############################
+# Landed armies
+###############################
+
+# Sources of money-spending, less money spent on the army with landed army
+character_event = {
+	id = WtWSMS_govs.11
+	desc = WtWSMS_govs.11.desc
+	picture = GFX_evt_warband_on_hill # Replace me!
+	
+	only_playable = yes
+	
+	trigger = {
+		primary_title = {
+			has_title_flag = sub_roman_government_flag
+			NOT = { has_title_flag = landed_army } # Don't want the event to fire again
+		}
+		government = sub_roman_government
+		check_variable = { # Less retinues
+			which = retinue_size 
+			value <= 4 # Number based upon the modifier values
+		}
+		realm_levies >=	2000 # Larger army
+	}
+	
+	mean_time_to_happen = {
+		years = 10 # While you can't check for how many years this has been the case it makes sense to have a longer MTTH
+	}
+	
+	immediate = {
+		primary_title = {
+			set_title_flag = landed_army
+		}
+		set_variable = { 
+			which = feudal_transition_variable 
+			value = 1 
+		}
+	}
+	
+	option = {
+		name = WtWSMS_govs.11.a
+	}
+}
+
+# Landed army makes it less necessary to collect taxes that would have been spent on the army
+
 # changed cultural values of the aristocracy and social status of the army (in-game vassals with military education and strong martial but weak other stats)
 # Minimum of 4 variables, but likelier the more you have
