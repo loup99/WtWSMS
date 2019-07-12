@@ -566,5 +566,128 @@ character_event = {
 
 # Landed army makes it less necessary to collect taxes that would have been spent on the army
 
-# changed cultural values of the aristocracy and social status of the army (in-game vassals with military education and strong martial but weak other stats)
+###############################
+# Changed cultural values
+###############################
+
+# Vassals with military education and strong martial but weak other stats
+character_event = {
+	id = WtWSMS_govs.12
+
+	hide_window = yes
+
+	only_playable = yes
+	
+	trigger = {
+		liege = {
+			primary_title = {
+				has_title_flag = sub_roman_government_flag
+			}
+			government = sub_roman_government
+		}
+		NOT = { set_character_flag = military_value_vassal } # Don't want the event to fire again
+		martial	>= 12 # Strong martial
+		OR = { # Weak other stat
+			diplomacy <= 6
+			stewardship <= 6
+			learning <= 6
+		}
+		OR = { # Military education trait, not necessarily good at it but popular, or alternatively commander
+			trait = misguided_warrior
+			trait = tough_soldier
+			trait = skilled_tactician
+			trait = brilliant_strategist
+			has_minor_title = title_commander
+		}
+		NOT = { # Not a top-tier education in another domain
+			trait = grey_eminence
+			trait = midas_touched
+			trait = elusive_shadow
+			trait = mastermind_theologian
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 10
+	}
+	
+	immediate = {
+		set_character_flag = military_value_vassal
+		liege = {
+			if = { # Already has the variable
+				limit = {
+					is_variable_equal = {
+						which = military_value_vassals 
+						value = 0
+					}	
+				}
+				set_variable = {
+					which = military_value_vassals 
+					value = 1
+				}
+			}
+			else = { # Does not already have the variable
+				change_variable = {
+					which = military_value_vassals
+					value = 1
+				}
+			}
+		}
+	}
+	
+}
+
+# Changed cultural values of the aristocracy and social status of the army
+character_event = {
+	id = WtWSMS_govs.13
+	desc = WtWSMS_govs.13.desc
+	picture = GFX_evt_warband_on_hill # Replace me!
+	
+	only_playable = yes
+	
+	trigger = {
+		primary_title = {
+			has_title_flag = sub_roman_government_flag
+			NOT = { has_title_flag = changed_cultural_values } # Don't want the event to fire again
+		}
+		government = sub_roman_government
+		check_variable = { # At least five vassals 
+			which = military_value_vassals
+			value >= 5
+		} 
+	}
+	
+	mean_time_to_happen = {
+		years = 1
+	}
+	
+	immediate = {
+		primary_title = {
+			set_title_flag = changed_cultural_values
+		}
+		if = { # Hasn't started transition
+			limit = {
+				is_variable_equal = {
+					which = feudal_transition_variable 
+					value = 0
+				}	
+			}
+			set_variable = {
+				which = feudal_transition_variable 
+				value = 1
+			}
+		}
+		else = { # Has started transition
+			change_variable = {
+				which = feudal_transition_variable
+				value = 1
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_govs.13.a
+	}
+}
+
 # Minimum of 4 variables, but likelier the more you have
