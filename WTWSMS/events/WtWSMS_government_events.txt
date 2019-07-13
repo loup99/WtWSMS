@@ -839,4 +839,106 @@ character_event = {
 	}
 }
 
-# Minimum of 4 variables, but likelier the more you have
+###############################
+# Switch to feudalism
+###############################
+
+# Sub-Roman ruler has accumulated feudal values and is no longer Sub-Roman, converting to fedalism
+character_event = {
+	id = WtWSMS_govs.16
+	title = WtWSMS_govs.16.name
+	desc = WtWSMS_govs.16.desc
+	picture = GFX_evt_throne_room
+	border = GFX_event_normal_frame_economy
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		primary_title = {
+			has_title_flag = sub_roman_government_flag
+			NOT = { has_title_flag = adopted_feudalism }
+		}
+		government = sub_roman_government
+		check_variable = { # Minimum of 4 feudal transition variables
+			which = feudal_transition_variable
+			value >= 4
+		} 
+	}
+	
+	mean_time_to_happen = {
+		years = 10
+		# Minimum of 4 variables, but likelier the more you have
+		modifier = {
+			factor = 0.25 # Increases chances by a fourth
+			check_variable = {
+				which = feudal_transition_variable
+				value >= 5
+			} 
+		}
+		modifier = {
+			factor = 0.25 # Increases chances by a fourth
+			check_variable = { 
+				which = feudal_transition_variable
+				value >= 6
+			} 
+		}
+		modifier = {
+			factor = 0.25 # Increases chances by a fourth
+			check_variable = { 
+				which = feudal_transition_variable
+				value >= 7
+			} 
+		}
+	}
+	
+	immediate = {
+		primary_title = {
+			set_title_flag = adopted_feudalism
+			clr_title_flag = sub_roman_government_flag # No longer Sub-Roman
+		}
+		set_variable = { # Clear old variables left
+			which = feudal_transition_variable 
+			value = 0
+		}
+		any_realm_province = { # No longer pertinent to indicate as a flag after switch to feudalism, although the Roman taxation structures are obviously not there
+			limit = {
+				has_province_modifier = nonexistent_roman_taxation_infrastructure
+			}
+			remove_province_modifier = nonexistent_roman_taxation_infrastructure
+		}
+	}
+	
+	option = {
+		name = WtWSMS_govs.16.a
+		set_government_type	= feudal_government
+		custom_tooltip = {
+			text = WtWSMS_govs.16.a.tooltip # All Sub-Roman vassals also become feudal
+		}
+		hidden_tooltip = {
+			any_realm_character = {
+				limit = {
+					government = sub_roman_government
+				}
+				character_event = {
+					id = WtWSMS_govs.17 # Sub-Roman vassals convert to feudalism
+				}
+			}
+		}
+	}
+}
+
+# Sub-Roman vassals convert to feudalism
+character_event = {
+	id = WtWSMS_govs.17
+	desc = WtWSMS_govs.17.desc
+	picture = GFX_evt_throne_room
+	border = GFX_event_normal_frame_economy
+	
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_govs.17.a
+		set_government_type	= feudal_government
+	}
+}
