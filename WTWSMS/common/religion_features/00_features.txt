@@ -1614,6 +1614,8 @@ religion_doctrine = {
         }
     }
 
+
+
 ##WTWSMS religion reformation options
 
 	religion_feature_scythian = {
@@ -1658,6 +1660,8 @@ religion_doctrine = {
 			factor = 50
 		}
 	}
+
+
 	religion_feature_central_african = {
 		picture = GFX_religion_feature_west_african
 		potential = {
@@ -1681,6 +1685,7 @@ religion_doctrine = {
 			factor = 50
 		}
 	}
+
 	religion_feature_vasconic = {
 		picture = GFX_religion_feature_hellenic
 		potential = {
@@ -1744,6 +1749,7 @@ religion_doctrine = {
 			factor = 50
 		}
 	}
+
 	religion_feature_semitic = {
 		picture = GFX_religion_feature_west_african
 		potential = {
@@ -1774,6 +1780,7 @@ religion_doctrine = {
 			factor = 50
 		}
 	}
+
 	religion_feature_dacian = {
 		picture = GFX_religion_feature_slavic
 		potential = {
@@ -1818,6 +1825,7 @@ religion_doctrine = {
 			factor = 50
 		}
 	}
+
 	religion_feature_illyrian = {
 		picture = GFX_religion_feature_slavic
 		potential = {
@@ -1864,6 +1872,8 @@ religion_doctrine = {
 			factor = 50
 		}
 	}
+
+
 	religion_feature_latin_solar = {
 		picture = GFX_religion_feature_hellenic
 		potential = {
@@ -1885,8 +1895,10 @@ religion_doctrine = {
 			custom_tooltip = { text = tooltip_religion_feature_anti_attrition }
 			custom_tooltip = { text = tooltip_religion_feature_offensive }
 			custom_tooltip = { text = tooltip_religion_feature_haruspicy }
+			custom_tooltip = { text = tooltip_religion_feature_meritocratic }
 			hidden_tooltip = {
 				set_ignores_defensive_attrition = yes
+				set_heir_designation = yes
 				set_unit_modifier = { 
 					light_infantry_offensive = 0.1
 					heavy_infantry_offensive = 0.1
@@ -1905,6 +1917,7 @@ religion_doctrine = {
 			factor = 50
 		}
 	}
+
 	religion_feature_root_west = {
 		picture = GFX_religion_feature_tengri
 		potential = {
@@ -1928,13 +1941,15 @@ religion_doctrine = {
 			hidden_tooltip = { 
 				set_short_reign_opinion_year_mult = 0
 				set_heir_designation = yes
+				
 			}
 		}
 		ai_will_do = {
 			factor = 50
 		}
 	}
-	religion_feature_dravidian = {
+
+		religion_feature_dravidian = {
 		picture = GFX_religion_feature_bon
 		potential = {
 			has_game_started = yes
@@ -1955,10 +1970,10 @@ religion_doctrine = {
 			custom_tooltip = { text = tooltip_religion_feature_beatification }
 			custom_tooltip = { text = tooltip_religion_feature_hard_conversion }
 			hidden_tooltip = { 
-				set_men_can_take_consorts = yes
-				set_female_temple_holders = yes
-				set_male_temple_holders = yes
-				set_allow_looting = yes
+                		set_men_can_take_consorts = yes
+                		set_female_temple_holders = yes
+               			set_male_temple_holders = yes
+                		set_allow_looting = yes
 				set_hard_to_convert = yes
 			}
 		}
@@ -1966,6 +1981,141 @@ religion_doctrine = {
 			factor = 50
 		}
 	}
+	religion_feature_germanic = {
+		picture = GFX_religion_feature_norse
+		potential = {
+			has_game_started = yes
+			religion = germanic_pagan_reformed
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
+		trigger = {
+			religion = germanic_pagan_reformed
+			NOR = { 
+				has_selected_religion_feature = religion_adventuring
+				has_selected_religion_feature = religion_seafaring
+			}
+		}
+		effect = {
+			custom_tooltip = { text = tooltip_religion_feature_adventuring }
+			custom_tooltip = { text = tooltip_religion_feature_rivermovement }
+			custom_tooltip = { text = tooltip_religion_feature_ship_maintenance }
+			custom_tooltip = { text = tooltip_religion_feature_seafaring }
+			hidden_tooltip = { 
+				enable_prepared_invasion = yes
+				set_seafaring = yes
+				set_allow_rivermovement = yes
+			}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+	}
+	religion_feature_georgian = {
+		picture = GFX_religion_feature_slavic
+		potential = {
+			has_game_started = yes
+			religion = georgian_pagan_reformed
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
+		trigger = {
+			religion = georgian_pagan_reformed
+			NOR = { 
+				has_selected_religion_feature = religion_no_leader
+				has_selected_religion_feature = religion_haruspicy
+			}
+		}
+		effect = {
+			custom_tooltip = { text = tooltip_religion_feature_haruspicy }
+			custom_tooltip = { text = tooltip_religion_feature_beatification }
+			custom_tooltip = { text = tooltip_religion_feature_hard_conversion }
+			hidden_tooltip = { 
+                		set_men_can_take_consorts = yes
+                		set_female_temple_holders = yes
+               			set_male_temple_holders = yes
+                		set_allow_looting = yes
+				set_hard_to_convert = yes
+			}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+	}
+	religion_feature_sanamahi = {
+		picture = GFX_religion_feature_bon
+		potential = {
+			has_game_started = yes
+			religion = sanamahi_pagan_reformed
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
+		trigger = {
+			religion = sanamahi_pagan_reformed
+			NOR = { 
+				has_selected_religion_feature = religion_syncretic
+			}
+		}
+		effect = {
+			custom_tooltip = { text = tooltip_religion_feature_syncretic }
+			custom_tooltip = { text = tooltip_religion_feature_rivermovement }
+			custom_tooltip = { text = tooltip_religion_feature_hard_conversion }
+			hidden_tooltip = { 
+                		set_men_can_take_consorts = yes
+                		set_female_temple_holders = yes
+               			set_male_temple_holders = yes
+                		set_allow_looting = yes
+				set_hard_to_convert = yes
+				set_allow_rivermovement = yes
+			}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+	}
+	religion_feature_african_solar = {
+		picture = GFX_religion_feature_west_african
+		potential = {
+			has_game_started = yes
+			religion = african_solar_pagan_reformed
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
+		trigger = {
+			religion = african_solar_pagan_reformed
+			NOR = { 
+				has_selected_religion_feature = religion_no_leader
+				has_selected_religion_feature = religion_relentless
+			}
+		}
+		effect = {
+			custom_tooltip = { text = tooltip_religion_feature_beatification }
+			custom_tooltip = { text = tooltip_religion_feature_anti_attrition }
+			custom_tooltip = { text = tooltip_religion_feature_offensive }
+			hidden_tooltip = {
+				set_ignores_defensive_attrition = yes
+				set_unit_modifier = { 
+					light_infantry_offensive = 0.1
+					heavy_infantry_offensive = 0.1
+					light_cavalry_offensive = 0.1 
+					knights_offensive = 0.1 
+					pikemen_offensive = 0.1 
+					archers_offensive = 0.1
+					horse_archers_offensive = 0.1
+					camel_cavalry_offensive = 0.1
+					war_elephants_offensive = 0.1
+					key = "TENGRI_RELENTLESS_RELIGION"
+				}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+	}
+
 }
 
 religion_leadership = {
