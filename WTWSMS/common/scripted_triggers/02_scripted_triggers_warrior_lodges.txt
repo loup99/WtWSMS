@@ -29,6 +29,7 @@ is_member_of_any_warrior_lodge_trigger = {
 				society_member_of = warrior_lodge_bon
 				society_member_of = warrior_lodge_hellenic
 				# TODO WtWSMS
+				society_member_of = warrior_lodge_berber
 				### ACR ###
 				society_member_of = warrior_lodge_celtic
 				society_member_of = warrior_lodge_egyptian
@@ -49,6 +50,9 @@ has_any_warrior_lodge_training_trait_trigger = {
 		trait = zun_leader
 		trait = bon_leader
 		trait = hellenic_leader
+		
+		##WTWSMS
+		trait = berber_leader
 
 		### ACR ###
 		trait = celtic_leader
@@ -97,6 +101,11 @@ has_current_warrior_lodge_leader_trait_trigger = {
 				society_member_of = warrior_lodge_hellenic
 			}
 			# TODO WtWSMS
+			AND = {
+				trait = berber_leader
+				society_member_of = warrior_lodge_berber
+			}
+
 			### ACR ###
 			AND = {
 				trait = celtic_leader
@@ -155,6 +164,14 @@ has_religion_matching_joined_warrior_lodge_trigger = {
 				religion_openly_scythian_or_reformed_trigger = yes
 				society_member_of = warrior_lodge_tengri
 			}
+			AND = {
+				religion_openly_germanic_or_reformed_trigger = yes
+				society_member_of = warrior_lodge_norse
+			}
+			AND = {
+				religion_openly_berber_or_reformed_trigger = yes
+				society_member_of = warrior_lodge_berber
+			}
 			### ACR ###
 			AND = {
 				religion_openly_celtic_or_reformed_trigger = yes
@@ -210,6 +227,14 @@ has_religion_matching_available_warrior_lodge_trigger = {
 		AND = {
 			religion_openly_scythian_or_reformed_trigger = yes
 			warrior_lodge_tengri = { society_has_members = yes }
+		}
+		AND = {
+			religion_openly_germanic_or_reformed_trigger = yes
+			warrior_lodge_norse = { society_has_members = yes }
+		}
+		AND = {
+			religion_openly_berber_or_reformed_trigger = yes
+			warrior_lodge_berber = { society_has_members = yes }
 		}
 		### ACR ###
 		AND = {
@@ -269,6 +294,14 @@ has_religion_matching_warrior_lodge_in_need_of_members_trigger = {
 			religion_openly_scythian_or_reformed_trigger = yes
 			warrior_lodge_tengri = { num_of_society_members < 30 }
 		}
+		AND = {
+			religion_openly_germanic_or_reformed_trigger = yes
+			warrior_lodge_norse = { num_of_society_members < 30 }
+		}
+		AND = {
+			religion_openly_berber_or_reformed_trigger = yes
+			warrior_lodge_berber = { num_of_society_members < 30 }
+		}
 		### ACR ###
 		AND = {
 			religion_openly_celtic_or_reformed_trigger = yes
@@ -323,6 +356,14 @@ has_religion_matching_empty_warrior_lodge_trigger = {
 			religion_openly_scythian_or_reformed_trigger = yes
 			NOT = { warrior_lodge_tengri = { society_has_members = yes } }
 		}
+		AND = {
+			religion_openly_germanic_or_reformed_trigger = yes
+			NOT = { warrior_lodge_norse = { society_has_members = yes } }
+		}
+		AND = {
+			religion_openly_berber_or_reformed_trigger = yes
+			NOT = { warrior_lodge_berber = { society_has_members = yes } }
+		}
 		### ACR ###
 		AND = {
 			religion_openly_celtic_or_reformed_trigger = yes
@@ -348,6 +389,7 @@ this_society_is_a_warrior_lodge_trigger = {
 	    is_society = warrior_lodge_bon
 	    is_society = warrior_lodge_hellenic
 		# TODO WtWSMS
+		is_society = warrior_lodge_berber
 		### ACR ###
 		is_society = warrior_lodge_celtic
 		is_society = warrior_lodge_egyptian
@@ -366,6 +408,8 @@ has_religion_matching_any_warrior_lodge_trigger = {
 		religion_openly_bon_or_reformed_trigger = yes
 		religion_openly_hellenic_or_reformed_trigger = yes
 		religion_openly_scythian_or_reformed_trigger = yes
+		religion_openly_germanic_or_reformed_trigger = yes
+		religion_openly_berber_or_reformed_trigger = yes
 		religion_openly_in_celtic_subgroup_trigger = yes
 		religion_openly_in_egyptian_subgroup_trigger = yes
 	}
@@ -435,6 +479,18 @@ has_religion_matching_warrior_lodge_to_revive_trigger = {
 				is_society = warrior_lodge_tengri
 			}
 		}
+		AND = {
+			religion_openly_germanic_or_reformed_trigger = yes
+			event_target:warrior_lodge_to_revive = {
+				is_society = warrior_lodge_norse
+			}
+		}
+		AND = {
+			religion_openly_berber_or_reformed_trigger = yes
+			event_target:warrior_lodge_to_revive = {
+				is_society = warrior_lodge_berber
+			}
+		}
 		### ACR ###
 		AND = {
 			religion_openly_celtic_or_reformed_trigger = yes
@@ -464,6 +520,9 @@ special_join_warrior_lodge_trigger = {
 							any_vassal = { religion_openly_norse_or_reformed_trigger = yes }
 							any_liege = { religion_openly_norse_or_reformed_trigger = yes }
 							any_neighbor_independent_ruler = { religion_openly_norse_or_reformed_trigger = yes }
+							any_vassal = { religion_openly_germanic_or_reformed_trigger = yes }
+							any_liege = { religion_openly_germanic_or_reformed_trigger = yes }
+							any_neighbor_independent_ruler = { religion_openly_germanic_or_reformed_trigger = yes }
 						}
 					}
 				}
@@ -576,6 +635,19 @@ special_join_warrior_lodge_trigger = {
 				}
 			}
 			# TODO WtWSMS
+			AND = {
+				FROM = { is_society = warrior_lodge_berber }
+				custom_tooltip = {
+					text = has_liege_vassal_or_neighbor_of_berber_religion_tt
+					hidden_trigger = {
+						OR = {
+							any_vassal = { religion_openly_berber_or_reformed_trigger = yes }
+							any_liege = { religion_openly_berber_or_reformed_trigger = yes }
+							any_neighbor_independent_ruler = { religion_openly_berber_or_reformed_trigger = yes }
+						}
+					}
+				}
+			}
 			### ACR ###
 			AND = {
 				FROM = { is_society = warrior_lodge_celtic }
