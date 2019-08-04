@@ -2195,6 +2195,66 @@ society_decisions = {
 			factor = 0 # decisions with the "is_mercenary" will not be calculated from the script
 		}
 	}
+
+	#Power, rank 1: Desert Training
+	warrior_lodge_semitic_desert_training = {
+		is_in_society = yes
+		
+		filter = self
+		ai_target_filter = self
+		ai_check_interval = 12
+		
+		potential = {
+			character = FROM
+			has_dlc = "Holy Fury"
+			is_playable = yes
+			is_adult = yes
+			society_member_of = warrior_lodge_semitic
+			society_rank = 1
+			NOT = { 
+				OR = {
+					has_trait = poet
+					has_trait = falconer
+				}
+			}
+		}
+		
+		allow = {
+			has_society_currency_minor_trigger = yes
+			has_religion_matching_joined_warrior_lodge_trigger = yes
+			custom_tooltip = {
+				text = not_already_trained_in_desert_tt
+			}
+			OR = {
+				NOT = { trait = poet }
+				NOT = { trait = falconer }
+			}
+		}
+		
+		effect = {
+			add_trait = poet
+			add_trait = falconer
+			detract_society_currency_minor_effect = yes
+		}
+		
+		revoke_allowed = { always = no }
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.8
+				trait = shy
+			}
+			modifier = {
+				factor = 0.1
+				trait = craven
+			}
+			modifier = {
+				factor = 1.5
+				trait = patient
+			}
+		}
+	}
 }
 decisions = {
 	# Create Hellenic Warrior Lodge - Dead at start.
