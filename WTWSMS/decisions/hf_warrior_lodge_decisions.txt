@@ -2196,6 +2196,68 @@ society_decisions = {
 		}
 	}
 
+	warrior_lodge_balkan_summon_warriors = {
+		only_playable = yes
+		is_mercenary = yes
+		ai_check_interval = 20 #check only once every 20 months.
+		is_high_prio = yes
+		potential = {
+			has_dlc = "Holy Fury"
+			is_playable = yes
+			is_adult = yes
+			society_member_of = warrior_lodge_berber
+			society_rank = 3
+			OR = { 
+				religion = illyran_pagan
+				religion = illyran_pagan_reformed
+				religion = dacian_pagan
+				religion = dacian_pagan_reformed
+			}
+			OR = {
+				ai = no
+				any_war = {
+					OR = {
+						any_defender = {
+							character = ROOT
+							is_primary_war_defender = yes
+						}
+						any_attacker = {
+							character = ROOT
+							is_primary_war_attacker = yes
+						}
+					}
+				}
+			}
+		}
+		allow = {
+			war = yes
+			has_society_currency_medium_trigger = yes
+			is_inaccessible_trigger = no
+			custom_tooltip = { 
+				text = tooltip_has_not_already_summoned_balkan_warriors
+				hidden_tooltip = { NOT = { has_character_modifier = lodge_summon_warriors_cooldown } } 
+			}
+		}
+		effect = {
+			detract_society_currency_medium_effect = yes
+			character_event = { id = HF.25001 }
+			custom_tooltip = { text = tooltip_summon_warriors_balkan }
+			hidden_tooltip = { 
+				add_character_modifier = { 
+					modifier = lodge_summon_warriors_cooldown 
+					duration = -1 #Removed on_action when player is back at peace.
+					hidden = yes
+				} 
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0 # decisions with the "is_mercenary" will not be calculated from the script
+		}
+	}
+
 	#Power, rank 1: Desert Training
 	warrior_lodge_semitic_desert_training = {
 		is_in_society = yes
