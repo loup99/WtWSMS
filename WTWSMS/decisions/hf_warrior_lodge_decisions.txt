@@ -2128,6 +2128,133 @@ society_decisions = {
 			}
 		}
 	}
+
+
+	###WTWSMS Catfish
+	warrior_lodge_berber_summon_warriors = {
+		only_playable = yes
+		is_mercenary = yes
+		ai_check_interval = 20 #check only once every 20 months.
+		is_high_prio = yes
+		potential = {
+			has_dlc = "Holy Fury"
+			is_playable = yes
+			is_adult = yes
+			society_member_of = warrior_lodge_berber
+			society_rank = 3
+			OR = { 
+				religion = central_african_pagan
+				religion = central_african_pagan_reformed
+				religion = gurzil_pagan
+				religion = msoura_pagan
+				religion = african_solar_pagan
+				religion = african_solar_pagan_reformed
+				religion = mandulis_pagan
+			}
+			OR = {
+				ai = no
+				any_war = {
+					OR = {
+						any_defender = {
+							character = ROOT
+							is_primary_war_defender = yes
+						}
+						any_attacker = {
+							character = ROOT
+							is_primary_war_attacker = yes
+						}
+					}
+				}
+			}
+		}
+		allow = {
+			war = yes
+			has_society_currency_medium_trigger = yes
+			is_inaccessible_trigger = no
+			custom_tooltip = { 
+				text = tooltip_has_not_already_summoned_berber_warriors
+				hidden_tooltip = { NOT = { has_character_modifier = lodge_summon_warriors_cooldown } } 
+			}
+		}
+		effect = {
+			detract_society_currency_medium_effect = yes
+			character_event = { id = HF.25001 }
+			custom_tooltip = { text = tooltip_summon_warriors_berber }
+			hidden_tooltip = { 
+				add_character_modifier = { 
+					modifier = lodge_summon_warriors_cooldown 
+					duration = -1 #Removed on_action when player is back at peace.
+					hidden = yes
+				} 
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0 # decisions with the "is_mercenary" will not be calculated from the script
+		}
+	}
+
+	#Power, rank 1: Desert Training
+	warrior_lodge_semitic_desert_training = {
+		is_in_society = yes
+		
+		filter = self
+		ai_target_filter = self
+		ai_check_interval = 12
+		
+		potential = {
+			character = FROM
+			has_dlc = "Holy Fury"
+			is_playable = yes
+			is_adult = yes
+			society_member_of = warrior_lodge_semitic
+			society_rank = 1
+			NOT = { 
+				OR = {
+					has_trait = poet
+					has_trait = falconer
+				}
+			}
+		}
+		
+		allow = {
+			has_society_currency_minor_trigger = yes
+			has_religion_matching_joined_warrior_lodge_trigger = yes
+			custom_tooltip = {
+				text = not_already_trained_in_desert_tt
+			}
+			OR = {
+				NOT = { trait = poet }
+				NOT = { trait = falconer }
+			}
+		}
+		
+		effect = {
+			add_trait = poet
+			add_trait = falconer
+			detract_society_currency_minor_effect = yes
+		}
+		
+		revoke_allowed = { always = no }
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.8
+				trait = shy
+			}
+			modifier = {
+				factor = 0.1
+				trait = craven
+			}
+			modifier = {
+				factor = 1.5
+				trait = patient
+			}
+		}
+	}
 }
 decisions = {
 	# Create Hellenic Warrior Lodge - Dead at start.
