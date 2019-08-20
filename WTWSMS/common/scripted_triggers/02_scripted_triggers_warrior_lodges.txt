@@ -38,6 +38,7 @@ is_member_of_any_warrior_lodge_trigger = {
 				society_member_of = warrior_lodge_georgian
 				society_member_of = warrior_lodge_dravidian
 				society_member_of = warrior_lodge_assyrian
+				society_member_of = warrior_lodge_east_african
 				
 				### ACR ###
 				society_member_of = warrior_lodge_celtic
@@ -69,6 +70,7 @@ has_any_warrior_lodge_training_trait_trigger = {
 		trait = sanamahi_leader
 		trait = georgian_leaer
 		trait = dravidian_leader
+		trait = east_african_leader
 		trait = assyrian_leader
 
 		### ACR ###
@@ -153,6 +155,10 @@ has_current_warrior_lodge_leader_trait_trigger = {
 			AND = {
 				trait = assyrian_leader
 				society_member_of = warrior_lodge_assyrian
+			}
+			AND = {
+				trait = east_african_leader
+				society_member_of = warrior_lodge_east_african
 			}
 
 			### ACR ###
@@ -253,6 +259,10 @@ has_religion_matching_joined_warrior_lodge_trigger = {
 				religion_openly_assyrian_or_reformed_trigger = yes
 				society_member_of = warrior_lodge_assyrian
 			}
+			AND = {
+				religion_openly_east_african_or_reformed_trigger = yes
+				society_member_of = warrior_lodge_east_african
+			}
 			### ACR ###
 			AND = {
 				religion_openly_celtic_or_reformed_trigger = yes
@@ -348,6 +358,10 @@ has_religion_matching_available_warrior_lodge_trigger = {
 		AND = {
 			religion_openly_assyrian_or_reformed_trigger = yes
 			warrior_lodge_assyrian = { society_has_members = yes }
+		}
+		AND = {
+			religion_openly_east_african_or_reformed_trigger = yes
+			warrior_lodge_east_african = { society_has_members = yes }
 		}
 		### ACR ###
 		AND = {
@@ -447,6 +461,10 @@ has_religion_matching_warrior_lodge_in_need_of_members_trigger = {
 			religion_openly_assyrian_or_reformed_trigger = yes
 			warrior_lodge_assyrian = { num_of_society_members < 30 }
 		}
+		AND = {
+			religion_openly_east_african_or_reformed_trigger = yes
+			warrior_lodge_east_african = { num_of_society_members < 30 }
+		}
 		### ACR ###
 		AND = {
 			religion_openly_celtic_or_reformed_trigger = yes
@@ -541,6 +559,10 @@ has_religion_matching_empty_warrior_lodge_trigger = {
 			religion_openly_assyrian_or_reformed_trigger = yes
 			NOT = { warrior_lodge_assyrian = { society_has_members = yes } }
 		}
+		AND = {
+			religion_openly_east_african_or_reformed_trigger = yes
+			NOT = { warrior_lodge_east_african = { society_has_members = yes } }
+		}
 		
 		### ACR ###
 		AND = {
@@ -576,6 +598,7 @@ this_society_is_a_warrior_lodge_trigger = {
 		is_society = warrior_lodge_georgian
 		is_society = warrior_lodge_dravidian	
 		is_society = warrior_lodge_assyrian
+		is_society = warrior_lodge_east_african
 		### ACR ###
 		is_society = warrior_lodge_celtic
 		is_society = warrior_lodge_egyptian
@@ -604,6 +627,7 @@ has_religion_matching_any_warrior_lodge_trigger = {
 		religion_openly_georgian_or_reformed_trigger = yes
 		religion_openly_dravidian_or_reformed_trigger = yes
 		religion_openly_assyrian_or_reformed_trigger = yes
+		religion_openly_east_african_or_reformed_trigger = yes
 		religion_openly_in_celtic_subgroup_trigger = yes
 		religion_openly_in_egyptian_subgroup_trigger = yes
 	}
@@ -731,6 +755,12 @@ has_religion_matching_warrior_lodge_to_revive_trigger = {
 			religion_openly_assyrian_or_reformed_trigger = yes
 			event_target:warrior_lodge_to_revive = {
 				is_society = warrior_lodge_assyrian
+			}
+		}
+		AND = {
+			religion_openly_east_african_or_reformed_trigger = yes
+			event_target:warrior_lodge_to_revive = {
+				is_society = warrior_lodge_east_african
 			}
 		}
 		### ACR ###
@@ -990,6 +1020,19 @@ special_join_warrior_lodge_trigger = {
 							any_vassal = { religion_openly_assyrian_or_reformed_trigger = yes }
 							any_liege = { religion_openly_assyrian_or_reformed_trigger = yes }
 							any_neighbor_independent_ruler = { religion_openly_assyrian_or_reformed_trigger = yes }
+						}
+					}
+				}
+			}
+			AND = {
+				FROM = { is_society = warrior_lodge_east_african }
+				custom_tooltip = {
+					text = has_liege_vassal_or_neighbor_of_east_african_religion_tt
+					hidden_trigger = {
+						OR = {
+							any_vassal = { religion_openly_east_african_or_reformed_trigger = yes }
+							any_liege = { religion_openly_east_african_or_reformed_trigger = yes }
+							any_neighbor_independent_ruler = { religion_openly_east_african_or_reformed_trigger = yes }
 						}
 					}
 				}
