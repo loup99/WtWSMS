@@ -346,12 +346,13 @@ character_event = {
 	}
 	
 	immediate = {
-		if = { # has been sieged once and gets the war-torn modifier
+		if = { # Has been sieged once and gets the war-torn modifier
 			limit = {
 				FROM = {
 					location = {
-						NOT = {
+						NOR = {
 							has_province_modifier = war_torn
+							has_province_modifier = devastated_war
 						}
 					}
 				}
@@ -370,6 +371,7 @@ character_event = {
 				FROM = {
 					location = {
 						has_province_modifier = war_torn
+						NOT = { has_province_modifier = devastated_war }
 						NOT = {
 							check_variable = { 
 								which = sieged_variable 
@@ -393,6 +395,7 @@ character_event = {
 				FROM = {
 					location = {
 						has_province_modifier = war_torn
+						NOT = { has_province_modifier = devastated_war }
 						check_variable = {
 							which = sieged_variable 
 							value = 1
@@ -400,7 +403,7 @@ character_event = {
 						NOT = {
 							check_variable = { 
 								which = sieged_variable 
-								value = 4
+								value = 9
 							}
 						}
 					}
@@ -415,17 +418,15 @@ character_event = {
 				}
 			}
 		}
-		if = { # Has been sieged five times and gets the devastated modifier
+		if = { # Has been sieged ten times and gets the devastated modifier
 			limit = {
 				FROM = {
 					location = {
 						has_province_modifier = war_torn
+						NOT = { has_province_modifier = devastated_war }
 						check_variable = {
 							which = sieged_variable 
-							value = 4
-						}
-						NOT = {
-							has_province_modifier = devastated_war
+							value = 9
 						}
 					}
 				}
@@ -438,7 +439,7 @@ character_event = {
 					}
 					remove_province_modifier = war_torn
 					set_variable = { 
-						which = sieged_variable 
+						which = sieged_variable
 						value = 0 
 					}
 				}
