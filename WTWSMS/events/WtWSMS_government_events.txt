@@ -145,7 +145,7 @@ long_character_event = {
 		hidden_tooltip = {
 			primary_title = {
 				set_title_flag = first_step_feudal
-				set_variable = { 
+				change_variable = { 
 					which = feudal_transition_variable 
 					value = 1 
 				}
@@ -424,9 +424,9 @@ long_character_event = {
 			}
 		}
 		hidden_tooltip = {
-			primary_title = { 
+			primary_title = {
 				set_title_flag = first_step_feudal
-				set_variable = { 
+				change_variable = { 
 					which = feudal_transition_variable 
 					value = 1 
 				}
@@ -516,23 +516,23 @@ long_character_event = {
 	immediate = {
 		primary_title = {
 			set_title_flag = war_crisis
-		}
-		if = { # Hasn't started transition
-			limit = {
-				is_variable_equal = {
+			if = { # Hasn't started transition
+				limit = {
+					is_variable_equal = {
+						which = feudal_transition_variable 
+						value = 0
+					}	
+				}
+				set_variable = {
 					which = feudal_transition_variable 
-					value = 0
-				}	
+					value = 1
+				}
 			}
-			set_variable = {
-				which = feudal_transition_variable 
-				value = 1
-			}
-		}
-		else = { # Has started transition
-			change_variable = {
-				which = feudal_transition_variable
-				value = 1
+			else = { # Has started transition
+				change_variable = {
+					which = feudal_transition_variable
+					value = 1
+				}
 			}
 		}
 	}
@@ -577,28 +577,28 @@ long_character_event = {
 	immediate = {
 		primary_title = {
 			set_title_flag = landed_army
+			if = { # Hasn't started transition
+				limit = {
+					is_variable_equal = {
+						which = feudal_transition_variable 
+						value = 0
+					}	
+				}
+				set_variable = {
+					which = feudal_transition_variable 
+					value = 1
+				}
+			}
+			else = { # Has started transition
+				change_variable = {
+					which = feudal_transition_variable
+					value = 1
+				}
+			}
 		}
 		set_variable = { # Clear old variables left
 			which = retinue_size 
 			value = 0
-		}
-		if = { # Hasn't started transition
-			limit = {
-				is_variable_equal = {
-					which = feudal_transition_variable 
-					value = 0
-				}	
-			}
-			set_variable = {
-				which = feudal_transition_variable 
-				value = 1
-			}
-		}
-		else = { # Has started transition
-			change_variable = {
-				which = feudal_transition_variable
-				value = 1
-			}
 		}
 	}
 	
@@ -706,28 +706,28 @@ long_character_event = {
 	immediate = {
 		primary_title = {
 			set_title_flag = changed_military_cultural_values
+			if = { # Hasn't started transition
+				limit = {
+					is_variable_equal = {
+						which = feudal_transition_variable 
+						value = 0
+					}	
+				}
+				set_variable = {
+					which = feudal_transition_variable 
+					value = 1
+				}
+			}
+			else = { # Has started transition
+				change_variable = {
+					which = feudal_transition_variable
+					value = 1
+				}
+			}
 		}
 		set_variable = { # Clear old variables left
 			which = military_value_vassals 
 			value = 0
-		}
-		if = { # Hasn't started transition
-			limit = {
-				is_variable_equal = {
-					which = feudal_transition_variable 
-					value = 0
-				}	
-			}
-			set_variable = {
-				which = feudal_transition_variable 
-				value = 1
-			}
-		}
-		else = { # Has started transition
-			change_variable = {
-				which = feudal_transition_variable
-				value = 1
-			}
 		}
 	}
 	
@@ -830,28 +830,28 @@ long_character_event = {
 	immediate = {
 		primary_title = {
 			set_title_flag = changed_ecclesiastic_cultural_values
+			if = { # Hasn't started transition
+				limit = {
+					is_variable_equal = {
+						which = feudal_transition_variable 
+						value = 0
+					}	
+				}
+				set_variable = {
+					which = feudal_transition_variable 
+					value = 1
+				}
+			}
+			else = { # Has started transition
+				change_variable = {
+					which = feudal_transition_variable
+					value = 1
+				}
+			}
 		}
 		set_variable = { # Clear old variables left
 			which = learning_value_vassals 
 			value = 0
-		}
-		if = { # Hasn't started transition
-			limit = {
-				is_variable_equal = {
-					which = feudal_transition_variable 
-					value = 0
-				}	
-			}
-			set_variable = {
-				which = feudal_transition_variable 
-				value = 1
-			}
-		}
-		else = { # Has started transition
-			change_variable = {
-				which = feudal_transition_variable
-				value = 1
-			}
 		}
 	}
 	
@@ -878,12 +878,12 @@ long_character_event = {
 		primary_title = {
 			has_title_flag = sub_roman_government_flag
 			NOT = { has_title_flag = adopted_feudalism }
+			check_variable = { # Minimum of 4 feudal transition variables
+				which = feudal_transition_variable
+				value >= 4
+			}
 		}
 		government = sub_roman_government
-		check_variable = { # Minimum of 4 feudal transition variables
-			which = feudal_transition_variable
-			value >= 4
-		} 
 	}
 	
 	mean_time_to_happen = {
@@ -891,24 +891,30 @@ long_character_event = {
 		# Minimum of 4 variables, but likelier the more you have
 		modifier = {
 			factor = 0.25 # Increases chances by a fourth
-			check_variable = {
-				which = feudal_transition_variable
-				value >= 5
-			} 
+			primary_title = {
+				check_variable = {
+					which = feudal_transition_variable
+					value >= 5
+				} 
+			}
 		}
 		modifier = {
 			factor = 0.25 # Increases chances by a fourth
-			check_variable = { 
-				which = feudal_transition_variable
-				value >= 6
-			} 
+			primary_title = {
+				check_variable = {
+					which = feudal_transition_variable
+					value >= 6
+				} 
+			}
 		}
 		modifier = {
 			factor = 0.25 # Increases chances by a fourth
-			check_variable = { 
-				which = feudal_transition_variable
-				value >= 7
-			} 
+			primary_title = {
+				check_variable = {
+					which = feudal_transition_variable
+					value >= 7
+				} 
+			}
 		}
 	}
 	
@@ -916,10 +922,10 @@ long_character_event = {
 		primary_title = {
 			set_title_flag = adopted_feudalism
 			clr_title_flag = sub_roman_government_flag # No longer Sub-Roman
-		}
-		set_variable = { # Clear old variables left
-			which = feudal_transition_variable 
-			value = 0
+			set_variable = { # Clear old variables left
+				which = feudal_transition_variable 
+				value = 0
+			}
 		}
 		any_realm_province = { # No longer pertinent to indicate as a flag after switch to feudalism, although the Roman taxation structures are obviously not there
 			limit = {
