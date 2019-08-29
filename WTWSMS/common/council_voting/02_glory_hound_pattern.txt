@@ -1,84 +1,73 @@
-zealot_pattern_for = {
-	icon = 5
+glory_hound_pattern_for = {
+	icon = 7
 	pattern_type = for
 	
 	declare_war_interaction = {
-		OR = {
+		OR = { # Or gloriously attacking a powerful enemy
 			custom_tooltip = {
-				text = pattern_zealot_depose_wicked_pope_custom_tooltip
+				text = pattern_glory_hound_glorious_war_custom_tooltip
 				hidden_tooltip = {
-					FROMFROMFROM = { # Gainer
-						AND = { # Deposing a wicked pope
-							rightful_religious_head_scope = {
-								character = PREV
-								NOT = { trait = bad_priest_christian }
-							}
-							religion_head = {
-								character = ROOT_FROMFROM # Defender
-								trait = bad_priest_christian
-							}
+					FROMFROM = { # Defender
+						relative_power_including_allies_defender = {
+							who = ROOT_FROM # Attacker
+							power = 0.9
 						}
+					}
+				}
+			}
+			
+			custom_tooltip = {
+				text = pattern_glory_hound_preferred_war_custom_tooltip
+				hidden_tooltip = {
+					preferred_war_target = {
+						character = FROMFROM # Defender
 					}	
 				}
 			}
+			
 			custom_tooltip = {
-				text = pattern_zealot_dislikes_heathens_heretics_custom_tooltip
+				text = pattern_glory_hound_land_grab_custom_tooltip
 				hidden_tooltip = {
-					AND = { # or taking titles from heretics or heathens
-						OR = {
-							FROMFROM = { # Defender
-								NOT = {
-									religion = ROOT
+					AND = {
+						NOT = {
+							FROM = { # Attacker
+								relative_power_including_allies_attacker = {
+									who = ROOT_FROMFROM # Defender
+									power = 3
 								}
 							}
-							FROMFROMFROMFROM = { # Thirdparty_title
-								holder_scope = {
-									NOT = { 
-										religion = ROOT
+						}
+						NOR = {
+							AND = {
+								stored_token_trigger = other_claim
+								NOT = {
+									FROMFROMFROM = { # Gainer
+										OR = {
+											is_landed = yes
+											dynasty = ROOT_FROM # Attacker
+										}
+										is_liege_or_above = ROOT_FROM
+										ROOT_FROM = { # Attacker
+											primary_title = {
+												higher_tier_than = ROOT_FROMFROMFROMFROM # Thirdparty_title
+											}
+										}
 									}
 								}
 							}
+							stored_token_trigger = claim_on_liege
+							stored_token_trigger = other_claim_on_liege
+							stored_token_trigger = crusade
+							stored_token_trigger = excommunicated_ruler
+							stored_token_trigger = bid_for_independence
+							stored_token_trigger = depose_liege
+							stored_token_trigger = overthrow_ruler
+							stored_token_trigger = overthrow_ruler_no_calls
+							stored_token_trigger = embargo_cb
+							stored_token_trigger = depose_antipope
+							stored_token_trigger = cb_install_antiking
 						}
 					}	
-				}
-			}
-			custom_tooltip = {
-				text = pattern_attacking_excom_or_antipope_custom_tooltip
-				hidden_tooltip = {
-					AND = { # or attacking an excommunicated member of the faith or an antipope
-						FROMFROM = { # Defender
-							religion = ROOT
-							OR = {
-								trait = excommunicated
-								ROOT = {
-									stored_token_trigger = depose_antipope # cb_type
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		custom_tooltip = {
-			text = pattern_zealot_not_other_religion_antipope_custom_tooltip
-			hidden_tooltip = {
-				NAND = { # Will prefer to keep antipopes of other religions alive
-					stored_token_trigger = depose_antipope # cb_type
-					NOT = { 
-						religion = FROM # Attacker
-					}
-				}
-			}
-		}
-		NOT = {
-			custom_tooltip = {
-				text = pattern_zealot_should_focus_on_great_holy_war
-				hidden_tooltip = {
-					FROM = { # Attacker
-						religion = ROOT # Voter
-						religion = ROOT_FROMFROM # Defender
-						has_called_crusade = yes
-					}
 				}
 			}
 		}
@@ -103,61 +92,6 @@ zealot_pattern_for = {
 	vassal_wars_law_0 = { always = yes }
 	vassal_wars_law_1 = { always = no }
 	vassal_wars_law_2 = { always = no }
-	
-	# ROOT - Voter, FROM - Actor, FROMFROM - Recipient, FROMFROMFROM - Revoked title.
-	revoke_title_interaction = { 
-		FROMFROM = {
-			NOT = { religion = ROOT }
-			NOT = { 
-				reverse_opinion = {
-					who = ROOT
-					value = 19
-				}
-			}
-		}
-	}
-	imprison_character_interaction = { 
-		FROMFROM = {
-			NOT = { religion = ROOT }
-			NOT = { 
-				reverse_opinion = {
-					who = ROOT
-					value = 19
-				}
-			}
-		}
-	}
-	grant_landed_title_interaction = {
-		FROMFROM = {
-			religion = ROOT
-			reverse_opinion = {
-				who = ROOT
-				value = 20
-			}
-		}
-	}
-	exile_imprisoned_interaction = {
-		FROMFROM = {
-			NOT = { religion = ROOT }
-			NOT = { 
-				reverse_opinion = {
-					who = ROOT
-					value = 19
-				}
-			}
-		}
-	}
-	execute_imprisoned_interaction = {
-		FROMFROM = {
-			NOT = { religion = ROOT }
-			NOT = { 
-				reverse_opinion = {
-					who = ROOT
-					value = 19
-				}
-			}
-		}
-	}
 	
 	centralization_0 = {
 		always = yes
@@ -518,19 +452,6 @@ zealot_pattern_for = {
 		}
 	}
 	
-	revoke_title_law_0 = {
-		always = no
-	}
-	revoke_title_law_1 = {
-		always = no
-	}
-	revoke_title_law_2 = {
-		opinion = {
-			who = liege
-			value = 20
-		}
-	}
-	
 	status_of_women_0 = { 
 		is_female = yes
 		NOT = { has_law = status_of_women_1 }
@@ -550,85 +471,26 @@ zealot_pattern_for = {
 	status_of_women_4 = { 
 		is_female = yes
 	}
-
-	enatic_succession = {
-		is_female = yes
-	}
-
-	enatic_cognatic_succession = {
-		OR = {
-			is_female = no
-			FROMFROM = {
-				NOT = { has_law = enatic_succession }
-			}
-		}
-	}
-
-	true_cognatic_succession = {
-		NOT = {
-			FROMFROM = { has_law = enatic_cognatic_succession }
-		}
-	}
 }
 
-zealot_pattern_against = {
-	icon = 5
+glory_hound_pattern_against = {
+	icon = 7
 	pattern_type = against
-
-	declare_war_interaction = { 
-		OR = {
-			custom_tooltip = {
-				text = pattern_zealot_not_other_religion_antipope_custom_tooltip
-				hidden_tooltip = { # Will prefer to keep antipopes of other religions alive
-					stored_token_trigger = depose_antipope
-					NOT = { 
-						religion = FROM # Attacker
-					}
-				}
-			}
-			custom_tooltip = {
-				text = pattern_zealot_should_focus_on_great_holy_war
-				hidden_tooltip = {
-					FROM = { # Attacker
-						religion = ROOT_FROMFROM
-						has_called_crusade = yes
-					}
-				}
-			}
-		}
-	}
 	
-	grant_landed_title_interaction = {
-		FROMFROM = {
-			OR = {
-				AND = {
-					NOT = { religion = ROOT }
-					NOT = {
-						reverse_opinion = {
-							who = ROOT
-							value = 25
+	declare_war_interaction = {
+		custom_tooltip = {
+			text = pattern_glory_hound_opponent_too_weak_custom_tooltip
+			hidden_tooltip = {
+				OR = {
+					NOT = { # Attacking a weak enemy
+						FROMFROM = { # Defender
+							relative_power_including_allies_defender = {
+								who = ROOT_FROM # Attacker
+								power = 0.3
+							}
 						}
 					}
-				}
-				AND = {
-					religion = ROOT
-					OR = {
-						trait = excommunicated
-						trait = decadent
-					}
-				}
-			}
-		}
-	}
-	
-	revoke_title_interaction = {
-		custom_tooltip = {
-			text = pattern_zealot_fromfrom_is_pious_tooltip
-			hidden_tooltip = {
-				FROMFROM = {
-					religion = ROOT
-					piety = 200
-				}
+				}	
 			}
 		}
 	}
@@ -649,7 +511,6 @@ zealot_pattern_against = {
 	war_voting_power_1 = { always = no }
 	succession_voting_power_0 = { always = yes }
 	succession_voting_power_1 = { always = no }
-	
 	vassal_wars_law_0 = { always = no }
 	vassal_wars_law_1 = { always = yes }
 	vassal_wars_law_2 = { always = yes }
@@ -965,7 +826,7 @@ zealot_pattern_against = {
 			}
 			is_tribal = no
 		}
-	}
+	}	
 	
 	revoke_title_law_0 = {
 		NOT = {
@@ -984,7 +845,12 @@ zealot_pattern_against = {
 		}
 	}
 	revoke_title_law_2 = {
-		always = no
+		NOT = {
+			opinion = {
+				who = liege
+				value = 59
+			}
+		}
 	}
 	ze_administration_laws_0 = { 
 		NOT = { has_law = ze_administration_laws_1 }
@@ -1010,22 +876,206 @@ zealot_pattern_against = {
 	status_of_women_4 = { 
 		always = yes
 	}
-
-	enatic_succession = {
-		is_female = no
-	}
-
-	enatic_cognatic_succession = {
-		NOT = {
-			FROMFROM = {
-				has_law = enatic_succession
+	
+	imprison_character_interaction = {
+		OR = {
+			custom_tooltip = {
+				text = pattern_glory_hound_weakening_ruling_dynasty_tooltip
+				hidden_tooltip = {
+					liege = {
+						FROMFROM = {
+							dynasty = PREV
+						}
+					}	
+				}
+			}
+			custom_tooltip = {
+				text = pattern_glory_hound_defenseless_child_tooltip
+				hidden_tooltip = {
+					FROMFROM = {
+						is_adult = no
+					}
+				}
+			}
+			custom_tooltip = {
+				text = pattern_glory_hound_weakening_powerful_vassal_tooltip
+				hidden_tooltip = {
+					liege = {
+						OR = {
+							AND = {
+								primary_title = {
+									tier = emperor
+								}
+								FROMFROM = {
+									among_most_powerful_vassals = 6
+								}
+							}
+							AND = {
+								primary_title = {
+									tier = king
+								}
+								FROMFROM = {
+									among_most_powerful_vassals = 5
+								}
+							}
+							AND = {
+								primary_title = {
+									lower_tier_than = king
+								}
+								FROMFROM = {
+									among_most_powerful_vassals = 4
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}
-
-	true_cognatic_succession = {
-		NOT = {
-			true_religion_celtic_or_reformed_trigger = yes
+	exile_imprisoned_interaction = {
+		OR = {
+			custom_tooltip = {
+				text = pattern_glory_hound_weakening_ruling_dynasty_tooltip
+				hidden_tooltip = {
+					liege = {
+						FROMFROM = {
+							dynasty = PREV
+						}
+					}	
+				}
+			}
+			custom_tooltip = {
+				text = pattern_glory_hound_defenseless_child_tooltip
+				hidden_tooltip = {
+					FROMFROM = {
+						is_adult = no
+					}
+				}
+			}
+			custom_tooltip = {
+				text = pattern_glory_hound_weakening_powerful_vassal_tooltip
+				hidden_tooltip = {
+					liege = {
+						OR = {
+							AND = {
+								primary_title = {
+									tier = emperor
+								}
+								FROMFROM = {
+									among_most_powerful_vassals = 6
+								}
+							}
+							AND = {
+								primary_title = {
+									tier = king
+								}
+								FROMFROM = {
+									among_most_powerful_vassals = 5
+								}
+							}
+							AND = {
+								primary_title = {
+									lower_tier_than = king
+								}
+								FROMFROM = {
+									among_most_powerful_vassals = 4
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	execute_imprisoned_interaction = {
+		OR = {
+			custom_tooltip = {
+				text = pattern_glory_hound_weakening_ruling_dynasty_tooltip
+				hidden_tooltip = {
+					liege = {
+						FROMFROM = {
+							dynasty = PREV
+						}
+					}	
+				}
+			}
+			custom_tooltip = {
+				text = pattern_glory_hound_defenseless_child_tooltip
+				hidden_tooltip = {
+					FROMFROM = {
+						is_adult = no
+					}
+				}
+			}
+			custom_tooltip = {
+				text = pattern_glory_hound_weakening_powerful_vassal_tooltip
+				hidden_tooltip = {
+					same_liege = FROMFROM
+					liege = {
+						OR = {
+							AND = {
+								primary_title = {
+									tier = emperor
+								}
+								FROMFROM = {
+									among_most_powerful_vassals = 6
+								}
+							}
+							AND = {
+								primary_title = {
+									tier = king
+								}
+								FROMFROM = {
+									among_most_powerful_vassals = 5
+								}
+							}
+							AND = {
+								primary_title = {
+									lower_tier_than = king
+								}
+								FROMFROM = {
+									among_most_powerful_vassals = 4
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	revoke_title_interaction = {
+		custom_tooltip = {
+			text = pattern_glory_hound_weakening_powerful_vassal_tooltip
+			hidden_tooltip = {
+				liege = {
+					OR = {
+						AND = {
+							primary_title = {
+								tier = emperor
+							}
+							FROMFROM = {
+								among_most_powerful_vassals = 6
+							}
+						}
+						AND = {
+							primary_title = {
+								tier = king
+							}
+							FROMFROM = {
+								among_most_powerful_vassals = 5
+							}
+						}
+						AND = {
+							primary_title = {
+								lower_tier_than = king
+							}
+							FROMFROM = {
+								among_most_powerful_vassals = 4
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }

@@ -1,0 +1,970 @@
+###############################
+# Government events
+#
+# Written by Loup
+#
+# WtWSMS_govs.1 -> WtWSMS_govs.17
+###############################
+
+namespace = WtWSMS_govs
+
+###############################
+# Initial Sub-Roman flag
+###############################
+
+# Independent character with a Sub-Roman government
+character_event = {
+	id = WtWSMS_govs.1
+
+	hide_window = yes
+	
+	only_playable = yes
+	only_independent = yes # Tax-collecting is done at state-level, although naturally vassals get the land later on and their cultural values shift. 
+
+	trigger = {
+		government = sub_roman_government # This is based upon the Romano-Germanic kingdoms, doesn't necessarily fit for other realms who had more tribal patterns...
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		primary_title = { 
+			set_title_flag = sub_roman_government_flag
+		}
+	}
+}
+
+# Independent character no longer has a Sub-Roman government
+character_event = {
+	id = WtWSMS_govs.2
+
+	hide_window = yes
+	
+	only_playable = yes
+	only_independent = yes
+
+	trigger = {
+		NOT = { government = sub_roman_government }
+		primary_title = { 
+			has_title_flag = sub_roman_government_flag
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 1 # Testing placeholder
+	}
+	
+	immediate = {
+		primary_title = { 
+			clr_title_flag = sub_roman_government_flag
+		}
+	}
+}
+
+###############################
+# Roman taxation
+###############################
+
+# Sub-Roman ruler gets the choice of maintaining the old taxation after ~50 years, step one
+long_character_event = {
+	id = WtWSMS_govs.3
+	title = WtWSMS_govs.3.name
+	desc = WtWSMS_govs.3.desc
+	picture = GFX_evt_throne_room
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		primary_title = {
+			has_title_flag = sub_roman_government_flag
+			had_title_flag = { 
+				flag = sub_roman_government_flag 
+				days = 18250 # 50 years
+			}
+			NOT = { has_title_flag = first_event_feudal_transition } # Don't want the event to fire again
+		}
+		government = sub_roman_government
+	}
+	
+	mean_time_to_happen = {
+		years = 10 # A minimum of 50 years with "had_title_flag", then 10 years at random
+	}
+	
+	immediate = {
+		primary_title = {
+			set_title_flag = first_event_feudal_transition
+		}
+	}
+	
+	option = {
+		name = WtWSMS_govs.3.a # Yes, maintain, costs money, increases revolt risk in reaction to taxation for the peasants and decreases opinions for the aristocracy, delay a bit -> 50 years
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 5
+				scaled_wealth = 10.0
+			}
+		}
+		scaled_wealth = -1 # Maintaining taxation has a cost...
+		any_realm_province = {
+			add_province_modifier = {
+				name = maintained_roman_taxation_infrastructure
+				duration = -1 
+			}
+		}
+		any_vassal = {
+			opinion = {
+				modifier = opinion_maintained_roman_taxes 
+				who = ROOT 
+				years = 10
+			}
+		}
+		hidden_tooltip = {
+			long_character_event = { # Repeat ~fifty years later
+				id = WtWSMS_govs.3
+				days = 18250 # 50 years
+				random = 3650 # 10 years
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_govs.3.b # No, less income permanently -> Step one for becomming feudal
+		ai_chance = {
+			factor = 90
+		}
+		any_realm_province = {
+			add_province_modifier = {
+				name = neglected_roman_taxation_infrastructure
+				duration = -1 
+			}
+		}
+		hidden_tooltip = {
+			primary_title = {
+				set_title_flag = first_step_feudal
+				change_variable = { 
+					which = feudal_transition_variable 
+					value = 1 
+				}
+			}
+		}
+	}
+}
+
+# Sub-Roman ruler gets the choice of further maintaining remains of old fiscal system after ~50 more years, step two
+long_character_event = {
+	id = WtWSMS_govs.4
+	title = WtWSMS_govs.4.name
+	desc = WtWSMS_govs.4.desc
+	picture = GFX_evt_throne_room
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		primary_title = {
+			has_title_flag = sub_roman_government_flag
+			had_title_flag = { 
+				flag = first_step_feudal 
+				days = 18250 # 50 years
+			}
+			NOT = { has_title_flag = second_event_feudal_transition } # Don't want the event to fire again
+		}
+		government = sub_roman_government
+	}
+	
+	mean_time_to_happen = {
+		years = 10 # A minimum of 50 years with "had_title_flag", then 10 years at random
+	}
+	
+	immediate = {
+		primary_title = {
+			set_title_flag = second_event_feudal_transition
+		}
+	}
+	
+	option = {
+		name = WtWSMS_govs.4.a # Yes, maintain, costs money, increases revolt risk in reaction to taxation for the peasants and decreases opinions for the aristocracy, delay a bit -> 50 years
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 5
+				scaled_wealth = 20.0
+			}
+		}
+		scaled_wealth = -2 # Maintaining taxation has a cost...
+		any_realm_province = {
+			add_province_modifier = {
+				name = maintained_roman_taxation_infrastructure
+				duration = -1 
+			}
+		}
+		any_vassal = { 
+			opinion = {
+				modifier = opinion_maintained_roman_taxes 
+				who = ROOT 
+				years = 10
+			}
+		}
+		hidden_tooltip = {
+			long_character_event = { # Repeat ~fifty years later
+				id = WtWSMS_govs.4
+				days = 18250 # 50 years
+				random = 3650 # 10 years
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_govs.4.b # No, less income permanently -> Step one for becomming feudal
+		ai_chance = {
+			factor = 90
+		}
+		hidden_tooltip = {
+			any_realm_province = {
+				limit = {
+					has_province_modifier = neglected_roman_taxation_infrastructure
+				}
+				remove_province_modifier = neglected_roman_taxation_infrastructure
+			}
+			any_realm_province = {
+				limit = {
+					has_province_modifier = maintained_roman_taxation_infrastructure
+				}
+				remove_province_modifier = maintained_roman_taxation_infrastructure
+			}
+			primary_title = { 
+				set_title_flag = second_step_feudal
+				change_variable = { 
+					which = feudal_transition_variable
+					value = 1
+				}
+			}
+		}
+		any_realm_province = {
+			add_province_modifier = {
+				name = abandoned_roman_taxation_infrastructure
+				duration = -1 
+			}
+		}
+	}
+}
+
+# Sub-Roman ruler gets the choice of maintaining last vestiges of the old fiscal system after ~50 more years, step three
+long_character_event = {
+	id = WtWSMS_govs.5
+	title = WtWSMS_govs.5.name
+	desc = WtWSMS_govs.5.desc
+	picture = GFX_evt_throne_room
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		primary_title = {
+			has_title_flag = sub_roman_government_flag
+			had_title_flag = { 
+				flag = second_step_feudal 
+				days = 18250 # 50 years
+			}
+			NOT = { has_title_flag = third_event_feudal_transition } # Don't want the event to fire again
+		}
+		government = sub_roman_government
+	}
+	
+	mean_time_to_happen = {
+		years = 10 # A minimum of 50 years with "had_title_flag", then 10 years at random
+	}
+	
+	immediate = {
+		primary_title = {
+			set_title_flag = third_event_feudal_transition
+		}
+	}
+	
+	option = {
+		name = WtWSMS_govs.5.a # Yes, maintain, costs money, increases revolt risk in reaction to taxation for the peasants and decreases opinions for the aristocracy, delay a bit -> 50 years
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 5
+				scaled_wealth = 30.0
+			}
+		}
+		scaled_wealth = -3 # Maintaining taxation has a cost...
+		any_realm_province = {
+			add_province_modifier = {
+				name = maintained_roman_taxation_infrastructure
+				duration = -1 
+			}
+		}
+		any_vassal = {
+			opinion = {
+				modifier = opinion_maintained_roman_taxes 
+				who = ROOT 
+				years = 10
+			}
+		}
+		hidden_tooltip = {
+			long_character_event = { # Repeat ~fifty years later
+				id = WtWSMS_govs.5
+				days = 18250 # 50 years
+				random = 3650 # 10 years
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_govs.5.b # No, less income permanently -> Step one for becomming feudal
+		ai_chance = {
+			factor = 90
+		}
+		hidden_tooltip = {
+			any_realm_province = {
+				limit = {
+					has_province_modifier = abandoned_roman_taxation_infrastructure
+				}
+				remove_province_modifier = abandoned_roman_taxation_infrastructure
+			}
+			any_realm_province = {
+				limit = {
+					has_province_modifier = maintained_roman_taxation_infrastructure
+				}
+				remove_province_modifier = maintained_roman_taxation_infrastructure
+			}
+			primary_title = { 
+				set_title_flag = third_step_feudal
+				change_variable = {
+					which = feudal_transition_variable
+					value = 1
+				}
+			}
+		}
+		any_realm_province = {
+			add_province_modifier = {
+				name = nonexistent_roman_taxation_infrastructure
+				duration = -1 
+			}
+		}
+	}
+}
+
+# Vassals of a Sub-Roman liege asks for abandoning Roman fiscal system
+long_character_event = {
+	id = WtWSMS_govs.6
+	title = WtWSMS_govs.6.name
+	desc = WtWSMS_govs.6.desc
+	picture = GFX_evt_throne_room
+	
+	only_playable = yes
+	
+	trigger = {
+		top_liege = {
+			primary_title = {
+				has_title_flag = sub_roman_government_flag
+				had_title_flag = { 
+					flag = sub_roman_government_flag 
+					days = 18250 # 50 years
+				}
+				NOT = { has_title_flag = first_step_feudal } # Don't want the same to fire twice
+			}
+		}
+		government = sub_roman_government
+		higher_tier_than = BARON
+	}
+	
+	mean_time_to_happen = {
+		years = 10 # A minimum of 50 years with "had_title_flag", then 10 years at random
+	}
+	
+	option = {
+		name = WtWSMS_govs.6.a # Ask to abandon
+		top_liege = { 
+			long_character_event = { 
+				id = WtWSMS_govs.7
+				days = 3 # Instant events can cause issues for AI calculation
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_govs.6.b # Let it be
+		trigger = {
+			ai = no # Why would the AI want to pay taxes?
+		}
+	}
+}
+
+# Liege receives vassal request of abandoning Roman fiscal system
+long_character_event = {
+	id = WtWSMS_govs.7
+	title = WtWSMS_govs.7.name
+	desc = WtWSMS_govs.7.desc
+	picture = GFX_evt_throne_room
+	
+	is_triggered_only = yes
+	
+	option = { # Accept to abandon
+		name = WtWSMS_govs.7.a
+		# Vassal pleased
+		FROM = {
+			opinion = {
+				modifier = opinion_abandoned_roman_taxes 
+				who = ROOT 
+				years = 10
+			}
+		}
+		any_realm_province = {
+			add_province_modifier = {
+				name = neglected_roman_taxation_infrastructure
+				duration = -1 
+			}
+		}
+		hidden_tooltip = {
+			primary_title = {
+				set_title_flag = first_step_feudal
+				change_variable = { 
+					which = feudal_transition_variable 
+					value = 1 
+				}
+			}
+			FROM = {
+				character_event	= {
+					id = WtWSMS_govs.8 # Liege accepts vassal request of abandoning Roman fiscal system
+					days = 3 # Instant events can cause issues for AI calculation
+				}
+			}
+		}
+	}
+	
+	option = { # Refuse to abandon
+		name = WtWSMS_govs.7.b
+		ai_chance = {
+			factor = 10
+		}
+		FROM = {
+			opinion = {
+				modifier = opinion_maintained_roman_taxes 
+				who = ROOT 
+				years = 10
+			}
+			character_event	= {
+				id = WtWSMS_govs.9 # Liege refuses vassal request of abandoning Roman fiscal system
+				days = 3 # Instant events can cause issues for AI calculation
+			}
+		}
+	}
+}
+
+# Liege accepts vassal request of abandoning Roman fiscal system
+character_event = {
+	id = WtWSMS_govs.8
+	desc = WtWSMS_govs.8.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_govs.8.a
+	}
+}
+
+# Liege refuses vassal request of abandoning Roman fiscal system
+character_event = {
+	id = WtWSMS_govs.9
+	desc = WtWSMS_govs.9.desc
+	picture = GFX_evt_throne_room
+
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_govs.9.a
+	}
+}
+
+###############################
+# Crisis
+###############################
+
+# Crisis caused by war and looting
+long_character_event = {
+	id = WtWSMS_govs.10
+	desc = WtWSMS_govs.10.desc
+	picture = GFX_evt_warband_on_hill
+	
+	only_playable = yes
+	
+	trigger = {
+		primary_title = {
+			has_title_flag = sub_roman_government_flag
+			NOT = { has_title_flag = war_crisis } # Don't want the event to fire again
+		}
+		government = sub_roman_government
+		war = yes
+		any_realm_province = {
+			has_province_modifier = devastated_war # Has been sieged five times
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 10 # A rather long period of war(s)
+	}
+	
+	immediate = {
+		primary_title = {
+			set_title_flag = war_crisis
+			if = { # Hasn't started transition
+				limit = {
+					is_variable_equal = {
+						which = feudal_transition_variable 
+						value = 0
+					}	
+				}
+				set_variable = {
+					which = feudal_transition_variable 
+					value = 1
+				}
+			}
+			else = { # Has started transition
+				change_variable = {
+					which = feudal_transition_variable
+					value = 1
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_govs.10.a
+		prestige = -100
+	}
+}
+
+# Crisis makes it hard for institutions to continue properly
+
+###############################
+# Landed armies
+###############################
+
+# Sources of money-spending, less money spent on the army with landed army
+long_character_event = {
+	id = WtWSMS_govs.11
+	desc = WtWSMS_govs.11.desc
+	picture = GFX_evt_large_army
+	
+	only_playable = yes
+	
+	trigger = {
+		primary_title = {
+			has_title_flag = sub_roman_government_flag
+			NOT = { has_title_flag = landed_army } # Don't want the event to fire again
+		}
+		government = sub_roman_government
+		check_variable = { # Less retinues
+			which = retinue_size 
+			value <= 4 # Number based upon the modifier values
+		}
+		realm_levies >=	2000 # Larger army
+	}
+	
+	mean_time_to_happen = {
+		years = 10 # While you can't check for how many years this has been the case it makes sense to have a longer MTTH
+	}
+	
+	immediate = {
+		primary_title = {
+			set_title_flag = landed_army
+			if = { # Hasn't started transition
+				limit = {
+					is_variable_equal = {
+						which = feudal_transition_variable 
+						value = 0
+					}	
+				}
+				set_variable = {
+					which = feudal_transition_variable 
+					value = 1
+				}
+			}
+			else = { # Has started transition
+				change_variable = {
+					which = feudal_transition_variable
+					value = 1
+				}
+			}
+		}
+		set_variable = { # Clear old variables left
+			which = retinue_size 
+			value = 0
+		}
+	}
+	
+	option = {
+		name = WtWSMS_govs.11.a
+	}
+}
+
+# Landed army makes it less necessary to collect taxes that would have been spent on the army
+
+###############################
+# Changed cultural values
+###############################
+
+# Vassals with military education and strong martial but weak other stats
+character_event = {
+	id = WtWSMS_govs.12
+
+	hide_window = yes
+
+	only_playable = yes
+	
+	trigger = {
+		liege = {
+			primary_title = {
+				has_title_flag = sub_roman_government_flag
+			}
+			government = sub_roman_government
+		}
+		NOT = { has_character_flag = military_value_vassal } # Don't want the event to fire again
+		martial	>= 12 # Strong martial
+		OR = { # Weak other stat
+			diplomacy <= 6
+			stewardship <= 6
+			learning <= 6
+		}
+		OR = { # Military education trait, not necessarily good at it but popular, or alternatively commander
+			trait = misguided_warrior
+			trait = tough_soldier
+			trait = skilled_tactician
+			trait = brilliant_strategist
+			has_minor_title = title_commander
+		}
+		NOT = { # Not a top-tier education in another domain
+			trait = grey_eminence
+			trait = midas_touched
+			trait = elusive_shadow
+			trait = mastermind_theologian
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 10
+	}
+	
+	immediate = {
+		set_character_flag = military_value_vassal
+		liege = {
+			if = { # Already has the variable
+				limit = {
+					is_variable_equal = {
+						which = military_value_vassals 
+						value = 0
+					}	
+				}
+				set_variable = {
+					which = military_value_vassals 
+					value = 1
+				}
+			}
+			else = { # Does not already have the variable
+				change_variable = {
+					which = military_value_vassals
+					value = 1
+				}
+			}
+		}
+	}
+}
+
+# Changed cultural values of the aristocracy and social status of the army
+long_character_event = {
+	id = WtWSMS_govs.13
+	desc = WtWSMS_govs.13.desc
+	picture = GFX_evt_large_army
+	
+	only_playable = yes
+	
+	trigger = {
+		primary_title = {
+			has_title_flag = sub_roman_government_flag
+			NOT = { has_title_flag = changed_military_cultural_values } # Don't want the event to fire again
+		}
+		government = sub_roman_government
+		check_variable = { # At least five vassals 
+			which = military_value_vassals
+			value >= 5
+		} 
+	}
+	
+	mean_time_to_happen = {
+		years = 1
+	}
+	
+	immediate = {
+		primary_title = {
+			set_title_flag = changed_military_cultural_values
+			if = { # Hasn't started transition
+				limit = {
+					is_variable_equal = {
+						which = feudal_transition_variable 
+						value = 0
+					}	
+				}
+				set_variable = {
+					which = feudal_transition_variable 
+					value = 1
+				}
+			}
+			else = { # Has started transition
+				change_variable = {
+					which = feudal_transition_variable
+					value = 1
+				}
+			}
+		}
+		set_variable = { # Clear old variables left
+			which = military_value_vassals 
+			value = 0
+		}
+	}
+	
+	option = {
+		name = WtWSMS_govs.13.a
+	}
+}
+
+# Vassals with ecclesiastic education and strong learning but weak other stats
+character_event = {
+	id = WtWSMS_govs.14
+
+	hide_window = yes
+
+	only_playable = yes
+	
+	trigger = {
+		liege = {
+			primary_title = {
+				has_title_flag = sub_roman_government_flag
+			}
+			government = sub_roman_government
+		}
+		NOT = { has_character_flag = learning_value_vassal } # Don't want the event to fire again
+		learning >= 12 # Strong learning
+		OR = { # Weak other stat
+			diplomacy <= 6
+			stewardship <= 6
+			martial <= 6
+		}
+		OR = { # Learning education trait, not necessarily good at it but popular, or alternatively part of the clergy
+			trait = detached_priest
+			trait = martial_cleric
+			trait = scholarly_theologian
+			trait = mastermind_theologian
+			is_priest = yes
+		}
+		NOT = { # Not a top-tier education in another domain
+			trait = grey_eminence
+			trait = midas_touched
+			trait = elusive_shadow
+			trait = brilliant_strategist
+		}
+		# TODO, add relation to religious order
+	}
+	
+	mean_time_to_happen = {
+		years = 10
+	}
+	
+	immediate = {
+		set_character_flag = learning_value_vassal
+		liege = {
+			if = { # Already has the variable
+				limit = {
+					is_variable_equal = {
+						which = learning_value_vassals 
+						value = 0
+					}	
+				}
+				set_variable = {
+					which = learning_value_vassals 
+					value = 1
+				}
+			}
+			else = { # Does not already have the variable
+				change_variable = {
+					which = learning_value_vassals
+					value = 1
+				}
+			}
+		}
+	}
+}
+
+# Changing importance of the church with the aristocracy picking an ecclesiastic career
+long_character_event = {
+	id = WtWSMS_govs.15
+	desc = WtWSMS_govs.15.desc
+	picture = GFX_evt_monastery_monks
+	
+	only_playable = yes
+	
+	trigger = {
+		primary_title = {
+			has_title_flag = sub_roman_government_flag
+			NOT = { has_title_flag = changed_ecclesiastic_cultural_values } # Don't want the event to fire again
+		}
+		government = sub_roman_government
+		check_variable = { # At least five vassals 
+			which = learning_value_vassals
+			value >= 5
+		} 
+	}
+	
+	mean_time_to_happen = {
+		years = 1
+	}
+	
+	immediate = {
+		primary_title = {
+			set_title_flag = changed_ecclesiastic_cultural_values
+			if = { # Hasn't started transition
+				limit = {
+					is_variable_equal = {
+						which = feudal_transition_variable 
+						value = 0
+					}	
+				}
+				set_variable = {
+					which = feudal_transition_variable 
+					value = 1
+				}
+			}
+			else = { # Has started transition
+				change_variable = {
+					which = feudal_transition_variable
+					value = 1
+				}
+			}
+		}
+		set_variable = { # Clear old variables left
+			which = learning_value_vassals 
+			value = 0
+		}
+	}
+	
+	option = {
+		name = WtWSMS_govs.15.a
+	}
+}
+
+###############################
+# Switch to feudalism
+###############################
+
+# Sub-Roman ruler has accumulated feudal values and is no longer Sub-Roman, converting to fedalism
+long_character_event = {
+	id = WtWSMS_govs.16
+	title = WtWSMS_govs.16.name
+	desc = WtWSMS_govs.16.desc
+	picture = GFX_evt_throne_room
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		primary_title = {
+			has_title_flag = sub_roman_government_flag
+			NOT = { has_title_flag = adopted_feudalism }
+			check_variable = { # Minimum of 4 feudal transition variables
+				which = feudal_transition_variable
+				value >= 4
+			}
+		}
+		government = sub_roman_government
+	}
+	
+	mean_time_to_happen = {
+		years = 10
+		# Minimum of 4 variables, but likelier the more you have
+		modifier = {
+			factor = 0.25 # Increases chances by a fourth
+			primary_title = {
+				check_variable = {
+					which = feudal_transition_variable
+					value >= 5
+				} 
+			}
+		}
+		modifier = {
+			factor = 0.25 # Increases chances by a fourth
+			primary_title = {
+				check_variable = {
+					which = feudal_transition_variable
+					value >= 6
+				} 
+			}
+		}
+		modifier = {
+			factor = 0.25 # Increases chances by a fourth
+			primary_title = {
+				check_variable = {
+					which = feudal_transition_variable
+					value >= 7
+				} 
+			}
+		}
+	}
+	
+	immediate = {
+		primary_title = {
+			set_title_flag = adopted_feudalism
+			clr_title_flag = sub_roman_government_flag # No longer Sub-Roman
+			set_variable = { # Clear old variables left
+				which = feudal_transition_variable 
+				value = 0
+			}
+		}
+		any_realm_province = { # No longer pertinent to indicate as a flag after switch to feudalism, although the Roman taxation structures are obviously not there
+			limit = {
+				has_province_modifier = nonexistent_roman_taxation_infrastructure
+			}
+			remove_province_modifier = nonexistent_roman_taxation_infrastructure
+		}
+	}
+	
+	option = {
+		name = WtWSMS_govs.16.a
+		set_government_type	= feudal_government
+		custom_tooltip = {
+			text = WtWSMS_govs.16.a.tooltip # All Sub-Roman vassals also become feudal
+		}
+		hidden_tooltip = {
+			any_realm_character = {
+				limit = {
+					government = sub_roman_government
+				}
+				long_character_event = {
+					id = WtWSMS_govs.17 # Sub-Roman vassals convert to feudalism
+				}
+			}
+		}
+	}
+}
+
+# Sub-Roman vassals convert to feudalism
+long_character_event = {
+	id = WtWSMS_govs.17
+	title = WtWSMS_govs.17.name
+	desc = WtWSMS_govs.17.desc
+	picture = GFX_evt_throne_room
+	
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_govs.17.a
+		set_government_type	= feudal_government
+	}
+}
