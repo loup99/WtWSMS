@@ -510,11 +510,11 @@ character_event = {
 	
 	is_triggered_only = yes
 	
-	option = { # Let them settle
+	option = { # Let them settle (making the Slavic chieftain their vassal and changing the religion and culture of the province)
 		name = ZUSK8OP1
 		ai_chance = {
 			factor = 40
-			#traits making it less likely
+			# factors making it less likely
 			modifier = {
 				factor = 0.5
 				trait = zealous
@@ -531,7 +531,35 @@ character_event = {
 				factor = 0.5
 				trait = impaler
 			}
-			#traits making it more likely
+			modifier = { # Realm larger than 50 holdings, thus more powerful and less likely to accept negotiating with a Slavic chief
+				factor = 0.5
+				realm_size >= 50
+			}
+			modifier = {
+				factor = 0.75
+				realm_levies = 3000
+			}
+			modifier = {
+				factor = 0.75
+				realm_levies = 4000
+			}
+			modifier = {
+				factor = 0.75
+				realm_levies = 5000
+			}
+			modifier = {
+				factor = 0.75
+				realm_levies = 6000
+			}
+			modifier = {
+				factor = 0.75
+				realm_levies = 7000
+			}
+			modifier = {
+				factor = 0.75
+				realm_levies = 8000
+			}
+			# factors making it more likely
 			modifier = {
 				factor = 2
 				trait = arbitrary
@@ -548,6 +576,7 @@ character_event = {
 				factor = 2
 				trait = kind
 			}
+			# factors making it impossible
 			modifier = {
 				factor = 0 # only options 2 and 3 for AI tribals
 				is_tribal = yes
@@ -1168,7 +1197,7 @@ character_event = {
 		}
 	}
 
-	option = { # Fight them
+	option = { # Fight them (fights against the Slavic chieftain who raises an army)
 		name = ZUSK8OP2
 		ai_chance = {
 			factor = 30
@@ -1885,11 +1914,11 @@ character_event = {
 		}
 	}
 	
-	option = { # Give away the province
+	option = { # Give away the province (making the county indepedent and giving it to the Slavic chieftain)
 		name = ZUSK8OP3
 		ai_chance = {
 			factor = 30
-			#traits making it less likely
+			# factors making it less likely
 			modifier = {
 				factor = 0.5
 				trait = zealous
@@ -1906,7 +1935,35 @@ character_event = {
 				factor = 0.5
 				trait = impaler
 			}
-			#traits making it more likely
+			modifier = { # Realm larger than 50 holdings, thus more powerful and less likely to accept negotiating with a Slavic chief
+				factor = 0.5
+				realm_size >= 50
+			}			
+			modifier = {
+				factor = 0.75
+				realm_levies = 3000
+			}
+			modifier = {
+				factor = 0.75
+				realm_levies = 4000
+			}
+			modifier = {
+				factor = 0.75
+				realm_levies = 5000
+			}
+			modifier = {
+				factor = 0.75
+				realm_levies = 6000
+			}
+			modifier = {
+				factor = 0.75
+				realm_levies = 7000
+			}
+			modifier = {
+				factor = 0.75
+				realm_levies = 8000
+			}
+			# factors making it more likely
 			modifier = {
 				factor = 2
 				trait = arbitrary
@@ -2137,7 +2194,7 @@ character_event = {
 					}
 					
 					FROM = { county = { usurp_title_plus_barony_if_unlanded = PREVPREV } }
-					set_defacto_liege = THIS
+					set_defacto_liege = THIS # Makes the character independent
 					opinion = { modifier = opinion_granted_county who = ROOT }
 					reverse_culture = FROM
 					reverse_religion = FROM
