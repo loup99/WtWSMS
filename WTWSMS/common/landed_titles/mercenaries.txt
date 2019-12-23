@@ -60,6 +60,57 @@ d_teutonic_order = {
 	monthly_income = 4 # (Must be an integer between 1 and 512)
 }
 
+k_teutonic_state = {
+	color={ 50 50 50 }
+	color2={ 255 255 255 }
+
+	graphical_culture = holygfx
+
+	title = "HOCHMEISTER"
+	foa = "HOCHMEISTER_FOA"
+
+	holy_order = yes
+	mercenary_type = teutonic_order_composition
+
+	short_name = yes
+
+	assimilate = no
+
+	# Parent Religion
+	religion = catholic
+
+	culture = german
+
+	# Cannot be held as a secondary title
+	primary = yes
+
+	# Extra income due to donations, etc
+	monthly_income = 12 # (Must be an integer between 1 and 512)	
+}
+
+d_livonian_order = {
+	color={ 40 60 40 }
+	color2={ 255 255 255 }
+
+	graphical_culture = holygfx
+
+	holy_order = yes
+	mercenary_type = livonian_order_composition
+
+	short_name = yes
+
+	# Parent Religion
+	religion = catholic
+
+	culture = german
+
+	# Cannot be held as a secondary title
+	primary = yes
+
+	# Extra income due to donations, etc
+	monthly_income = 4 # (Must be an integer between 1 and 512)
+}
+
 d_knights_hospitaler = {
 
 	color={ 180 180 180 }
@@ -637,6 +688,35 @@ d_zun_warriors = {
 	monthly_income = 2 # (Must be an integer between 1 and 512)
 
 	mercenary_type = zun_warriors_composition
+}
+
+d_myrmidons = {
+
+	color = { 224 125 8 }
+	
+	capital = 482 # Atheniai
+
+	title = "MEGASTRATEGOS"
+	title_female = "MEGASTRATEGISSA"
+	foa = "GRANDMASTER_FOA"
+	
+	# Always exists
+	landless = yes
+	
+	holy_order = yes
+	
+	culture = greek
+	
+	# Parent Religion 
+	religion = hellenic_pagan
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	# Extra income due to donations, etc
+	monthly_income = 2 # (Must be an integer between 1 and 512)
+
+	mercenary_type = myrmidons_composition
 }
 
 d_army_light = {
@@ -1381,6 +1461,7 @@ d_varangian_guard = {
 
 	title = "CAPTAIN"
 	foa = "CAPTAIN_FOA"
+	title_female = "CAPTAIN_FEMALE"
 
 	# Always exists
 	landless = yes
@@ -3086,7 +3167,7 @@ d_tangut_low = { # Small Merc
 	color = { 30 170 50 }
 	color2 = { 255 255 255 }
 
-	capital = 1503 # Jyekundo
+	capital = 1448 # 1503 # Jyekundo # Tibet
 	hire_range = 800
 	
 	# Parent Religion 
@@ -3118,7 +3199,7 @@ d_bodpa_low = { # Small Merc
 	color = { 30 170 50 }
 	color2 = { 255 255 255 }
 
-	capital = 1491 # Purang
+	capital = 1448 # 1491 # Purang # Tibet
 	hire_range = 800
 	
 	# Parent Religion 
@@ -3538,28 +3619,21 @@ d_turkic_guard = {
 	mercenary_type = turkic_guards_composition
 }
 
-c_mountain_jews = { # The Tzadikite Juhuro peoples ("Mountain Jews") had an immense and dedicated warrior culture. For the purposes of this Mod, the unique martial prowess takes the form of a special Mercenary Group under the Juhurian leader.
+# African Mercenaries
+d_african_massive = { # Massive Merc
+	color={ 60 165 80 }
+	color2={ 255 255 255 }
 
-	color = { 0.8 0.8 0.0 }
-	color2 = { 8 8 8 }
-
-	graphical_culture = easterngfx
-
-	allow = {
-		OR = {
-			culture_group = caucasian
-			culture = juhuro
-			religion = tzadikite
-			has_landed_title = c_kakheti
-			has_landed_title = d_iberia
-			has_landed_title = k_iberia
-		}
-	}
-
-	# Parent Religion 
-	religion = tzadikite
+	graphical_culture = westafricanholygfx
 	
-	culture = juhuro
+	capital = 925 # Mali
+	hire_range = 900
+	
+	# Parent Religion 
+	religion = west_african_pagan
+	
+	# Parent Culture
+	culture = manden
 	
 	mercenary = yes
 
@@ -3571,45 +3645,130 @@ c_mountain_jews = { # The Tzadikite Juhuro peoples ("Mountain Jews") had an imme
 	
 	# Cannot be held as a secondary title
 	primary = yes
-
-	independent = no
 	
-	strength_growth_per_century = 0.1
+	# Cannot be vassalized
+	independent = yes
 	
-	mercenary_type = juhuro_composition
+	strength_growth_per_century = 1.0
+	
+	mercenary_type = african_massive_composition
 }
 
-c_trading_company = {
-	color = { 80 88 83 }
-	color2 = { 79 79 79 }
-
-	graphical_culture = republicsgfx
-
-	# Hire Trigger
-	allow = {
-		OR = {
-			has_landed_title = c_socotra
-			has_landed_title = d_socotra
-			capital_scope = {
-				OR = {
-					region = world_india_deccan
-					region = world_middle_east_arabia
-					region = world_africa_east
-				}
-			}
-		}
-		capital_scope = {
-			NOT = {
-				region = custom_diocese_aegyptus
-			}
-		}
-	}
+d_african_large = { # Large Merc
+	color={ 235 235 235 }
+	color2={ 255 255 255 }
 	
-	culture = tribal_arab
-
+	capital = 1739 # Djimi
+	hire_range = 900
+	
+	# Parent Religion 
+	religion = west_african_pagan
+	
+	# Parent Culture
+	culture = soninke
+	
 	mercenary = yes
 
-	title = "TRADING_COMPANY_TITLE"
+	title = "WARCHIEF"
+	foa = "WARCHIEF_FOA"
+
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+		
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.0
+
+	mercenary_type = african_large_composition
+}
+
+d_african_mid = { # Mid Merc
+	color = { 150 80 40 }
+	color2 = { 255 255 255 }
+
+	graphical_culture = africangfx
+
+	capital = 1335 # Kosti
+	hire_range = 900
+	
+	# Parent Religion 
+	religion = west_african_pagan
+	
+	# Parent Culture
+	culture = nubian
+	
+	mercenary = yes
+
+	title = "WARCHIEF"
+	foa = "WARCHIEF_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.0
+	
+	mercenary_type = african_mid_composition
+}
+
+d_african_mid_low_1 = { # Mid-Low Merc
+	color = { 30 150 50 }
+	color2 = { 255 255 255 }
+
+	capital = 913 # Ghana
+	hire_range = 900
+	
+	# Parent Religion 
+	religion = west_african_pagan
+	
+	# Parent Culture
+	culture = soninke
+	
+	mercenary = yes
+
+	title = "WARCHIEF"
+	foa = "WARCHIEF_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.0
+	
+	mercenary_type = african_mid_low_1_composition
+}
+
+d_african_mid_low_2 = { # Big merc
+	color = { 66 66 66 }
+	color2 = { 255 255 255 }
+
+	capital = 925 # Mali
+	hire_range = 900
+	
+	# Parent Religion 
+	religion = west_african_pagan
+	
+	# Parent Culture
+	culture = hausa
+	
+	mercenary = yes
+
+	title = "CAPTAIN"
 	foa = "CAPTAIN_FOA"
 
 	# Always exists
@@ -3617,10 +3776,75 @@ c_trading_company = {
 	
 	# Cannot be held as a secondary title
 	primary = yes
+	
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.0
+	
+	mercenary_type = african_mid_low_2_composition
+}
 
-	independent = no
+d_african_low = { # Small Merc
+	color = { 30 170 50 }
+	color2 = { 255 255 255 }
 
-	strength_growth_per_century = 1.5
+	capital = 914 # Gao
+	hire_range = 900
+	
+	# Parent Religion 
+	religion = west_african_pagan
+	
+	# Parent Culture
+	culture = songhay
+	
+	mercenary = yes
 
-	mercenary_type = trading_company_composition
+	title = "WARCHIEF"
+	foa = "WARCHIEF_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.0
+	
+	mercenary_type = african_low_composition
+}
+
+d_african_tiny = { # Tiny Merc
+	color = { 38 120 51 }
+	color2 = { 255 255 255 }
+
+	capital = 1738 # Air
+	hire_range = 900
+	
+	# Parent Religion 
+	religion = west_african_pagan
+	
+	# Parent Culture
+	culture = maghreb_arabic
+	
+	mercenary = yes
+
+	title = "WARCHIEF"
+	foa = "WARCHIEF_FOA"
+
+	# Always exists
+	landless = yes
+	
+	# Cannot be held as a secondary title
+	primary = yes
+	
+	# Cannot be vassalized
+	independent = yes
+	
+	strength_growth_per_century = 1.0
+	
+	mercenary_type = african_tiny_composition_1
 }

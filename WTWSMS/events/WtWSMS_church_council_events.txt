@@ -1,3 +1,11 @@
+###############################
+# Church councils
+#
+# Written by Enlil
+#
+# syn.1 -> syn.13
+###############################
+
 namespace = syn
 
 # The Three Chapters Controversy
@@ -24,11 +32,11 @@ character_event = {
 	border = GFX_event_normal_frame_religion
 	
 	only_playable = yes
+	has_global_flag = three_chapter_controversy
 	
 	trigger = {
 		year = 500
 		has_landed_title = e_byzantium
-		has_global_flag = three_chapter_controversy
 		NOT = { year = 600 }
 		NOT = { has_global_flag = great_schism }
 		NOT = { has_global_flag = second_council }
@@ -90,7 +98,7 @@ character_event = {
 					ai = no
 					NOT = { character = ROOT }
 				}
-				narrative_event = { id = syn.5 } # The Patriarchs Agree on Rescinding the Condemnation 
+				narrative_event = { id = syn.5 } # The Patriarchs Agree on Rescinding the Condemnation
 			}
 		}
 	}
@@ -110,12 +118,12 @@ narrative_event = {
 	immediate = {
 		set_parent_religion = { religion = nestorian parent = nicene }
 		d_papal_state = { holder_scope = { character_event = { id = syn.6 days = 10 } } } # Pope Decides
-		d_monophysite = { holder_scope = { character_event = { id = syn.8 days = 5 } } } # Monophysite Patriarch Decides 
+		d_monophysite = { holder_scope = { character_event = { id = syn.8 days = 5 } } } # Monophysite Patriarch Decides
 	}
 	
 	option = {
 		name = syn.4.a
-  	}
+	}
 }
 
 # The Patriarchs Agree on Rescinding the Condemnation
@@ -125,7 +133,7 @@ narrative_event = {
 	desc = syn.5.desc
 	picture = GFX_evt_christian_council
 
-	major = yes 
+	major = yes
 
 	is_triggered_only = yes
 	
@@ -147,9 +155,19 @@ character_event = {
 		name = syn.6.a
 		ai_chance = { factor = 3 }
 		hidden_tooltip = {
-			b_aquileia = { # Milan and Aquileia reacts
-				holder_scope = {
-					character_event = { id = syn.12 }
+			IF = {
+				limit = { # b_aquileia is owned by a Nicene bishop/patriarch
+					b_aquileia = {
+						holder_scope = {
+							religion = nicene
+							is_priest = yes
+						}
+					}
+				}
+				b_aquileia = { # Milan and Aquileia reacts
+					holder_scope = {
+						character_event = { id = syn.12 }
+					}
 				}
 			}
 		}
@@ -159,9 +177,9 @@ character_event = {
 		name = syn.6.b
 		hidden_tooltip = {
 			d_orthodox = { # Ecumenial Patriarch reacts
-				holder_scope = { 
-					character_event = { id = syn.13 } 
-				} 
+				holder_scope = {
+					character_event = { id = syn.13 }
+				}
 			}
 		}
 	}
@@ -218,14 +236,14 @@ character_event = {
 		religion = aquileian
 		capital_scope = {
 			if = {
-				limit = { 
-					religion = nicene 
+				limit = {
+					religion = nicene
 				}
 				religion = aquileian
 			}
 		}
 		any_realm_province = {
-			limit = { 
+			limit = {
 				religion = nicene
 			}
 			religion = aquileian
@@ -284,28 +302,28 @@ narrative_event = {
 
 	immediate = {
 		set_parent_religion = { religion = monophysite parent = 0 }
-		activate_title = { 
-			title = d_monophysite 
-			status = no 
+		activate_title = {
+			title = d_monophysite
+			status = no
 		}
 	}
 	
 	option = {
 		name = syn.9.a
 		trigger = {
-			religion = monophysite 
+			religion = monophysite
 		}
 		religion = nicene
 		capital_scope = {
 			if = {
-				limit = { 
+				limit = {
 					religion = monophysite
 				}
 				religion = nicene
 			}
 		}
 		any_realm_province = {
-			limit = { 
+			limit = {
 				religion = monophysite
 			}
 			religion = nicene
@@ -330,7 +348,7 @@ narrative_event = {
 	desc = syn.10.desc
 	picture = GFX_evt_christian_council
 	
-	major = yes 
+	major = yes
 	
 	is_triggered_only = yes
 	
@@ -366,7 +384,7 @@ narrative_event = {
 			}
 		}
 		any_realm_province = {
-			limit = { 
+			limit = {
 				religion = aquileian
 			}
 			religion = nicene
@@ -390,7 +408,7 @@ narrative_event = {
 			}
 		}
 		any_realm_province = {
-			limit = { 
+			limit = {
 				religion = aquileian
 			}
 			religion = nicene
@@ -421,7 +439,7 @@ character_event = {
 		ai_chance = { factor = 3 }
 		hidden_tooltip = {
 			any_playable_ruler = {
-				limit = { 
+				limit = {
 					NOT = { character = ROOT }
 					NOT = { has_landed_title = d_papal_state }
 				}
@@ -442,10 +460,10 @@ character_event = {
 	
 	option = { # Excommunicate Pope
 		name = syn.13.a
-		k_nicene = { 
-			holder_scope = { 
+		k_nicene = {
+			holder_scope = {
 				character_event = { id = HRE.4 } # The Great Schism
-			} 
+			}
 		}
 	}
 	

@@ -78,7 +78,7 @@ decisions = {
 				}
 			}
 		}
-    }
+	}
 	
 	sacrifice_black_goat = {
 		only_playable = yes
@@ -245,17 +245,17 @@ decisions = {
 	}
 	
 	hold_cuelebre = {
-        only_playable = yes
-        potential = {
-            has_dlc = "The Old Gods"
-            is_playable = yes
-            is_adult = yes
-            independent = yes
-            prisoner = no
-            OR = {
-                culture = astures
-                culture = cantabrian
-            }
+		only_playable = yes
+		potential = {
+			has_dlc = "The Old Gods"
+			is_playable = yes
+			is_adult = yes
+			independent = yes
+			prisoner = no
+			OR = {
+				culture = astures
+				culture = cantabrian
+			}
 			OR = {
 				religion = celtic_pagan
 				religion = celtic_pagan_reformed
@@ -281,10 +281,8 @@ decisions = {
                 text = is_not_busy_trigger_tooltip
                 hidden_tooltip = { NOT = { has_character_flag = do_not_disturb } }
             }
-			OR = { 
-				month = 6
-				month = 7
-			}
+			month = 6
+			NOT = { month = 8 }
         }
         effect = {
             scaled_wealth = -0.2
@@ -333,5 +331,69 @@ decisions = {
             }
         }
     }
+	convert_suebia = {
+        only_playable = yes
+        potential = {
+            is_playable = yes
+            is_adult = yes
+            independent = yes
+            prisoner = no
+            has_landed_title = k_visigoths
+			completely_controls = d_lucensis
+            NOT = { has_character_flag = church_built }
+        }
+		allow = {
+            war = no
+			wealth = 100
+			prisoner = no
+		}
+        effect = {
+            set_character_flag = church_built
+            set_character_flag = recent_minor_decision
+            hidden_tooltip = {
+                narrative_event = { id = WtWSMS_flavour.50 }
+            }
+        }
+	}
+	erect_estela = {
+		only_playable = yes
+		potential = {
+			has_dlc = "The Old Gods"
+			is_playable = yes
+			is_adult = yes
+			prisoner = no
+			culture = cantabrian
+			OR = {
+				religion = celtic_pagan
+				religion = celtic_pagan_reformed
+			}
+			NOT = {	has_character_flag = erected_estela }
+		}
+		allow = {
+			wealth = 100
+			prestige = 500
+			prisoner = no
+			NOT = { is_inaccessible_trigger = yes }
+			custom_tooltip = {
+				text = is_not_busy_trigger_tooltip
+				hidden_tooltip = { NOT = { has_character_flag = do_not_disturb } }
+			}
 
+		}
+		effect = {
+			wealth = -100
+			set_character_flag = erected_estela
+			hidden_tooltip = { 
+				character_event = { id = WtWSMS_flavour.54 }
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { wealth = 300 }
+			}
+		}
+	}
 }

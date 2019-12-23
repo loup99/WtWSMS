@@ -1,4 +1,8 @@
+###############################
 # Maintenance events
+#
+# misc_event.1 -> misc_event.13
+###############################
 
 namespace = misc_event
 
@@ -13,7 +17,7 @@ character_event	= {
 	
 	trigger = {
 		has_landed_title = d_bagaudae
-		ROOT = { 
+		ROOT = {
 			NOT = {
 				primary_title = {
 					title = d_bagaudae
@@ -29,7 +33,7 @@ character_event	= {
 	immediate = {
 		activate_title	= {
 			title = d_bagaudae
-			status = no 
+			status = no
 		}
 	}
 }
@@ -89,6 +93,8 @@ character_event	= {
 	}
 }
 
+# misc_event.4 -> misc_event.5 free
+
 # Adds not recognised by Senate modifier to all new independent holders of the WRE or Italy
 character_event = {
 	id = misc_event.6
@@ -106,7 +112,7 @@ character_event = {
 			has_landed_title = e_wre
 			has_landed_title = k_italy
 		}
-		is_title_active	= d_senate 
+		is_title_active	= d_senate
 		NOT = { has_character_flag = had_senate_recognition_event }
 	}
 	
@@ -130,7 +136,7 @@ character_event = {
 	}
 }
 
-# Destroy Senate 
+# Destroy Senate
 character_event = {
 	id = misc_event.7
 
@@ -158,7 +164,7 @@ character_event = {
 	immediate = {
 		activate_title = {
 			title = d_senate
-			status = no 
+			status = no
 		}
 	}
 }
@@ -180,10 +186,7 @@ character_event = {
 		NOT = { religion_group = muslim }
 		NOT = { religion = zoroastrian }
 		is_theocracy = no
-		any_realm_title = {
-			holder_scope = {
-				character = ROOT
-			}
+		any_demesne_title = {
 			higher_tier_than = duke
 			sassanid_government_trigger = no
 			bureaucratic_government_trigger = yes
@@ -235,7 +238,7 @@ character_event = {
 		FROM = { # FROM is the character recieving the event
 			is_theocracy = yes
 		}
-		OR = { 
+		OR = {
 			d_papal_state = {
 				any_previous_holder	= {
 					character = FROMFROM
@@ -289,9 +292,42 @@ character_event = {
 	}
 }
 
-#misc_event.12 reserved for a while
+# Give all provinces the effects of extreme weather events of 535-536 if game started between 536 and 546
+character_event = {
+	id = misc_event.12
 
-# Destroy the temple of Zeus after 426
+	hide_window = yes
+	
+	only_playable = yes
+	
+	is_triggered_only = yes # On-action
+	
+	trigger = {
+		has_global_flag = 535_536_weather_events
+		start_date < 546.1.1
+		owns = 496 #provinces are always held by someone
+	}
+
+	immediate = {
+		trigger_switch = {
+			on_trigger = year
+			#the order is important here
+			546 = { }
+			545	= { any_province = { add_province_modifier = { name = failed_crops duration = 365 } } }
+			544	= { any_province = { add_province_modifier = { name = failed_crops duration = 730 } } }
+			543	= { any_province = { add_province_modifier = { name = failed_crops duration = 1095 } } }
+			542	= { any_province = { add_province_modifier = { name = failed_crops duration = 1460 } } }
+			541	= { any_province = { add_province_modifier = { name = failed_crops duration = 1825 } } }
+			540	= { any_province = { add_province_modifier = { name = failed_crops duration = 2190 } } }
+			539	= { any_province = { add_province_modifier = { name = failed_crops duration = 2555 } } }
+			538	= { any_province = { add_province_modifier = { name = failed_crops duration = 2920 } } }
+			537	= { any_province = { add_province_modifier = { name = failed_crops duration = 3285 } } }
+			536	= { any_province = { add_province_modifier = { name = failed_crops duration = 3650 } } }
+		}
+	}
+}
+
+# War-torn province after siege
 character_event = {
 	id = misc_event.13
 	
@@ -300,14 +336,129 @@ character_event = {
 	is_triggered_only = yes # On-action
 	
 	trigger = {
-		has_landed_title = c_achaia
-		year = 426
+		FROM = {
+			location = {
+				NOT = {
+					has_province_modifier = devastated_war
+				}
+			}
+		}
 	}
 	
 	immediate = {
-		b_patras = {
-			remove_building = ca_zeus_1
-			add_building = ca_zeus_0
+		if = { # Has been sieged once and gets the war-torn modifier
+			limit = {
+				FROM = {
+					location = {
+						NOR = {
+							has_province_modifier = war_torn
+							has_province_modifier = devastated_war
+						}
+					}
+				}
+			}
+			FROM = {
+				location = {
+					add_province_modifier = {
+						name = war_torn
+						duration = 3650 # 10 years
+					}
+				}
+			}
+		}
+		if = { # Has been sieged once more within the year
+			limit = {
+				FROM = {
+					location = {
+						has_province_modifier = war_torn
+						NOT = { has_province_modifier = devastated_war }
+						NOT = {
+							check_variable = { 
+								which = sieged_variable 
+								value = 1
+							}
+						}
+					}
+				}
+			}
+			FROM = {
+				location = {
+					set_variable = { 
+						which = sieged_variable 
+						value = 1
+					}
+				}
+			}
+		}
+		if = { # Has been sieged once more and gets additional variable
+			limit = {
+				FROM = {
+					location = {
+						has_province_modifier = war_torn
+						NOT = { has_province_modifier = devastated_war }
+						check_variable = {
+							which = sieged_variable 
+							value = 1
+						}
+						NOT = {
+							check_variable = { 
+								which = sieged_variable 
+								value = 9
+							}
+						}
+					}
+				}
+			}
+			FROM = {
+				location = {
+					change_variable = { 
+						which = sieged_variable 
+						value = 1 
+					}
+				}
+			}
+		}
+		if = { # Has been sieged ten times and gets the devastated modifier
+			limit = {
+				FROM = {
+					location = {
+						has_province_modifier = war_torn
+						NOT = { has_province_modifier = devastated_war }
+						check_variable = {
+							which = sieged_variable 
+							value = 9
+						}
+					}
+				}
+			}
+			FROM = {
+				location = {
+					add_province_modifier = {
+						name = devastated_war
+						duration = 9125 # 25 years
+					}
+					remove_province_modifier = war_torn
+					set_variable = { 
+						which = sieged_variable
+						value = 0 
+					}
+				}
+			}
+		}
+		if = { # Completely unrelated but effect here for performance reasons in testing build
+			limit = {
+				primary_title = {
+					has_title_flag = sub_roman_government_flag
+					NOT = { has_title_flag = landed_army } # Variable export no longer necessary once the event has fired once since it can not fire twice
+				}
+				government = sub_roman_government
+			}
+			ROOT = {
+				export_to_variable = { # Amount of retinues
+					which = retinue_size 
+					value = retinue_points_max 
+				}
+			}
 		}
 	}
 }

@@ -6,6 +6,7 @@ e_rebels = {
 	primary = yes
 
 	culture = swedish
+	religion = pagan
 	tribe = yes
 
 	color={ 0 0 0 }
@@ -18,6 +19,7 @@ e_pirates = {
 	primary = yes
 
 	culture = swedish
+	religion = pagan
 	tribe = yes
 
 	color={ 0 0 0 }
@@ -25,6 +27,85 @@ e_pirates = {
 }
 
 # SPECIAL TITLES
+
+e_outremer = {
+	color={ 180 180 180 }
+	color2={ 255 255 255 }
+
+	capital = 774
+
+	allow = {
+		conditional_tooltip = {
+			trigger = {
+				NOR = {
+					religion = catholic
+					religion = fraticelli
+				}
+			}
+			OR = {
+				religion = catholic
+				religion = fraticelli
+			}
+		}
+		conditional_tooltip = {
+			trigger = {
+				e_outremer = {
+					is_titular = yes
+				}
+			}
+			e_outremer = {
+				is_titular = no
+			}
+		}
+	}
+}
+
+e_nicaea = {
+	color={ 240 17 17 }
+	color2={ 255 255 20 }
+
+	capital = 750 # Nikaea
+
+	culture = greek
+
+	short_name = yes
+
+	has_top_de_jure_capital = yes
+
+	allow = {
+		conditional_tooltip = {
+			trigger = {
+				e_nicaea = {
+					is_titular = yes
+				}
+			}
+			e_nicaea = {
+				is_titular = no
+			}
+		}
+	}
+}
+
+e_lechczechrus = {
+	color={ 0 90 30 }
+	color2={ 255 255 255 }
+	short_name = yes
+
+	capital = 547	#Kiev
+
+	allow = {
+		conditional_tooltip = {
+			trigger = {
+				e_lechczechrus = {
+					is_titular = yes
+				}
+			}
+			e_lechczechrus = {
+				is_titular = no
+			}
+		}
+	}
+}
 
 k_papal_state = {
 	color={ 255 249 198 }
@@ -47,20 +128,54 @@ k_papal_state = {
 	
 	# Cannot be held as a secondary title
 	primary = yes
+
+	assimilate = no
 	
 	dynasty_title_names = no 	# Will not be named "Seljuk", etc.
+
+	dignity = 200
 	
 	# Regnal names
 	male_names = {
 		Alexander Anastasius Benedictus Caelestinus Callistus Clemens Eugenius Leo
 		Gregorius Hadrianus Honorius Innocentius Ioannes Marinus Martinus
 		Nicolaus Sergius Silvester Stephanus Urbanus Victor
-		Lucius Callixtus Julius Pelagius Adeodatus Theodore Agapetus Damasus Paschal
-		Gelasius Marcellus "John Paul" Anacletus Evaristus Telesphorus Hyginus Anicetus Mark Hilarius 
-		Simplicius Symmachus Hormisdas Silverius Vigilius Sabinian Severinus Vitalian Donus Agatho
-		Conon Sisinnius Constantine Zachary Valentine Formosus Romanus Lando
+		Lucius Callixtus Iulius Pelagius Adeodatus Theodorus Agapetus Damasus Paschalis
+		Gelasius Marcellus "Ioannes Paulus" Anacletus Evaristus Telesphorus Hyginus Anicetus Marcus Hilarius 
+		Simplicius Symmachus Hormisdas Silverius Vigilius Sabinianus Severinus Vitalianus Donus Agatho
+		Conon Sisinnius Constantinus Zacharias Valentinus Formosus Romanus Lando
 	}
 }
+
+
+d_papal_guards = {
+	color={ 255 240 240 }
+	color2 = { 220 220 0}
+
+	capital = 333 # Rome
+
+	title = "CAPTAIN"
+	foa = "CAPTAIN_FOA"
+
+	allow = {
+		has_landed_title = k_papal_state
+	}
+
+	# Always exists
+	landless = yes
+
+	mercenary = yes
+
+	mercenary_type = papal_guard_composition
+
+	strength_growth_per_century = 1.00
+
+	religion = catholic
+
+	# Cannot be held as a secondary title
+	primary = yes
+}
+
 k_orthodox = {
 #	color={ 150 90 30 }
 	color={ 183 60 155 }
@@ -122,10 +237,10 @@ d_papal_state = {
 		Alexander Anastasius Benedictus Caelestinus Callistus Clemens Eugenius Leo
 		Gregorius Hadrianus Honorius Innocentius Ioannes Martinus
 		Nicolaus Sergius Silvester Stephanus Urbanus Victor
-		Lucius Callixtus Julius Pelagius Adeodatus Theodore Marinus Agapetus Damasus Paschal
-		Gelasius Marcellus "John Paul" Anacletus Evaristus Telesphorus Hyginus Anicetus Mark Hilarius 
-		Simplicius Symmachus Hormisdas Silverius Vigilius Sabinian Severinus Vitalian Donus Agatho
-		Conon Sisinnius Constantine Zachary Valentine Formosus Romanus Lando
+		Lucius Callixtus Iulius Pelagius Adeodatus Theodorus Marinus Agapetus Damasus Paschalis
+		Gelasius Marcellus "Ioannes Paulus" Anacletus Evaristus Telesphorus Hyginus Anicetus Marcus Hilarius 
+		Simplicius Symmachus Hormisdas Silverius Vigilius Sabinianus Severinus Vitalianus Donus Agatho
+		Conon Sisinnius Constantinus Zacharias Valentinus Formosus Romanus Lando
 	}
 }
 
@@ -161,12 +276,65 @@ d_orthodox = {
 	}
 }
 
+k_antioch = {
+	color={ 228 53 53 }
+	color2={ 216 216 84 }
+
+	capital = 764 # Antioch
+
+	title = "principality_title"
+	title_female = "principality_title_female"
+	foa = "principality_foa"
+	title_prefix = "principality_prefix"
+
+	allow = {
+		conditional_tooltip = {
+			trigger = {
+				k_antioch = {
+					is_titular = yes
+				}
+			}
+			k_antioch = {
+				is_titular = no
+			}
+		}
+		hidden_tooltip = {
+			OR = {
+				ai = no
+				religion = catholic
+			}
+		}
+	}
+}
+
+k_switzerland = {
+	color={ 255 80 80 }
+	color2={ 200 50 50 }
+
+	capital = 244 #Bern
+
+	short_name = yes
+
+	allow = {
+		conditional_tooltip = {
+			trigger = {
+				k_switzerland = {
+					is_titular = yes
+				}
+			}
+			k_switzerland = {
+				is_titular = no
+			}
+		}
+	}
+}
+
 e_sunni = {
 	# OBSOLETE
 	color={ 40 160 40 }
 	color2={ 220 220 0 }
 	
-#	capital = 719 # Mecca
+	#capital = 719 # Mecca
 	
 	title = "CALIPH"
 	title_female = "CALIPHA"
@@ -185,7 +353,7 @@ e_shiite = {
 	color={ 60 190 60 }
 	color2={ 220 220 0 }
 	
-#	capital = 719 # Mecca
+	#capital = 719 # Mecca
 	
 	title = "CALIPH"
 	title_female = "CALIPHA"
@@ -220,35 +388,126 @@ d_sunni = {
 	controls_religion = sunni
 	
 	allow = {
-		custom_tooltip = {
-			text = sunni_creation_independent
-			hidden_tooltip = {
-				in_revolt = no
-				OR = {
-					independent = yes
-					NOT = {
-						any_liege = {
-							OR = {
-								in_revolt = yes
-								NOT = { religion = sunni }
+		conditional_tooltip = {
+			trigger = {
+				NOT = {
+					has_alternate_start_parameter = { key = religion_names value = random }
+				}
+			}
+			custom_tooltip = {
+				text = sunni_creation_independent
+				hidden_tooltip = {
+					in_revolt = no
+					OR = {
+						independent = yes
+						NOT = {
+							any_liege = {
+								OR = {
+									in_revolt = yes
+									NOT = { religion = sunni }
+								}
+							}
+						}
+					}
+				}
+			}
+		
+			OR = {
+				trait = mirza
+				trait = sayyid
+				piety = 1000
+			}
+			OR = {
+				AND = {
+					trait = sayyid
+					piety = 1000
+				}
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							has_global_flag = destroyed_caliphates
+						}
+					}
+
+					custom_tooltip = { 
+						text = controls_mecca_medina
+						hidden_tooltip = {
+							719 = { # Mecca
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+							718 = { # Medina
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+						}
+					}
+				}
+				custom_tooltip = {
+					text = controls_jerusalem_damascus_baghdad
+					hidden_tooltip = {
+						774 = { # Jerusalem
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
+							}
+						}
+						728 = { # Damascus
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
+							}
+						}
+						693 = { # Baghdad
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
 							}
 						}
 					}
 				}
 			}
 		}
-	
-		OR = {
-			trait = mirza
-			trait = sayyid
-			piety = 1000
-		}
-		OR = {
-			AND = {
+		conditional_tooltip = {
+			trigger = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+			religion = sunni
+			OR = {
+				trait = mirza
 				trait = sayyid
 				piety = 1000
 			}
-			custom_tooltip = { 
+			custom_tooltip = {
+				text = THREE_HOLY_SITES_TT
+				hidden_tooltip = {
+					any_realm_title = {
+						count = 3
+						is_holy_site = ROOT
+					}
+				}
+			}
+		}
+		conditional_tooltip = {
+			trigger = {
+				has_global_flag = destroyed_caliphates
+			}
+
+			custom_tooltip = {
 				text = controls_mecca_medina
 				hidden_tooltip = {
 					719 = { # Mecca
@@ -260,35 +519,6 @@ d_sunni = {
 						}
 					}
 					718 = { # Medina
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-				}
-			}
-			custom_tooltip = {
-				text = controls_jerusalem_damascus_baghdad
-				hidden_tooltip = {
-					774 = { # Jerusalem
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-					728 = { # Damascus
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-					693 = { # Baghdad
 						owner = {
 							OR = {
 								is_liege_or_above = ROOT
@@ -334,17 +564,126 @@ d_islamic = {
 	controls_religion = islamic
 	
 	allow = {
-		OR = {
-			trait = mirza
-			trait = sayyid
-			piety = 1000
-		}
-		OR = {
-			AND = {
+		conditional_tooltip = {
+			trigger = {
+				NOT = {
+					has_alternate_start_parameter = { key = religion_names value = random }
+				}
+			}
+			custom_tooltip = {
+				text = islamic_creation_independent
+				hidden_tooltip = {
+					in_revolt = no
+					OR = {
+						independent = yes
+						NOT = {
+							any_liege = {
+								OR = {
+									in_revolt = yes
+									NOT = { religion = islamic }
+								}
+							}
+						}
+					}
+				}
+			}
+		
+			OR = {
+				trait = mirza
 				trait = sayyid
 				piety = 1000
 			}
-			custom_tooltip = { 
+			OR = {
+				AND = {
+					trait = sayyid
+					piety = 1000
+				}
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							has_global_flag = destroyed_caliphates
+						}
+					}
+
+					custom_tooltip = { 
+						text = controls_mecca_medina
+						hidden_tooltip = {
+							719 = { # Mecca
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+							718 = { # Medina
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+						}
+					}
+				}
+				custom_tooltip = {
+					text = controls_jerusalem_damascus_baghdad
+					hidden_tooltip = {
+						774 = { # Jerusalem
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
+							}
+						}
+						728 = { # Damascus
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
+							}
+						}
+						693 = { # Baghdad
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		conditional_tooltip = {
+			trigger = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+			religion = islamic
+			OR = {
+				trait = mirza
+				trait = sayyid
+				piety = 1000
+			}
+			custom_tooltip = {
+				text = THREE_HOLY_SITES_TT
+				hidden_tooltip = {
+					any_realm_title = {
+						count = 3
+						is_holy_site = ROOT
+					}
+				}
+			}
+		}
+		conditional_tooltip = {
+			trigger = {
+				has_global_flag = destroyed_caliphates
+			}
+
+			custom_tooltip = {
 				text = controls_mecca_medina
 				hidden_tooltip = {
 					719 = { # Mecca
@@ -365,41 +704,10 @@ d_islamic = {
 					}
 				}
 			}
-			custom_tooltip = {
-				text = controls_jerusalem_damascus_baghdad
-				hidden_tooltip = {
-					774 = { # Jerusalem
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-					728 = { # Damascus
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-					693 = { # Baghdad
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-				}
-			}
 		}
 	}
 	
 	caliphate = yes
-
-
 	
 	coat_of_arms=
 	{
@@ -432,41 +740,133 @@ d_shiite = {
 	controls_religion = shiite
 	
 	allow = {
-		custom_tooltip = {
-			text = shia_creation_independent
-			hidden_tooltip = {
-				in_revolt = no
-				OR = {
-					independent = yes
-					NOT = {
-						any_liege = {
-							OR = {
-								in_revolt = yes
-								NOT = { religion = shiite }
+		conditional_tooltip = {
+			trigger = {
+				NOT = {
+					has_alternate_start_parameter = { key = religion_names value = random }
+				}
+			}
+			custom_tooltip = {
+				text = shia_creation_independent
+				hidden_tooltip = {
+					in_revolt = no
+					OR = {
+						independent = yes
+						NOT = {
+							any_liege = {
+								OR = {
+									in_revolt = yes
+									NOT = { religion = shiite }
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			OR = {
+				trait = mirza
+				trait = sayyid
+				piety = 1000
+			}
+
+			custom_tooltip = {
+				text = not_shia_caliphate_revolt_ongoing
+				hidden_tooltip = {
+					NOT = { has_global_flag = shia_caliphate_revolt_ongoing }
+				}
+			}
+			
+			OR = {
+				AND = {
+					trait = sayyid
+					piety = 1000
+				}
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							has_global_flag = destroyed_caliphates
+						}
+					}
+
+					custom_tooltip = {
+						text = controls_mecca_medina
+						hidden_tooltip = {
+							719 = { # Mecca
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+							718 = { # Medina
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+						}
+					}
+				}
+				custom_tooltip = {
+					text = controls_jerusalem_damascus_baghdad
+					hidden_tooltip = {
+						774 = { # Jerusalem
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
+							}
+						}
+						728 = { # Damascus
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
+							}
+						}
+						693 = { # Baghdad
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
 							}
 						}
 					}
 				}
 			}
 		}
-		
-		OR = {
-			trait = mirza
-			trait = sayyid
-			piety = 1000
-		}
-		custom_tooltip = {
-			text = not_shia_caliphate_revolt_ongoing
-			hidden_tooltip = {
-				NOT = { has_global_flag = shia_caliphate_revolt_ongoing }
+		conditional_tooltip = {
+			trigger = {
+				has_alternate_start_parameter = { key = religion_names value = random }
 			}
-		}
-		
-		OR = {
-			AND = {
+			religion = shiite
+			OR = {
+				trait = mirza
 				trait = sayyid
 				piety = 1000
 			}
+			custom_tooltip = {
+				text = THREE_HOLY_SITES_TT
+				hidden_tooltip = {
+					any_realm_title = {
+						count = 3
+						is_holy_site = ROOT
+					}
+				}
+			}
+		}
+		conditional_tooltip = {
+			trigger = {
+				has_global_flag = destroyed_caliphates
+			}
+
 			custom_tooltip = {
 				text = controls_mecca_medina
 				hidden_tooltip = {
@@ -479,35 +879,6 @@ d_shiite = {
 						}
 					}
 					718 = { # Medina
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-				}
-			}
-			custom_tooltip = {
-				text = controls_jerusalem_damascus_baghdad
-				hidden_tooltip = {
-					774 = { # Jerusalem
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-					728 = { # Damascus
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-					693 = { # Baghdad
 						owner = {
 							OR = {
 								is_liege_or_above = ROOT
@@ -546,7 +917,7 @@ e_golden_horde = {
 		always = no
 	}
 	
-	# tribe = yes
+	#tribe = yes
 	
 	culture = mongol
 	religion = tengri_pagan
@@ -566,7 +937,7 @@ e_il-khanate = {
 		always = no
 	}
 	
-	# tribe = yes
+	#tribe = yes
 	
 	culture = mongol
 	religion = tengri_pagan
@@ -593,6 +964,20 @@ e_mongol_empire = {
 	religion = tengri_pagan
 }
 
+e_chagatai = {
+	color = { 200 200 200 }
+	color2 = { 0 250 250 }
+	
+	capital = 903 # Samarkand
+	
+	allow = {
+		always = no
+	}
+	
+	culture = mongol
+	religion = tengri_pagan
+}
+
 e_timurids = {
 	color = { 120 20 20 }
 	
@@ -605,9 +990,9 @@ e_timurids = {
 	}
 	
 	# Always exists
-#	landless = yes
+	#landless = yes
 	
-	# tribe = yes
+	#tribe = yes
 	
 	culture = mongol
 	religion = sunni
@@ -2627,8 +3012,8 @@ e_germania = {
 				b_strelitz = {
 					pommeranian = Streltza
 				}
-				b_stargard = {
-				}
+				#b_stargard = {		#Outcommented from here in HF as it should be instead a barony in c_stettin
+				#}
 				b_ahrensberg = {
 				}
 			}
@@ -2767,7 +3152,7 @@ e_germania = {
 				}
 				b_wollin = {
 				} 
-				b_stestargard = {
+				b_stargard = {
 				}
 				b_kammin = {
 				}
@@ -4872,6 +5257,7 @@ e_byzantium = {
 				color2={ 255 255 20 }
 				
 				holy_site = illyran_pagan
+				holy_site = illyran_pagan_reformed
 				
 				b_butrint = {
 					greek = "Bouthroton"
@@ -4902,6 +5288,7 @@ e_byzantium = {
 				bulgarian = "Ohrid"
 				
 				holy_site = illyran_pagan
+				holy_site = illyran_pagan_reformed
 				
 				b_durazzo = {
 					greek = "Dyrrhachion"
@@ -6312,6 +6699,7 @@ e_byzantium = {
 				color2={ 255 255 255 }
 				
 				holy_site = georgian_pagan
+				holy_site = georgian_pagan_reformed
 				holy_site = bosporan_faith
 				
 				macronian = "Tzani"
@@ -6406,7 +6794,9 @@ e_byzantium = {
 
 				azeri = "Abasgi"
 				abaza = "Abasgi"
+				
 				holy_site = georgian_pagan
+				holy_site = georgian_pagan_reformed
 				
 				b_abaatha = {
 				}
@@ -14665,6 +15055,16 @@ e_dacia = {
 				color2={ 255 255 255 }
 
 				roman = "Sarmizegetusa Regia"
+				romano_british = "Sarmizegetusa Regia"
+				illyro_roman = "Sarmizegetusa Regia"
+				thraco_roman = "Sarmizegetusa Regia"
+				romano_gothic = "Sarmizegetusa Regia"
+				romano_dacian = "Sarmizegetusa Regia"
+				romano_hispanic = "Sarmizegetusa Regia"
+				romano_vandalic = "Sarmizegetusa Regia"
+				romano_aramean = "Sarmizegetusa Regia"
+				romano_persian = "Sarmizegetusa Regia"
+				romano_frank = "Sarmizegetusa Regia"
 				romano_gallic = "Sarmizegetusa Regia"
 				greek = "Sarmizegetusa Regia"
 				dacian = "Sarmizegetusa Regia"
@@ -14672,12 +15072,22 @@ e_dacia = {
 				ostrogothic = "Makowa"
 				
 				b_csanad = {
-				roman = "Sarmizegetusa Regia"
-				romano_gallic = "Sarmizegetusa Regia"
-				greek = "Sarmizegetusa Regia"
-				dacian = "Sarmizegetusa Regia"
-				gepid = "Makowa"
-				ostrogothic = "Makowa"
+					roman = "Sarmizegetusa Regia"
+					romano_british = "Sarmizegetusa Regia"
+					illyro_roman = "Sarmizegetusa Regia"
+					thraco_roman = "Sarmizegetusa Regia"
+					romano_gothic = "Sarmizegetusa Regia"
+					romano_dacian = "Sarmizegetusa Regia"
+					romano_hispanic = "Sarmizegetusa Regia"
+					romano_vandalic = "Sarmizegetusa Regia"
+					romano_aramean = "Sarmizegetusa Regia"
+					romano_persian = "Sarmizegetusa Regia"
+					romano_frank = "Sarmizegetusa Regia"
+					romano_gallic = "Sarmizegetusa Regia"
+					greek = "Sarmizegetusa Regia"
+					dacian = "Sarmizegetusa Regia"
+					gepid = "Makowa"
+					ostrogothic = "Makowa"
 				}
 				b_szeged = {
 				}
@@ -14703,6 +15113,17 @@ e_dacia = {
 				german = Fünfkirchen
 				bohemian=Balaton
 				roman = "Sopianae"
+				romano_british = "Sopianae"
+				illyro_roman = "Sopianae"
+				thraco_roman = "Sopianae"
+				romano_gothic = "Sopianae"
+				romano_dacian = "Sopianae"
+				romano_hispanic = "Sopianae"
+				romano_vandalic = "Sopianae"
+				romano_aramean = "Sopianae"
+				romano_persian = "Sopianae"
+				romano_frank = "Sopianae"
+				romano_gallic = "Sopianae"
 				gepid = "Sopianae"
 				
 				b_pecs = {
@@ -14711,10 +15132,32 @@ e_dacia = {
 					german = Fünfkirchen
 					bohemian=Balaton
 					roman = "Sopianae"
+					romano_british = "Sopianae"
+					illyro_roman = "Sopianae"
+					thraco_roman = "Sopianae"
+					romano_gothic = "Sopianae"
+					romano_dacian = "Sopianae"
+					romano_hispanic = "Sopianae"
+					romano_vandalic = "Sopianae"
+					romano_aramean = "Sopianae"
+					romano_persian = "Sopianae"
+					romano_frank = "Sopianae"
+					romano_gallic = "Sopianae"
 					gepid = "Sopianae"
 				}
 				b_kalocsa = {
 					roman = "Quinque Basilicae"
+					romano_british = "Quinque Basilicae"
+					illyro_roman = "Quinque Basilicae"
+					thraco_roman = "Quinque Basilicae"
+					romano_gothic = "Quinque Basilicae"
+					romano_dacian = "Quinque Basilicae"
+					romano_hispanic = "Quinque Basilicae"
+					romano_vandalic = "Quinque Basilicae"
+					romano_aramean = "Quinque Basilicae"
+					romano_persian = "Quinque Basilicae"
+					romano_frank = "Quinque Basilicae"
+					romano_gallic = "Quinque Basilicae"
 					gepid = "Quinque Basilicae"
 				}
 				b_mohacs = {
@@ -14737,10 +15180,32 @@ e_dacia = {
 				romanian = Timis
 				serbian = Tamis
 				roman = "Temesiense"
+				romano_british = "Temesiense"
+				illyro_roman = "Temesiense"
+				thraco_roman = "Temesiense"
+				romano_gothic = "Temesiense"
+				romano_dacian = "Temesiense"
+				romano_hispanic = "Temesiense"
+				romano_vandalic = "Temesiense"
+				romano_aramean = "Temesiense"
+				romano_persian = "Temesiense"
+				romano_frank = "Temesiense"
+				romano_gallic = "Temesiense"
 				gepid = "Temesiense"
 				
 				b_temesvar = {
 					roman = "Temesiense"
+					romano_british = "Temesiense"
+					illyro_roman = "Temesiense"
+					thraco_roman = "Temesiense"
+					romano_gothic = "Temesiense"
+					romano_dacian = "Temesiense"
+					romano_hispanic = "Temesiense"
+					romano_vandalic = "Temesiense"
+					romano_aramean = "Temesiense"
+					romano_persian = "Temesiense"
+					romano_frank = "Temesiense"
+					romano_gallic = "Temesiense"
 					gepid = "Temesiense"
 				}
 				b_lugos = {
@@ -14762,11 +15227,33 @@ e_dacia = {
 				color={ 156 130 67 }
 				color2={ 255 255 255 }
 				
-				roman = "Colonia Justinia"
+				roman = "Colonia Iustinia"
+				romano_british = "Colonia Iustinia"
+				illyro_roman = "Colonia Iustinia"
+				thraco_roman = "Colonia Iustinia"
+				romano_gothic = "Colonia Iustinia"
+				romano_dacian = "Colonia Iustinia"
+				romano_hispanic = "Colonia Iustinia"
+				romano_vandalic = "Colonia Iustinia"
+				romano_aramean = "Colonia Iustinia"
+				romano_persian = "Colonia Iustinia"
+				romano_frank = "Colonia Iustinia"
+				romano_gallic = "Colonia Iustinia"
 				gepid = "Faírguniháims"
 				
 				b_bacs = {
-					roman = "Colonia Justinia"
+					roman = "Colonia Iustinia"
+					romano_british = "Colonia Iustinia"
+					illyro_roman = "Colonia Iustinia"
+					thraco_roman = "Colonia Iustinia"
+					romano_gothic = "Colonia Iustinia"
+					romano_dacian = "Colonia Iustinia"
+					romano_hispanic = "Colonia Iustinia"
+					romano_vandalic = "Colonia Iustinia"
+					romano_aramean = "Colonia Iustinia"
+					romano_persian = "Colonia Iustinia"
+					romano_frank = "Colonia Iustinia"
+					romano_gallic = "Colonia Iustinia"
 					gepid = "Faírguniháims"
 				}
 				b_apatin = {
@@ -14800,10 +15287,32 @@ e_dacia = {
 
 				german = Szeklerland
 				roman = "Terra Siculorum"
+				romano_british = "Terra Siculorum"
+				illyro_roman = "Terra Siculorum"
+				thraco_roman = "Terra Siculorum"
+				romano_gothic = "Terra Siculorum"
+				romano_dacian = "Terra Siculorum"
+				romano_hispanic = "Terra Siculorum"
+				romano_vandalic = "Terra Siculorum"
+				romano_aramean = "Terra Siculorum"
+				romano_persian = "Terra Siculorum"
+				romano_frank = "Terra Siculorum"
+				romano_gallic = "Terra Siculorum"
 				gepid = "Thervingthiuda"
 				
 				b_csik = {
 					roman = "Terra Siculorum"
+					romano_british = "Terra Siculorum"
+					illyro_roman = "Terra Siculorum"
+					thraco_roman = "Terra Siculorum"
+					romano_gothic = "Terra Siculorum"
+					romano_dacian = "Terra Siculorum"
+					romano_hispanic = "Terra Siculorum"
+					romano_vandalic = "Terra Siculorum"
+					romano_aramean = "Terra Siculorum"
+					romano_persian = "Terra Siculorum"
+					romano_frank = "Terra Siculorum"
+					romano_gallic = "Terra Siculorum"
 					gepid = "Thervingthiuda"
 				}
 				b_aranyos = {
@@ -14828,10 +15337,32 @@ e_dacia = {
 				romanian = Bihor
 				gepid = "Byhor"
 				roman = "Partium"
+				romano_british = "Partium"
+				illyro_roman = "Partium"
+				thraco_roman = "Partium"
+				romano_gothic = "Partium"
+				romano_dacian = "Partium"
+				romano_hispanic = "Partium"
+				romano_vandalic = "Partium"
+				romano_aramean = "Partium"
+				romano_persian = "Partium"
+				romano_frank = "Partium"
+				romano_gallic = "Partium"
 				
 				b_bihar = {
 					gepid = "Byhor"
 					roman = "Partium"
+					romano_british = "Partium"
+					illyro_roman = "Partium"
+					thraco_roman = "Partium"
+					romano_gothic = "Partium"
+					romano_dacian = "Partium"
+					romano_hispanic = "Partium"
+					romano_vandalic = "Partium"
+					romano_aramean = "Partium"
+					romano_persian = "Partium"
+					romano_frank = "Partium"
+					romano_gallic = "Partium"
 				}
 				b_nagyvarad = {
 				}
@@ -14856,12 +15387,34 @@ e_dacia = {
 				german = Unterweissenburg
 				gepid = "Þeits"
 				roman = "Albinia"
+				romano_british = "Albinia"
+				illyro_roman = "Albinia"
+				thraco_roman = "Albinia"
+				romano_gothic = "Albinia"
+				romano_dacian = "Albinia"
+				romano_hispanic = "Albinia"
+				romano_vandalic = "Albinia"
+				romano_aramean = "Albinia"
+				romano_persian = "Albinia"
+				romano_frank = "Albinia"
+				romano_gallic = "Albinia"
 				
 				b_feher = {
 					romanian = "Alba de Jos"
 					german = Unterweissenburg
 					gepid = "Þeits"
 					roman = "Albinia"
+					romano_british = "Albinia"
+					illyro_roman = "Albinia"
+					thraco_roman = "Albinia"
+					romano_gothic = "Albinia"
+					romano_dacian = "Albinia"
+					romano_hispanic = "Albinia"
+					romano_vandalic = "Albinia"
+					romano_aramean = "Albinia"
+					romano_persian = "Albinia"
+					romano_frank = "Albinia"
+					romano_gallic = "Albinia"
 				}
 				b_arad = {
 				}
@@ -14947,6 +15500,17 @@ e_dacia = {
 				german = Neuburg
 				bohemian = Abov
 				roman = "Abaujvaria"
+				romano_british = "Abaujvaria"
+				illyro_roman = "Abaujvaria"
+				thraco_roman = "Abaujvaria"
+				romano_gothic = "Abaujvaria"
+				romano_dacian = "Abaujvaria"
+				romano_hispanic = "Abaujvaria"
+				romano_vandalic = "Abaujvaria"
+				romano_aramean = "Abaujvaria"
+				romano_persian = "Abaujvaria"
+				romano_frank = "Abaujvaria"
+				romano_gallic = "Abaujvaria"
 				gepid = "Abaujwar"
 				old_slavic = "Abov"
 				
@@ -14954,6 +15518,17 @@ e_dacia = {
 					german = Neuburg
 					bohemian = Abov
 					roman = "Abaujvaria"
+					romano_british = "Abaujvaria"
+					illyro_roman = "Abaujvaria"
+					thraco_roman = "Abaujvaria"
+					romano_gothic = "Abaujvaria"
+					romano_dacian = "Abaujvaria"
+					romano_hispanic = "Abaujvaria"
+					romano_vandalic = "Abaujvaria"
+					romano_aramean = "Abaujvaria"
+					romano_persian = "Abaujvaria"
+					romano_frank = "Abaujvaria"
+					romano_gallic = "Abaujvaria"
 					gepid = "Abaujwar"
 					old_slavic = "Abov"
 				}
@@ -14986,13 +15561,35 @@ e_dacia = {
 				
 				gepid = "Aúhns"
 				roman = "Caminia"
+				romano_british = "Caminia"
+				illyro_roman = "Caminia"
+				thraco_roman = "Caminia"
+				romano_gothic = "Caminia"
+				romano_dacian = "Caminia"
+				romano_hispanic = "Caminia"
+				romano_vandalic = "Caminia"
+				romano_aramean = "Caminia"
+				romano_persian = "Caminia"
+				romano_frank = "Caminia"
+				romano_gallic = "Caminia"
 				
 				holy_site = dacian_pagan
-                holy_site = dacian_pagan_reformed 
+                holy_site = dacian_pagan_reformed
 				
 				b_pest = {
 					gepid = "Aúhns"
 					roman = "Caminia"
+					romano_british = "Caminia"
+					illyro_roman = "Caminia"
+					thraco_roman = "Caminia"
+					romano_gothic = "Caminia"
+					romano_dacian = "Caminia"
+					romano_hispanic = "Caminia"
+					romano_vandalic = "Caminia"
+					romano_aramean = "Caminia"
+					romano_persian = "Caminia"
+					romano_frank = "Caminia"
+					romano_gallic = "Caminia"
 					
 					pentarchy = dacian_pagan
 				}
@@ -15017,15 +15614,48 @@ e_dacia = {
 				
 				german = Stuhlweiss
 				croatian = Bila
-				roman = "Gorsium"
+				roman = "Annamatia"
+				romano_british = "Annamatia"
+				illyro_roman = "Annamatia"
+				thraco_roman = "Annamatia"
+				romano_gothic = "Annamatia"
+				romano_dacian = "Annamatia"
+				romano_hispanic = "Annamatia"
+				romano_vandalic = "Annamatia"
+				romano_aramean = "Annamatia"
+				romano_persian = "Annamatia"
+				romano_frank = "Annamatia"
+				romano_gallic = "Annamatia"
 				gepid = "Annamatia"
 				b_sarbogard = {
-				roman = "Annamatia"
-				gepid = "Gorsium"
+					roman = "Annamatia"
+					romano_british = "Annamatia"
+					illyro_roman = "Annamatia"
+					thraco_roman = "Annamatia"
+					romano_gothic = "Annamatia"
+					romano_dacian = "Annamatia"
+					romano_hispanic = "Annamatia"
+					romano_vandalic = "Annamatia"
+					romano_aramean = "Annamatia"
+					romano_persian = "Annamatia"
+					romano_frank = "Annamatia"
+					romano_gallic = "Annamatia"
+					gepid = "Annamatia"
 				}
 				b_adony = {
-				roman = "Intercisa"
-				gepid = "Intercisa"
+					roman = "Intercisa"
+					romano_british = "Intercisa"
+					illyro_roman = "Intercisa"
+					thraco_roman = "Intercisa"
+					romano_gothic = "Intercisa"
+					romano_dacian = "Intercisa"
+					romano_hispanic = "Intercisa"
+					romano_vandalic = "Intercisa"
+					romano_aramean = "Intercisa"
+					romano_persian = "Intercisa"
+					romano_frank = "Intercisa"
+					romano_gallic = "Intercisa"
+					gepid = "Intercisa"
 				}
 				b_mor = {
 				}
@@ -15049,12 +15679,34 @@ e_dacia = {
 				croatian = Ostrogon
 				old_slavic = "Strêgom"
 				roman = "Ostrogonia"
-				gepid = "Regen-weard" 
+				romano_british = "Ostrogonia"
+				illyro_roman = "Ostrogonia"
+				thraco_roman = "Ostrogonia"
+				romano_gothic = "Ostrogonia"
+				romano_dacian = "Ostrogonia"
+				romano_hispanic = "Ostrogonia"
+				romano_vandalic = "Ostrogonia"
+				romano_aramean = "Ostrogonia"
+				romano_persian = "Ostrogonia"
+				romano_frank = "Ostrogonia"
+				romano_gallic = "Ostrogonia"
+				gepid = "Regen-weard"
 				iazyges = "Oioril"
 				
 				b_esztergom = {
 					old_slavic = "Strêgom"
 					roman = "Ostrogonia"
+					romano_british = "Ostrogonia"
+					illyro_roman = "Ostrogonia"
+					thraco_roman = "Ostrogonia"
+					romano_gothic = "Ostrogonia"
+					romano_dacian = "Ostrogonia"
+					romano_hispanic = "Ostrogonia"
+					romano_vandalic = "Ostrogonia"
+					romano_aramean = "Ostrogonia"
+					romano_persian = "Ostrogonia"
+					romano_frank = "Ostrogonia"
+					romano_gallic = "Ostrogonia"
 					gepid = "Regen-weard" 
 					iazyges = "Oioril"
 				}
@@ -15096,14 +15748,25 @@ e_dacia = {
 			color2={ 255 255 255 }
 			
 			capital = 443 # Nitra
-
+			
 			c_nitra = {
 				color={ 194 25 25 }
 				color2={ 255 255 255 }
-
+				
 				german = Neutra
 				bohemian = Nitra
 				roman = "Nitrava"
+				romano_british = "Nitrava"
+				illyro_roman = "Nitrava"
+				thraco_roman = "Nitrava"
+				romano_gothic = "Nitrava"
+				romano_dacian = "Nitrava"
+				romano_hispanic = "Nitrava"
+				romano_vandalic = "Nitrava"
+				romano_aramean = "Nitrava"
+				romano_persian = "Nitrava"
+				romano_frank = "Nitrava"
+				romano_gallic = "Nitrava"
 				gepid = "Nitrava"
 				iazyges = "Spakoval"
 				
@@ -15131,14 +15794,36 @@ e_dacia = {
 				
 				greek = "Leukaristos"
 				roman = "Laugaricio"
+				romano_british = "Laugaricio"
+				illyro_roman = "Laugaricio"
+				thraco_roman = "Laugaricio"
+				romano_gothic = "Laugaricio"
+				romano_dacian = "Laugaricio"
+				romano_hispanic = "Laugaricio"
+				romano_vandalic = "Laugaricio"
+				romano_aramean = "Laugaricio"
+				romano_persian = "Laugaricio"
+				romano_frank = "Laugaricio"
+				romano_gallic = "Laugaricio"
 				gepid = "Laugaricio"
 				heruli = "Laugaricio"
 				lombard = "Leukaristos"
 				
 				b_trencsen = {
-				greek = "Leukaristos"
-				roman = "Laugaricio"
-				gepid = "Laugaricio"
+					greek = "Leukaristos"
+					roman = "Laugaricio"
+					romano_british = "Laugaricio"
+					illyro_roman = "Laugaricio"
+					thraco_roman = "Laugaricio"
+					romano_gothic = "Laugaricio"
+					romano_dacian = "Laugaricio"
+					romano_hispanic = "Laugaricio"
+					romano_vandalic = "Laugaricio"
+					romano_aramean = "Laugaricio"
+					romano_persian = "Laugaricio"
+					romano_frank = "Laugaricio"
+					romano_gallic = "Laugaricio"
+					gepid = "Laugaricio"
 				}
 				b_zilina = {
 				}
@@ -15161,12 +15846,34 @@ e_dacia = {
 				
 				hungarian = Gömör
 				roman = "Gomorinum"
+				romano_british = "Gomorinum"
+				illyro_roman = "Gomorinum"
+				thraco_roman = "Gomorinum"
+				romano_gothic = "Gomorinum"
+				romano_dacian = "Gomorinum"
+				romano_hispanic = "Gomorinum"
+				romano_vandalic = "Gomorinum"
+				romano_aramean = "Gomorinum"
+				romano_persian = "Gomorinum"
+				romano_frank = "Gomorinum"
+				romano_gallic = "Gomorinum"
 				gepid = "Gomor"
 				iazyges = "Ippaherros"
 				
 				b_gomor = {
-				roman = "Gomorinum"
-				iazyges = "Ippaherros"
+					roman = "Gomorinum"
+					romano_british = "Gomorinum"
+					illyro_roman = "Gomorinum"
+					thraco_roman = "Gomorinum"
+					romano_gothic = "Gomorinum"
+					romano_dacian = "Gomorinum"
+					romano_hispanic = "Gomorinum"
+					romano_vandalic = "Gomorinum"
+					romano_aramean = "Gomorinum"
+					romano_persian = "Gomorinum"
+					romano_frank = "Gomorinum"
+					romano_gallic = "Gomorinum"
+					iazyges = "Ippaherros"
 				}
 				b_losonc = {
 				}
@@ -15191,13 +15898,35 @@ e_dacia = {
 				hungarian = Pozsony
 				bohemian = Presporok
 				roman = "Boiia"
+				romano_british = "Boiia"
+				illyro_roman = "Boiia"
+				thraco_roman = "Boiia"
+				romano_gothic = "Boiia"
+				romano_dacian = "Boiia"
+				romano_hispanic = "Boiia"
+				romano_vandalic = "Boiia"
+				romano_aramean = "Boiia"
+				romano_persian = "Boiia"
+				romano_frank = "Boiia"
+				romano_gallic = "Boiia"
 				old_slavic = "Bratislava"
 				gepid = "Boiland"
 				
 				b_pressburg = {
 					roman = "Boiia"
-				old_slavic = "Bratislava"
-				gepid = "Boiland"
+					romano_british = "Boiia"
+					illyro_roman = "Boiia"
+					thraco_roman = "Boiia"
+					romano_gothic = "Boiia"
+					romano_dacian = "Boiia"
+					romano_hispanic = "Boiia"
+					romano_vandalic = "Boiia"
+					romano_aramean = "Boiia"
+					romano_persian = "Boiia"
+					romano_frank = "Boiia"
+					romano_gallic = "Boiia"
+					old_slavic = "Bratislava"
+					gepid = "Boiland"
 				}
 				b_nagyszombat = {
 				}
@@ -15252,12 +15981,34 @@ e_dacia = {
 				
 				german = Scharosch
 				roman = "Saris"
+				romano_british = "Saris"
+				illyro_roman = "Saris"
+				thraco_roman = "Saris"
+				romano_gothic = "Saris"
+				romano_dacian = "Saris"
+				romano_hispanic = "Saris"
+				romano_vandalic = "Saris"
+				romano_aramean = "Saris"
+				romano_persian = "Saris"
+				romano_frank = "Saris"
+				romano_gallic = "Saris"
 				gepid = "Scepusiens"
 				heruli = "Scepusiens"
 				
 				b_saris = {
 					roman = "Saris"
-				gepid = "Scepusiens"
+					romano_british = "Saris"
+					illyro_roman = "Saris"
+					thraco_roman = "Saris"
+					romano_gothic = "Saris"
+					romano_dacian = "Saris"
+					romano_hispanic = "Saris"
+					romano_vandalic = "Saris"
+					romano_aramean = "Saris"
+					romano_persian = "Saris"
+					romano_frank = "Saris"
+					romano_gallic = "Saris"
+					gepid = "Scepusiens"
 				}
 				b_bartfa = {
 				}
@@ -15280,6 +16031,17 @@ e_dacia = {
 
 				german = Berg
 				roman = "Beregia"
+				romano_british = "Beregia"
+				illyro_roman = "Beregia"
+				thraco_roman = "Beregia"
+				romano_gothic = "Beregia"
+				romano_dacian = "Beregia"
+				romano_hispanic = "Beregia"
+				romano_vandalic = "Beregia"
+				romano_aramean = "Beregia"
+				romano_persian = "Beregia"
+				romano_frank = "Beregia"
+				romano_gallic = "Beregia"
 				gepid = "Draúhts"
 				
 				holy_site = dacian_pagan
@@ -15287,6 +16049,17 @@ e_dacia = {
 				
 				b_beregszasz = {
 					roman = "Beregia"
+					romano_british = "Beregia"
+					illyro_roman = "Beregia"
+					thraco_roman = "Beregia"
+					romano_gothic = "Beregia"
+					romano_dacian = "Beregia"
+					romano_hispanic = "Beregia"
+					romano_vandalic = "Beregia"
+					romano_aramean = "Beregia"
+					romano_persian = "Beregia"
+					romano_frank = "Beregia"
+					romano_gallic = "Beregia"
 					gepid = "Draúhts"
 				}
 				b_perecseny = {
@@ -15332,11 +16105,33 @@ e_dacia = {
 				color2={ 255 255 255 }
 				
 				roman = "Epirus Nova"
-				old_slavic = "Ueikgherdh" 
+				romano_british = "Epirus Nova"
+				illyro_roman = "Epirus Nova"
+				thraco_roman = "Epirus Nova"
+				romano_gothic = "Epirus Nova"
+				romano_dacian = "Epirus Nova"
+				romano_hispanic = "Epirus Nova"
+				romano_vandalic = "Epirus Nova"
+				romano_aramean = "Epirus Nova"
+				romano_persian = "Epirus Nova"
+				romano_frank = "Epirus Nova"
+				romano_gallic = "Epirus Nova"
+				old_slavic = "Ueikgherdh"
 				
 				b_nikopolis = {
 					roman = "Epirus Nova"
-					old_slavic = "Ueikgherdh" 
+					romano_british = "Epirus Nova"
+					illyro_roman = "Epirus Nova"
+					thraco_roman = "Epirus Nova"
+					romano_gothic = "Epirus Nova"
+					romano_dacian = "Epirus Nova"
+					romano_hispanic = "Epirus Nova"
+					romano_vandalic = "Epirus Nova"
+					romano_aramean = "Epirus Nova"
+					romano_persian = "Epirus Nova"
+					romano_frank = "Epirus Nova"
+					romano_gallic = "Epirus Nova"
+					old_slavic = "Ueikgherdh"
 				}
 				b_pleven = {
 				}
@@ -15403,9 +16198,9 @@ e_dacia = {
 		d_scythia_minor = {
 			color={ 210 95 253 }
 			color2={ 255 255 255 }
-
+			
 			capital = 510 # Constantia
-
+			
 			c_karvuna = {
 				color={ 210 95 253 }
 				color2={ 255 255 255 }
@@ -15433,6 +16228,22 @@ e_dacia = {
 				b_karvuna = {
 					greek = "Krounoi"
 					roman = "Cavarna"
+					romano_gallic = "Cavarna"
+					romano_hispanic = "Cavarna"
+					romano_gothic = "Cavarna"
+					romano_dacian = "Cavarna"
+					romano_frank = "Cavarna"
+					romano_british = "Cavarna"
+					romano_persian = "Cavarna"
+					romano_aramean = "Cavarna"
+					romano_vandalic = "Cavarna"
+					african_romance = "Cavarna"
+					thraco_roman = "Cavarna"
+					illyro_roman = "Cavarna"
+					raetoroman = "Cavarna"
+					noricroman = "Cavarna"
+					pannonian = "Cavarna"
+					dalmatian = "Cavarna"
 					old_slavic = "Karvunska Hora"
 				}
 				b_kaliakra = {
@@ -15477,6 +16288,22 @@ e_dacia = {
 				
 				b_constantia = {
 					roman = "Tomis"
+					romano_gallic = "Tomis"
+					romano_hispanic = "Tomis"
+					romano_gothic = "Tomis"
+					romano_dacian = "Tomis"
+					romano_frank = "Tomis"
+					romano_british = "Tomis"
+					romano_persian = "Tomis"
+					romano_aramean = "Tomis"
+					romano_vandalic = "Tomis"
+					african_romance = "Tomis"
+					thraco_roman = "Tomis"
+					illyro_roman = "Tomis"
+					raetoroman = "Tomis"
+					noricroman = "Tomis"
+					pannonian = "Tomis"
+					dalmatian = "Tomis"
 					old_slavic = "Vunuvyedu"
 				}
 				b_carachioi = {
@@ -15628,13 +16455,35 @@ e_dacia = {
 				
 				hunnic = Olbia
 				greek = Olbia
-				roman = Borysthenes 
-				isaurian = Olbia 
+				roman = "Borysthenes"
+				romano_british = "Borysthenes"
+				illyro_roman = "Borysthenes"
+				thraco_roman = "Borysthenes"
+				romano_gothic = "Borysthenes"
+				romano_dacian = "Borysthenes"
+				romano_hispanic = "Borysthenes"
+				romano_vandalic = "Borysthenes"
+				romano_aramean = "Borysthenes"
+				romano_persian = "Borysthenes"
+				romano_frank = "Borysthenes"
+				romano_gallic = "Borysthenes"
+				isaurian = Olbia
 				
 				b_olvia = {
-				hunnic = Olbia
-				greek = Olbia
-				roman = Borysthenes 
+					hunnic = Olbia
+					greek = Olbia
+					roman = "Borysthenes"
+					romano_british = "Borysthenes"
+					illyro_roman = "Borysthenes"
+					thraco_roman = "Borysthenes"
+					romano_gothic = "Borysthenes"
+					romano_dacian = "Borysthenes"
+					romano_hispanic = "Borysthenes"
+					romano_vandalic = "Borysthenes"
+					romano_aramean = "Borysthenes"
+					romano_persian = "Borysthenes"
+					romano_frank = "Borysthenes"
+					romano_gallic = "Borysthenes"
 				}
 				b_ophusia = {
 				}
@@ -15849,6 +16698,7 @@ e_serindia = {
 				color2={ 255 255 255 }
 				
 				holy_site = bon
+				holy_site = bon_reformed
 				
 				uyghur = "Hotan"				
 				han = "Yutian"
@@ -16058,6 +16908,7 @@ e_serindia = {
 				holy_site = confucianism
 				holy_site = taoist
 				holy_site = bon # Placeholder Tibet
+				holy_site = bon_reformed
 				
 				b_loulan = {
 					tocharian = "Krorän"
@@ -16313,6 +17164,7 @@ e_serindia = {
 				holy_site = confucianism
 				holy_site = taoist
 				holy_site = bon # Placeholder Tibet
+				holy_site = bon_reformed
 				
 				b_afrasiyab = {
 				}
@@ -16559,6 +17411,7 @@ e_tartaria = {
 				holy_site = confucianism
 				holy_site = taoist
 				holy_site = bon # Placeholder Tibet
+				holy_site = bon_reformed
 				holy_site = root_west_pagan
 				holy_site = root_west_pagan_reformed
 				
@@ -18144,7 +18997,7 @@ e_arabia = {
 			c_tabuk = {
 				color={ 148 152 134 }
 				color2={ 255 255 255 }
-			
+				
 				b_tabuk = {
 				}
 				b_duba = {
@@ -18165,10 +19018,21 @@ e_arabia = {
 			c_al_aqabah = {
 				color={ 136 140 120 }
 				color2={ 255 255 255 }
-
+				
 				greek = "Berenice"
 				roman = "Ayla"
-			
+				romano_british = "Ayla"
+				illyro_roman = "Ayla"
+				thraco_roman = "Ayla"
+				romano_gothic = "Ayla"
+				romano_dacian = "Ayla"
+				romano_hispanic = "Ayla"
+				romano_vandalic = "Ayla"
+				romano_aramean = "Ayla"
+				romano_persian = "Ayla"
+				romano_frank = "Ayla"
+				romano_gallic = "Ayla"
+				
 				b_aqabah = {
 				}
 				b_reeshah = {
@@ -18191,8 +19055,19 @@ e_arabia = {
 				color2={ 255 255 255 }
 				
 				roman = "Petra"
+				romano_british = "Petra"
+				illyro_roman = "Petra"
+				thraco_roman = "Petra"
+				romano_gothic = "Petra"
+				romano_dacian = "Petra"
+				romano_hispanic = "Petra"
+				romano_vandalic = "Petra"
+				romano_aramean = "Petra"
+				romano_persian = "Petra"
+				romano_frank = "Petra"
+				romano_gallic = "Petra"
 				greek = "Petra"
-			
+				
 				b_tophel = {
 				}
 				b_petra = {
@@ -18314,6 +19189,17 @@ e_arabia = {
 				hebrew = "Yathrib"
 				greek = "Yathrib"
 				roman = "Yahtrib"
+				romano_british = "Yahtrib"
+				illyro_roman = "Yahtrib"
+				thraco_roman = "Yahtrib"
+				romano_gothic = "Yahtrib"
+				romano_dacian = "Yahtrib"
+				romano_hispanic = "Yahtrib"
+				romano_vandalic = "Yahtrib"
+				romano_aramean = "Yahtrib"
+				romano_persian = "Yahtrib"
+				romano_frank = "Yahtrib"
+				romano_gallic = "Yahtrib"
 				latin = "Yahtrib"
 				
 				holy_site = sunni
@@ -18324,8 +19210,8 @@ e_arabia = {
 				holy_site = islamic
 				holy_site = khawariji
 				holy_site = haruriyyah
-			
-				b_medina = {			
+				
+				b_medina = {
 				}
 				b_khaybar = {
 				}
@@ -18507,19 +19393,19 @@ e_arabia = {
 				color={ 36 168 148 }
 				color2={ 255 255 255 }
 				
-				b_lidam = {				
+				b_lidam = {
 				}
-				b_lidam2 = {				
+				b_lidam2 = {
 				}
-				b_lidam3 = {				
+				b_lidam3 = {
 				}
-				b_lidam4 = {				
+				b_lidam4 = {
 				}
-				b_lidam5 = {				
+				b_lidam5 = {
 				}
-				b_lidam6 = {				
+				b_lidam6 = {
 				}
-				b_lidam7 = {				
+				b_lidam7 = {
 				}
 			}
 		}
@@ -18539,6 +19425,17 @@ e_arabia = {
 				muslim = 1000 # Crusade target weight
 				
 				roman = "Pharan"
+				romano_british = "Pharan"
+				illyro_roman = "Pharan"
+				thraco_roman = "Pharan"
+				romano_gothic = "Pharan"
+				romano_dacian = "Pharan"
+				romano_hispanic = "Pharan"
+				romano_vandalic = "Pharan"
+				romano_aramean = "Pharan"
+				romano_persian = "Pharan"
+				romano_frank = "Pharan"
+				romano_gallic = "Pharan"
 				greek = "Pharan"
 				hebrew = "Pharan"
 				
@@ -18574,38 +19471,38 @@ e_arabia = {
 				color={ 27 126 111 }
 				color2={ 255 255 255 }
 			
-				b_lajj = {				
+				b_lajj = {
 				}
-				b_lajj2 = {				
+				b_lajj2 = {
 				}
-				b_lajj3 = {				
+				b_lajj3 = {
 				}
-				b_lajj4 = {				
+				b_lajj4 = {
 				}
-				b_lajj5 = {				
+				b_lajj5 = {
 				}
-				b_lajj6 = {				
+				b_lajj6 = {
 				}
-				b_lajj7 = {				
+				b_lajj7 = {
 				}
 			}
 			c_badr = {
 				color={ 22 105 93 }
 				color2={ 255 255 255 }
 					
-				b_badr = {				
+				b_badr = {
 				}
-				b_badr2 = {				
+				b_badr2 = {
 				}
-				b_badr3 = {				
+				b_badr3 = {
 				}
-				b_badr4 = {				
+				b_badr4 = {
 				}
-				b_badr5 = {				
+				b_badr5 = {
 				}
-				b_badr6 = {				
+				b_badr6 = {
 				}
-				b_badr7 = {				
+				b_badr7 = {
 				}
 			}
 		}
@@ -18613,29 +19510,40 @@ e_arabia = {
 	k_yemen = {
 		color={ 150 100 105 }
 		color2={ 255 255 255 }
-	
+		
 		capital = 858 #Aden
 		muslim = 200 # Crusade target weight
-	
+		
 		himyarite = Himyar
 		sabaean = "Saba'"
 		hadhramaut = Hadhramaut
 		minaean = "Ma'in"
 		ethiopian = Yaman
 		roman = "Arabia Felix"
-
+		romano_british = "Arabia Felix"
+		illyro_roman = "Arabia Felix"
+		thraco_roman = "Arabia Felix"
+		romano_gothic = "Arabia Felix"
+		romano_dacian = "Arabia Felix"
+		romano_hispanic = "Arabia Felix"
+		romano_vandalic = "Arabia Felix"
+		romano_aramean = "Arabia Felix"
+		romano_persian = "Arabia Felix"
+		romano_frank = "Arabia Felix"
+		romano_gallic = "Arabia Felix"
+		
 		culture = bedouin_arabic
-
+		
 		d_sanaa = {
 			color={ 249 139 141 }
 			color2={ 255 255 255 }
 			
 			capital = 860 # Sanaa
-
+			
 			c_sanaa = {
 				color={ 250 163 165 }
 				color2={ 255 255 255 }
-								 
+				
 				b_sanaa = {
 				}
 				b_marib = {
@@ -18751,6 +19659,18 @@ e_arabia = {
 			
 				b_ibb_clone = {				
 				}
+				b_ibb_clone2 = {				
+				}
+				b_ibb_clone3 = {				
+				}
+				b_ibb_clone4 = {				
+				}
+				b_ibb_clone5 = {				
+				}
+				b_ibb_clone6 = {				
+				}
+				b_ibb_clone7 = {				
+				}
 			}
 		}
 		d_hadramawt = {
@@ -18806,18 +19726,39 @@ e_arabia = {
 			c_ataq = {
 				color={ 244 16 20 }
 				color2={ 255 255 255 }
-					
 			
-				b_ataq_two = {		#LD	
+				b_ataq_two = {			
+				}
+				b_ataq_two2 = {
+				}
+				b_ataq_two3 = {
+				}
+				b_ataq_two4 = {
+				}
+				b_ataq_two5 = {
+				}
+				b_ataq_two6 = {
+				}
+				b_ataq_two7 = {
 				}
 			}
-
 			c_sif = {
 				color={ 127 6 8 }
 				color2={ 255 255 255 }
-					
 			
 				b_sif = {				
+				}
+				b_sif2 = {				
+				}
+				b_sif3 = {				
+				}
+				b_sif4 = {				
+				}
+				b_sif5 = {				
+				}
+				b_sif6 = {				
+				}
+				b_sif7 = {				
 				}
 			}
 		}
@@ -18859,17 +19800,39 @@ e_arabia = {
 			c_saniw = {
 				color={ 224 11 14 }
 				color2={ 255 255 255 }
-					
 			
 				b_saniw = {				
+				}
+				b_saniw2 = {				
+				}
+				b_saniw3 = {				
+				}
+				b_saniw4 = {				
+				}
+				b_saniw5 = {				
+				}
+				b_saniw6 = {				
+				}
+				b_saniw7 = {				
 				}
 			}
 			c_murra = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_murra = {				
+				}
+				b_murra2 = {				
+				}
+				b_murra3 = {				
+				}
+				b_murra4 = {				
+				}
+				b_murra5 = {				
+				}
+				b_murra6 = {				
+				}
+				b_murra7 = {				
 				}
 			}
 		}
@@ -18895,17 +19858,39 @@ e_arabia = {
 			c_thamarit = {
 				color={ 169 186 198 }
 				color2={ 255 255 255 }
-					
 			
 				b_thamarit_clone = {				
+				}
+				b_thamarit_clone2 = {				
+				}
+				b_thamarit_clone3 = {				
+				}
+				b_thamarit_clone4 = {				
+				}
+				b_thamarit_clone5 = {				
+				}
+				b_thamarit_clone6 = {				
+				}
+				b_thamarit_clone7 = {				
 				}
 			}
 			c_raysut = {
 				color={ 154 174 188 }
 				color2={ 255 255 255 }
-					
 			
 				b_raysut_clone = {				
+				}
+				b_raysut_clone2 = {				
+				}
+				b_raysut_clone3 = {				
+				}
+				b_raysut_clone4 = {				
+				}
+				b_raysut_clone5 = {				
+				}
+				b_raysut_clone6 = {				
+				}
+				b_raysut_clone7 = {				
 				}
 			}
 			c_dhofar = {
@@ -18938,11 +19923,22 @@ e_arabia = {
 				color={ 140 160 180 }
 				color2={ 255 255 255 }
 					
-				b_dawkah_two = {	#LD		
+				b_dawkah_two = {			
+				}
+				b_dawkah_two2 = {	
+				}
+				b_dawkah_two3 = {	
+				}
+				b_dawkah_two4 = {	
+				}
+				b_dawkah_two5 = {	
+				}
+				b_dawkah_two6 = {	
+				}
+				b_dawkah_two7 = {	
 				}
 			}	
 		}
-
 		d_wusta = {
 			color={ 123 149 167 }
 			color2={ 255 255 255 }
@@ -18955,49 +19951,115 @@ e_arabia = {
 				
 				holy_site = khawariji
 				holy_site = haruriyyah
-					
-			
+				
 				b_shahan = {				
+				}
+				b_shahan2 = {				
+				}
+				b_shahan3 = {				
+				}
+				b_shahan4 = {				
+				}
+				b_shahan5 = {				
+				}
+				b_shahan6 = {				
+				}
+				b_shahan7 = {				
 				}
 			}
 			c_hamidan = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_hamidan = {				
+				}
+				b_hamidan2 = {				
+				}
+				b_hamidan3 = {				
+				}
+				b_hamidan4 = {				
+				}
+				b_hamidan5 = {				
+				}
+				b_hamidan6 = {				
+				}
+				b_hamidan7 = {				
 				}
 			}
 			c_hayama = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_hayama = {				
+				}
+				b_hayama2 = {				
+				}
+				b_hayama3 = {				
+				}
+				b_hayama4 = {				
+				}
+				b_hayama5 = {				
+				}
+				b_hayama6 = {				
+				}
+				b_hayama7 = {				
 				}
 			}
 			c_shishur = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_shishur = {				
+				}
+				b_shishur2 = {				
+				}
+				b_shishur3 = {				
+				}
+				b_shishur4 = {				
+				}
+				b_shishur5 = {				
+				}
+				b_shishur6 = {				
+				}
+				b_shishur7 = {				
 				}
 			}
 			c_fararah = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_fararah = {				
+				}
+				b_fararah2 = {				
+				}
+				b_fararah3 = {				
+				}
+				b_fararah4 = {				
+				}
+				b_fararah5 = {				
+				}
+				b_fararah6 = {				
+				}
+				b_fararah7 = {				
 				}
 			}
 			c_al_masira = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_al_masira = {				
+				}
+				b_al_masira2 = {				
+				}
+				b_al_masira3 = {				
+				}
+				b_al_masira4 = {				
+				}
+				b_al_masira5 = {				
+				}
+				b_al_masira6 = {				
+				}
+				b_al_masira7 = {				
 				}
 			}
 			c_duqm = {
@@ -19079,33 +20141,77 @@ e_arabia = {
 			c_matrah = {
 				color={ 86 111 129 }
 				color2={ 255 255 255 }
-					
 			
 				b_matrah = {				
+				}
+				b_matrah2 = {				
+				}
+				b_matrah3 = {				
+				}
+				b_matrah4 = {				
+				}
+				b_matrah5 = {				
+				}
+				b_matrah6 = {				
+				}
+				b_matrah7 = {				
 				}
 			}
 			c_nizwa = {
 				color={ 75 97 113 }
 				color2={ 255 255 255 }
-					
 			
 				b_nizwa_clone = {				
+				}
+				b_nizwa_clone2 = {				
+				}
+				b_nizwa_clone3 = {				
+				}
+				b_nizwa_clone4 = {				
+				}
+				b_nizwa_clone5 = {				
+				}
+				b_nizwa_clone6 = {				
+				}
+				b_nizwa_clone7 = {				
 				}
 			}
 			c_ibri = {
 				color={ 65 84 98 }
 				color2={ 255 255 255 }
-					
 			
-				b_ibri_two = {	#LD			
+				b_ibri_two = {				
+				}
+				b_ibri_two2 = {				
+				}
+				b_ibri_two3 = {				
+				}
+				b_ibri_two4 = {				
+				}
+				b_ibri_two5 = {				
+				}
+				b_ibri_two6 = {				
+				}
+				b_ibri_two7 = {				
 				}
 			}
 			c_khaluf = {
 				color={ 55 71 83 }
 				color2={ 255 255 255 }
-					
 			
 				b_khaluf = {				
+				}
+				b_khaluf2 = {				
+				}
+				b_khaluf3 = {				
+				}
+				b_khaluf4 = {				
+				}
+				b_khaluf5 = {				
+				}
+				b_khaluf6 = {				
+				}
+				b_khaluf7 = {				
 				}
 			}
 
@@ -19140,17 +20246,39 @@ e_arabia = {
 			c_burayami = {
 				color={ 69 89 104 }
 				color2={ 255 255 255 }
-					
 			
 				b_burayami = {				
+				}
+				b_burayami2 = {				
+				}
+				b_burayami3 = {				
+				}
+				b_burayami4 = {				
+				}
+				b_burayami5 = {				
+				}
+				b_burayami6 = {				
+				}
+				b_burayami7 = {				
 				}
 			}
 			c_as_sila = {
 				color={ 59 76 89 }
 				color2={ 255 255 255 }
-					
 			
 				b_as_sila = {				
+				}
+				b_as_sila2 = {				
+				}
+				b_as_sila3 = {				
+				}
+				b_as_sila4 = {				
+				}
+				b_as_sila5 = {				
+				}
+				b_as_sila6 = {				
+				}
+				b_as_sila7 = {				
 				}
 			}
 		}
@@ -19248,17 +20376,39 @@ e_arabia = {
 			c_qatar = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_qatar = {				
+				}
+				b_qatar2 = {				
+				}
+				b_qatar3 = {				
+				}
+				b_qatar4 = {				
+				}
+				b_qatar5 = {				
+				}
+				b_qatar6 = {				
+				}
+				b_qatar7 = {				
 				}
 			}
 			c_salwa = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_salwa = {				
+				}
+				b_salwa2 = {				
+				}
+				b_salwa3 = {				
+				}
+				b_salwa4 = {				
+				}
+				b_salwa5 = {				
+				}
+				b_salwa6 = {				
+				}
+				b_salwa7 = {				
 				}
 			}
 		}
@@ -19271,57 +20421,134 @@ e_arabia = {
 			c_mahrah = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_mahrah = {				
+				}
+				b_mahrah2 = {				
+				}
+				b_mahrah3 = {				
+				}
+				b_mahrah4 = {				
+				}
+				b_mahrah5 = {				
+				}
+				b_mahrah6 = {				
+				}
+				b_mahrah7 = {				
 				}
 			}
 			c_sarawrah = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_sarawrah = {				
+				}
+				b_sarawrah2 = {				
+				}
+				b_sarawrah3 = {				
+				}
+				b_sarawrah4 = {				
+				}
+				b_sarawrah5 = {				
+				}
+				b_sarawrah6 = {				
+				}
+				b_sarawrah7 = {				
 				}
 			}
 			c_sulayyil = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_sulayyil = {				
+				}
+				b_sulayyil2 = {				
+				}
+				b_sulayyil3 = {				
+				}
+				b_sulayyil4 = {				
+				}
+				b_sulayyil5 = {				
+				}
+				b_sulayyil6 = {				
+				}
+				b_sulayyil7 = {				
 				}
 			}
 			c_ubaylah = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_ubaylah = {				
+				}
+				b_ubaylah2 = {				
+				}
+				b_ubaylah3 = {				
+				}
+				b_ubaylah4 = {				
+				}
+				b_ubaylah5 = {				
+				}
+				b_ubaylah6 = {				
+				}
+				b_ubaylah7 = {				
 				}
 			}
 			c_iram = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_iram = {				
+				}
+				b_iram2 = {				
+				}
+				b_iram3 = {				
+				}
+				b_iram4 = {				
+				}
+				b_iram5 = {				
+				}
+				b_iram6 = {				
+				}
+				b_iram7 = {				
 				}
 			}
 			c_wabar = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_wabar = {				
+				}
+				b_wabar2 = {				
+				}
+				b_wabar3 = {				
+				}
+				b_wabar4 = {				
+				}
+				b_wabar5 = {				
+				}
+				b_wabar6 = {				
+				}
+				b_wabar7 = {				
 				}
 			}
 			c_ruewis = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_ruewis = {				
+				}
+				b_ruewis2 = {				
+				}
+				b_ruewis3 = {				
+				}
+				b_ruewis4 = {				
+				}
+				b_ruewis5 = {				
+				}
+				b_ruewis6 = {				
+				}
+				b_ruewis7 = {				
 				}
 			}
 		}
@@ -19334,33 +20561,77 @@ e_arabia = {
 			c_najran = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
-				b_najran_two = {	#LD			
+				b_najran_two = {				
+				}
+				b_najran_two2 = {				
+				}
+				b_najran_two3 = {				
+				}
+				b_najran_two4 = {				
+				}
+				b_najran_two5 = {				
+				}
+				b_najran_two6 = {				
+				}
+				b_najran_two7 = {				
 				}
 			}
 			c_thamud = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_thamud = {				
+				}
+				b_thamud2 = {				
+				}
+				b_thamud3 = {				
+				}
+				b_thamud4 = {				
+				}
+				b_thamud5 = {				
+				}
+				b_thamud6 = {				
+				}
+				b_thamud7 = {				
 				}
 			}
 			c_mushayt = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_mushayt = {				
+				}
+				b_mushayt2 = {				
+				}
+				b_mushayt3 = {				
+				}
+				b_mushayt4 = {				
+				}
+				b_mushayt5 = {				
+				}
+				b_mushayt6 = {				
+				}
+				b_mushayt7 = {				
 				}
 			}
 			c_sai_ar = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_sai_ar = {				
+				}
+				b_sai_ar2 = {				
+				}
+				b_sai_ar3 = {				
+				}
+				b_sai_ar4 = {				
+				}
+				b_sai_ar5 = {				
+				}
+				b_sai_ar6 = {				
+				}
+				b_sai_ar7 = {				
 				}
 			}
 		}
@@ -19373,17 +20644,39 @@ e_arabia = {
 			c_riyadh = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_riyadh = {			
+				}
+				b_riyadh2 = {			
+				}
+				b_riyadh3 = {			
+				}
+				b_riyadh4 = {			
+				}
+				b_riyadh5 = {			
+				}
+				b_riyadh6 = {			
+				}
+				b_riyadh7 = {			
 				}
 			}
 			c_zalim = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_zalim = {				
+				}
+				b_zalim2 = {				
+				}
+				b_zalim3 = {				
+				}
+				b_zalim4 = {				
+				}
+				b_zalim5 = {				
+				}
+				b_zalim6 = {				
+				}
+				b_zalim7 = {				
 				}
 			}
 			c_halaban = {
@@ -19435,7 +20728,6 @@ e_arabia = {
 				b_saban = {
 				}
 			}
-			
 			c_al_habbariyah = {
 				color={ 150 205 113 }
 				color2={ 255 255 255 }
@@ -19463,13 +20755,25 @@ e_arabia = {
 				b_nuayj = {
 				}
 			}
-			
 		    c_badiyatashsham = {
 				color={ 115 184 55 }
+				color2={ 255 255 255 }
+				
 				b_badiyatashsham = {
 				}
+				b_badiyatashsham2 = {
+				}
+				b_badiyatashsham3 = {
+				}
+				b_badiyatashsham4 = {
+				}
+				b_badiyatashsham5 = {
+				}
+				b_badiyatashsham6 = {
+				}
+				b_badiyatashsham7 = {
+				}
 			}			
-			
 			c_rafha = {
 				color={ 174 253 67 }
 				color2={ 255 255 255 }
@@ -19494,17 +20798,39 @@ e_arabia = {
 			c_abraq = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_abraq = {				
+				}
+				b_abraq2 = {				
+				}
+				b_abraq3 = {				
+				}
+				b_abraq4 = {				
+				}
+				b_abraq5 = {				
+				}
+				b_abraq6 = {				
+				}
+				b_abraq7 = {				
 				}
 			}
 			c_salemy = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_salemy = {				
+				}
+				b_salemy2 = {				
+				}
+				b_salemy3 = {				
+				}
+				b_salemy4 = {				
+				}
+				b_salemy5 = {				
+				}
+				b_salemy6 = {				
+				}
+				b_salemy7 = {				
 				}
 			}
 		}
@@ -19538,17 +20864,39 @@ e_arabia = {
 			c_shuaybah = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_shuaybah = {	
+				}
+				b_shuaybah2 = {	
+				}
+				b_shuaybah3 = {	
+				}
+				b_shuaybah4 = {	
+				}
+				b_shuaybah5 = {	
+				}
+				b_shuaybah6 = {	
+				}
+				b_shuaybah7 = {	
 				}
 			}
 			c_wafrah = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_wafrah = {				
+				}
+				b_wafrah2 = {				
+				}
+				b_wafrah3 = {				
+				}
+				b_wafrah4 = {				
+				}
+				b_wafrah5 = {				
+				}
+				b_wafrah6 = {				
+				}
+				b_wafrah7 = {				
 				}
 			}
 		}
@@ -19561,33 +20909,77 @@ e_arabia = {
 			c_jubbah = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_jubbah = {				
+				}
+				b_jubbah2 = {				
+				}
+				b_jubbah3 = {				
+				}
+				b_jubbah4 = {				
+				}
+				b_jubbah5 = {				
+				}
+				b_jubbah6 = {				
+				}
+				b_jubbah7 = {				
 				}
 			}
 			c_turayf = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_turayf = {			
+				}
+				b_turayf2 = {			
+				}
+				b_turayf3 = {			
+				}
+				b_turayf4 = {			
+				}
+				b_turayf5 = {			
+				}
+				b_turayf6 = {			
+				}
+				b_turayf7 = {			
 				}
 			}
 			c_baqa = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
-				b_baqa_two = {	 #LD		
+				b_baqa_two = {	 		
+				}
+				b_baqa_two2 = {	 		
+				}
+				b_baqa_two3 = {	 		
+				}
+				b_baqa_two4 = {	 		
+				}
+				b_baqa_two5 = {	 		
+				}
+				b_baqa_two6 = {	 		
+				}
+				b_baqa_two7 = {	 		
 				}
 			}
 			c_unayzah = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_unayzah = {				
+				}
+				b_unayzah2 = {				
+				}
+				b_unayzah3 = {				
+				}
+				b_unayzah4 = {				
+				}
+				b_unayzah5 = {				
+				}
+				b_unayzah6 = {				
+				}
+				b_unayzah7 = {				
 				}
 			}
 		}
@@ -19624,30 +21016,62 @@ e_arabia = {
 			c_khatt = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_khatt = {				
+				}
+				b_khatt2 = {				
+				}
+				b_khatt3 = {				
+				}
+				b_khatt4 = {				
+				}
+				b_khatt5 = {				
+				}
+				b_khatt6 = {				
+				}
+				b_khatt7 = {				
 				}
 			}
 			c_ka_ab = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_ka_ab = {				
+				}
+				b_ka_ab2 = {				
+				}
+				b_ka_ab3 = {				
+				}
+				b_ka_ab4 = {				
+				}
+				b_ka_ab5 = {				
+				}
+				b_ka_ab6 = {				
+				}
+				b_ka_ab7 = {				
 				}
 			}
 			c_hofuf = {
 				color={ 162 253 55 }
 				color2={ 255 255 255 }
-					
 			
 				b_hofuf = {				
+				}
+				b_hofuf2 = {				
+				}
+				b_hofuf3 = {				
+				}
+				b_hofuf4 = {				
+				}
+				b_hofuf5 = {				
+				}
+				b_hofuf6 = {				
+				}
+				b_hofuf7 = {				
 				}
 			}
 		}
 	}
-
 }
 
 e_armenia = {
@@ -19688,6 +21112,7 @@ e_armenia = {
 				
 				holy_site = georgian_orthodox
 				holy_site = georgian_pagan
+				holy_site = georgian_pagan_reformed
 				
 				b_narikala = {
 				}
@@ -19903,7 +21328,9 @@ e_armenia = {
 				
 				turkish = "Kars"
 				persian = Gugark
+				
 				holy_site = georgian_pagan
+				holy_site = georgian_pagan_reformed
 				
 				b_midjnaberd = {
 				}
@@ -19952,7 +21379,6 @@ e_armenia = {
 				b_tigranakert = {
 				}
 			}
-			
 			c_koloneia = {
 				color={ 195 120 50 }
 				color2={ 255 255 255 }
@@ -20123,6 +21549,7 @@ e_armenia = {
 				color2={ 255 255 255 }
 				
 				holy_site = georgian_pagan
+				holy_site = georgian_pagan_reformed
 				
 				b_baku = {
 				}
@@ -20245,22 +21672,61 @@ e_persia = {
 
             c_saokoros = {
 			    color={ 140 90 30 }
+				color2={ 255 255 255 }
+				
 				b_saokoros = {
 				}
+				b_saokoros2 = {
+				}
+				b_saokoros3 = {
+				}
+				b_saokoros4 = {
+				}
+				b_saokoros5 = {
+				}
+				b_saokoros6 = {
+				}
+				b_saokoros7 = {
+				}
 			}
-			
             c_arbayestan = {
 			    color={ 140 90 30 }
+				color2={ 255 255 255 }
+				
 				b_arbayestan = {
 				}
-			}
-			
-           c_betzabdai = {
-			    color={ 140 90 30 }
-				b_bethzabdai = {
+				b_arbayestan2 = {
+				}
+				b_arbayestan3 = {
+				}
+				b_arbayestan4 = {
+				}
+				b_arbayestan5 = {
+				}
+				b_arbayestan6 = {
+				}
+				b_arbayestan7 = {
 				}
 			}
-			
+            c_betzabdai = {
+			    color={ 140 90 30 }
+				color2={ 255 255 255 }
+				
+				b_bethzabdai = {
+				}
+				b_bethzabdai2 = {
+				}
+				b_bethzabdai3 = {
+				}
+				b_bethzabdai4 = {
+				}
+				b_bethzabdai5 = {
+				}
+				b_bethzabdai6 = {
+				}
+				b_bethzabdai7 = {
+				}
+			}
 			c_nisibin = {
 				color={ 133 170 52 }
 				color2={ 255 255 255 }
@@ -20444,17 +21910,29 @@ e_persia = {
 				b_salmas = {
 				}
 			}
-			
 		    c_sigriane = {
 				color={ 255 150 20 }
+				color2={ 255 255 255 }
+				
 				b_sigriane = {
 				}
+				b_sigriane2 = {
+				}
+				b_sigriane3 = {
+				}
+				b_sigriane4 = {
+				}
+				b_sigriane5 = {
+				}
+				b_sigriane6 = {
+				}
+				b_sigriane7 = {
+				}
 			}
-			
 			c_gilan = {
 				color={ 106 143 61 }
 				color2={ 255 255 255 }
-
+				
 				bedouin_arabic = "Ostan-e Gilan"
 				persian = "Daylam"
 				parthian = "Daylam"
@@ -20464,17 +21942,39 @@ e_persia = {
 				helleno_aramean = "Gelaeia"
 				isaurian = "Gelaeia"
 				roman = "Guilan"
+				romano_british = "Guilan"
+				illyro_roman = "Guilan"
+				thraco_roman = "Guilan"
+				romano_gothic = "Guilan"
+				romano_dacian = "Guilan"
+				romano_hispanic = "Guilan"
+				romano_vandalic = "Guilan"
+				romano_aramean = "Guilan"
+				romano_persian = "Guilan"
+				romano_frank = "Guilan"
+				romano_gallic = "Guilan"
 				
 				b_gilan = {
 					bedouin_arabic = "Ostan-e Gilan"
-				persian = "Daylam"
-				parthian = "Daylam"
-				aramean = "Delam"
-				assyrian = "Delam"
-				greek = "Gelaeia"
-				helleno_aramean = "Gelaeia"
-				isaurian = "Gelaeia"
-				roman = "Guilan"
+					persian = "Daylam"
+					parthian = "Daylam"
+					aramean = "Delam"
+					assyrian = "Delam"
+					greek = "Gelaeia"
+					helleno_aramean = "Gelaeia"
+					isaurian = "Gelaeia"
+					roman = "Guilan"
+					romano_british = "Guilan"
+					illyro_roman = "Guilan"
+					thraco_roman = "Guilan"
+					romano_gothic = "Guilan"
+					romano_dacian = "Guilan"
+					romano_hispanic = "Guilan"
+					romano_vandalic = "Guilan"
+					romano_aramean = "Guilan"
+					romano_persian = "Guilan"
+					romano_frank = "Guilan"
+					romano_gallic = "Guilan"
 				}
 				b_rasht = {
 					aramean = "Resht"
@@ -20697,25 +22197,63 @@ e_persia = {
 				b_pakdasht = {
 				}
 			}
-			
             c_belabad = {
 			    color={ 25 25 110 }
+				color2={ 255 255 255 }
+				
 				b_belabad = {
 				}
+				b_belabad2 = {
+				}
+				b_belabad3 = {
+				}
+				b_belabad4 = {
+				}
+				b_belabad5 = {
+				}
+				b_belabad6 = {
+				}
+				b_belabad7 = {
+				}
 			}
-			
             c_nihavand = {
 			    color={ 25 25 110 }
+				color2={ 255 255 255 }
+				
 				b_nihavand = {
 				}
-			}
-			
-           c_syarzur = {
-			    color={ 25 25 110 }
-				b_syarzur = {
+				b_nihavand2 = {
+				}
+				b_nihavand3 = {
+				}
+				b_nihavand4 = {
+				}
+				b_nihavand5 = {
+				}
+				b_nihavand6 = {
+				}
+				b_nihavand7 = {
 				}
 			}
-			
+            c_syarzur = {
+			    color={ 25 25 110 }
+				color2={ 255 255 255 }
+				
+				b_syarzur = {
+				}
+				b_syarzur2 = {
+				}
+				b_syarzur3 = {
+				}
+				b_syarzur4 = {
+				}
+				b_syarzur5 = {
+				}
+				b_syarzur6 = {
+				}
+				b_syarzur7 = {
+				}
+			}
 			c_kermanshah = {
 				color={ 25 25 110 }
 				color2={ 255 255 255 }
@@ -20737,7 +22275,6 @@ e_persia = {
 				b_ravansar = {
 				}
 			}
-			
 			c_qwivir = {
 				color={ 115 155 45 }
 				color2={ 255 255 255 }
@@ -20791,13 +22328,25 @@ e_persia = {
 				b_jayzan = {
 				}
 			}
-			
             c_ohrmazdardashir = {
 			    color={ 54 68 19 }
+				color2={ 255 255 255 }
+				
 				b_ohrmazdardashir = {
 				}
+				b_ohrmazdardashir2 = {
+				}
+				b_ohrmazdardashir3 = {
+				}
+				b_ohrmazdardashir4 = {
+				}
+				b_ohrmazdardashir5 = {
+				}
+				b_ohrmazdardashir6 = {
+				}
+				b_ohrmazdardashir7 = {
+				}
 			}
-			
 			c_khozistan = {
 				color={ 95 134 28 }
 				color2={ 255 255 255 }
@@ -21139,7 +22688,6 @@ e_persia = {
 				b_abeshkan = {
 				}
 			}
-			
 			c_hormuz = {
 				color={ 106 126 71 }
 				color2={ 255 255 255 }
@@ -21250,6 +22798,8 @@ e_persia = {
 				b_ramian = {
 				}
 				b_minudasht = {
+				}
+				b_gurgan2 = {
 				}
 			}
 		}
@@ -21485,6 +23035,7 @@ e_persia = {
 				color2={ 255 255 255 }
 				
 				holy_site = bon
+				holy_site = bon_reformed
 				holy_site = zoroastrian
 				
 				b_balkh = {
@@ -21536,6 +23087,10 @@ e_persia = {
 				b_almar = {
 				}
 				b_bilcheragh = {
+				}
+				b_maymana2 = {
+				}
+				b_maymana3 = {
 				}
 			}
 			c_kunduz = {
@@ -21620,6 +23175,10 @@ e_persia = {
 				b_zakhak = {
 				}
 				b_shibar = {
+				}
+				b_bamiyan2 = {
+				}
+				b_bamiyan3 = {
 				}
 			}
 			c_ghazna = {
@@ -21845,12 +23404,36 @@ e_persia = {
 				
 				b_kalat = {
 				}
+				b_kalat2 = {
+				}
+				b_kalat3 = {
+				}
+				b_kalat4 = {
+				}
+				b_kalat5 = {
+				}
+				b_kalat6 = {
+				}
+				b_kalat7 = {
+				}
 			}
 			c_chagai = {
 				color={ 152 185 96 }
 				color2={ 255 255 255 }
 				
 				b_nushki = {
+				}
+				b_nushki2 = {
+				}
+				b_nushki3 = {
+				}
+				b_nushki4 = {
+				}
+				b_nushki5 = {
+				}
+				b_nushki6 = {
+				}
+				b_nushki7 = {
 				}
 			}
 		}
@@ -21897,6 +23480,12 @@ e_persia = {
 				b_kambali = {
 				}
 				b_yusli = {
+				}
+				b_armail2 = {
+				}
+				b_armail3 = {
+				}
+				b_armail4 = {
 				}
 			}
 			c_jask = {
@@ -21972,6 +23561,12 @@ e_persia = {
 				}
 				b_kannazbun = {
 				}
+				b_al_haur2 = {
+				}
+				b_al_haur3 = {
+				}
+				b_al_haur4 = {
+				}
 			}
 		}
 	}
@@ -21998,42 +23593,154 @@ e_persia = {
 			
             c_orukit = {
 			    color={ 230 230 170 }
+				color2={ 255 255 255 }
+				
 				b_orukit = {
+				}
+				b_orukit2 = {
+				}
+				b_orukit3 = {
+				}
+				b_orukit4 = {
+				}
+				b_orukit5 = {
+				}
+				b_orukit6 = {
+				}
+				b_orukit7 = {
 				}
 			}
             c_kaskar = {
 			    color={ 230 230 170 }
+				color2={ 255 255 255 }
+				
 				b_kaskar = {
+				}
+				b_kaskar2 = {
+				}
+				b_kaskar3 = {
+				}
+				b_kaskar4 = {
+				}
+				b_kaskar5 = {
+				}
+				b_kaskar6 = {
+				}
+				b_kaskar7 = {
 				}
 			}
             c_asoristan = {
 			    color={ 230 230 170 }
+				color2={ 255 255 255 }
+				
 				b_asoristan = {
+				}
+				b_asoristan2 = {
+				}
+				b_asoristan3 = {
+				}
+				b_asoristan4 = {
+				}
+				b_asoristan5 = {
+				}
+				b_asoristan6 = {
+				}
+				b_asoristan7 = {
 				}
 			}
             c_betdarai = {
 			    color={ 230 230 170 }
+				color2={ 255 255 255 }
+				
 				b_betdarai = {
+				}
+				b_betdarai2 = {
+				}
+				b_betdarai3 = {
+				}
+				b_betdarai4 = {
+				}
+				b_betdarai5 = {
+				}
+				b_betdarai6 = {
+				}
+				b_betdarai7 = {
 				}
 			}
             c_vehardashir = {
 			    color={ 230 230 170 }
+				color2={ 255 255 255 }
+				
 				b_vehardashir = {
+				}
+				b_vehardashir2 = {
+				}
+				b_vehardashir3 = {
+				}
+				b_vehardashir4 = {
+				}
+				b_vehardashir5 = {
+				}
+				b_vehardashir6 = {
+				}
+				b_vehardashir7 = {
 				}
 			}
             c_wandanigan = {
 			    color={ 230 230 170 }
+				color2={ 255 255 255 }
+				
 				b_wandanigan = {
+				}
+				b_wandanigan2 = {
+				}
+				b_wandanigan3 = {
+				}
+				b_wandanigan4 = {
+				}
+				b_wandanigan5 = {
+				}
+				b_wandanigan6 = {
+				}
+				b_wandanigan7 = {
 				}
 			}
             c_dastkart = {
 			    color={ 230 230 170 }
+				color2={ 255 255 255 }
+				
 				b_dastkart = {
+				}
+				b_dastkart2 = {
+				}
+				b_dastkart3 = {
+				}
+				b_dastkart4 = {
+				}
+				b_dastkart5 = {
+				}
+				b_dastkart6 = {
+				}
+				b_dastkart7 = {
 				}
 			}
             c_hambar = {
 			    color={ 230 230 170 }
+				color2={ 255 255 255 }
+				
 				b_hambar = {
+				}
+				b_hambar2 = {
+				}
+				b_hambar3 = {
+				}
+				b_hambar4 = {
+				}
+				b_hambar5 = {
+				}
+				b_hambar6 = {
+				}
+				b_hambar7 = {
 				}
 			}
 			c_baghdad = {
@@ -22104,7 +23811,21 @@ e_persia = {
 			
 			c_hira = {
 				color={ 230 230 170 }
+				color2={ 255 255 255 }
+				
 				b_hira = {
+				}
+				b_hira2 = {
+				}
+				b_hira3 = {
+				}
+				b_hira4 = {
+				}
+				b_hira5 = {
+				}
+				b_hira6 = {
+				}
+				b_hira7 = {
 				}
 			}
 			c_karbala = {
@@ -22237,7 +23958,21 @@ e_persia = {
 			}
 			c_rima = {
 				color={ 230 230 170 }
+				color2={ 255 255 255 }
+				
 				b_rima = {
+				}
+				b_rima2 = {
+				}
+				b_rima3 = {
+				}
+				b_rima4 = {
+				}
+				b_rima5 = {
+				}
+				b_rima6 = {
+				}
+				b_rima7 = {
 				}
 			}
 			c_tigris = {
@@ -22267,17 +24002,39 @@ e_persia = {
 			c_kuwait = {
 				color={ 80 170 5 }
 				color2={ 255 255 255 }
-
+				
 				aramean = "Akkaz"
 				roman = "Sinus"
+				romano_british = "Sinus"
+				illyro_roman = "Sinus"
+				thraco_roman = "Sinus"
+				romano_gothic = "Sinus"
+				romano_dacian = "Sinus"
+				romano_hispanic = "Sinus"
+				romano_vandalic = "Sinus"
+				romano_aramean = "Sinus"
+				romano_persian = "Sinus"
+				romano_frank = "Sinus"
+				romano_gallic = "Sinus"
 				greek = "Kolpos"
 				persian = "Kolpos"
 				
 				b_kuwait = {
 					aramean = "Akkaz"
-				roman = "Sinus"
-				greek = "Kolpos"
-				persian = "Kolpos"
+					roman = "Sinus"
+					romano_british = "Sinus"
+					illyro_roman = "Sinus"
+					thraco_roman = "Sinus"
+					romano_gothic = "Sinus"
+					romano_dacian = "Sinus"
+					romano_hispanic = "Sinus"
+					romano_vandalic = "Sinus"
+					romano_aramean = "Sinus"
+					romano_persian = "Sinus"
+					romano_frank = "Sinus"
+					romano_gallic = "Sinus"
+					greek = "Kolpos"
+					persian = "Kolpos"
 				}
 				b_ikaros = {
 				}
@@ -22320,7 +24077,21 @@ e_persia = {
 			}
 			c_vahman = {
 			    color={ 230 230 170 }
+				color2={ 255 255 255 }
+				
 				b_vahman = {
+				}
+				b_vahman2 = {
+				}
+				b_vahman3 = {
+				}
+				b_vahman4 = {
+				}
+				b_vahman5 = {
+				}
+				b_vahman6 = {
+				}
+				b_vahman7 = {
 				}
 			}
 		}
@@ -22355,10 +24126,21 @@ e_persia = {
 			c_amman = {
 				color={ 131 255 12 }
 				color2={ 255 255 255 }
-
+				
 				roman = "Philadelphia"
+				romano_british = "Philadelphia"
+				illyro_roman = "Philadelphia"
+				thraco_roman = "Philadelphia"
+				romano_gothic = "Philadelphia"
+				romano_dacian = "Philadelphia"
+				romano_hispanic = "Philadelphia"
+				romano_vandalic = "Philadelphia"
+				romano_aramean = "Philadelphia"
+				romano_persian = "Philadelphia"
+				romano_frank = "Philadelphia"
+				romano_gallic = "Philadelphia"
 				greek = "Philadelphia"
-			
+				
 				b_amman = {
 				}
 				b_dhiban = {
@@ -22376,7 +24158,6 @@ e_persia = {
 				b_al_balqa = {
 				}
 			}
-			
 			c_druz = {
 				color={ 39 236 24 }
 				color2={ 255 255 255 }
@@ -22495,25 +24276,63 @@ e_persia = {
 			
 			capital = 696 # Samarra
 			
-			
             c_vuzurgshapur = {
 			    color={ 210 175 20 }
+				color2={ 255 255 255 }
+				
 				b_vuzurgshapur = {
 				}
+				b_vuzurgshapur2 = {
+				}
+				b_vuzurgshapur3 = {
+				}
+				b_vuzurgshapur4 = {
+				}
+				b_vuzurgshapur5 = {
+				}
+				b_vuzurgshapur6 = {
+				}
+				b_vuzurgshapur7 = {
+				}
 			}
-			
-           c_shahrkart = {
+            c_shahrkart = {
 			    color={ 210 175 20 }
+				color2={ 255 255 255 }
+				
 				b_shahrkart = {
 				}
-			}
-			
-           c_arbil = {
-			    color={ 210 175 20 }
-				b_arbil = {
+				b_shahrkart2 = {
+				}
+				b_shahrkart3 = {
+				}
+				b_shahrkart4 = {
+				}
+				b_shahrkart5 = {
+				}
+				b_shahrkart6 = {
+				}
+				b_shahrkart7 = {
 				}
 			}
-
+            c_arbil = {
+			    color={ 210 175 20 }
+				color2={ 255 255 255 }
+				
+				b_arbil = {
+				}
+				b_arbil2 = {
+				}
+				b_arbil3 = {
+				}
+				b_arbil4 = {
+				}
+				b_arbil5 = {
+				}
+				b_arbil6 = {
+				}
+				b_arbil7 = {
+				}
+			}
 			c_deir = {
 				color={ 210 175 20 }
 				color2={ 255 255 255 }
@@ -22665,7 +24484,7 @@ e_gaul = {
 		celtic_pagan_reformed = 5000 
 		germanic_pagan_reformed = 1000
 		norse_pagan_reformed = 100 # Crusade target weight
-
+		
 		thuringian = Heshenloand 
 		alamannian = Mesäänänd 
 		burgundian = Sagqsland
@@ -22687,13 +24506,13 @@ e_gaul = {
 				ai = no 
 			}
 		}
-
+		
 		d_noviodunum = {
 			color={ 34 139 34 }
 			color2={ 255 255 255 }
 			
 			capital = 112 # Lutetia 
-
+			
 			thuringian = Wehelloand
 			alamannian = Betteländ 
 			burgundian = Þarbaland
@@ -22708,14 +24527,25 @@ e_gaul = {
 			german = Betteland
 			jute = Tixeirþorð
 			dane = Tiggjerjordr
-
+			
 			c_ile_de_france = {
 				color={ 107 142 35 }
 				color2={ 255 255 255 }
-
+				
 				roman = "Lutetia"
+				romano_british = "Lutetia"
+				illyro_roman = "Lutetia"
+				thraco_roman = "Lutetia"
+				romano_gothic = "Lutetia"
+				romano_dacian = "Lutetia"
+				romano_hispanic = "Lutetia"
+				romano_vandalic = "Lutetia"
+				romano_aramean = "Lutetia"
+				romano_persian = "Lutetia"
+				romano_frank = "Lutetia"
 				romano_gallic = "Lutetia"
 				armorican = Parisii
+				gallic = Parisii
 				
 				holy_site = aztec
 				holy_site = aztec_reformed
@@ -22724,42 +24554,123 @@ e_gaul = {
 					used_for_dynasty_names = no
 					
 					roman = "Lutetia"
+					romano_british = "Lutetia"
+					illyro_roman = "Lutetia"
+					thraco_roman = "Lutetia"
+					romano_gothic = "Lutetia"
+					romano_dacian = "Lutetia"
+					romano_hispanic = "Lutetia"
+					romano_vandalic = "Lutetia"
+					romano_aramean = "Lutetia"
+					romano_persian = "Lutetia"
+					romano_frank = "Lutetia"
 					romano_gallic = "Lutetia"
 				}
 				b_melun = {
 					roman = "Metlosedum"
+					romano_british = "Metlosedum"
+					illyro_roman = "Metlosedum"
+					thraco_roman = "Metlosedum"
+					romano_gothic = "Metlosedum"
+					romano_dacian = "Metlosedum"
+					romano_hispanic = "Metlosedum"
+					romano_vandalic = "Metlosedum"
+					romano_aramean = "Metlosedum"
+					romano_persian = "Metlosedum"
+					romano_frank = "Metlosedum"
 					romano_gallic = "Metlosedum"
 				}
 				b_stdenis = {
 					roman = "Catculliacum"
+					romano_british = "Catculliacum"
+					illyro_roman = "Catculliacum"
+					thraco_roman = "Catculliacum"
+					romano_gothic = "Catculliacum"
+					romano_dacian = "Catculliacum"
+					romano_hispanic = "Catculliacum"
+					romano_vandalic = "Catculliacum"
+					romano_aramean = "Catculliacum"
+					romano_persian = "Catculliacum"
+					romano_frank = "Catculliacum"
 					romano_gallic = "Catculliacum"
 				}
 				b_meaux = {
 					roman = "Iatinum"
+					romano_british = "Iatinum"
+					illyro_roman = "Iatinum"
+					thraco_roman = "Iatinum"
+					romano_gothic = "Iatinum"
+					romano_dacian = "Iatinum"
+					romano_hispanic = "Iatinum"
+					romano_vandalic = "Iatinum"
+					romano_aramean = "Iatinum"
+					romano_persian = "Iatinum"
+					romano_frank = "Iatinum"
 					romano_gallic = "Iatinum"
 				}
 				b_etampes = {
 					roman = "Stampae"
+					romano_british = "Stampae"
+					illyro_roman = "Stampae"
+					thraco_roman = "Stampae"
+					romano_gothic = "Stampae"
+					romano_dacian = "Stampae"
+					romano_hispanic = "Stampae"
+					romano_vandalic = "Stampae"
+					romano_aramean = "Stampae"
+					romano_persian = "Stampae"
+					romano_frank = "Stampae"
 					romano_gallic = "Stampae"
 				}
 				b_montfortlamaury = {
 				}
 				b_senlis = {
 					roman = "Augustomagus"
+					romano_british = "Augustomagus"
+					illyro_roman = "Augustomagus"
+					thraco_roman = "Augustomagus"
+					romano_gothic = "Augustomagus"
+					romano_dacian = "Augustomagus"
+					romano_hispanic = "Augustomagus"
+					romano_vandalic = "Augustomagus"
+					romano_aramean = "Augustomagus"
+					romano_persian = "Augustomagus"
+					romano_frank = "Augustomagus"
 					romano_gallic = "Augustomagus"
 				}
 				b_compiegne = {
 					roman = "Compendium"
+					romano_british = "Compendium"
+					illyro_roman = "Compendium"
+					thraco_roman = "Compendium"
+					romano_gothic = "Compendium"
+					romano_dacian = "Compendium"
+					romano_hispanic = "Compendium"
+					romano_vandalic = "Compendium"
+					romano_aramean = "Compendium"
+					romano_persian = "Compendium"
+					romano_frank = "Compendium"
 					romano_gallic = "Compendium"
 				}
 			}
 			c_vexin = {
 				color={ 128 128 0 }
 				color2={ 255 255 255 }
-
+				
 				armorican = Veliocasses
+				gallic = Veliocasses
 				roman = Veccinus
-				romano_gallic = Veccinus
+				romano_british = "Veccinus"
+				illyro_roman = "Veccinus"
+				thraco_roman = "Veccinus"
+				romano_gothic = "Veccinus"
+				romano_dacian = "Veccinus"
+				romano_hispanic = "Veccinus"
+				romano_vandalic = "Veccinus"
+				romano_aramean = "Veccinus"
+				romano_persian = "Veccinus"
+				romano_frank = "Veccinus"
+				romano_gallic = "Veccinus"
 				
 				b_larocheguyon = {
 				}
@@ -22767,6 +24678,16 @@ e_gaul = {
 				}
 				b_pontoise = {
 					roman = "Briva Isarae"
+					romano_british = "Briva Isarae"
+					illyro_roman = "Briva Isarae"
+					thraco_roman = "Briva Isarae"
+					romano_gothic = "Briva Isarae"
+					romano_dacian = "Briva Isarae"
+					romano_hispanic = "Briva Isarae"
+					romano_vandalic = "Briva Isarae"
+					romano_aramean = "Briva Isarae"
+					romano_persian = "Briva Isarae"
+					romano_frank = "Briva Isarae"
 					romano_gallic = "Briva Isarae"
 				}
 				b_harcourt = {
@@ -22784,22 +24705,63 @@ e_gaul = {
 				color={ 107 142 35 }
 				color2={ 255 255 255 }
 
-				armorican = Ratumacos 
+				armorican = Ratumacos
+				gallic = Ratumacos
 				roman = Rotomagus
-				romano_gallic = Rotomagus
+				romano_british = "Rotomagus"
+				illyro_roman = "Rotomagus"
+				thraco_roman = "Rotomagus"
+				romano_gothic = "Rotomagus"
+				romano_dacian = "Rotomagus"
+				romano_hispanic = "Rotomagus"
+				romano_vandalic = "Rotomagus"
+				romano_aramean = "Rotomagus"
+				romano_persian = "Rotomagus"
+				romano_frank = "Rotomagus"
+				romano_gallic = "Rotomagus"
 				
 				b_fecamp = {
 				}
 				b_rouen = {
 					roman = Rotomagus
-					romano_gallic = Rotomagus
+					romano_british = "Rotomagus"
+					illyro_roman = "Rotomagus"
+					thraco_roman = "Rotomagus"
+					romano_gothic = "Rotomagus"
+					romano_dacian = "Rotomagus"
+					romano_hispanic = "Rotomagus"
+					romano_vandalic = "Rotomagus"
+					romano_aramean = "Rotomagus"
+					romano_persian = "Rotomagus"
+					romano_frank = "Rotomagus"
+					romano_gallic = "Rotomagus"
 				}
 				b_lillebonne = {
-					roman = "Juliobona"
-					romano_gallic = "Juliobona"
+					roman = "Iuliobona"
+					romano_british = "Iuliobona"
+					illyro_roman = "Iuliobona"
+					thraco_roman = "Iuliobona"
+					romano_gothic = "Iuliobona"
+					romano_dacian = "Iuliobona"
+					romano_hispanic = "Iuliobona"
+					romano_vandalic = "Iuliobona"
+					romano_aramean = "Iuliobona"
+					romano_persian = "Iuliobona"
+					romano_frank = "Iuliobona"
+					romano_gallic = "Iuliobona"
 				}
 				b_harfleur = {
 					roman = "Caracotinum"
+					romano_british = "Caracotinum"
+					illyro_roman = "Caracotinum"
+					thraco_roman = "Caracotinum"
+					romano_gothic = "Caracotinum"
+					romano_dacian = "Caracotinum"
+					romano_hispanic = "Caracotinum"
+					romano_vandalic = "Caracotinum"
+					romano_aramean = "Caracotinum"
+					romano_persian = "Caracotinum"
+					romano_frank = "Caracotinum"
 					romano_gallic = "Caracotinum"
 				}
 				b_arques = {
@@ -22816,8 +24778,19 @@ e_gaul = {
 				color2={ 255 255 255 }
 			
 				armorican = Calates
-				roman = Juliobona
-				romano_gallic = Juliobona
+				gallic = Calates
+				roman = Iuliobona
+				romano_british = "Iuliobona"
+				illyro_roman = "Iuliobona"
+				thraco_roman = "Iuliobona"
+				romano_gothic = "Iuliobona"
+				romano_dacian = "Iuliobona"
+				romano_hispanic = "Iuliobona"
+				romano_vandalic = "Iuliobona"
+				romano_aramean = "Iuliobona"
+				romano_persian = "Iuliobona"
+				romano_frank = "Iuliobona"
+				romano_gallic = "Iuliobona"
 				
 				b_eu = {
 				}
@@ -22837,13 +24810,12 @@ e_gaul = {
 				}
 			}
 		}
-
 		d_celtica = {
 			color={ 0 128 0 }
 			color2={ 255 255 255 }
 			
 			capital = 107 # Andegavia ?
-
+			
 			thuringian = Eiwesiejer
 			alamannian = Éibeseigäär
 			burgundian = Bagnsigis
@@ -22862,22 +24834,63 @@ e_gaul = {
 				color={ 77 30 232 }
 				color2={ 255 255 255 }
 
-				armorican = Abrincates 
-				roman = Ingena 
-				romano_gallic = Ingena 
+				armorican = Abrincates
+				gallic = Abrincates
+				roman = Ingena
+				romano_british = "Ingena"
+				illyro_roman = "Ingena"
+				thraco_roman = "Ingena"
+				romano_gothic = "Ingena"
+				romano_dacian = "Ingena"
+				romano_hispanic = "Ingena"
+				romano_vandalic = "Ingena"
+				romano_aramean = "Ingena"
+				romano_persian = "Ingena"
+				romano_frank = "Ingena"
+				romano_gallic = "Ingena"
 				
 				b_caen = {
 				}
 				b_coutances = {
 					roman = "Cosedia"
+					romano_british = "Cosedia"
+					illyro_roman = "Cosedia"
+					thraco_roman = "Cosedia"
+					romano_gothic = "Cosedia"
+					romano_dacian = "Cosedia"
+					romano_hispanic = "Cosedia"
+					romano_vandalic = "Cosedia"
+					romano_aramean = "Cosedia"
+					romano_persian = "Cosedia"
+					romano_frank = "Cosedia"
 					romano_gallic = "Cosedia"
 				}
 				b_bayeux = {
 					roman = "Augustodurum"
+					romano_british = "Augustodurum"
+					illyro_roman = "Augustodurum"
+					thraco_roman = "Augustodurum"
+					romano_gothic = "Augustodurum"
+					romano_dacian = "Augustodurum"
+					romano_hispanic = "Augustodurum"
+					romano_vandalic = "Augustodurum"
+					romano_aramean = "Augustodurum"
+					romano_persian = "Augustodurum"
+					romano_frank = "Augustodurum"
 					romano_gallic = "Augustodurum"
 				}
 				b_avranches = {
 					roman = "Ligedia"
+					romano_british = "Ligedia"
+					illyro_roman = "Ligedia"
+					thraco_roman = "Ligedia"
+					romano_gothic = "Ligedia"
+					romano_dacian = "Ligedia"
+					romano_hispanic = "Ligedia"
+					romano_vandalic = "Ligedia"
+					romano_aramean = "Ligedia"
+					romano_persian = "Ligedia"
+					romano_frank = "Ligedia"
 					romano_gallic = "Ligedia"
 				}
 				b_mortain = {
@@ -22888,25 +24901,66 @@ e_gaul = {
 				}
 				b_cherbourg = {
 					roman = "Coriallum"
+					romano_british = "Coriallum"
+					illyro_roman = "Coriallum"
+					thraco_roman = "Coriallum"
+					romano_gothic = "Coriallum"
+					romano_dacian = "Coriallum"
+					romano_hispanic = "Coriallum"
+					romano_vandalic = "Coriallum"
+					romano_aramean = "Coriallum"
+					romano_persian = "Coriallum"
+					romano_frank = "Coriallum"
 					romano_gallic = "Coriallum"
 				}
 			}
 			c_evreux = {
 				color={ 74 27 229 }
 				color2={ 255 255 255 }
-
+				
 				armorican = "Eburovices"
+				gallic = "Eburovices"
 				roman = "Mediolanum"
-				romano_gallic = Mediolanum
+				romano_british = "Mediolanum"
+				illyro_roman = "Mediolanum"
+				thraco_roman = "Mediolanum"
+				romano_gothic = "Mediolanum"
+				romano_dacian = "Mediolanum"
+				romano_hispanic = "Mediolanum"
+				romano_vandalic = "Mediolanum"
+				romano_aramean = "Mediolanum"
+				romano_persian = "Mediolanum"
+				romano_frank = "Mediolanum"
+				romano_gallic = "Mediolanum"
 				
 				b_evreux = {
 					roman = "Mediolanum"
-					romano_gallic = Mediolanum
+					romano_british = "Mediolanum"
+					illyro_roman = "Mediolanum"
+					thraco_roman = "Mediolanum"
+					romano_gothic = "Mediolanum"
+					romano_dacian = "Mediolanum"
+					romano_hispanic = "Mediolanum"
+					romano_vandalic = "Mediolanum"
+					romano_aramean = "Mediolanum"
+					romano_persian = "Mediolanum"
+					romano_frank = "Mediolanum"
+					romano_gallic = "Mediolanum"
 				}
 				b_falaise = {
 				}
 				b_lisieux = {
 					roman = "Lexovium"
+					romano_british = "Lexovium"
+					illyro_roman = "Lexovium"
+					thraco_roman = "Lexovium"
+					romano_gothic = "Lexovium"
+					romano_dacian = "Lexovium"
+					romano_hispanic = "Lexovium"
+					romano_vandalic = "Lexovium"
+					romano_aramean = "Lexovium"
+					romano_persian = "Lexovium"
+					romano_frank = "Lexovium"
 					romano_gallic = "Lexovium"
 				}
 				b_alencon = {
@@ -22915,6 +24969,16 @@ e_gaul = {
 				}
 				b_sees = {
 					roman = "Voviodunum"
+					romano_british = "Voviodunum"
+					illyro_roman = "Voviodunum"
+					thraco_roman = "Voviodunum"
+					romano_gothic = "Voviodunum"
+					romano_dacian = "Voviodunum"
+					romano_hispanic = "Voviodunum"
+					romano_vandalic = "Voviodunum"
+					romano_aramean = "Voviodunum"
+					romano_persian = "Voviodunum"
+					romano_frank = "Voviodunum"
 					romano_gallic = "Voviodunum"
 				}
 				b_verneuil = {
@@ -22927,10 +24991,30 @@ e_gaul = {
 				color2={ 255 255 255 }
 
 				roman = Cenomannicus
-				romano_gallic = Cenomannicus
+				romano_british = "Cenomannicus"
+				illyro_roman = "Cenomannicus"
+				thraco_roman = "Cenomannicus"
+				romano_gothic = "Cenomannicus"
+				romano_dacian = "Cenomannicus"
+				romano_hispanic = "Cenomannicus"
+				romano_vandalic = "Cenomannicus"
+				romano_aramean = "Cenomannicus"
+				romano_persian = "Cenomannicus"
+				romano_frank = "Cenomannicus"
+				romano_gallic = "Cenomannicus"
 				
 				b_le_mans = {
 					roman = "Vindunum"
+					romano_british = "Vindunum"
+					illyro_roman = "Vindunum"
+					thraco_roman = "Vindunum"
+					romano_gothic = "Vindunum"
+					romano_dacian = "Vindunum"
+					romano_hispanic = "Vindunum"
+					romano_vandalic = "Vindunum"
+					romano_aramean = "Vindunum"
+					romano_persian = "Vindunum"
+					romano_frank = "Vindunum"
 					romano_gallic = "Vindunum"
 				}
 				b_beaumont = {
@@ -22941,6 +25025,16 @@ e_gaul = {
 				}
 				b_laval = {
 					roman = "Vallis Guidonis"
+					romano_british = "Vallis Guidonis"
+					illyro_roman = "Vallis Guidonis"
+					thraco_roman = "Vallis Guidonis"
+					romano_gothic = "Vallis Guidonis"
+					romano_dacian = "Vallis Guidonis"
+					romano_hispanic = "Vallis Guidonis"
+					romano_vandalic = "Vallis Guidonis"
+					romano_aramean = "Vallis Guidonis"
+					romano_persian = "Vallis Guidonis"
+					romano_frank = "Vallis Guidonis"
 					romano_gallic = "Vallis Guidonis"
 				}
 				b_sable = {
@@ -22953,29 +25047,80 @@ e_gaul = {
 			c_anjou = {
 				color={ 45 26 228 }
 				color2={ 255 255 255 }
-
+				
 				armorican = Andecavi
-				roman = Andegavia 
-				romano_gallic = Andegavia 
+				gallic = Andecavi
+				roman = Andegavia
+				romano_british = "Andegavia"
+				illyro_roman = "Andegavia"
+				thraco_roman = "Andegavia"
+				romano_gothic = "Andegavia"
+				romano_dacian = "Andegavia"
+				romano_hispanic = "Andegavia"
+				romano_vandalic = "Andegavia"
+				romano_aramean = "Andegavia"
+				romano_persian = "Andegavia"
+				romano_frank = "Andegavia"
+				romano_gallic = "Andegavia"
 				
 				b_vihiers = {
 					roman = "Vierium"
+					romano_british = "Vierium"
+					illyro_roman = "Vierium"
+					thraco_roman = "Vierium"
+					romano_gothic = "Vierium"
+					romano_dacian = "Vierium"
+					romano_hispanic = "Vierium"
+					romano_vandalic = "Vierium"
+					romano_aramean = "Vierium"
+					romano_persian = "Vierium"
+					romano_frank = "Vierium"
 					romano_gallic = "Vierium"
 				}
 				b_angers = {
-					roman = "Juliomagus"
-					romano_gallic = "Juliomagus"
+					roman = "Iuliomagus"
+					romano_british = "Iuliomagus"
+					illyro_roman = "Iuliomagus"
+					thraco_roman = "Iuliomagus"
+					romano_gothic = "Iuliomagus"
+					romano_dacian = "Iuliomagus"
+					romano_hispanic = "Iuliomagus"
+					romano_vandalic = "Iuliomagus"
+					romano_aramean = "Iuliomagus"
+					romano_persian = "Iuliomagus"
+					romano_frank = "Iuliomagus"
+					romano_gallic = "Iuliomagus"
 				}
 				b_fontevraud = {
 				}
 				b_saumur = {
 					roman = "Robrica"
+					romano_british = "Robrica"
+					illyro_roman = "Robrica"
+					thraco_roman = "Robrica"
+					romano_gothic = "Robrica"
+					romano_dacian = "Robrica"
+					romano_hispanic = "Robrica"
+					romano_vandalic = "Robrica"
+					romano_aramean = "Robrica"
+					romano_persian = "Robrica"
+					romano_frank = "Robrica"
 					romano_gallic = "Robrica"
-				}		
+				}
 				b_montsoreau = {
 				}
 				b_cholet = {
 					roman = "Segora"
+					romano_british = "Segora"
+					illyro_roman = "Segora"
+					thraco_roman = "Segora"
+					romano_gothic = "Segora"
+					romano_dacian = "Segora"
+					romano_hispanic = "Segora"
+					romano_vandalic = "Segora"
+					romano_aramean = "Segora"
+					romano_persian = "Segora"
+					romano_frank = "Segora"
 					romano_gallic = "Segora"
 				}
 				b_treves = {
@@ -22986,17 +25131,48 @@ e_gaul = {
 			c_vendome = {
 				color={ 47 28 230 }
 				color2={ 255 255 255 }
-
+				
 				roman = "Vindocinum"
+				romano_british = "Vindocinum"
+				illyro_roman = "Vindocinum"
+				thraco_roman = "Vindocinum"
+				romano_gothic = "Vindocinum"
+				romano_dacian = "Vindocinum"
+				romano_hispanic = "Vindocinum"
+				romano_vandalic = "Vindocinum"
+				romano_aramean = "Vindocinum"
+				romano_persian = "Vindocinum"
+				romano_frank = "Vindocinum"
 				romano_gallic = "Vindocinum"
 				armorican = "Vindoces"
+				gallic = "Vindoces"
 				
 				b_lavardin = {
 					roman = "Labrocinum"
+					romano_british = "Labrocinum"
+					illyro_roman = "Labrocinum"
+					thraco_roman = "Labrocinum"
+					romano_gothic = "Labrocinum"
+					romano_dacian = "Labrocinum"
+					romano_hispanic = "Labrocinum"
+					romano_vandalic = "Labrocinum"
+					romano_aramean = "Labrocinum"
+					romano_persian = "Labrocinum"
+					romano_frank = "Labrocinum"
 					romano_gallic = "Labrocinum"
 				}
 				b_vendome = {
 					roman = "Vindocinum"
+					romano_british = "Vindocinum"
+					illyro_roman = "Vindocinum"
+					thraco_roman = "Vindocinum"
+					romano_gothic = "Vindocinum"
+					romano_dacian = "Vindocinum"
+					romano_hispanic = "Vindocinum"
+					romano_vandalic = "Vindocinum"
+					romano_aramean = "Vindocinum"
+					romano_persian = "Vindocinum"
+					romano_frank = "Vindocinum"
 					romano_gallic = "Vindocinum"
 				}
 				b_cloyes = {
@@ -23015,21 +25191,62 @@ e_gaul = {
 			c_chartres = {
 				color={ 98 36 238 }
 				color2={ 255 255 255 }
-
+				
 				roman = "Autricum"
+				romano_british = "Autricum"
+				illyro_roman = "Autricum"
+				thraco_roman = "Autricum"
+				romano_gothic = "Autricum"
+				romano_dacian = "Autricum"
+				romano_hispanic = "Autricum"
+				romano_vandalic = "Autricum"
+				romano_aramean = "Autricum"
+				romano_persian = "Autricum"
+				romano_frank = "Autricum"
 				romano_gallic = "Autricum"
 				armorican = "Carnutes"
+				gallic = "Carnutes"
 				
 				b_chateaudun = {
 					roman = "Dunense Castrum"
+					romano_british = "Dunense Castrum"
+					illyro_roman = "Dunense Castrum"
+					thraco_roman = "Dunense Castrum"
+					romano_gothic = "Dunense Castrum"
+					romano_dacian = "Dunense Castrum"
+					romano_hispanic = "Dunense Castrum"
+					romano_vandalic = "Dunense Castrum"
+					romano_aramean = "Dunense Castrum"
+					romano_persian = "Dunense Castrum"
+					romano_frank = "Dunense Castrum"
 					romano_gallic = "Dunense Castrum"
 				}
 				b_chartres = {
 					roman = "Autricum"
+					romano_british = "Autricum"
+					illyro_roman = "Autricum"
+					thraco_roman = "Autricum"
+					romano_gothic = "Autricum"
+					romano_dacian = "Autricum"
+					romano_hispanic = "Autricum"
+					romano_vandalic = "Autricum"
+					romano_aramean = "Autricum"
+					romano_persian = "Autricum"
+					romano_frank = "Autricum"
 					romano_gallic = "Autricum"
 				}
 				b_dreux = {
 					roman = "Durocassium"
+					romano_british = "Durocassium"
+					illyro_roman = "Durocassium"
+					thraco_roman = "Durocassium"
+					romano_gothic = "Durocassium"
+					romano_dacian = "Durocassium"
+					romano_hispanic = "Durocassium"
+					romano_vandalic = "Durocassium"
+					romano_aramean = "Durocassium"
+					romano_persian = "Durocassium"
+					romano_frank = "Durocassium"
 					romano_gallic = "Durocassium"
 				}
 				b_nogent = {
@@ -23055,14 +25272,35 @@ e_gaul = {
 				color2={ 255 255 255 }
 
 				armorican = Cenabum
+				gallic = Cenabum
 				roman = "Aurelianum"
+				romano_british = "Aurelianum"
+				illyro_roman = "Aurelianum"
+				thraco_roman = "Aurelianum"
+				romano_gothic = "Aurelianum"
+				romano_dacian = "Aurelianum"
+				romano_hispanic = "Aurelianum"
+				romano_vandalic = "Aurelianum"
+				romano_aramean = "Aurelianum"
+				romano_persian = "Aurelianum"
+				romano_frank = "Aurelianum"
 				romano_gallic = "Aurelianum"
-				alan = Allaines 
+				alan = Allaines
 				
 				b_gien = {
 				}
 				b_orleans = {
 					roman = "Aurelianum"
+					romano_british = "Aurelianum"
+					illyro_roman = "Aurelianum"
+					thraco_roman = "Aurelianum"
+					romano_gothic = "Aurelianum"
+					romano_dacian = "Aurelianum"
+					romano_hispanic = "Aurelianum"
+					romano_vandalic = "Aurelianum"
+					romano_aramean = "Aurelianum"
+					romano_persian = "Aurelianum"
+					romano_frank = "Aurelianum"
 					romano_gallic = "Aurelianum"
 				}
 				b_fleury = {
@@ -23083,14 +25321,44 @@ e_gaul = {
 				color2={ 255 255 255 }
 				
 				roman = "Agedincum"
+				romano_british = "Agedincum"
+				illyro_roman = "Agedincum"
+				thraco_roman = "Agedincum"
+				romano_gothic = "Agedincum"
+				romano_dacian = "Agedincum"
+				romano_hispanic = "Agedincum"
+				romano_vandalic = "Agedincum"
+				romano_aramean = "Agedincum"
+				romano_persian = "Agedincum"
+				romano_frank = "Agedincum"
 				romano_gallic = "Agedincum"
 				
 				b_montargis = {
 					roman = "Morita Regulo"
+					romano_british = "Morita Regulo"
+					illyro_roman = "Morita Regulo"
+					thraco_roman = "Morita Regulo"
+					romano_gothic = "Morita Regulo"
+					romano_dacian = "Morita Regulo"
+					romano_hispanic = "Morita Regulo"
+					romano_vandalic = "Morita Regulo"
+					romano_aramean = "Morita Regulo"
+					romano_persian = "Morita Regulo"
+					romano_frank = "Morita Regulo"
 					romano_gallic = "Morita Regulo"
 				}
 				b_sens = {
 					roman = "Agedincum"
+					romano_british = "Agedincum"
+					illyro_roman = "Agedincum"
+					thraco_roman = "Agedincum"
+					romano_gothic = "Agedincum"
+					romano_dacian = "Agedincum"
+					romano_hispanic = "Agedincum"
+					romano_vandalic = "Agedincum"
+					romano_aramean = "Agedincum"
+					romano_persian = "Agedincum"
+					romano_frank = "Agedincum"
 					romano_gallic = "Agedincum"
 				}
 				b_nemours = {
@@ -23111,13 +25379,34 @@ e_gaul = {
 				color2={ 255 255 255 }
 
 				roman = "Praesidii Romani"
+				romano_british = "Praesidii Romani"
+				illyro_roman = "Praesidii Romani"
+				thraco_roman = "Praesidii Romani"
+				romano_gothic = "Praesidii Romani"
+				romano_dacian = "Praesidii Romani"
+				romano_hispanic = "Praesidii Romani"
+				romano_vandalic = "Praesidii Romani"
+				romano_aramean = "Praesidii Romani"
+				romano_persian = "Praesidii Romani"
+				romano_frank = "Praesidii Romani"
 				romano_gallic = "Praesidii Romani"
 				armorican = "Rhufeinigwersyll"
+				gallic = "Rhufeinigwersyll"
 				
 				b_beaugency = {
 				}
 				b_blois = {
 					roman = "Blesum"
+					romano_british = "Blesum"
+					illyro_roman = "Blesum"
+					thraco_roman = "Blesum"
+					romano_gothic = "Blesum"
+					romano_dacian = "Blesum"
+					romano_hispanic = "Blesum"
+					romano_vandalic = "Blesum"
+					romano_aramean = "Blesum"
+					romano_persian = "Blesum"
+					romano_frank = "Blesum"
 					romano_gallic = "Blesum"
 				}
 				b_staignan = {
@@ -23126,6 +25415,16 @@ e_gaul = {
 				}
 				b_montrichard = {
 					roman = "Tasciaca"
+					romano_british = "Tasciaca"
+					illyro_roman = "Tasciaca"
+					thraco_roman = "Tasciaca"
+					romano_gothic = "Tasciaca"
+					romano_dacian = "Tasciaca"
+					romano_hispanic = "Tasciaca"
+					romano_vandalic = "Tasciaca"
+					romano_aramean = "Tasciaca"
+					romano_persian = "Tasciaca"
+					romano_frank = "Tasciaca"
 					romano_gallic = "Tasciaca"
 				}
 				b_fougeressurbievre = {
@@ -23140,28 +25439,88 @@ e_gaul = {
 				color2={ 255 255 255 }
 				
 				roman = "Caesarodunum"
+				romano_british = "Caesarodunum"
+				illyro_roman = "Caesarodunum"
+				thraco_roman = "Caesarodunum"
+				romano_gothic = "Caesarodunum"
+				romano_dacian = "Caesarodunum"
+				romano_hispanic = "Caesarodunum"
+				romano_vandalic = "Caesarodunum"
+				romano_aramean = "Caesarodunum"
+				romano_persian = "Caesarodunum"
+				romano_frank = "Caesarodunum"
 				romano_gallic = "Caesarodunum"
 				
 				b_chinon = {
 					roman = "Caino"
+					romano_british = "Caino"
+					illyro_roman = "Caino"
+					thraco_roman = "Caino"
+					romano_gothic = "Caino"
+					romano_dacian = "Caino"
+					romano_hispanic = "Caino"
+					romano_vandalic = "Caino"
+					romano_aramean = "Caino"
+					romano_persian = "Caino"
+					romano_frank = "Caino"
 					romano_gallic = "Caino"
 				}
 				b_tours = {
 					roman = "Caesarodunum"
+					romano_british = "Caesarodunum"
+					illyro_roman = "Caesarodunum"
+					thraco_roman = "Caesarodunum"
+					romano_gothic = "Caesarodunum"
+					romano_dacian = "Caesarodunum"
+					romano_hispanic = "Caesarodunum"
+					romano_vandalic = "Caesarodunum"
+					romano_aramean = "Caesarodunum"
+					romano_persian = "Caesarodunum"
+					romano_frank = "Caesarodunum"
 					romano_gallic = "Caesarodunum"
 				}
 				b_beaulieu = {
 				}
 				b_amboise = {
 					roman = "Ambiacum"
+					romano_british = "Ambiacum"
+					illyro_roman = "Ambiacum"
+					thraco_roman = "Ambiacum"
+					romano_gothic = "Ambiacum"
+					romano_dacian = "Ambiacum"
+					romano_hispanic = "Ambiacum"
+					romano_vandalic = "Ambiacum"
+					romano_aramean = "Ambiacum"
+					romano_persian = "Ambiacum"
+					romano_frank = "Ambiacum"
 					romano_gallic = "Ambiacum"
 				}
 				b_loches = {
 					roman = "Lucas"
+					romano_british = "Lucas"
+					illyro_roman = "Lucas"
+					thraco_roman = "Lucas"
+					romano_gothic = "Lucas"
+					romano_dacian = "Lucas"
+					romano_hispanic = "Lucas"
+					romano_vandalic = "Lucas"
+					romano_aramean = "Lucas"
+					romano_persian = "Lucas"
+					romano_frank = "Lucas"
 					romano_gallic = "Lucas"
 				}
 				b_langeais = {
 					roman = "Alingavia"
+					romano_british = "Alingavia"
+					illyro_roman = "Alingavia"
+					thraco_roman = "Alingavia"
+					romano_gothic = "Alingavia"
+					romano_dacian = "Alingavia"
+					romano_hispanic = "Alingavia"
+					romano_vandalic = "Alingavia"
+					romano_aramean = "Alingavia"
+					romano_persian = "Alingavia"
+					romano_frank = "Alingavia"
 					romano_gallic = "Alingavia"
 				}
 				b_fierbois = {
@@ -23172,13 +25531,34 @@ e_gaul = {
 			c_auxerre = {
 				color={ 97 26 228 }
 				color2={ 255 255 255 }
-
+				
 				roman = "Autissiodorum"
+				romano_british = "Autissiodorum"
+				illyro_roman = "Autissiodorum"
+				thraco_roman = "Autissiodorum"
+				romano_gothic = "Autissiodorum"
+				romano_dacian = "Autissiodorum"
+				romano_hispanic = "Autissiodorum"
+				romano_vandalic = "Autissiodorum"
+				romano_aramean = "Autissiodorum"
+				romano_persian = "Autissiodorum"
+				romano_frank = "Autissiodorum"
 				romano_gallic = "Autissiodorum"
 				armorican = "Autissiorii"
+				gallic = "Autissiorii"
 				
 				b_auxerre = {
 					roman = "Autissiodorum"
+					romano_british = "Autissiodorum"
+					illyro_roman = "Autissiodorum"
+					thraco_roman = "Autissiodorum"
+					romano_gothic = "Autissiodorum"
+					romano_dacian = "Autissiodorum"
+					romano_hispanic = "Autissiodorum"
+					romano_vandalic = "Autissiodorum"
+					romano_aramean = "Autissiodorum"
+					romano_persian = "Autissiodorum"
+					romano_frank = "Autissiodorum"
 					romano_gallic = "Autissiodorum"
 				}
 				b_druyes = {
@@ -23191,6 +25571,16 @@ e_gaul = {
 				}
 				b_crisenon = {
 					roman = "Bacema"
+					romano_british = "Bacema"
+					illyro_roman = "Bacema"
+					thraco_roman = "Bacema"
+					romano_gothic = "Bacema"
+					romano_dacian = "Bacema"
+					romano_hispanic = "Bacema"
+					romano_vandalic = "Bacema"
+					romano_aramean = "Bacema"
+					romano_persian = "Bacema"
+					romano_frank = "Bacema"
 					romano_gallic = "Bacema"
 				}
 				b_stsauveurenpuisaye = {
@@ -23203,17 +25593,48 @@ e_gaul = {
 				color2={ 255 255 255 }
 				
 				roman = "Novus Campania"
+				romano_british = "Novus Campania"
+				illyro_roman = "Novus Campania"
+				thraco_roman = "Novus Campania"
+				romano_gothic = "Novus Campania"
+				romano_dacian = "Novus Campania"
+				romano_hispanic = "Novus Campania"
+				romano_vandalic = "Novus Campania"
+				romano_aramean = "Novus Campania"
+				romano_persian = "Novus Campania"
+				romano_frank = "Novus Campania"
 				romano_gallic = "Novus Campania"
-				armorican = Meysydd 
+				armorican = Meysydd
+				gallic = Meysydd
 				
 				b_brienne = {
 				}
 				b_troyes = {
 					roman = "Augustobona"
+					romano_british = "Augustobona"
+					illyro_roman = "Augustobona"
+					thraco_roman = "Augustobona"
+					romano_gothic = "Augustobona"
+					romano_dacian = "Augustobona"
+					romano_hispanic = "Augustobona"
+					romano_vandalic = "Augustobona"
+					romano_aramean = "Augustobona"
+					romano_persian = "Augustobona"
+					romano_frank = "Augustobona"
 					romano_gallic = "Augustobona"
 				}
 				b_langres = {
 					roman = "Andemantunnum"
+					romano_british = "Andemantunnum"
+					illyro_roman = "Andemantunnum"
+					thraco_roman = "Andemantunnum"
+					romano_gothic = "Andemantunnum"
+					romano_dacian = "Andemantunnum"
+					romano_hispanic = "Andemantunnum"
+					romano_vandalic = "Andemantunnum"
+					romano_aramean = "Andemantunnum"
+					romano_persian = "Andemantunnum"
+					romano_frank = "Andemantunnum"
 					romano_gallic = "Andemantunnum"
 				}
 				b_chaumont = {
@@ -23231,14 +25652,25 @@ e_gaul = {
 			color2={ 255 255 255 }
 			
 			capital = 227 # Lyon
-
+			
 			c_charolais = {
 				color={ 36 174 238 }
 				color2={ 255 255 255 }
-
+				
 				roman = "Caesaria"
+				romano_british = "Caesaria"
+				illyro_roman = "Caesaria"
+				thraco_roman = "Caesaria"
+				romano_gothic = "Caesaria"
+				romano_dacian = "Caesaria"
+				romano_hispanic = "Caesaria"
+				romano_vandalic = "Caesaria"
+				romano_aramean = "Caesaria"
+				romano_persian = "Caesaria"
+				romano_frank = "Caesaria"
 				romano_gallic = "Caesaria"
 				armorican = "De-Aedui"
+				gallic = "De-Aedui"
 				burgundian = "Caesaria"
 				visigothic = "Caesaria"
 				
@@ -23256,6 +25688,17 @@ e_gaul = {
 				}
 				b_digoine = {
 					roman = "Pocrinium"
+					romano_british = "Pocrinium"
+					illyro_roman = "Pocrinium"
+					thraco_roman = "Pocrinium"
+					romano_gothic = "Pocrinium"
+					romano_dacian = "Pocrinium"
+					romano_hispanic = "Pocrinium"
+					romano_vandalic = "Pocrinium"
+					romano_aramean = "Pocrinium"
+					romano_persian = "Pocrinium"
+					romano_frank = "Pocrinium"
+					romano_gallic = "Pocrinium"
 				}
 				b_joncy = {
 				}
@@ -23265,8 +25708,19 @@ e_gaul = {
 				color2={ 255 255 255 }
 
 				roman = "Matiscus"
+				romano_british = "Matiscus"
+				illyro_roman = "Matiscus"
+				thraco_roman = "Matiscus"
+				romano_gothic = "Matiscus"
+				romano_dacian = "Matiscus"
+				romano_hispanic = "Matiscus"
+				romano_vandalic = "Matiscus"
+				romano_aramean = "Matiscus"
+				romano_persian = "Matiscus"
+				romano_frank = "Matiscus"
 				romano_gallic = "Matiscus"
 				armorican = "Matisco"
+				gallic = "Matisco"
 				burgundian = "Matiscus"
 				visigothic = "Matiscus"
 				
@@ -23274,6 +25728,16 @@ e_gaul = {
 				}
 				b_macon = {
 					roman = "Matiscus"
+					romano_british = "Matiscus"
+					illyro_roman = "Matiscus"
+					thraco_roman = "Matiscus"
+					romano_gothic = "Matiscus"
+					romano_dacian = "Matiscus"
+					romano_hispanic = "Matiscus"
+					romano_vandalic = "Matiscus"
+					romano_aramean = "Matiscus"
+					romano_persian = "Matiscus"
+					romano_frank = "Matiscus"
 					romano_gallic = "Matiscus"
 				}
 				b_cluny = {
@@ -23300,37 +25764,108 @@ e_gaul = {
 			c_dijon = {
 				color={ 30 168 232 }
 				color2={ 255 255 255 }
-
+				
 				roman = "Divio"
+				romano_british = "Divio"
+				illyro_roman = "Divio"
+				thraco_roman = "Divio"
+				romano_gothic = "Divio"
+				romano_dacian = "Divio"
+				romano_hispanic = "Divio"
+				romano_vandalic = "Divio"
+				romano_aramean = "Divio"
+				romano_persian = "Divio"
+				romano_frank = "Divio"
 				romano_gallic = "Divio"
 				armorican = "Fynonii"
+				gallic = "Fynonii"
 				burgundian = "Divio"
 				visigothic = "Divio"
 				
 				b_semur = {
 					roman = "Sene Muros"
+					romano_british = "Sene Muros"
+					illyro_roman = "Sene Muros"
+					thraco_roman = "Sene Muros"
+					romano_gothic = "Sene Muros"
+					romano_dacian = "Sene Muros"
+					romano_hispanic = "Sene Muros"
+					romano_vandalic = "Sene Muros"
+					romano_aramean = "Sene Muros"
+					romano_persian = "Sene Muros"
+					romano_frank = "Sene Muros"
 					romano_gallic = "Sene Muros"
 				}
 				b_dijon = {
 					roman = "Divio"
+					romano_british = "Divio"
+					illyro_roman = "Divio"
+					thraco_roman = "Divio"
+					romano_gothic = "Divio"
+					romano_dacian = "Divio"
+					romano_hispanic = "Divio"
+					romano_vandalic = "Divio"
+					romano_aramean = "Divio"
+					romano_persian = "Divio"
+					romano_frank = "Divio"
 					romano_gallic = "Divio"
 				}
 				b_autun = {
 					roman = "Augustodunum"
+					romano_british = "Augustodunum"
+					illyro_roman = "Augustodunum"
+					thraco_roman = "Augustodunum"
+					romano_gothic = "Augustodunum"
+					romano_dacian = "Augustodunum"
+					romano_hispanic = "Augustodunum"
+					romano_vandalic = "Augustodunum"
+					romano_aramean = "Augustodunum"
+					romano_persian = "Augustodunum"
+					romano_frank = "Augustodunum"
 					romano_gallic = "Augustodunum"
 				}
 				b_vezelay = {
 					roman = "Vizeliacum"
+					romano_british = "Vizeliacum"
+					illyro_roman = "Vizeliacum"
+					thraco_roman = "Vizeliacum"
+					romano_gothic = "Vizeliacum"
+					romano_dacian = "Vizeliacum"
+					romano_hispanic = "Vizeliacum"
+					romano_vandalic = "Vizeliacum"
+					romano_aramean = "Vizeliacum"
+					romano_persian = "Vizeliacum"
+					romano_frank = "Vizeliacum"
 					romano_gallic = "Vizeliacum"
 				}
 				b_avallon = {
 					roman = "Cora Vicus"
+					romano_british = "Cora Vicus"
+					illyro_roman = "Cora Vicus"
+					thraco_roman = "Cora Vicus"
+					romano_gothic = "Cora Vicus"
+					romano_dacian = "Cora Vicus"
+					romano_hispanic = "Cora Vicus"
+					romano_vandalic = "Cora Vicus"
+					romano_aramean = "Cora Vicus"
+					romano_persian = "Cora Vicus"
+					romano_frank = "Cora Vicus"
 					romano_gallic = "Cora Vicus"
 				}
 				b_citeaux = {
 				}
 				b_beaune = {
 					roman = "Beleno"
+					romano_british = "Beleno"
+					illyro_roman = "Beleno"
+					thraco_roman = "Beleno"
+					romano_gothic = "Beleno"
+					romano_dacian = "Beleno"
+					romano_hispanic = "Beleno"
+					romano_vandalic = "Beleno"
+					romano_aramean = "Beleno"
+					romano_persian = "Beleno"
+					romano_frank = "Beleno"
 					romano_gallic = "Beleno"
 				}
 				b_noyers = {
@@ -23341,12 +25876,32 @@ e_gaul = {
 				color2={ 255 255 255 }
 				
 				roman = "Nevirnum"
+				romano_british = "Nevirnum"
+				illyro_roman = "Nevirnum"
+				thraco_roman = "Nevirnum"
+				romano_gothic = "Nevirnum"
+				romano_dacian = "Nevirnum"
+				romano_hispanic = "Nevirnum"
+				romano_vandalic = "Nevirnum"
+				romano_aramean = "Nevirnum"
+				romano_persian = "Nevirnum"
+				romano_frank = "Nevirnum"
 				romano_gallic = "Nevirnum"
 				
 				b_courtenay = {
 				}
 				b_nevers = {
 					roman = "Nevirnum"
+					romano_british = "Nevirnum"
+					illyro_roman = "Nevirnum"
+					thraco_roman = "Nevirnum"
+					romano_gothic = "Nevirnum"
+					romano_dacian = "Nevirnum"
+					romano_hispanic = "Nevirnum"
+					romano_vandalic = "Nevirnum"
+					romano_aramean = "Nevirnum"
+					romano_persian = "Nevirnum"
+					romano_frank = "Nevirnum"
 					romano_gallic = "Nevirnum"
 				}
 				b_lacharite = {
@@ -23355,6 +25910,16 @@ e_gaul = {
 				}
 				b_chateauchinon = {
 					roman = "Castrum Caninum"
+					romano_british = "Castrum Caninum"
+					illyro_roman = "Castrum Caninum"
+					thraco_roman = "Castrum Caninum"
+					romano_gothic = "Castrum Caninum"
+					romano_dacian = "Castrum Caninum"
+					romano_hispanic = "Castrum Caninum"
+					romano_vandalic = "Castrum Caninum"
+					romano_aramean = "Castrum Caninum"
+					romano_persian = "Castrum Caninum"
+					romano_frank = "Castrum Caninum"
 					romano_gallic = "Castrum Caninum"
 				}
 				b_vandenesse = {
@@ -23367,9 +25932,19 @@ e_gaul = {
 			c_chalons = {
 				color={ 161 22 60 }
 				color2={ 255 255 255 }
-
+				
 				roman = Catalaunia
-				romano_gallic =  Catalaunia
+				romano_british = "Catalaunia"
+				illyro_roman = "Catalaunia"
+				thraco_roman = "Catalaunia"
+				romano_gothic = "Catalaunia"
+				romano_dacian = "Catalaunia"
+				romano_hispanic = "Catalaunia"
+				romano_vandalic = "Catalaunia"
+				romano_aramean = "Catalaunia"
+				romano_persian = "Catalaunia"
+				romano_frank = "Catalaunia"
+				romano_gallic = "Catalaunia"
 				burgundian = Catalaunia
 				visigothic = Catalaunia
 				
@@ -23393,10 +25968,21 @@ e_gaul = {
 			c_lyon = {
 				color={ 123 34 58 }
 				color2={ 255 255 255 }
-
+				
 				armorican = Lugodunon
+				gallic = Lugodunon
 				roman = Lugdunum
-				romano_gallic = Lugdunum
+				romano_british = "Lugdunum"
+				illyro_roman = "Lugdunum"
+				thraco_roman = "Lugdunum"
+				romano_gothic = "Lugdunum"
+				romano_dacian = "Lugdunum"
+				romano_hispanic = "Lugdunum"
+				romano_vandalic = "Lugdunum"
+				romano_aramean = "Lugdunum"
+				romano_persian = "Lugdunum"
+				romano_frank = "Lugdunum"
+				romano_gallic = "Lugdunum"
 				burgundian = Lugdunum
 				visigothic = Lugdunum
 				skirian = Lugdunum
@@ -23407,10 +25993,30 @@ e_gaul = {
 				}
 				b_lyon = {
 					roman = Lugdunum
-					romano_gallic = Lugdunum
+					romano_british = "Lugdunum"
+					illyro_roman = "Lugdunum"
+					thraco_roman = "Lugdunum"
+					romano_gothic = "Lugdunum"
+					romano_dacian = "Lugdunum"
+					romano_hispanic = "Lugdunum"
+					romano_vandalic = "Lugdunum"
+					romano_aramean = "Lugdunum"
+					romano_persian = "Lugdunum"
+					romano_frank = "Lugdunum"
+					romano_gallic = "Lugdunum"
 				}
 				b_anse = {
 					roman = "Asa Pavlini"
+					romano_british = "Asa Pavlini"
+					illyro_roman = "Asa Pavlini"
+					thraco_roman = "Asa Pavlini"
+					romano_gothic = "Asa Pavlini"
+					romano_dacian = "Asa Pavlini"
+					romano_hispanic = "Asa Pavlini"
+					romano_vandalic = "Asa Pavlini"
+					romano_aramean = "Asa Pavlini"
+					romano_persian = "Asa Pavlini"
+					romano_frank = "Asa Pavlini"
 					romano_gallic = "Asa Pavlini"
 				}
 				b_chessy = {
@@ -23425,8 +26031,18 @@ e_gaul = {
 			c_forez = {
 				color={ 127 38 62 }
 				color2={ 255 255 255 }
-
+				
 				roman = "Externa castra"
+				romano_british = "Externa castra"
+				illyro_roman = "Externa castra"
+				thraco_roman = "Externa castra"
+				romano_gothic = "Externa castra"
+				romano_dacian = "Externa castra"
+				romano_hispanic = "Externa castra"
+				romano_vandalic = "Externa castra"
+				romano_aramean = "Externa castra"
+				romano_persian = "Externa castra"
+				romano_frank = "Externa castra"
 				romano_gallic = "Externa castra"
 				burgundian = "Externa castra"
 				visigothic = "Externa castra"
@@ -23435,18 +26051,58 @@ e_gaul = {
 				}
 				b_montbrison = {
 					roman = "Aquae Segetae"
+					romano_british = "Aquae Segetae"
+					illyro_roman = "Aquae Segetae"
+					thraco_roman = "Aquae Segetae"
+					romano_gothic = "Aquae Segetae"
+					romano_dacian = "Aquae Segetae"
+					romano_hispanic = "Aquae Segetae"
+					romano_vandalic = "Aquae Segetae"
+					romano_aramean = "Aquae Segetae"
+					romano_persian = "Aquae Segetae"
+					romano_frank = "Aquae Segetae"
 					romano_gallic = "Aquae Segetae"
 				}
 				b_thiers = {
 					roman = "Valotrum"
+					romano_british = "Valotrum"
+					illyro_roman = "Valotrum"
+					thraco_roman = "Valotrum"
+					romano_gothic = "Valotrum"
+					romano_dacian = "Valotrum"
+					romano_hispanic = "Valotrum"
+					romano_vandalic = "Valotrum"
+					romano_aramean = "Valotrum"
+					romano_persian = "Valotrum"
+					romano_frank = "Valotrum"
 					romano_gallic = "Valotrum"
 				}
 				b_feurs = {
 					roman = "Forum Segusiavorum"
+					romano_british = "Forum Segusiavorum"
+					illyro_roman = "Forum Segusiavorum"
+					thraco_roman = "Forum Segusiavorum"
+					romano_gothic = "Forum Segusiavorum"
+					romano_dacian = "Forum Segusiavorum"
+					romano_hispanic = "Forum Segusiavorum"
+					romano_vandalic = "Forum Segusiavorum"
+					romano_aramean = "Forum Segusiavorum"
+					romano_persian = "Forum Segusiavorum"
+					romano_frank = "Forum Segusiavorum"
 					romano_gallic = "Forum Segusiavorum"
 				}
 				b_roanne = {
 					roman = "Rodumna"
+					romano_british = "Rodumna"
+					illyro_roman = "Rodumna"
+					thraco_roman = "Rodumna"
+					romano_gothic = "Rodumna"
+					romano_dacian = "Rodumna"
+					romano_hispanic = "Rodumna"
+					romano_vandalic = "Rodumna"
+					romano_aramean = "Rodumna"
+					romano_persian = "Rodumna"
+					romano_frank = "Rodumna"
 					romano_gallic = "Rodumna"
 				}
 				b_charlieu = {
@@ -23465,25 +26121,35 @@ e_gaul = {
 		capital = 149 # Bordaeux
 		
 		culture = romano_gallic
-
-			visigothic = Sibungawi
-			thuringian = Siewenloander
-			alamannian = Siibeänder
-			burgundian = Sibungawi
-			old_saxon = Teobenländer
-			anglo = Teobenländer
-			roman = "Septem Provincae"
-			romano_gallic = "Septem Provincae"
-			lombard = Tsopenländr
-			ostrogothic = Sibungawi
-			old_frankish =Tsonaloande
-			old_frisian = Santjinlâns
-			suebi = Setteterre
-			frankish = Neustria
-			german = Siebenländer
-			jute = Ssynþorðe
-			dane = Svynjorder
-			
+		
+		visigothic = Sibungawi
+		thuringian = Siewenloander
+		alamannian = Siibeänder
+		burgundian = Sibungawi
+		old_saxon = Teobenländer
+		anglo = Teobenländer
+		roman = "Septem Provincae"
+		romano_british = "Septem Provincae"
+		illyro_roman = "Septem Provincae"
+		thraco_roman = "Septem Provincae"
+		romano_gothic = "Septem Provincae"
+		romano_dacian = "Septem Provincae"
+		romano_hispanic = "Septem Provincae"
+		romano_vandalic = "Septem Provincae"
+		romano_aramean = "Septem Provincae"
+		romano_persian = "Septem Provincae"
+		romano_frank = "Septem Provincae"
+		romano_gallic = "Septem Provincae"
+		lombard = Tsopenländr
+		ostrogothic = Sibungawi
+		old_frankish =Tsonaloande
+		old_frisian = Santjinlâns
+		suebi = Setteterre
+		frankish = Neustria
+		german = Siebenländer
+		jute = Ssynþorðe
+		dane = Svynjorder
+		
 		allow = {
 			hidden_tooltip = {
 				OR = {
@@ -23526,35 +26192,96 @@ e_gaul = {
 				color2={ 255 255 255 }
 				
 				roman = "Burdigala"
+				romano_british = "Burdigala"
+				illyro_roman = "Burdigala"
+				thraco_roman = "Burdigala"
+				romano_gothic = "Burdigala"
+				romano_dacian = "Burdigala"
+				romano_hispanic = "Burdigala"
+				romano_vandalic = "Burdigala"
+				romano_aramean = "Burdigala"
+				romano_persian = "Burdigala"
+				romano_frank = "Burdigala"
 				romano_gallic = "Burdigala"
 				armorican = "Burdigala"
+				gallic = "Burdigala"
 				visigothic = "Burdigala"
 				
 				b_castillon = {
 					roman = "Castellum"
+					romano_british = "Castellum"
+					illyro_roman = "Castellum"
+					thraco_roman = "Castellum"
+					romano_gothic = "Castellum"
+					romano_dacian = "Castellum"
+					romano_hispanic = "Castellum"
+					romano_vandalic = "Castellum"
+					romano_aramean = "Castellum"
+					romano_persian = "Castellum"
+					romano_frank = "Castellum"
 					romano_gallic = "Castellum"
 				}
 				b_bordeaux = {
 					roman = "Burdigala"
 					visigothic = "Burdigala"
+					romano_british = "Burdigala"
+					illyro_roman = "Burdigala"
+					thraco_roman = "Burdigala"
+					romano_gothic = "Burdigala"
+					romano_dacian = "Burdigala"
+					romano_hispanic = "Burdigala"
+					romano_vandalic = "Burdigala"
+					romano_aramean = "Burdigala"
+					romano_persian = "Burdigala"
+					romano_frank = "Burdigala"
 					romano_gallic = "Burdigala"
 				}
 				b_stemilion = {
 				}
 				b_blaye = {
 					roman = "Blavia"
+					romano_british = "Blavia"
+					illyro_roman = "Blavia"
+					thraco_roman = "Blavia"
+					romano_gothic = "Blavia"
+					romano_dacian = "Blavia"
+					romano_hispanic = "Blavia"
+					romano_vandalic = "Blavia"
+					romano_aramean = "Blavia"
+					romano_persian = "Blavia"
+					romano_frank = "Blavia"
 					romano_gallic = "Blavia"
 				}
 				b_bourg = {
 				}
 				b_lasauve = {
 					roman = "Sylva Major"
+					romano_british = "Sylva Major"
+					illyro_roman = "Sylva Major"
+					thraco_roman = "Sylva Major"
+					romano_gothic = "Sylva Major"
+					romano_dacian = "Sylva Major"
+					romano_hispanic = "Sylva Major"
+					romano_vandalic = "Sylva Major"
+					romano_aramean = "Sylva Major"
+					romano_persian = "Sylva Major"
+					romano_frank = "Sylva Major"
 					romano_gallic = "Sylva Major"
 				}
 				b_lareole = {
 				}
 				b_libourne = {
 					roman = "Liburnium"
+					romano_british = "Liburnium"
+					illyro_roman = "Liburnium"
+					thraco_roman = "Liburnium"
+					romano_gothic = "Liburnium"
+					romano_dacian = "Liburnium"
+					romano_hispanic = "Liburnium"
+					romano_vandalic = "Liburnium"
+					romano_aramean = "Liburnium"
+					romano_persian = "Liburnium"
+					romano_frank = "Liburnium"
 					romano_gallic = "Liburnium"
 				}
 			}
@@ -23564,26 +26291,77 @@ e_gaul = {
 
 				roman = "Aquae Garonus"
 				visigothic = "Aginnum"
+				romano_british = "Aquae Garonus"
+				illyro_roman = "Aquae Garonus"
+				thraco_roman = "Aquae Garonus"
+				romano_gothic = "Aquae Garonus"
+				romano_dacian = "Aquae Garonus"
+				romano_hispanic = "Aquae Garonus"
+				romano_vandalic = "Aquae Garonus"
+				romano_aramean = "Aquae Garonus"
+				romano_persian = "Aquae Garonus"
+				romano_frank = "Aquae Garonus"
 				romano_gallic = "Aquae Garonus"
 				armorican = "Uelh deth Garona"
-					
+				gallic = "Uelh deth Garona"
+				
 				b_agen = {
 					roman = "Aginnum"
 					visigothic = "Aginnum"
+					romano_british = "Aginnum"
+					illyro_roman = "Aginnum"
+					thraco_roman = "Aginnum"
+					romano_gothic = "Aginnum"
+					romano_dacian = "Aginnum"
+					romano_hispanic = "Aginnum"
+					romano_vandalic = "Aginnum"
+					romano_aramean = "Aginnum"
+					romano_persian = "Aginnum"
+					romano_frank = "Aginnum"
 					romano_gallic = "Aginnum"
 				}
 				b_penne = {
 				}
 				b_cahors = {
 					roman = "Divona"
+					romano_british = "Divona"
+					illyro_roman = "Divona"
+					thraco_roman = "Divona"
+					romano_gothic = "Divona"
+					romano_dacian = "Divona"
+					romano_hispanic = "Divona"
+					romano_vandalic = "Divona"
+					romano_aramean = "Divona"
+					romano_persian = "Divona"
+					romano_frank = "Divona"
 					romano_gallic = "Divona"
 				}
 				b_luzech = {
 					roman = "Vxellodunum"
+					romano_british = "Vxellodunum"
+					illyro_roman = "Vxellodunum"
+					thraco_roman = "Vxellodunum"
+					romano_gothic = "Vxellodunum"
+					romano_dacian = "Vxellodunum"
+					romano_hispanic = "Vxellodunum"
+					romano_vandalic = "Vxellodunum"
+					romano_aramean = "Vxellodunum"
+					romano_persian = "Vxellodunum"
+					romano_frank = "Vxellodunum"
 					romano_gallic = "Vxellodunum"
 				}
 				b_moissac = {
 					roman = "Mustius"
+					romano_british = "Mustius"
+					illyro_roman = "Mustius"
+					thraco_roman = "Mustius"
+					romano_gothic = "Mustius"
+					romano_dacian = "Mustius"
+					romano_hispanic = "Mustius"
+					romano_vandalic = "Mustius"
+					romano_aramean = "Mustius"
+					romano_persian = "Mustius"
+					romano_frank = "Mustius"
 					romano_gallic = "Mustius"
 				}
 				b_figeac = {
@@ -23600,7 +26378,8 @@ e_gaul = {
 				roman = "Beneharnum"
 				visigothic = "Beneharnum"
 				romano_gallic = "Beneharnum"
-				armorican= "Venarni"
+				armorican = "Venarni"
+				gallic = "Venarni"
 				
 				b_pau = {
 				}
@@ -23631,7 +26410,8 @@ e_gaul = {
 				roman = "Ausciorum"
 				visigothic = "Ausciorum"
 				romano_gallic = "Ausciourum"
-				armorican= "Di-Ausci"
+				armorican = "Di-Ausci"
+				gallic = "Di-Ausci"
 				
 				b_castelnau = {
 				}
@@ -23665,7 +26445,8 @@ e_gaul = {
 				roman = "Lapurdum"
 				visigothic = "Lapurdum"
 				romano_gallic = "Lapurdum"
-				armorican= "Tarbelas"
+				armorican = "Tarbelas"
+				gallic = "Tarbelas"
 				
 				b_sauveterre = {
 				}
@@ -23739,6 +26520,7 @@ e_gaul = {
 				visigothic = "Borbonius"
 				romano_gallic = "Borbonius"
 				armorican = "Biorden"
+				gallic = "Biorden"
 				frankish = "Poitiers"
 				
 				b_bourbon = {
@@ -23800,6 +26582,7 @@ e_gaul = {
 				visigothic = "Marchia"
 				romano_gallic = "Marchia"
 				armorican = "Goriedieth"
+				gallic = "Goriedieth"
 				
 				b_crozant = {
 				}
@@ -23826,12 +26609,14 @@ e_gaul = {
 				visigothic = "Avernus"
 				romano_gallic = "Avernus"
 				armorican = "Averni"
+				gallic = "Averni"
 				
 				b_tournoel = {
 					roman = "Avernus"
 					visigothic = "Avernus"
 					romano_gallic = "Avernus"
 					armorican = "Averni"
+					gallic = "Averni"
 				}
 				b_clermont = {
 					roman = "Augustonemetum"
@@ -23858,6 +26643,7 @@ e_gaul = {
 				color2={ 255 255 255 }
 
 				armorican = Avariocon
+				gallic = Avariocon
 				old_frankish = Borough
 				roman = Avaricum 
 				visigothic = Avaricum 
@@ -23899,8 +26685,10 @@ e_gaul = {
 			culture = romano_gallic
 
 			armorican = "Pictones"
+			gallic = "Pictones"
 			frankish = "Lusignan"
 			visigothic = "Thifalia"
+			old_frankish = "Thifalia"
 
 			c_perigord = {
 				color={ 66 22 255 }
@@ -23910,6 +26698,7 @@ e_gaul = {
 				visigothic = "Diolindum"
 				romano_gallic = "Cives Perigus"
 				armorican = "Perii"
+				gallic = "Perii"
 				
 				b_baneuil = {
 					roman = "Diolindum"
@@ -23945,6 +26734,7 @@ e_gaul = {
 				visigothic = "Lemovicus"
 				romano_gallic = "Lemovicus"
 				armorican = "Iculisma"
+				gallic = "Iculisma"
 				
 				b_jarnac = {
 				}
@@ -23977,6 +26767,7 @@ e_gaul = {
 				visigothic = "Mediolanum"
 				romano_gallic = "Cives Saintes"
 				armorican = "Santones"
+				gallic = "Santones"
 				
 				b_montguyon = {
 				}
@@ -24009,7 +26800,8 @@ e_gaul = {
 				visigothic = "Pictavium"
 				romano_gallic = "Pictavium"
 				armorican = "Lemonicus"
-					
+				gallic = "Lemonicus"
+				
 				b_chauvigny = {
 				}
 				b_poitiers = {
@@ -24038,6 +26830,7 @@ e_gaul = {
 				visigothic = "Lusignus"
 				romano_gallic = "Lusignus"
 				armorican = "Lusignii"
+				gallic = "Lusignii"
 				
 				b_lusignan = {
 					roman = "Lusignus"
@@ -24068,12 +26861,14 @@ e_gaul = {
 				visigothic = "Peregrinatio"
 				romano_gallic = "Peregrinatio"
 				armorican = "Peregii"
+				gallic = "Peregii"
 				
 				b_thouars = {
 					roman = "Peregrinatio"
 					visigothic = "Peregrinatio"
 					romano_gallic = "Peregrinatio"
 					armorican = "Peregii"
+					gallic = "Peregii"
 				}
 				b_larochelle = {
 				}
@@ -24099,9 +26894,10 @@ e_gaul = {
 			
 			capital = 214 # Toulouse
 
-			roman = "Narbo Martius"
-			romano_gallic = "Narbo Martius"
+			roman = "Tolosa"
+			romano_gallic = "Tolosa"
 			armorican = "Tolosates"
+			gallic = "Tolosates"
 			
 			culture = occitan
 			
@@ -24113,6 +26909,7 @@ e_gaul = {
 				visigothic = "Carcasum"
 				romano_gallic = "Carcasum"
 				armorican = "Carsac"
+				gallic = "Carsac"
 				
 				b_saissac = {
 				} 
@@ -24145,6 +26942,7 @@ e_gaul = {
 				visigothic = "Tolosa"
 				romano_gallic = "Tolosa"
 				armorican = "Tolosates"
+				gallic = "Tolosates"
 				
 				b_castelnaudary = {
 					roman = "Sostomagus"
@@ -24180,6 +26978,7 @@ e_gaul = {
 				visigothic = "Rodicus"
 				romano_gallic = "Rodicus"
 				armorican = "Redscii"
+				gallic = "Redscii"
 				
 				b_rodez = {
 					roman = "Segodunum"
@@ -24240,6 +27039,7 @@ e_gaul = {
 				visigothic = "Saxacastellum"
 				romano_gallic = "Saxacastellum"
 				armorican = "Foiricii"
+				gallic = "Foiricii"
 				
 				b_foix = {
 					roman = "Saxacastellum"
@@ -24278,6 +27078,7 @@ e_gaul = {
 				roman = "Narbo Martius"
 				romano_gallic = "Narbo Martius"
 				armorican = "Narbonensis"
+				gallic = "Narbonensis"
 				visigothic = "Narbonensis"
 				
 				b_albi = {
@@ -24319,6 +27120,7 @@ e_gaul = {
 				visigothic = "Gabalum"
 				romano_gallic = "Gabalum"
 				armorican = "Anderitum"
+				gallic = "Anderitum"
 				
 				b_grezes = {
 				}
@@ -24351,6 +27153,7 @@ e_gaul = {
 				visigothic = "Novus Cives"
 				romano_gallic = "Novus Cives"
 				armorican = "Nwyrain-Tolosates"
+				gallic = "Nwyrain-Tolosates"
 				
 				b_beaucaire = {
 					roman = "Vgernum"
@@ -24384,6 +27187,7 @@ e_gaul = {
 				visigothic = Vivaris
 				romano_gallic = Vivaris
 				armorican = Helveti
+				gallic = Helveti
 				
 				b_aubenas = {
 				}
@@ -24447,10 +27251,11 @@ e_gaul = {
 				roman = "Aquae Sextiae"
 				romano_gallic = "Aquae Sextiae"
 				armorican = Liguria
-				greek = Masssalia
-				visigothic = Masssalia
+				gallic = Liguria
+				greek = Massalia
+				visigothic = Massalia
 				massalian = Massalia
-								
+				
 				b_arles = {
 					roman = "Arelate"
 					visigothic = "Arelate"
@@ -24469,8 +27274,8 @@ e_gaul = {
 					romano_gallic = "Athenopolis"
 				}
 				b_frejus = {
-					roman = "Forum Julii"
-					romano_gallic = "Forum Julii"
+					roman = "Forum Iulii"
+					romano_gallic = "Forum Iulii"
 				}
 				b_grasse = {
 				}
@@ -24597,20 +27402,20 @@ e_gaul = {
 				color={ 155 46 76 }
 				color2={ 255 255 255 }
 			
-				roman = "Castra Marcus Fulvius"
+				roman = "Castra Fulviensis"
 				burgundian = "Fulvia"
 				visigothic = "Fulvia"
 				ostrogothic = "Fulvia"
 				romano_gothic = "Fulvia"
-				romano_gallic = "Castra Marcus Fulvius"
+				romano_gallic = "Castra Fulviensis"
 				
 				b_saluzzo = {
-					roman = "Castra Marcus Fulvius"
+					roman = "Castra Fulviensis"
 				burgundian = "Fulvia"
 				visigothic = "Fulvia"
 				ostrogothic = "Fulvia"
 				romano_gothic = "Fulvia"
-				romano_gallic = "Castra Marcus Fulvius"
+				romano_gallic = "Castra Fulviensis"
 				}
 				b_pinerolo = {
 				} 
@@ -24638,6 +27443,7 @@ e_gaul = {
 				massalian = Nikaia
 				greek = Nikaia
 				armorican = Cemenelum
+				gallic = Cemenelum
 				
 				b_nizza = {
 					roman = "Nicaea"
@@ -24685,6 +27491,7 @@ e_gaul = {
 		irish = Bhriotáin
 		frankish = Bretagne
 		armorican = Armorica
+		gallic = Armorica
 		
 		allow = {
 			hidden_tooltip = {
@@ -24708,6 +27515,7 @@ e_gaul = {
 			irish = Briotáine
 			frankish = Bretagne
 			armorican = Armorica
+			gallic = Armorica
 			roman = "Aremorica"
 			romano_gallic = "Aremorica"
 			
@@ -24979,6 +27787,7 @@ e_gaul = {
 				roman = "Samarobriva"
 				romano_gallic = "Samarobriva"
 				armorican = "Ambiani"
+				gallic = "Ambiani"
 				
 				b_peronne = {
 				}
@@ -25011,7 +27820,8 @@ e_gaul = {
 
 				roman = "Castra Romani"
 				romano_gallic = "Castra Romani"
-				armorican = Bealornes 
+				armorican = Bealornes
+				gallic = Bealornes
 				old_frankish = "Wiksinaburc"
 				
 				
@@ -25079,6 +27889,7 @@ e_gaul = {
 				roman = "Durocotorum"
 				romano_gallic = "Durocotorum"
 				armorican = Durocorteron
+				gallic = Durocorteron
 				visigothic = "Durocotorum"
 				burgundian = Durocorteron
 				
@@ -25140,6 +27951,7 @@ e_gaul = {
 				color2={ 255 255 255 }
 
 				armorican = Senones
+				gallic = Senones
 				roman = Argentoratum
 				alamannian = Argentoratum
 				romano_gallic = Argentoratum
@@ -25190,8 +28002,8 @@ e_gaul = {
 				color={ 92 92 127 }
 				color2={ 255 255 255 }
 
-				roman = Saulnus
-				romano_gallic = Saulnus
+				roman = Nantiacum
+				romano_gallic = Nantiacum
 				alamannian = Merthus
 				
 				b_nancy = {
@@ -25219,7 +28031,7 @@ e_gaul = {
 				color={ 150 150 185 }
 				color2={ 255 255 255 }
 
-				roman = "Divodurum Mediomatricum"
+				roman = "Mettis"
 				romano_gallic = "Mettis"
 				alamannian = "Mettis"
 				burgundian = "Mettis"
@@ -25478,11 +28290,13 @@ e_gaul = {
 				old_frankish = "Ganda"
 				roman = "Gontia"
 				armorican = "Gontia"
+				gallic = "Gontia"
 				
 				b_gent = {
 					old_frankish = "Ganda"
 					roman = "Gontia"
 					armorican = "Gontia"
+					gallic = "Gontia"
 				}
 				b_doornik = {
 					roman = Turnacum
@@ -25750,13 +28564,13 @@ e_gaul = {
 				color2={ 255 255 255 }
 				
 				old_frisian = Gulik
-				roman = "Juliacum"
-				romano_gallic = "Juliacum"
+				roman = "Iuliacum"
+				romano_gallic = "Iuliacum"
 				old_frankish = "Gulik"
 			
 				b_julich = {
-					roman = "Juliacum"
-					romano_gallic = "Juliacum"
+					roman = "Iuliacum"
+					romano_gallic = "Iuliacum"
 					old_frankish = "Gulik"
 				}
 				b_aachen = {
@@ -25996,23 +28810,23 @@ e_gaul = {
 				b_romainmotier = {
 				}
 				b_nyon = {
-					roman = "Julia Equestis"
-					romano_gallic = "Julia Equestis"
-					romano_hispanic = "Julia Equestis"
-					romano_gothic = "Julia Equestis"
-					romano_dacian = "Julia Equestis"
-					romano_frank = "Julia Equestis"
-					romano_british = "Julia Equestis"
-					romano_persian = "Julia Equestis"
-					romano_aramean = "Julia Equestis"
-					romano_vandalic = "Julia Equestis"
-					african_romance = "Julia Equestis"
-					thraco_roman = "Julia Equestis"
-					illyro_roman = "Julia Equestis"
-					raetoroman = "Julia Equestis"
-					noricroman = "Julia Equestis"
-					pannonian = "Julia Equestis"
-					dalmatian = "Julia Equestis"
+					roman = "Iulia Equestis"
+					romano_gallic = "Iulia Equestis"
+					romano_hispanic = "Iulia Equestis"
+					romano_gothic = "Iulia Equestis"
+					romano_dacian = "Iulia Equestis"
+					romano_frank = "Iulia Equestis"
+					romano_british = "Iulia Equestis"
+					romano_persian = "Iulia Equestis"
+					romano_aramean = "Iulia Equestis"
+					romano_vandalic = "Iulia Equestis"
+					african_romance = "Iulia Equestis"
+					thraco_roman = "Iulia Equestis"
+					illyro_roman = "Iulia Equestis"
+					raetoroman = "Iulia Equestis"
+					noricroman = "Iulia Equestis"
+					pannonian = "Iulia Equestis"
+					dalmatian = "Iulia Equestis"
 				}
 				b_lausanne = {
 					roman = "Lovsonna"
@@ -26065,7 +28879,17 @@ e_gaul = {
 				
 				roman = "Sapaudia"
 				burgundian = "Sapaudia"
-				romano_gallic = "Sapaudia"
+				romano_british = "Sapaudia"
+				illyro_roman = "Sapaudia"
+			    thraco_roman = "Sapaudia"
+		        romano_gothic = "Sapaudia"
+			    romano_dacian = "Sapaudia"
+		     	romano_hispanic = "Sapaudia"
+		     	romano_vandalic = "Sapaudia"
+			    romano_aramean = "Sapaudia"
+			    romano_persian = "Sapaudia"
+			    romano_frank = "Sapaudia"
+			    romano_gallic = "Sapaudia"
 				
 				b_savosusa = {
 				}
@@ -26073,10 +28897,30 @@ e_gaul = {
 				}
 				b_ciamberi = {
 					roman = "Lemincum"
+					romano_british = "Lemincum"
+					illyro_roman = "Lemincum"
+					thraco_roman = "Lemincum"
+					romano_gothic = "Lemincum"
+					romano_dacian = "Lemincum"
+					romano_hispanic = "Lemincum"
+					romano_vandalic = "Lemincum"
+					romano_aramean = "Lemincum"
+					romano_persian = "Lemincum"
+					romano_frank = "Lemincum"
 					romano_gallic = "Lemincum"
 				}
 				b_aosta = {
 					roman = "Augusta"
+					romano_british = "Augusta"
+					illyro_roman = "Augusta"
+					thraco_roman = "Augusta"
+					romano_gothic = "Augusta"
+					romano_dacian = "Augusta"
+					romano_hispanic = "Augusta"
+					romano_vandalic = "Augusta"
+					romano_aramean = "Augusta"
+					romano_persian = "Augusta"
+					romano_frank = "Augusta"
 					romano_gallic = "Augusta"
 				}
 				b_pombia = {
@@ -26093,13 +28937,33 @@ e_gaul = {
 				color2={ 255 255 255 }
 				
 				roman = "Acaunum"
-				burgundian = "Acaunum"
+				romano_british = "Acaunum"
+				illyro_roman = "Acaunum"
+				thraco_roman = "Acaunum"
+				romano_gothic = "Acaunum"
+				romano_dacian = "Acaunum"
+				romano_hispanic = "Acaunum"
+				romano_vandalic = "Acaunum"
+				romano_aramean = "Acaunum"
+				romano_persian = "Acaunum"
+				romano_frank = "Acaunum"
 				romano_gallic = "Acaunum"
+				burgundian = "Acaunum"
 				
 				b_brig = {
 				}
 				b_monthey = {
 					roman = "Acaunum"
+					romano_british = "Acaunum"
+					illyro_roman = "Acaunum"
+					thraco_roman = "Acaunum"
+					romano_gothic = "Acaunum"
+					romano_dacian = "Acaunum"
+					romano_hispanic = "Acaunum"
+					romano_vandalic = "Acaunum"
+					romano_aramean = "Acaunum"
+					romano_persian = "Acaunum"
+					romano_frank = "Acaunum"
 					romano_gallic = "Acaunum"
 				}
 				b_aigle = {
@@ -26116,6 +28980,12 @@ e_gaul = {
 					pannonian = Martiniacum
 					dalmatian = Martiniacum
 					noricroman = Martiniacum
+					romano_gothic = Martiniacum
+					romano_dacian = Martiniacum
+					romano_vandalic = Martiniacum
+					romano_aramean = Martiniacum
+					romano_persian = Martiniacum
+					romano_frank = Martiniacum
 				}
 				b_siders = {
 				}
@@ -26131,6 +29001,12 @@ e_gaul = {
 					pannonian = Sedunum
 					dalmatian = Sedunum
 					noricroman = Sedunum
+					romano_gothic = Sedunum
+					romano_dacian = Sedunum
+					romano_vandalic = Sedunum
+					romano_aramean = Sedunum
+					romano_persian = Sedunum
+					romano_frank = Sedunum
 				}
 				b_greyerz = {
 				}
@@ -26143,34 +29019,61 @@ e_gaul = {
 				
 				roman = "Brenodunum"
 				romano_gallic = "Brenodunum"
+				romano_hispanic = "Brenodunum"
+				romano_british = "Brenodunum"
+				african_romance = "Brenodunum"
+				raetoroman = "Brenodunum"
+				thraco_roman = "Brenodunum"
+				illyro_roman = "Brenodunum"
+				pannonian = "Brenodunum"
+				dalmatian = "Brenodunum"
+				noricroman = "Brenodunum"
+				romano_gothic = "Brenodunum"
+				romano_dacian = "Brenodunum"
+				romano_vandalic = "Brenodunum"
+				romano_aramean = "Brenodunum"
+				romano_persian = "Brenodunum"
+				romano_frank = "Brenodunum"
 				burgundian = "Brenodunum"
 				alamannian = "Brenodunum"
 				
 				b_bern = {
 					roman = Brenodunum
-					romano_gallic = Brenodunum
-					romano_hispanic = Brenodunum
-					romano_british = Brenodunum
-					african_romance = Brenodunum
-					raetoroman = Brenodunum
-					thraco_roman = Brenodunum
-					illyro_roman = Brenodunum
-					pannonian = Brenodunum
-					dalmatian = Brenodunum
-					noricroman = Brenodunum
+					romano_gallic = "Brenodunum"
+					romano_hispanic = "Brenodunum"
+					romano_british = "Brenodunum"
+					african_romance = "Brenodunum"
+					raetoroman = "Brenodunum"
+					thraco_roman = "Brenodunum"
+					illyro_roman = "Brenodunum"
+					pannonian = "Brenodunum"
+					dalmatian = "Brenodunum"
+					noricroman = "Brenodunum"
+					romano_gothic = "Brenodunum"
+					romano_dacian = "Brenodunum"
+					romano_vandalic = "Brenodunum"
+					romano_aramean = "Brenodunum"
+					romano_persian = "Brenodunum"
+					romano_frank = "Brenodunum"
 				}
 				b_solothurn = {
 					roman = Salodurum
-					romano_gallic = Salodurum
-					romano_hispanic = Salodurum
-					romano_british = Salodurum
-					african_romance = Salodurum
-					raetoroman = Salodurum
-					thraco_roman = Salodurum
-					illyro_roman = Salodurum
-					pannonian = Salodurum
-					dalmatian = Salodurum
-					noricroman = Salodurum
+					romano_gallic = "Salodurum"
+					romano_hispanic = "Salodurum"
+					romano_british = "Salodurum"
+					african_romance = "Salodurum"
+					raetoroman = "Salodurum"
+					thraco_roman = "Salodurum"
+					illyro_roman = "Salodurum"
+					pannonian = "Salodurum"
+					dalmatian = "Salodurum"
+					noricroman = "Salodurum"
+					romano_gothic = "Salodurum"
+					romano_dacian = "Salodurum"
+					romano_vandalic = "Salodurum"
+					romano_aramean = "Salodurum"
+					romano_persian = "Salodurum"
+					romano_frank = "Salodurum"
 				}
 				b_interlaken = {
 				}
@@ -26197,16 +29100,22 @@ e_gaul = {
 				}
 				b_basel = {
 					roman = Basilica
-					romano_gallic = Basilica
-					romano_hispanic = Basilica
-					romano_british = Basilica
-					african_romance = Basilica
-					raetoroman = Basilica
-					thraco_roman = Basilica
-					illyro_roman = Basilica
-					pannonian = Basilica
-					dalmatian = Basilica
-					noricroman = Basilica
+					romano_gallic = "Basilica"
+					romano_hispanic = "Basilica"
+					romano_british = "Basilica"
+					african_romance = "Basilica"
+					raetoroman = "Basilica"
+					thraco_roman = "Basilica"
+					illyro_roman = "Basilica"
+					pannonian = "Basilica"
+					dalmatian = "Basilica"
+					noricroman = "Basilica"
+					romano_gothic = "Basilica"
+					romano_dacian = "Basilica"
+					romano_vandalic = "Basilica"
+					romano_aramean = "Basilica"
+					romano_persian = "Basilica"
+					romano_frank = "Basilica"
 				}
 				b_habsburg = {
 				}
@@ -26357,9 +29266,9 @@ e_spain = {
 				color2={ 255 255 255 }
 
 				cantabrian = Vacceos
-				roman = Salamancus
-				romano_gallic = Salamancus
-				romano_hispanic = Salamancus
+				roman = Helmantica
+				romano_gallic = Helmantica
+				romano_hispanic = Helmantica
 				
 				b_salbejar = {
 				}
@@ -26548,9 +29457,9 @@ e_spain = {
 				andalusian_arabic = "Lishbuna"
 				punic = "Allis Ubbo"
 				cantabrian = "Tagus"
-				roman = "Felicitas Julia"
-				romano_gallic = "Felicitas Julia"
-				romano_hispanic = "Felicitas Julia"
+				roman = "Olisipo"
+				romano_gallic = "Olisipo"
+				romano_hispanic = "Olisipo"
 				visigothic = Ulishbona
 				suebi = Ulishbona
 				
@@ -26913,9 +29822,9 @@ e_spain = {
 				holy_site = vasconic_pagan
 				holy_site = vasconic_pagan_reformed
 				
-				roman = "Augustus Urbs Iulia"
-				romano_gallic = "Augustus Urbs Iulia"
-				romano_hispanic = "Augustus Urbs Iulia"
+				roman = "Gades"
+				romano_gallic = "Gades"
+				romano_hispanic = "Gades"
 				visigothic = Waddjusbaúrgs
 				suebi = Waddjusbaúrgs
 				punic = Agadir
@@ -26942,9 +29851,9 @@ e_spain = {
 				color = { 240 208 33 }
 				color2={ 255 255 255 }
 
-				roman = "Augustus Urbs Iulia"
-				romano_gallic = "Augustus Urbs Iulia"
-				romano_hispanic = "Augustus Urbs Iulia"
+				roman = "Traducta"
+				romano_gallic = "Traducta"
+				romano_hispanic = "Traducta"
 				visigothic = Hweitskip
 				suebi = Hweitskip
 				punic = Gaederia
@@ -27966,18 +30875,18 @@ e_spain = {
 				color = { 196 110 60 }
 				color2={ 255 255 255 }
 
-				roman = "Julia Libyca"
-				romano_gallic = "Julia Libyca"
-				romano_hispanic = "Julia Libyca"
-				romano_british = "Julia Libyca"
-			    illyro_roman = "Julia Libyca"
-			    thraco_roman = "Julia Libyca"
-		        romano_gothic = "Julia Libyca"
-		        romano_dacian = "Julia Libyca"
-			    romano_vandalic = "Julia Libyca"
-		        romano_aramean = "Julia Libyca"
-		        romano_persian = "Julia Libyca"
-			    romano_frank = "Julia Libyca"
+				roman = "Iulia Libyca"
+				romano_gallic = "Iulia Libyca"
+				romano_hispanic = "Iulia Libyca"
+				romano_british = "Iulia Libyca"
+			    illyro_roman = "Iulia Libyca"
+			    thraco_roman = "Iulia Libyca"
+		        romano_gothic = "Iulia Libyca"
+		        romano_dacian = "Iulia Libyca"
+			    romano_vandalic = "Iulia Libyca"
+		        romano_aramean = "Iulia Libyca"
+		        romano_persian = "Iulia Libyca"
+			    romano_frank = "Iulia Libyca"
 				visigothic = Puigcerdica
 				suebi = Puigcerdica
 				cantabrian = Cerretani
@@ -28600,6 +31509,7 @@ e_abyssinia = {
 				color2={ 255 255 255 }
 				
 				holy_site = east_african_pagan
+				holy_site = east_african_pagan_reformed
 			
 				b_berbera = {
 				}
@@ -28658,6 +31568,7 @@ e_abyssinia = {
 				holy_site = miaphysite
 				holy_site = monophysite
 				holy_site = east_african_pagan
+				holy_site = east_african_pagan_reformed
 			
 				b_adwa = {
 				}
@@ -29018,6 +31929,7 @@ e_abyssinia = {
 				color2={ 255 255 255 }
 				
 				holy_site = east_african_pagan
+				holy_site = east_african_pagan_reformed
 			
 				b_gojjam = {
 				}
@@ -29311,7 +32223,8 @@ e_abyssinia = {
 				tuareg = "Patigga"
 				beja = "Patigga"
 				ethiopian = "Patigga"
-                holy_site = east_african_pagan				
+                holy_site = east_african_pagan	
+                holy_site = east_african_pagan_reformed					
 			
 				b_dongola = {
 				}
@@ -29443,6 +32356,7 @@ e_abyssinia = {
 				color2={ 255 255 255 }
 				
 				holy_site = east_african_pagan
+				holy_site = east_african_pagan_reformed
 			
 				b_kosti = {
 				}
@@ -31841,6 +34755,38 @@ e_britannia = {
 					briton = "Calafortnua"
 					roman = "Novum Portum"
 				}
+				b_wight2 = {
+					old_saxon = Wihtgarabyrig
+					anglo = Wihtgarabyrig
+					jute = Wihtwarasburgh
+					briton = "Ynys Weith"
+					roman = "Inis Vectis"
+					romano_british = "Inis Vectis"
+				}
+				b_wight3 = {
+					old_saxon = Wihtgarabyrig
+					anglo = Wihtgarabyrig
+					jute = Wihtwarasburgh
+					briton = "Ynys Weith"
+					roman = "Inis Vectis"
+					romano_british = "Inis Vectis"
+				}
+				b_wight4 = {
+					old_saxon = Wihtgarabyrig
+					anglo = Wihtgarabyrig
+					jute = Wihtwarasburgh
+					briton = "Ynys Weith"
+					roman = "Inis Vectis"
+					romano_british = "Inis Vectis"
+				}
+				b_wight5 = {
+					old_saxon = Wihtgarabyrig
+					anglo = Wihtgarabyrig
+					jute = Wihtwarasburgh
+					briton = "Ynys Weith"
+					roman = "Inis Vectis"
+					romano_british = "Inis Vectis"
+				}
 			}
 			c_dorset = {
 				color={ 241 25 70 }
@@ -31896,6 +34842,7 @@ e_britannia = {
 				romano_british = "Aquae Sulis"
 				welsh = "Gwlad yr Haf"
 				armorican = "Gwlas an Hav"
+				gallic = "Gwlas an Hav"
 				
 				holy_site = west_pagan
 				
@@ -33374,7 +36321,6 @@ e_africa = {
 					libyan = "Nanelhet"
 					garamantian = "Nanelhet"
 				}
-					
 				b_merzouga = {
 				}
 				b_tanamouste= {
@@ -33389,8 +36335,7 @@ e_africa = {
 				}
 				b_tisserdmine = {
 				}
-				}
-				
+			}
 			c_canarias = {
 				color={ 60 190 43 }
 				color2={ 255 255 255 }
@@ -33489,10 +36434,88 @@ e_africa = {
 					
 		
 				b_imedrasa = {
+					roman = "Abinna"
+					greek = "Abinna"
+					tashellhit = "Abafran"
+					african_romance = "Abinna"
+					vandalic = "Abinna"
+					tamazight = "Abafran"
+					mzab_wargla = "Abafran"
+					riffian = "Abafran"
+					shenwa = "Abafran"
+					taqbaylit = "Abafran"
+					tacawit = "Abafran"
+					nafusi = "Abafran"
+					libyan = "Abafran"
+					garamantian = "Abafran"
 				}
 				b_azru = {
 				}
 				b_arrbish = {
+				}
+				b_imedrasa2 = {
+					roman = "Abinna"
+					greek = "Abinna"
+					tashellhit = "Abafran"
+					african_romance = "Abinna"
+					vandalic = "Abinna"
+					tamazight = "Abafran"
+					mzab_wargla = "Abafran"
+					riffian = "Abafran"
+					shenwa = "Abafran"
+					taqbaylit = "Abafran"
+					tacawit = "Abafran"
+					nafusi = "Abafran"
+					libyan = "Abafran"
+					garamantian = "Abafran"
+				}
+				b_imedrasa3 = {
+					roman = "Abinna"
+					greek = "Abinna"
+					tashellhit = "Abafran"
+					african_romance = "Abinna"
+					vandalic = "Abinna"
+					tamazight = "Abafran"
+					mzab_wargla = "Abafran"
+					riffian = "Abafran"
+					shenwa = "Abafran"
+					taqbaylit = "Abafran"
+					tacawit = "Abafran"
+					nafusi = "Abafran"
+					libyan = "Abafran"
+					garamantian = "Abafran"
+				}
+				b_imedrasa4 = {
+					roman = "Abinna"
+					greek = "Abinna"
+					tashellhit = "Abafran"
+					african_romance = "Abinna"
+					vandalic = "Abinna"
+					tamazight = "Abafran"
+					mzab_wargla = "Abafran"
+					riffian = "Abafran"
+					shenwa = "Abafran"
+					taqbaylit = "Abafran"
+					tacawit = "Abafran"
+					nafusi = "Abafran"
+					libyan = "Abafran"
+					garamantian = "Abafran"
+				}
+				b_imedrasa5 = {
+					roman = "Abinna"
+					greek = "Abinna"
+					tashellhit = "Abafran"
+					african_romance = "Abinna"
+					vandalic = "Abinna"
+					tamazight = "Abafran"
+					mzab_wargla = "Abafran"
+					riffian = "Abafran"
+					shenwa = "Abafran"
+					taqbaylit = "Abafran"
+					tacawit = "Abafran"
+					nafusi = "Abafran"
+					libyan = "Abafran"
+					garamantian = "Abafran"
 				}
 			}
 			c_rewda = {
@@ -33505,6 +36528,14 @@ e_africa = {
 				}
 				b_ahegga = {
 				}
+				b_rewda2 = {
+				}
+				b_rewda3 = {
+				}
+				b_rewda4 = {
+				}
+				b_rewda5 = {
+				}
 			}
 			c_krusi = {
 				color={ 48 255 6 }
@@ -33515,6 +36546,14 @@ e_africa = {
 				b_sen = {
 				}
 				b_nnuri = {
+				}
+				b_krusi2 = {
+				}
+				b_krusi3 = {
+				}
+				b_krusi4 = {
+				}
+				b_krusi5 = {
 				}
 			}
 			c_menshke = {
@@ -33537,10 +36576,88 @@ e_africa = {
 				garamantian = "Kantan"
 			
 				b_menshke = {
+					roman = "Centa"
+					greek = "Centa"
+					tashellhit = "Kantan"
+					african_romance = "Centa"
+					vandalic = "Centa"
+					tamazight = "Kantan"
+					mzab_wargla = "Kantan"
+					riffian = "Kantan"
+					shenwa = "Kantan"
+					taqbaylit = "Kantan"
+					tacawit = "Kantan"
+					nafusi = "Kantan"
+					libyan = "Kantan"
+					garamantian = "Kantan"
 				}
 				b_aziyza = {
 				}
 				b_azeggway = {
+				}
+				b_menshke2 = {
+					roman = "Centa"
+					greek = "Centa"
+					tashellhit = "Kantan"
+					african_romance = "Centa"
+					vandalic = "Centa"
+					tamazight = "Kantan"
+					mzab_wargla = "Kantan"
+					riffian = "Kantan"
+					shenwa = "Kantan"
+					taqbaylit = "Kantan"
+					tacawit = "Kantan"
+					nafusi = "Kantan"
+					libyan = "Kantan"
+					garamantian = "Kantan"
+				}
+				b_menshke3 = {
+					roman = "Centa"
+					greek = "Centa"
+					tashellhit = "Kantan"
+					african_romance = "Centa"
+					vandalic = "Centa"
+					tamazight = "Kantan"
+					mzab_wargla = "Kantan"
+					riffian = "Kantan"
+					shenwa = "Kantan"
+					taqbaylit = "Kantan"
+					tacawit = "Kantan"
+					nafusi = "Kantan"
+					libyan = "Kantan"
+					garamantian = "Kantan"
+				}
+				b_menshke4 = {
+					roman = "Centa"
+					greek = "Centa"
+					tashellhit = "Kantan"
+					african_romance = "Centa"
+					vandalic = "Centa"
+					tamazight = "Kantan"
+					mzab_wargla = "Kantan"
+					riffian = "Kantan"
+					shenwa = "Kantan"
+					taqbaylit = "Kantan"
+					tacawit = "Kantan"
+					nafusi = "Kantan"
+					libyan = "Kantan"
+					garamantian = "Kantan"
+				}
+				b_menshke5 = {
+					roman = "Centa"
+					greek = "Centa"
+					tashellhit = "Kantan"
+					african_romance = "Centa"
+					vandalic = "Centa"
+					tamazight = "Kantan"
+					mzab_wargla = "Kantan"
+					riffian = "Kantan"
+					shenwa = "Kantan"
+					taqbaylit = "Kantan"
+					tacawit = "Kantan"
+					nafusi = "Kantan"
+					libyan = "Kantan"
+					garamantian = "Kantan"
 				}
 			}
 			c_arebi = {
@@ -33582,6 +36699,70 @@ e_africa = {
 				}
 				b_hd_eq = {
 				}
+				b_arebi2 = {
+					roman = "Civitas Baquatiensis"
+					greek = "Civitas Baquatiensis"
+					tashellhit = "Tizin"
+					african_romance = "Baquatiensis"
+					vandalic = "Baquatiensis"
+					tamazight = "Tizin"
+					mzab_wargla = "Tizin"
+					riffian = "Tizin"
+					shenwa = "Tizin"
+					taqbaylit = "Tizin"
+					tacawit = "Tizin"
+					nafusi = "Tizin"
+					libyan = "Tizin"
+					garamantian = "Tizin"
+				}
+				b_arebi3 = {
+					roman = "Civitas Baquatiensis"
+					greek = "Civitas Baquatiensis"
+					tashellhit = "Tizin"
+					african_romance = "Baquatiensis"
+					vandalic = "Baquatiensis"
+					tamazight = "Tizin"
+					mzab_wargla = "Tizin"
+					riffian = "Tizin"
+					shenwa = "Tizin"
+					taqbaylit = "Tizin"
+					tacawit = "Tizin"
+					nafusi = "Tizin"
+					libyan = "Tizin"
+					garamantian = "Tizin"
+				}
+				b_arebi4 = {
+					roman = "Civitas Baquatiensis"
+					greek = "Civitas Baquatiensis"
+					tashellhit = "Tizin"
+					african_romance = "Baquatiensis"
+					vandalic = "Baquatiensis"
+					tamazight = "Tizin"
+					mzab_wargla = "Tizin"
+					riffian = "Tizin"
+					shenwa = "Tizin"
+					taqbaylit = "Tizin"
+					tacawit = "Tizin"
+					nafusi = "Tizin"
+					libyan = "Tizin"
+					garamantian = "Tizin"
+				}
+				b_arebi5 = {
+					roman = "Civitas Baquatiensis"
+					greek = "Civitas Baquatiensis"
+					tashellhit = "Tizin"
+					african_romance = "Baquatiensis"
+					vandalic = "Baquatiensis"
+					tamazight = "Tizin"
+					mzab_wargla = "Tizin"
+					riffian = "Tizin"
+					shenwa = "Tizin"
+					taqbaylit = "Tizin"
+					tacawit = "Tizin"
+					nafusi = "Tizin"
+					libyan = "Tizin"
+					garamantian = "Tizin"
+				}
 			}
 		}
 		
@@ -33600,6 +36781,14 @@ e_africa = {
 				b_yada = {
 				}
 				b_xza = {
+				}
+				b_lazanub2 = {
+				}
+				b_lazanub3 = {
+				}
+				b_lazanub4 = {
+				}
+				b_lazanub5 = {
 				}
 			}
 			c_amezzyan = {
@@ -33641,6 +36830,70 @@ e_africa = {
 				}
 				b_adlis = {
 				}
+				b_amezzyan2 = {
+					roman = "Castellum Quinque"
+					greek = "Castellum Quinque"
+					tashellhit = "Amaziganwa"
+					african_romance = "Castellum Quinque"
+					vandalic = "Castellum Quinque"
+					tamazight = "Amaziganwa"
+					mzab_wargla = "Amaziganwa"
+					riffian = "Amaziganwa"
+					shenwa = "Amaziganwa"
+					taqbaylit = "Amaziganwa"
+					tacawit = "Amaziganwa"
+					nafusi = "Amaziganwa"
+					libyan = "Amaziganwa"
+					garamantian = "Amaziganwa"
+				}
+				b_amezzyan3 = {
+					roman = "Castellum Quinque"
+					greek = "Castellum Quinque"
+					tashellhit = "Amaziganwa"
+					african_romance = "Castellum Quinque"
+					vandalic = "Castellum Quinque"
+					tamazight = "Amaziganwa"
+					mzab_wargla = "Amaziganwa"
+					riffian = "Amaziganwa"
+					shenwa = "Amaziganwa"
+					taqbaylit = "Amaziganwa"
+					tacawit = "Amaziganwa"
+					nafusi = "Amaziganwa"
+					libyan = "Amaziganwa"
+					garamantian = "Amaziganwa"
+				}
+				b_amezzyan4 = {
+					roman = "Castellum Quinque"
+					greek = "Castellum Quinque"
+					tashellhit = "Amaziganwa"
+					african_romance = "Castellum Quinque"
+					vandalic = "Castellum Quinque"
+					tamazight = "Amaziganwa"
+					mzab_wargla = "Amaziganwa"
+					riffian = "Amaziganwa"
+					shenwa = "Amaziganwa"
+					taqbaylit = "Amaziganwa"
+					tacawit = "Amaziganwa"
+					nafusi = "Amaziganwa"
+					libyan = "Amaziganwa"
+					garamantian = "Amaziganwa"
+				}
+				b_amezzyan5 = {
+					roman = "Castellum Quinque"
+					greek = "Castellum Quinque"
+					tashellhit = "Amaziganwa"
+					african_romance = "Castellum Quinque"
+					vandalic = "Castellum Quinque"
+					tamazight = "Amaziganwa"
+					mzab_wargla = "Amaziganwa"
+					riffian = "Amaziganwa"
+					shenwa = "Amaziganwa"
+					taqbaylit = "Amaziganwa"
+					tacawit = "Amaziganwa"
+					nafusi = "Amaziganwa"
+					libyan = "Amaziganwa"
+					garamantian = "Amaziganwa"
+				}
 			}
 			c_lansa = {
 				color={ 48 255 6 }
@@ -33651,6 +36904,14 @@ e_africa = {
 				b_iref = {
 				}
 				b_ddubb = {
+				}
+				b_lansa2 = {
+				}
+				b_lansa3 = {
+				}
+				b_lansa4 = {
+				}
+				b_lansa5 = {
 				}
 			}
 			c_ayezdis = {
@@ -33663,6 +36924,14 @@ e_africa = {
 				}
 				b_tamati= {
 				}
+				b_ayezdis2 = {
+				}
+				b_ayezdis3 = {
+				}
+				b_ayezdis4 = {
+				}
+				b_ayezdis5 = {
+				}
 			}
 			c_ssekwila = {
 				color={ 28 255 6 }
@@ -33673,6 +36942,14 @@ e_africa = {
 				b_afusi = {
 				}
 				b_yeffus = {
+				}
+				b_ssekwila2 = {
+				}
+				b_ssekwila3 = {
+				}
+				b_ssekwila4 = {
+				}
+				b_ssekwila5 = {
 				}
 			}
 			c_wata = {
@@ -33714,6 +36991,70 @@ e_africa = {
 				}
 				b_bbez = {
 				}
+				b_wata2 = {
+					roman = "Castellum Dimmidi"
+					greek = "Castellum Dimmidi"
+					vandalic = "Castellum Dimmidi"
+					african_romance = "Castellum Dimmidi"
+					tamazight = "Dimmidin"
+					mzab_wargla = "Dimmidin"
+					tashellhit = "Dimmidin"
+					riffian = "Dimmidin"
+					shenwa = "Dimmidin"
+					taqbaylit = "Dimmidin"
+					tacawit = "Dimmidin"
+					nafusi = "Dimmidin"
+					libyan = "Dimmidin"
+					garamantian = "Dimmidin"
+				}
+				b_wata3 = {
+					roman = "Castellum Dimmidi"
+					greek = "Castellum Dimmidi"
+					vandalic = "Castellum Dimmidi"
+					african_romance = "Castellum Dimmidi"
+					tamazight = "Dimmidin"
+					mzab_wargla = "Dimmidin"
+					tashellhit = "Dimmidin"
+					riffian = "Dimmidin"
+					shenwa = "Dimmidin"
+					taqbaylit = "Dimmidin"
+					tacawit = "Dimmidin"
+					nafusi = "Dimmidin"
+					libyan = "Dimmidin"
+					garamantian = "Dimmidin"
+				}
+				b_wata4 = {
+					roman = "Castellum Dimmidi"
+					greek = "Castellum Dimmidi"
+					vandalic = "Castellum Dimmidi"
+					african_romance = "Castellum Dimmidi"
+					tamazight = "Dimmidin"
+					mzab_wargla = "Dimmidin"
+					tashellhit = "Dimmidin"
+					riffian = "Dimmidin"
+					shenwa = "Dimmidin"
+					taqbaylit = "Dimmidin"
+					tacawit = "Dimmidin"
+					nafusi = "Dimmidin"
+					libyan = "Dimmidin"
+					garamantian = "Dimmidin"
+				}
+				b_wata5 = {
+					roman = "Castellum Dimmidi"
+					greek = "Castellum Dimmidi"
+					vandalic = "Castellum Dimmidi"
+					african_romance = "Castellum Dimmidi"
+					tamazight = "Dimmidin"
+					mzab_wargla = "Dimmidin"
+					tashellhit = "Dimmidin"
+					riffian = "Dimmidin"
+					shenwa = "Dimmidin"
+					taqbaylit = "Dimmidin"
+					tacawit = "Dimmidin"
+					nafusi = "Dimmidin"
+					libyan = "Dimmidin"
+					garamantian = "Dimmidin"
+				}
 			}
 		}
 		
@@ -33733,6 +37074,14 @@ e_africa = {
 				}
 				b_tallattakhe = {
 				}
+				b_tighemi2 = {
+				}
+				b_tighemi3 = {
+				}
+				b_tighemi4 = {
+				}
+				b_tighemi5 = {
+				}
 			}
 			c_souk = {
 				color={ 48 255 6 }
@@ -33744,6 +37093,14 @@ e_africa = {
 				}
 				b_ttamenya = {
 				}
+				b_souk2 = {
+				}
+				b_souk3 = {
+				}
+				b_souk4 = {
+				}
+				b_souk5 = {
+				}
 			}	
 			c_rmihe = {
 				color={ 48 255 6 }
@@ -33754,6 +37111,14 @@ e_africa = {
 				b_arriqeyyua = {
 				}
 				b_rifkkes = {
+				}
+				b_rmihe2 = {
+				}
+				b_rmihe3 = {
+				}
+				b_rmihe4 = {
+				}
+				b_rmihe5 = {
 				}
 			}
 		}
@@ -33774,6 +37139,14 @@ e_africa = {
 				}
 				b_tsaa = {
 				}
+				b_wahed2 = {
+				}
+				b_wahed3 = {
+				}
+				b_wahed4 = {
+				}
+				b_wahed5 = {
+				}
 			}
 			c_zenaim = {
 				color={ 25 138 5 }
@@ -33784,6 +37157,14 @@ e_africa = {
 				b_eecra = {
 				}
 				b_merau = {
+				}
+				b_zenaim2 = {
+				}
+				b_zenaim3 = {
+				}
+				b_zenaim4 = {
+				}
+				b_zenaim5 = {
 				}
 			}
 			c_aqeyyua = {
@@ -33799,6 +37180,14 @@ e_africa = {
 				}
 				b_ssdis = {
 				}
+				b_aqeyyua2 = {
+				}
+				b_aqeyyua3 = {
+				}
+				b_aqeyyua4 = {
+				}
+				b_aqeyyua5 = {
+				}
 			}
 			c_tesaa = {
 				color={ 125 38 105 }
@@ -33809,6 +37198,14 @@ e_africa = {
 				b_hidcras = {
 				}
 				b_tencras = {
+				}
+				b_tesaa2 = {
+				}
+				b_tesaa3 = {
+				}
+				b_tesaa4 = {
+				}
+				b_tesaa5 = {
 				}
 			}
 			c_tam = {
@@ -33831,10 +37228,88 @@ e_africa = {
 				garamantian = "Fraksintehe"
 			
 				b_tam = {
+					roman = "Fraxiniensis"
+					greek = "Fraxiniensis"
+					vandalic = "Fraxiniensis"
+					african_romance = "Fraxiniensis"
+					tamazight = "Fraksintehe"
+					mzab_wargla = "Fraksintehe"
+					tashellhit = "Fraksintehe"
+					riffian = "Fraksintehe"
+					shenwa = "Fraksintehe"
+					taqbaylit = "Fraksintehe"
+					tacawit = "Fraksintehe"
+					nafusi = "Fraksintehe"
+					libyan = "Fraksintehe"
+					garamantian = "Fraksintehe"
 				}
 				b_zeraza = {
 				}
 				b_rba = {
+				}
+				b_tam2 = {
+					roman = "Fraxiniensis"
+					greek = "Fraxiniensis"
+					vandalic = "Fraxiniensis"
+					african_romance = "Fraxiniensis"
+					tamazight = "Fraksintehe"
+					mzab_wargla = "Fraksintehe"
+					tashellhit = "Fraksintehe"
+					riffian = "Fraksintehe"
+					shenwa = "Fraksintehe"
+					taqbaylit = "Fraksintehe"
+					tacawit = "Fraksintehe"
+					nafusi = "Fraksintehe"
+					libyan = "Fraksintehe"
+					garamantian = "Fraksintehe"
+				}
+				b_tam3 = {
+					roman = "Fraxiniensis"
+					greek = "Fraxiniensis"
+					vandalic = "Fraxiniensis"
+					african_romance = "Fraxiniensis"
+					tamazight = "Fraksintehe"
+					mzab_wargla = "Fraksintehe"
+					tashellhit = "Fraksintehe"
+					riffian = "Fraksintehe"
+					shenwa = "Fraksintehe"
+					taqbaylit = "Fraksintehe"
+					tacawit = "Fraksintehe"
+					nafusi = "Fraksintehe"
+					libyan = "Fraksintehe"
+					garamantian = "Fraksintehe"
+				}
+				b_tam4 = {
+					roman = "Fraxiniensis"
+					greek = "Fraxiniensis"
+					vandalic = "Fraxiniensis"
+					african_romance = "Fraxiniensis"
+					tamazight = "Fraksintehe"
+					mzab_wargla = "Fraksintehe"
+					tashellhit = "Fraksintehe"
+					riffian = "Fraksintehe"
+					shenwa = "Fraksintehe"
+					taqbaylit = "Fraksintehe"
+					tacawit = "Fraksintehe"
+					nafusi = "Fraksintehe"
+					libyan = "Fraksintehe"
+					garamantian = "Fraksintehe"
+				}
+				b_tam5 = {
+					roman = "Fraxiniensis"
+					greek = "Fraxiniensis"
+					vandalic = "Fraxiniensis"
+					african_romance = "Fraxiniensis"
+					tamazight = "Fraksintehe"
+					mzab_wargla = "Fraksintehe"
+					tashellhit = "Fraksintehe"
+					riffian = "Fraksintehe"
+					shenwa = "Fraksintehe"
+					taqbaylit = "Fraksintehe"
+					tacawit = "Fraksintehe"
+					nafusi = "Fraksintehe"
+					libyan = "Fraksintehe"
+					garamantian = "Fraksintehe"
 				}
 			}
 		}
@@ -33899,6 +37374,14 @@ e_africa = {
 				}
 				b_rexfif = {
 				}
+				b_ssencred2 = {
+				}
+				b_ssencred3 = {
+				}
+				b_ssencred4 = {
+				}
+				b_ssencred5 = {
+				}
 			}
 			c_aqwia = {
 				color={ 125 138 5 }
@@ -33910,6 +37393,14 @@ e_africa = {
 				}
 				b_ssud = {
 				}
+				b_aqwia2 = {
+				}
+				b_aqwia3 = {
+				}
+				b_aqwia4 = {
+				}
+				b_aqwia5 = {
+				}
 			}
 			c_taqseft = {
 				color={ 125 138 5 }
@@ -33920,6 +37411,14 @@ e_africa = {
 				b_tarharraft = {
 				}
 				b_ssqa = {
+				}
+				b_taqseft2 = {
+				}
+				b_taqseft3 = {
+				}
+				b_taqseft4 = {
+				}
+				b_taqseft5 = {
 				}
 			}
 			c_csi_swarty = {
@@ -33936,6 +37435,10 @@ e_africa = {
 				}
 				b_aynaw = {
 				}
+				b_csi_swarty = {
+				}
+				b_csi_swarty2 = {
+				}
 			}
 			c_refrus = {
 				color={ 125 138 5 }
@@ -33946,6 +37449,14 @@ e_africa = {
 				b_arr = {
 				}
 				b_ssmun = {
+				}
+				b_refrus2 = {
+				}
+				b_refrus3 = {
+				}
+				b_refrus4 = {
+				}
+				b_refrus5 = {
 				}
 			}
 			c_ttmentay = {
@@ -33960,6 +37471,12 @@ e_africa = {
 				}
 				b_tiatt = {
 				}
+				b_ttmentay2 = {
+				}
+				b_ttmentay3 = {
+				}
+				b_ttmentay4 = {
+				}
 			}
 			c_rhid = {
 				color={ 125 138 5 }
@@ -33970,6 +37487,14 @@ e_africa = {
 				b_yder = {
 				}
 				b_iyess = {
+				}
+				b_rhid2 = {
+				}
+				b_rhid3 = {
+				}
+				b_rhid4 = {
+				}
+				b_rhid5 = {
 				}
 			}
 			c_issha = {
@@ -33982,6 +37507,14 @@ e_africa = {
 				}
 				b_rxudat = {
 				}
+				b_issha2 = {
+				}
+				b_issha3 = {
+				}
+				b_issha4 = {
+				}
+				b_issha5 = {
+				}
 			}
 			c_tivremt = {
 				color={ 125 138 5 }
@@ -33992,6 +37525,14 @@ e_africa = {
 				b_uay = {
 				}
 				b_asemmad = {
+				}
+				b_tivremt2 = {
+				}
+				b_tivremt3 = {
+				}
+				b_tivremt4 = {
+				}
+				b_tivremt5 = {
 				}
 			}
 			c_ilcimara = {
@@ -34004,9 +37545,16 @@ e_africa = {
 				}
 				b_tifirasse = {
 				}
+				b_ilcimara2 = {
+				}
+				b_ilcimara3 = {
+				}
+				b_ilcimara4 = {
+				}
+				b_ilcimara5 = {
+				}
 			}
 		}
-		
 		d_tammuat = {
 			color={ 100 50 25 }
 			color2={ 255 255 255 }
@@ -34022,6 +37570,14 @@ e_africa = {
 				b_ruhi = {
 				}
 				b_hasat = {
+				}
+				b_arrimata2 = {
+				}
+				b_arrimata3 = {
+				}
+				b_arrimata4 = {
+				}
+				b_arrimata5 = {
 				}
 			}
 			c_tamuat = {
@@ -34053,6 +37609,14 @@ e_africa = {
 				}
 				b_tirmest = {
 				}
+				b_aziyra2 = {
+				}
+				b_aziyra3 = {
+				}
+				b_aziyra4 = {
+				}
+				b_aziyra5 = {
+				}
 			}
 			c_ymi = {
 				color={ 48 255 6 }
@@ -34063,6 +37627,14 @@ e_africa = {
 				b_asrix = {
 				}
 				b_wwet = {
+				}
+				b_ymi2 = {
+				}
+				b_ymi3 = {
+				}
+				b_ymi4 = {
+				}
+				b_ymi5 = {
 				}
 			}
 			c_taxseft = {
@@ -34075,9 +37647,16 @@ e_africa = {
 				}
 				b_dhes = {
 				}
+				b_taxseft2 = {
+				}
+				b_taxseft3 = {
+				}
+				b_taxseft4 = {
+				}
+				b_taxseft5 = {
+				}
 			} 
 		}
-
 		d_balun = {
 			color={ 150 75 10 }
 			color2={ 255 255 255 }
@@ -34094,6 +37673,14 @@ e_africa = {
 				}
 				b_hastruhi = {
 				}
+				b_bslama2 = {
+				}
+				b_bslama3 = {
+				}
+				b_bslama4 = {
+				}
+				b_bslama5 = {
+				}
 			}
 			c_sewwa = {
 				color={ 48 255 6 }
@@ -34105,6 +37692,14 @@ e_africa = {
 				}
 				b_ssiwer = {
 				}
+				b_sewwa2 = {
+				}
+				b_sewwa3 = {
+				}
+				b_sewwa4 = {
+				}
+				b_sewwa5 = {
+				}
 			}
 			c_alaykoom = {
 				color={ 48 255 6 }
@@ -34115,6 +37710,14 @@ e_africa = {
 				b_sbehcaya = {
 				}
 				b_ssifa = {
+				}
+				b_alaykoom2 = {
+				}
+				b_alaykoom3 = {
+				}
+				b_alaykoom4 = {
+				}
+				b_alaykoom5 = {
 				}
 			}
 		}
@@ -34156,8 +37759,15 @@ e_africa = {
 				}
 				b_amaz'ad = {
 				}
+				b_gewwed2 = {
+				}
+				b_gewwed3 = {
+				}
+				b_gewwed4 = {
+				}
+				b_gewwed5 = {
+				}
 			}
-			
 			c_temeddit = {
 				color={ 125 138 5 }
 				color2={ 255 255 255 }
@@ -34167,6 +37777,14 @@ e_africa = {
 				b_qqas = {
 				}
 				b_amet_t_a = {
+				}
+				b_temeddit2 = {
+				}
+				b_temeddit3 = {
+				}
+				b_temeddit4 = {
+				}
+				b_temeddit5 = {
 				}
 			}
 			c_azeggif = {
@@ -34181,6 +37799,12 @@ e_africa = {
 				}
 				b_ggifi = {
 				}
+				b_azeggif2 = {
+				}
+				b_azeggif3 = {
+				}
+				b_azeggif4 = {
+				}
 			}
 			c_aqey = {
 				color={ 48 255 6 }
@@ -34191,6 +37815,14 @@ e_africa = {
 				b_darr = {
 				}
 				b_abeccus = {
+				}
+				b_aqey2 = {
+				}
+				b_aqey3 = {
+				}
+				b_aqey4 = {
+				}
+				b_aqey5 = {
 				}
 			}
 			c_sidi = {
@@ -34203,6 +37835,14 @@ e_africa = {
 				}
 				b_aggey = {
 				}
+				b_sidi2 = {
+				}
+				b_sidi3 = {
+				}
+				b_sidi4 = {
+				}
+				b_sidi5 = {
+				}
 			}
 			c_mya = {
 				color={ 48 255 6 }
@@ -34214,9 +37854,16 @@ e_africa = {
 				}
 				b_asewwaf = {
 				}
+				b_mya2 = {
+				}
+				b_mya3 = {
+				}
+				b_mya4 = {
+				}
+				b_mya5 = {
+				}
 			}
 		}
-		
 		d_garama = {
 			color={ 162 133 85 }
 			color2={ 255 255 255 }
@@ -34252,6 +37899,14 @@ e_africa = {
 				}
 				b_bda_bda = {
 				}
+				b_rqa2 = {
+				}
+				b_rqa3 = {
+				}
+				b_rqa4 = {
+				}
+				b_rqa5 = {
+				}
 			}
 			c_talla = {
 				color={ 48 255 6 }
@@ -34262,6 +37917,14 @@ e_africa = {
 				b_adukkes = {
 				}
 				b_ndiruh = {
+				}
+				b_talla2 = {
+				}
+				b_talla3 = {
+				}
+				b_talla4 = {
+				}
+				b_talla5 = {
 				}
 			}
 			c_dhante = {
@@ -34274,6 +37937,14 @@ e_africa = {
 				}
 				b_ruhfser = {
 				}
+				b_dhante2 = {
+				}
+				b_dhante3 = {
+				}
+				b_dhante4 = {
+				}
+				b_dhante5 = {
+				}
 			}
 			c_nhasbisse = {
 				color={ 48 255 6 }
@@ -34284,6 +37955,14 @@ e_africa = {
 				b_nkammale = {
 				}
 				b_blayane = {
+				}
+				b_nhasbisse2 = {
+				}
+				b_nhasbisse3 = {
+				}
+				b_nhasbisse4 = {
+				}
+				b_nhasbisse5 = {
 				}
 			}
 			c_aggweh = {
@@ -34933,7 +38612,6 @@ e_africa = {
 				}
 			}		
 		}		
-		
 		d_berdoa = {
 			color={ 70 140 115 }
 			color2={ 255 255 255 }
@@ -36075,6 +39753,7 @@ e_italy = {
 				color2={ 255 255 255 }
 
 				armorican = Cenomani
+				gallic = Cenomani
 				
 				b_cremona = {
 				}
@@ -36473,6 +40152,7 @@ e_italy = {
 				color2 = { 255 255 255 }
 				
 				holy_site = illyran_pagan
+				holy_site = illyran_pagan_reformed
 				
 				b_venezia = {
 				}
@@ -36975,6 +40655,7 @@ e_italy = {
 				romano_gothic = Senia
 				
 				holy_site = illyran_pagan
+				holy_site = illyran_pagan_reformed
 	
 				b_senj = {
 					greek = "Attienities"
@@ -38633,8 +42314,8 @@ e_italy = {
 				color2={ 255 255 255 }
 				
 				holy_site = illyran_pagan
+				holy_site = illyran_pagan_reformed
 
-				
 				b_melfi = {
 				}
 				b_trani = {
@@ -39045,7 +42726,7 @@ e_italy = {
 		color2={ 255 255 255 }
 		#capital = 235 # Lombardia
 		
-		capital = 248 # Rome
+		capital = 248 # St. Gallen
 		
 		culture = roman
 		
@@ -40009,7 +43690,6 @@ e_north_africa = {
 				libyan = "Metagutan"
 				garamantian = "Metagutan"
 				
-			
 				b_figuig = {
 					roman = "Herpis"
 					greek = "Herpis"
@@ -46905,12 +50585,12 @@ d_fraticelli = {
 	
 	# Regnal names
 	male_names = {
-		John Gregory Benedict Clement Innocent Leo Pius Stephen Boniface Urban Alexander Adrian Paul
-		Celestine Martin Nicholas Sixtus Felix Sergius Anastasius Honorius Eugene Sylvester Victor
-		Lucius Callixtus Julius Pelagius Adeodatus Theodore Marinus Agapetus Damasus Paschal
-		Gelasius Marcellus "John Paul" Anacletus Evaristus Telesphorus Hyginus Anicetus Mark Hilarius 
-		Simplicius Symmachus Hormisdas Silverius Vigilius Sabinian Severinus Vitalian Donus Agatho
-		Conon Sisinnius Constantine Zachary Valentine Formosus Romanus Lando
+		Ioannes Gregorius Benedictus Clemens Innocentius Leo Pius Stephanus Bonifacius Urbanus Alexander Hadrianus Paulus
+		Caelestinus Martinus Nicolaus Sixtus Felix Sergius Anastasius Honorius Eugenius Silvester Victor
+		Lucius Callixtus Iulius Pelagius Adeodatus Theodorus Marinus Agapetus Damasus Paschalis
+		Gelasius Marcellus "Ioannes Paulus" Anacletus Evaristus Telesphorus Hyginus Anicetus Marcus Hilarius 
+		Simplicius Symmachus Hormisdas Silverius Vigilius Sabinianus Severinus Vitalianus Donus Agatho
+		Conon Sisinnius Constantinus Zacharias Valentinus Formosus Romanus Lando
 	}
 }
 
@@ -47350,17 +51030,108 @@ d_ibadi = {
 	controls_religion = ibadi
 	
 	allow = {
-		OR = {
-			trait = mirza
-			trait = sayyid
-			piety = 1000
-		}
-		OR = {
-			AND = {
+		conditional_tooltip = {
+			trigger = {
+				NOT = {
+					has_alternate_start_parameter = { key = religion_names value = random }
+				}
+			}
+			OR = {
+				trait = mirza
 				trait = sayyid
 				piety = 1000
 			}
-			custom_tooltip = { 
+			OR = {
+				AND = {
+					trait = sayyid
+					piety = 1000
+				}
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							has_global_flag = destroyed_caliphates
+						}
+					}
+
+					custom_tooltip = { 
+						text = controls_mecca_medina
+						hidden_tooltip = {
+							719 = { # Mecca
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+							718 = { # Medina
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+						}
+					}
+				}
+				custom_tooltip = {
+					text = controls_jerusalem_damascus_baghdad
+					hidden_tooltip = {
+						774 = { # Jerusalem
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
+							}
+						}
+						728 = { # Damascus
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
+							}
+						}
+						693 = { # Baghdad
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		conditional_tooltip = {
+			trigger = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+			religion = ibadi
+			OR = {
+				trait = mirza
+				trait = sayyid
+				piety = 1000
+			}
+			custom_tooltip = {
+				text = THREE_HOLY_SITES_TT
+				hidden_tooltip = {
+					any_realm_title = {
+						count = 3
+						is_holy_site = ROOT
+					}
+				}
+			}
+		}
+		conditional_tooltip = {
+			trigger = {
+				has_global_flag = destroyed_caliphates
+			}
+
+			custom_tooltip = {
 				text = controls_mecca_medina
 				hidden_tooltip = {
 					719 = { # Mecca
@@ -47372,35 +51143,6 @@ d_ibadi = {
 						}
 					}
 					718 = { # Medina
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-				}
-			}
-			custom_tooltip = {
-				text = controls_jerusalem_damascus_baghdad
-				hidden_tooltip = {
-					774 = { # Jerusalem
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-					728 = { # Damascus
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-					693 = { # Baghdad
 						owner = {
 							OR = {
 								is_liege_or_above = ROOT
@@ -47446,9 +51188,100 @@ d_kharijite = {
 	controls_religion = kharijite
 	
 	allow = {
-		piety = 1000
-		OR = {
-			custom_tooltip = { 
+		conditional_tooltip = {
+			trigger = {
+				NOT = {
+					has_alternate_start_parameter = { key = religion_names value = random }
+				}
+			}
+			piety = 1000
+			conditional_tooltip = {
+				trigger = {
+					NOT = {
+						has_global_flag = destroyed_caliphates
+					}
+				}
+
+				OR = {
+					custom_tooltip = { 
+						text = controls_mecca_medina
+						hidden_tooltip = {
+							719 = { # Mecca
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+							718 = { # Medina
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+						}
+					}
+					custom_tooltip = {
+						text = controls_jerusalem_damascus_baghdad
+						hidden_tooltip = {
+							774 = { # Jerusalem
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+							728 = { # Damascus
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+							693 = { # Baghdad
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		conditional_tooltip = {
+			trigger = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+			religion = kharijite
+			OR = {
+				trait = mirza
+				trait = sayyid
+				piety = 1000
+			}
+			custom_tooltip = {
+				text = THREE_HOLY_SITES_TT
+				hidden_tooltip = {
+					any_realm_title = {
+						count = 3
+						is_holy_site = ROOT
+					}
+				}
+			}
+		}
+		conditional_tooltip = {
+			trigger = {
+				has_global_flag = destroyed_caliphates
+			}
+
+			custom_tooltip = {
 				text = controls_mecca_medina
 				hidden_tooltip = {
 					719 = { # Mecca
@@ -47469,38 +51302,9 @@ d_kharijite = {
 					}
 				}
 			}
-			custom_tooltip = {
-				text = controls_jerusalem_damascus_baghdad
-				hidden_tooltip = {
-					774 = { # Jerusalem
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-					728 = { # Damascus
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-					693 = { # Baghdad
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-				}
-			}
 		}
 	}
-	
+
 	caliphate = yes
 	
 	coat_of_arms=
@@ -47534,16 +51338,107 @@ d_hurufi = {
 	controls_religion = hurufi
 	
 	allow = {
-		OR = {
-			trait = mirza
-			trait = sayyid
-			piety = 1000
-		}
-		OR = {
-			AND = {
+		conditional_tooltip = {
+			trigger = {
+				NOT = {
+					has_alternate_start_parameter = { key = religion_names value = random }
+				}
+			}
+			OR = {
+				trait = mirza
 				trait = sayyid
 				piety = 1000
 			}
+			OR = {
+				AND = {
+					trait = sayyid
+					piety = 1000
+				}
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							has_global_flag = destroyed_caliphates
+						}
+					}
+
+					custom_tooltip = {
+						text = controls_mecca_medina
+						hidden_tooltip = {
+							719 = { # Mecca
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+							718 = { # Medina
+								owner = {
+									OR = {
+										is_liege_or_above = ROOT
+										character = ROOT
+									}
+								}
+							}
+						}
+					}
+				}
+				custom_tooltip = {
+					text = controls_jerusalem_damascus_baghdad
+					hidden_tooltip = {
+						774 = { # Jerusalem
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
+							}
+						}
+						728 = { # Damascus
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
+							}
+						}
+						693 = { # Baghdad
+							owner = {
+								OR = {
+									is_liege_or_above = ROOT
+									character = ROOT
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		conditional_tooltip = {
+			trigger = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+			religion = hurufi
+			OR = {
+				trait = mirza
+				trait = sayyid
+				piety = 1000
+			}
+			custom_tooltip = {
+				text = THREE_HOLY_SITES_TT
+				hidden_tooltip = {
+					any_realm_title = {
+						count = 3
+						is_holy_site = ROOT
+					}
+				}
+			}
+		}
+		conditional_tooltip = {
+			trigger = {
+				has_global_flag = destroyed_caliphates
+			}
+
 			custom_tooltip = {
 				text = controls_mecca_medina
 				hidden_tooltip = {
@@ -47556,35 +51451,6 @@ d_hurufi = {
 						}
 					}
 					718 = { # Medina
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-				}
-			}
-			custom_tooltip = {
-				text = controls_jerusalem_damascus_baghdad
-				hidden_tooltip = {
-					774 = { # Jerusalem
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-					728 = { # Damascus
-						owner = {
-							OR = {
-								is_liege_or_above = ROOT
-								character = ROOT
-							}
-						}
-					}
-					693 = { # Baghdad
 						owner = {
 							OR = {
 								is_liege_or_above = ROOT
@@ -53068,6 +56934,8 @@ e_china_west_governor = { #placeholder for the Chinese Empire Western Governor
 	
 	capital = 1448 # Dunhuang
 	
+	assimilate = no # Duchies cannot de jure drift IN or OUT of this title
+	
 	title_female = "WESTERN_GOVERNOR_FEMALE"
 	title = "WESTERN_GOVERNOR_MALE"
 	foa = "WESTERN_GOVERNOR_TITLE_FOA"
@@ -53093,7 +56961,18 @@ e_china_west_governor = { #placeholder for the Chinese Empire Western Governor
 k_sakya_trizin = {
 	color = { 95 190 50 }
 }
-
+e_russian_empire = {	
+	color={ 220 60 70 }
+	color2={ 255 255 255 }
+	
+	capital = 582 # Vladimir
+	
+	culture = russian
+	
+	allow = {
+		always = no # Only created through special event
+	}
+}
 e_landless = { # Used for legions to circumvent the bug which prevents county-level titles from being deactivated
 	color = { 0 0 0 }
 	color2 = { 255 255 255 }

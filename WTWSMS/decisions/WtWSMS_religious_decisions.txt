@@ -804,6 +804,52 @@ decisions = {
 		}
 	}
 	
+	end_acacian_schism  = {
+		is_high_prio = yes
+		only_independent = yes
+		
+		potential = {
+			has_landed_title = e_byzantium
+			religion = nicene
+			has_global_flag = the_henotikon
+			NOT = { has_global_flag = acacian_schism_ended }
+		}
+		
+		allow = {
+			war = no
+			prisoner = no
+			NOT = { is_inaccessible_trigger = yes }
+			age = 16
+		}
+		
+		effect = {
+			narrative_event = { id = hist.26 }
+			set_global_flag = acacian_schism_ended
+			piety = 100
+			prestige = -100
+		}
+		
+		ai_will_do = {
+			factor = 0.5
+			modifier = {
+				factor = 3
+				trait = craven
+			}
+			modifier = {
+				factor = 3
+				trait = content
+			}
+			modifier = {
+				factor = 0.1
+				trait = ambitious
+			}
+			modifier = {
+				factor = 0.001 # Slow it down
+				always = yes
+			}
+		}
+	}
+	
 	recruit_donatist_bands = {
 		only_playable = yes
 		is_high_prio = yes
@@ -1040,8 +1086,8 @@ decisions = {
 				has_character_flag = retreat_at_least_once
 				NOT = { trait = zealous }
 			}
-	    }
-    }
+		}
+	}
 	
 	enlist_paygan = {
 		only_playable = yes
@@ -1405,11 +1451,12 @@ decisions = {
 		}
 	}
 	
-	give_alms  = {
+	give_alms = {
 		only_playable = yes
+		ai = no
+		
 		potential = {
 			is_playable = yes
-			ai = no
 			religion = pelagianism
 			is_adult = yes
 			demesne_size = 1

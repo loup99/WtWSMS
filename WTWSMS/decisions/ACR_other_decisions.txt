@@ -1,0 +1,328 @@
+decisions = {
+	build_winery = {
+		is_high_prio = yes
+		potential = {
+			has_global_flag = ancrel_debug
+			OR = {
+				has_focus = focus_carousing
+				trait = hedonist
+				trait = drunkard
+				society_member_of = mysteries_dionysus
+				society_member_of = shezmu_cult
+			}
+			NOR = {
+				has_character_modifier = ancrel_winery
+				has_character_modifier = ancrel_oilworks
+			}
+		}
+		allow = { 
+			wealth = 200
+		}
+		effect = {
+			wealth = -200
+			add_character_modifier = { name = ancrel_winery days = -1 }
+			if = {
+				limit = {
+					society_member_of = shezmu_cult
+				}
+				add_society_currency_minor_effect = yes
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.001 # slow it down
+				always = yes
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					wealth = 400
+				}
+			}
+			modifier = {
+				factor = 10000
+				society_member_of = shezmu_cult
+			}
+			modifier = {
+				factor = 10
+				society_member_of = mysteries_dionysus
+			}
+		}
+	}
+
+	build_oilworks = {
+		is_high_prio = yes
+		potential = {
+			has_global_flag = ancrel_debug
+			OR = {
+				has_focus = focus_seduction
+				trait = hedonist
+				trait = lustful
+				society_member_of = shezmu_cult
+			}
+			NOR = {
+				has_character_modifier = ancrel_winery
+				has_character_modifier = ancrel_oilworks
+			}
+		}
+		allow = { 
+			wealth = 200
+		}
+		effect = {
+			wealth = -200
+			add_character_modifier = { name = ancrel_oilworks days = -1 }
+			if = {
+				limit = {
+					society_member_of = shezmu_cult
+				}
+				add_society_currency_minor_effect = yes
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.001 # slow it down
+				always = yes
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					wealth = 400
+				}
+			}
+			modifier = {
+				factor = 10000
+				society_member_of = shezmu_cult
+			}
+		}
+	}
+}
+
+targetted_decisions = {
+	borrow_money_from_holy_order = {
+		only_playable = yes
+		
+		from_potential = {
+			ai = no
+			can_borrow_from_a_holy_order_trigger = yes
+		}
+
+		potential = {
+			religion = FROM
+			primary_title = {
+				is_banking_holy_order_trigger = yes
+			}
+		}
+
+		allow = {
+			wealth = 300
+		}
+
+		effect = {
+			primary_title = { 
+				save_event_target_as = holy_order
+				FROM = {
+					wealth = 300
+					save_event_target_as = borrower
+					set_character_flag = borrowed_from_@PREV
+					set_character_modifier_for_holy_order_flags_effect = yes
+				}
+			}
+			
+			hidden_tooltip = {
+				character_event = {
+					id = ancrel.9117
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				wealth = 0
+			}
+			modifier = {
+				factor = 0.25 # Slow it down
+			}
+		}
+	}
+	
+	donate_money_to_holy_order = {
+		only_playable = yes
+
+		from_potential = {
+			has_dlc = "Sons of Abraham"
+			is_heretic = no
+		}
+
+		potential = {
+			religion = FROM
+
+			NOT = {
+				any_liege = {
+					character = FROM
+				}
+			}
+
+			primary_title = {
+				is_banking_holy_order_trigger = yes
+			}
+		}
+		
+		allow = { 
+			FROM = { wealth = 300 }
+		}
+		
+		effect = {
+			FROM = {
+				if = {
+					limit = { 
+						NOT = { has_character_modifier = donated_to_holy_order }
+					}
+					add_character_modifier = {
+						name = donated_to_holy_order
+						duration = -1
+					}
+				}
+				wealth = -300
+				piety = 300
+			}
+			
+			hidden_tooltip = {
+				character_event = {
+					id = ancrel.9111
+				}
+			}
+		}
+		
+		
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				OR = {
+					piety = 1000
+					NOT = { wealth = 1000 }
+					NOT = { controls_religion = yes }
+				}
+			}
+			modifier = {
+				factor = 0.002 # Slow it down
+			}
+		}
+	}
+
+	expel_holy_order = {
+		ai = no
+		from_potential = {
+			higher_tier_than = DUKE
+			independent = yes
+			NOR = { 
+				has_character_flag = expelled_@ROOT
+				is_heretic = yes
+			}
+			
+			has_dlc = "Sons of Abraham"
+		}
+
+		potential = {
+			primary_title = {
+				holy_order = yes
+			}
+			religion = FROM
+			FROM = {
+				any_realm_province = {
+					any_province_lord = {
+						ROOT = {
+							OR = {
+								character = PREV
+								is_vassal_or_below = PREV
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		allow = {
+			FROM = { piety = 1000 }
+		}
+		
+		effect = {
+			FROM = {
+				piety = -1000
+				
+				religion_authority = {
+					modifier = holy_order_expelled
+					years = 20
+				}
+				set_character_flag = expelled_@ROOT
+				set_character_modifier_for_holy_order_flags_effect = yes
+			}
+			hidden_tooltip = {
+				character_event = {
+					id = ancrel.9109
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	vassalize_holy_order = {
+		only_playable = yes
+		is_high_prio = yes
+		ai_check_interval = 6
+
+		from_potential = {
+			has_global_flag = ancrel_debug
+			is_heretic = no
+			primary_title = { higher_tier_than = DUKE }
+		}
+
+		potential = {
+			religion = FROM
+			NOT = { has_truce = FROM }
+			FROM = { NOT = { has_truce = PREV } }
+			NOT = {
+				any_liege = { character = FROM }
+			}
+			NOT = { num_of_count_titles = 3 }
+			independent = yes
+
+			primary_title = {
+				holy_order = yes
+				this_holy_order_can_be_vassalized_by_from_trigger = yes
+			}
+		}
+
+		allow = {
+			FROM = { wealth = 500 }
+		}
+		
+		effect = {
+			FROM = {
+				wealth = -500
+				save_event_target_as = new_liege
+			}
+			
+			hidden_tooltip = {
+				wealth = 500
+				character_event = {
+					id = ancrel.9119
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}
