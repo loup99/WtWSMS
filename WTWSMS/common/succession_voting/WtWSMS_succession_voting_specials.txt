@@ -4709,23 +4709,16 @@ gubernatorial_elective = {
 			} 
 		} 
 		FROM = { #the candidate is in the realm
-			any_liege = { 
-				character = ROOT
-			}
+			same_realm = ROOT
 		}
-		FROM = {
-			OR = { #Candidate should not be landed or heir
-				AND = {
-					is_ruler = no
-					is_landed = no
-					is_republic = no
-					is_merchant_republic = no
-					is_theocracy = no
-				}
-				NOT = {
-					any_heir_title = {
-						always = yes
-					}
+		FROM = { #Candidate should not be landed or heir
+			is_landed = no
+			is_republic = no
+			is_merchant_republic = no
+			is_theocracy = no
+			NOT = {
+				any_heir_title = {
+					always = yes
 				}
 			}
 			OR = { #If the title controls the religion, candidates must be of the same religion.
@@ -4746,9 +4739,6 @@ gubernatorial_elective = {
 				trait = harelip
 				trait = inbred
 				is_ascetic_trigger = yes
-				is_theocracy = yes
-				is_republic = yes
-				is_merchant_republic = yes
 			}
 		}
 	}
