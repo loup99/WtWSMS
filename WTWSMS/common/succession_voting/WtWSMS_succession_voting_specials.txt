@@ -4700,7 +4700,7 @@ gubernatorial_elective = {
 	}
 	
 	#ROOT = Current Title holder, FROM = Candidate, FROMFROM = Title, FROMFROMFROM = Null
-	candidate_trigger = { #Close relatives, claimants, marshals. No mutilations (if byzantine)
+	candidate_trigger = {
 		NOT = { character = FROM } #Not the current ruler.
 		FROM = { 
 			NOR = { 
@@ -4708,50 +4708,23 @@ gubernatorial_elective = {
 				trait = crusader_queen
 			} 
 		} 
-		FROM = { #Either the candidate is in the realm, or is landless, or the title is independent, or the realm of the title does NOT have protected inheritance.
-			OR = { 
-				any_liege = { 
-					character = ROOT
-				} 
-				is_ruler = no
-				ROOT_FROMFROM = { holder_scope = { independent = yes } }
-				NOR = { 
-					ROOT_FROMFROM = { has_law = out_of_realm_inheritance_law_1 } 
-					ROOT_FROMFROM = { has_law = crown_authority_3 } 
-					ROOT_FROMFROM = { has_law = crown_authority_4 } 
-				} 
-			} 
-		}
-		OR = {
-			FROM = { any_claim = { title = ROOT_FROMFROM } }
-			ROOT = { is_close_relative = FROM }
-			FROM = { 
-				has_job_title = job_marshal
-				vassal_of = ROOT_FROMFROM 
-			}
-			FROM = { 
-				has_minor_title = title_commander
-				vassal_of = ROOT_FROMFROM 
+		FROM = { #the candidate is in the realm
+			any_liege = { 
+				character = ROOT
 			}
 		}
 		FROM = {
-			OR = { #Candidate should not be a landless Courtier that is about to inherit a Theocracy or Republic
+			OR = { #Candidate should not be landed or heir
 				AND = {
-					is_ruler = yes
-					is_landed = yes
+					is_ruler = no
+					is_landed = no
 					is_republic = no
 					is_merchant_republic = no
 					is_theocracy = no
 				}
-				NOR = {
+				NOT = {
 					any_heir_title = {
-						is_republic = yes
-					}
-					any_heir_title = {
-						is_merchant_republic = yes
-					}
-					any_heir_title = {
-						is_theocracy = yes
+						always = yes
 					}
 				}
 			}
@@ -4765,20 +4738,13 @@ gubernatorial_elective = {
 			}
 			NOR = {
 				trait = cat
-				trait = disinherited
 				trait = horse
-				trait = eunuch
 				trait = disfigured
 				trait = blinded
-				trait = eunuch
 				trait = dwarf
 				trait = clubfooted
 				trait = harelip
 				trait = inbred
-				AND = { 
-					trait = bastard 
-					is_ruler = no
-				}
 				is_ascetic_trigger = yes
 				is_theocracy = yes
 				is_republic = yes
