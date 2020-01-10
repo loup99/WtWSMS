@@ -77,6 +77,9 @@ feudal_governments = {
 		unit_modifier = {
 			retinuesize_perc = 2
 		}
+		
+		## Modifiers
+		court_size_modifier = 15
 	}
 	
 	sassanid_government = {
@@ -141,6 +144,9 @@ feudal_governments = {
 			vassal_opinion = -25
 		}
 		capital_move_delay = 600
+		
+		## Modifiers
+		court_size_modifier = 15
 	}
 	
 	legion_government = {
@@ -184,4 +190,424 @@ feudal_governments = {
 		capital_move_delay = 600
 	}
 
+	sub_roman_government = {
+		preferred_holdings = { CASTLE CITY }
+		allowed_holdings = { 
+			CASTLE
+			CITY
+			FORT
+			HOSPITAL
+		}
+		allowed_holdings_culture = { # Will not get the wrong government type penalty for tribes of the same culture
+			TRIBAL
+		}
+		accepts_liege_governments = { # Gets the wrong religion modifier instead
+			muslim_government
+			theocratic_feudal_government
+			chinese_imperial_government
+			sassanid_government
+			bureaucratic_government
+		}
+		free_revoke_on_governments_religion = { # Tribal vassals of other religions can have their titles revoked for free
+			tribal_government
+		}
+		potential = {
+			NAND = {
+				controls_religion = yes
+				NOT = { religion_group = muslim }
+				NOT = {	primary_title = { is_landless_type_title = no }	}
+			}
+			NOR = {
+				religion_group = muslim
+				religion = aten_pagan
+			}
+			NAND = { 
+				OR = { 
+					culture_group = indo_aryan_group
+					culture_group = dravidian_group
+					culture = indo_scythian
+				}
+				OR = {
+					religion_group = indian_group
+					religion_group = pagan_group
+				}
+				higher_tier_than = BARON
+			}
+			NAND = {
+				culture_group = tibetan_group
+				OR = {
+					religion = bon
+					religion = buddhist
+				}
+				higher_tier_than = BARON
+			}
+			NAND = {
+				tier = EMPEROR
+				primary_title = { has_title_flag = pretender_chinese_empire }
+				OR = {
+					culture_group = sinic
+					culture = khitan
+					culture = tangut
+					culture = jurchen
+					has_character_flag = chinese_imperial_government_preserve
+				}
+			}
+			primary_title = {
+				sub_roman_government_trigger = yes
+			}
+			primary_title = {
+				bureaucratic_government_trigger = no
+			}
+			primary_title = {
+				sassanid_government_trigger = no
+			}
+			primary_title = {
+				roman_legion_title_trigger = no
+			}
+			primary_title = {
+				high_tribal_government_trigger = no
+			}
+			NOT = {
+				primary_title = {
+					has_title_flag = high_tribal_government_flag
+				}
+			}
+			NOT = {
+				primary_title = {
+					has_title_flag = adopted_feudalism
+				}
+			}
+			OR = { # Castle-holding barons are fine, but not mayors
+				higher_tier_than = BARON
+				NOT = {
+					capital_holding = {
+						holding_type = city
+					}
+				}
+			}
+			is_patrician = no
+		}
+		
+		color = { 220 20 60 }
+		
+		dukes_called_kings = yes
+		barons_need_dynasty = yes
+
+		can_build_tribal = no
+		
+		ignore_in_vassal_limit_calculation = {
+			tribal_government
+		}
+		capital_move_delay = 600
+		
+		character_modifier = {
+			levy_size = -0.25
+			city_vassal_min_levy = -0.1
+			castle_vassal_min_levy = -0.1
+			temple_vassal_min_levy = -0.1
+			city_vassal_max_levy = -0.25
+			castle_vassal_max_levy = -0.25
+			temple_vassal_max_levy = -0.25
+			global_tax_modifier = 0.15
+			city_vassal_tax_modifier = 0.15
+			temple_vassal_tax_modifier = 0.15
+			castle_vassal_tax_modifier = 0.15
+		}
+	}
+	
+	gupta_government = {
+		preferred_holdings = { CASTLE }
+		allowed_holdings = { 
+			CASTLE 
+			FORT
+			HOSPITAL
+		}
+		allowed_holdings_culture = { # Will not get the wrong government type penalty for tribes of the same culture
+			TRIBAL
+		}
+		accepts_liege_governments = { # Gets the wrong religion modifier instead
+			muslim_government
+			theocratic_feudal_government
+			chinese_imperial_government
+			sassanid_government
+			bureaucratic_government
+		}
+		free_revoke_on_governments_religion = { # Tribal vassals of other religions can have their titles revoked for free
+			tribal_government
+		}
+		potential = {
+			NAND = {
+				controls_religion = yes
+				NOT = { religion_group = muslim }
+				NOT = {	primary_title = { is_landless_type_title = no }	}
+			}
+			NOR = {
+				religion_group = muslim
+				religion = aten_pagan
+			}
+			AND = { 
+				OR = { 
+					culture_group = indo_aryan_group
+					culture_group = dravidian_group
+					culture = indo_scythian
+				}
+				OR = {
+					religion_group = indian_group
+					religion_group = pagan_group
+				}
+				higher_tier_than = BARON
+			}
+			NAND = { 
+				culture_group = tibetan_group
+				OR = {
+					religion = bon
+					religion = buddhist
+				}
+				higher_tier_than = BARON
+			}
+			NAND = { 
+				tier = EMPEROR
+				primary_title = { has_title_flag = pretender_chinese_empire }
+				OR = {
+					culture_group = sinic
+					culture = khitan
+					culture = tangut
+					culture = jurchen
+					has_character_flag = chinese_imperial_government_preserve
+				}
+			}
+			primary_title = {
+				sub_roman_government_trigger = no
+			}
+			primary_title = {
+				bureaucratic_government_trigger = no
+			}
+			primary_title = {
+				sassanid_government_trigger = no
+			}
+			primary_title = {
+				roman_legion_title_trigger = no
+			}
+			primary_title = {
+				high_tribal_government_trigger = no
+			}
+			is_patrician = no
+		}
+		
+		color = { 90 80 70 }
+		
+		dukes_called_kings = yes
+		barons_need_dynasty = yes
+
+		can_build_tribal = no
+		
+		ignore_in_vassal_limit_calculation = {
+			tribal_government
+		}
+		capital_move_delay = 600
+	}
+	
+	pre_feudal_government = {
+		preferred_holdings = { CASTLE }
+		allowed_holdings = { 
+			CASTLE 
+			FORT
+			HOSPITAL
+		}
+		allowed_holdings_culture = { # Will not get the wrong government type penalty for tribes of the same culture
+			TRIBAL
+		}
+		accepts_liege_governments = { # Gets the wrong religion modifier instead
+			muslim_government
+			theocratic_feudal_government
+			chinese_imperial_government
+			sassanid_government
+			bureaucratic_government
+		}
+		free_revoke_on_governments_religion = { # Tribal vassals of other religions can have their titles revoked for free
+			tribal_government
+		}
+		potential = {
+			NAND = {
+				controls_religion = yes
+				NOT = { religion_group = muslim }
+				NOT = {	primary_title = { is_landless_type_title = no }	}
+			}
+			NOR = {
+				religion_group = muslim
+				religion = aten_pagan
+			}
+			NAND = { 
+				OR = { 
+					culture_group = indo_aryan_group
+					culture_group = dravidian_group
+					culture = indo_scythian
+				}
+				OR = {
+					religion_group = indian_group
+					religion_group = pagan_group
+				}
+				higher_tier_than = BARON
+			}
+			NAND = { 
+				culture_group = tibetan_group
+				OR = {
+					religion = bon
+					religion = buddhist
+				}
+				higher_tier_than = BARON
+			}
+			NAND = { 
+				tier = EMPEROR
+				primary_title = { has_title_flag = pretender_chinese_empire }
+				OR = {
+					culture_group = sinic
+					culture = khitan
+					culture = tangut
+					culture = jurchen
+					has_character_flag = chinese_imperial_government_preserve
+				}
+			}
+			primary_title = {
+				sub_roman_government_trigger = no
+			}
+			primary_title = {
+				bureaucratic_government_trigger = no
+			}
+			primary_title = {
+				sassanid_government_trigger = no
+			}
+			primary_title = {
+				roman_legion_title_trigger = no
+			}
+			primary_title = {
+				high_tribal_government_trigger = no
+			}
+			NOT = {
+				primary_title = {
+					has_title_flag = adopted_feudalism
+				}
+				primary_title = {
+					has_title_flag = high_tribal_government_flag
+				}
+			}
+			is_patrician = no
+		}
+		
+		color = { 91 133 207 }
+		
+		dukes_called_kings = yes
+		barons_need_dynasty = yes
+
+		can_build_tribal = no
+		
+		ignore_in_vassal_limit_calculation = {
+			tribal_government
+		}
+		capital_move_delay = 600
+	}
+	
+	high_tribal_government = {
+		preferred_holdings = { CASTLE }
+		allowed_holdings = { 
+			CASTLE 
+			FORT
+			HOSPITAL
+		}
+		allowed_holdings_culture = { # Will not get the wrong government type penalty for tribes of the same culture
+			TRIBAL
+		}
+		accepts_liege_governments = { # Gets the wrong religion modifier instead
+			muslim_government
+			theocratic_feudal_government
+			chinese_imperial_government
+			sassanid_government
+			bureaucratic_government
+		}
+		free_revoke_on_governments_religion = { # Tribal vassals of other religions can have their titles revoked for free
+			tribal_government
+		}
+		potential = {
+			NAND = {
+				controls_religion = yes
+				NOT = { religion_group = muslim }
+				NOT = {	primary_title = { is_landless_type_title = no }	}
+			}
+			NOR = {
+				religion_group = muslim
+				religion = aten_pagan
+			}			
+			NAND = { 
+				OR = { 
+					culture_group = indo_aryan_group
+					culture_group = dravidian_group
+					culture = indo_scythian
+				}
+				OR = {
+					religion_group = indian_group
+					religion_group = pagan_group
+				}
+				higher_tier_than = BARON
+			}
+			NAND = { 
+				culture_group = tibetan_group
+				OR = {
+					religion = bon
+					religion = buddhist
+				}
+				higher_tier_than = BARON
+			}
+			NAND = { 
+				tier = EMPEROR
+				primary_title = { has_title_flag = pretender_chinese_empire }
+				OR = {
+					culture_group = sinic
+					culture = khitan
+					culture = tangut
+					culture = jurchen
+					has_character_flag = chinese_imperial_government_preserve
+				}
+			}
+			primary_title = {
+				bureaucratic_government_trigger = no
+			}
+			primary_title = {
+				sassanid_government_trigger = no
+			}
+			primary_title = {
+				roman_legion_title_trigger = no
+			}
+			NOT = {
+				primary_title = {
+					has_title_flag = adopted_feudalism
+				}
+			}
+			primary_title = {
+				OR = { 
+					has_title_flag = high_tribal_government_flag
+					high_tribal_government_trigger = yes
+				}
+			}
+			is_patrician = no
+		}
+		
+		color = { 23 100 23 }
+		
+		dukes_called_kings = yes
+		barons_need_dynasty = yes
+		
+		can_build_castle = no
+		can_build_city = no
+		can_build_temple = yes
+		can_build_tribal = no
+		can_build_hospitals = no
+		
+		demesne_size = 2
+		vassal_limit = -10
+		
+		ignore_in_vassal_limit_calculation = {
+			tribal_government
+		}
+		capital_move_delay = 600
+	}
 }

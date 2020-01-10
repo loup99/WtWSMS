@@ -25,15 +25,25 @@ feudal_governments = {
 				controls_religion = no
 				religion_group = muslim
 				has_religion_feature = religion_temporal_head
+				religion = aten_pagan
 				AND = {
 					religion = norse_pagan_reformed
 					has_religion_features = no # Old saves, and campaigns without HF, need the Fylkirate to continue working
 				}
+			}		
+			NAND = {
+				OR = { 
+					culture_group = indo_aryan_group
+					culture_group = dravidian_group
+					culture = indo_scythian
+				}
+				OR = {
+					religion_group = indian_group
+					religion_group = pagan_group
+				}
+				higher_tier_than = BARON
 			}
-			NOR = {	
-				religion_group = muslim	
-				religion = aten_pagan
-			}
+			NOT = {	religion_group = muslim	}
 			NOT = { is_government_potential = order_government }
 			NAND = { 
 				culture_group = tibetan_group
@@ -69,6 +79,7 @@ feudal_governments = {
 		
 		color = { 91 133 207 }
 		
+		uses_decadence = yes
 		dukes_called_kings = yes
 		barons_need_dynasty = yes
 
@@ -78,6 +89,9 @@ feudal_governments = {
 			tribal_government
 		}
 		capital_move_delay = 600
+
+		## Modifiers
+		court_size_modifier = 10
 	}
 	
 	muslim_government = {
@@ -112,12 +126,11 @@ feudal_governments = {
 				NOT = { religion_group = zoroastrian_group }
 				NOT = {	primary_title = { is_landless_type_title = no }	}
 				NOT = {
-					bureaucratic_government_trigger = yes 
+					primary_title = { bureaucratic_government_trigger = yes }
 				}
 			}
 			OR = {
 				controls_religion = no
-				religion = aten_pagan
 				religion_group = muslim
 				has_religion_feature = religion_temporal_head
 				AND = {
@@ -160,6 +173,9 @@ feudal_governments = {
 			tribal_government
 		}
 		capital_move_delay = 600
+
+		## Modifiers
+		court_size_modifier = 10
 	}
 	
 	theocratic_feudal_government = {
@@ -196,8 +212,6 @@ feudal_governments = {
 				}
 			}
 			NOT = {	religion_group = muslim	}
-			NOT = { religion = aten_pagan }
-
 			NOT = { is_government_potential = order_government }
 			AND = { 
 				culture_group = tibetan_group
@@ -205,6 +219,18 @@ feudal_governments = {
 					religion = bon
 					religion = bon_reformed
 					religion = buddhist
+				}
+				higher_tier_than = BARON
+			}
+			NAND = { 
+				OR = { 
+					culture_group = indo_aryan_group
+					culture_group = dravidian_group
+					culture = indo_scythian
+				}
+				OR = {
+					religion_group = indian_group
+					religion_group = pagan_group
 				}
 				higher_tier_than = BARON
 			}
@@ -234,6 +260,8 @@ feudal_governments = {
 			tribal_government
 		}
 		capital_move_delay = 600
+		## Modifiers
+		court_size_modifier = 10
 	}
 	
 	chinese_imperial_government = {
@@ -300,12 +328,15 @@ feudal_governments = {
 		character_modifier = {
 			monthly_character_piety = 1
 		}
+		## Modifiers
+		court_size_modifier = 15
 	}
 
 	order_government = {
 		preferred_holdings = { CASTLE }
 		allowed_holdings = {
 			CASTLE
+			TEMPLE
 			TRIBAL
 			FORT
 			HOSPITAL

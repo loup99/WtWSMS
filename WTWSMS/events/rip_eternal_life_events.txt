@@ -5,7 +5,7 @@
 #
 ###################################
 
-# Written by Mathilda Bjarnehed & Milla Isaksson
+# Written by Mathilda Bjarnehed, Milla Isaksson & Linnéa Thimrén
 
 ###SEARCH STEP###
 
@@ -236,6 +236,7 @@ narrative_event = {
 		}
 
 		event_target:eternal_life_sad_example = {
+			show_scope_change = no
 			opinion = {
 				who = FROM
 				modifier = opinion_budding_friendship
@@ -282,7 +283,7 @@ narrative_event = {
 		custom_tooltip = { text = EVTTOOLTIP_RIP_21002 }
 
 		job_chancellor = {
-
+			show_scope_change = no
 			opinion = {
 				modifier = opinion_took_my_advice
 				who = ROOT
@@ -308,7 +309,7 @@ narrative_event = {
 		custom_tooltip = { text = EVTTOOLTIP_RIP_21003 }
 
 		job_marshal = {
-
+			show_scope_change = no
 			opinion = {
 				modifier = opinion_took_my_advice
 				who = ROOT
@@ -334,7 +335,7 @@ narrative_event = {
 		custom_tooltip = { text = EVTTOOLTIP_RIP_21004 }
 
 		job_spymaster = {
-
+			show_scope_change = no
 			opinion = {
 				modifier = opinion_took_my_advice
 				who = ROOT
@@ -360,7 +361,7 @@ narrative_event = {
 		custom_tooltip = { text = EVTTOOLTIP_RIP_21005 }
 
 		job_spiritual = {
-
+			show_scope_change = no
 			opinion = {
 				modifier = opinion_took_my_advice
 				who = ROOT
@@ -747,6 +748,16 @@ narrative_event = {
 			is_alive = yes
 			liege = { character = ROOT }
 		}
+		prisoner = no
+	}
+	fail_trigger_effect = {
+		if = {
+			limit = { prisoner = yes } #Try again later, in case you're released from prison...
+			repeat_event = {
+				id = RIP.21013
+				days = 35
+			}
+		}
 	}
 
 	is_triggered_only = yes
@@ -806,31 +817,21 @@ narrative_event = {
 		name = EVTOPTA_RIP_21013
 		if = {
 			limit = { has_character_flag = diplomacy_mystic }
-			create_character = {
-				random_traits = no
-				name = "Idunn"
-				dna = chaehghfacw
-				dynasty = none
-				religion = norse_pagan
-				culture = norse
-				female = yes
-				age = 17
-				health = 15
-				trait = grey_eminence
-				trait = gregarious
-				trait = mystic
-				trait = lustful
-				trait = charitable
-				trait = fair
-				trait = trusting
-				trait = poet
-			}
+			create_diplomacy_mystic_effect = yes
 			new_character = {
 				set_character_flag = eternal_life_mystic 
 
 				will_not_marry_effect = yes
 
-				give_nickname = nick_the_youthful
+				if = {
+					limit = {
+						is_female = yes
+					}
+					give_nickname = nick_the_youthful
+				} 
+				else = {
+					give_nickname = nick_the_wise
+				}
 				random_list = {
 					90 = {
 						set_character_flag = mystic_is_fraud
@@ -865,32 +866,22 @@ narrative_event = {
 		}
 		if = {
 			limit = { has_character_flag = martial_mystic }			
-			create_character = {
-				random_traits = no
-				dynasty = none
-				religion = west_african_pagan
-				culture = manden
-				female = yes
-				age = 36
-				health = 15
-				trait = brilliant_strategist
-				trait = mystic
-				trait = robust
-				trait = wroth
-				trait = diligent
-				trait = proud
-				trait = brave
-				trait = aggressive_leader
-			}
+			create_martial_mystic_effect = yes
 			new_character = {
 				set_character_flag = eternal_life_mystic 
 
 				will_not_marry_effect = yes
 
-				give_nickname = nick_the_fearless 
+				if = {
+					limit = { culture = greek }
+					give_nickname = nick_the_spartan
+				} 
+				else = {
+					give_nickname = nick_the_fearless
+				}
 
 				random_list = {
-					50 = { add_trait = scarred }
+					50 = { add_scarred_high_effect = yes }
 					50 = { add_trait = disfigured }
 				}
 
@@ -928,27 +919,7 @@ narrative_event = {
 		}
 		if = {
 			limit = { has_character_flag = intrigue_mystic }
-			create_character = {
-				name = "Cleopatra"
-				random_traits = no
-				dynasty = none
-				religion = hurufi
-				culture = egyptian_arabic
-				female = yes
-				age = 72
-				health = 15
-				trait = elusive_shadow
-				trait = mystic
-				trait = hunchback
-				trait = slothful
-				trait = proud
-				trait = paranoid
-				trait = ambitious
-				trait = deceitful
-				trait = erudite
-
-		
-			}
+			create_intrigue_mystic_effect = yes
 			new_character = {
 				set_character_flag = eternal_life_mystic 
 
@@ -990,21 +961,7 @@ narrative_event = {
 		}
 		if = {
 			limit = { has_character_flag = learning_mystic }
-			create_character = {
-				random_traits = no
-				dynasty = none
-				religion = buddhist
-				culture = sinhala
-				female = yes
-				age = 9
-				health = 15
-				trait = mystic
-				trait = brahmin
-				trait = theravada_buddhist
-				trait = quick
-				trait = fussy
-				trait = conscientious
-			}
+			create_learning_mystic_effect = yes
 			new_character = {
 				set_character_flag = eternal_life_mystic 
 
@@ -1015,7 +972,13 @@ narrative_event = {
 				remove_trait = vajrayana_buddhist
 				remove_trait = mahayana_buddhist
 
-				give_nickname = nick_the_gentle
+				if = {
+					limit = { is_female = no }
+					give_nickname = nick_the_younger
+				} 
+				else = {
+					give_nickname = nick_the_gentle
+				}
 				change_diplomacy = 2
 				change_stewardship = 2
 				change_intrigue = -1
@@ -1131,31 +1094,21 @@ narrative_event = {
 		name = EVTOPTA_RIP_21014
 		if = {
 			limit = { has_character_flag = diplomacy_mystic }
-			create_character = {
-				random_traits = no
-				name = "Idunn"
-				dna = chaehghfacw
-				dynasty = none
-				religion = norse_pagan
-				culture = norse
-				female = yes
-				age = 17
-				health = 15
-				trait = grey_eminence
-				trait = gregarious
-				trait = mystic
-				trait = lustful
-				trait = fair
-				trait = trusting
-				trait = poet
-				trait = celibate
-			}
+			create_diplomacy_mystic_effect = yes
 			new_character = {
-				set_character_flag = eternal_life_mystic
+				set_character_flag = eternal_life_mystic 
 
 				will_not_marry_effect = yes
 
-				give_nickname = nick_the_youthful
+				if = {
+					limit = {
+						is_female = yes
+					}
+					give_nickname = nick_the_youthful
+				} 
+				else = {
+					give_nickname = nick_the_wise
+				}
 				random_list = {
 					90 = {
 						set_character_flag = mystic_is_fraud
@@ -1189,34 +1142,22 @@ narrative_event = {
 		}
 		if = {
 			limit = { has_character_flag = martial_mystic }			
-			create_character = {
-				random_traits = no
-				dynasty = none
-				religion = west_african_pagan
-				culture = manden
-				female = yes
-				age = 36
-				health = 15
-				trait = brilliant_strategist
-				trait = mystic
-				trait = robust
-				trait = wroth
-				trait = diligent
-				trait = proud
-				trait = brave
-				trait = desert_terrain_leader
-				trait = aggressive_leader
-				trait = scarred
-			}
+			create_martial_mystic_effect = yes
 			new_character = {
 				set_character_flag = eternal_life_mystic
 
 				will_not_marry_effect = yes
 
-				give_nickname = nick_the_fearless 
+				if = {
+					limit = { culture = greek }
+					give_nickname = nick_the_spartan
+				} 
+				else = {
+					give_nickname = nick_the_fearless
+				}
 
 				random_list = {
-					50 = { add_trait = scarred }
+					50 = { add_scarred_medium_effect = yes }
 					50 = { add_trait = disfigured }
 				}
 
@@ -1254,26 +1195,7 @@ narrative_event = {
 		}
 		if = {
 			limit = { has_character_flag = intrigue_mystic }
-			create_character = {
-				name = "Cleopatra"
-				random_traits = no
-				dynasty = none
-				religion = hurufi
-				culture = egyptian_arabic
-				female = yes
-				age = 72
-				health = 15
-				trait = elusive_shadow
-				trait = mystic
-				trait = hunchback
-				trait = slothful
-				trait = proud
-				trait = paranoid
-				trait = ambitious
-				trait = deceitful
-				trait = erudite
-		
-			}
+			create_intrigue_mystic_effect = yes
 			new_character = {
 				set_character_flag = eternal_life_mystic
 
@@ -1315,24 +1237,7 @@ narrative_event = {
 		}
 		if = {
 			limit = { has_character_flag = learning_mystic }
-			create_character = {
-				random_traits = no
-				dynasty = none
-				religion = buddhist
-				culture = sinhala
-				female = yes
-				age = 9
-				attributes = {
-					learning = 10
-				}
-				health = 15
-				trait = mystic
-				trait = brahmin
-				trait = theravada_buddhist
-				trait = quick
-				trait = fussy
-				trait = conscientious
-			}
+			create_learning_mystic_effect = yes
 			new_character = {
 				set_character_flag = eternal_life_mystic
 
@@ -1343,7 +1248,13 @@ narrative_event = {
 				remove_trait = vajrayana_buddhist
 				remove_trait = mahayana_buddhist
 
-				give_nickname = nick_the_gentle
+				if = {
+					limit = { is_female = no }
+					give_nickname = nick_the_younger
+				} 
+				else = {
+					give_nickname = nick_the_gentle
+				}
 				change_diplomacy = 2
 				change_stewardship = 2
 				change_intrigue = -1
@@ -1557,6 +1468,7 @@ narrative_event = {
 		}
 
 		FROM = {
+			show_scope_change = no
 			opinion = {
 				who = ROOT
 				modifier = opinion_sought_mystic_knowledge
@@ -1593,6 +1505,7 @@ narrative_event = {
 		}
 
 		FROM = {
+			show_scope_change = no
 			opinion = {
 				who = ROOT
 				modifier = opinion_sought_mystic_knowledge
@@ -1696,6 +1609,48 @@ narrative_event = {
 	}
 }
 
+###################
+### MYSTIC DIED
+###################
+character_event = {
+	title = EVTNAME_RIP_21099
+	id = RIP.21099
+	desc = {
+		trigger = {
+			event_target:eternal_life_mystic = {
+				killer = { character = ROOT }
+			}
+		}
+		text = EVTDSC_RIP_21099_YOU_MURDERED
+	}
+	desc = {
+		trigger = {
+			event_target:eternal_life_mystic = {
+				NOT = { killer = { character = ROOT } }
+			}
+		}
+		text = EVTDSC_RIP_21099_OTHER_DEATH
+	}
+	border = GFX_event_narrative_frame_diplomacy
+	picture = GFX_evt_dead_body_hf
+
+	is_triggered_only = yes
+	hide_from = yes
+
+	option = {
+		name = EVTOPTA_RIP_21099
+		if = {
+			limit = {
+				event_target:eternal_life_mystic = {
+					NOT = { killer = { character = ROOT } }
+				}
+			}
+			clr_character_flag = eternal_life_events #Second chance if the mystic dies randomly
+		}
+	}
+}
+
+
 ###DIPLOMATIC QUEST###
 
 #Diplomatic quest step 1 challenge
@@ -1711,6 +1666,23 @@ narrative_event = {
 	trigger = {
 		FROM = { prisoner = no }
 		is_liege_of = FROM
+		prisoner = no
+		FROM = { is_alive = yes }
+	}
+	fail_trigger_effect = {
+		if = {
+			limit = { prisoner = yes } #Try again later, in case you're released from prison...
+			repeat_event = {
+				id = RIP.21100
+				days = 35
+			}
+		}
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
 	}
 
 	option = {
@@ -1818,6 +1790,19 @@ narrative_event = {
 	is_triggered_only = yes
 	hide_from = yes
 
+	trigger = {
+		FROM = { is_alive = yes }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	option = {
 		name = EVTOPTA_RIP_21102
 		custom_tooltip = { text = EVTOPTA_RIP_21102_TOOLTIP }
@@ -1859,6 +1844,19 @@ narrative_event = {
 
 	is_triggered_only = yes
 
+	trigger = {
+		FROM = { is_alive = yes }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	option = {
 		name = EVTOPTA_RIP_21104
 		custom_tooltip = { text = EVTOPTA_RIP_21104_TOOLTIP }
@@ -1875,6 +1873,7 @@ narrative_event = {
 		}
 
 		FROM = {
+			show_scope_change = no
 			opinion = {
 				who = ROOT
 				modifier = opinion_finished_mystic_task_1
@@ -1915,6 +1914,23 @@ narrative_event = {
 	trigger = {
 		FROM = { prisoner = no }
 		is_liege_of = FROM
+		prisoner = no
+		FROM = { is_alive = yes }
+	}
+	fail_trigger_effect = {
+		if = {
+			limit = { prisoner = yes } #Try again later, in case you're released from prison...
+			repeat_event = {
+				id = RIP.21110
+				days = 35
+			}
+		}
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
 	}
 
 	option = {
@@ -2025,6 +2041,19 @@ narrative_event = {
 
 	is_triggered_only = yes
 
+	trigger = {
+		FROM = { is_alive = yes }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	option = {
 		name = EVTOPTA_RIP_21112
 		custom_tooltip = { text = EVTOPTA_RIP_21112_TOOLTIP }
@@ -2094,6 +2123,19 @@ narrative_event = {
 
 	is_triggered_only = yes
 
+	trigger = {
+		FROM = { is_alive = yes }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	option = {
 		name = EVTOPTA_RIP_21114
 
@@ -2119,6 +2161,7 @@ narrative_event = {
 			}
 		}
 		FROM = {
+			show_scope_change = no
 			opinion = {
 				who = ROOT
 				modifier = opinion_finished_mystic_task_2
@@ -2149,6 +2192,23 @@ narrative_event = {
 	trigger = {
 		FROM = { prisoner = no }
 		is_liege_of = FROM
+		prisoner = no
+		FROM = { is_alive = yes }
+	}
+	fail_trigger_effect = {
+		if = {
+			limit = { prisoner = yes } #Try again later, in case you're released from prison...
+			repeat_event = {
+				id = RIP.21120
+				days = 35
+			}
+		}
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
 	}
 
 	option = {
@@ -2254,11 +2314,43 @@ narrative_event = {
 
 	is_triggered_only = yes
 
+	trigger = {
+		FROM = { is_alive = yes }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	option = {
 		name = EVTOPTA_RIP_21122
 		custom_tooltip = { text = EVTOPTA_RIP_21122_TOOLTIP } 
 		
 		add_trait = immortal
+                if = { 
+                    limit = { 
+                    	is_female = no 
+                    	has_dlc = "Holy Fury"
+                    }
+                    create_bloodline = {
+                        type = immortal_bloodline_01
+                    }       
+                }
+                if = { 
+                    limit = { 
+                    	is_female = yes 
+                    	has_dlc = "Holy Fury"
+                    }
+                    create_bloodline = {
+                        type = immortal_bloodline_01
+                        inheritance = matrilineal
+                    }       
+                }
 
 		if = {
 			limit = { trait = incapable }
@@ -2276,6 +2368,7 @@ narrative_event = {
 			}
 		}
 		FROM = {
+			show_scope_change = no
 			opinion = {
 				who = ROOT
 				modifier = opinion_finished_mystic_task_3
@@ -2305,11 +2398,43 @@ narrative_event = {
 
 	is_triggered_only = yes
 
+	trigger = {
+		FROM = { is_alive = yes }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	option = {
 		name = EVTOPTA_RIP_21124
 		custom_tooltip = { text = EVTOPTA_RIP_21124_TOOLTIP } 
 		
 		add_trait = immortal
+                if = { 
+                    limit = { 
+                    	is_female = no 
+                    	has_dlc = "Holy Fury"
+                    }
+                    create_bloodline = {
+                        type = immortal_bloodline_01
+                    }       
+                }
+                if = { 
+                    limit = { 
+                    	is_female = yes 
+                    	has_dlc = "Holy Fury"
+                    }
+                    create_bloodline = {
+                        type = immortal_bloodline_01
+                        inheritance = matrilineal
+                    }       
+                }
 
 		if = {
 			limit = { trait = incapable }
@@ -2327,6 +2452,7 @@ narrative_event = {
 			}
 		}
 		FROM = {
+			show_scope_change = no
 			opinion = {
 				who = ROOT
 				modifier = opinion_finished_mystic_task_3
@@ -2367,6 +2493,19 @@ narrative_event = {
 	is_triggered_only = yes
 	hide_from = yes
 
+	trigger = {
+		FROM = { is_alive = yes }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	option = {
 		name = EVTOPTA_RIP_21126
 		custom_tooltip = { text = EVTOPTA_RIP_21126_TOOLTIP }
@@ -2405,6 +2544,23 @@ narrative_event = {
 	trigger = {
 		FROM = { prisoner = no }
 		is_liege_of = FROM
+		prisoner = no
+		FROM = { is_alive = yes }
+	}
+	fail_trigger_effect = {
+		if = {
+			limit = { prisoner = yes } #Try again later, in case you're released from prison...
+			repeat_event = {
+				id = RIP.21200
+				days = 35
+			}
+		}
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
 	}
 
 	#Choose to sacrifice a antelope
@@ -2514,6 +2670,27 @@ narrative_event = {
 
 	is_triggered_only = yes
 	hide_from = yes
+	
+	trigger = {
+		prisoner = no
+		FROM = { is_alive = yes }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = { prisoner = yes } #Try again later, in case you're released from prison...
+			repeat_event = {
+				id = RIP.21202
+				days = 35
+			}
+		}
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
 
 	desc = {
 		text = EVTDSC_RIP_21202_A
@@ -2565,6 +2742,28 @@ narrative_event = {
 	id = RIP.21204
 	border = GFX_event_narrative_frame_war
 	picture = GFX_evt_shadowy_cabal
+	is_triggered_only = yes
+
+	trigger = {
+		prisoner = no
+		FROM = { is_alive = yes }
+	}
+	
+	fail_trigger_effect = {
+		if = {
+			limit = { prisoner = yes } #Try again later, in case you're released from prison...
+			repeat_event = {
+				id = RIP.21204
+				days = 35
+			}
+		}
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
 	
 	desc = {
 		text = EVTDSC_RIP_21204_A
@@ -2574,9 +2773,6 @@ narrative_event = {
 		text = EVTDSC_RIP_21204_B
 		trigger = {	has_character_flag = eternal_life_chose_grain }
 	}
-
-
-	is_triggered_only = yes
 
 	option = {
 		name = EVTOPTA_RIP_21204
@@ -2591,6 +2787,7 @@ narrative_event = {
 			add_trait = brave
 		}
 		FROM = {
+			show_scope_change = no
 			opinion = {
 				who = ROOT
 				modifier = opinion_finished_mystic_task_1
@@ -2625,8 +2822,26 @@ narrative_event = {
 	trigger = {
 		FROM = { prisoner = no }
 		is_liege_of = FROM
+		prisoner = no
+		FROM = { is_alive = yes }
 	}
-
+	
+	fail_trigger_effect = {
+		if = {
+			limit = { prisoner = yes } #Try again later, in case you're released from prison...
+			repeat_event = {
+				id = RIP.21210
+				days = 35
+			}
+		}
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+	
 	#wring its neck
 	option = {
 		name = EVTOPTA_RIP_21210
@@ -2731,6 +2946,19 @@ narrative_event = {
 
 	is_triggered_only = yes
 
+	trigger = {
+		FROM = { is_alive = yes }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	option = {
 		name = EVTOPTA_RIP_21212
 		custom_tooltip = { text = EVTOPTA_RIP_21212_TOOLTIP }
@@ -2794,6 +3022,19 @@ narrative_event = {
 
 	is_triggered_only = yes
 
+	trigger = {
+		FROM = { is_alive = yes }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	option = {
 		name = EVTOPTA_RIP_21214
 		change_martial = 2
@@ -2830,6 +3071,7 @@ narrative_event = {
 			}
 		}
 		FROM = {
+			show_scope_change = no
 			opinion = {
 				who = ROOT
 				modifier = opinion_finished_mystic_task_2
@@ -2860,6 +3102,24 @@ narrative_event = {
 	trigger = {
 		FROM = { prisoner = no }
 		is_liege_of = FROM
+		prisoner = no
+		FROM = { is_alive = yes }
+	}
+	
+	fail_trigger_effect = {
+		if = {
+			limit = { prisoner = yes } #Try again later, in case you're released from prison...
+			repeat_event = {
+				id = RIP.21220
+				days = 35
+			}
+		}
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
 	}
 
 	option = {
@@ -2997,11 +3257,43 @@ narrative_event = {
 
 	is_triggered_only = yes
 
+	trigger = {
+		FROM = { is_alive = yes }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	option = {
 		name = EVTOPTA_RIP_21222
 		custom_tooltip = { text = EVTOPTA_RIP_21222_TOOLTIP }
 		
 		add_trait = immortal
+                if = { 
+                    limit = { 
+                    	is_female = no 
+                    	has_dlc = "Holy Fury"
+                    }
+                    create_bloodline = {
+                        type = immortal_bloodline_01
+                    }       
+                }
+                if = { 
+                    limit = { 
+                    	is_female = yes 
+                    	has_dlc = "Holy Fury"
+                    }
+                    create_bloodline = {
+                        type = immortal_bloodline_01
+                        inheritance = matrilineal
+                    }       
+                }
 
 		if = {
 			limit = { trait = incapable }
@@ -3019,6 +3311,7 @@ narrative_event = {
 			}
 		}
 		FROM = {
+			show_scope_change = no
 			opinion = {
 				who = ROOT
 				modifier = opinion_finished_mystic_task_3
@@ -3048,11 +3341,43 @@ narrative_event = {
 
 	is_triggered_only = yes
 
+	trigger = {
+		FROM = { is_alive = yes }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	option = {
 		name = EVTOPTA_RIP_21224
 		custom_tooltip = { text = EVTOPTA_RIP_21224_TOOLTIP }
 		
 		add_trait = immortal
+                if = { 
+                    limit = { 
+                    	is_female = no 
+                    	has_dlc = "Holy Fury"
+                    }
+                    create_bloodline = {
+                        type = immortal_bloodline_01
+                    }       
+                }
+                if = { 
+                    limit = { 
+                    	is_female = yes 
+                    	has_dlc = "Holy Fury"
+                    }
+                    create_bloodline = {
+                        type = immortal_bloodline_01
+                        inheritance = matrilineal
+                    }       
+                }
 
 		if = {
 			limit = { trait = incapable }
@@ -3069,6 +3394,7 @@ narrative_event = {
 			}
 		}
 		FROM = {
+			show_scope_change = no
 			opinion = {
 				who = ROOT
 				modifier = opinion_finished_mystic_task_3
@@ -3119,6 +3445,19 @@ narrative_event = {
 
 	is_triggered_only = yes
 
+	trigger = {
+		FROM = { is_alive = yes }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	option = {
 		name = EVTOPTA_RIP_21227
 		custom_tooltip = { text = EVTOPTA_RIP_21227_TOOLTIP }
@@ -3150,6 +3489,24 @@ narrative_event = {
 	trigger = {
 		FROM = { prisoner = no }
 		is_liege_of = FROM
+		prisoner = no
+		FROM = { is_alive = yes }
+	}
+	
+	fail_trigger_effect = {
+		if = {
+			limit = { prisoner = yes } #Try again later, in case you're released from prison...
+			repeat_event = {
+				id = RIP.21300
+				days = 35
+			}
+		}
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
 	}
 
 	option = {
@@ -3256,6 +3613,27 @@ narrative_event = {
 	is_triggered_only = yes
 	hide_from = yes
 
+	trigger = {
+		prisoner = no
+		FROM = { is_alive = yes }
+	}
+	
+	fail_trigger_effect = {
+		if = {
+			limit = { prisoner = yes } #Try again later, in case you're released from prison...
+			repeat_event = {
+				id = RIP.21302
+				days = 35
+			}
+		}
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	option = {
 		name = EVTOPTA_RIP_21302
 		custom_tooltip = { text = EVTOPTA_RIP_21302_TOOLTIP }
@@ -3300,6 +3678,27 @@ narrative_event = {
 
 	is_triggered_only = yes
 
+	trigger = {
+		prisoner = no
+		FROM = { is_alive = yes }
+	}
+	
+	fail_trigger_effect = {
+		if = {
+			limit = { prisoner = yes } #Try again later, in case you're released from prison...
+			repeat_event = {
+				id = RIP.21304
+				days = 35
+			}
+		}
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	option = {
 		name = EVTOPTA_RIP_21304
 		if = {
@@ -3315,6 +3714,7 @@ narrative_event = {
 		}
 
 		FROM = {
+			show_scope_change = no
 			opinion = {
 				who = ROOT
 				modifier = opinion_finished_mystic_task_1
@@ -3345,6 +3745,24 @@ narrative_event = {
 	trigger = {
 		FROM = { prisoner = no }
 		is_liege_of = FROM
+		prisoner = no
+		FROM = { is_alive = yes }
+	}
+	
+	fail_trigger_effect = {
+		if = {
+			limit = { prisoner = yes } #Try again later, in case you're released from prison...
+			repeat_event = {
+				id = RIP.21310
+				days = 35
+			}
+		}
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
 	}
 
 	option = {
@@ -3455,6 +3873,19 @@ narrative_event = {
 
 	is_triggered_only = yes
 
+	trigger = {
+		FROM = { is_alive = yes }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	option = {
 		name = EVTOPTA_RIP_21312
 		custom_tooltip = { text = EVTOPTA_RIP_21312_TOOLTIP }
@@ -3516,6 +3947,19 @@ narrative_event = {
 
 	is_triggered_only = yes
 
+	trigger = {
+		FROM = { is_alive = yes }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	option = {
 		name = EVTOPTA_RIP_21314
 
@@ -3546,6 +3990,7 @@ narrative_event = {
 			}
 		}
 		FROM = {
+			show_scope_change = no
 			opinion = {
 				who = ROOT
 				modifier = opinion_finished_mystic_task_2
@@ -3571,6 +4016,27 @@ narrative_event = {
 	picture = GFX_evt_pagan
 
 	is_triggered_only = yes
+
+	trigger = {
+		prisoner = no
+		FROM = { is_alive = yes }
+	}
+	
+	fail_trigger_effect = {
+		if = {
+			limit = { prisoner = yes } #Try again later, in case you're released from prison...
+			repeat_event = {
+				id = RIP.21320
+				days = 35
+			}
+		}
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
 
 	desc = {
 		trigger = { has_dlc = "Way of Life" }
@@ -3688,10 +4154,42 @@ narrative_event = {
 
 	is_triggered_only = yes
 
+	trigger = {
+		FROM = { is_alive = yes }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	option = {
 		name = EVTOPTA_RIP_21322
 		custom_tooltip = { text = EVTOPTA_RIP_21322_TOOLTIP } 
 		add_trait = immortal
+                if = { 
+                    limit = { 
+                    	is_female = no 
+                    	has_dlc = "Holy Fury"
+                    }
+                    create_bloodline = {
+                        type = immortal_bloodline_01
+                    }       
+                }
+                if = { 
+                    limit = { 
+                    	is_female = yes 
+                    	has_dlc = "Holy Fury"
+                    }
+                    create_bloodline = {
+                        type = immortal_bloodline_01
+                        inheritance = matrilineal
+                    }       
+                }
 
 		if = {
 			limit = { trait = incapable }
@@ -3708,6 +4206,7 @@ narrative_event = {
 			}
 		}
 		FROM = {
+			show_scope_change = no
 			opinion = {
 				who = ROOT
 				modifier = opinion_finished_mystic_task_3
@@ -3737,10 +4236,42 @@ narrative_event = {
 
 	is_triggered_only = yes
 
+	trigger = {
+		FROM = { is_alive = yes }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	option = {
 		name = EVTOPTA_RIP_21324
 		custom_tooltip = { text = EVTOPTA_RIP_21324_TOOLTIP } 
 		add_trait = immortal
+                if = { 
+                    limit = { 
+                    	is_female = no 
+                    	has_dlc = "Holy Fury"
+                    }
+                    create_bloodline = {
+                        type = immortal_bloodline_01
+                    }       
+                }
+                if = { 
+                    limit = { 
+                    	is_female = yes 
+                    	has_dlc = "Holy Fury"
+                    }
+                    create_bloodline = {
+                        type = immortal_bloodline_01
+                        inheritance = matrilineal
+                    }       
+                }
 
 		if = {
 			limit = { trait = incapable }
@@ -3759,6 +4290,7 @@ narrative_event = {
 			}
 		}
 		FROM = {
+			show_scope_change = no
 			opinion = {
 				who = ROOT
 				modifier = opinion_finished_mystic_task_3
@@ -3799,6 +4331,19 @@ narrative_event = {
 	is_triggered_only = yes
 	hide_from = yes
 
+	trigger = {
+		FROM = { is_alive = yes }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	option = {
 		name = EVTOPTA_RIP_21326
 		custom_tooltip = { text = EVTOPTA_RIP_21326_TOOLTIP } 
@@ -3830,6 +4375,16 @@ narrative_event = {
 	trigger = {
 		FROM = { prisoner = no }
 		is_liege_of = FROM
+		FROM = { is_alive = yes }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
 	}
 
 	immediate = {
@@ -3933,6 +4488,19 @@ narrative_event = {
 
 	is_triggered_only = yes
 
+	trigger = {
+		FROM = { is_alive = yes }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	desc = {
 		text = EVTDSC_RIP_21402_A
 		trigger = { has_character_flag = eternal_life_liar }
@@ -3982,6 +4550,19 @@ narrative_event = {
 
 	is_triggered_only = yes
 
+	trigger = {
+		FROM = { is_alive = yes }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	desc = {
 		text = EVTDSC_RIP_21404_A
 		trigger = { has_character_flag = eternal_life_charity }
@@ -4009,6 +4590,7 @@ narrative_event = {
 		}
 
 		FROM = {
+			show_scope_change = no
 			opinion = {
 				who = ROOT
 				modifier = opinion_finished_mystic_task_1
@@ -4048,6 +4630,24 @@ narrative_event = {
 	trigger = {
 		FROM = { prisoner = no }
 		is_liege_of = FROM
+		prisoner = no
+		FROM = { is_alive = yes }
+	}
+	
+	fail_trigger_effect = {
+		if = {
+			limit = { prisoner = yes } #Try again later, in case you're released from prison...
+			repeat_event = {
+				id = RIP.21410
+				days = 35
+			}
+		}
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
 	}
 
 	option = {
@@ -4159,6 +4759,19 @@ narrative_event = {
 	is_triggered_only = yes
 	hide_from = yes
 
+	trigger = {
+		FROM = { is_alive = yes }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	option = {
 		name = EVTOPTA_RIP_21412
 		custom_tooltip = { text = EVTOPTA_RIP_21412_TOOLTIP }
@@ -4240,6 +4853,19 @@ narrative_event = {
 	is_triggered_only = yes
 	hide_from = yes
 
+	trigger = {
+		FROM = { is_alive = yes }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	option = {
 		name = EVTOPTA_RIP_21414
 		custom_tooltip = { text = EVTOPTA_RIP_21414_TOOLTIP }
@@ -4271,6 +4897,7 @@ narrative_event = {
 			}
 		}
 		FROM = {
+			show_scope_change = no
 			opinion = {
 				who = ROOT
 				modifier = opinion_finished_mystic_task_2
@@ -4301,6 +4928,24 @@ narrative_event = {
 	trigger = {
 		FROM = { prisoner = no }
 		is_liege_of = FROM
+		prisoner = no
+		FROM = { is_alive = yes }
+	}
+	
+	fail_trigger_effect = {
+		if = {
+			limit = { prisoner = yes } #Try again later, in case you're released from prison...
+			repeat_event = {
+				id = RIP.21420
+				days = 35
+			}
+		}
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
 	}
 
 	option = {
@@ -4439,10 +5084,42 @@ narrative_event = {
 
 	is_triggered_only = yes
 
+	trigger = {
+		FROM = { is_alive = yes }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	option = {
 		name = EVTOPTA_RIP_21422
 		custom_tooltip = { text = EVTOPTA_RIP_21422_TOOLTIP } 
 		add_trait = immortal
+                if = { 
+                    limit = { 
+                    	is_female = no 
+                    	has_dlc = "Holy Fury"
+                    }
+                    create_bloodline = {
+                        type = immortal_bloodline_01
+                    }       
+                }
+                if = { 
+                    limit = { 
+                    	is_female = yes 
+                    	has_dlc = "Holy Fury"
+                    }
+                    create_bloodline = {
+                        type = immortal_bloodline_01
+                        inheritance = matrilineal
+                    }       
+                }
 
 		if = {
 			limit = { trait = incapable }
@@ -4460,6 +5137,7 @@ narrative_event = {
 			}
 		}
 		FROM = {
+			show_scope_change = no
 			opinion = {
 				who = ROOT
 				modifier = opinion_finished_mystic_task_3
@@ -4511,6 +5189,19 @@ narrative_event = {
 	is_triggered_only = yes
 	hide_from = yes
 
+	trigger = {
+		FROM = { is_alive = yes }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				FROM = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	option = {
 		name = EVTOPTA_RIP_21427
 		custom_tooltip = { text = EVTOPTA_RIP_21427_TOOLTIP } 
@@ -4534,6 +5225,19 @@ character_event = {
 
 	is_triggered_only = yes
 	hide_window = yes
+
+	trigger = {
+		event_target:eternal_life_mystic = { is_alive = yes }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				event_target:eternal_life_mystic = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
 
 	option = {
 		if = {
@@ -4691,12 +5395,26 @@ narrative_event = {
 
 	is_triggered_only = yes
 
+	trigger = {
+		event_target:eternal_life_mystic = { is_alive = yes }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				event_target:eternal_life_mystic = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	#Nah it's fine
 	option = {
 		trigger = { NOT = { trait = paranoid } }
 		name = EVTOPTA_RIP_21501
 		custom_tooltip = { text = EVTOPTA_RIP_21501_TOOLTIP } 
 		FROM = {
+			show_scope_change = no
 			opinion = {
 				modifier = opinion_did_not_take_my_advice
 				who = ROOT
@@ -4708,6 +5426,7 @@ narrative_event = {
 		name = EVTOPTB_RIP_21501
 		custom_tooltip = { text = EVTOPTB_RIP_21501_TOOLTIP } 
 		FROM = {
+			show_scope_change = no
 			opinion = {
 				modifier = opinion_took_my_advice
 				who = ROOT
@@ -4800,6 +5519,7 @@ narrative_event = {
 		name = EVTOPTC_RIP_21501
 
 		FROM = {
+			show_scope_change = no
 			opinion = {
 				modifier = opinion_took_my_advice
 				who = ROOT
@@ -4849,6 +5569,19 @@ narrative_event = {
 
 	is_triggered_only = yes
 
+	trigger = {
+		event_target:eternal_life_mystic = { is_alive = no }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				event_target:eternal_life_mystic = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	#I don't believe you
 	option = {
 		trigger = { NOT = { trait = paranoid } }
@@ -4856,6 +5589,7 @@ narrative_event = {
 		custom_tooltip = { text = EVTOPTA_RIP_21503_TOOLTIP }
 
 		FROM = {
+			show_scope_change = no
 			opinion = {
 				modifier = opinion_did_not_take_my_advice
 				who = ROOT
@@ -4924,6 +5658,19 @@ narrative_event = {
 
 	is_triggered_only = yes
 
+	trigger = {
+		event_target:eternal_life_mystic = { is_alive = no }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				event_target:eternal_life_mystic = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	option = {
 		name = EVTOPTA_RIP_21505
 	}
@@ -4949,6 +5696,27 @@ narrative_event = {
 	picture = GFX_evt_quarrel
 	is_triggered_only = yes
 
+	trigger = {
+		prisoner = no
+		event_target:eternal_life_mystic = { is_alive = yes }
+	}
+	
+	fail_trigger_effect = {
+		if = {
+			limit = { prisoner = yes } #Try again later, in case you're released from prison...
+			repeat_event = {
+				id = RIP.21507
+				days = 35
+			}
+		}
+		if = {
+			limit = {
+				event_target:eternal_life_mystic = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
+
 	option = {
 		name = EVTOPTA_RIP_21507
 
@@ -4968,6 +5736,7 @@ narrative_event = {
 		custom_tooltip = { text = EVTOPTB_RIP_21507_TOOLTIP }
 
 		FROM = {
+			show_scope_change = no
 			opinion = {
 				modifier = opinion_did_not_trust_me
 				who = ROOT
@@ -5013,6 +5782,19 @@ narrative_event = {
 
 	is_triggered_only = yes
 	hide_from = yes
+
+	trigger = {
+		event_target:eternal_life_mystic = { is_alive = yes }
+	}
+
+	fail_trigger_effect = {
+		if = {
+			limit = {
+				event_target:eternal_life_mystic = { is_alive = no }
+			}
+			character_event = { id = RIP.21099 }
+		}
+	}
 
 	option = {
 		name = EVTOPTA_RIP_21509

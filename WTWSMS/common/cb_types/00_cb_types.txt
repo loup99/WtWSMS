@@ -72,6 +72,8 @@ claim = {
 								has_law = status_of_women_4
 								has_religion_feature = religion_matriarchal
 								has_religion_feature = religion_equal
+								has_religion_feature = religion_feature_celtic
+								has_religion_feature = religion_feature_egyptian
 								has_religion_feature = religion_feature_bon
 							} 
 						}
@@ -81,6 +83,8 @@ claim = {
 								NOR = { 
 									has_religion_feature = religion_matriarchal
 									has_religion_feature = religion_equal
+									has_religion_feature = religion_feature_celtic
+									has_religion_feature = religion_feature_egyptian
 									has_religion_feature = religion_feature_bon
 									has_law = status_of_women_4 
 									has_game_rule = { name = gender value = all } 
@@ -3318,6 +3322,11 @@ tribal_invasion = {
 				}
 			}
 		}
+		FROM = { # WtWSMS, to prevent bugs caused by legions
+			any_realm_province = {
+				de_jure_liege_or_above = PREVPREV
+			}
+		}
 	}
 	
 	is_valid_title = {
@@ -3727,8 +3736,20 @@ crusade = {
 					}
 				}
 				OR = {
-					religion_group = zoroastrian_group
-					religion_group = jewish_group
+					AND = {
+						religion_group = zoroastrian_group
+						custom_tooltip = {
+							text = CTT_PAGAN_GHWS_UNLOCKED
+							has_global_flag = pagan_ghws_unlocked # Case of Sassanid Empire.
+						}
+					}
+					AND = {
+						religion_group = jewish_group
+						custom_tooltip = {
+							text = CTT_PAGAN_GHWS_UNLOCKED
+							has_global_flag = pagan_ghws_unlocked # Religious heads shouldn't declare great holy wars
+						}
+					}
 					AND = {
 						religion_group = pagan_group
 						custom_tooltip = {
@@ -4378,6 +4399,10 @@ new_crusade = {
 				}
 				PREV = {
 					title = k_thrace	
+					FROM = { 
+						has_landed_title = e_byzantium 
+						religion_group = christian
+					}
 				} 
 			}
 		}
@@ -5455,13 +5480,6 @@ new_crusade = {
 				imprison = no
 			}
 
-			# Clean up stances
-			any_attacker = {
-				clr_character_flag = crusade_selfish_stance
-				clr_character_flag = crusade_beneficiary_stance
-				clr_character_flag = crusade_papal_stance
-			}
-
 			# Special bloodline for the recipient of the first Crusade
 			if = {
 				limit = {
@@ -5523,10 +5541,16 @@ new_crusade = {
 				limit = {
 					OR = {
 						has_character_flag = crusade_selfish_stance
-						most_participating_crusader = {
-							crusader_king = {
-								character = PREV
-								character = PREVPREV
+						AND = {
+							NOR = {
+								has_character_flag = crusade_papal_stance
+                				has_character_flag = crusade_beneficiary_stance
+							}
+							most_participating_crusader = {
+								crusader_king = {
+									character = PREV
+									character = PREVPREV
+								}
 							}
 						}
 					}
@@ -5550,6 +5574,13 @@ new_crusade = {
 						}
 					}
 				}
+			}
+
+			# Clean up stances
+			any_attacker = {
+				clr_character_flag = crusade_selfish_stance
+				clr_character_flag = crusade_beneficiary_stance
+				clr_character_flag = crusade_papal_stance
 			}
 
 			ROOT = {
@@ -9626,6 +9657,7 @@ imperial_reconquest = {
 	}
 
 	can_use = {
+		always = no # Redundant with the WtWSMS CBs, keep for vanilla merging
 		ROOT = {
 			has_landed_title = e_roman_empire
 			independent = yes
@@ -10757,6 +10789,15 @@ peasant_revolt = {
 
 	on_success_title = {
 		usurp_title_plus_barony_if_unlanded = { target = ROOT type = revolt }
+		if = { # only for Slavic Migration
+			limit = { ROOT = { has_character_flag = decided_culture } }
+			location = {
+				ROOT = {
+					reverse_culture = PREV
+					reverse_religion = PREV
+				}
+			}
+		}
 		ROOT = { set_defacto_liege = ROOT }
 		FROM = {
 			prestige = -100

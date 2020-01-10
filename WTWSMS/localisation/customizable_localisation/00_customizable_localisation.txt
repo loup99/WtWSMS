@@ -39,8 +39,6 @@
 #GetAgeAdjective 			"The [GetAgeAdjective] [From.GetManWoman]" would read "the old man", for instance
 
 #SOCIETIES
-#GetSocietyName
-#GetSocietyNameCap
 #GetDWReasonToJoin
 #GetDWDevil
 #GetDWDarkMagic
@@ -508,21 +506,21 @@ defined_text = {
 			}
 		}
 	}
-	text = {
-		localisation_key = GetRelation_Acquaintance 
-		trigger = { 
-			NOR = { 
-				relationship_with_root_trigger = yes
-				family_of_root_trigger = yes
-				liege = { character = ROOT }
-				is_liege_of = ROOT
-				AND = {
-					dynasty = ROOT
-					NOT = { dynasty = none }
-				}
-			} 
-		}
-	}
+#	text = { # Outcommented, now that we have proper fallback text.
+#		localisation_key = GetRelation_Acquaintance 
+#		trigger = { 
+#			NOR = { 
+#				relationship_with_root_trigger = yes
+#				family_of_root_trigger = yes
+#				liege = { character = ROOT }
+#				is_liege_of = ROOT
+#				AND = {
+#					dynasty = ROOT
+#					NOT = { dynasty = none }
+#				}
+#			} 
+#		}
+#	}
 	text = {
 		localisation_key = GetRelation_fellow_member
 		trigger = { 
@@ -553,6 +551,59 @@ defined_text = {
 		trigger = { 
 			is_consort = ROOT
 			is_female = no
+		}
+	}
+	text = {
+		localisation_key = GetRelation_enemy
+		weight_multiplier = { factor = 100 }
+		trigger = {
+			any_war = {
+				OR = {
+					AND = {
+						any_defender = {
+							character = PREVPREV
+						}
+						any_attacker = {
+							character = ROOT
+						}
+					}
+					AND = {
+						any_defender = {
+							character = ROOT
+						}
+						any_attacker = {
+							character = PREVPREV
+						}
+					}
+				}
+			}
+		}
+	}
+	text = {
+		localisation_key = GetRelation_sway_target
+		weight_multiplier = { factor = 1 }
+		trigger = { 
+			ROOT = {
+				persistent_event_target:sway_target = {
+					character = PREVPREV
+				}
+			}
+		}
+	}
+	text = {
+		localisation_key = GetRelation_antagonist
+		weight_multiplier = { factor = 1 }
+		trigger = { 
+			OR = {
+				ROOT = {
+					persistent_event_target:antagonize_target = {
+						character = PREVPREV
+					}
+				}
+				persistent_event_target:antagonize_target = {
+					character = ROOT
+				}
+			}
 		}
 	}
 	fallback_text = {
@@ -1670,94 +1721,6 @@ defined_text = {
 }
 
 ###SOCIETIES###
-defined_text = {
-	name = GetSocietyName # Returns the name of target's society
-
-	text = {
-		localisation_key = String_the_Assassins
-		trigger = { society_member_of = the_assassins }
-	}
-	text = {
-		localisation_key = String_the_Satanists
-		trigger = { society_member_of = the_satanists }
-	}
-	text = {
-		localisation_key = String_the_Cold_Ones
-		trigger = { society_member_of = the_cold_ones }
-	}
-	text = {
-		localisation_key = String_the_Trollcrafters
-		trigger = { society_member_of = the_trollcrafters }
-	}
-	text = {
-		localisation_key = String_the_Cult_of_Kali_Purusha
-		trigger = { society_member_of = the_cult_of_kali }
-	}
-	text = {
-		localisation_key = String_the_Plaguebringers
-		trigger = { society_member_of = the_plaguebringers }
-	}
-	text = {
-		localisation_key = String_the_Benedictine_Order
-		trigger = { society_member_of = monastic_order_benedictine }
-	}
-	text = {
-		localisation_key = String_the_Dominican_Order
-		trigger = { society_member_of = monastic_order_dominican }
-	}
-	text = {
-		localisation_key = String_the_Community_of_Saint_Basil
-		trigger = { society_member_of = monastic_order_orthodox }
-	}
-	text = {
-		localisation_key = String_the_Community_of_Saint_Abraham
-		trigger = { society_member_of = monastic_order_nestorian }
-	}
-	text = {
-		localisation_key = String_the_Community_of_Saint_Anthony
-		trigger = { society_member_of = monastic_order_monophysite }
-	}
-	text = {
-		localisation_key = String_the_Sravaka_Samgha
-		trigger = { society_member_of = monastic_order_jain }
-	}
-	text = {
-		localisation_key = String_the_Advaita_Matha
-		trigger = { society_member_of = monastic_order_hindu }
-	}
-	text = {
-		localisation_key = String_the_Savaka_Sangha
-		trigger = { society_member_of = monastic_order_buddhist }
-	}
-	text = {
-		localisation_key = hermetics
-		trigger = { society_member_of = hermetics }
-	}
-
-	### WtWSMS ###
-	text = {
-		localisation_key = String_the_Culdees
-		trigger = { society_member_of = monastic_order_insular }
-	}
-	
-	### ACR ###
-	text = {
-		localisation_key = unseelie_petitioners
-		trigger = { society_member_of = unseelie_petitioners }
-	}
-	text = {
-		localisation_key = the_coven
-		trigger = { society_member_of = the_coven }
-	}
-	text = {
-		localisation_key = the_sand_snakes
-		trigger = { society_member_of = the_sand_snakes }
-	}
-	text = {
-		localisation_key = mysteries_dionysus
-		trigger = { society_member_of = mysteries_dionysus }
-	}
-}
 
 #defined_text = {
 #	name = GetSocietyNameCap # Returns the name of target's society with inital Capital letter
@@ -1962,22 +1925,22 @@ defined_text = {
 			NOT = { has_alternate_start_parameter = { key = religion_names value = random } }
 		}
 	}
-	fallback_text = {
-		localisation_key = String_Random_Devil
-	}
 
 	### ACR ###
 	text = {
 		localisation_key = GOD_UNSEELIE
-		trigger = { society_member_of = unseelie_petitioners }
-	}
-	text = {
-		localisation_key = GOD_HECATE
-		trigger = { society_member_of = the_coven }
+		trigger = { society_member_of = unseelie_petitioners 
+			NOT = { has_alternate_start_parameter = { key = religion_names value = random } }
+		}
 	}
 	text = {
 		localisation_key = GOD_APEP
-		trigger = { society_member_of = the_sand_snakes }
+		trigger = { society_member_of = the_sand_snakes 
+			NOT = { has_alternate_start_parameter = { key = religion_names value = random } }
+		}
+	}
+	fallback_text = {
+		localisation_key = String_Random_Devil
 	}
 }
 
@@ -2047,7 +2010,6 @@ defined_text = {
 		localisation_key = String_black_magic
 		trigger = {
 			society_member_of = unseelie_petitioners
-			society_member_of = the_coven
 			society_member_of = the_sand_snakes
 		}
 	}
@@ -2114,22 +2076,23 @@ defined_text = {
 			NOT = { has_alternate_start_parameter = { key = religion_names value = random } }
 		} 
 	}
-	fallback_text = {
-		localisation_key = String_demon
-	}
 
 	### ACR ###
 	text = {
 		localisation_key = String_nuckelavee
-		trigger = { society_member_of = unseelie_petitioners }
-	}
-	text = {
-		localisation_key = String_ker
-		trigger = { society_member_of = the_coven }
+		trigger = { society_member_of = unseelie_petitioners 
+			NOT = { has_alternate_start_parameter = { key = religion_names value = random } }
+		} 
 	}
 	text = {
 		localisation_key = String_jinn
-		trigger = { society_member_of = the_sand_snakes }
+		trigger = { society_member_of = the_sand_snakes 
+			NOT = { has_alternate_start_parameter = { key = religion_names value = random } }
+		} 
+	}
+
+	fallback_text = {
+		localisation_key = String_demon
 	}
 }
 
@@ -2194,9 +2157,6 @@ defined_text = {
 			NOT = { has_alternate_start_parameter = { key = religion_names value = random } }
 		} 
 	}
-	fallback_text = {
-		localisation_key = String_demons
-	}
 
 	### ACR ###
 	text = {
@@ -2204,12 +2164,12 @@ defined_text = {
 		trigger = { society_member_of = unseelie_petitioners }
 	}
 	text = {
-		localisation_key = String_keres
-		trigger = { society_member_of = the_coven }
-	}
-	text = {
 		localisation_key = String_jinns
 		trigger = { society_member_of = the_sand_snakes }
+	}
+
+	fallback_text = {
+		localisation_key = String_demons
 	}
 }
 
@@ -2300,7 +2260,7 @@ defined_text = {
 	### ACR ###
 	text = {
 		localisation_key = String_wizard
-		trigger = { 
+		trigger = {
 			is_female = no
 			society_member_of = unseelie_petitioners
 		}
@@ -2310,7 +2270,6 @@ defined_text = {
 		trigger = {
 			OR = {
 				society_member_of = unseelie_petitioners
-				society_member_of = the_coven
 				society_member_of = the_sand_snakes
 			}
 			is_female = yes
@@ -2319,10 +2278,7 @@ defined_text = {
 	text = {
 		localisation_key = String_warlock
 		trigger = {
-			OR = {
-				society_member_of = the_coven
-				society_member_of = the_sand_snakes
-			}
+			society_member_of = the_sand_snakes
 			is_female = no
 		}
 	}
@@ -2474,9 +2430,6 @@ defined_text = {
 			NOT = { has_alternate_start_parameter = { key = religion_names value = random } }
 		}
 	}
-	fallback_text = {
-		localisation_key = String_Praise_Evilgod
-	}
 
 	### ACR ###
 	text = {
@@ -2484,12 +2437,11 @@ defined_text = {
 		trigger = { society_member_of = unseelie_petitioners }
 	}
 	text = {
-		localisation_key = String_Glory_to_Hecate
-		trigger = { society_member_of = the_coven }
-	}
-	text = {
 		localisation_key = String_Glory_to_the_Great_Serpent
 		trigger = { society_member_of = the_sand_snakes }
+	}
+	fallback_text = {
+		localisation_key = String_Praise_Evilgod
 	}
 }
 
@@ -3045,23 +2997,39 @@ defined_text = {
 			}
 		}
 	}
-	
+
 	### ACR ###
 	text = {
 		localisation_key = String_Danus_blessings
-		trigger = { is_celtic_secret_religious_society_member_trigger = yes }
+		trigger = { is_celtic_secret_religious_society_member_trigger = yes  
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
 	}
 	text = {
 		localisation_key = String_Heracles_strength_to_you
-		trigger = { society_member_of = secret_religious_society_hellenic_pagan }
+		trigger = { society_member_of = secret_religious_society_hellenic_pagan  
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
 	}
 	text = {
 		localisation_key = String_Amuns_blessings
-		trigger = { society_member_of = secret_religious_society_egyptian_pagan }
+		trigger = { society_member_of = secret_religious_society_egyptian_pagan  
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
 	}
 	text = {
 		localisation_key = String_the_Atens_blessings
-		trigger = { society_member_of = secret_religious_society_aten_pagan }
+		trigger = { society_member_of = secret_religious_society_aten_pagan  
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
 	}
 }
 
@@ -3214,7 +3182,8 @@ defined_text = {
 			has_alternate_start_parameter = { key = religion_names value = random }
 		}
 	}
-	
+
+
 	### ACR ###
 	text = {
 		localisation_key = String_Arawn_watch_over_you
@@ -3376,9 +3345,6 @@ defined_text = {
 			}
 		}
 	}
-	fallback_text = {
-		localisation_key = String_god_symbol
-	}
 
 	### ACR ###
 	text = {
@@ -3400,6 +3366,9 @@ defined_text = {
 	text = {
 		localisation_key = String_solar_disk
 		trigger = { society_member_of = secret_religious_society_aten_pagan }
+	}
+	fallback_text = {
+		localisation_key = String_god_symbol
 	}
 }
 
@@ -3453,7 +3422,12 @@ defined_text = {
 	}
 	text = {
 		localisation_key = GetHouseOfWorship_Pagan
-		trigger = { religion_group = pagan_group }
+		trigger = {
+			religion_group = pagan_group
+			NOT = {
+				religion_openly_in_celtic_subgroup_trigger = no
+			}
+		}
 	}
 	text = {
 		localisation_key = GetHouseOfWorship_Zoroastrian
@@ -3478,6 +3452,20 @@ defined_text = {
 	text = {
 		localisation_key = GetHouseOfWorship_Taoist
 		trigger = { religion = taoist }
+	}
+	text = {
+		localisation_key = GetHouseOfWorship_Celtic
+		trigger = {
+			religion_openly_in_celtic_subgroup_trigger = yes
+			NOT = { culture = gaulish }
+		}
+	}
+	text = {
+		localisation_key = GetHouseOfWorship_Gaulish
+		trigger = {
+			religion_openly_in_celtic_subgroup_trigger = yes
+			culture = gaulish
+		}
 	}
 	fallback_text = {
 		localisation_key = GetHouseOfWorship_Pagan
@@ -3525,21 +3513,6 @@ defined_text = {
 	}
 	fallback_text = {
 		localisation_key = string_Temple
-	}
-	#ACR?
-	text = {
-		localisation_key = GetHouseOfWorship_Celtic
-		trigger = {
-			religion_openly_in_celtic_subgroup_trigger = yes
-			NOT = { culture = gaulish }
-		}
-	}
-	text = {
-		localisation_key = GetHouseOfWorship_Gaulish
-		trigger = {
-			religion_openly_in_celtic_subgroup_trigger = yes
-			culture = gaulish
-		}
 	}
 }
 
@@ -3773,7 +3746,7 @@ defined_text = {
 			}
 		}
 	}
-	text = { 
+	text = {
 		localisation_key = String_Buddhist
 		trigger = {
 			religion = buddhist
@@ -3782,7 +3755,7 @@ defined_text = {
 			}
 		}
 	}
-	text = { 
+	text = {
 		localisation_key = String_Jain
 		trigger = {
 			religion = jain
@@ -3899,12 +3872,18 @@ defined_text = {
 		localisation_key = String_Celt
 		trigger = {
 			religion = celtic_pagan
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
 		}
 	}
 	text = {
 		localisation_key = String_Druid
 		trigger = {
 			religion = celtic_pagan_reformed
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
 		}
 	}
 	text = {
@@ -3916,13 +3895,19 @@ defined_text = {
 	text = {
 		localisation_key = String_Kemetic
 		trigger = {
-			religion = egyptian_pagan
+			religion_openly_egyptian_or_reformed_trigger = yes
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
 		}
 	}
 	text = {
 		localisation_key = String_Atenic
 		trigger = {
 			religion = aten_pagan
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
 		}
 	}
 }
@@ -4428,10 +4413,7 @@ defined_text = {
 	text = { 
 		localisation_key = String_hellenic_pagan
 		trigger = { 
-			OR = {
-				true_religion_hellenic_pagan_trigger = yes 
-				true_religion_hellenic_pagan_reformed_trigger = yes 
-			}
+			true_religion_hellenic_pagan_trigger = yes 
 			NOT = {
 				has_alternate_start_parameter = { key = religion_names value = random }
 			}
@@ -4445,31 +4427,51 @@ defined_text = {
 			}
 		}
 	}
-	fallback_text = {
-		localisation_key = String_adherent_random
-	}
 
 	### ACR ###
 	text = {
 		localisation_key = String_Celtic
-		trigger = { true_religion_celtic_pagan_trigger = yes }
+		trigger = { true_religion = celtic_pagan  
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
 	}
 	text = {
 		localisation_key = String_Druidic
-		trigger = { true_religion_celtic_pagan_reformed_trigger = yes }
+		trigger = { true_religion = celtic_pagan_reformed  
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
 	}
 	text = {
 		localisation_key = String_Hellenic
-		trigger = { true_religion_hellenic_pagan_trigger = yes }
+		trigger = { true_religion = hellenic_pagan  
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
 	}
 	text = {
 		localisation_key = String_Kemetic
-		trigger = { true_religion_egyptian_pagan_trigger = yes }
+		trigger = { true_religion = egyptian_pagan  
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
 	}
 	text = {
 		localisation_key = String_Atenic
-		trigger = { true_religion_aten_pagan_trigger = yes }
-	}	
+		trigger = { true_religion = aten_pagan  
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
+	}
+	fallback_text = {
+		localisation_key = String_adherent_random
+	}
 }
 
 defined_text = {
@@ -4875,10 +4877,7 @@ defined_text = {
 	text = { 
 		localisation_key = String_hellenic_follower
 		trigger = { 
-			OR = {
-				true_religion_hellenic_pagan_trigger = yes 
-				true_religion_hellenic_pagan_reformed_trigger = yes 
-			}
+			true_religion_hellenic_pagan_trigger = yes 
 			NOT = {
 				has_alternate_start_parameter = { key = religion_names value = random }
 			}
@@ -4892,30 +4891,50 @@ defined_text = {
 			}
 		}
 	}
-	fallback_text = {
-		localisation_key = String_adherent_random
-	}
 
 	### ACR ###
 	text = {
 		localisation_key = celtic_pagan
-		trigger = { true_religion = celtic_pagan }
+		trigger = { true_religion = celtic_pagan  
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
 	}
 	text = {
 		localisation_key = celtic_pagan_reformed
-		trigger = { true_religion = celtic_pagan_reformed }
+		trigger = { true_religion = celtic_pagan_reformed  
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
 	}
 	text = {
 		localisation_key = hellenic_pagan
-		trigger = { true_religion = hellenic_pagan }
+		trigger = { true_religion = hellenic_pagan  
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
 	}
 	text = {
 		localisation_key = egyptian_pagan
-		trigger = { true_religion = egyptian_pagan }
+		trigger = { true_religion = egyptian_pagan  
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
 	}
 	text = {
 		localisation_key = aten_pagan
-		trigger = { true_religion = aten_pagan }
+		trigger = { true_religion = aten_pagan  
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
+	}
+	fallback_text = {
+		localisation_key = String_adherent_random
 	}
 }
 
@@ -5050,28 +5069,6 @@ defined_text = {
 #		localisation_key = GOD_HEAVENLY_ORDER
 #		trigger = { true_religion_taoist_trigger = yes }
 #	}
-#
-#	### ACR ###
-#	text = {
-#		localisation_key = GOD_LUGH
-#		trigger = { true_religion_celtic_pagan_trigger = yes }
-#	}
-#	text = {
-#		localisation_key = GOD_LUGH
-#		trigger = { true_religion_celtic_pagan_reformed_trigger = yes }
-#	}
-#	text = {
-#		localisation_key = GOD_JUPITER
-#		trigger = { true_religion_hellenic_pagan_trigger = yes }
-#	}
-#	text = {
-#		localisation_key = GOD_AMON
-#		trigger = { true_religion_egyptian_pagan_trigger = yes }
-#	}
-#	text = {
-#		localisation_key = GOD_ATEN
-#		trigger = { true_religion_aten_pagan_trigger = yes }
-#	}
 #}
 
 defined_text = {
@@ -5152,10 +5149,7 @@ defined_text = {
     text = { 
         localisation_key = String_Legends
         trigger = { 
-            OR = {
                 true_religion_hellenic_pagan_trigger = yes
-                true_religion_hellenic_pagan_reformed_trigger = yes
-            }
         }
     }
 	text = { 
@@ -5177,23 +5171,23 @@ defined_text = {
 	### ACR ###
 	text = {
 		localisation_key = THE_BALLADS
-		trigger = { true_religion_celtic_pagan_trigger = yes }
+		trigger = { true_religion = celtic_pagan }
 	}
 	text = {
 		localisation_key = THE_STONES
-		trigger = { true_religion_celtic_pagan_reformed_trigger = yes }
+		trigger = { true_religion = celtic_pagan_reformed }
 	}
 	text = {
 		localisation_key = THE_THEOGONY
-		trigger = { true_religion_hellenic_pagan_trigger = yes }
+		trigger = { true_religion = hellenic_pagan }
 	}
 	text = {
 		localisation_key = BOOK_OF_THE_DEAD
-		trigger = { true_religion_egyptian_pagan_trigger = yes }
+		trigger = { true_religion = egyptian_pagan }
 	}
 	text = {
 		localisation_key = AMARNA_SCROLLS
-		trigger = { true_religion_aten_pagan_trigger = yes }
+		trigger = { true_religion = aten_pagan }
 	}
 }
 
@@ -5393,10 +5387,7 @@ defined_text = {
 	text = { 
 		localisation_key = String_hellenic_follower
 		trigger = { 
-			OR = {
-				true_religion_hellenic_pagan_trigger = yes 
-				true_religion_hellenic_pagan_reformed_trigger = yes 
-			}
+			true_religion_hellenic_pagan_trigger = yes 
 			NOT = {
 				has_alternate_start_parameter = { key = religion_names value = random }
 			}
@@ -5410,30 +5401,50 @@ defined_text = {
 			}
 		}
 	}
-	fallback_text = {
-		localisation_key = String_adherent_random
-	}
 
 	### ACR ###
 	text = {
 		localisation_key = String_Celt
-		trigger = { true_religion_celtic_pagan_trigger = yes }
+		trigger = { true_religion = celtic_pagan 
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
 	}
 	text = {
 		localisation_key = String_Druid
-		trigger = { true_religion_celtic_pagan_reformed_trigger = yes }
+		trigger = { true_religion = celtic_pagan_reformed 
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
 	}
 	text = {
 		localisation_key = String_Hellene
-		trigger = { true_religion_hellenic_pagan_trigger = yes }
+		trigger = { true_religion = hellenic_pagan 
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
 	}
 	text = {
 		localisation_key = String_Kemetic
-		trigger = { true_religion_egyptian_pagan_trigger = yes }
+		trigger = { true_religion = egyptian_pagan 
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
 	}
 	text = {
 		localisation_key = String_Atenic
-		trigger = { true_religion_aten_pagan_trigger = yes }
+		trigger = { true_religion = aten_pagan 
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
+	}
+	fallback_text = {
+		localisation_key = String_adherent_random
 	}
 }
 
@@ -5659,30 +5670,50 @@ defined_text = {
 			}
 		}
 	}
-	fallback_text = {
-		localisation_key = String_adherent_random
-	}
 
 	### ACR ###
 	text = {
 		localisation_key = String_Celt
-		trigger = { true_religion_celtic_pagan_trigger = yes }
+		trigger = { true_religion = celtic_pagan 
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
 	}
 	text = {
 		localisation_key = String_Druid
-		trigger = { true_religion_celtic_pagan_reformed_trigger = yes }
+		trigger = { true_religion = celtic_pagan_reformed 
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
 	}
 	text = {
 		localisation_key = String_Hellene
-		trigger = { true_religion_hellenic_pagan_trigger = yes }
+		trigger = { true_religion = hellenic_pagan 
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
 	}
 	text = {
 		localisation_key = String_Kemetic
-		trigger = { true_religion_egyptian_pagan_trigger = yes }
+		trigger = { true_religion = egyptian_pagan 
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
 	}
 	text = {
 		localisation_key = String_Atenic
-		trigger = { true_religion_aten_pagan_trigger = yes }
+		trigger = { true_religion = aten_pagan 
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
+	}
+	fallback_text = {
+		localisation_key = String_adherent_random
 	}
 }
 
@@ -7382,7 +7413,7 @@ defined_text = {
 		}
 		localisation_key = String_Nyamia
 	}
-	
+
 	### ACR ###
 	text = {
 		localisation_key = String_Nuckelavee
@@ -7406,30 +7437,6 @@ defined_text = {
 		localisation_key = String_Fomorians
 		trigger = {
 			society_member_of = unseelie_petitioners
-		}
-	}
-	text = {
-		localisation_key = String_Keres
-		trigger = {
-			society_member_of = the_coven
-		}
-	}
-	text = {
-		localisation_key = String_Cacodaemons
-		trigger = {
-			society_member_of = the_coven
-		}
-	}
-	text = {
-		localisation_key = String_Lamia
-		trigger = {
-			society_member_of = the_coven
-		}
-	}
-	text = {
-		localisation_key = String_Gorgon
-		trigger = {
-			society_member_of = the_coven
 		}
 	}
 	text = {
@@ -7654,22 +7661,18 @@ defined_text = {
 			NOT = { has_alternate_start_parameter = { key = religion_names value = random } }
 		} 
 	}
-	fallback_text = {
-		localisation_key = String_Demon_Prince
-	}
-	
+
 	### ACR ###
 	text = {
 		trigger = { society_member_of = unseelie_petitioners }
 		localisation_key = String_Fomorian_Prince
 	}
 	text = {
-		trigger = { society_member_of = the_coven }
-		localisation_key = String_Lamia_Matriarch
-	}
-	text = {
 		trigger = { society_member_of = the_sand_snakes }
 		localisation_key = String_Great_Set
+	}
+	fallback_text = {
+		localisation_key = String_Demon_Prince
 	}
 }
 
@@ -7724,7 +7727,12 @@ defined_text = {
 	text = {
 		trigger = { has_character_flag = armor_set }
 		localisation_key = String_set_of_armor
-	}	
+	}
+	text = {
+		trigger = { has_character_flag = zweihanded_sword }
+		localisation_key = String_sword
+	}
+
 }
 
 defined_text = {
@@ -7748,8 +7756,8 @@ defined_text = {
 			NOR = {
 				religion_group = muslim
 				culture = nahuatl
-				AND = { #"English" names are the ones Latins would use, only Greek Hellenics would use the greek gods names.
-					OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+				AND = {
+					religion_openly_in_hellenic_subgroup_trigger = yes
 					culture_group = byzantine
 				}
 				religion_openly_in_egyptian_subgroup_trigger = yes
@@ -7774,7 +7782,7 @@ defined_text = {
 	}
 	text = {
 		trigger = {
-			OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+			religion_openly_in_hellenic_subgroup_trigger = yes
 			culture_group = byzantine
 		}
 		localisation_key = String_Sun_hellenic
@@ -7797,14 +7805,14 @@ defined_text = {
 
 defined_text = {
 	name = GetMercuryName
-	
+
 	text = {
 		trigger = {
 			NOR = {
 				religion_group = muslim
 				culture = nahuatl
-				AND = { #"English" names are the ones Latins would use, only Greek Hellenics would use the greek gods names.
-					OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+				AND = {
+					religion_openly_in_hellenic_subgroup_trigger = yes
 					culture_group = byzantine
 				}
 				religion = zun_pagan
@@ -7828,7 +7836,7 @@ defined_text = {
 	}
 	text = {
 		trigger = {
-			OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+			religion_openly_in_hellenic_subgroup_trigger = yes
 			culture_group = byzantine
 		}
 		localisation_key = String_Mercury_hellenic
@@ -7853,8 +7861,8 @@ defined_text = {
 			NOR = {
 				religion_group = muslim
 				culture = nahuatl
-				AND = { #"English" names are the ones Latins would use, only Greek Hellenics would use the greek gods names.
-					OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+				AND = {
+					religion_openly_in_hellenic_subgroup_trigger = yes
 					culture_group = byzantine
 				}
 				religion = zun_pagan
@@ -7878,7 +7886,7 @@ defined_text = {
 	}
 	text = {
 		trigger = {
-			OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+			religion_openly_in_hellenic_subgroup_trigger = yes
 			culture_group = byzantine
 		}
 		localisation_key = String_Venus_hellenic
@@ -7904,7 +7912,7 @@ defined_text = {
 				religion_group = muslim
 				culture = nahuatl
 				AND = { #"English" names are the ones Latins would use, only Greek Hellenics would use the greek gods names.
-					OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+					religion_openly_in_hellenic_subgroup_trigger = yes
 					culture_group = byzantine
 				}
 				religion = zun_pagan
@@ -7928,7 +7936,7 @@ defined_text = {
 	}
 	text = {
 		trigger = {
-			OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+			religion_openly_in_hellenic_subgroup_trigger = yes
 			culture_group = byzantine
 		}
 		localisation_key = String_Earth_hellenic
@@ -7954,7 +7962,7 @@ defined_text = {
 				religion_group = muslim
 				culture = nahuatl
 				AND = { #"English" names are the ones Latins would use, only Greek Hellenics would use the greek gods names.
-					OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+					religion_openly_in_hellenic_subgroup_trigger = yes
 					culture_group = byzantine
 				}
 				religion = zun_pagan
@@ -7978,7 +7986,7 @@ defined_text = {
 	}
 	text = {
 		trigger = {
-			OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+			religion_openly_in_hellenic_subgroup_trigger = yes
 			culture_group = byzantine
 		}
 		localisation_key = String_Moon_hellenic
@@ -8004,10 +8012,10 @@ defined_text = {
 				religion_group = muslim
 				culture = nahuatl
 				AND = { #"English" names are the ones Latins would use, only Greek Hellenics would use the greek gods names.
-					OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+					religion_openly_in_hellenic_subgroup_trigger = yes
 					culture_group = byzantine
 				}
-				religion = hellenic_pagan_reformed
+				
 				religion = zun_pagan
 				religion = zun_pagan_reformed
 				religion_group = zoroastrian_group
@@ -8029,7 +8037,7 @@ defined_text = {
 	}
 	text = {
 		trigger = {
-			OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+			religion_openly_in_hellenic_subgroup_trigger = yes
 			culture_group = byzantine
 		}
 		localisation_key = String_Mars_hellenic
@@ -8055,7 +8063,7 @@ defined_text = {
 				religion_group = muslim
 				culture = nahuatl
 				AND = { #"English" names are the ones Latins would use, only Greek Hellenics would use the greek gods names.
-					OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+					religion_openly_in_hellenic_subgroup_trigger = yes
 					culture_group = byzantine
 				}
 				religion = zun_pagan
@@ -8079,7 +8087,7 @@ defined_text = {
 	}
 	text = {
 		trigger = {
-			OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+			religion_openly_in_hellenic_subgroup_trigger = yes
 			culture_group = byzantine
 		}
 		localisation_key = String_Jupiter_hellenic
@@ -8105,7 +8113,7 @@ defined_text = {
 				religion_group = muslim
 				culture = nahuatl
 				AND = { #"English" names are the ones Latins would use, only Greek Hellenics would use the greek gods names.
-					OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+				religion_openly_in_hellenic_subgroup_trigger = yes
 					culture_group = byzantine
 				}
 				religion = zun_pagan
@@ -8129,7 +8137,7 @@ defined_text = {
 	}
 	text = {
 		trigger = {
-			OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+			religion_openly_in_hellenic_subgroup_trigger = yes
 			culture_group = byzantine
 		}
 		localisation_key = String_Saturn_hellenic
@@ -8155,7 +8163,7 @@ defined_text = {
 				religion_group = muslim
 				culture = nahuatl
 				AND = { #"English" names are the ones Latins would use, only Greek Hellenics would use the greek gods names.
-					OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+					religion_openly_in_hellenic_subgroup_trigger = yes
 					culture_group = byzantine
 				}
 				religion = zun_pagan
@@ -8179,7 +8187,7 @@ defined_text = {
 	}
 	text = {
 		trigger = {
-			OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+			religion_openly_in_hellenic_subgroup_trigger = yes
 			culture_group = byzantine
 		}
 		localisation_key = String_Uranus_hellenic
@@ -8205,7 +8213,7 @@ defined_text = {
 				religion_group = muslim
 				culture = nahuatl
 				AND = { #"English" names are the ones Latins would use, only Greek Hellenics would use the greek gods names.
-					OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+					religion_openly_in_hellenic_subgroup_trigger = yes
 					culture_group = byzantine
 				}
 				religion = zun_pagan
@@ -8229,7 +8237,7 @@ defined_text = {
 	}
 	text = {
 		trigger = {
-			OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+			religion_openly_in_hellenic_subgroup_trigger = yes
 			culture_group = byzantine
 		}
 		localisation_key = String_Neptune_hellenic
@@ -8255,7 +8263,7 @@ defined_text = {
 				religion_group = muslim
 				culture = nahuatl
 				AND = { #"English" names are the ones Latins would use, only Greek Hellenics would use the greek gods names.
-					OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+					religion_openly_in_hellenic_subgroup_trigger = yes
 					culture_group = byzantine
 				}
 				religion = zun_pagan
@@ -8279,7 +8287,7 @@ defined_text = {
 	}
 	text = {
 		trigger = {
-			OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+			religion_openly_in_hellenic_subgroup_trigger = yes
 			culture_group = byzantine
 		}
 		localisation_key = String_Pluto_hellenic
@@ -8305,7 +8313,7 @@ defined_text = {
 				religion_group = muslim
 				culture = nahuatl
 				AND = { #"English" names are the ones Latins would use, only Greek Hellenics would use the greek gods names.
-					OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+					religion_openly_in_hellenic_subgroup_trigger = yes
 					culture_group = byzantine
 				}
 				religion = zun_pagan
@@ -8329,7 +8337,7 @@ defined_text = {
 	}
 	text = {
 		trigger = {
-			OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+			religion_openly_in_hellenic_subgroup_trigger = yes
 			culture_group = byzantine
 		}
 		localisation_key = String_Mercury_hellenic
@@ -8350,7 +8358,7 @@ defined_text = {
 				religion_group = muslim
 				culture = nahuatl
 				AND = { #"English" names are the ones Latins would use, only Greek Hellenics would use the greek gods names.
-					OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+					religion_openly_in_hellenic_subgroup_trigger = yes
 					culture_group = byzantine
 				}
 				religion = zun_pagan
@@ -8374,7 +8382,7 @@ defined_text = {
 	}
 	text = {
 		trigger = {
-			OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+			religion_openly_in_hellenic_subgroup_trigger = yes
 			culture_group = byzantine
 		}
 		localisation_key = String_Venus_hellenic
@@ -8395,7 +8403,7 @@ defined_text = {
 				religion_group = muslim
 				culture = nahuatl
 				AND = { #"English" names are the ones Latins would use, only Greek Hellenics would use the greek gods names.
-					OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+					religion_openly_in_hellenic_subgroup_trigger = yes
 					culture_group = byzantine
 				}
 				religion = zun_pagan
@@ -8419,7 +8427,7 @@ defined_text = {
 	}
 	text = {
 		trigger = {
-			OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+			religion_openly_in_hellenic_subgroup_trigger = yes
 			culture_group = byzantine
 		}
 		localisation_key = String_Mars_hellenic
@@ -8440,7 +8448,7 @@ defined_text = {
 				religion_group = muslim
 				culture = nahuatl
 				AND = { #"English" names are the ones Latins would use, only Greek Hellenics would use the greek gods names.
-					OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+					religion_openly_in_hellenic_subgroup_trigger = yes
 					culture_group = byzantine
 				}
 				religion = zun_pagan
@@ -8464,7 +8472,7 @@ defined_text = {
 	}
 	text = {
 		trigger = {
-			OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+			religion_openly_in_hellenic_subgroup_trigger = yes
 			culture_group = byzantine
 		}
 		localisation_key = String_Jupiter_hellenic
@@ -8485,7 +8493,7 @@ defined_text = {
 				religion_group = muslim
 				culture = nahuatl
 				AND = { #"English" names are the ones Latins would use, only Greek Hellenics would use the greek gods names.
-					OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+					religion_openly_in_hellenic_subgroup_trigger = yes
 					culture_group = byzantine
 				}
 				religion = zun_pagan
@@ -8509,7 +8517,7 @@ defined_text = {
 	}
 	text = {
 		trigger = {
-			OR = { religion = hellenic_pagan religion = hellenic_pagan_reformed } 
+			religion_openly_in_hellenic_subgroup_trigger = yes
 			culture_group = byzantine
 		}
 		localisation_key = String_Saturn_hellenic
@@ -10181,6 +10189,9 @@ defined_text = {
 	}
 	text = {
 		localisation_key = String_cracking_knuckles
+		trigger = {
+			trait = wroth
+		}
 	}
 	text = {
 		localisation_key = String_optimistic_outlook_on_life
@@ -10206,6 +10217,134 @@ defined_text = {
 				trait = paranoid
 				is_evil_trigger = yes
 				has_unpleasant_personality_trigger = yes
+			}
+		}
+	}
+}
+
+defined_text = {
+	name = GetLoverEnjoyableQuirk #noun, singular
+	
+	text = {
+		localisation_key = String_way_with_words
+		trigger = {
+			OR = {
+				has_pleasant_trait_trigger = yes
+				diplomacy = 20
+			}
+		}
+	}
+	text = {
+		localisation_key = String_love_of_poetry
+		trigger = {
+			trait = poet
+		}
+	}
+	text = {
+		localisation_key = String_sharp_wit
+		trigger = {
+			is_smart_trigger = yes
+		}
+	}
+	text = {
+		localisation_key = String_boldness
+		trigger = {
+			OR = {
+				trait = brave
+				trait = brilliant_strategist
+				this_is_sea_raider_trigger = yes
+			}
+			NOT = { trait = craven }
+		}
+	}
+	text = {
+		localisation_key = String_love_of_life
+		trigger = {
+			NOT = { trait = depressed }
+			NOT = { trait = stressed }
+		}
+	}	
+	text = {
+		localisation_key = String_morbid_sense_of_humor
+		trigger = {
+			is_evil_trigger = yes
+		}
+	}
+	text = {
+		localisation_key = String_gentle_spirit
+		trigger = {
+			OR = {
+				is_benevolent_trigger = yes
+				is_dumb_trigger = yes	
+			}
+		}
+	}
+	text = {
+		localisation_key = String_honesty
+		trigger = {
+			trait = honest
+		}
+	}
+	text = {
+		localisation_key = String_mischieveous_sense_of_humor
+		trigger = {
+			OR = {
+				has_vice_trigger = yes	
+				has_impious_trait_trigger= yes
+			}
+			is_dumb_trigger = no
+		}
+	}
+	text = {
+		localisation_key = String_sense_of_humor
+	}	
+	text = {
+		localisation_key = String_infectious_smile
+		trigger = {
+			OR = {
+				has_lifestyle_diplomacy_trigger = yes
+				has_education_diplomacy_trigger = yes
+				has_attractive_trait_trigger = yes
+			}
+		}
+	}
+	text = {
+		localisation_key = String_seeing_the_best_in_people
+		trigger = {
+			trait = trusting
+		}
+	}
+	text = {
+		localisation_key = String_cracking_knuckles
+		trigger = {
+			trait = wroth
+		}
+	}
+	text = {
+		localisation_key = String_optimism
+		trigger = {
+			OR = {
+				has_pleasant_trait_trigger = yes
+				has_benevolent_trait_trigger = yes
+			}
+		}
+	}
+	text = {
+		localisation_key = String_innocence
+		trigger = {
+			has_pleasant_trait_trigger = yes
+			NOT = { age = 40 }
+		}
+	}	
+	text = {
+		localisation_key = String_jaded_view_on_romance
+		trigger = {
+			OR = {
+				trait = cynical
+				trait = paranoid
+				is_evil_trigger = yes
+				has_unpleasant_personality_trigger = yes
+				is_devil_worshiper_trigger = yes
 			}
 		}
 	}
@@ -12391,41 +12530,6 @@ defined_text = {
 	}
 }
 
-
-defined_text = {
-	name = GetRaidCD
-	
-	text = {
-		trigger = {
-			has_character_modifier = china_raid_grace_cd
-		}
-		localisation_key = string_raid_cd
-	}
-}
-
-defined_text = {
-	name = GetNegotiateCD
-	
-	text = {
-		trigger = {
-			has_character_modifier = adventurer_negotiate_cd
-		}
-		localisation_key = string_negotiate_cd
-	}
-}
-
-defined_text = {
-	name = GetSmithCD
-	
-	text = {
-		trigger = {
-			has_character_modifier = employ_a_smith_cd
-		}
-		localisation_key = string_smith_cd
-	}
-}
-
-
 defined_text = {
 	name = GetArtifactDescriptor #has to be in an artifact scope!!
 	text = {
@@ -12539,6 +12643,7 @@ defined_text = {
 		localisation_key = String_capital_province
 	}
 }
+
 defined_text = {
 	name = GetHonorific
 	text = {
@@ -12628,6 +12733,7 @@ defined_text = {
 		localisation_key = string_baptism_timer
 	}
 }
+
 defined_text = { #Dead Emperors forget their Popes.
 	name = GetCrownedByName
 	text = {
@@ -16132,14 +16238,6 @@ defined_text = {
 		}
 		localisation_key = string_reformed_religion_aztec
 	}
-	text = {
-		trigger = { 
-			ROOT = { 
-				religion = hellenic_pagan_reformed
-			} 
-		}
-		localisation_key = string_reformed_religion_hellenic
-	}
 }
 
 defined_text = {
@@ -16186,7 +16284,7 @@ defined_text = {
 		trigger = { 
 			ROOT = { 
 				NOR = { 
-					religion = hellenic_pagan_reformed
+					
 					religion = bon_reformed
 					religion = zun_pagan_reformed
 					religion = aztec_reformed
@@ -16202,14 +16300,6 @@ defined_text = {
 			} 
 		}
 		localisation_key = string_reformed_religion_aztec_outro
-	}
-	text = {
-		trigger = { 
-			ROOT = { 
-				religion = hellenic_pagan_reformed
-			} 
-		}
-		localisation_key = string_reformed_religion_hellenic_outro
 	}
 	text = {
 		trigger = { 
@@ -16639,6 +16729,48 @@ defined_text = { ### Needs a province scope - USE ONLY TOGETHER WITH GetTerrain!
 	}
 }
 defined_text = { ### Needs a province scope - USE ONLY TOGETHER WITH GetTerrain! ###
+	name = GetInOnCap
+	text = {
+		trigger = { terrain = forest }
+		localisation_key = string_In
+	}
+	text = {
+		trigger = { terrain = hills }
+		localisation_key = string_In
+	}
+	text = {
+		trigger = { terrain = mountain }
+		localisation_key = string_In
+	}
+	text = {
+		trigger = { terrain = plains }
+		localisation_key = string_On
+	}
+	text = {
+		trigger = { terrain = farmlands }
+		localisation_key = string_On
+	}
+	text = {
+		trigger = { terrain = steppe }
+		localisation_key = string_On
+	}
+	text = {
+		trigger = { terrain = desert }
+		localisation_key = string_In
+	}
+	text = {
+		trigger = { terrain = jungle }
+		localisation_key = string_In
+	}
+	text = {
+		trigger = { terrain = arctic }
+		localisation_key = string_In
+	}
+	fallback_text = {
+		localisation_key = string_In
+	}
+}
+defined_text = { ### Needs a province scope - USE ONLY TOGETHER WITH GetTerrain! ###
 	name = GetThroughOver
 	text = {
 		trigger = { terrain = forest }
@@ -17018,7 +17150,7 @@ defined_text = {
 				FROM = {
 					OR = { 
 						religion = hellenic_pagan
-						religion = hellenic_pagan_reformed
+						
 						religion = bon
 						religion = bon_reformed
 					}
@@ -17026,7 +17158,7 @@ defined_text = {
 				ROOT = {
 					OR = { 
 						religion = hellenic_pagan
-						religion = hellenic_pagan_reformed
+						
 						religion = bon
 						religion = bon_reformed
 					}
@@ -17556,7 +17688,10 @@ defined_text = {
 
 	text = {
 		trigger = {
-			has_character_flag = sword_tier_2
+			OR = {
+				has_character_flag = sword_tier_2
+				has_character_flag = zweihanded_sword
+				}
 		}
 		localisation_key = string_greatsword
 	}
@@ -18131,13 +18266,71 @@ defined_text = {
 				culture_group = byzantine
 				culture_group = south_slavic
 				culture_group = iranian
+				culture_group = south_semitic 
+				culture_group = east_semitic 
+				culture_group = northwest_semitic 
+				culture_group = central_semitic 
+				culture_group = sinic
+				culture_group = dravidian_group
+				culture_group = indo_aryan_group
+			}
+		}
+		localisation_key = string_beer
+	}
+	text = {
+		trigger = { 
+			is_tribal = no
+			is_nomadic = no
+			OR = {
+				culture_group = latin
+				culture_group = iberian
+				culture_group = byzantine
+				culture_group = south_slavic
+				culture_group = iranian
+				culture_group = south_semitic 
+				culture_group = east_semitic 
+				culture_group = northwest_semitic 
+				culture_group = central_semitic 
+				culture_group = sinic
+				culture_group = dravidian_group
+				culture_group = indo_aryan_group
+			}
+		}
+		localisation_key = string_wine
+	}
+	fallback_text = {
+		localisation_key = string_beer
+	}
+}
+
+defined_text = {
+	name = GetAlcoholCap
+
+	text = {
+		trigger = { is_tribal = yes }
+		localisation_key = String_Ale
+	}
+	text = {
+		trigger = { is_nomadic = yes }
+		localisation_key = String_Airag
+	}
+	text = {
+		trigger = { 
+			is_tribal = no
+			is_nomadic = no
+			NOR = {
+				culture_group = latin
+				culture_group = iberian
+				culture_group = byzantine
+				culture_group = south_slavic
+				culture_group = iranian
 				culture_group = arabic
 				culture_group = chinese_group
 				culture_group = dravidian_group
 				culture_group = indo_aryan_group
 			}
 		}
-		localisation_key = string_beer
+		localisation_key = String_Beer
 	}
 	text = {
 		trigger = { 
@@ -18155,10 +18348,10 @@ defined_text = {
 				culture_group = indo_aryan_group
 			}
 		}
-		localisation_key = string_wine
+		localisation_key = String_Wine
 	}
 	fallback_text = {
-		localisation_key = string_beer
+		localisation_key = String_Beer
 	}
 }
 
@@ -19861,306 +20054,129 @@ defined_text = {
 
 
 defined_text = {
-	name = GetSeaQueenKing
+	name = GetArtifactStorage
 
 	text = {
+		localisation_key = String_library
 		trigger = {
-			is_female = yes
+			has_artifact_flag = book
 		}
-		localisation_key = string_seaqueen
 	}
-
 	text = {
+		localisation_key = String_armory
 		trigger = {
-			is_female = no
+			OR = {
+				has_artifact_flag = armor
+				has_artifact_flag = combat_weapon
+			}
+			NOT = { artifact_age = 30 }
 		}
-		localisation_key = string_seaking
+	}
+	text = {
+		localisation_key = String_old_armory
+		trigger = {
+			OR = {
+				has_artifact_flag = armor
+				has_artifact_flag = combat_weapon
+			}
+			artifact_age = 30
+		}
+	}
+	text = {
+		localisation_key = String_treasury
+		trigger = {
+			has_artifact_flag = jewelry
+		}
+	}
+	text = {
+		localisation_key = String_temple
+		trigger = {
+			has_artifact_flag = saint
+			ROOT = { religion_group = christian }
+		}
+	}
+	text = {
+		localisation_key = String_temple
+		trigger = {
+			has_artifact_flag = saint
+			has_artifact_flag = bodypart
+		}
+	}
+	text = {
+		localisation_key = String_treasury
+		trigger = {
+			has_artifact_flag = skull
+		}
+	}
+	
+	fallback_text = {
+		localisation_key = String_treasury
 	}
 }
 
-defined_text = 
-{
-	name = GetCultureArmyNamePlural
-	text = 
-	{
-		trigger = 
-		{
-			culture = andalusian_arabic
-		}
-		localisation_key = Culture_Army_Andalusian
+defined_text = {
+	name = GetScriptedDiseaseName
+
+	text = {
+		localisation_key = String_consumption
+		trigger = { trait = has_tuberculosis }
 	}
-	text = 
-	{
-		trigger = 
-		{
-			OR = {
-				culture_group = altaic
-				culture_group = iranian
-			}
-		}
-		localisation_key = Culture_Army_Altaic
+	text = {
+		localisation_key = String_slow_fever
+		trigger = { trait = has_typhoid_fever }		
 	}
-	text = 
-	{
-		trigger = 
-		{
-			OR = {
-				culture = bedouin_arabic
-				culture = egyptian_arabic
-				culture = levantine_arabic
-			}
-		}
-		localisation_key = Culture_Army_Bedouin
+	text = {
+		localisation_key = String_camp_fever
+		trigger = { trait = has_typhus }
 	}
-	text = 
-	{
-		trigger = 
-		{
-			OR = {
-				culture_group = baltic
-				culture_group = finno_ugric
-			}
-		}
-		localisation_key = Culture_Army_Baltic
+	text = {
+		localisation_key = String_the_Plague
+		trigger = { trait = has_bubonic_plague }
 	}
-	text = 
-	{
-		trigger = 
-		{
-			culture = maghreb_arabic
-		}
-		localisation_key = Culture_Army_Berber
+	text = {
+		localisation_key = String_measles
+		trigger = { trait = has_measles }
 	}
-	text = 
-	{
-		trigger = 
-		{
-			OR = {
-				culture = greek
-				culture = georgian
-				culture = armenian
-			}
-		}
-		localisation_key = Culture_Army_Byzantine
+	text = {
+		localisation_key = String_smallpox
+		trigger = { trait = has_small_pox }
 	}
-	text = 
-	{
-		trigger = 
-		{
-			culture = dutch
-		}
-		localisation_key = Culture_Army_Dutch
+	text = {
+		localisation_key = String_syphilis
+		trigger = { trait = syphilitic }
 	}
-	text = 
-	{
-		trigger = 
-		{
-			culture_group = east_slavic
-		}
-		localisation_key = Culture_Army_EastSlavic
+	text = {
+		localisation_key = String_flu
+		trigger = { trait = flu }
 	}
-	text = 
-	{
-		trigger = 
-		{
-			OR = {
-				culture = english
-				culture = welsh
-			}
-		}
-		localisation_key = Culture_Army_English
+	text = {
+		localisation_key = String_dysentery
+		trigger = { trait = dysentery }		
 	}
-	text = 
-	{
-		trigger = 
-		{
-			culture = ethiopian
-		}
-		localisation_key = Culture_Army_Ethiopian
+	text = {
+		localisation_key = String_gout
+		trigger = { trait = gout }
 	}
-	text = 
-	{
-		trigger = 
-		{
-			culture = frankish
-		}
-		localisation_key = Culture_Army_Frankish
+	text = {
+		localisation_key = String_food_poisoning
+		trigger = { trait = food_poisoning }
 	}
-	text = 
-	{
-		trigger = 
-		{
-			culture = scottish
-		}
-		localisation_key = Culture_Army_Scottish
+	text = {
+		localisation_key = String_rabies
+		trigger = { trait = rabies }
 	}
-	text = 
-	{
-		trigger = 
-		{
-			culture = han
-		}
-		localisation_key = Culture_Army_Han
+	text = {
+		localisation_key = cancer
+		trigger = { trait = cancer }
 	}
-	text = 
-	{
-		trigger = 
-		{
-			OR = {
-				culture = hungarian
-				culture_group = west_slavic
-			}
-		}
-		localisation_key = Culture_Army_Hungarian
+	text = {
+		localisation_key = string_pneumonia
+		trigger = { trait = pneumonic }
 	}
-	text = 
-	{
-		trigger = 
-		{
-			culture_group = iberian
-		}
-		localisation_key = Culture_Army_Iberian
+	
+	fallback_text = {
+		localisation_key = String_disease
 	}
-	text = 
-	{
-		trigger = 
-		{
-			OR = {
-				culture_group = indo_aryan_group
-				culture_group = dravidian_group
-			}
-		}
-		localisation_key = Culture_Army_IndoAryan
-	}
-	text = 
-	{
-		trigger = 
-		{
-			culture_group = irish
-		}
-		localisation_key = Culture_Army_Irish
-	}	
-	text = 
-	{
-		trigger = 
-		{
-			culture = italian
-		}
-		localisation_key = Culture_Army_Italian
-	}
-	text = 
-	{
-		trigger = 
-		{
-			culture = jurchen
-		}
-		localisation_key = Culture_Army_Jurchen
-	}
-	text = 
-	{
-		trigger = 
-		{
-			culture = lombard
-		}
-		localisation_key = Culture_Army_Lombard
-	}
-	text = 
-	{
-		trigger = 
-		{
-			culture_group = israelite
-		}
-		localisation_key = Culture_Army_Israelite
-	}
-	text = 
-	{
-		trigger = 
-		{
-			culture = nahuatl
-		}
-		localisation_key = Culture_Army_Nahua
-	}	
-	text = 
-	{
-		trigger = 
-		{
-			OR = {
-				culture_group = north_germanic
-				culture = old_saxon
-				culture = saxon 
-				culture = frisian
-			}
-		}
-		localisation_key = Culture_Army_NorthGermanic
-	}	
-	text = 
-	{
-		trigger = 
-		{
-			culture = nubian
-		}
-		localisation_key = Culture_Army_Nubian
-	}
-	text = 
-	{
-		trigger = 
-		{
-			culture = pictish
-		}
-		localisation_key = Culture_Army_Pictish
-	}
-	text = 
-	{
-		trigger = 
-		{
-			culture = somali
-		}
-		localisation_key = Culture_Army_Somali
-	}	
-	text = 
-	{
-		trigger = 
-		{
-			culture_group = south_slavic
-		}
-		localisation_key = Culture_Army_SouthSlavic
-	}
-	text = 
-	{
-		trigger = 
-		{
-			culture = suebi
-		}
-		localisation_key = Culture_Army_Suebi
-	}
-	text = 
-	{
-		trigger = 
-		{
-			culture_group = tibetan_group
-		}
-		localisation_key = Culture_Army_Tibetan
-	}
-	text = 
-	{
-		trigger = 
-		{
-			culture_group = west_african
-		}
-		localisation_key = Culture_Army_WestAfrica
-	}
-	text = 
-	{
-		trigger = 
-		{
-			OR = {
-				culture = frankish 
-				culture = norman 
-				culture = occitan
-				culture = german 
-				culture = breton
-			}
-		}
-		localisation_key = Culture_Army_European
-	}									
 }
+
+

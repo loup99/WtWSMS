@@ -331,7 +331,7 @@ decisions = {
             }
         }
     }
-	visigothic_conversion = {
+	convert_suebia = {
         only_playable = yes
         potential = {
             is_playable = yes
@@ -354,5 +354,46 @@ decisions = {
                 narrative_event = { id = WtWSMS_flavour.50 }
             }
         }
+	}
+	erect_estela = {
+		only_playable = yes
+		potential = {
+			has_dlc = "The Old Gods"
+			is_playable = yes
+			is_adult = yes
+			prisoner = no
+			culture = cantabrian
+			OR = {
+				religion = celtic_pagan
+				religion = celtic_pagan_reformed
+			}
+			NOT = {	has_character_flag = erected_estela }
+		}
+		allow = {
+			wealth = 100
+			prestige = 500
+			prisoner = no
+			NOT = { is_inaccessible_trigger = yes }
+			custom_tooltip = {
+				text = is_not_busy_trigger_tooltip
+				hidden_tooltip = { NOT = { has_character_flag = do_not_disturb } }
+			}
+
+		}
+		effect = {
+			wealth = -100
+			set_character_flag = erected_estela
+			hidden_tooltip = { 
+				character_event = { id = WtWSMS_flavour.54 }
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { wealth = 300 }
+			}
+		}
 	}
 }
