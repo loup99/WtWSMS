@@ -714,9 +714,10 @@ decisions = {
 			primary_title = {
 				NOT = { has_title_flag = adopted_bureaucratic }
 			}
+			government = sub_roman_government # Only the Sub-Roman rulers maintain sufficient taxation
 		}
 		allow = {
-			OR = {
+			OR = { # Administration laws indicate being an empire
 				primary_title = { has_law = imperial_administration }
 				primary_title = { has_law = ze_administration_laws_2 }
 			}
@@ -731,7 +732,7 @@ decisions = {
 		ai_will_do = {
 			factor = 1
 			modifier = {
-				factor = 0.5 # Decrease chance AI will do this unless they hold one of the empires
+				factor = 0.5 # Decrease chance AI will do this unless they hold one of the Roman empires
 				NOR = {
 					has_landed_title = e_wre
 					has_landed_title = e_byzantium
@@ -744,6 +745,326 @@ decisions = {
 			}
 		}
 	}
+	
+	convert_to_high_tribal_indep  = {
+		only_independent = yes
+		is_high_prio = yes
+		
+		potential = {
+			is_playable = yes
+			is_tribal = yes
+			independent = yes
+		}
+		allow = {
+			war = no
+			custom_tooltip = {
+				text = TT_NOT_UNREFORMED_PAGAN
+				hidden_tooltip = {
+					OR = {
+						NOT = { religion_group = pagan_group }
+						is_reformed_religion = yes
+						religion = bon
+					}
+				}
+			}
+			primary_title = { has_law = tribal_organization_4 }
+			capital_holding = {
+				OR = {
+					AND = {
+						holding_type = tribal
+						has_building = tb_hillfort_4
+					}
+					holding_type = castle
+				}
+			}
+		}
+		
+		effect = {
+			if = {
+				limit = { ai = no }
+				set_character_flag = achievement_not_a_tribe
+			}
+	
+			set_government_type = high_tribal_government
+			primary_title = {
+				set_title_flag = high_tribal_government_flag
+			}
+			
+			hidden_tooltip = {
+				any_demesne_title = {
+					limit = {
+						tier = baron
+						holding_type = tribal
+					}
+					convert_to = CASTLE
+					refill_holding_levy = yes
+					
+					if = {
+						limit = {
+							dejure_liege_title = {
+								holder = ROOT
+								location = {
+									num_of_empty_holdings = 2
+								}
+								NOT = {
+									any_direct_de_jure_vassal_title = {
+										holding_type = city
+									}
+								}
+							}
+						}
+						location = {
+							build_holding = {
+								type = city
+							}
+						}
+					}
+					if = {
+						limit = {
+							dejure_liege_title = {
+								holder = ROOT
+								location = {
+									num_of_empty_holdings = 2
+								}
+								NOT = {
+									any_direct_de_jure_vassal_title = {
+										holding_type = temple
+									}
+								}
+							}
+						}
+						location = {
+							build_holding  ={
+								type = temple
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	convert_to_high_tribal_vassal = {
+		only_rulers = yes
+		is_high_prio = yes
+		
+		potential = {
+			is_ruler = yes
+			is_tribal = yes
+			independent = no
+		}
+		allow = {
+			war = no
+			custom_tooltip = {
+				text = TT_NOT_UNREFORMED_PAGAN
+				hidden_tooltip = {
+					OR = {
+						NOT = { religion_group = pagan_group }
+						is_reformed_religion = yes
+						religion = bon
+					}
+				}
+			}
+			liege = {
+				OR = {
+					is_feudal = yes
+					is_republic = yes
+					AND = {
+						is_theocracy = yes
+						custom_tooltip = {
+							text = TT_NOT_UNREFORMED_PAGAN
+							hidden_tooltip = {
+								OR = {
+									NOT = { religion_group = pagan_group }
+									is_reformed_religion = yes
+									religion = bon
+								}
+							}
+						}
+					}
+				}
+			}
+			OR = {
+				capital_holding = {
+					OR = {
+						AND = {
+							holding_type = tribal
+							has_building = tb_hillfort_4
+						}
+						holding_type = castle
+					}
+				}
+				AND = {
+					NOT = { tier = BARON }
+					capital_scope = {
+						any_province_holding = {
+							holding_type = castle
+							holder_scope = {
+								OR = {
+									character = ROOT
+									is_liege_or_above = ROOT
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		effect = {
+			set_character_flag = achievement_not_a_tribe
+			
+			set_government_type = high_tribal_government
+			primary_title = {
+				set_title_flag = high_tribal_government_flag
+			}
+						
+			hidden_tooltip = {
+				if = {
+					limit = {
+						capital_holding = {
+							holding_type = tribal
+							ROOT = { NOT = { tier = BARON } }
+						}
+						capital_scope = {
+							any_province_holding = {
+								holding_type = castle
+								holder_scope = {
+									OR = {
+										character = ROOT
+										is_liege_or_above = ROOT
+									}
+								}
+							}
+						}
+					}
+					
+					capital_scope = {
+						random_province_holding = {
+							limit = {
+								holding_type = castle
+								holder_scope = {
+									OR = {
+										character = ROOT
+										is_liege_or_above = ROOT
+									}
+								}
+							}
+							if = {
+								limit = {
+									NOT = { holder = ROOT }
+								}
+								usurp_title = ROOT
+							}
+							make_capital_holding = yes
+							ROOT = { set_character_flag = feudalize_handled_capital }
+						}
+					}
+				}
+				
+				any_demesne_title = {
+					limit = {
+						tier = baron
+						holding_type = tribal
+						location = {
+							capital_holding = {
+								NOT = { holding_type = castle }
+							}
+						}
+					}
+					convert_to = CASTLE
+					refill_holding_levy = yes
+					
+					if = {
+						limit = {
+							dejure_liege_title = {
+								holder = ROOT
+								location = {
+									num_of_empty_holdings = 2
+								}
+								NOT = {
+									any_direct_de_jure_vassal_title = {
+										holding_type = city
+									}
+								}
+							}
+						}
+						location = {
+							build_holding = {
+								type = city
+							}
+						}
+					}
+					if = {
+						limit = {
+							dejure_liege_title = {
+								holder = ROOT
+								location = {
+									num_of_empty_holdings = 2
+								}
+								NOT = {
+									any_direct_de_jure_vassal_title = {
+										holding_type = temple
+									}
+								}
+							}
+						}
+						location = {
+							build_holding = {
+								type = temple
+							}
+						}
+					}
+				}
+				
+				liege = {
+					character_event = { id = 55100 } # Notify Liege
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.001
+				liege = {
+					OR = {
+						NOT = { religion_group = ROOT }
+						AND = {
+							religion_group = pagan_group
+							NOT = { religion = ROOT }
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 0.01
+				liege = {
+					NOT = { culture_group = ROOT }
+				}
+			}
+			
+			modifier = {
+				factor = 0.01
+				liege = {
+					religion_group = ROOT
+					NOT = { religion_group = pagan_group }
+					NOT = { religion = ROOT }
+				}
+			}
+			modifier = {
+				factor = 0.1
+				liege = {
+					culture_group = ROOT
+					NOT = { culture = ROOT }
+				}
+			}
+		}
+	}	
 	
 	restore_western_roman_empire = {
 		only_independent = yes

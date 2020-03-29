@@ -1,7 +1,7 @@
 ###################################
 # Historical Events
 #
-# hist.1 -> hist.28
+# hist.1 -> hist.29
 # 
 # Id 60000 - 61000 is reserved
 ###################################
@@ -187,6 +187,17 @@ character_event = {
 		trigger = {
 			NOR = {
 				religion = nicene
+				has_landed_title = k_soissons
+			}
+			religion_group = christian
+		}
+	}
+	
+	option = {
+		name = hist.4.d
+		trigger = {
+			NOR = {
+				religion_group = christian
 				has_landed_title = k_soissons
 			}
 		}
@@ -743,8 +754,19 @@ narrative_event = {
 				has_landed_title = k_maxima_sequanorum
 				religion = arian
 			}
+			religion_group = christian
 		}
 		piety = -50 
+	}
+	
+	option = {
+		name = hist.14.d
+		trigger = {
+			NOR = {
+				has_landed_title = k_maxima_sequanorum
+				religion_group = christian
+			}
+		}
 	}
 }
 
@@ -789,7 +811,7 @@ narrative_event = {
 	option = {
 		name = hist.16.b
 		trigger = {
-			OR = { culture_group = central_germanic }
+			culture_group = central_germanic
 		}
 	}
 }
@@ -1182,7 +1204,8 @@ narrative_event = {
 	option = {
 		name = hist.25.b
 		trigger = { 
-			has_romance_culture_trigger = yes 
+			has_romance_culture_trigger = yes
+			NOT = { has_landed_title = k_visigoths }
 		}
 		prestige = -50 
 	}
@@ -1190,9 +1213,19 @@ narrative_event = {
 	option = {
 		name = hist.25.c
 		trigger = { 
-			has_germanic_culture_trigger = yes 
+			has_germanic_culture_trigger = yes
+			NOT = { has_landed_title = k_visigoths }
 		}
 		prestige = 50 
+	}
+	
+	option = {
+		name = hist.25.d
+		trigger = {
+			has_romance_culture_trigger = no
+			has_germanic_culture_trigger = no
+			NOT = { has_landed_title = k_visigoths }
+		}
 	}
 }
 

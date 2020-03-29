@@ -79,7 +79,6 @@ bureaucratic_government_trigger = {
 		title = e_wre
 		title = e_byzantium
 		title = e_roman_empire
-		title = k_soissons
 		AND = { # Flag for Bureaucratic Italy set during Odoacer's rule between 476-493
 			title = k_italy
 			has_global_flag = italy_bureaucratic
@@ -99,6 +98,7 @@ bureaucratic_government_trigger = {
 		has_title_flag = ere_restored
 	}
 }
+
 # The Sassanid government type is used for Persia
 # trigger has title scope
 sassanid_government_trigger = {
@@ -116,6 +116,7 @@ sassanid_government_trigger = {
 		}
 	}
 }
+
 # The Legion government type is used for the Roman legions
 # trigger has title scope
 roman_legion_title_trigger = {
@@ -196,6 +197,150 @@ roman_legion_title_trigger = {
 		title = d_imperial_fleet_ere
 	}
 }
+
+# The Sub-Roman government type is used for the successor states to the Roman Empire
+# trigger has title scope
+sub_roman_government_trigger = {
+	OR = {
+		top_liege = {
+			primary_title = {
+				OR = {
+					bureaucratic_government_trigger = yes
+					holder_scope = {
+						OR = {
+							has_romance_culture_trigger = yes
+							any_realm_title = {
+								region = custom_imperium_romanum
+							}
+						}
+					}
+				}
+			}
+		}
+		holder_scope = {
+			OR = {
+				has_romance_culture_trigger = yes
+				any_realm_title = {
+					region = custom_imperium_romanum
+				}
+			}
+		}
+	}
+}
+
+# The High tribal government type is mostly used for the small-scale government on the British Isles
+# trigger has title scope
+high_tribal_government_trigger = {
+	OR = {
+		# Global flags set in history
+		AND = { 
+			title = d_atrebatia
+			has_global_flag = atrebatia_high_tribal
+		}
+		AND = { 
+			title = d_cornwall
+			has_global_flag = cornwall_high_tribal
+		}
+		AND = { 
+			title = d_deheubarth
+			has_global_flag = deheubarth_high_tribal
+		}
+		AND = { 
+			title = d_elmet
+			has_global_flag = elmet_high_tribal
+		}
+		AND = { 
+			title = d_galloway
+			has_global_flag = galloway_high_tribal
+		}
+		AND = { 
+			title = d_gwynedd
+			has_global_flag = gwynedd_high_tribal
+		}
+		AND = { 
+			title = d_oxford
+			has_global_flag = oxford_high_tribal
+		}
+		AND = { 
+			title = d_somerset
+			has_global_flag = somerset_high_tribal
+		}
+		AND = { 
+			title = k_rheged
+			has_global_flag = rheged_high_tribal
+		}
+		AND = {
+			title = d_vasconia
+			has_global_flag = vasconia_high_tribal
+		}
+		AND = {
+			title = d_astures
+			has_global_flag = astures_high_tribal
+		}
+		AND = {
+			title = d_cantabria
+			has_global_flag = cantabria_high_tribal
+		}
+		holder_scope = {
+			top_liege = {
+				primary_title = {
+					OR = {
+						AND = { 
+							title = d_atrebatia
+							has_global_flag = atrebatia_high_tribal
+						}
+						AND = { 
+							title = d_cornwall
+							has_global_flag = cornwall_high_tribal
+						}
+						AND = { 
+							title = d_deheubarth
+							has_global_flag = deheubarth_high_tribal
+						}
+						AND = { 
+							title = d_elmet
+							has_global_flag = elmet_high_tribal
+						}
+						AND = { 
+							title = d_galloway
+							has_global_flag = galloway_high_tribal
+						}
+						AND = { 
+							title = d_gwynedd
+							has_global_flag = gwynedd_high_tribal
+						}
+						AND = { 
+							title = d_oxford
+							has_global_flag = oxford_high_tribal
+						}
+						AND = { 
+							title = d_somerset
+							has_global_flag = somerset_high_tribal
+						}
+						AND = { 
+							title = k_rheged
+							has_global_flag = rheged_high_tribal
+						}
+						AND = { 
+							title = d_vasconia
+							has_global_flag = vasconia_high_tribal
+						}
+						AND = {
+							title = d_astures
+							has_global_flag = astures_high_tribal
+						}
+						AND = {
+							title = d_cantabria
+							has_global_flag = cantabria_high_tribal
+						}
+						has_title_flag = high_tribal_government_flag
+					}
+				}
+			}
+		}
+	}
+}
+
 # Foederati barbarians can use the foederati diplo-action
 # trigger has character scope
 foederati_barbarian_trigger = {
@@ -222,6 +367,7 @@ foederati_barbarian_trigger = {
 		}
 	}
 }
+
 # Foederati Romans can use the foederati diplo-action
 # trigger has character scope
 foederati_roman_trigger = {
@@ -289,3 +435,154 @@ would_be_in_byzantium_trigger = {
 		region = world_africa_east
 	}
 }
+
+religion_openly_scythian_or_reformed_trigger = {
+	custom_tooltip = {
+		text = religion_openly_scythian_or_reformed_tooltip
+		hidden_trigger = {
+			OR = {
+				religion = scythian_pagan
+				religion = scythian_pagan_reformed
+			}
+		}
+	}
+}
+
+religion_openly_germanic_or_reformed_trigger = {
+	custom_tooltip = {
+		text = religion_openly_germanic_or_reformed_tooltip
+		hidden_trigger = {
+			OR = {
+				religion = germanic_pagan
+				religion = germanic_pagan_reformed
+			}
+		}
+	}
+}
+
+religion_openly_berber_or_reformed_trigger = {
+	custom_tooltip = {
+		text = religion_openly_berber_or_reformed_tooltip
+		hidden_trigger = {
+			OR = {
+				religion = central_african_pagan
+				religion = central_african_pagan_reformed
+				religion = gurzil_pagan
+				religion = msoura_pagan
+				religion = african_solar_pagan
+				religion = african_solar_pagan_reformed
+				religion = mandulis_pagan
+			}
+		}
+	}
+}
+
+religion_openly_semitic_or_reformed_trigger = {
+	custom_tooltip = {
+		text = religion_openly_semitic_or_reformed_tooltip
+		hidden_trigger = {
+			OR = {
+				religion = semitic_pagan
+				religion = semitic_pagan_reformed
+			}
+		}
+	}
+}
+
+religion_openly_balkan_or_reformed_trigger = {
+	custom_tooltip = {
+		text = religion_openly_balkan_or_reformed_tooltip
+		hidden_trigger = {
+			OR = {
+				religion = dacian_pagan
+				religion = dacian_pagan_reformed
+				religion = illyran_pagan
+				religion = illyran_pagan_reformed
+			}
+		}
+	}
+}
+
+religion_openly_vasconic_or_reformed_trigger = {
+	custom_tooltip = {
+		text = religion_openly_vasconic_or_reformed_tooltip
+		hidden_trigger = {
+			OR = {
+				religion = vasconic_pagan
+				religion = vasconic_pagan_reformed
+			}
+		}
+	}
+}
+
+religion_openly_root_west_or_reformed_trigger = {
+	custom_tooltip = {
+		text = religion_openly_root_west_or_reformed_tooltip
+		hidden_trigger = {
+			OR = {
+				religion = root_west_pagan
+				religion = root_west_pagan_reformed
+			}
+		}
+	}
+}
+
+religion_openly_sanamahi_or_reformed_trigger = {
+	custom_tooltip = {
+		text = religion_openly_sanamahi_or_reformed_tooltip
+		hidden_trigger = {
+			OR = {
+				religion = sanamahi
+				religion = sanamahi_reformed
+			}
+		}
+	}
+}
+
+religion_openly_georgian_or_reformed_trigger = {
+	custom_tooltip = {
+		text = religion_openly_georgian_or_reformed_tooltip
+		hidden_trigger = {
+			OR = {
+				religion = georgian_pagan
+				religion = georgian_pagan_reformed
+			}
+		}
+	}
+}
+
+religion_openly_east_african_or_reformed_trigger = {
+	custom_tooltip = {
+		text = religion_openly_east_african_or_reformed_tooltip
+		hidden_trigger = {
+			OR = {
+				religion = east_african_pagan
+				religion = east_african_pagan_reformed
+			}
+		}
+	}
+}
+
+religion_openly_assyrian_or_reformed_trigger = {
+	custom_tooltip = {
+		text = religion_openly_assyrian_or_reformed_tooltip
+		hidden_trigger = {
+			OR = {
+				religion = assyrian_pagan
+			}
+		}
+	}
+}
+
+religion_openly_dravidian_or_reformed_trigger = {
+	custom_tooltip = {
+		text = religion_openly_dravidian_or_reformed_tooltip
+		hidden_trigger = {
+			OR = {
+				religion = dravidian_pagan
+				religion = dravidian_pagan_reformed
+			}
+		}
+	}
+}
+
