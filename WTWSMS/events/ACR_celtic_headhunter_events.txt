@@ -28,16 +28,17 @@ character_event = {
 
 	trigger = {
 		is_alive = yes
-		NOT = { trait = head1 }
-		OR = {
-			religion = celtic_pagan
-			religion = celtic_pagan_reformed
-		}
+		religion_openly_celtic_or_reformed_trigger = yes
 		OR = {
 			trait = brave
 			trait = fian
 			trait = celtic_knight
 			trait = wroth
+		}
+		NOR = {
+			has_religion_feature = religion_peaceful
+			trait = head1
+			trait = head2
 		}
 	}
 	
@@ -152,6 +153,7 @@ character_event = {
 	option = {
 		name = celtic.10.a
 		add_trait = head1
+		set_character_flag = ancrel_headhunter
 	}
 }
 
@@ -182,6 +184,7 @@ character_event = {
 		}
 		NOT = { trait = head2 }
 		religion_openly_celtic_or_reformed_trigger = yes
+		had_character_flag = { flag = ancrel_headhunter days = 780 }
 	}
 	
 	weight_multiplier = {
@@ -294,7 +297,16 @@ character_event = {
 	
 	option = {
 		name = celtic.11.a
+		trigger = {
+			NOT = {
+				any_owned_bloodline = {
+					has_bloodline_flag = bloodline_legendary
+				}
+			}
+		}
+
 		add_trait = head2
+		
 		custom_tooltip = {
 			text = found_living_legend_bloodine_tt
 			hidden_tooltip = {
@@ -319,10 +331,13 @@ character_event = {
 		add_trait = head2
 
 		trigger = {
-			OR = {
-				is_bloodline_member_of = living_legend_male
-				is_bloodline_member_of = living_legend_female
+			any_owned_bloodline = {
+				has_bloodline_flag = bloodline_legendary
 			}
 		}
+	}
+
+	after = {
+		clr_character_flag = ancrel_headhunter
 	}
 }
