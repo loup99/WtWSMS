@@ -6,8 +6,9 @@
 # Event ID egyptian.0 - egyptian.9 Decision Events
 # Event ID egyptian.10 - egyptian.19 Sed festival
 # Event ID egyptian.100 - egyptian.149 Nile Flooding
-# Event ID egyptian.150 - egyptian.199 Egyptian flavor events
+# Event ID egyptian.150 - egyptian.199 Egyptian flavor
 # Event ID egyptian.200 - egyptian.399 Kemetic Revival
+# Event ID egyptian.500 - egyptian.699 Isiac Order
 ###################################################
 
 namespace = egyptian
@@ -672,7 +673,7 @@ character_event = {
 				has_dlc = "Reapers"
 			}
 			custom_tooltip = {
-				text = province_loses_prosperity_custom_tooltip
+				text = province_declines_custom_tooltip
 				hidden_tooltip = {
 					capital_scope = {
 						subtract_variable = { which = prosperity_value value = 6 }
@@ -817,7 +818,7 @@ character_event = {
 character_event = { #good
 	id = egyptian.101
 	desc = egyptian.101.desc
-	picture = GFX_evt_ancient_egypt
+	picture = GFX_evt_small_town_egyptian_pagan
 
 	notification = yes
 	
@@ -830,7 +831,7 @@ character_event = { #good
 character_event = { #great
 	id = egyptian.102
 	desc = egyptian.102.desc
-	picture = GFX_evt_ancient_egypt
+	picture = GFX_evt_small_town_egyptian_pagan
 
 	notification = yes
 	
@@ -843,7 +844,7 @@ character_event = { #great
 character_event = { #overflow
 	id = egyptian.103
 	desc = egyptian.103.desc
-	picture = GFX_evt_ancient_egypt
+	picture = GFX_evt_small_town_egyptian_pagan
 
 	notification = yes
 	
@@ -856,7 +857,7 @@ character_event = { #overflow
 character_event = { #poor
 	id = egyptian.104
 	desc = egyptian.104.desc
-	picture = GFX_evt_ancient_egypt
+	picture = GFX_evt_small_town_egyptian_pagan
 
 	notification = yes
 	
@@ -1237,7 +1238,7 @@ province_event = {
 				has_dlc = "Reapers"
 			}
 			custom_tooltip = {
-				text = province_loses_prosperity_custom_tooltip
+				text = province_declines_custom_tooltip
 				hidden_tooltip = {
 					ROOT = {
 						change_variable = { which = prosperity_value value = -2 }
@@ -1671,7 +1672,7 @@ character_event = {
 				has_dlc = "Reapers"
 			}
 			custom_tooltip = {
-				text = province_loses_prosperity_custom_tooltip
+				text = province_declines_custom_tooltip
 				hidden_tooltip = {
 					capital_scope = {
 						change_variable = { which = prosperity_value value = 6 }
@@ -3059,7 +3060,7 @@ character_event = {
 			}
 		}
 		hidden_tooltip = {
-			narrative_event = { id = egyptian.177 days = 5 random = 5 }
+			character_event = { id = egyptian.177 days = 5 random = 5 }
 		}
 	}
 	option = { # Publically humiliate
@@ -3077,7 +3078,7 @@ character_event = {
 			}
 		}
 		hidden_tooltip = {
-			narrative_event = { id = egyptian.177 days = 5 random = 5 }
+			character_event = { id = egyptian.177 days = 5 random = 5 }
 		}
 	}
 	option = { # Got bribed
@@ -3324,6 +3325,51 @@ narrative_event = {
 				society_member_of = warrior_lodge_egyptian
 				religion_openly_egyptian_or_reformed_trigger = yes
 				religion_secretly_egyptian_or_reformed_trigger = yes
+			}
+		}
+	}
+}
+
+####################################
+## Restoration of the Isiac Order ##
+####################################
+
+narrative_event = {
+	id = egyptian.500
+	title = egyptian.500.title
+	desc = egyptian.500.desc
+	hide_from = yes
+	hide_new = yes
+
+	picture = GFX_evt_temple_egyptian_pagan
+	
+	only_playable = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = egyptian.500.a
+		trigger = {
+			OR = { 
+				society_member_of = monastic_order_isis
+				religion_openly_egyptian_or_reformed_trigger = yes
+				religion_secretly_egyptian_or_reformed_trigger = yes
+				can_join_society = monastic_order_isis
+			}
+		}
+		if = {
+			limit = { 
+				NOT = { society_member_of = monastic_order_isis }
+				can_join_society = monastic_order_isis
+			}
+			join_society = monastic_order_isis
+		}
+	}
+	option = {
+		name = egyptian.500.b
+		trigger = {
+			NOR = { 
+				society_member_of = monastic_order_isis
+				can_join_society = monastic_order_isis
 			}
 		}
 	}
