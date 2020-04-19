@@ -661,11 +661,29 @@ narrative_event = {
 	id = LoR.20
 	title = EVTNAMELoR.20
 	desc = {
-		text = EVTDESCLoR.20
-		trigger = { 
+		trigger = {
+			has_landed_title = e_byzantium
+			NOT = { has_landed_title = e_wre }
 			is_alternate_start = no
 		}
+		text = EVTDESCLoR.20
 	}
+	desc = {
+		trigger = {
+			has_landed_title = e_wre
+			NOT = { has_landed_title = e_byzantium }
+			is_alternate_start = no
+		}
+		text = EVTDESCLoR.20.b
+	}
+	desc = {
+		trigger = {
+			has_landed_title = e_wre
+			has_landed_title = e_byzantium
+			is_alternate_start = no
+		}
+		text = EVTDESCLoR.20.c
+	}	
 	desc = {
 		text = EVTDESCLoR20_HF
 		trigger = { 
@@ -688,36 +706,112 @@ narrative_event = {
 	
 	option = {
 		name = EVTOPTALoR.20
-		hidden_tooltip = {
-			primary_title = {
-				any_direct_de_jure_vassal_title = {
-					de_jure_liege = e_roman_empire
-				}
-			}
+		set_global_flag = rome_restored
+		primary_title = {
+			save_event_target_as = target_primary_title
 		}
 		e_roman_empire = {
-			show_scope_change = no
 			grant_title = ROOT
-			hidden_tooltip = { make_primary_title = yes }
-			copy_title_laws = e_byzantium
-			copy_title_history = e_byzantium
-		}
-		e_byzantium = {
-			show_scope_change = no
-			destroy_landed_title = THIS
-		}
-		hidden_tooltip = {
-			activate_title = { title = e_byzantium status = no }
-			any_playable_ruler = {
+			make_primary_title = yes
+			if = {
 				limit = {
-					NOT = { has_landed_title = e_byzantium }
-					ai = no
+					ROOT = {
+						has_landed_title = e_byzantium
+						has_landed_title = e_wre
+					}
 				}
-				narrative_event = { id = LoR.21 }
+				event_target:target_primary_title = {
+					e_roman_empire = {
+						copy_title_laws = PREV
+						copy_title_history = PREV
+					}
+				}
+				set_global_flag = rome_reunited
+			}
+			if = {
+				limit = {
+					ROOT = { has_landed_title = e_byzantium } 
+					NOT = { ROOT = { has_landed_title = e_wre } }
+				}
+				copy_title_laws = e_byzantium
+				copy_title_history = e_byzantium
+				set_global_flag = rome_restored_by_byzantium
+			}
+			if = {
+				limit = {
+					ROOT = { has_landed_title = e_wre }
+					NOT = { ROOT = { has_landed_title = e_byzantium } }
+				}
+				copy_title_laws = e_wre
+				copy_title_history = e_wre
+				set_global_flag = rome_restored_by_western_roman_empire
+			}
+			if = {
+				limit = {
+					ROOT = { has_landed_title = e_latin_empire }
+					NOT = { ROOT = { has_landed_title = e_byzantium } }
+				}
+				copy_title_laws = e_latin_empire
+				copy_title_history = e_latin_empire
+				set_global_flag = rome_restored_by_latin_empire
 			}
 		}
 		add_trait = augustus
 		give_nickname = nick_the_glorious
+		hidden_tooltip = {
+			e_byzantium = {
+				if = {
+					limit = { ROOT = { has_landed_title = PREV } }
+					any_direct_de_jure_vassal_title = {
+						de_jure_liege = e_roman_empire
+					}
+					destroy_landed_title = THIS
+					activate_title = { title = e_byzantium status = no }
+				}
+			}
+			e_wre = {
+				if = {
+					limit = { ROOT = { has_landed_title = PREV } }
+					any_direct_de_jure_vassal_title = {
+						de_jure_liege = e_roman_empire
+					}
+					destroy_landed_title = THIS
+					activate_title = { title = e_wre status = no }
+				}
+			}
+			e_latin_empire = {
+				if = {
+					limit = { ROOT = { has_landed_title = PREV } }
+					any_direct_de_jure_vassal_title = {
+						de_jure_liege = e_roman_empire
+					}
+					destroy_landed_title = THIS
+					activate_title = { title = e_latin_empire status = no }
+				}
+			}
+			e_italy = {
+				if = {
+					limit = { ROOT = { has_landed_title = PREV } }
+					any_direct_de_jure_vassal_title = {
+						de_jure_liege = e_roman_empire
+					}
+					destroy_landed_title = THIS
+					activate_title = { title = e_italy status = no }
+				}
+			}
+			e_hre = {
+				set_name="Germania"
+			}
+			any_playable_ruler = {
+				if = {
+					limit = {
+							NOT = { character = ROOT }
+						ai = no
+					}
+					narrative_event = { id = hellenic.221 }
+				}
+			}
+		}
 		if = { #New Imperial Bloodline. (male)
 				limit = { 
 					has_dlc = "Holy Fury" 
