@@ -1455,6 +1455,54 @@ character_event = {
 							set_society_grandmaster = yes
 						}
 					}
+					100 = {
+						trigger = {
+							can_join_society = monastic_order_isis
+						}
+						modifier = {
+							factor = 3
+							OR = {
+								trait = erudite
+								trait = scholar
+								trait = theologian
+								trait = diligent
+								stewardship = 16
+							}
+						}
+						modifier = {
+							factor = 2
+							monastic_order_isis = { num_of_society_members < 15 }
+						}
+						modifier = {
+							factor = 2
+							monastic_order_isis = { num_of_society_members < 10 }
+						}
+						join_society = monastic_order_isis
+						random_list = { # Artificially increase society influence for balance purposes
+							75 = {
+								modifier = {
+									factor = 0
+									society_influence >= 30
+								}
+								add_mission_succeed_influence_effect = yes
+							}
+							25 = {
+								#do nothing
+							}
+						}
+						if = {
+							limit = {
+								NOT = {
+									society = {
+										any_society_member = {
+											is_society_grandmaster = yes
+										}
+									}
+								}
+							}
+							set_society_grandmaster = yes
+						}
+					}
 					200 = {
 						trigger = {
 							can_join_society = secret_religious_society_catholic
