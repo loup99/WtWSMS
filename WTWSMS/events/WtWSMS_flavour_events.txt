@@ -11,6 +11,9 @@
 # WtWSMS_flavour.36 -> WtWSMS_flavour.39 Dravidian Events
 # WtWSMS_flavour.40 Gallic Events
 # WtWSMS_flavour.41 -> WtWSMS_flavour.49 Continental Celtic Events
+# WtWSMS_flavour.50 -> WtWSMS_flavour.51 Visigothic Events
+# WtWSMS_flavour.52 -> WtWSMS_flavour.53 Romance Events
+# WtWSMS_flavour.54 -> WtWSMS_flavour.57 Cantabrian Events
 ###############################
 
 namespace = WtWSMS_flavour
@@ -2024,6 +2027,8 @@ character_event = {
 	
 	min_age = 6
 	max_age = 16
+	
+	is_triggered_only = yes # on_yearly_childhood_pulse on-action
 
 	trigger = {
 		OR = {
@@ -2034,10 +2039,6 @@ character_event = {
 			trait = incapable
 			has_character_flag = had_zalmoxism_rite_of_passage
 		}
-	}
-	
-	mean_time_to_happen = {
-		days = 1
 	}
 	
 	option = {
@@ -2680,5 +2681,312 @@ narrative_event = {
 			religion_group = indian_group
 		}
 		name = WtWSMS_flavour.49.c
+	}
+}
+
+####################### Visigothic Events #####################
+
+# Visigothic Churches
+narrative_event = {
+	id = WtWSMS_flavour.50
+	title = WtWSMS_flavour.50.title
+	desc = WtWSMS_flavour.50.desc
+	picture = GFX_evt_viking_throneroom_oldgods
+	
+	only_playable = yes
+	is_triggered_only = yes
+
+	option = {
+		name = WtWSMS_flavour.50.a #Ok
+		piety = 150
+		prestige = 25
+		wealth = -100
+		c_santiago ={
+			location = {
+				add_province_modifier = { name = visigothic_conversion duration = 365 }
+			}
+		}
+	}
+}
+
+# Visigothic Kings table
+narrative_event = {
+	id = WtWSMS_flavour.51
+	title = WtWSMS_flavour.51.title
+	desc = WtWSMS_flavour.51.desc
+	picture = GFX_evt_viking_throneroom_oldgods
+	
+	only_playable = yes
+	culture = visigothic
+	
+	is_triggered_only = yes # on_decade_pulse on-action
+	
+	trigger = {
+		year = 1400
+		has_landed_title = k_visigoths
+	}
+	
+	option = {
+		name = WtWSMS_flavour.51.a #Ok
+		prestige = 100
+	}
+}
+
+####################### Romance Events #####################
+
+### Chariot racing
+
+# Chariot race
+character_event = {
+	id = WtWSMS_flavour.52
+	title = WtWSMS_flavour.52.name
+	desc = WtWSMS_flavour.52.desc
+	picture = GFX_evt_hippodrome_byzantine
+
+	is_triggered_only = yes
+	
+	immediate = {
+		character_event = { id = WtWSMS_flavour.53 days = 4 }
+	}
+
+	option = { # Support Blue Team
+		name = EVTOPTALoR.500
+		wealth = -25
+		random_list = {
+			50 = {
+				character_event = { id = LoR.501 days = 8 tooltip = EVTTOOLTIPLoR.501 }
+			}
+			50 = {
+				character_event = { id = LoR.502 days = 8 tooltip = EVTTOOLTIPLoR.502 }
+			}
+		}
+	}
+	option = { # Support Green Team
+		name = EVTOPTBLoR.500
+		wealth = -25
+		random_list = {
+			50 = {
+				character_event = { id = LoR.503 days = 8 tooltip = EVTTOOLTIPLoR.503 }
+			}
+			50 = {
+				character_event = { id = LoR.504 days = 8 tooltip = EVTTOOLTIPLoR.504 }
+			}
+		}
+	}
+	option = {
+		name = EVTOPTCLoR.500
+		custom_tooltip = { text = hippodrome_nobet }
+	}
+}
+
+# Chariot race begins
+character_event = {
+	id = WtWSMS_flavour.53
+	title = WtWSMS_flavour.53.name
+	desc = WtWSMS_flavour.53.desc
+	picture = GFX_evt_hippodrome_byzantine
+
+	is_triggered_only = yes
+	
+	option = {
+		name = WtWSMS_flavour.53.a
+	}
+}
+
+####################### Cantabrian Events #####################
+
+### Build a stele
+
+character_event = {
+	id = WtWSMS_flavour.54
+	desc = WtWSMS_flavour.54.desc
+	picture = GFX_evt_basque_megaliths
+	border = GFX_event_normal_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	hide_from = yes
+	
+	option = {
+		name = WtWSMS_flavour.54.a # Religious for the Vasconic Pagans
+		
+		trigger = {
+			culture = cantabrian
+			OR = {
+				religion = celtic_pagan
+				religion = celtic_pagan_reformed
+			}
+		}
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 10
+				trait = zealous
+			}
+			modifier = {
+				factor = 0
+				trait = cynical
+			}
+		}
+		custom_tooltip = {
+			text = WtWSMS_flavour.54.a.tooltip
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_flavour.55 }
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_flavour.54.b # Reign
+		
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 10
+				trait = ambitious
+			}
+			modifier = {
+				factor = 10
+				trait = proud
+			}
+			modifier = {
+				factor = 0
+				trait = content
+			}
+		}
+		custom_tooltip = {
+			text = WtWSMS_flavour.54.b.tooltip
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_flavour.56 }
+			}
+		}
+	}
+	
+	option = {
+		name = WtWSMS_flavour.54.c # Military
+		
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 10
+				trait = brave
+			}
+			modifier = {
+				factor = 10
+				trait = brilliant_strategist
+			}
+			modifier = {
+				factor = 0
+				trait = craven
+			}
+		}
+		custom_tooltip = {
+			text = WtWSMS_flavour.54.c.tooltip
+			hidden_tooltip = {
+				character_event = { id = WtWSMS_flavour.57 }
+			}
+		}
+	}
+}
+
+# Erect an estela with a religious role
+character_event = {
+	id = WtWSMS_flavour.55
+	desc = WtWSMS_flavour.55.desc
+	picture = GFX_evt_basque_megaliths
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = WtWSMS_flavour.55.a
+		piety = 100
+		add_character_modifier = {
+			name = erected_estela
+			duration = 730
+		}
+		if = {
+			limit = {
+				NOT = { trait = zealous }
+			}
+			random = {
+				chance = 25
+				modifier = {
+					factor = 0
+					trait = cynical
+				}
+				add_trait = zealous
+			}
+		}
+	}
+}
+
+# Erect an estela in honour of your rule
+character_event = {
+	id = WtWSMS_flavour.56
+	desc = WtWSMS_flavour.56.desc
+	picture = GFX_evt_basque_megaliths
+	border = GFX_event_normal_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = WtWSMS_flavour.56.a
+		prestige = 200
+		add_character_modifier = {
+			name = erected_estela
+			duration = 730
+		}
+		if = {
+			limit = {
+				NOR = {
+					trait = ambitious
+					trait = proud
+				}
+			}
+			random = {
+				chance = 25
+				add_trait = ambitious
+			}
+			random = {
+				chance = 25
+				modifier = {
+					factor = 0
+					trait = content
+				}
+				add_trait = proud
+			}
+		}
+	}
+}
+
+# Erect an estela to highlight the important military events
+character_event = {
+	id = WtWSMS_flavour.57
+	desc = WtWSMS_flavour.57.desc
+	picture = GFX_evt_basque_megaliths
+	border = GFX_event_normal_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = WtWSMS_flavour.57.a
+		prestige = 200
+		add_character_modifier = {
+			name = erected_estela
+			duration = 730
+		}
+		random = {
+			chance = 25
+			modifier = {
+				factor = 0
+				martial = 5
+			}
+			modifier = {
+				factor = 0
+				trait = craven
+			}
+			change_martial = 1
+		}
 	}
 }

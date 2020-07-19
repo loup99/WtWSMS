@@ -17,10 +17,7 @@ trade_post = {
 	trigger = {
 		conditional_tooltip = {
 			trigger = {
-				OR = {
-					trade_route = silk_road
-					trade_route = amber_route
-				}
+				trade_route = silk_road
 				OR = {
 					FROM = {
 						is_patrician = no
@@ -33,10 +30,42 @@ trade_post = {
 					}
 				}
 			}
-			OR = {
-				silk_road_trade_post_trigger = yes
-				amber_route_trade_post_trigger = yes
+			silk_road_trade_post_trigger = yes
+		}
+		conditional_tooltip = {
+			trigger = {
+				trade_route = trans_saharan_trade_route
+				OR = {
+					FROM = {
+						is_patrician = no
+					}
+					AND = {
+						port = no
+						FROM = {
+							is_patrician = yes
+						}
+					}
+				}
 			}
+			trans_saharan_trade_post_trigger = yes
+		}
+		# Amber Road added by WTWSMS
+		conditional_tooltip = {
+			trigger = {
+				trade_route = amber_route
+				OR = {
+					FROM = {
+						is_patrician = no
+					}
+					AND = {
+						port = no
+						FROM = {
+							is_patrician = yes
+						}
+					}
+				}
+			}
+			amber_route_trade_post_trigger = yes
 		}
 	}
 }
@@ -48,6 +77,7 @@ family_palace = {
 
 tribal = {
 	trigger = {
+		FROM = { NOT = { government = order_government } }
 	}
 }
 

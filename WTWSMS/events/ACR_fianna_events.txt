@@ -3,21 +3,21 @@
 # ANCIENT RELIGIONS
 # - The Fianna
 #
-# Event IDs ancrel.1150-1189 reserved
-# Event IDs ancrel.1254-1260 reserved
-# Event IDs ancrel.1333-1334 reserved
+# Event IDs celtic.1150-1189 reserved
+# Event IDs celtic.1254-1260 reserved
+# Event IDs celtic.1333-1334 reserved
 #
 #######################################
 
 # Written by Superskierpat
 
-namespace = ancrel
+namespace = celtic
 
 # The Fianna Founded (Gaelic King)
 narrative_event = {
-	id = ancrel.1150
-	title = EVTNAMEancrel.1150
-	desc = EVTDESCancrel.1150
+	id = celtic.1150
+	title = celtic.1150.title
+	desc = celtic.1150.desc
 	picture = GFX_evt_celtic_warriors
 	border = GFX_event_narrative_frame_war
 	
@@ -26,14 +26,14 @@ narrative_event = {
 	hide_from = yes
 	
 	option = {
-		name = EVTOPTAancrel.1150
+		name = celtic.1150.a
 		hidden_tooltip = {
 			any_playable_ruler = {
 				limit = {
 					ai = no
 					religion = celtic_pagan
 				}
-				narrative_event = { id = ancrel.1151 }
+				narrative_event = { id = celtic.1151 }
 			}
 		}
 	}
@@ -41,16 +41,16 @@ narrative_event = {
 
 # The Fianna Founded (Gaelic)
 narrative_event = {
-	id = ancrel.1151
-	title = EVTNAMEancrel.1150
-	desc = EVTDESCancrel.1151
+	id = celtic.1151
+	title = celtic.1150.title
+	desc = celtic.1151.desc
 	picture = GFX_evt_celtic_warriors
 	border = GFX_event_narrative_frame_war
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.1151
+		name = celtic.1151.a
 		custom_tooltip = {
 			text = fianna_organized
 		}
@@ -59,7 +59,7 @@ narrative_event = {
 
 # Fianna Chief gets Fian trait
 character_event = {
-	id = ancrel.1155
+	id = celtic.1155
 	hide_window = yes
 	
 	only_rulers = yes
@@ -80,7 +80,7 @@ character_event = {
 
 # Son has served a few years
 character_event = {
-	id = ancrel.1158
+	id = celtic.1158
 	hide_window = yes
 	
 	is_triggered_only = yes
@@ -93,7 +93,7 @@ character_event = {
 
 # Son wants to join the Fianna (Son)
 character_event = {
-	id = ancrel.1159
+	id = celtic.1159
 	hide_window = yes
 	
 	ai = yes
@@ -102,12 +102,12 @@ character_event = {
 	only_men = yes
 	capable_only = yes
 	prisoner = no
+	has_dlc = "The Old Gods"
+	has_global_flag = fianna_founded
 	
 	trigger = {
-		has_dlc = "The Old Gods"
 		is_landed = no
 		in_command = no
-		has_global_flag = fianna_founded
 		OR = {
 			religion = celtic_pagan
 			religion = celtic_pagan_reformed
@@ -183,22 +183,22 @@ character_event = {
 	}
 	
 	immediate = {
-		father = { character_event = { id = ancrel.1160 } }
+		father = { character_event = { id = celtic.1160 } }
 		set_character_flag = wants_fianna
 	}
 }
 
 # Son wants to join the fianna (Father)
 character_event = {
-	id = ancrel.1160
-	desc = EVTDESCancrel.1160
+	id = celtic.1160
+	desc = celtic.1160.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_war
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.1160
+		name = celtic.1160.a
 		FROM = {
 			opinion = {
 				modifier = opinion_very_disappointed
@@ -209,7 +209,7 @@ character_event = {
 		prestige = -100
 	}
 	option = {
-		name = EVTOPTBancrel.1160
+		name = celtic.1160.b
 		d_fianna = {
 			holder_scope = {
 				FROM = {
@@ -219,7 +219,7 @@ character_event = {
 		}
 		hidden_tooltip = {
 			FROM = { 
-				character_event = { id = ancrel.1158 days = 1460 }
+				character_event = { id = celtic.1158 days = 1460 }
 			}
 		}
 		prestige = 100
@@ -228,12 +228,13 @@ character_event = {
 
 # Son returns scarred but seasoned (Son)
 character_event = {
-	id = ancrel.1164
+	id = celtic.1164
 	hide_window = yes
 	
+	has_dlc = "The Old Gods"
+	has_character_flag = serving_fianna
+	
 	trigger = {
-		has_dlc = "The Old Gods"
-		has_character_flag = serving_fianna
 		NOT = { trait = scarred }
 	}
 	
@@ -251,22 +252,22 @@ character_event = {
 	}
 	
 	immediate = {
-		father = { character_event = { id = ancrel.1165 } }
+		father = { character_event = { id = celtic.1165 } }
 		clr_character_flag = serving_fianna
 	}
 }
 
 # Son returns scarred but seasoned
 character_event = {
-	id = ancrel.1165
-	desc = EVTDESCancrel.1165
+	id = celtic.1165
+	desc = celtic.1165.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_war
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.1165
+		name = celtic.1165.a
 		FROM = {
 			move_character = ROOT
 			add_trait = scarred
@@ -278,12 +279,13 @@ character_event = {
 
 # Son returns maimed (Son)
 character_event = {
-	id = ancrel.1168
+	id = celtic.1168
 	hide_window = yes
 	
+	has_dlc = "The Old Gods"
+	has_character_flag = serving_fianna
+	
 	trigger = {
-		has_dlc = "The Old Gods"
-		has_character_flag = serving_fianna
 		NOT = {
 			trait = maimed
 		}
@@ -295,22 +297,22 @@ character_event = {
 	
 	immediate = {
 		add_trait = maimed
-		father = { character_event = { id = ancrel.1169 } }
+		father = { character_event = { id = celtic.1169 } }
 		clr_character_flag = serving_fianna
 	}
 }
 
 # Son returns maimed
 character_event = {
-	id = ancrel.1169
-	desc = EVTDESCancrel.1169
+	id = celtic.1169
+	desc = celtic.1169.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_war
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.1169
+		name = celtic.1169.a
 		FROM = {
 			move_character = ROOT
 			tooltip = { add_trait = maimed }
@@ -321,12 +323,13 @@ character_event = {
 
 # Son returns as excellent strategist (Son)
 character_event = {
-	id = ancrel.1170
+	id = celtic.1170
 	hide_window = yes
 	
+	has_dlc = "The Old Gods"
+	has_character_flag = serving_fianna
+	
 	trigger = {
-		has_dlc = "The Old Gods"
-		has_character_flag = serving_fianna
 		NOT = { trait = brilliant_strategist }
 		OR = {
 			trait = misguided_warrior
@@ -361,22 +364,22 @@ character_event = {
 	}
 
 	immediate = {
-		father = { character_event = { id = ancrel.1171 } }
+		father = { character_event = { id = celtic.1171 } }
 		clr_character_flag = serving_fianna
 	}
 }
 
 # Son returns as excellent strategist
 character_event = {
-	id = ancrel.1171
-	desc = EVTDESCancrel.1171
+	id = celtic.1171
+	desc = celtic.1171.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_war
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.1171
+		name = celtic.1171.a
 		if = {
 			limit = {
 				FROM = {
@@ -415,12 +418,13 @@ character_event = {
 
 # Son returns with PTSD (Son)
 character_event = {
-	id = ancrel.1172
+	id = celtic.1172
 	hide_window = yes
 	
+	has_dlc = "The Old Gods"
+	has_character_flag = serving_fianna
+	
 	trigger = {
-		has_dlc = "The Old Gods"
-		has_character_flag = serving_fianna
 		NOT = { trait = depressed }
 	}
 	
@@ -442,22 +446,22 @@ character_event = {
 	}
 	
 	immediate = {
-		father = { character_event = { id = ancrel.1173 } }
+		father = { character_event = { id = celtic.1173 } }
 		clr_character_flag = serving_fianna
 	}
 }
 
 # Son returns with PTSD
 character_event = {
-	id = ancrel.1173
-	desc = EVTDESCancrel.1173
+	id = celtic.1173
+	desc = celtic.1173.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_war
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.1173
+		name = celtic.1173.a
 		FROM = {
 			move_character = ROOT
 			add_trait = stressed
@@ -469,14 +473,12 @@ character_event = {
 
 # Son returns home with wife (Son)
 character_event = {
-	id = ancrel.1174
+	id = celtic.1174
 	hide_window = yes
 	
-	trigger = {
-		has_dlc = "The Old Gods"
-		has_character_flag = serving_fianna
-		is_married = no
-	}
+	has_dlc = "The Old Gods"
+	has_character_flag = serving_fianna
+	is_married = no
 	
 	mean_time_to_happen = {
 		months = 180
@@ -488,22 +490,22 @@ character_event = {
 	}
 	
 	immediate = {
-		father = { character_event = { id = ancrel.1175 } }
+		father = { character_event = { id = celtic.1175 } }
 		clr_character_flag = serving_fianna
 	}
 }
 
 # Son returns home with wife
 character_event = {
-	id = ancrel.1175
-	desc = EVTDESCancrel.1175
+	id = celtic.1175
+	desc = celtic.1175.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_war
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.1175
+		name = celtic.1175.a
 		create_character = {
 			random_traits = yes
 			dynasty = NONE
@@ -524,12 +526,13 @@ character_event = {
 
 # Son returns home as a zealot (Son)
 character_event = {
-	id = ancrel.1176
+	id = celtic.1176
 	hide_window = yes
 	
+	has_dlc = "The Old Gods"
+	has_character_flag = serving_fianna
+	
 	trigger = {
-		has_dlc = "The Old Gods"
-		has_character_flag = serving_fianna
 		NOT = { trait = zealous }
 	}
 	
@@ -543,22 +546,22 @@ character_event = {
 	}
 	
 	immediate = {
-		father = { character_event = { id = ancrel.1177 } }
+		father = { character_event = { id = celtic.1177 } }
 		clr_character_flag = serving_fianna
 	}
 }
 
 # Son returns home as a zealot
 character_event = {
-	id = ancrel.1177
-	desc = EVTDESCancrel.1177
+	id = celtic.1177
+	desc = celtic.1177.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_war
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.1177
+		name = celtic.1177.a
 		FROM = {
 			move_character = ROOT
 			add_trait = zealous
@@ -569,13 +572,11 @@ character_event = {
 
 # Son returns home as a seasoned warrior (Son)
 character_event = {
-	id = ancrel.1178
+	id = celtic.1178
 	hide_window = yes
 	
-	trigger = {
-		has_dlc = "The Old Gods"
-		has_character_flag = serving_fianna
-	}
+	has_dlc = "The Old Gods"
+	has_character_flag = serving_fianna
 	
 	mean_time_to_happen = {
 		months = 120
@@ -611,22 +612,22 @@ character_event = {
 	}
 	
 	immediate = {
-		father = { character_event = { id = ancrel.1179 } }
+		father = { character_event = { id = celtic.1179 } }
 		clr_character_flag = serving_fianna
 	}
 }
 
 # Son returns home as a seasoned warrior
 character_event = {
-	id = ancrel.1179
-	desc = EVTDESCancrel.1179
+	id = celtic.1179
+	desc = celtic.1179.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_war
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.1179
+		name = celtic.1179.a
 		FROM = {
 			move_character = ROOT
 			add_trait = brave
@@ -638,13 +639,11 @@ character_event = {
 
 # Son dies in battle (Son)
 character_event = {
-	id = ancrel.1180
+	id = celtic.1180
 	hide_window = yes
 	
-	trigger = {
-		has_dlc = "The Old Gods"
-		has_character_flag = serving_fianna
-	}
+	has_dlc = "The Old Gods"
+	has_character_flag = serving_fianna
 	
 	mean_time_to_happen = {
 		months = 200
@@ -712,35 +711,33 @@ character_event = {
 	}
 	
 	immediate = {
-		father = { character_event = { id = ancrel.1181 } }
+		father = { character_event = { id = celtic.1181 } }
 		clr_character_flag = serving_fianna
 	}
 }
 
 # Son dies in battle
 character_event = {
-	id = ancrel.1181
-	desc = EVTDESCancrel.1181
+	id = celtic.1181
+	desc = celtic.1181.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_war
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.1181
+		name = celtic.1181.a
 		FROM = { death = { death_reason = death_battle } }
 	}
 }
 
 # Son returns with loot (Son)
 character_event = {
-	id = ancrel.1182
+	id = celtic.1182
 	hide_window = yes
 	
-	trigger = {
-		has_dlc = "The Old Gods"
-		has_character_flag = serving_fianna
-	}
+	has_dlc = "The Old Gods"
+	has_character_flag = serving_fianna
 	
 	mean_time_to_happen = {
 		months = 160
@@ -756,22 +753,22 @@ character_event = {
 	}
 	
 	immediate = {
-		father = { character_event = { id = ancrel.1183 } }
+		father = { character_event = { id = celtic.1183 } }
 		clr_character_flag = serving_fianna
 	}
 }
 
 # Son returns with loot
 character_event = {
-	id = ancrel.1183
-	desc = EVTDESCancrel.1183
+	id = celtic.1183
+	desc = celtic.1183.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_war
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.1183
+		name = celtic.1183.a
 		FROM = {
 			move_character = ROOT
 			add_trait = fian
@@ -782,21 +779,22 @@ character_event = {
 
 # Father dies, Player Son is heir
 character_event = {
-	id = ancrel.1184
-	desc = EVTDESCancrel.1184
+	id = celtic.1184
+	desc = celtic.1184.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_war
 	
+	has_dlc = "The Old Gods"
+	ai = no
+	
 	trigger = {
-		has_dlc = "The Old Gods"
-		ai = no
 		OR = {
 			has_character_flag = wants_fianna
 			has_character_flag = serving_fianna
 		}
 		father = { is_alive = no }
 	}
-			
+	
 	mean_time_to_happen = {
 		days = 1
 	}
@@ -807,7 +805,7 @@ character_event = {
 	}
 	
 	option = {
-		name = EVTOPTAancrel.1184
+		name = celtic.1184.a
 		add_trait = fian
 		prestige = 200
 		wealth = 200
@@ -816,12 +814,13 @@ character_event = {
 
 # Father dies, Son gets Fian trait
 character_event = {
-	id = ancrel.1185
+	id = celtic.1185
 	hide_window = yes
 	
+	has_dlc = "The Old Gods"
+	ai = yes
+	
 	trigger = {
-		has_dlc = "The Old Gods"
-		ai = yes
 		OR = {
 			has_character_flag = wants_fianna
 			has_character_flag = serving_fianna
@@ -842,11 +841,12 @@ character_event = {
 
 # Fianna Reforms
 character_event = {
-	id = ancrel.1186
+	id = celtic.1186
 	hide_window = yes
 	
+	has_global_flag = celtic_pagan_reformation
+	
 	trigger = {
-		has_global_flag = celtic_pagan_reformation
 		NOT = { has_global_flag = fianna_reformed }
 		is_title_active = d_fianna
 	}
@@ -869,7 +869,7 @@ character_event = {
 
 # Ping event when vassalizing the Fianna
 character_event = {
-	id = ancrel.0116
+	id = celtic.116
 	hide_window = yes
 	
 	is_triggered_only = yes
@@ -878,7 +878,7 @@ character_event = {
 		set_defacto_liege = FROM
 		FROM = {
 			letter_event = {
-				id = ancrel.0117
+				id = celtic.117
 			}
 		}
 	}
@@ -886,8 +886,8 @@ character_event = {
 
 # Notification event when vassalizing the Fianna
 letter_event = {
-	id = ancrel.0117
-	desc = EVTDESCancrel.0117
+	id = celtic.117
+	desc = celtic.117.desc
 	border = GFX_event_letter_frame_religion
 	
 	is_triggered_only = yes
@@ -901,26 +901,26 @@ letter_event = {
 #
 # Fianna event Series
 #
-# Event IDs ancrel.1254-1300 reserved
-# Event IDs ancrel.1333-1334 reserved
+# Event IDs celtic.1254-1300 reserved
+# Event IDs celtic.1333-1334 reserved
 #
 #############################################
 #Written by Patrick Marchand
 
 #Fian visiting
 character_event = {
-	id = ancrel.1254
-	desc = EVTDESCancrel.1254	
+	id = celtic.1254
+	desc = celtic.1254.desc
 	
 	is_triggered_only = yes
 	
 	only_playable = yes
 	prisoner = no
+	war = no
 	
 	picture = GFX_evt_emissary
 
 	trigger = {
-		war = no
 		in_command = no
 		OR = {
 			religion = celtic_pagan
@@ -1038,8 +1038,8 @@ character_event = {
 				
 	}	
 	
-	option = {
-		name = EVTOPTAancrel.1254 #Welcome them with a lavish feast
+	option = { #Welcome them with a lavish feast
+		name = celtic.1254.a
 		ai_chance = {
 			factor = 10
 			modifier = {
@@ -1082,8 +1082,8 @@ character_event = {
 		}
 		
 	}
-	option = {
-		name = EVTOPTBancrel.1254 #Welcome them reluctantly
+	option = { #Welcome them reluctantly
+		name = celtic.1254.b
 		ai_chance = {
 			factor = 10
 			modifier = {
@@ -1102,7 +1102,7 @@ character_event = {
 		set_character_flag = fian_band_visiting
 	}
 	option = {
-		name = EVTOPTCancrel.1254 #Refuse them Access
+		name = celtic.1254.c #Refuse them Access
 		ai_chance = {
 			factor = 1
 			modifier = {
@@ -1122,15 +1122,15 @@ character_event = {
 	
 #Minor brawl fennid Injured
 character_event = {
-	id = ancrel.1255
-	desc = EVTDESCancrel.1255	
+	id = celtic.1255
+	desc = celtic.1255.desc
+	picture = GFX_evt_joust
 	
 	only_playable = yes
 	prisoner = no
+	has_character_flag = fian_band_visiting
 	
-	picture = GFX_evt_joust
 	trigger = {
-	 	has_character_flag = fian_band_visiting
 		NOT = {	has_character_flag = fian_recruited }
 		NOT = {	has_character_flag = fian_woman_seduced	}
 	}
@@ -1145,14 +1145,14 @@ character_event = {
 		clr_character_flag = fian_woman_seduced
 	}
 	
-	option = {
-		name = EVTOPTAancrel.1255 	# pay for their expenses, and send them on their way
+	option = { #pay for their expenses, and send them on their way
+		name = celtic.1255.a
 		scaled_wealth = -0.05
 		piety = 5
 		
 	}
-	option = {
-		name = EVTOPTBancrel.1255 #let them stay at the castle while recovering.
+	option = { #let them stay at the castle while recovering
+		name = celtic.1255.b
 		prestige = -5
 		piety = 5
 		if = {
@@ -1164,8 +1164,8 @@ character_event = {
 
 #One fennid distinguishes himself
 character_event = {
-	id = ancrel.1256
-	desc = EVTDESCancrel.1256	
+	id = celtic.1256
+	desc = celtic.1256.desc
 	
 	only_playable = yes
 	prisoner = no
@@ -1189,8 +1189,8 @@ character_event = {
 		}
 	}	
 	
-	option = {
-		name = EVTOPTAancrel.1256  #take him in your service.
+	option = {  #take him in your service.
+		name = celtic.1256.a
 		create_character = {
 			random_traits = no
 			dynasty = random
@@ -1207,24 +1207,23 @@ character_event = {
 		}	
 		scaled_wealth = -0.1
 	}
-	option = {
-		name = EVTOPTBancrel.1256 #give him lavish praise.
+	option = { #give him lavish praise
+		name = celtic.1256.b
 		prestige = 5
 	}
 }	
 
 #Male courtier insulted by fennid
 character_event = {
-	id = ancrel.1257
-	desc = EVTDESCancrel.1257	
-	
+	id = celtic.1257
+	desc = celtic.1257.desc
+	picture = GFX_evt_joust
 	
 	only_playable = yes
 	prisoner = no
+	has_character_flag = fian_band_visiting
 	
-	picture = GFX_evt_joust
 	trigger = {
-	 	has_character_flag = fian_band_visiting
 	 	any_courtier = {
 	 		age = 16
 	 		is_female = no
@@ -1258,14 +1257,14 @@ character_event = {
 		
 	}	
 	option = {
-		name = EVTOPTAancrel.1257  #Throw them out.
+		name = celtic.1257.a  #Throw them out
 		clr_character_flag = fian_band_visiting
 		clr_character_flag = fian_recruited	
 		clr_character_flag = fian_woman_seduced
 		piety = -10 
 	}
-	option = {
-		name = EVTOPTBancrel.1257 #Ignore the complaints
+	option = { #Ignore the complaints
+		name = celtic.1257.a
 	 	random_courtier = {
 	 		limit = {
 	 			age = 16
@@ -1290,17 +1289,17 @@ character_event = {
 
 #A young woman has been seduced by a fennid
 character_event = {
-	id = ancrel.1258
-	desc = EVTDESCancrel.1258	
+	id = celtic.1258
+	desc = celtic.1258.desc
+	picture = GFX_evt_lovers
 	
 	only_playable = yes
 	prisoner = no
-	
-	picture = GFX_evt_lovers
+	has_character_flag = fian_band_visiting
 	
 	trigger = {
 		has_lover = no
-	 	has_character_flag = fian_band_visiting
+	 	
 		NOT = {	has_character_flag = fian_recruited }
 		NOT = {	has_character_flag = fian_woman_seduced	}
 		any_courtier = {
@@ -1325,8 +1324,8 @@ character_event = {
 			has_character_flag = fian_recruited	
 		}		
 	}	
-	option = {
-		name = EVTOPTAancrel.1258 #stay
+	option = { #stay
+		name = celtic.1258.a
  		
  		
 		random_courtier = {
@@ -1355,8 +1354,8 @@ character_event = {
 	 	}
 	 	piety = -10
 	}
-	option = {
-		name = EVTOPTBancrel.1258 #dungeon
+	option = { #dungeon
+		name = celtic.1258.b
 		ai_chance = {
 			factor = 1
 			modifier = {
@@ -1396,15 +1395,13 @@ character_event = {
 
 #Fian leaving
 character_event = {
-	id = ancrel.1259
-	desc = EVTDESCancrel.1259	
+	id = celtic.1259
+	desc = celtic.1259.desc
 	
 	only_playable = yes
 	prisoner = no
+	has_character_flag = fian_band_visiting
 	
-	trigger = {
-	 	has_character_flag = fian_band_visiting
-	}	
 	immediate = {
 		clr_character_flag = fian_band_visiting
 		clr_character_flag = fian_woman_seduced
@@ -1420,32 +1417,31 @@ character_event = {
 			has_character_flag = fian_recruited	
 		}		
 	}	
-	option = {
-		name = EVTOPTAancrel.1259 #give them a farewell feast
+	option = { #give them a farewell feast
+		name = celtic.1259.a
 		prestige = 10
 		scaled_wealth = -0.05
 
 	}
-	option = {
-		name = EVTOPTBancrel.1259 #let them leave quitely
+	option = { #let them leave quitely
+		name = celtic.1259.b
 		prestige = -5
 	}
 }
 
 #Marshal has arrested a fennid
 character_event = {
-	id = ancrel.1260
-	desc = EVTDESCancrel.1260	
+	id = celtic.1260
+	desc = celtic.1260.desc
+	picture = GFX_evt_melee
 	
 	is_triggered_only = yes
 	
 	only_playable = yes
 	prisoner = no
-	
-	picture = GFX_evt_melee
+	war = no
 	
 	trigger = {
-		war = no
 		in_command = no
 		NOT = { has_character_flag = fian_band_visiting }
 		any_courtier = {
@@ -1453,8 +1449,8 @@ character_event = {
 		}
 	}
 	
-	option = {
-		name = EVTOPTAancrel.1260  #order him released
+	option = { #order him released
+		name = celtic.1260.a
 		job_marshal = {
 			opinion = {
 				modifier = marshal_overruled
@@ -1464,8 +1460,8 @@ character_event = {
 		piety = 5
 		clr_character_flag = hates_fianna
 	}
-	option = {
-		name = EVTOPTBancrel.1260 #it is not my concern
+	option = { #it is not my concern
+		name = celtic.1260.b
 		job_marshal = {
 			prestige = 10
 		}
@@ -1476,7 +1472,7 @@ character_event = {
 	
 # Ping event when donating money to the fianna
 character_event = {
-	id = ancrel.1333
+	id = celtic.1333
 	hide_window = yes
 	
 	is_triggered_only = yes
@@ -1485,7 +1481,7 @@ character_event = {
 		wealth = 300
 		FROM = {
 			letter_event = {
-				id = ancrel.1334
+				id = celtic.1334
 			}
 		}
 		opinion = {
@@ -1497,8 +1493,8 @@ character_event = {
 
 # Notification event when donating money to the fianna
 letter_event = {
-	id = ancrel.1334
-	desc = EVTDESCancrel.1334
+	id = celtic.1334
+	desc = celtic.1334.desc
 	border = GFX_event_letter_frame_religion
 	
 	is_triggered_only = yes

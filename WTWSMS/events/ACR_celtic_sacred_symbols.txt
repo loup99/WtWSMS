@@ -3,24 +3,21 @@
 # ANCIENT RELIGIONS
 # - Celtic sacred symbols Events
 #
-# Event IDs ancrel.0244-0255
+# Event IDs celtic.244-0255
 #
 ##################################################################
 
-namespace = ancrel
+namespace = celtic
 
 #Set up holy symbol
 province_event = {
-	id = ancrel.0244
-	desc = ancrel.0244.desc
+	id = celtic.244
+	desc = celtic.244.desc
 	picture = GFX_evt_Pagan_dolmen
 	
 	trigger = {
 		owner = {
-			OR = {
-				religion = celtic_pagan
-				religion = celtic_pagan_reformed
-			}
+			religion_openly_in_celtic_subgroup_trigger = yes
 			piety = 250
 			NOT = {
 				trait = cynical
@@ -192,7 +189,7 @@ province_event = {
 		}
 	}
 	option = {
-		name = ancrel.0244.a
+		name = celtic.244.a
 		custom_tooltip = {
 			text = sacred_symbol_built
 		}
@@ -277,16 +274,13 @@ province_event = {
 }
 
 province_event = {
-	id = ancrel.0245
-	desc = ancrel.0245.desc
+	id = celtic.245
+	desc = celtic.245.desc
 	picture = GFX_evt_Pagan_dolmen
 	
 	trigger = {
 		owner = {
-			OR = {
-				religion = celtic_pagan
-				religion = celtic_pagan_reformed			
-			}
+			religion_openly_in_celtic_subgroup_trigger = yes
 		}
 		NOT = { has_province_modifier = sacred_the_giants_causeway }
 		NOT = { has_province_modifier = sacred_lia_fail }
@@ -318,7 +312,7 @@ province_event = {
 		days = 1
 	}
 	option = {
-		name = ancrel.0244.a
+		name = celtic.244.a
 		if = {
 			limit = { province_id = 5 }
 			add_province_modifier = {
@@ -381,18 +375,13 @@ province_event = {
 
 # Remove sacred symbol
 province_event = {
-	id = ancrel.0246
-	desc = ancrel.0246.desc
+	id = celtic.246
+	desc = celtic.246.desc
 	picture = GFX_evt_Pagan_dolmen
 	
 	trigger = {
 		owner = {
-			NOT = {
-				OR = {
-					religion = celtic_pagan
-					religion = celtic_pagan_reformed			
-				}
-			}
+			religion_openly_in_celtic_subgroup_trigger = no
 		}
 		OR = {
 			has_province_modifier = sacred_the_giants_causeway
@@ -419,7 +408,7 @@ province_event = {
 	}
 	
 	option = {
-		name = ancrel.0246.a
+		name = celtic.246.a
 		hidden_tooltip = {
 			if = {
 				limit = {
@@ -523,16 +512,13 @@ province_event = {
 
 # Spirits are angry
 province_event = {
-	id = ancrel.0247
-	desc = ancrel.0247.desc
+	id = celtic.247
+	desc = celtic.247.desc
 	picture = GFX_evt_Pagan_dolmen
 	
 	trigger = {
 		owner = {
-			OR = {
-				religion = celtic_pagan
-				religion = celtic_pagan_reformed			
-			}
+			religion_openly_in_celtic_subgroup_trigger = yes
 			NOT = { has_character_modifier = sidhe_offerings_good }
 		}
 		NOT = { has_province_modifier = sidhe_angry }
@@ -653,7 +639,7 @@ province_event = {
 	}
 	
 	option = {
-		name = ancrel.0247.a
+		name = celtic.247.a
 		add_province_modifier = {
 			name = sidhe_angry
 			duration = -1
@@ -664,7 +650,7 @@ province_event = {
 				has_dlc = "Reapers"
 			}
 			custom_tooltip = {
-				text = province_loses_prosperity_custom_tooltip
+				text = province_declines_custom_tooltip
 				hidden_tooltip = {
 					subtract_variable = { which = prosperity_value value = 4 }
 				}
@@ -675,21 +661,21 @@ province_event = {
 
 #Offerings start
 character_event = {
-	id = ancrel.0248
-	desc = ancrel.0248.desc
+	id = celtic.248
+	desc = celtic.248.desc
 	picture = GFX_evt_Pagan_dolmen
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = ancrel.0248.a
+		name = celtic.248.a
 		scaled_wealth = -0.25
 		hidden_tooltip = {
-			character_event = { id = ancrel.0253 days = 5 }
+			character_event = { id = celtic.253 days = 5 }
 		}
 	}
 	option = {
-		name = ancrel.0248.b
+		name = celtic.248.b
 		trigger = {
 			OR = {
 				any_vassal = {
@@ -701,29 +687,29 @@ character_event = {
 			}
 		}
 		hidden_tooltip = {
-			character_event = { id = ancrel.0249 days = 5 }
+			character_event = { id = celtic.249 days = 5 }
 		}
 	}
 }
 
 #Offerings middle (Poem)
 character_event = {
-	id = ancrel.0249
-	desc = ancrel.0249.desc
+	id = celtic.249
+	desc = celtic.249.desc
 	picture = GFX_evt_Pagan_dolmen
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = ancrel.0249.a
+		name = celtic.249.a
 		if = {
 			limit = {
 				NOT = { learning = 8 }
 			}
 			random_list = {
-				35 = { character_event = { id = ancrel.0250 days = 2 tooltip = "ancrel.0250.tooltip" } } #bad
-				50 = { character_event = { id = ancrel.0251 days = 2 tooltip = "ancrel.0251.tooltip" } } #neutral
-				15 = { character_event = { id = ancrel.0252 days = 2 tooltip = "ancrel.0252.tooltip" } } #good
+				35 = { character_event = { id = celtic.250 days = 2 tooltip = "celtic.250.tooltip" } } #bad
+				50 = { character_event = { id = celtic.251 days = 2 tooltip = "celtic.251.tooltip" } } #neutral
+				15 = { character_event = { id = celtic.252 days = 2 tooltip = "celtic.252.tooltip" } } #good
 			}
 		}
 		if = {
@@ -732,9 +718,9 @@ character_event = {
 				NOT = { learning = 16 }
 			}
 			random_list = {
-				25 = { character_event = { id = ancrel.0250 days = 2 tooltip = "ancrel.0250.tooltip" } } #bad
-				50 = { character_event = { id = ancrel.0251 days = 2 tooltip = "ancrel.0251.tooltip" } } #neutral
-				25 = { character_event = { id = ancrel.0252 days = 2 tooltip = "ancrel.0252.tooltip" } } #good
+				25 = { character_event = { id = celtic.250 days = 2 tooltip = "celtic.250.tooltip" } } #bad
+				50 = { character_event = { id = celtic.251 days = 2 tooltip = "celtic.251.tooltip" } } #neutral
+				25 = { character_event = { id = celtic.252 days = 2 tooltip = "celtic.252.tooltip" } } #good
 			}
 		}
 		if = {
@@ -742,9 +728,9 @@ character_event = {
 				learning = 16
 			}
 			random_list = {
-				15 = { character_event = { id = ancrel.0250 days = 2 tooltip = "ancrel.0250.tooltip" } } #bad
-				50 = { character_event = { id = ancrel.0251 days = 2 tooltip = "ancrel.0251.tooltip" } } #neutral
-				35 = { character_event = { id = ancrel.0252 days = 2 tooltip = "ancrel.0252.tooltip" } } #good
+				15 = { character_event = { id = celtic.250 days = 2 tooltip = "celtic.250.tooltip" } } #bad
+				50 = { character_event = { id = celtic.251 days = 2 tooltip = "celtic.251.tooltip" } } #neutral
+				35 = { character_event = { id = celtic.252 days = 2 tooltip = "celtic.252.tooltip" } } #good
 			}
 		}
 	}
@@ -752,14 +738,14 @@ character_event = {
 
 #Offerings bad
 character_event = {
-	id = ancrel.0250
-	desc = ancrel.0250.desc
+	id = celtic.250
+	desc = celtic.250.desc
 	picture = GFX_evt_Pagan_dolmen
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = ancrel.0250.a
+		name = celtic.250.a
 		prestige = -25
 		piety = -15
 		clr_character_flag = sidhe_offerings_giving
@@ -772,14 +758,14 @@ character_event = {
 
 #Offerings neutral
 character_event = {
-	id = ancrel.0251
-	desc = ancrel.0251.desc
+	id = celtic.251
+	desc = celtic.251.desc
 	picture = GFX_evt_Pagan_dolmen
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = ancrel.0251.a
+		name = celtic.251.a
 		piety = 5
 		clr_character_flag = sidhe_offerings_giving
 		add_character_modifier = {
@@ -791,14 +777,14 @@ character_event = {
 
 #Offerings good
 character_event = {
-	id = ancrel.0252
-	desc = ancrel.0252.desc
+	id = celtic.252
+	desc = celtic.252.desc
 	picture = GFX_evt_Pagan_dolmen
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = ancrel.0252.a
+		name = celtic.252.a
 		prestige = 25
 		piety = 15
 		clr_character_flag = sidhe_offerings_giving
@@ -811,22 +797,22 @@ character_event = {
 
 #Offerings middle (Gold)
 character_event = {
-	id = ancrel.0253
-	desc = ancrel.0253.desc
+	id = celtic.253
+	desc = celtic.253.desc
 	picture = GFX_evt_Pagan_dolmen
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = ancrel.0253.a
+		name = celtic.253.a
 		if = {
 			limit = {
 				NOT = { stewardship = 8 }
 			}
 			random_list = {
-				35 = { character_event = { id = ancrel.0250 days = 2 tooltip = "ancrel.0250.tooltip" } } #bad
-				50 = { character_event = { id = ancrel.0251 days = 2 tooltip = "ancrel.0251.tooltip" } } #neutral
-				15 = { character_event = { id = ancrel.0252 days = 2 tooltip = "ancrel.0252.tooltip" } } #good
+				35 = { character_event = { id = celtic.250 days = 2 tooltip = "celtic.250.tooltip" } } #bad
+				50 = { character_event = { id = celtic.251 days = 2 tooltip = "celtic.251.tooltip" } } #neutral
+				15 = { character_event = { id = celtic.252 days = 2 tooltip = "celtic.252.tooltip" } } #good
 			}
 		}
 		if = {
@@ -835,9 +821,9 @@ character_event = {
 				NOT = { stewardship = 16 }
 			}
 			random_list = {
-				25 = { character_event = { id = ancrel.0250 days = 2 tooltip = "ancrel.0250.tooltip" } } #bad
-				50 = { character_event = { id = ancrel.0251 days = 2 tooltip = "ancrel.0251.tooltip" } } #neutral
-				25 = { character_event = { id = ancrel.0252 days = 2 tooltip = "ancrel.0252.tooltip" } } #good
+				25 = { character_event = { id = celtic.250 days = 2 tooltip = "celtic.250.tooltip" } } #bad
+				50 = { character_event = { id = celtic.251 days = 2 tooltip = "celtic.251.tooltip" } } #neutral
+				25 = { character_event = { id = celtic.252 days = 2 tooltip = "celtic.252.tooltip" } } #good
 			}
 		}
 		if = {
@@ -845,9 +831,9 @@ character_event = {
 				stewardship = 16
 			}
 			random_list = {
-				15 = { character_event = { id = ancrel.0250 days = 2 tooltip = "ancrel.0250.tooltip" } } #bad
-				50 = { character_event = { id = ancrel.0251 days = 2 tooltip = "ancrel.0251.tooltip" } } #neutral
-				35 = { character_event = { id = ancrel.0252 days = 2 tooltip = "ancrel.0252.tooltip" } } #good
+				15 = { character_event = { id = celtic.250 days = 2 tooltip = "celtic.250.tooltip" } } #bad
+				50 = { character_event = { id = celtic.251 days = 2 tooltip = "celtic.251.tooltip" } } #neutral
+				35 = { character_event = { id = celtic.252 days = 2 tooltip = "celtic.252.tooltip" } } #good
 			}
 		}
 	}
@@ -855,16 +841,13 @@ character_event = {
 
 # Lost sacred symbol
 province_event = {
-	id = ancrel.0254
-	desc = ancrel.0254.desc
+	id = celtic.254
+	desc = celtic.254.desc
 	picture = GFX_evt_Pagan_dolmen
 	
 	trigger = {
 		owner = {
-			OR = {
-				religion = celtic_pagan
-				religion = celtic_pagan_reformed			
-			}
+			religion_openly_in_celtic_subgroup_trigger = yes
 		}
 		has_province_modifier = sidhe_angry
 		OR = {
@@ -1002,7 +985,7 @@ province_event = {
 	}
 	
 	option = {
-		name = ancrel.0254.a
+		name = celtic.254.a
 		hidden_tooltip = {
 			if = {
 				limit = {
@@ -1071,7 +1054,7 @@ province_event = {
 				has_dlc = "Reapers"
 			}
 			custom_tooltip = {
-				text = province_loses_prosperity_custom_tooltip
+				text = province_declines_custom_tooltip
 				hidden_tooltip = {
 					subtract_variable = { which = prosperity_value value = 4 }
 				}
@@ -1082,16 +1065,13 @@ province_event = {
 
 # Spirits are calmed
 province_event = {
-	id = ancrel.0255
-	desc = ancrel.0255.desc
+	id = celtic.255
+	desc = celtic.255.desc
 	picture = GFX_evt_Pagan_dolmen
 	
 	trigger = {
 		owner = {
-			OR = {
-				religion = celtic_pagan
-				religion = celtic_pagan_reformed			
-			}
+			religion_openly_in_celtic_subgroup_trigger = yes
 		}
 		has_province_modifier = sidhe_angry
 	}
@@ -1217,7 +1197,7 @@ province_event = {
 	}
 	
 	option = {
-		name = ancrel.0255.a
+		name = celtic.255.a
 		remove_province_modifier = sidhe_angry
 	}
 }

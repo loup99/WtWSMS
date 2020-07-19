@@ -17,6 +17,9 @@ tribal_governments = {
 			bureaucratic_government
 			sassanid_government
 		}
+		accepts_liege_governments_culture_and_religion = { 	# Tribals have no opinion penalty towards their liege if of the same culture and religion
+			order_government
+		}
 		vassal_call_to_arms = {
 			tribal_government
 		}
@@ -33,14 +36,19 @@ tribal_governments = {
 				is_feudal = no
 				has_game_started = no
 			}
-			NAND = {
-				controls_religion = yes
-				NOT = { religion_group = muslim }
-				NOT = {	primary_title = { is_landless_type_title = no }	}
+			OR = {
+				controls_religion = no
+				religion_group = muslim
+				has_religion_feature = religion_temporal_head
+				AND = {
+					religion = norse_pagan_reformed
+					has_religion_features = no # Old saves, and campaigns without HF, need the Fylkirate to continue working
+				}
 			}
 			is_patrician = no
 			mercenary = no
 			holy_order = no
+			NOT = { is_government_potential = order_government }
 			primary_title = {
 				sassanid_government_trigger = no
 			}
@@ -62,8 +70,8 @@ tribal_governments = {
 		can_build_hospitals = no
 		can_change_to_nomad_on_start = yes
 		
-		demesne_size = 2
-		vassal_limit = -10
+		demesne_size = 1
+		vassal_limit = -20
 		
 		capital_move_delay = 600
 	}

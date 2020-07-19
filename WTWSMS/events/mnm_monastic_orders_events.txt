@@ -54,7 +54,13 @@ letter_event = {
     option = { 
         name = EVTOPTA_MNM_44511
 
-        FROM = { ROOT = { join_prev_monastic_order_society = yes } }
+        FROM = {
+        	show_scope_change = no
+        	ROOT = {
+        		show_scope_change = no
+        		join_prev_monastic_order_society = yes
+        	}
+        }
 		
 		scaled_wealth = -0.25
 
@@ -98,6 +104,7 @@ character_event = {
 			}
 			10 = { 
 				modifier = { factor = 0 is_playable = no }
+				modifier = { factor = 0 is_hellenic_monastic_order_member_trigger = yes }
 				set_character_flag = monastic_orders_mission_charity
 			}
 			10 = {
@@ -118,6 +125,10 @@ character_event = {
 				}
 				modifier = {
 					trait = on_pilgrimage
+					factor = 0
+				}
+				modifier = {
+					has_alternate_start_parameter = { key = religion_names value = random }
 					factor = 0
 				}
 				modifier = {
@@ -142,6 +153,10 @@ character_event = {
 					trait = on_indian_pilgrimage
 					factor = 0
 				}
+				modifier = {
+					has_alternate_start_parameter = { key = religion_names value = random }
+					factor = 0
+				}
 				set_character_flag = monastic_orders_mission_dharmic_pilgrimage
 			}
 			10 = {
@@ -150,6 +165,10 @@ character_event = {
 					any_demesne_province = {
 						num_of_empty_holdings = 1			
 					}
+				}
+				modifier = {
+					factor = 0 
+					is_hellenic_monastic_order_member_trigger = yes
 				}
 				modifier = {
 					factor = 0 is_tribal = yes
@@ -246,6 +265,10 @@ society_quest_event = {
 		trigger = { is_dharmic_monastic_member_trigger = yes }
 		text = EVTDESC_4402_MEDITATION
 	}
+	desc = {
+		trigger = { is_hellenic_monastic_order_member_trigger = yes }
+		text = EVTDESC_4402_DIALOGUE
+	}
 
 	is_triggered_only = yes
 
@@ -257,7 +280,12 @@ society_quest_event = {
 			set_quest = quest_monastic_order_penance
 		}
 		if = {
-			limit = { is_dharmic_monastic_member_trigger = yes }
+			limit = { 
+				OR = { 
+					is_hellenic_monastic_order_member_trigger = yes
+					is_dharmic_monastic_member_trigger = yes 
+				} 
+			}
 			set_quest = quest_monastic_order_meditation
 		}
 	}
@@ -291,6 +319,7 @@ character_event = {
 				OR = {
 					is_christian_monastic_member_trigger = yes
 					society_member_of = monastic_order_hindu
+					society_member_of = monastic_order_isis
 				}
 			}
 			text = EVTOPTA_MNM_4403_GOD
@@ -300,11 +329,13 @@ character_event = {
 				OR = {
 					society_member_of = monastic_order_buddhist
 					society_member_of = monastic_order_jain
+					is_hellenic_monastic_order_member_trigger = yes
 				}
 			}
 			text = EVTOPTA_MNM_4403_NOGOD
 		}
-
+		lose_weight_small_effect = yes
+		weight_trait_check_effect = yes
 		hidden_effect = {
 			set_variable = { which = holy_seclusion_points value = 0 }
 			set_character_flag = holy_seclusion_timer
@@ -324,6 +355,8 @@ character_event = {
 		OR = {
 			is_christian_monastic_member_trigger = yes
 			is_dharmic_monastic_member_trigger = yes
+			is_hellenic_monastic_order_member_trigger = yes
+			society_member_of = monastic_order_isis
 		}
 		OR = {
 			has_quest = quest_monastic_order_penance
@@ -550,6 +583,8 @@ character_event = {
 		OR = {
 			is_christian_monastic_member_trigger = yes
 			is_dharmic_monastic_member_trigger = yes
+			is_hellenic_monastic_order_member_trigger = yes
+			society_member_of = monastic_order_isis
 		}
 		OR = {
 			has_quest = quest_monastic_order_penance
@@ -559,6 +594,141 @@ character_event = {
 
 	hide_from = yes
 
+	immediate = {
+		trigger_switch = {
+			on_trigger = has_character_flag
+			holy_seclusion_lustful = {
+				if = {
+					limit = {
+						any_artifact = {
+							OR = {
+								has_artifact_flag = about_religion
+								artifact_type = the_confessions_of_root
+							}
+							is_artifact_equipped = yes
+						}
+					}
+					random_artifact = {
+						limit = {
+							OR = {
+								has_artifact_flag = about_religion
+								artifact_type = the_confessions_of_root
+							}
+							is_artifact_equipped = yes
+						}
+						preferred_limit = {
+							quality = 3
+						}
+						preferred_limit = {
+							quality = 2
+						}
+						preferred_limit = {
+							quality = 1
+						}
+						save_event_target_as = book_target
+					}
+				}
+			}
+			holy_seclusion_gluttonous = {
+				if = {
+					limit = {
+						any_artifact = {
+							has_artifact_flag = cooking
+							is_artifact_equipped = yes
+						}
+					}
+					random_artifact = {
+						limit = {
+							has_artifact_flag = cooking
+							is_artifact_equipped = yes
+							NOT = { artifact_type = gastronomic_tonics } #Not really about food
+						}
+						preferred_limit = {
+							quality = 3
+						}
+						preferred_limit = {
+							quality = 2
+						}
+						preferred_limit = {
+							quality = 1
+						}
+						save_event_target_as = book_target
+					}
+				}
+			}
+			holy_seclusion_greedy = {
+				if = {
+					limit = {
+						any_artifact = {
+							OR = {
+								artifact_type = the_confessions_of_root
+								has_artifact_flag = about_diplomacy
+							}
+							is_artifact_equipped = yes
+						}
+					}
+					random_artifact = {
+						limit = {
+							OR = {
+								artifact_type = the_confessions_of_root
+								has_artifact_flag = about_diplomacy
+							}
+							is_artifact_equipped = yes
+						}
+						preferred_limit = {
+							quality = 3
+						}
+						preferred_limit = {
+							quality = 2
+						}
+						preferred_limit = {
+							quality = 1
+						}
+						save_event_target_as = book_target
+					}
+				}
+			}
+			holy_seclusion_slothful = {
+				if = {
+					limit = {
+						any_artifact = {
+							OR = {
+								AND = {
+									has_artifact_flag = about_dynasty
+									original_owner = { NOT = { character = ROOT } }
+								}
+								has_artifact_flag = poetry
+							}
+							is_artifact_equipped = yes
+						}
+					}
+					random_artifact = {
+						limit = {
+							OR = {
+								AND = {
+									has_artifact_flag = about_dynasty
+									original_owner = { NOT = { character = ROOT } }
+								}
+								has_artifact_flag = poetry
+							}
+							is_artifact_equipped = yes
+						}
+						preferred_limit = {
+							quality = 3
+						}
+						preferred_limit = {
+							quality = 2
+						}
+						preferred_limit = {
+							quality = 1
+						}
+						save_event_target_as = book_target
+					}
+				}
+			}
+		}
+	}
+
 	desc = {
 		trigger = { has_character_flag = holy_seclusion_lustful }
 		text = EVTDESC_4405_LUSTFUL
@@ -567,7 +737,7 @@ character_event = {
 	desc = {
 		trigger = { has_character_flag = holy_seclusion_gluttonous }
 		text = EVTDESC_4405_GLUTTONOUS
-		picture = GFX_evt_dark_feast
+		picture = GFX_evt_feast
 	}
 	desc = {
 		trigger = { has_character_flag = holy_seclusion_greedy }
@@ -598,6 +768,11 @@ character_event = {
 			trigger = { has_character_flag = holy_seclusion_slothful }
 			text = EVTOPTA_4405_SLOTHFUL
 		}
+		if = {
+			limit = { has_character_flag = holy_seclusion_gluttonous }
+			gain_weight_small_effect = yes
+			weight_trait_check_effect = yes
+		}
 
 		random_list = {
 			65 = { 
@@ -612,6 +787,54 @@ character_event = {
 					character_event = { id = MNM.4407 days = 3 }
 				}
 			}
+		}
+	}
+
+	#Fight it  (with reading from your library!)
+	option = {
+		name = {
+			trigger = { has_character_flag = holy_seclusion_lustful }
+			text = EVTOPTB_4405_LUSTFUL_book
+		}
+		name = {
+			trigger = { has_character_flag = holy_seclusion_gluttonous }
+			text = EVTOPTB_4405_GLUTTONOUS_book
+		}
+		name = {
+			trigger = { has_character_flag = holy_seclusion_greedy }
+			text = EVTOPTB_4405_GREEDY_book
+		}
+		name = {
+			trigger = { has_character_flag = holy_seclusion_slothful }
+			text = EVTOPTB_4405_SLOTHFUL_book
+		}
+
+		tooltip_info_custom = available_because_books_tt
+
+		if = {
+			limit = { has_character_flag = holy_seclusion_gluttonous }
+			lose_weight_small_effect = yes
+			weight_trait_check_effect = yes
+		}
+
+		set_character_flag = used_a_book
+
+		random_list = {
+			70 = { 
+				custom_tooltip = { 
+					text = EVTOPTB_MNM_4405_tt_success
+					character_event = { id = MNM.4408 days = 14 }
+				}
+			}
+			30 = {
+				custom_tooltip = { 
+					text = EVTOPTB_MNM_4405_tt_fail
+					character_event = { id = MNM.4409 days = 14 }
+				}
+			}
+		}
+		trigger = {
+			event_target:book_target = { always = yes }
 		}
 	}
 
@@ -637,6 +860,11 @@ character_event = {
 		if = {
 			limit = { has_character_flag = holy_seclusion_greedy }
 			scaled_wealth = { value = -0.5 min = -50 }
+		}
+		if = {
+			limit = { has_character_flag = holy_seclusion_gluttonous }
+			lose_weight_small_effect = yes
+			weight_trait_check_effect = yes
 		}
 
 		random_list = {
@@ -668,6 +896,8 @@ character_event = {
 		OR = {
 			is_christian_monastic_member_trigger = yes
 			is_dharmic_monastic_member_trigger = yes
+			is_hellenic_monastic_order_member_trigger = yes
+			society_member_of = monastic_order_isis
 		}
 		OR = {
 			has_quest = quest_monastic_order_penance
@@ -782,6 +1012,8 @@ character_event = {
 		OR = {
 			is_christian_monastic_member_trigger = yes
 			is_dharmic_monastic_member_trigger = yes
+			is_hellenic_monastic_order_member_trigger = yes
+			society_member_of = monastic_order_isis
 		}
 		OR = {
 			has_quest = quest_monastic_order_penance
@@ -853,6 +1085,8 @@ character_event = {
 		OR = {
 			is_christian_monastic_member_trigger = yes
 			is_dharmic_monastic_member_trigger = yes
+			is_hellenic_monastic_order_member_trigger = yes
+			society_member_of = monastic_order_isis
 		}
 		OR = {
 			has_quest = quest_monastic_order_penance
@@ -861,20 +1095,45 @@ character_event = {
 	}
 
 	desc = {
-		trigger = { has_character_flag = holy_seclusion_lustful }
+		trigger = {
+			has_character_flag = holy_seclusion_lustful
+		}
 		text = EVTDESC_4408_LUSTFUL
 	}
 	desc = {
-		trigger = { has_character_flag = holy_seclusion_gluttonous }
+		trigger = {
+			has_character_flag = holy_seclusion_gluttonous
+		}
 		text = EVTDESC_4408_GLUTTONOUS
 	}
 	desc = {
-		trigger = { has_character_flag = holy_seclusion_greedy }
+		trigger = {
+			has_character_flag = holy_seclusion_greedy
+			NOT = { has_character_flag = used_a_book }
+		}
 		text = EVTDESC_4408_GREEDY
 	}
 	desc = {
-		trigger = { has_character_flag = holy_seclusion_slothful }
+		trigger = {
+			has_character_flag = holy_seclusion_slothful
+			NOT = { has_character_flag = used_a_book }
+
+		}
 		text = EVTDESC_4408_SLOTHFUL
+	}
+	desc = {
+		trigger = {
+			has_character_flag = holy_seclusion_greedy
+			has_character_flag = used_a_book
+		}
+		text = EVTDESC_4408_GREEDY_book
+	}
+	desc = {
+		trigger = {
+			has_character_flag = holy_seclusion_slothful
+			has_character_flag = used_a_book
+		}
+		text = EVTDESC_4408_SLOTHFUL_book
 	}
 
 
@@ -979,6 +1238,7 @@ character_event = {
 			clr_character_flag = holy_seclusion_gluttonous
 			clr_character_flag = holy_seclusion_greedy
 			clr_character_flag = holy_seclusion_slothful
+			clr_character_flag = used_a_book
 		}
 	}
 }
@@ -995,6 +1255,8 @@ character_event = {
 		OR = {
 			is_christian_monastic_member_trigger = yes
 			is_dharmic_monastic_member_trigger = yes
+			is_hellenic_monastic_order_member_trigger = yes
+			society_member_of = monastic_order_isis
 		}
 		OR = {
 			has_quest = quest_monastic_order_penance
@@ -1102,7 +1364,12 @@ character_event = {
 			}
 		}
 		if = {
-			limit = { is_dharmic_monastic_member_trigger = yes }
+			limit = { 
+				OR = {
+					is_hellenic_monastic_order_member_trigger = yes 
+					is_dharmic_monastic_member_trigger = yes 
+				}
+			}
 			add_character_modifier = {
 				name = rampant_sinner_dharmic
 				years = 3
@@ -1114,6 +1381,7 @@ character_event = {
 			clr_character_flag = holy_seclusion_gluttonous
 			clr_character_flag = holy_seclusion_greedy
 			clr_character_flag = holy_seclusion_slothful
+			clr_character_flag = used_a_book
 		}
 	}
 }
@@ -1130,6 +1398,8 @@ character_event = {
 		OR = {
 			is_christian_monastic_member_trigger = yes
 			is_dharmic_monastic_member_trigger = yes
+			is_hellenic_monastic_order_member_trigger = yes
+			society_member_of = monastic_order_isis
 		}
 		OR = {
 			has_quest = quest_monastic_order_penance
@@ -1224,6 +1494,8 @@ character_event = {
 		OR = {
 			is_christian_monastic_member_trigger = yes
 			is_dharmic_monastic_member_trigger = yes
+			is_hellenic_monastic_order_member_trigger = yes
+			society_member_of = monastic_order_isis
 		}
 		OR = {
 			has_quest = quest_monastic_order_penance
@@ -1256,6 +1528,7 @@ character_event = {
 		OR = {
 			is_christian_monastic_member_trigger = yes
 			is_dharmic_monastic_member_trigger = yes
+			is_hellenic_monastic_order_member_trigger = yes
 		}
 		OR = {
 			has_quest = quest_monastic_order_penance
@@ -1289,6 +1562,7 @@ character_event = {
 		OR = {
 			is_christian_monastic_member_trigger = yes
 			is_dharmic_monastic_member_trigger = yes
+			is_hellenic_monastic_order_member_trigger = yes
 		}
 		OR = {
 			has_quest = quest_monastic_order_penance
@@ -1332,6 +1606,7 @@ character_event = {
 		OR = {
 			is_christian_monastic_member_trigger = yes
 			is_dharmic_monastic_member_trigger = yes
+			is_hellenic_monastic_order_member_trigger = yes
 		}
 		OR = {
 			has_quest = quest_monastic_order_penance
@@ -1416,6 +1691,7 @@ character_event = {
 		OR = {
 			is_christian_monastic_member_trigger = yes
 			is_dharmic_monastic_member_trigger = yes
+			is_hellenic_monastic_order_member_trigger = yes
 		}
 		OR = {
 			has_quest = quest_monastic_order_penance
@@ -1459,6 +1735,7 @@ character_event = {
 		OR = {
 			is_christian_monastic_member_trigger = yes
 			is_dharmic_monastic_member_trigger = yes
+			is_hellenic_monastic_order_member_trigger = yes
 		}
 		OR = {
 			has_quest = quest_monastic_order_penance
@@ -1492,6 +1769,7 @@ character_event = {
 		OR = {
 			is_christian_monastic_member_trigger = yes
 			is_dharmic_monastic_member_trigger = yes
+			is_hellenic_monastic_order_member_trigger = yes
 		}
 		OR = {
 			has_quest = quest_monastic_order_penance
@@ -1526,6 +1804,7 @@ character_event = {
 		OR = {
 			is_christian_monastic_member_trigger = yes
 			is_dharmic_monastic_member_trigger = yes
+			is_hellenic_monastic_order_member_trigger = yes
 		}
 		OR = {
 			has_quest = quest_monastic_order_penance
@@ -1577,6 +1856,7 @@ character_event = {
 		OR = {
 			is_christian_monastic_member_trigger = yes
 			is_dharmic_monastic_member_trigger = yes
+			is_hellenic_monastic_order_member_trigger = yes
 		}
 		OR = {
 			has_quest = quest_monastic_order_penance
@@ -1723,6 +2003,7 @@ character_event = {
 		OR = {
 			is_christian_monastic_member_trigger = yes
 			is_dharmic_monastic_member_trigger = yes
+			is_hellenic_monastic_order_member_trigger = yes
 		}
 		OR = {
 			has_quest = quest_monastic_order_penance
@@ -1792,6 +2073,7 @@ character_event = {
 		OR = {
 			is_christian_monastic_member_trigger = yes
 			is_dharmic_monastic_member_trigger = yes
+			is_hellenic_monastic_order_member_trigger = yes
 		}
 		OR = {
 			has_quest = quest_monastic_order_penance
@@ -1829,6 +2111,7 @@ character_event = {
 		OR = {
 			is_christian_monastic_member_trigger = yes
 			is_dharmic_monastic_member_trigger = yes
+			is_hellenic_monastic_order_member_trigger = yes
 		}
 		OR = {
 			has_quest = quest_monastic_order_penance
@@ -1855,6 +2138,7 @@ character_event = {
 		OR = {
 			is_christian_monastic_member_trigger = yes
 			is_dharmic_monastic_member_trigger = yes
+			is_hellenic_monastic_order_member_trigger = yes
 		}
 		OR = {
 			has_quest = quest_monastic_order_penance
@@ -1920,6 +2204,7 @@ character_event = {
 		OR = {
 			is_christian_monastic_member_trigger = yes
 			is_dharmic_monastic_member_trigger = yes
+			is_hellenic_monastic_order_member_trigger = yes
 		}
 		OR = {
 			has_quest = quest_monastic_order_penance
@@ -1979,6 +2264,7 @@ character_event = {
 				OR = {
 					society_member_of = monastic_order_buddhist
 					society_member_of = monastic_order_jain
+					is_hellenic_monastic_order_member_trigger = yes
 				}
 			}
 			text = EVTOPTA_MNM_4426_NOGOD
@@ -2024,6 +2310,7 @@ letter_event = {
 		OR = {
 			is_christian_monastic_member_trigger = yes
 			is_dharmic_monastic_member_trigger = yes
+			is_hellenic_monastic_order_member_trigger = yes
 		}
 		OR = {
 			has_quest = quest_monastic_order_penance
@@ -2046,7 +2333,17 @@ letter_event = {
 			sound_effect = monastic_orders_meditate_in_seclusion
 			remove_character_modifier = in_meditation
 		}
-		add_society_currency_medium_effect = yes
+		if = {
+			limit = {
+				any_owned_bloodline = {
+					has_bloodline_flag = monastic_saintly_bloodline
+				}
+			}
+			add_society_currency_major_effect = yes
+		}
+		else = {
+			add_society_currency_medium_effect = yes
+		}
 		hidden_effect = { 
 			monastic_order_purity_effect = yes 
 			clr_character_flag = success_seculison_desc_A #Flags from 4426
@@ -2072,6 +2369,7 @@ letter_event = {
 		OR = {
 			is_christian_monastic_member_trigger = yes
 			is_dharmic_monastic_member_trigger = yes
+			is_hellenic_monastic_order_member_trigger = yes
 		}
 		OR = {
 			has_quest = quest_monastic_order_penance
@@ -2255,7 +2553,17 @@ letter_event = {
 		sound_effect = monastic_orders_pick_theology_focus
 		hidden_effect = { monastic_order_purity_effect = yes }
 		
-		add_society_currency_minor_effect = yes
+		if = {
+			limit = {
+				any_owned_bloodline = {
+					has_bloodline_flag = monastic_saintly_bloodline
+				}
+			}
+			add_society_currency_medium_effect = yes
+		}
+		else = {
+			add_society_currency_minor_effect = yes
+		}
 	}
 
 }
@@ -2396,7 +2704,17 @@ letter_event = {
 		sound_effect = monastic_orders_pilgrimage
 		hidden_effect = { monastic_order_purity_effect = yes }
 		
-		add_society_currency_major_effect = yes
+		if = {
+			limit = {
+				any_owned_bloodline = {
+					has_bloodline_flag = monastic_saintly_bloodline
+				}
+			}
+			add_society_currency_large_effect = yes
+		}
+		else = {
+			add_society_currency_major_effect = yes
+		}
 	}
 }
 
@@ -2581,9 +2899,11 @@ character_event = {
 		FROM = {
 			holding_type = temple
 		}
+		NOT = { has_character_flag = monastic_orders_temple_construction_ongoing } #flag to avoid doubling of letter events when finishing two buildings at the same time
 	}
 	
 	immediate = {
+		set_character_flag = monastic_orders_temple_construction_ongoing
 		random_society_member = {
 			limit = {
 				same_society_as = ROOT
@@ -2624,7 +2944,20 @@ letter_event = {
 		clr_quest = monastic_orders_temple_construction
 		sound_effect = monastic_orders_build_temple_holding
 		hidden_effect = { monastic_order_purity_effect = yes }
-		add_society_currency_major_effect = yes
+		if = {
+			limit = {
+				any_owned_bloodline = {
+					has_bloodline_flag = monastic_saintly_bloodline
+				}
+			}
+			add_society_currency_large_effect = yes
+		}
+		else = {
+			add_society_currency_major_effect = yes		
+		}
+	}
+	after = {
+		clr_character_flag = monastic_orders_temple_construction_ongoing
 	}
 }
 
@@ -2902,6 +3235,8 @@ character_event = {
 			random = {
 				chance = 10
 				add_trait = temperate
+				lose_weight_small_effect = yes
+				weight_trait_check_effect = yes
 			}
 			random = {
 				chance = 5
@@ -3372,7 +3707,9 @@ character_event = {
 		}
 		add_trait = diligent
 		hidden_effect = {
-			character_event = { id = MNM.4609 }
+			event_target:benedictines_diligent_mentor = {
+				character_event = { id = MNM.4609 }
+			}
 		}
 	}
 }
@@ -3663,7 +4000,17 @@ letter_event = {
 		wealth = -100
 		if = {
 			limit = { NOT = { has_quest = quest_monastic_order_donate_to_charity } }
-			add_society_currency_minor_effect = yes
+			if = {
+				limit = {
+					any_owned_bloodline = {
+						has_bloodline_flag = monastic_saintly_bloodline 
+					}
+				}
+				add_society_currency_medium_effect = yes
+			}
+			else = {
+				add_society_currency_minor_effect = yes
+			}
 		}
 		
 		if = {
@@ -3671,7 +4018,17 @@ letter_event = {
 			clr_quest = quest_monastic_order_donate_to_charity
 			sound_effect = monastic_orders_donate_charity
 			hidden_effect = { monastic_order_purity_effect = yes }
-			add_society_currency_medium_effect = yes
+			if = {
+				limit = {
+					any_owned_bloodline = {
+						has_bloodline_flag = monastic_saintly_bloodline
+					}
+				}
+				add_society_currency_major_effect = yes
+			}
+			else = {
+				add_society_currency_medium_effect = yes			
+			}
 		}
 
 		add_character_modifier = {
@@ -5330,6 +5687,33 @@ character_event = {
 				set_character_flag = betrayed_monastic_order_buddhist
 			}
 		}
+		if = {
+			limit = {
+				society_member_of = monastic_order_stoics
+			}
+			leave_society = yes
+			hidden_effect = {
+				set_character_flag = betrayed_monastic_order_stoics
+			}
+		}
+		if = {
+			limit = {
+				 society_member_of = monastic_order_skeptics
+			}
+			leave_society = yes
+			hidden_effect = {
+				set_character_flag = betrayed_monastic_order_skeptics
+			}
+		}
+		if = {
+			limit = {
+				 society_member_of = monastic_order_epicureans
+			}
+			leave_society = yes
+			hidden_effect = {
+				set_character_flag = betrayed_monastic_order_epicureans
+			}
+		}
 		character_event = { id = MNM.4615 days = 10 random = 10 }
 	}
 
@@ -5351,7 +5735,7 @@ character_event = {
 		custom_tooltip = { text = EVTOPTC_MNM_4614_TT }
 		if = {
 			limit = {
-				combat_rating_diff = { who = event_target:monastic_artifact_witness value = 5 }
+				combat_rating_diff = { who = event_target:monastic_artifact_witness value = 50 }
 			}
 			custom_tooltip = { text = holmgang_chances_great } #Tooltip reuse FTW
 			hidden_tooltip = {
@@ -5374,9 +5758,9 @@ character_event = {
 		}
 		if = {
 			limit = {
-				combat_rating_diff = { who = event_target:monastic_artifact_witness value = 3 }
+				combat_rating_diff = { who = event_target:monastic_artifact_witness value = 30 }
 				NOT = {
-					combat_rating_diff = { who = event_target:monastic_artifact_witness value = 5 }
+					combat_rating_diff = { who = event_target:monastic_artifact_witness value = 50 }
 				}
 			}
 			custom_tooltip = { text = holmgang_chances_very_good }
@@ -5400,9 +5784,9 @@ character_event = {
 		}
 		if = {
 			limit = {
-				combat_rating_diff = { who = event_target:monastic_artifact_witness value = 1 }
+				combat_rating_diff = { who = event_target:monastic_artifact_witness value = 10 }
 				NOT = {
-					combat_rating_diff = { who = event_target:monastic_artifact_witness value = 3 }
+					combat_rating_diff = { who = event_target:monastic_artifact_witness value = 30 }
 				}
 			}
 			custom_tooltip = { text = holmgang_chances_good }
@@ -5427,9 +5811,9 @@ character_event = {
 		if = {
 			limit = {
 				NOT = {
-					combat_rating_diff = { who = event_target:monastic_artifact_witness value = 1 }
+					combat_rating_diff = { who = event_target:monastic_artifact_witness value = 10 }
 					event_target:monastic_artifact_witness = {
-						combat_rating_diff = { who = ROOT value = 1 }
+						combat_rating_diff = { who = ROOT value = 10 }
 					}
 				}
 			}
@@ -5455,11 +5839,11 @@ character_event = {
 		if = {
 			limit = {
 				event_target:monastic_artifact_witness = {
-					combat_rating_diff = { who = ROOT value = 1 }
+					combat_rating_diff = { who = ROOT value = 10 }
 				}
 				NOT = {
 					event_target:monastic_artifact_witness = {
-						combat_rating_diff = { who = ROOT value = 3 }
+						combat_rating_diff = { who = ROOT value = 30 }
 					}
 				}
 			}
@@ -5485,11 +5869,11 @@ character_event = {
 		if = {
 			limit = {
 				event_target:monastic_artifact_witness = {
-					combat_rating_diff = { who = ROOT value = 3 }
+					combat_rating_diff = { who = ROOT value = 30 }
 				}
 				NOT = {
 					event_target:monastic_artifact_witness = {
-						combat_rating_diff = { who = ROOT value = 5 }
+						combat_rating_diff = { who = ROOT value = 50 }
 					}
 				}
 			}
@@ -5515,7 +5899,7 @@ character_event = {
 		if = {
 			limit = {
 				event_target:monastic_artifact_witness = {
-					combat_rating_diff = { who = ROOT value = 5 }
+					combat_rating_diff = { who = ROOT value = 50 }
 				}
 			}
 			custom_tooltip = { text = holmgang_chances_terrible }
@@ -6530,6 +6914,33 @@ letter_event = {
 			leave_society = yes
 			hidden_effect = {
 				set_character_flag = betrayed_monastic_order_buddhist
+			}
+		}
+		if = {
+			limit = {
+				society_member_of = monastic_order_stoics
+			}
+			leave_society = yes
+			hidden_effect = {
+				set_character_flag = betrayed_monastic_order_stoics
+			}
+		}
+		if = {
+			limit = {
+				 society_member_of = monastic_order_skeptics
+			}
+			leave_society = yes
+			hidden_effect = {
+				set_character_flag = betrayed_monastic_order_skeptics
+			}
+		}
+		if = {
+			limit = {
+				 society_member_of = monastic_order_epicureans
+			}
+			leave_society = yes
+			hidden_effect = {
+				set_character_flag = betrayed_monastic_order_epicureans
 			}
 		}
     }
@@ -7660,7 +8071,17 @@ character_event = {
 		}
 
 		prestige = 50
-		add_society_currency_medium_effect = yes
+		if = {
+			limit = {
+				any_owned_bloodline = {
+					has_bloodline_flag = monastic_saintly_bloodline
+				}
+			}
+			add_society_currency_major_effect = yes
+		}
+		else = {
+			add_society_currency_medium_effect = yes			
+		}
     }
 
     option = { # I shall burn ALL the books... (only available if you have more than one book)
@@ -7706,7 +8127,17 @@ character_event = {
 
 
 		prestige = 100
-		add_society_currency_major_effect = yes
+		if = {
+			limit = {
+				any_owned_bloodline = {
+					has_bloodline_flag = monastic_saintly_bloodline
+				}
+			}
+			add_society_currency_large_effect = yes
+		}
+		else = {
+			add_society_currency_major_effect = yes			
+		}
 
 		trigger = {
 			any_artifact = {

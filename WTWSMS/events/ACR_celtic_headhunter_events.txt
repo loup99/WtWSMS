@@ -3,18 +3,18 @@
 # ANCIENT RELIGIONS
 # - Druidic Headhunters
 #
-# Event ID ancrel.0010 - ancrel.0019 reserved
+# Event ID celtic.10 - celtic.19 reserved
 #
 #######################################
 
 # Written by Patrick Marchand
 
-namespace = ancrel
+namespace = celtic
 
-#[on_combat_pulse] Druidic character becomes reknowned headhunter
+#[on_combat_pulse] Druidic character becomes renowned headhunter
 character_event = {
-	id = ancrel.0010
-	desc = EVTDESCancrel.0010
+	id = celtic.10
+	desc = celtic.10.desc
 	picture = GFX_evt_headhunter
 	border = GFX_event_normal_frame_war
 
@@ -28,16 +28,17 @@ character_event = {
 
 	trigger = {
 		is_alive = yes
-		NOT = { trait = head1 }
-		OR = {
-			religion = celtic_pagan
-			religion = celtic_pagan_reformed
-		}
+		religion_openly_celtic_or_reformed_trigger = yes
 		OR = {
 			trait = brave
 			trait = fian
 			trait = celtic_knight
 			trait = wroth
+		}
+		NOR = {
+			has_religion_feature = religion_peaceful
+			trait = head1
+			trait = head2
 		}
 	}
 	
@@ -150,15 +151,16 @@ character_event = {
 	}
 	
 	option = {
-		name = EVTOPTAancrel.0010
+		name = celtic.10.a
 		add_trait = head1
+		set_character_flag = ancrel_headhunter
 	}
 }
 
 #[on_combat_pulse] Druidic character becomes living legend
 character_event = {
-	id = ancrel.0011
-	desc = EVTDESCancrel.0011
+	id = celtic.11
+	desc = celtic.11.desc
 	picture = GFX_evt_headhunter
 	border = GFX_event_normal_frame_war
 
@@ -181,14 +183,12 @@ character_event = {
 			trait = duelist
 		}
 		NOT = { trait = head2 }
-		OR = {
-			religion = celtic_pagan
-			religion = celtic_pagan_reformed
-		}
+		religion_openly_celtic_or_reformed_trigger = yes
+		had_character_flag = { flag = ancrel_headhunter days = 780 }
 	}
 	
 	weight_multiplier = {
-		days = 1
+		days = 100
 		modifier = {
 			factor = 2
 			trait = brave
@@ -296,7 +296,48 @@ character_event = {
 	}
 	
 	option = {
-		name = EVTOPTAancrel.0011
+		name = celtic.11.a
+		trigger = {
+			NOT = {
+				any_owned_bloodline = {
+					has_bloodline_flag = bloodline_legendary
+				}
+			}
+		}
+
 		add_trait = head2
+		
+		custom_tooltip = {
+			text = found_living_legend_bloodine_tt
+			hidden_tooltip = {
+				if = {
+					limit = {
+						is_female = yes
+					}
+					create_bloodline = {
+						type = living_legend_female
+					}
+				} else = {
+					create_bloodline = {
+						type = living_legend_male
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = celtic.11.a
+		add_trait = head2
+
+		trigger = {
+			any_owned_bloodline = {
+				has_bloodline_flag = bloodline_legendary
+			}
+		}
+	}
+
+	after = {
+		clr_character_flag = ancrel_headhunter
 	}
 }

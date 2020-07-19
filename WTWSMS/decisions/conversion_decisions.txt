@@ -5,9 +5,9 @@ targetted_decisions = {
 		
 		filter = self
 		ai_target_filter = self
+		ai = no
 		
 		potential = {
-			ai = no
 			is_playable = yes
 			liege = {
 				NOT = { character = ROOT }
@@ -18,6 +18,8 @@ targetted_decisions = {
 		}
 		allow = {
 			NOT = { trait = zealous }
+			liege = { ROOTs_religion_is_playable_trigger = yes }
+			holy_order = no
 		}
 		effect = {
 			hidden_tooltip = {
@@ -78,6 +80,22 @@ targetted_decisions = {
 				limit = { liege = { trait = svetambara_jain } }
 				add_trait = svetambara_jain
 			}
+			if = {
+				limit = { liege = { trait = pagan_branch_1 } }
+				add_trait = pagan_branch_1
+			}
+			if = {
+				limit = { liege = { trait = pagan_branch_2 } }
+				add_trait = pagan_branch_2
+			}
+			if = {
+				limit = { liege = { trait = pagan_branch_3 } }
+				add_trait = pagan_branch_3
+			}
+			if = {
+				limit = { liege = { trait = pagan_branch_4 } }
+				add_trait = pagan_branch_4
+			}
 		}
 		revoke_allowed = {
 			always = no
@@ -92,6 +110,7 @@ targetted_decisions = {
 		
 		filter = liege
 		ai_target_filter = liege
+		ai_check_interval = 60
 		
 		from_potential = {
 			ai = no
@@ -163,6 +182,22 @@ targetted_decisions = {
 					limit = { ROOT = { trait = svetambara_jain } }
 					add_trait = svetambara_jain
 				}
+				if = {
+					limit = { ROOT = { trait = pagan_branch_1 } }
+					add_trait = pagan_branch_1
+				}
+				if = {
+					limit = { ROOT = { trait = pagan_branch_2 } }
+					add_trait = pagan_branch_2
+				}
+				if = {
+					limit = { ROOT = { trait = pagan_branch_3 } }
+					add_trait = pagan_branch_3
+				}
+				if = {
+					limit = { ROOT = { trait = pagan_branch_4 } }
+					add_trait = pagan_branch_4
+				}
 			}
 		}
 		revoke_allowed = {
@@ -178,6 +213,7 @@ targetted_decisions = {
 		
 		filter = liege
 		ai_target_filter = liege
+		ai_check_interval = 60
 		
 		from_potential = {
 			is_playable = yes
@@ -209,6 +245,7 @@ targetted_decisions = {
 		
 		filter = self
 		ai_target_filter = self
+		ai_check_interval = 60
 		
 		potential = {
 			is_playable = yes
@@ -236,6 +273,7 @@ targetted_decisions = {
 	
 	convert_to_local_culture = {
 		only_playable = yes
+		ai_check_interval = 24
 		
 		filter = self
 		ai_target_filter = self
@@ -456,6 +494,23 @@ targetted_decisions = {
 				factor = 0
 				government = chinese_imperial_government
 			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_landed_title = k_jerusalem
+					has_landed_title = e_outremer
+					any_liege = {
+						OR = {
+							has_landed_title = k_jerusalem
+							has_landed_title = e_outremer
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				has_landed_title = e_latin_empire
+			}
 		}
 	}
 	
@@ -464,9 +519,9 @@ targetted_decisions = {
 		
 		filter = self
 		ai_target_filter = self
+		ai = no
 		
 		potential = {
-			ai = no
 			is_playable = yes
 			is_nomadic = no
 			capital_scope = {
@@ -504,17 +559,18 @@ targetted_decisions = {
 		}
 		allow = {
 			NOT = { trait = zealous }
+			capital_scope = { ROOTs_religion_is_playable_trigger = yes }
 			OR = {
 				AND = {
 					prestige = 500
 					capital_scope = {
-						religion_group = ROOT
+						true_religion_group = ROOT
 					}
 				}
 				AND = {
 					prestige = 1000
 					capital_scope = {
-						NOT = { religion_group = ROOT }
+						NOT = { true_religion_group = ROOT }
 					}
 				}
 			}
@@ -526,7 +582,7 @@ targetted_decisions = {
 			if = {
 				limit = {
 					capital_scope = {
-						NOT = { religion_group = ROOT }
+						NOT = { true_religion_group = ROOT }
 					}
 				}
 				prestige = -1000
@@ -534,7 +590,7 @@ targetted_decisions = {
 			if = {
 				limit = {
 					capital_scope = {
-						religion_group = ROOT
+						true_religion_group = ROOT
 					}
 				}
 				prestige = -500
@@ -548,7 +604,7 @@ targetted_decisions = {
 					religion_group = christian
 					NOT = { trait = sympathy_christendom }
 					capital_scope = {
-						NOT = { religion_group = ROOT }
+						NOT = { true_religion_group = ROOT }
 					}
 				}
 				random = {
@@ -561,7 +617,7 @@ targetted_decisions = {
 					religion_group = muslim
 					NOT = { trait = sympathy_islam }
 					capital_scope = {
-						NOT = { religion_group = ROOT }
+						NOT = { true_religion_group = ROOT }
 					}
 				}
 				random = {
@@ -574,7 +630,7 @@ targetted_decisions = {
 					religion_group = pagan_group
 					NOT = { trait = sympathy_pagans }
 					capital_scope = {
-						NOT = { religion_group = ROOT }
+						NOT = { true_religion_group = ROOT }
 					}
 				}
 				random = {
@@ -587,7 +643,7 @@ targetted_decisions = {
 					religion_group = zoroastrian_group
 					NOT = { trait = sympathy_zoroastrianism }
 					capital_scope = {
-						NOT = { religion_group = ROOT }
+						NOT = { true_religion_group = ROOT }
 					}
 				}
 				random = {
@@ -600,7 +656,7 @@ targetted_decisions = {
 					religion_group = jewish_group
 					NOT = { trait = sympathy_judaism }
 					capital_scope = {
-						NOT = { religion_group = ROOT }
+						NOT = { true_religion_group = ROOT }
 					}
 				}
 				random = {
@@ -613,7 +669,7 @@ targetted_decisions = {
 					religion_group = indian_group
 					NOT = { trait = sympathy_indian }
 					capital_scope = {
-						NOT = { religion_group = ROOT }
+						NOT = { true_religion_group = ROOT }
 					}
 				}
 				random = {
@@ -659,9 +715,9 @@ targetted_decisions = {
 		
 		filter = self
 		ai_target_filter = self
+		ai = no
 		
 		potential = {
-			ai = no
 			is_playable = yes
 			independent = yes
 			controls_religion = no
@@ -678,6 +734,7 @@ targetted_decisions = {
 		}
 		allow = {
 			NOT = { trait = zealous }
+			holy_order = no
 		}
 		effect = {
 			hidden_tooltip = {
@@ -716,6 +773,7 @@ targetted_decisions = {
 		
 		filter = self
 		ai_target_filter = self
+		ai_check_interval = 60
 		
 		potential = {
 			is_playable = yes
@@ -727,6 +785,9 @@ targetted_decisions = {
 				culture = swedish
 			}
 			NOT = { government = chinese_imperial_government }
+			NOT = {
+				has_alternate_start_parameter = { key = culture_names value = random }
+			}
 		}
 		allow = {
 			culture = norse
@@ -819,12 +880,12 @@ targetted_decisions = {
 			}
 		}
 	}
-
 	convert_to_norwegian = {
 		only_playable = yes
 		
 		filter = self
 		ai_target_filter = self
+		ai_check_interval = 60
 		
 		potential = {
 			is_playable = yes
@@ -836,6 +897,9 @@ targetted_decisions = {
 				culture = norwegian
 			}
 			NOT = { government = chinese_imperial_government }
+			NOT = {
+				has_alternate_start_parameter = { key = culture_names value = random }
+			}
 		}
 		allow = {
 			culture = norse
@@ -934,6 +998,7 @@ targetted_decisions = {
 		
 		filter = self
 		ai_target_filter = self
+		ai_check_interval = 60
 		
 		potential = {
 			is_playable = yes
@@ -945,6 +1010,9 @@ targetted_decisions = {
 				culture = danish
 			}
 			NOT = { government = chinese_imperial_government }
+			NOT = {
+				has_alternate_start_parameter = { key = culture_names value = random }
+			}
 		}
 		allow = {
 			culture = norse
@@ -1042,6 +1110,7 @@ targetted_decisions = {
 		
 		filter = self
 		ai_target_filter = self
+		ai_check_interval = 60
 		
 		potential = {
 			is_playable = yes
@@ -1050,6 +1119,9 @@ targetted_decisions = {
 				culture = norman
 			}
 			NOT = { government = chinese_imperial_government }
+			NOT = {
+				has_alternate_start_parameter = { key = culture_names value = random }
+			}
 		}
 		allow = {
 			culture = norse
@@ -1149,6 +1221,7 @@ targetted_decisions = {
 		
 		filter = self
 		ai_target_filter = self
+		ai_check_interval = 60
 		
 		potential = {
 			is_playable = yes
@@ -1159,6 +1232,7 @@ targetted_decisions = {
 		allow = {
 			NOT = { trait = zealous }
 			piety = 50
+			holy_order = no
 		}
 		effect = {
 			piety = -50
@@ -1191,13 +1265,16 @@ targetted_decisions = {
 			always = no
 		}
 		ai_will_do = {
-			factor = 1 # On average ca 1 year before taken
+			factor = 1
 			modifier = {
 				factor = 0.025 # Generally quite a slow process - ca 40 years
 			}
 			modifier = {
 				factor = 0.5
-				is_dumb_trigger = yes
+				OR = {
+					trait = slow
+					trait = dull
+				}
 			}
 			modifier = {
 				factor = 0.1
@@ -1209,10 +1286,13 @@ targetted_decisions = {
 			}
 			modifier = {
 				factor = 2.0
-				is_smart_trigger = yes
-			} # \/ These two /\ stack to give genius x4
+				OR = {
+					trait = quick
+					trait = shrewd
+				}
+			}
 			modifier = {
-				factor = 2.0
+				factor = 4.0
 				trait = genius
 			}
 			modifier = {
@@ -1230,6 +1310,47 @@ targetted_decisions = {
 					religion = ROOT
 				}
 			}
+			modifier = { #Easier for Proselytizers
+				factor = 2.0
+				OR = {
+					AND = {
+						religion = norse_pagan
+						norse_pagan_reformed = { has_religion_feature = religion_proselytizing }
+					}
+					AND = {
+						religion = tengri_pagan
+						tengri_pagan_reformed = { has_religion_feature = religion_proselytizing }
+					}
+					AND = {
+						religion = slavic_pagan
+						slavic_pagan_reformed = { has_religion_feature = religion_proselytizing }
+					}
+					AND = {
+						religion = baltic_pagan
+						baltic_pagan_reformed = { has_religion_feature = religion_proselytizing }
+					}
+					AND = {
+						religion = finnish_pagan
+						finnish_pagan_reformed = { has_religion_feature = religion_proselytizing }
+					}
+					AND = {
+						religion = aztec
+						aztec_reformed = { has_religion_feature = religion_proselytizing }
+					}
+					AND = {
+						religion = west_african_pagan
+						west_african_pagan_reformed = { has_religion_feature = religion_proselytizing }
+					}
+					AND = {
+						religion = bon
+						bon_reformed = { has_religion_feature = religion_proselytizing }
+					}
+					AND = {
+						religion = celtic_pagan
+						celtic_pagan_reformed = { has_religion_feature = religion_proselytizing }
+					}
+				}
+			}
 		}
 	}
 	
@@ -1239,13 +1360,16 @@ targetted_decisions = {
 		
 		filter = self
 		ai_target_filter = self
+		ai = no
 	
 		potential = {
-			ai = no
 			is_playable = yes
 			has_dharmic_religion_trigger = yes
 			NOT = { religion = hindu }
 			is_theocracy = no
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
 			OR = {
 				culture_group = indo_aryan_group
 				culture_group = dravidian_group
@@ -1264,6 +1388,7 @@ targetted_decisions = {
 				text = indian_has_not_converted
 				NOT = { has_character_flag = india_converted }
 			}
+			holy_order = no
 		}
 		effect = {
 			if = {
@@ -1355,13 +1480,16 @@ targetted_decisions = {
 		
 		filter = self
 		ai_target_filter = self
+		ai = no
 	
 		potential = {
-			ai = no
 			is_playable = yes
 			has_dharmic_religion_trigger = yes
 			NOT = { religion = buddhist }
 			is_theocracy = no
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
 			OR = {
 				culture_group = indo_aryan_group
 				culture_group = dravidian_group
@@ -1471,13 +1599,16 @@ targetted_decisions = {
 		
 		filter = self
 		ai_target_filter = self
+		ai = no
 	
 		potential = {
-			ai = no
 			is_playable = yes
 			has_dharmic_religion_trigger = yes
 			NOT = { religion = jain }
 			is_theocracy = no
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
 			OR = {
 				culture_group = indo_aryan_group
 				culture_group = dravidian_group
@@ -1487,6 +1618,7 @@ targetted_decisions = {
 		}
 		allow = {
 			is_adult = yes
+			holy_order = no
 			prestige = 500
 			NOT = { trait = zealous }
 			any_realm_province = {
@@ -1586,9 +1718,9 @@ targetted_decisions = {
 		
 		filter = self
 		ai_target_filter = self
+		ai = no
 		
 		potential = {
-			ai = no
 			is_playable = yes
 			is_adult = yes
 			is_theocracy = no
@@ -1633,6 +1765,7 @@ targetted_decisions = {
 		
 		filter = self
 		ai_target_filter = self
+		ai_check_interval = 60
 	
 		potential = {
 			is_playable = yes
@@ -1644,6 +1777,9 @@ targetted_decisions = {
 				culture = frankish
 			}
 			NOT = { government = chinese_imperial_government }
+			NOT = {
+				has_alternate_start_parameter = { key = culture_names value = random }
+			}
 		}
 		allow = {
 			culture = old_frankish
@@ -1723,6 +1859,7 @@ targetted_decisions = {
 		
 		filter = self
 		ai_target_filter = self
+		ai_check_interval = 60
 		
 		potential = {
 			is_playable = yes
@@ -1734,6 +1871,9 @@ targetted_decisions = {
 				culture = scottish
 			}
 			NOT = { government = chinese_imperial_government }
+			NOT = {
+				has_alternate_start_parameter = { key = culture_names value = random }
+			}
 		}
 		allow = {
 			culture = pictish
@@ -1813,6 +1953,7 @@ targetted_decisions = {
 		
 		filter = self
 		ai_target_filter = self
+		ai_check_interval = 60
 		
 		potential = {
 			is_playable = yes
@@ -1834,6 +1975,9 @@ targetted_decisions = {
 				culture = andalusian_arabic
 			}
 			NOT = { government = chinese_imperial_government }
+			NOT = {
+				has_alternate_start_parameter = { key = culture_names value = random }
+			}
 		}
 		effect = {
 			any_courtier = {
@@ -1910,6 +2054,7 @@ targetted_decisions = {
 		
 		filter = self
 		ai_target_filter = self
+		ai_check_interval = 60
 		
 		potential = {
 			is_playable = yes
@@ -1922,6 +2067,9 @@ targetted_decisions = {
 				culture = castillan
 			}
 			NOT = { government = chinese_imperial_government }
+			NOT = {
+				has_alternate_start_parameter = { key = culture_names value = random }
+			}
 		}
 		allow = {
 			culture = visigothic
@@ -2001,6 +2149,7 @@ targetted_decisions = {
 		
 		filter = self
 		ai_target_filter = self
+		ai_check_interval = 60
 		
 		potential = {
 			is_playable = yes
@@ -2013,6 +2162,9 @@ targetted_decisions = {
 				culture = catalan
 			}
 			NOT = { government = chinese_imperial_government }
+			NOT = {
+				has_alternate_start_parameter = { key = culture_names value = random }
+			}
 		}
 		allow = {
 			culture = visigothic
@@ -2092,6 +2244,7 @@ targetted_decisions = {
 		
 		filter = self
 		ai_target_filter = self
+		ai_check_interval = 60
 		
 		potential = {
 			is_playable = yes
@@ -2107,6 +2260,9 @@ targetted_decisions = {
 				culture = portuguese
 			}
 			NOT = { government = chinese_imperial_government }
+			NOT = {
+				has_alternate_start_parameter = { key = culture_names value = random }
+			}
 		}
 		allow = {
 			OR = {
@@ -2189,6 +2345,7 @@ targetted_decisions = {
 		
 		filter = self
 		ai_target_filter = self
+		ai_check_interval = 60
 		
 		potential = {
 			is_playable = yes
@@ -2204,6 +2361,9 @@ targetted_decisions = {
 				culture = dutch
 			}
 			NOT = { government = chinese_imperial_government }
+			NOT = {
+				has_alternate_start_parameter = { key = culture_names value = random }
+			}
 		}
 		allow = {
 			culture = ROOT
@@ -2283,6 +2443,7 @@ targetted_decisions = {
 		
 		filter = self
 		ai_target_filter = self
+		ai_check_interval = 60
 		
 		potential = {
 			is_playable = yes
@@ -2300,6 +2461,9 @@ targetted_decisions = {
 				}
 			}
 			NOT = { government = chinese_imperial_government }
+			NOT = {
+				has_alternate_start_parameter = { key = culture_names value = random }
+			}
 		}
 		allow = {
 			culture = lombard
@@ -2393,6 +2557,7 @@ targetted_decisions = {
 		
 		filter = self
 		ai_target_filter = self
+		ai_check_interval = 60
 		
 		potential = {
 			is_playable = yes
@@ -2405,6 +2570,9 @@ targetted_decisions = {
 				culture = occitan
 			}
 			NOT = { government = chinese_imperial_government }
+			NOT = {
+				has_alternate_start_parameter = { key = culture_names value = random }
+			}
 		}
 		allow = {
 			culture = ROOT
@@ -2484,6 +2652,7 @@ targetted_decisions = {
 		
 		filter = self
 		ai_target_filter = self
+		ai_check_interval = 60
 		
 		potential = {
 			is_playable = yes
@@ -2493,6 +2662,9 @@ targetted_decisions = {
 				culture = russian
 			}
 			NOT = { government = chinese_imperial_government }
+			NOT = {
+				has_alternate_start_parameter = { key = culture_names value = random }
+			}
 		}
 		allow = {
 			culture_group = east_slavic
@@ -2568,11 +2740,479 @@ targetted_decisions = {
 		}
 	}
 
+	# Latin character may convert to Outremer
+	convert_to_outremer = {
+		only_playable = yes
+		
+		filter = self
+		ai_target_filter = self
+		ai_check_interval = 60
+		
+		potential = {
+			is_playable = yes
+			OR = {
+				culture_group = latin
+				AND = {
+					culture_group = central_semitic
+					religion_group = christian
+					liege = {
+						culture_group = latin
+						religion_group = christian
+					}
+				}
+			}
+			has_global_flag = christian_crusades_unlocked
+			NOR = {
+				culture = roman
+				culture = outremer
+			}
+			OR = {
+				religion_group = christian
+				top_liege = { religion_group = christian }
+			}
+			OR = {
+				capital_scope = {
+					region = world_middle_east
+				}
+				capital_scope = {
+					region = world_persia
+				}
+				capital_scope = {
+					region = world_africa
+				}
+			}
+			OR = {
+				any_realm_province = {
+					culture_group = central_semitic
+				}
+				top_liege = {
+					culture = outremer
+				}
+			}
+			NOT = { government = chinese_imperial_government }
+			NOT = {
+				has_alternate_start_parameter = { key = culture_names value = random }
+			}
+			OR = {
+				ai = no
+				top_liege = {
+					culture = outremer
+				}
+			}
+		}
+		allow = {
+			OR = {
+				prestige = 10000
+				has_landed_title = e_outremer
+				top_liege = { has_landed_title = e_outremer }
+				top_liege = { culture = outremer }
+			}
+		}
+		effect = {
+			custom_tooltip = { text = tooltip_courtiers_embrace_outremer }
+			custom_tooltip = { text = tooltip_provinces_embrace_outremer }
+			if = {
+				limit = {
+					capital_scope = { culture_group = central_semitic }
+				}
+				custom_tooltip = { text = tooltip_capital_embrace_outremer }
+			}
+			hidden_tooltip = {
+				any_courtier = {
+					limit = {
+						culture = ROOT
+						employer = { character = ROOT }
+						dynasty = ROOT
+					}
+					culture = outremer
+				}
+				any_demesne_province = {
+					limit = {
+						culture_group = ROOT
+					}
+					culture = outremer
+				}
+				if = {
+					limit = {
+						capital_scope = { culture_group = central_semitic }
+					}
+					capital_scope = { culture = outremer }
+				}
+			}
+			culture = outremer
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			
+			#modifier = {
+			#	factor = 0.01
+			#	capital_scope = {
+			#		NOT = { culture_group = central_semitic }
+			#	}
+			#}
+			modifier = { #Small Crusader States will balkanize with their own culture or go native.
+				factor = 0
+				top_liege = {
+					lower_real_tier_than = KING
+				}
+			}
+			modifier = {
+				factor = 30
+				top_liege = {
+					culture = outremer
+					has_landed_title = e_outremer
+				}
+			}
+			modifier = {
+				factor = 1.5
+				capital_scope = {
+					region = world_middle_east_jerusalem
+				}
+			}
+			modifier = {
+				factor = 2.0
+				liege = { culture = outremer }
+			}
+			modifier = {
+				factor = 1.1
+				num_culture_realm_provs = {
+					value = 2
+					culture = outremer
+				}
+			}
+			modifier = {
+				factor = 1.1
+				num_culture_realm_provs = {
+					value = 4
+					culture = outremer
+				}
+			}
+			modifier = {
+				factor = 1.1
+				num_culture_realm_provs = {
+					value = 6
+					culture = outremer
+				}
+			}
+			modifier = {
+				factor = 1.25
+				num_culture_realm_provs = {
+					value = 8
+					culture = outremer
+				}
+			}
+			modifier = {
+				factor = 1.5
+				num_culture_realm_provs = {
+					value = 10
+					culture = outremer
+				}
+			}
+		}
+	}
+	# convert_to_spouse_religion -> LI_target_decisions
+}
+
+decisions = {
+	
+	# Weak or unreformed religions are allowed to convert to the attacker's religion when under Holy War
+	convert_to_attacker_religion = {
+		only_playable = yes
+		ai_check_interval = 18
+		
+		is_high_prio = yes
+		
+		potential = {
+			is_playable = yes
+			OR = {
+				AND = {
+					religion_group = pagan_group
+					is_reformed_religion = no
+					NOT = { religion_authority = 0.4 }
+				}
+				NOT = { religion_authority = 0.3 }
+				is_nomadic = yes
+			}
+			controls_religion = no
+			NOT = { has_character_modifier = baptism_request_cooldown }
+			
+			war = yes
+			any_war = {
+				defender = { character = ROOT }
+				attacker = {
+					NOT = { religion = ROOT }
+					religion_authority = 0.5
+					OR = {
+						NOT = { religion_group = pagan_group }
+						is_reformed_religion = yes
+					}
+				}
+				OR = {
+					using_cb = crusade
+					using_cb = new_crusade
+					using_cb = religious
+					using_cb = muslim_invasion
+					using_cb = buddhist_holy_war
+					using_cb = pagan_holy_war
+				}
+			}
+		}
+		
+		allow = {
+			NOT = { trait = zealous }
+		}
+		
+		effect = {
+			prestige = -500
+			piety = 100
+			abdicate_holy_order_if_religion_changes_effect = yes
+			
+			hidden_tooltip = {
+				any_war = {
+					limit = {
+						defender = { character = ROOT }
+						attacker = {
+							NOT = { religion = ROOT }
+							religion_authority = 0.5
+							OR = {
+								NOT = { religion_group = pagan_group }
+								is_reformed_religion = yes
+							}
+						}
+						OR = {
+							using_cb = crusade
+							using_cb = new_crusade
+							using_cb = religious
+							using_cb = muslim_invasion
+							using_cb = buddhist_holy_war
+							using_cb = pagan_holy_war
+						}
+					}
+					attacker = {
+						save_event_target_as = enemy_attacker
+					}
+				}
+			}
+
+			#If possible, perform mass baptism.
+			if = {
+				limit = { 
+					has_dlc = "Holy Fury"
+					is_tribal = yes
+					religion_group = pagan_group 
+					higher_real_tier_than = count 		
+					NOT = { trait = incapable }
+					NOT = { is_reformed_religion = yes }
+					NOT = { has_character_flag = flag_converting_baptism }
+					NOT = { has_character_modifier = baptism_request_cooldown } 
+					independent = yes 
+					prisoner = no
+					has_regent = no
+					primary_title = { 
+						OR = { 
+							has_law = tribal_organization_2 
+							has_law = tribal_organization_3 
+							has_law = tribal_organization_4 
+						} 
+					}
+					any_war = {
+						using_cb = new_crusade 
+						defender = { character = ROOT }
+						attacker = { #Special case.
+							religion = catholic 
+							NOT = { has_character_flag = flag_sponsoring_baptism }
+						}
+					}
+				}
+				hidden_effect = {
+					add_character_modifier = {
+						name = baptism_request_cooldown
+						months = 1
+						hidden = yes
+					}
+					event_target:enemy_attacker = {
+						add_character_modifier = {
+							name = baptism_request_cooldown
+							months = 1
+							hidden = yes
+						}
+					}
+					opinion = {
+						modifier = opinion_baptism_sponsor_target
+						years = 20
+						who = event_target:enemy_attacker
+						origin_description = EVTTOOLTIPHFA20005
+					}
+					event_target:enemy_attacker = {
+						opinion = {
+							modifier = opinion_baptism_sponsor_target
+							years = 20
+							who = ROOT
+							origin_description = EVTTOOLTIPHFB20005
+						}
+					}
+				}
+				event_target:enemy_attacker = { show_scope_change = no letter_event = { id = HF.20000 tooltip = tooltip_mass_convert_during_crusade } }
+			}
+			else = {
+				if = {
+					limit = { event_target:enemy_attacker = { NOT = { religion_group = ROOT } } }
+					if = {
+						limit = { religion_group = pagan_group }
+						add_trait = sympathy_pagans
+					}
+					
+					if = {
+						limit = { religion_group = zoroastrian_group }
+						add_trait = sympathy_zoroastrianism
+					}
+					
+					if = {
+						limit = { religion_group = christian }
+						add_trait = sympathy_christendom
+					}
+					
+					if = {
+						limit = { religion_group = muslim }
+						add_trait = sympathy_islam
+					}
+					
+					if = {
+						limit = { religion_group = jewish_group }
+						add_trait = sympathy_judaism
+					}
+					
+					if = {
+						limit = { religion_group = indian_group }
+						add_trait = sympathy_indian
+					}
+				}
+				event_target:enemy_attacker = {
+					hidden_tooltip = {
+						letter_event = { id = 62800 }
+						ROOT = {
+							any_courtier = {
+								limit = {
+									religion = ROOT
+									employer = { character = ROOT }
+								}
+								religion = PREVPREV
+							}
+							any_vassal = {
+								limit = {
+									is_playable = no
+									religion = ROOT
+								}
+								religion = PREVPREV
+							}
+							capital_scope = {
+								if = {
+									limit = { religion = ROOT }
+									religion = PREVPREV
+								}
+							}
+						}
+					}
+					hidden_tooltip = {
+						religion_authority = {
+							modifier = ruler_converted_to
+						}
+					}
+					reverse_religion = ROOT 
+				}
+				religion_authority = {
+					modifier = ruler_converted_from
+				}
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+			}
+			modifier = {
+				factor = 0.05
+				is_hard_to_convert = yes
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					any_war = {
+						defender = { character = ROOT }
+						attacker = {
+							NOT = { religion = ROOT }
+							religion_authority = 0.45
+							OR = {
+								NOT = { religion_group = pagan_group }
+								is_reformed_religion = yes
+							}
+						}
+						OR = {
+							using_cb = crusade
+							using_cb = new_crusade
+							using_cb = religious
+							using_cb = muslim_invasion
+							using_cb = buddhist_holy_war
+							using_cb = pagan_holy_war
+						}
+						war_score = 50
+						thirdparty_title_scope = {
+							ROOT = {
+								primary_title = {
+									title = PREVPREV
+								}
+							}
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				any_war = {
+					defender = { character = ROOT }
+					attacker = {
+						NOT = { religion = ROOT }
+						religion_authority = 0.45
+						OR = {
+							NOT = { religion_group = pagan_group }
+							is_reformed_religion = yes
+						}
+					}
+					OR = {
+						using_cb = crusade
+						using_cb = new_crusade
+						using_cb = religious
+						using_cb = muslim_invasion
+						using_cb = buddhist_holy_war
+						using_cb = pagan_holy_war
+					}
+					war_score = 75
+					thirdparty_title_scope = {
+						ROOT = {
+							primary_title = {
+								title = PREVPREV
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
 	# Byzantine Emperor may renounce Iconoclasm
 	renounce_iconoclasm = {
 		only_playable = yes
 	
 		icon_religion = orthodox
+		ai_check_interval = 60
 		
 		potential = {
 			is_playable = yes
@@ -2580,6 +3220,9 @@ targetted_decisions = {
 			has_dlc = "Charlemagne"
 			has_landed_title = e_byzantium
 			NOT = { has_character_flag = renounced_iconoclasm }
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
 		}
 		allow = {
 			has_landed_title = e_byzantium

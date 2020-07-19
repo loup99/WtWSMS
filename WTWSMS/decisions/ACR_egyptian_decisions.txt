@@ -7,10 +7,7 @@ decisions = {
 			is_playable = yes
 			prisoner = no
 			higher_tier_than = duke
-			OR = {
-				religion = egyptian_pagan
-				religion = aten_pagan
-			}
+			religion_openly_in_egyptian_subgroup_trigger = yes
 			ruled_years = 30
 			NOT = {	has_character_flag = holding_sed_festival }
 			NOT = { has_character_modifier = held_sed_festival_timer }
@@ -41,10 +38,9 @@ decisions = {
 				# Keep counter of number of Sed festivals hold
 				change_variable = { which = nb_sed_festivals value = 1 }
 	
-				character_event = { id = ancrel.4010 days = 15 }
+				character_event = { id = egyptian.10 days = 15 }
 			}
 		}
-
 		ai_will_do = {
 			factor = 1
 		}
@@ -56,10 +52,10 @@ decisions = {
 		only_playable = yes
 		is_high_prio = yes
 		potential = {
-			is_playable = yes	
+			is_playable = yes
 			independent = yes
 			higher_tier_than = duke
-			religion = egyptian_pagan
+			religion_openly_egyptian_or_reformed_trigger = yes
 			NOT = { has_global_flag = luxor_restored }
 			NOT = { has_global_flag = luxor_restoring }
 		}	
@@ -71,16 +67,15 @@ decisions = {
 				}
 			}
 			war = no
-			has_regent = no		
+			has_regent = no
 		}
 		effect = {
 			set_global_flag = luxor_restoring
 			wealth = -1000
 			795 = {
-				province_event = { id = ancrel.4000 }
+				province_event = { id = egyptian.0 }
 			}
 		}
-
 		ai_will_do = {
 			factor = 1
 			
@@ -103,13 +98,11 @@ decisions = {
 		only_playable = yes
 		is_high_prio = yes
 		potential = {
-			is_playable = yes	
+			always = no
+			is_playable = yes
 			higher_tier_than = duke
-			OR = {
-				religion = egyptian_pagan
-				religion = aten_pagan
-			}
-			NOT = { 
+			religion_openly_in_egyptian_subgroup_trigger = yes
+			NOT = {
 				has_character_flag = pyramid_built
 				has_character_flag = pyramid_building_char
 				capital_scope = { has_province_flag = pyramid_building_prov }
@@ -118,13 +111,12 @@ decisions = {
 		allow = {
 			wealth = 600
 			war = no
-			has_regent = no		
+			has_regent = no
 		}
 		effect = {
 			set_character_flag = pyramid_building_char
-			character_event = { id = ancrel.4004 }
+			character_event = { id = egyptian.4 }
 		}
-
 		ai_will_do = {
 			factor = 1
 			
@@ -185,7 +177,7 @@ decisions = {
 						grant_title = PREV
 					}
 					set_defacto_liege = ROOT
-					narrative_event = { id = ancrel.4006 }
+					narrative_event = { id = egyptian.6 }
 					if = {
 						limit = { ROOT = { ai = no } }
 						ROOT = {
@@ -203,56 +195,6 @@ decisions = {
 		}
 	}
 
-	restore_priesthood_aten_pagan = {
-		only_playable = yes
-		is_high_prio = yes
-		potential = {
-			has_dlc = "The Old Gods"
-			is_playable = yes
-			higher_tier_than = duke # Tease the decision for kings
-			religion = aten_pagan
-			NOT = { has_global_flag = aten_priesthood_founded }
-			has_regent = no		
-		}
-		allow = {
-			higher_tier_than = king
-			realm_learning = 25
-			piety = 500
-			wealth = 500
-			war = no
-			religion_authority = 0.6	
-			b_meir = { 
-				has_holder = yes 
-				holder_scope = { top_liege = { character = ROOT } }
-			}
-		}
-		effect = {
-			set_global_flag = aten_priesthood_founded
-			wealth = -500
-			piety = -250
-			prestige = 250
-			activate_title = { title = k_aten_pagan status = yes }
-			hidden_tooltip = {
-				k_aten_pagan = {
-					grant_title = ROOT
-				}
-				narrative_event = { id = ancrel.5004 }
-				if = {
-					limit = { ROOT = { ai = no } }
-					ROOT = {
-						chronicle = {
-							entry = CHRONICLE_ATEN_PRIESTHOOD
-							portrait = [Root.GetID]
-						}
-					}
-				}
-			}
-		}
-		ai_will_do = {
-			factor = 1
-		}	
-	}
-
 	organize_anubis = {
 		only_playable = yes
 		is_high_prio = yes
@@ -260,11 +202,10 @@ decisions = {
 			is_playable = yes
 			higher_tier_than = duke
 			has_regent = no
-			religion = egyptian_pagan
+			religion_openly_egyptian_or_reformed_trigger = yes
 			NOT = { has_global_flag = anubis_founded }
 		}
 		allow = {
-			higher_tier_than = king
 			prestige = 300
 			wealth = 300
 		}
@@ -272,13 +213,12 @@ decisions = {
 			set_global_flag = anubis_founded
 			prestige = -300
 			wealth = -300
-			activate_title = { title = d_anubis status = yes }
 			hidden_tooltip = {
 				set_character_flag = event_ancrel4007
-				narrative_event = { id = ancrel.4007 }
+				narrative_event = { id = egyptian.7 }
 				create_character = {
 					random_traits = yes
-					religion = egyptian_pagan
+					religion = ROOT
 					culture = coptic
 					dynasty = NONE
 					age = 34
@@ -291,10 +231,12 @@ decisions = {
 					}
 				}
 				new_character = {
+					activate_title = { title = d_anubis status = yes }
 					d_anubis = {
 						grant_title = PREV
 					}
-					set_defacto_liege = ROOT
+					set_government_type = order_government
+					set_defacto_liege = this
 					if = {
 						limit = { ROOT = { ai = no } }
 						ROOT = {
@@ -323,7 +265,7 @@ decisions = {
 			is_playable = yes
 			higher_tier_than = duke # Tease the decision for kings
 			has_regent = no
-			religion = egyptian_pagan
+			religion_openly_egyptian_or_reformed_trigger = yes
 			NOT = { has_global_flag = horus_founded }
 			has_global_flag = anubis_founded
 		}
@@ -339,10 +281,10 @@ decisions = {
 			activate_title = { title = d_horus status = yes }
 			hidden_tooltip = {
 				set_character_flag = event_ancrel4008
-				narrative_event = { id = ancrel.4008 }
+				narrative_event = { id = egyptian.8 }
 				create_character = {
 					random_traits = yes
-					religion = egyptian_pagan
+					religion = ROOT
 					culture = coptic
 					dynasty = NONE
 					age = 34
@@ -358,7 +300,8 @@ decisions = {
 					d_horus = {
 						grant_title = PREV
 					}
-					set_defacto_liege = ROOT
+					set_government_type = order_government
+					set_defacto_liege = this
 					if = {
 						limit = { ROOT = { ai = no } }
 						ROOT = {
@@ -386,7 +329,7 @@ decisions = {
 		only_playable = yes
 		is_high_prio = yes
 		potential = {
-			is_playable = yes	
+			is_playable = yes
 			independent = yes
 			higher_tier_than = duke
 			religion = aten_pagan
@@ -407,10 +350,9 @@ decisions = {
 			set_global_flag = akhetaten_restoring
 			wealth = -1000
 			795 = {
-				province_event = { id = ancrel.5000 }
+				province_event = { id = atenic.0 }
 			}
 		}
-
 		ai_will_do = {
 			factor = 1
 			
@@ -429,6 +371,61 @@ decisions = {
 		}
 	}
 
+	restore_priesthood_aten_pagan = {
+		only_playable = yes
+		is_high_prio = yes
+		potential = {
+			has_dlc = "The Old Gods"
+			is_playable = yes
+			higher_tier_than = duke # Tease the decision for kings
+			religion = aten_pagan
+			NOT = { has_global_flag = aten_priesthood_founded }
+			has_regent = no
+		}
+		allow = {
+			higher_tier_than = king
+			realm_learning = 25
+			piety = 500
+			wealth = 500
+			war = no
+			religion_authority = 0.6
+			custom_tooltip = {
+				text = akhetaten_restored_condition
+				has_global_flag = akhetaten_restored
+			}
+			b_meir = {
+				has_holder = yes
+				holder_scope = { top_liege = { character = ROOT } }
+			}
+		}
+		effect = {
+			set_global_flag = aten_priesthood_founded
+			wealth = -500
+			piety = -250
+			prestige = 250
+			activate_title = { title = k_aten_pagan status = yes }
+			add_artifact = crown_meryaten
+			hidden_tooltip = {
+				k_aten_pagan = {
+					grant_title = ROOT
+				}
+				narrative_event = { id = atenic.4 }
+				if = {
+					limit = { ROOT = { ai = no } }
+					ROOT = {
+						chronicle = {
+							entry = CHRONICLE_ATEN_PRIESTHOOD
+							portrait = [Root.GetID]
+						}
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
 	organize_burning_blades = {
 		only_playable = yes
 		is_high_prio = yes
@@ -453,8 +450,8 @@ decisions = {
 			wealth = -300
 			activate_title = { title = d_burning_blades status = yes }
 			hidden_tooltip = {
-				set_character_flag = event_ancrel_5005
-				narrative_event = { id = ancrel.5005 }
+				set_character_flag = eventancrel.5005
+				narrative_event = { id = atenic.5 }
 				create_character = {
 					random_traits = yes
 					religion = aten_pagan
@@ -474,7 +471,8 @@ decisions = {
 					d_burning_blades = {
 						grant_title = PREV
 					}
-					set_defacto_liege = ROOT
+					set_government_type = order_government
+					set_defacto_liege = this
 					if = {
 						limit = { ROOT = { ai = no } }
 						ROOT = {
