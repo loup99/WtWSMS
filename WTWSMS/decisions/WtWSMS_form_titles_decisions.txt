@@ -62,6 +62,7 @@ decisions = {
 			is_adult = yes
 			prisoner = no
 			NOT = { trait = incapable }
+			independent = yes
 		}
 		effect = {
 			set_global_flag = frankish_kingdom
@@ -433,6 +434,73 @@ decisions = {
 				}
 				narrative_event = { id = hist.29 }
 			}
+		}
+	}
+	unite_england = {
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			capital_scope = {
+				region = world_europe_west_brittania
+			}
+			OR = {
+				culture = anglo
+				culture = old_saxon
+				culture = jute
+				culture = saxon
+				culture = english
+			}
+			tier = king
+			NOT = { has_global_flag = england_united }
+		}
+		allow = {
+			independent = yes
+			has_landed_title = k_england
+			completely_controls = k_england
+			# k_britannia_secunda
+			completely_controls = d_northumberland
+			completely_controls = d_lancaster
+			OR = {
+				completely_controls = d_galloway
+				completely_controls = d_lothian
+				completely_controls = d_york
+			}
+			# k_britannia_prima
+			completely_controls = d_somerset
+			completely_controls = d_hereford
+			OR = {
+				completely_controls = d_cornwall
+				completely_controls = d_gloucester
+				completely_controls = d_gwynedd
+				completely_controls = d_deheubarth
+			}
+			NOT = { # No rival Anglo-Saxon king
+				any_independent_ruler = {
+					region = world_europe_west_brittania
+					NOT = { has_landed_title = k_england } # Exclude uniter
+					tier = king
+					OR = {
+						culture = anglo
+						culture = old_saxon
+						culture = jute
+						culture = saxon
+						culture = english
+					}
+				}
+			}
+			piety = 200
+			prestige = 1000
+		}
+		effect = {
+			set_global_flag = england_united
+			hidden_tooltip = {
+				narrative_event = { 
+					id = hist.30
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
 		}
 	}
 }

@@ -115,7 +115,10 @@ decisions = {
 				OR = {
 					piety = 1000
 					NOT = { wealth = 1000 }
-					NOT = { controls_religion = semitic_pagan_reformed }
+					NAND = { 
+						controls_religion = yes
+						religion = semitic_pagan_reformed
+					}
 				}
 			}
 			modifier = {
@@ -303,12 +306,237 @@ decisions = {
 				OR = {
 					piety = 1000
 					NOT = { wealth = 1000 }
-					NOT = { controls_religion = dacian_pagan_reformed }
+					NAND = { 
+						controls_religion = yes
+						religion = dacian_pagan_reformed
+					}
 				}
 			}
 			modifier = {
 				factor = 0.002 # Slow it down
 			}
+		}
+	}
+	
+	expel_d_saint_alban = {
+		only_independent = yes
+		potential = {
+			ai = no
+			OR = {
+				religion = insular
+				religion = pelagianism
+			}
+			is_heretic = no
+			higher_tier_than = DUKE
+			independent = yes
+			is_title_active = d_saint_alban
+			NOT = { has_character_modifier = expelled_d_saint_alban }
+			
+			any_realm_province = {
+				any_province_lord = {
+					d_saint_alban = {
+						holder_scope = {
+							OR = {
+								character = PREVPREV
+								is_vassal_or_below = PREVPREV
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		allow = {
+			piety = 1000
+			custom_tooltip = {
+				text = expelling_holy_order_decision_tooltip
+			}
+		}
+		
+		effect = {
+			custom_tooltip = {
+				text = expelling_holy_order_decision_tooltip_b
+				hidden_tooltip = {
+					character_event = { id = holy.2090 }
+				}
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	donate_money_to_d_saint_alban = {
+		only_playable = yes
+		ai_check_interval = 60
+		potential = {
+			is_playable = yes
+			
+			OR = {
+				AND = {
+					NOR = {
+						trait = cynical
+						piety = 50
+					}
+					wealth = 1000
+				}
+				ai = no
+			}
+			
+			is_title_active = d_saint_alban
+			
+			d_saint_alban = {
+				holder_scope = { 
+					religion = ROOT
+				}
+			}
+			
+			NOT = { has_character_modifier = expelled_d_saint_alban }
+			
+			OR = {
+				AND = {
+					NOT = { is_title_active = d_teutonic_order }
+					NOT = { culture_group = iberian }
+					NOT = { culture_group = west_african }
+					NOT = { culture = maghreb_arabic }
+					NOT = { culture = occitan }
+				}
+				AND = {
+					NOT = { is_title_active = d_knights_santiago }
+					NOT = { is_title_active = d_knights_calatrava }
+					NOT = { culture_group = north_germanic }
+					NOT = { culture_group = central_germanic }
+					NOT = { culture_group = magyar }
+					NOT = { culture_group = south_slavic }
+					NOT = { culture_group = west_slavic }
+				}
+				AND = {
+					NOT = { culture_group = iberian }
+					NOT = { culture_group = west_african }
+					NOT = { culture = maghreb_arabic }
+					NOT = { culture = occitan }
+					NOT = { culture_group = north_germanic }
+					NOT = { culture_group = central_germanic }
+					NOT = { culture_group = magyar }
+					NOT = { culture_group = south_slavic }
+					NOT = { culture_group = west_slavic }
+				}
+			}
+			
+			d_saint_alban = {
+				holder_scope = {
+					liege = {
+						NOT = { character = ROOT }
+					}
+				}
+			}
+		}
+		
+		allow = {
+			wealth = 300
+		}
+		
+		effect = {
+			if = {
+				limit = { 
+					NOT = { has_character_modifier = donated_to_holy_order }
+				}
+				add_character_modifier = {
+					name = donated_to_holy_order
+					duration = -1
+				}
+			}
+			
+			hidden_tooltip = {
+				d_saint_alban = {
+					holder_scope = {
+						character_event = {
+							id = SoA.1140
+						}
+					}
+				}
+			}
+			
+			wealth = -300
+			piety = 300
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1 # Slow it down
+			}
+		}
+	}
+	
+	vassalize_d_saint_alban = {
+		only_playable = yes
+		is_high_prio = yes
+		ai_check_interval = 6
+		
+		potential = {
+			is_playable = yes
+			
+			OR = {
+				religion = insular
+				religion = pelagianism
+			}
+			is_heretic = no
+			
+			NOT = { has_character_modifier = expelled_d_saint_alban }
+			
+			is_title_active = d_saint_alban
+			
+			has_landed_title = e_britannia
+			
+			d_saint_alban = {
+				holder_scope = {
+					NOT = { has_truce = ROOT }
+					ROOT = { NOT = { has_truce = PREV } }
+					liege = {
+						NOT = { character = ROOT }
+					}
+					NOT = { num_of_count_titles = 3 }
+					independent = yes
+					primary_title = { title = d_saint_alban }
+				}
+			}
+		}
+		
+		allow = {
+			wealth = 500
+		}
+		
+		effect = {
+			wealth = -500
+			
+			hidden_tooltip = {
+				d_saint_alban = {
+					holder_scope = {
+						wealth = 500
+						character_event = {
+							id = holy.2088
+						}
+					}
+				}
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
 		}
 	}
 }

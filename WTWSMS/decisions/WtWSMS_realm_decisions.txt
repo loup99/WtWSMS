@@ -465,7 +465,10 @@ decisions = {
 		only_playable = yes
 		is_high_prio = yes
 		potential = {
-			religion_group = christian
+			OR = { 
+				religion_group = christian
+				religion_group = pagan_group
+			}
 			has_landed_title = c_roma
 			prisoner = no
 			age = 16
@@ -687,7 +690,7 @@ decisions = {
 		}
 		effect = {
 			set_global_flag = rome_restored
-			narrative_event = { id = ancrel.2220 tooltip = EVTTOOLTIPLoR.20 }
+			narrative_event = { id = LoR.20 tooltip = EVTTOOLTIPLoR.20 }
 		}
 		ai_will_do = {
 			factor = 1
@@ -1092,7 +1095,12 @@ decisions = {
 			completely_controls_region = custom_diocese_italia_suburbicaria
 			completely_controls_region = custom_diocese_raetia_noricum
 			capital_scope = {
-				province = 333 # Roma
+				OR = {
+					province = 333 # Roma
+					province = 235 # Mediolanum
+					province = 351 # Ravenna
+					province = 118 # Augusta Treverorum
+				}
 			}
 			
 			# Rome's glory
@@ -1266,6 +1274,7 @@ decisions = {
 				add_trait = wandering_hermit
 				current_heir = {
 					inherit = ROOT
+					character_event = { id = ins.2 }
 				}
 			}
 		}
@@ -1299,7 +1308,6 @@ decisions = {
 		is_high_prio = yes
 	
 		potential = {
-			always = no # TODO Event ins.4 does not exist !
 			year = 644
 			NOT = { has_global_flag = synod_of_whitby }
 			prisoner = no
@@ -1320,7 +1328,7 @@ decisions = {
 		
 		effect = {
 			set_global_flag = synod_of_whitby
-			character_event = { id = ins.4 days = 2 }
+			narrative_event = { id = ins.4 days = 2 }
 		}
 		
 		ai_will_do = {

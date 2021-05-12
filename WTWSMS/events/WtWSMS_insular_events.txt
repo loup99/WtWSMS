@@ -1,0 +1,1680 @@
+###########################################
+#
+# Insular Events
+#
+###########################################
+# Written by Enlil and Boristus
+###########################################
+
+namespace = ins
+
+# Sacked Monastery
+province_event = {
+	id = ins.1
+	desc = ins.1.desc
+	picture = GFX_evt_burning_house
+	
+	trigger = {
+		any_province_holding = {
+			holding_type = temple
+			NOT = { has_holding_modifier = owner_looted_monastery }
+		}
+		OR = {
+			religion = insular
+			religion = pelagianism
+		}
+		owner = {
+			religion = ROOT
+			is_incapable = no
+			in_battle = no
+			is_at_sea = no
+			is_adult = yes
+			NOT = { has_character_flag = sacked_monastery }
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 300
+	}
+	
+	immediate = {
+		owner = { set_character_flag = sacked_monastery }
+	}
+	
+	option = {
+		name = ins.1.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				owner = { 
+					trait = charitable
+				}
+			}
+			modifier = {
+				factor = 0.5
+				owner = { 
+					trait = greedy
+				}
+			}
+		}
+		trigger = {
+			NOT = {
+				owner = {
+					trait = zealous
+				}
+			}
+		}
+		random_province_holding = {
+			limit = {
+				holding_type = temple
+			}
+			add_holding_modifier = { name = owner_looted_monastery years = 10 }
+		}
+		owner = {
+			piety = -200
+			random = {
+  				chance = 20
+  				add_trait = greedy
+			}	
+			random_list = {
+				20 = {
+					scaled_wealth = { value = 1 min = 100 max = 300 }
+				}
+				20 = {
+					scaled_wealth = { value = 1.5 min = 150 max = 350 }
+				}
+				20 = {
+					scaled_wealth = { value = 2 min = 200 max = 400 }
+				}
+				20 = {
+					scaled_wealth = { value = 2.5 min = 250 max = 450 }
+				}
+				20 = {
+					scaled_wealth = { value = 3 min = 300 max = 500 }
+				}
+			}
+			random = {
+  				chance = 1
+				add_artifact = fingerbone_of_saint
+        		new_artifact = {
+					set_creation_date = 1.1.1
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = ins.1.b
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				owner = {
+					trait = humble
+				}
+			}
+			modifier = {
+				factor = 0.5
+				owner = {
+					trait = proud
+				}
+			}
+		}
+		owner = {
+			wealth = -150
+			prestige = 200
+			random = {
+  				chance = 20
+  				add_trait = proud
+			}
+		}
+	}
+	
+	option = {
+		name = ins.1.c
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				owner = { 
+					trait = proud
+				}
+			}
+			modifier = {
+				factor = 0.5
+				owner = { 
+					trait = humble
+				}
+			}
+		}
+		owner = {
+			wealth = -150
+			piety = 200
+			random_list = {
+				20 = { add_trait = humble }
+				20 = { add_trait = charitable }
+				60 = { }
+			}
+		}
+	}	
+}
+
+# Informed of predecessor peregrination
+character_event = {
+	id = ins.2
+	desc = ins.2.desc
+	picture = GFX_evt_pilgrims_epic_journey
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ins.2.a
+	}
+}
+
+# ins.3 missing
+
+###########################################
+# 			  Synod of Whitby             #
+###########################################
+
+# Announcement of Synod
+narrative_event = {
+	id = ins.4
+	title = ins.4.name
+	desc = {
+		trigger = {
+			has_character_flag = called_synod_whitby
+		}
+		text = ins.4.desc.a
+	}
+	desc = {
+		trigger = {
+			NOT = { has_character_flag = called_synod_whitby }
+		}
+		text = ins.4.desc.b
+	}
+	picture = GFX_evt_icon
+	border = GFX_event_narrative_frame_religion
+	
+	major = yes
+	only_playable = yes
+	religion_group = christian
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ins.4.a
+		trigger = {
+			has_character_flag = called_synod_whitby
+		}
+	}
+	option = {
+		name = ins.4.b
+		trigger = {
+			NOT = { has_character_flag = called_synod_whitby }
+			OR = {
+				religion = insular
+				AND = {
+					religion = nicene
+					any_demesne_province = {
+						region = world_europe_west_brittania
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = ins.4.c
+		trigger = {
+			religion = nicene
+			NOT = { any_demesne_province = { region = world_europe_west_brittania } }
+		}
+	}
+	option = {
+		name = ins.4.d
+		trigger = {
+			NOR = {
+				religion = insular
+				religion = nicene
+			}
+		}
+	}
+}
+
+# Synod begins
+character_event = {
+	id = ins.5
+	desc = ins.5.desc
+	picture = GFX_evt_church_council
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ins.5.a
+		character_event = { id = ins.6 days = 5 tooltip = ins.5.a.tooltip }
+	}
+}
+
+# Iona makes their case
+character_event = {
+	id = ins.6
+	desc = ins.6.desc
+	picture = GFX_evt_western_bishop
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ins.6.a
+		character_event = { id = ins.7 days = 5 tooltip = ins.6.a.tooltip }
+	}
+}
+
+# Rome makes their case
+character_event = {
+	id = ins.7
+	desc = ins.7.desc
+	picture = GFX_evt_bishop_byzantine
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ins.7.a
+		character_event = { id = ins.8 days = 5 tooltip = ins.7.a.tooltip }
+	}
+}
+
+# Ruler decides on victor
+character_event = {
+	id = ins.8
+	desc = ins.8.desc
+	picture = GFX_evt_church_council
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ins.8.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				AND = {
+					religion = nicene
+					trait = zealous
+				}
+			}
+			modifier = {
+				factor = 0.2
+				insular = {
+					religion_authority = 0.10
+				}
+			}
+			modifier = {
+				factor = 0.2
+				insular = {
+					religion_authority = 0.20
+				}
+			}
+			modifier = {
+				factor = 0.2
+				insular = {
+					religion_authority = 0.30
+				}
+			}
+			modifier = {
+				factor = 0.2
+				insular = {
+					religion_authority = 0.40
+				}
+			}
+			modifier = {
+				factor = 0.2
+				insular = {
+					religion_authority = 0.50
+				}
+			}
+			modifier = {
+				factor = 0.2
+				insular = {
+					religion_authority = 0.60
+				}
+			}
+			modifier = {
+				factor = 0.2
+				insular = {
+					religion_authority = 0.70
+				}
+			}
+			modifier = {
+				factor = 0.2
+				insular = {
+					religion_authority = 0.80
+				}
+			}
+			modifier = {
+				factor = 0.2
+				insular = {
+					religion_authority = 0.90
+				}
+			}
+			modifier = {
+				factor = 0.2
+				insular = {
+					religion_authority = 1
+				}
+			}
+			modifier = {
+				factor = 1.2
+				nicene = {
+					religion_authority = 0.5
+				}
+				NOT = {
+					insular = {
+						religion_authority = 0.5
+					}
+				}
+			}
+			modifier = {
+				factor = 1.2
+				nicene = {
+					religion_authority = 0.6
+				}
+				NOT = {
+					insular = {
+						religion_authority = 0.5
+					}
+				}
+			}
+			modifier = {
+				factor = 1.2
+				nicene = {
+					religion_authority = 0.7
+				}
+				NOT = {
+					insular = {
+						religion_authority = 0.5
+					}
+				}
+			}
+			modifier = {
+				factor = 1.2
+				nicene = {
+					religion_authority = 0.8
+				}
+				NOT = {
+					insular = {
+						religion_authority = 0.5
+					}
+				}
+			}
+			modifier = {
+				factor = 1.2
+				nicene = {
+					religion_authority = 0.9
+				}
+				NOT = {
+					insular = {
+						religion_authority = 0.5
+					}
+				}
+			}
+			modifier = {
+				factor = 1.2
+				nicene = {
+					religion_authority = 1
+				}
+				NOT = {
+					insular = {
+						religion_authority = 0.5
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			set_global_flag = whitby_insular_victory
+			character_event = { id = ins.9 days = 5 }
+		}
+	}
+	
+	option = {
+		name = ins.8.b
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				AND = {
+					religion = insular
+					trait = zealous
+				}
+			}
+			modifier = {
+				factor = 0.2
+				nicene = {
+					religion_authority = 0.10
+				}
+			}
+			modifier = {
+				factor = 0.2
+				nicene = {
+					religion_authority = 0.20
+				}
+			}
+			modifier = {
+				factor = 0.2
+				nicene = {
+					religion_authority = 0.30
+				}
+			}
+			modifier = {
+				factor = 0.2
+				nicene = {
+					religion_authority = 0.40
+				}
+			}
+			modifier = {
+				factor = 0.2
+				nicene = {
+					religion_authority = 0.50
+				}
+			}
+			modifier = {
+				factor = 0.2
+				nicene = {
+					religion_authority = 0.60
+				}
+			}
+			modifier = {
+				factor = 0.2
+				nicene = {
+					religion_authority = 0.70
+				}
+			}
+			modifier = {
+				factor = 0.2
+				nicene = {
+					religion_authority = 0.80
+				}
+			}
+			modifier = {
+				factor = 0.2
+				nicene = {
+					religion_authority = 0.90
+				}
+			}
+			modifier = {
+				factor = 0.2
+				nicene = {
+					religion_authority = 1
+				}
+			}
+			modifier = {
+				factor = 1.2
+				insular = {
+					religion_authority = 0.5
+				}
+				NOT = {
+					nicene = {
+						religion_authority = 0.5
+					}
+				}
+			}
+			modifier = {
+				factor = 1.2
+				insular = {
+					religion_authority = 0.6
+				}
+				NOT = {
+					nicene = {
+						religion_authority = 0.5
+					}
+				}
+			}
+			modifier = {
+				factor = 1.2
+				insular = {
+					religion_authority = 0.7
+				}
+				NOT = {
+					nicene = {
+						religion_authority = 0.5
+					}
+				}
+			}
+			modifier = {
+				factor = 1.2
+				insular = {
+					religion_authority = 0.8
+				}
+				NOT = {
+					nicene = {
+						religion_authority = 0.5
+					}
+				}
+			}
+			modifier = {
+				factor = 1.2
+				insular = {
+					religion_authority = 0.9
+				}
+				NOT = {
+					nicene = {
+						religion_authority = 0.5
+					}
+				}
+			}
+			modifier = {
+				factor = 1.2
+				insular = {
+					religion_authority = 1
+				}
+				NOT = {
+					nicene = {
+						religion_authority = 0.5
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			set_global_flag = whitby_nicene_victory
+			character_event = { id = ins.10 days = 5 }
+		}
+	}
+}
+
+# Insular victory
+character_event = {
+	id = ins.9
+	desc = ins.9.desc
+	picture = GFX_evt_whitby_insular_victory
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		any_character = {
+			limit = {
+				religion = nicene
+				controls_religion = yes
+			}
+			character_event = { id = ins.13 days = 30 random = 10 }
+		}
+	}
+	
+	option = {
+		name = ins.9.a
+		narrative_event = { id = ins.11 tooltip = ins.9.a.tooltip }
+	}
+}
+
+# Nicene victory
+character_event = {
+	id = ins.10
+	desc = ins.10.desc
+	picture = GFX_evt_jerusalem
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		any_character = {
+			limit = {
+				religion = nicene
+				controls_religion = yes
+			}
+			character_event = { id = ins.14 days = 30 random = 10 }
+		}
+	}
+	
+	option = {
+		name = ins.9.a
+		narrative_event = { id = ins.12 tooltip = ins.9.a.tooltip }
+	}
+}
+
+# Insular victory announced
+narrative_event = {
+	id = ins.11
+	title = ins.11.name
+	desc = ins.11.desc
+	picture = GFX_evt_whitby_insular_victory
+	border = GFX_event_narrative_frame_religion
+	
+	major = yes
+	only_playable = yes
+	religion_group = christian
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ins.11.a
+		trigger = {
+			OR = {
+				religion = insular
+				has_character_flag = called_synod_whitby
+			}
+		}
+	}
+	
+	option = {
+		name = ins.11.b
+		trigger = {
+			religion = nicene
+			NOT = { has_character_flag = called_synod_whitby }
+		}
+	}
+	
+	option = {
+		name = ins.11.c
+		trigger = {
+			NOR = {
+				religion = nicene
+				religion = insular
+			}
+		}
+	}
+}
+
+# Nicene victory announced
+narrative_event = {
+	id = ins.12
+	title = ins.11.name
+	desc = ins.12.desc
+	picture = GFX_evt_jerusalem
+	border = GFX_event_narrative_frame_religion
+	
+	major = yes
+	only_playable = yes
+	religion_group = christian
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ins.11.a
+		trigger = {
+			OR = {
+				religion = nicene
+				has_character_flag = called_synod_whitby
+			}
+		}
+	}
+	
+	option = {
+		name = ins.11.b
+		trigger = {
+			religion = insular
+			NOT = { has_character_flag = called_synod_whitby }
+		}
+	}
+	
+	option = {
+		name = ins.11.c
+		trigger = {
+			NOR = {
+				religion = nicene
+				religion = insular
+			}
+		}
+	}
+}
+
+# Pope informed of Insular Victory
+character_event = {
+	id = ins.13
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_global_flag = insular_nicene_communion_broken
+		religion_authority = { modifier = lost_synod_whitby years = 30 }
+		narrative_event = { id = ins.15 }
+		any_character = {
+			limit = {
+				religion = insular
+			}
+			remove_character_modifier = communion_nicene
+		}
+		any_character = {
+			limit = {
+				religion = nicene
+			}
+			remove_character_modifier = communion_insular
+		}
+	}
+}
+
+# Pope informed of Nicene Victory
+character_event = {
+	id = ins.14
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_global_flag = insular_nicene_communion_broken
+		religion_authority = { modifier = won_synod_whitby years = 30 }
+		any_character = {
+			limit = {
+				religion = insular
+			}
+			remove_character_modifier = communion_nicene
+		}
+		any_character = {
+			limit = {
+				religion = nicene
+			}
+			remove_character_modifier = communion_insular
+		}
+		set_parent_religion = { religion = insular parent = nicene }
+		any_playable_ruler = {
+			limit = {
+				religion = insular
+			}
+			character_event = { id = ins.16 }
+		}
+	}
+}
+
+# Pope denounces Insular
+narrative_event = {
+	id = ins.15
+	title = ins.15.name
+	desc = ins.15.desc
+	picture = GFX_evt_pope
+	border = GFX_event_narrative_frame_religion
+	
+	major = yes
+	only_playable = yes
+	religion_group = christian
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ins.15.a
+		trigger = {
+			religion = nicene
+		}
+	}
+}
+
+# Pope calls for conversion of Insular
+character_event = {
+	id = ins.16
+	desc = ins.16.desc
+	picture = GFX_evt_pope
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ins.16.a
+		trigger = {
+			OR = {
+				NOT = { trait = zealous }
+				has_character_flag = called_synod_whitby
+			}
+		}
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 0
+				religion_head = {
+					opinion_diff = { first = ROOT second = FROM value = 100 }
+				}
+			}
+		}
+		religion = nicene
+		any_courtier = {
+			limit = {
+				religion = insular
+				liege = { character = ROOT }
+			}
+			religion = nicene
+		}
+		capital_scope = {
+			religion = nicene
+		}	
+	}
+	
+	option = {
+		name = ins.16.b
+		trigger = {
+			NOT = { 
+				trait = zealous
+				has_character_flag = called_synod_whitby
+			}
+		}
+		ai_chance = { factor = 25 }
+	}
+	
+	option = {
+		name = ins.16.c
+		tooltip_info = zealous
+		trigger = {
+			trait = zealous
+		}
+	}
+}
+
+###########################################
+# 			  Celtic Paganism             #
+###########################################
+
+# Province reverts to Celtic pagan
+province_event = {
+	id = ins.17
+	desc = ins.17.desc
+	picture = GFX_evt_heretic
+	border = GFX_event_normal_frame_religion
+	
+	trigger = {
+		religion_group = christian
+		region = world_europe_west_brittania
+		OR = {
+			culture = romano_british
+			culture_group = celtic
+		}
+		any_neighbor_province = {
+			is_land = yes
+			OR = {
+				religion = celtic_pagan
+				religion = celtic_pagan_reformed
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 9600
+		modifier = {
+			factor = 1.5
+			religion_authority = 0.6
+		}
+		modifier = {
+			factor = 1.5
+			religion_authority = 0.7
+		}
+		modifier = {
+			factor = 1.5
+			religion_authority = 0.8
+		}
+		modifier = {
+			factor = 2.0
+			religion_authority = 0.9
+		}
+		modifier = {
+			factor = 2
+			has_game_rule = {
+				name = religious_conversion
+				value = slower
+			}
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { religion_authority = 0.2 }
+		}
+		modifier = {
+			factor = 0.75
+			NOT = { religion_authority = 0.3 }
+		}
+		modifier = {
+			factor = 0.75
+			NOT = { religion_authority = 0.4 }
+		}
+		modifier = {
+			factor = 0.75
+			NOT = { religion_authority = 0.5 }
+		}
+		modifier = {
+			factor = 0.5
+			any_neighbor_province = {
+				is_land = yes
+				OR = {
+					religion = celtic_pagan
+					religion = celtic_pagan_reformed
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		random_neighbor_province = {
+			limit = {
+				is_land = yes
+				OR = {
+					religion = celtic_pagan
+					religion = celtic_pagan_reformed
+				}
+			}
+			ROOT = {
+				religion = PREV
+			}
+		}
+		add_province_modifier = {
+			name = religious_unrest
+			duration = 730
+		}
+		# Notify the lieges
+		owner = {
+			any_liege = {
+				character_event = { id = ins.18 }
+			}
+		}
+	}
+	
+	option = {
+		name = ins.17.a
+		trigger = {
+			owner = {
+				religion_group = christian
+			}
+		}
+		owner = { piety = -10 }
+	}
+	
+	option = {
+		name = ins.17.b
+		trigger = {
+			owner = {
+				religion = ROOT
+			}
+		}
+		owner = { piety = 10 }
+	}
+	
+	option = {
+		name = ins.17.c
+		trigger = {
+			owner = {
+				NOR = {
+					religion = ROOT
+					religion_group = christian
+				}
+			}
+		}
+	}
+}
+
+# Liege informed of conversion
+character_event = {
+	id = ins.18
+	desc = ins.18.desc
+	picture = GFX_evt_heretic
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ins.17.a
+		trigger = {
+			religion_group = christian
+		}
+		piety = -10
+	}
+	
+	option = {
+		name = ins.17.b
+		trigger = {
+			religion = FROM
+		}
+		piety = 10 
+	}
+	
+	option = {
+		name = ins.17.b
+		trigger = {
+			NOR = {
+				religion = FROM
+				religion_group = christian
+			}
+		}
+	}
+}
+
+###########################################
+# 			  Monastery                   #
+###########################################
+
+# Building a new Monastery
+province_event = {
+	id = ins.19
+	desc = {
+		trigger = {
+			religion = insular
+		}
+		text = ins.19.desc.a
+	}
+	desc = {
+		trigger = {
+			religion = pelagianism
+		}
+		text = ins.19.desc.b
+	}
+	picture = GFX_evt_stone_church
+	
+	trigger = {
+		OR = {
+			religion = insular
+			religion = pelagianism
+		}
+		has_empty_holding = yes
+		NOT = {
+			any_province_holding = {
+				holding_type = temple
+			}
+		}
+		owner = {
+			religion = ROOT
+			NOT = { has_character_flag = new_monastery_founded }
+			wealth = 300
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 600
+		modifier = {
+			factor = 0.5
+			owner = { 
+				trait = zealous
+			}
+		}
+		modifier = {
+			factor = 0.90
+			owner = { 
+				learning = 10
+			}
+		}
+		modifier = {
+			factor = 0.90
+			owner = { 
+				learning = 12
+			}
+		}
+		modifier = {
+			factor = 0.90
+			owner = { 
+				learning = 16
+			}
+		}
+		modifier = {
+			factor = 0.90
+			owner = { 
+				learning = 18
+			}
+		}
+		modifier = {
+			factor = 0.90
+			owner = { 
+				learning = 20
+			}
+		}
+	}
+	
+	option = {
+		name = ins.19.a
+		owner = {
+			wealth = -300
+			piety = 100
+			set_character_flag = new_monastery_founded
+			ROOT = {
+				build_holding = {
+					type = temple
+					holder = PREV
+				}
+			}
+		}
+		hidden_effect = {
+			province_event = { id = ins.20 days = 365 random = 50 }
+		}
+	}
+	
+	option = {
+		name = ins.19.b
+		owner = {
+			piety = -25
+		}
+	}
+}
+
+# Monastery Flourishing
+province_event = {
+	id = ins.20
+	desc = ins.20.desc
+	picture = GFX_evt_market
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		random_province_holding = {
+			limit = {
+				holding_type = temple
+			}
+			add_holding_modifier = { name = flourishing_monastery years = 10 }
+		}
+	}
+
+	option = {
+		name = ins.20.a
+	}
+}
+
+###########################################
+# 				 Court Poet				  #
+###########################################
+
+# Poet composes new poem
+character_event = {
+	id = ins.23
+	desc = ins.23.desc
+	picture = GFX_evt_feast
+	
+	min_age = 16
+	only_playable = yes
+	prisoner = no
+	
+	trigger = {
+		has_assigned_minor_title = title_court_celtic_poet
+		is_incapable = no
+	}
+	
+	mean_time_to_happen = {
+		months = 260
+		modifier = {
+			factor = 1.2
+			trait = humble
+		}
+		modifier = {
+			factor = 1.2
+			trait = shy
+		}
+		modifier = {
+			factor = 0.75
+			trait = proud
+		}
+		modifier = {
+			factor = 0.75
+			trait = gregarious
+		}
+	}
+ 	
+	option = {
+		name = ins.23.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				trait = humble
+			}
+			modifier = {
+				factor = 0.75
+				trait = shy
+			}
+			modifier = {
+				factor = 2
+				trait = proud
+			}
+			modifier = {
+				factor = 1.5
+				trait = gregarious
+			}
+		}
+		custom_tooltip = {
+			text = ins.23.a.tooltip
+			hidden_effect = {
+				random_list = {
+					10 = {
+						modifier = {
+							factor = 0
+							OR = {
+								trait = just
+								trait = ambitious
+								trait = zealous
+								trait = kind
+								trait = hunter
+								war = yes
+								trait = cruel
+								trait = greedy
+								trait = dynastic_kinslayer
+								trait = familial_kinslayer
+								trait = kinslayer
+							}
+						}
+						character_event = { id = ins.24 }
+					}
+					10 = {
+						modifier = {
+							factor = 0
+							NOT = { trait = just }
+						}
+						character_event = { id = ins.25 }
+					}
+					10 = {
+						modifier = {
+							factor = 0
+							NOT = { trait = ambitious }
+						}
+						character_event = { id = ins.26 }
+					}
+					10 = {
+						modifier = {
+							factor = 0
+							NOT = { trait = zealous }
+						}
+						character_event = { id = ins.27 }
+					}
+					10 = {
+						modifier = {
+							factor = 0
+							NOT = { trait = kind }
+						}
+						character_event = { id = ins.28 }
+					}
+					10 = {
+						modifier = {
+							factor = 0
+							NOT = { trait = hunter }
+						}
+						character_event = { id = ins.29 }
+					}
+					10 = {
+						modifier = {
+							factor = 0
+							war = no
+						}
+						character_event = { id = ins.30 }
+					}
+					10 = {
+						modifier = {
+							factor = 0
+							NOT = { trait = cruel }
+						}
+						character_event = { id = ins.31 }
+					}
+					10 = {
+						modifier = {
+							factor = 0
+							NOT = { trait = greedy }
+						}
+						character_event = { id = ins.32 }
+					}
+					10 = {
+						modifier = {
+							factor = 0
+							NOR = {
+								trait = dynastic_kinslayer
+								trait = familial_kinslayer
+								trait = kinslayer
+							}
+						}
+						character_event = { id = ins.33 }
+					}
+				}
+      		}
+		}
+	}
+	
+	option = {
+		name = ins.23.b
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				trait = humble
+			}
+			modifier = {
+				factor = 1.5
+				trait = shy
+			}
+			modifier = {
+				factor = 0.5
+				trait = proud
+			}
+			modifier = {
+				factor = 0.75
+				trait = gregarious
+			}
+		}
+		piety = 25
+	}
+}
+
+# Poem (Generic)
+character_event = {
+	id = ins.24
+	desc = ins.24.desc
+	picture = GFX_evt_feast
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ins.24.a
+		add_character_modifier = { name = celtic_poem_generic duration = 180 }
+		prestige = 10
+	}
+}
+
+# Poem (Just)
+character_event = {
+	id = ins.25
+	desc = ins.25.desc
+	picture = GFX_evt_feast
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ins.25.a
+		add_character_modifier = { name = celtic_poem_good duration = 180 }
+		prestige = 15
+	}
+}
+
+# Poem (Ambitious)
+character_event = {
+	id = ins.26
+	desc = ins.26.desc
+	picture = GFX_evt_feast
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ins.25.a
+		add_character_modifier = { name = celtic_poem_good duration = 180 }
+		prestige = 15
+	}
+}
+
+# Poem (Zealous)
+character_event = {
+	id = ins.27
+	desc = ins.27.desc
+	picture = GFX_evt_feast
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ins.25.a
+		add_character_modifier = { name = celtic_poem_good duration = 180 }
+		prestige = 15
+	}
+}
+
+# Poem (Kind)
+character_event = {
+	id = ins.28
+	desc = ins.28.desc
+	picture = GFX_evt_feast
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ins.25.a
+		add_character_modifier = { name = celtic_poem_good duration = 180 }
+		prestige = 15
+	}
+}
+
+# Poem (Hunter)
+character_event = {
+	id = ins.29
+	desc = ins.29.desc
+	picture = GFX_evt_feast
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ins.25.a
+		add_character_modifier = { name = celtic_poem_good duration = 180 }
+		prestige = 15
+	}
+}
+
+# Poem (War)
+character_event = {
+	id = ins.30
+	desc = ins.30.desc
+	picture = GFX_evt_feast
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ins.25.a
+		add_character_modifier = { name = celtic_poem_good duration = 180 }
+		prestige = 15
+	}
+}
+
+# Poem (Cruel)
+character_event = {
+	id = ins.31
+	desc = ins.31.desc
+	picture = GFX_evt_scandal
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ins.31.a
+		add_character_modifier = { name = celtic_poem_bad duration = 180 }
+		prestige = -10
+	}
+}
+
+# Poem (Greedy)
+character_event = {
+	id = ins.32
+	desc = ins.32.desc
+	picture = GFX_evt_scandal
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ins.31.a
+		add_character_modifier = { name = celtic_poem_bad duration = 180 }
+		prestige = -10
+	}
+}
+
+# Poem (Kinslayer)
+character_event = {
+	id = ins.33
+	desc = ins.33.desc
+	picture = GFX_evt_scandal
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ins.33.a
+		add_character_modifier = { name = celtic_poem_bad duration = 180 }
+		prestige = -15
+	}
+	
+	option = {
+		name = ins.33.b
+		add_character_modifier = { name = celtic_poem_bad duration = 180 }
+		prestige = -10
+	}
+}
+	
+###########################################
+# 				 Infrastructure			  #
+###########################################
+
+# Sub-Roman coffers empty (liege)
+character_event = {
+	id = ins.34
+	desc = ins.34.desc
+	picture = GFX_evt_castle_construction
+	
+	trigger = {
+		always = no # Government events
+		NOT = { 
+			year = 550
+			primary_title = {
+				higher_tier_than = DUKE
+			}
+			government = bureaucratic_government
+			any_realm_province = {
+				has_province_modifier = sub_roman_decline
+			}
+		}
+		independent = yes
+		is_feudal = yes
+		any_realm_province = {
+			culture = romano_british
+			NOT = { has_province_flag = invested_sub_roman_infrastructure }
+		}
+		culture = romano_british
+	}
+	
+	mean_time_to_happen = {
+		months = 300
+		modifier = {
+			factor = 0.75
+			NOT = { realm_size = 10 }
+		}
+		modifier = {
+			factor = 0.75
+			NOT = { realm_size = 8 }
+		}
+		modifier = {
+			factor = 0.75
+			NOT = { realm_size = 6 }
+		}
+		modifier = {
+			factor = 0.75
+			NOT = { realm_size = 4 }
+		}
+		modifier = {
+			factor = 0.75
+			NOT = { realm_size = 2 }
+		}
+		modifier = {
+			factor = 1.5
+			realm_size = 12
+		}
+		modifier = {
+			factor = 1.5
+			realm_size = 14
+		}
+		modifier = {
+			factor = 1.5
+			realm_size = 16
+		}
+		modifier = {
+			factor = 1.5
+			realm_size = 18
+		}
+		modifier = {
+			factor = 1.5
+			realm_size = 20
+		}
+	}
+	
+	immediate = {
+		any_realm_province = {
+			limit = {
+				culture = romano_british
+				NOT = { has_province_flag = invested_sub_roman_infrastructure }
+			}
+			add_province_modifier = { name = sub_roman_decline duration = 3600 }
+		}
+		any_vassal = {
+			limit = {
+				any_demesne_province = {
+					culture = romano_british
+					NOT = { has_province_flag = invested_sub_roman_infrastructure }
+				}
+			}
+			character_event = { id = ins.35 }
+		}
+	}
+	
+	option = {
+		name = ins.34.a
+		prestige = -10
+	}
+}
+
+# Sub-Roman coffers empty (vassal)
+character_event = {
+	id = ins.35
+	desc = ins.34.desc
+	picture = GFX_evt_castle_construction
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ins.34.a
+		prestige = -10
+	}
+}
+
+# Sub-Roman infrastructure collapse
+province_event = {
+	id = ins.36
+	desc = ins.36.desc
+	picture = GFX_evt_castle_construction
+	
+	trigger = {
+		always = no # Government events
+		culture = romano_british
+		NOT = { 
+			has_province_flag = invested_sub_roman_infrastructure
+			has_province_modifier = sub_roman_build_nerf
+		}
+		has_province_modifier = sub_roman_decline
+	}
+	
+	mean_time_to_happen = {
+		months = 60
+	}
+	
+	option = {
+		name = ins.36.a
+		add_province_modifier = { name = sub_roman_build_nerf duration = 3600 }
+	}
+	
+	option = {
+		name = ins.36.b
+		owner = {
+			wealth = -500
+		}
+		add_province_modifier = { name = sub_roman_build_buff duration = 3600 }
+		set_province_flag = invested_sub_roman_infrastructure
+	}
+}
+
+# Discovered Broch
+province_event = {
+	id = ins.37
+	desc = ins.37.desc
+	picture = GFX_evt_castle_construction
+	
+	trigger = {
+		owner = {
+			culture_group = celtic
+		}
+		region = custom_scotland
+		NOT = { has_province_modifier = refurbished_broch }
+	}
+	
+	mean_time_to_happen = {
+		months = 260
+	}
+	
+	option = {
+		name = ins.37.a
+		owner = {
+			wealth = -100
+		}
+		add_province_modifier = { name = refurbished_broch duration = -1 }
+	}
+	
+	option = {
+		name = ins.37.b
+	}
+}
+	

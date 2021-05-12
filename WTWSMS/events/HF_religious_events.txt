@@ -5000,60 +5000,6 @@ character_event = {
 	}
 }
 
-#The Hellenic Emperor won, ensuring the rebirth of the faith.
-narrative_event = {
-	id = HF.23117
-	title = EVTTITLEHF23117
-	desc = EVTDESCHF23117
-	picture = GFX_evt_hellenic_temple
-	border = GFX_event_narrative_frame_war
-	
-	is_triggered_only = yes
-
-	option = {
-		name = EVTOPTAHF23117
-		trigger = { OR = { religion = hellenic_pagan } } 
-		if = { 
-			limit = { character = FROMFROM } #The reformer
-			custom_tooltip = { text = tooltip_peasants_become_hellenes }
-			hidden_tooltip = { 
-				any_demesne_province = { 
-					limit = {
-						NOT = { 
-							is_occupied = yes 
-						}
-					}
-					random = { 
-						chance = 50 
-						religion = FROMFROM
-					} 
-				}
-				any_courtier = { 
-					limit = {
-						NOT = { 
-							is_ruler = yes 
-						}
-					}
-					religion = FROMFROM
-				} 
-				any_vassal = { 
-					limit = {
-						NOR = { 
-							religion = FROMFROM 
-							is_theocracy = yes
-						}
-					}
-					character_event = { id = HF.23118 } #Second chance to convert.
-				} 
-			}
-		} 
-	}
-	option = {
-		name = EVTOPTBHF23117
-		trigger = { NOR = { religion = hellenic_pagan } } 
-	}
-}
-
 #######################
 # Myrmidons - Hellenic Holy Order
 #######################
