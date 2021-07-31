@@ -1348,3 +1348,116 @@ narrative_event = {
 		name = hist.29.a
 	}
 }
+
+# Unification of England
+narrative_event = {
+	id = hist.30
+	title = hist.30.name
+	desc = hist.30.desc
+	picture = GFX_evt_coming_home
+
+ 	is_triggered_only = yes
+ 	
+	option = {
+		name = hist.30.a
+		prestige = 300
+		piety = 200
+		primary_title = {
+			 k_england = {
+				grant_title = ROOT
+				copy_title_laws = PREV
+			}
+		}
+		give_nickname = nick_the_great
+		k_britannia_secunda = {
+			any_direct_de_jure_vassal_title = {
+				de_jure_liege = k_england
+			}
+		}
+		k_britannia_prima = {
+			any_direct_de_jure_vassal_title = {
+				de_jure_liege = k_england
+			}
+		}
+		k_england = {
+			de_jure_liege = e_britannia
+		}
+		if = {
+			limit = {
+				tier = king
+				primary_title = {
+					NOT = { title = k_england }
+				}
+			}
+			k_england = { make_primary_title = yes }
+		}
+		if = {
+			limit = {
+				has_landed_title = k_britannia_secunda
+			}
+			k_britannia_secunda = { destroy_landed_title = THIS }
+		}
+		if = {
+			limit = {
+				has_landed_title = k_britannia_prima
+			}
+			k_britannia_prima = { destroy_landed_title = THIS }
+		}
+		hidden_tooltip = {
+			any_playable_ruler = {
+				limit = {
+					capital_scope = {
+						region = world_europe_west_brittania
+					}
+				}
+				narrative_event = { id = hist.31 }
+			}
+		}
+	}
+
+}
+
+narrative_event = {
+	id = hist.31
+	title = hist.31.name
+	desc = hist.31.desc
+	picture = GFX_evt_garden
+
+ 	is_triggered_only = yes
+
+	option = {
+		name = hist.30.a
+		trigger = {
+			OR = {
+				culture = anglo
+				culture = old_saxon
+				culture = jute
+				culture = saxon
+				culture = english
+			}
+		}
+	}
+	option = {
+		name = hist.31.b
+		trigger = {
+			OR = {
+				culture_group = celtic
+				culture = romano_british
+			}
+		}
+	}
+	option = {
+		name =  hist.31.c
+		trigger = {
+			NOR = {
+				culture = anglo
+				culture = old_saxon
+				culture = jute
+				culture = saxon
+				culture = english
+				culture_group = celtic
+				culture = romano_british
+			}
+		}
+	}
+}

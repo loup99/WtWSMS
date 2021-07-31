@@ -208,6 +208,7 @@ letter_event = {
 	}
 }
 
+# The son of a ruler volunteers to join the Cranemasters
 character_event = {
 	id = holy.2004
 
@@ -318,12 +319,13 @@ character_event = {
 	immediate = {
 		liege = {
 			character_event = {
-				id = holy.2031
+				id = holy.2005
 			}
 		}
 	}
 }
 
+# Son or brother asks to join the Cranemasters
 character_event = {
 	id = holy.2005
 	desc = holy.2005.desc
@@ -333,7 +335,7 @@ character_event = {
 	is_triggered_only = yes
 	
 	option = {
-		name = holy.2005.a # Agree
+		name = EVTOPTA_SOA_1031 # Agree
 		ai_chance = {
 			factor = 100
 		}
@@ -348,7 +350,7 @@ character_event = {
 	}
 	
 	option = {
-		name = holy.2005.b # Refuse
+		name = EVTOPTB_SOA_1031 # Refuse
 		
 		piety = -100
 		
@@ -360,6 +362,7 @@ character_event = {
 	}
 }
 
+# Son or brother joins the Fist of Hubal
 character_event = {
 	id = holy.2006
 	hide_window = yes
@@ -372,7 +375,7 @@ character_event = {
 				ROOT = {
 					move_character = PREV
 					hidden_tooltip = {
-						clear_wealth = PREV
+						clear_wealth = yes
 					}
 					any_spouse = {
 						remove_spouse = spouse
@@ -392,10 +395,6 @@ character_event = {
 				}
 			}
 		}
-	}
-	
-	option = {
-		name = holy.2006.a
 	}
 }
 
@@ -699,7 +698,7 @@ character_event = {
 				ROOT = {
 					move_character = PREV
 					hidden_tooltip = {
-						clear_wealth = PREV
+						clear_wealth = yes
 					}
 				}
 			}
@@ -854,7 +853,6 @@ character_event = {
 
 province_event = {
 	id = holy.2051
-	desc = OK
 	picture = GFX_evt_throne_room_altaic
 	border = GFX_event_normal_frame_religion
 	
@@ -879,7 +877,6 @@ province_event = {
 
 character_event = {
 	id = holy.2052
-	desc = OK
 	picture = GFX_evt_throne_room_altaic
 	border = GFX_event_normal_frame_religion
 	
@@ -1310,21 +1307,17 @@ character_event = {
 # Son or brother joins the Guardians of Zalmoxis
 character_event = {
 	id = holy.2065
-	desc = holy.2065.desc
-	picture = GFX_evt_throne_room_altaic
-	border = GFX_event_normal_frame_religion
+	hide_window = yes
 	
 	is_triggered_only = yes
 	
-	option = {
-		name = EXCELLENT
-		
+	immediate = {
 		d_guardians_zalmoxis = {
 			holder_scope = {
 				ROOT = {
 					move_character = PREV
 					hidden_tooltip = {
-						clear_wealth = PREV
+						clear_wealth = yes
 					}
 				}
 			}
@@ -1724,6 +1717,551 @@ narrative_event = { #Announcement of the Priscillianist Holy Order
 				religion = priscillianism
 				religion_group = christian
 			}
+		}
+	}
+}
+
+########################################
+# The Order of Saint Alban
+########################################
+
+# Order of Saint Alban forms
+narrative_event = {
+	id = holy.2078
+	title = holy.2078.name
+	desc = holy.2078.desc
+	picture = "GFX_evt_crusaders"
+	border = "GFX_event_narrative_frame_religion"
+	
+	major = yes
+	only_playable = yes
+	only_men = yes
+	religion_group = christian
+	
+	trigger = {
+		has_global_flag = viking_age_started
+		OR = {
+			AND = {
+				religion = insular
+				has_global_flag = whitby_insular_victory
+			}
+			AND = {
+				religion = pelagianism
+				has_global_flag = whitby_pelagian_victory
+			}	
+		}
+		is_heretic = no
+		NOT = { is_title_active = d_saint_alban }
+	}
+	
+	mean_time_to_happen = {
+		months = 12
+	}
+	
+	immediate = {
+		activate_title = { title = d_saint_alban status = yes }
+		create_random_soldier = {
+			dynasty = none
+			random_traits = yes
+			religion = ROOT
+		}
+		new_character = {
+			d_saint_alban = {
+				grant_title = PREV
+				religion = PREV
+			}
+			set_defacto_liege = THIS
+			wealth = 500
+			set_government_type = feudal_government
+		}
+		
+		religion_authority = {
+			modifier = religious_order_formed
+			years = 10
+		}
+	}
+	option = {
+		name = holy.2078.a
+		trigger = {
+			religion = ROOT
+		}
+	}
+	option = {
+		name = holy.2078.b
+		trigger = {
+			NOT = { religion_group = christian }
+		}
+	}
+	option = {
+		name = holy.2078.c
+		trigger = {
+			religion_group = christian
+			NOT = { religion = ROOT }
+		}
+	}
+}
+
+# The son of a ruler volunteers to join the Order of Saint Alban
+character_event = {
+	id = holy.2079
+	hide_window = yes
+	
+	only_men = yes
+	min_age = 16
+	max_age = 45
+	only_capable = yes
+	prisoner = no
+	religion_group = christian
+	
+	trigger = {
+		is_ruler = no
+		OR = {
+			religion = insular
+			religion = pelagianism
+		}
+		is_heretic = no
+		martial = 5
+		is_title_active = d_saint_alban
+		OR = {
+			father_even_if_dead = {
+				primary_title = { higher_tier_than = BARON }
+			}
+			mother_even_if_dead = {
+				primary_title = { higher_tier_than = BARON }
+			}
+		}
+		liege = {
+			holy_order = no
+			liege = {
+				holy_order = no
+			}
+		}
+		NOT = { has_character_modifier = expelled_d_saint_alban }
+		NOT = {
+			any_liege = {
+				has_character_modifier = expelled_d_saint_alban
+			}
+		}
+		NOT = {
+			any_spouse = {
+				OR = {
+					is_landed = yes
+					AND = {
+						is_pregnant = yes
+					father_of_unborn = { character = ROOT } # Won't happen if spouse is pregnant with non-bastard child
+					}
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 100
+		modifier = {
+			factor = 0.25
+			trait = zealous
+		}
+		modifier = {
+			factor = 0.5
+			trait = celibate
+		}
+		modifier = {
+			factor = 0.5
+			trait = homosexual
+		}
+		modifier = {
+			factor = 0.7
+			trait = content
+		}
+		modifier = {
+			factor = 0.75
+			trait = chaste
+		}
+		modifier = {
+			factor = 0.75
+			NOT = { age = 25 }
+		}
+		modifier = {
+			factor = 1.5
+			trait = slothful
+		}
+		modifier = {
+			factor = 2.0
+			trait = lustful
+		}
+		modifier = {
+			factor = 2.0
+			trait = cynical
+		}
+		modifier = {
+			factor = 2.0
+			trait = hedonist
+		}
+		modifier = {
+			factor = 2.0
+			trait = ambitious
+		}
+		modifier = {
+			factor = 2.0
+			any_heir_title = {
+				always = yes
+			}
+		}
+		modifier = {
+			factor = 2.0
+			is_primary_heir = yes
+		}
+		modifier = {
+			factor = 2
+			any_spouse = {
+				reverse_opinion = { who = ROOT value = 100 }
+			}
+		}
+	}
+	
+	immediate = {
+		liege = {
+			character_event = {
+				id = holy.2080
+			}
+		}
+	}
+}
+
+# Son or brother asks to join the Order of Saint Alban
+character_event = {
+	id = holy.2080
+	desc = holy.2080.desc
+	picture = GFX_evt_knight_kneeling
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_SOA_1031 # Agree
+		ai_chance = {
+			factor = 100
+		}
+		if = {
+			limit = {
+				religion = FROM
+			}
+			piety = 100
+		}
+		FROM = {
+			character_event = {
+				id = holy.2081
+				tooltip = holy.2080.a.tooltip
+			}
+		}
+	}
+	
+	option = {
+		name = EVTOPTB_SOA_1031 # Refuse
+		if = {
+			limit = {
+				religion = FROM
+			}
+			piety = -100
+		}
+		FROM = {
+			character_event = {
+				id = holy.2082
+				tooltip = EVTTOOLTIP_SOA_1033
+			}
+		}
+	}
+}
+
+# Son or brother joins the Order of Saint Alban
+character_event = {
+	id = holy.2081
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		d_saint_alban = {
+			holder_scope = {
+				save_event_target_as = order_target
+				ROOT = {
+					character_event = { id = SoA.2864 }
+				}
+			}
+		}
+	}
+}
+
+# Liege refuses request to join the Order of Saint Alban
+character_event = {
+	id = holy.2082
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		opinion = {
+			who = FROM
+			modifier = opinion_refused_request_holy_order
+		}
+	}
+}
+
+# The Grand Master requests the right to build a castle in your demesne
+character_event = {
+	id = holy.2083
+	hide_window = yes
+	
+	min_age = 16
+	only_playable = yes
+	religion_group = christian
+	
+	trigger = {
+		OR = {
+			religion = insular
+			religion = pelagianism
+		}
+		is_heretic = no
+		d_saint_alban = {
+			holder_scope = {
+				wealth = 300
+				NOT = {
+					realm_size = 10
+				}
+			}
+		}
+		any_demesne_province = {
+			has_empty_holding = yes
+			port = yes
+		}
+		NOT = { has_character_modifier = expelled_d_saint_alban }
+		NOT = {
+			any_liege = {
+				has_character_modifier = expelled_d_saint_alban
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 240
+		modifier = {
+			factor = 0.5
+			d_saint_alban = {
+				holder_scope = {
+					NOT = { demesne_size = 1 }
+				}
+			}
+		}
+		modifier = {
+			factor = 0.5
+			d_saint_alban = {
+				holder_scope = {
+					NOT = { demesne_size = 2 }
+				}
+			}
+		}
+		modifier = {
+			factor = 2.0
+			d_saint_alban = {
+				holder_scope = {
+					num_of_count_titles = 1
+				}
+			}
+		}
+		modifier = {
+			factor = 2.0
+			d_saint_alban = {
+				holder_scope = {
+					realm_size = 5
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		random_demesne_province = {
+			limit = {
+				has_empty_holding = yes
+				port = yes
+			}
+			province_event = {
+				id = holy.2084
+			}
+		}
+	}
+}
+
+province_event = {
+	id = holy.2084
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		d_saint_alban = {
+			holder_scope = {
+				character_event = {
+					id = holy.2085
+				}
+			}
+		}
+	}
+}
+
+character_event = {
+	id = holy.2085
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		FROMFROM = {
+			letter_event = {
+				id =  holy.2086
+			}
+		}
+	}
+}
+
+letter_event = {
+	id = holy.2086
+	desc = EVTDESC_SOA_1053
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_SOA_1023 # Agree
+		ai_chance = {
+			factor = 80
+			modifier = {
+				factor = 0
+				has_character_modifier = expelled_d_saint_alban
+			}
+			modifier = {
+				factor = 0.01
+				FROMFROM = {
+					region = world_europe_west_brittania
+				}
+			}
+		}
+		
+		hidden_tooltip = {
+			FROMFROM = {
+				province_event = { id = holy.2087 }
+			}
+			remove_character_modifier = expelled_d_saint_alban
+		}
+		
+		piety = 200
+		wealth = 100
+	}
+	
+	option = {
+		name = EVTOPTB_SOA_1031 # Refuse
+		ai_chance = {
+			factor = 20
+		}
+		
+		piety = -100
+	}
+}
+
+# Castle has been erected
+province_event = {
+	id = holy.2087
+	desc = holy.2087.desc
+	picture = GFX_evt_castle_construction
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		FROMFROM = {
+			wealth = -300
+		}
+	}
+	
+	option = {
+		name = EVTOPTA_SOA_1024
+		build_holding = {
+		   type = castle
+		   holder = FROMFROM
+		}
+	}
+}
+
+# Ping event when vassalizing the Order of Saint Alban
+character_event = {
+	id = holy.2088
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_defacto_liege = FROM
+		FROM = {
+			letter_event = {
+				id = holy.2089
+			}
+		}
+	}
+}
+
+# Notification event when vassalizing the Order of Saint Alban
+letter_event = {
+	id = holy.2089
+	desc = holy.2089.desc
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EXCELLENT
+	}
+}
+
+character_event = {
+	id = holy.2090
+	desc = "EVTDESC_SOA_2990"
+	picture = "GFX_evt_crusaders"
+	border = "GFX_event_normal_frame_religion"
+	
+	only_rulers = yes
+	is_triggered_only = yes
+	
+	option = { # Expell Them
+		name = "EVTOPTA_SOA_2990"
+		piety = -1000
+		
+		religion_authority = {
+			modifier = holy_order_expelled
+			years = 20
+		}
+		custom_tooltip = {
+			text = expelling_holy_order_event_tooltip_a
+		}
+		hidden_tooltip = {
+			d_saint_alban = {
+				holder_scope = {
+					character_event = {
+						id = SoA.1060
+					}
+				}
+			}
+			add_character_modifier = {
+				name = expelled_d_saint_alban
+				duration = -1
+				inherit = yes
+			}
+		}
+	}
+	
+	option = { # Allow them to stay
+		name = "EVTOPTB_SOA_2990"
+		custom_tooltip = {
+			text = expelling_holy_order_event_tooltip_b
 		}
 	}
 }

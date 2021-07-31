@@ -468,13 +468,16 @@ odoacer_takeover_war = {
 	can_call_allies = no
 	can_ask_to_join_war = no
 	check_de_jure_tier = EMPEROR
-	major_revolt = yes
-	max_defender_occupation_score = 50 # While waiting for Enlil to change it to a rebellion
-	
+	#major_revolt = yes
+	max_defender_occupation_score = 50 # not needed in landless Odoacer's case, but should be kept for post-start usages of this CB
+
 	can_use = {
 		ROOT = {
 			vassal_of = FROM
-			has_landed_title = k_italy
+			OR = {
+				has_landed_title = k_italy
+				has_landed_title = d_odoacer
+			}
 		}
 		FROM = {
 			independent = yes
@@ -567,6 +570,14 @@ odoacer_takeover_war = {
 				clr_character_flag = powerful_vassal_takeover_target
 			}
 		}
+		k_italy = {
+			grant_title = ROOT
+		}
+		set_global_flag = italy_bureaucratic
+		d_odoacer = {
+			unsafe_destroy_landed_title = THIS
+		}
+		activate_title = { title = d_odoacer status = no }
 	}
 
 	on_success_title = { #This is the target title 
@@ -640,6 +651,10 @@ odoacer_takeover_war = {
 				clr_character_flag = powerful_vassal_takeover_target
 			}
 		}
+		d_odoacer = {
+			unsafe_destroy_landed_title = THIS
+		}
+		activate_title = { title = d_odoacer status = no }
 	}
 
 	on_reverse_demand = {
@@ -676,6 +691,11 @@ odoacer_takeover_war = {
 				clr_character_flag = powerful_vassal_takeover_target
 			}
 		}
+		d_odoacer = {
+			unsafe_destroy_landed_title = THIS
+		}
+		activate_title = { title = d_odoacer status = no }
+		imprison = FROM
 	}
 
 	attacker_ai_victory_worth = {
