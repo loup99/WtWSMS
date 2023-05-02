@@ -25,62 +25,6 @@ devestate_province_effect = {
 	decrease_prosperity_effect = yes
 }
 
-decrease_prosperity_effect = {
-	### Depopulated Provinces
-	if = {
-		limit = { has_province_modifier = depopulated_2	}
-		hidden_tooltip = { remove_province_modifier = depopulated_2 }
-		add_province_modifier = { name = depopulated_3 duration = -1 }
-		hidden_tooltip = {
-			clr_province_flag = recent_depopulation_2
-			set_province_flag = recent_depopulation_3
-		}
-	}
-	if = {
-		limit = { has_province_modifier = depopulated_1 }
-		hidden_tooltip = { remove_province_modifier = depopulated_1 }
-		add_province_modifier = { name = depopulated_2 duration = -1 }
-		hidden_tooltip = {
-			clr_province_flag = recent_depopulation_1
-			set_province_flag = recent_depopulation_2
-		}
-	}
-
-	### Unmodified Province
-	if = {
-		limit = {
-			NOR = {
-				is_prosperous_trigger = yes
-				is_depopulated_trigger = yes
-			}
-		}
-		add_province_modifier = { name = depopulated_1 duration = -1 }
-		set_province_flag = recent_depopulation_1
-	}
-
-	### Prosperous Provinces
-	if = {
-		limit = { has_province_modifier = prosperity_modifier_1 }
-		
-		remove_province_modifier = prosperity_modifier_1
-		hidden_tooltip = { set_variable = { which = prosperity_value value = 0 } }
-	}
-	if = {
-		limit = { has_province_modifier = prosperity_modifier_2	}
-
-		hidden_tooltip = { remove_province_modifier = prosperity_modifier_2 }
-		add_province_modifier = { name = prosperity_modifier_1 duration = -1 }
-		hidden_tooltip = { set_variable = { which = prosperity_value value = 100 } }
-	}
-	if = {
-		limit = { has_province_modifier = prosperity_modifier_3 }
-
-		hidden_tooltip = { remove_province_modifier = prosperity_modifier_3 }
-		add_province_modifier = { name = prosperity_modifier_2 duration = -1 }
-		hidden_tooltip = { set_variable = { which = prosperity_value value = 250 } }
-	}
-}
-
 # requires event targets donor_province and receiver_province
 # receiver_province must have province flag received_<one/two/three>_prosperity
 random_province_conversion_from_colonists_effect = {
