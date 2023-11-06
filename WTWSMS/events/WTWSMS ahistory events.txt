@@ -66,3 +66,68 @@ narrative_event = {
 		}
 	}
 }
+# Basiliscus has won the war for the ERE against Zeno
+narrative_event = {
+	id = ahistorical_wtwsms.2
+	title = ahistorical_wtwsms.2.name
+	desc = {
+		trigger = {
+			has_landed_title = e_byzantium
+		}
+		text = ahistorical_wtwsms.2.desc.a
+	}
+	desc = {
+		trigger = {
+			NOT = { has_landed_title = e_byzantium }
+		}
+		text = ahistorical_wtwsms.2.desc.b
+	}
+	picture = GFX_evt_victory_arch_byzantine
+	
+	only_rulers = yes
+	only_independent = yes
+	
+	major = yes
+	
+	trigger = {
+		start_date = 476.2.2
+		NOT = { year = 500 } # Zeno's war is in 476, this prevents the event from firing later in case vassals would rebel and Basiliscus had failed the rebellion
+		ROOT = {
+			has_landed_title = e_byzantium
+			character = 145226 # Basiliscus
+		}
+		NOT = { d_isauria = { holder_scope = { war_with = ROOT } } }
+		NOT = { has_global_flag = basiliscus_ere }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_global_flag = basiliscus_ere
+	}
+	
+	option = {
+		name = OK # To expand, maybe banquet event with Odoacer?
+		trigger = {
+			has_landed_title = e_byzantium
+		}
+		
+		prestige = 100
+		change_infamy = { # To avoid huge coalition
+			value = -100
+			localisation = CHANGE_INFAMY_EFFECT
+		}
+		c_70515 = { # Basilikos
+			abdicate_to = ROOT
+			imprison = ROOT
+		}
+	}
+	option = {
+		name = OK # To expand/look into options with WRE
+		trigger = {
+			NOT = { has_landed_title = e_byzantium }
+		}
+	}
+}
