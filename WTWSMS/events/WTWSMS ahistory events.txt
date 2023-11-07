@@ -133,6 +133,7 @@ narrative_event = {
 		}
 	}
 }
+#Seleucid Restoration, should it occurr
 narrative_event = {
 	id = ahistorical_wtwsms.3
 	title = ahistorical_wtwsms.3.name
@@ -187,6 +188,123 @@ narrative_event = {
 		name = OK 
 		trigger = {
 			NOT = { has_landed_title = e_seleucid }
+		}
+	}
+}
+# Romulus Augustulus has somehow come out on top
+narrative_event = {
+	id = ahistorical_wtwsms.4
+	title = ahistorical_wtwsms.4.name
+	picture = GFX_evt_victory_arch_byzantine
+	only_rulers = yes
+	only_independent = yes
+	major = yes
+	desc = {
+		trigger = {
+			has_landed_title = e_wre
+		}
+		text = ahistorical_wtwsms.4.desc.a
+	}
+	desc = {
+		trigger = {
+			NOT = { has_landed_title = e_wre }
+		}
+		text = ahistorical_wtwsms.4.desc.b
+	}
+
+	trigger = {
+		start_date = 476.2.2
+		NOT = { year = 500 } # war is in 476, this prevents the event from firing later in case vassals would rebel
+		ROOT = {
+			has_landed_title = e_wre
+			character = 96054 # Romulus
+		}
+		NOT = { has_global_flag = romulus_wre }
+			c_55 = { # Odoacer
+			NOT = { war_with = ROOT } }
+		}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_global_flag = romulus_wre
+	}
+	
+	option = {
+		name = OK # To expand later, roman instability continues
+		trigger = {
+			has_landed_title = e_wre
+		}
+		
+		prestige = 100
+		change_infamy = { # To avoid huge coalition
+			value = -100
+			localisation = CHANGE_INFAMY_EFFECT
+		}
+	}
+	option = {
+		name = OK # To expand/look into options with WRE
+		trigger = {
+			NOT = { has_landed_title = e_wre }
+		}
+	}
+}
+#Gothic Empire united
+narrative_event = {
+	id = ahistorical_wtwsms.5
+	title = ahistorical_wtwsms.5.name
+	picture = GFX_evt_fall_of_rome	
+	only_rulers = yes
+	only_independent = yes
+	major = yes
+	desc = {
+		trigger = {
+			has_landed_title = e_goths
+		}
+		text = ahistorical_wtwsms.5.desc.a
+	}
+	desc = {
+		trigger = {
+			NOT = { has_landed_title = e_goths }
+		}
+		text = ahistorical_wtwsms.5.desc.b
+	}
+
+	trigger = {
+		ROOT = {
+			has_landed_title = e_goths
+		}
+		NOT = { has_global_flag = gothic_empire_formed }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_global_flag = gothic_empire_formed
+	}
+	
+	option = {
+		name = OK 
+		trigger = {
+			has_landed_title = e_goths
+		}
+		
+		prestige = 1000
+		add_claim = e_italy
+		add_claim = e_spain
+		add_trait = genius #This is how historians will always record the man
+		add_trait = strong
+		add_trait = tall
+		add_trait = legendary_leader
+	}
+	option = {
+		name = OK 
+		trigger = {
+			NOT = { has_landed_title = e_goths }
 		}
 	}
 }

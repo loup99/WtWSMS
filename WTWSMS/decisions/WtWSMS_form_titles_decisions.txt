@@ -735,6 +735,7 @@ decisions = {
 		potential = {
 			has_landed_title = k_ostrogoths
 			NOT = { has_global_flag = claim_italia }
+			NOT = { has_global_flag = gothic_empire }
 		}
 		
 		allow = {
@@ -750,4 +751,81 @@ decisions = {
 			factor = 1
 		}
 	}	
+	claim_italia_visigoths = {
+		is_high_prio = yes
+		only_independent = yes
+		potential = {
+			has_landed_title = k_visigoths
+			NOT = { has_global_flag = claim_italia_visigoths }
+			NOT = { has_global_flag = gothic_empire }
+			}
+			
+			allow = {
+			year = 550
+			martial = 15
+			realm_size > 100
+			}
+			
+			effect = {
+			set_global_flag = claim_italia_visigoths
+			add_claim = e_italy
+			}
+			ai_will_do = {
+				factor = 1
+				}
+			}
+	unite_goths = {
+		is_high_prio = yes
+		only_independent = yes
+		potential = {
+			OR = {	
+				has_landed_title = k_visigoths
+				has_landed_title = k_ostrogoths
+				}
+			NOT = { has_character_flag = unite_goths }
+			NOT = { has_global_flag = gothic_empire }
+			}
+			
+			allow = {
+			martial = 15
+			realm_size > 100
+			wealth = 500
+			prestige = 500
+			any_neighbor_independent_ruler = {
+			OR = {
+				has_landed_title = k_ostrogoths
+				has_landed_title = k_visigoths
+				}
+			}
+		}
+		effect = {
+			set_character_flag = unite_goths
+			add_claim = k_ostrogoths
+			add_claim = k_visigoths
+			add_weak_claim = e_goths
+			}
+		}
+	gothic_empire = {
+		is_high_prio = yes
+		only_independent = yes
+		potential = {
+			OR = {
+			has_landed_title = k_visigoths
+			has_landed_title = k_ostrogoths
+			}
+			has_character_flag = unite_goths
+			NOT = { has_global_flag = gothic_empire }
+			}
+		allow = {
+			has_landed_title = k_ostrogoths
+			has_landed_title = k_visigoths
+			}
+		effect = {
+			set_global_flag = gothic_empire
+			e_goths = {
+				activate_title = { title = THIS status = yes } # Otherwise grant_title doesn't work
+				grant_title = ROOT
+			}
+		}
+	}
 }
