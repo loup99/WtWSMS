@@ -117,9 +117,8 @@ narrative_event = {
 		}
 		
 		prestige = 100
-		change_infamy = { # To avoid huge coalition
-			value = -100
-			localisation = CHANGE_INFAMY_EFFECT
+		e_byzantium = {
+		add_law = stability_1
 		}
 		c_70515 = { # Zeno
 			abdicate_to = ROOT
@@ -308,6 +307,77 @@ narrative_event = {
 		name = OK 
 		trigger = {
 			NOT = { has_landed_title = e_goths }
+		}
+	}
+}
+
+#The Seleucid Empire Reconquers Persia
+narrative_event = {
+	id = ahistorical_wtwsms.6
+	title = ahistorical_wtwsms.6.name
+	picture = GFX_evt_victory_arch_byzantine
+	only_rulers = yes
+	only_independent = yes
+	major = yes
+	desc = {
+		trigger = {
+			has_landed_title = e_seleucid
+		}
+		text = ahistorical_wtwsms.6.desc.a
+	}
+	desc = {
+		trigger = {
+			NOT = { has_landed_title = e_seleucid }
+		}
+		text = ahistorical_wtwsms.6.desc.b
+	}
+
+	trigger = {
+		ROOT = {
+			has_landed_title = e_seleucid
+			has_landed_title = e_persia
+		}
+		NOT = { has_global_flag = seleucid_persia }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_global_flag = seleucid_persia
+	}
+	
+	option = {
+		name = OK 
+		trigger = {
+			has_landed_title = e_seleucid
+		}
+		e_persia = {
+					any_direct_de_jure_vassal_title = {
+					de_jure_liege = e_seleucid
+					}
+					destroy_landed_title = PREV
+				}
+		prestige = 1000
+		if = { 
+			limit = { is_female = no }
+			create_bloodline = {
+				type = alexander_bloodline_01
+			}
+		}
+		if = { 
+			limit = { is_female = yes }
+			create_bloodline = {
+				type = alexander_bloodline_01
+				inheritance = matrilineal
+			}		
+		}
+	}
+	option = {
+		name = OK 
+		trigger = {
+			NOT = { has_landed_title = e_seleucid }
 		}
 	}
 }
