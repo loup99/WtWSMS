@@ -26,7 +26,12 @@ province_event = {
 					}	
 			culture = aramean
 			}
-		}
+			AND = {
+			owner = { # Hellenic Persians
+				has_romance_culture_trigger = yes
+					}
+			culture = persian
+			}
 		religion_group = pagan_group
 		county = {
 			is_feudal = yes
@@ -45,9 +50,9 @@ province_event = {
 	
 	immediate = {
 		set_province_flag = melting_pot_target
+		}
 	}
 }
-
 
 
 
@@ -253,5 +258,208 @@ province_event = {
 	option = {
 		name = WtWSMS_ahist_pots.4.a
 		culture = helleno_aramean
+	}
+}
+province_event = {
+	id = WtWSMS_ahist_pots.5
+	title = WtWSMS_ahist_pots.5.name
+	desc = WtWSMS_ahist_pots.5.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+		
+	trigger = {
+		owner = {
+			religion_group = pagan_group
+			is_feudal = yes
+				has_romance_culture_trigger = yes
+			religion = ROOT
+		}
+		religion_group = pagan_group
+		county = {
+			is_feudal = yes
+		}
+		has_persian_culture_trigger = yes
+		NOR = {
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			}
+		}
+		has_province_flag = melting_pot_target
+		culture = persian
+		year = 500
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+		modifier = {
+			factor = 0.75
+			owner = {
+				learning = 7
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = {
+				learning = 9
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = {
+				learning = 11
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = {
+				learning = 13
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = {
+				NOT = { learning = 5 }
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = {
+				NOT = { learning = 3 }
+			}
+		}
+		modifier = {
+			factor = 2.0
+			owner = {
+				NOT = { learning = 1 }
+			}
+		}
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_flag = persian_melting_pot
+	}
+	
+	option = {
+		name = WtWSMS_ahist_pots.5.a #
+		culture = greek_persian
+		owner = {
+			culture = greek_persian
+		}
+	}
+}
+
+# Helleno-Persian culture spreading
+province_event = {
+	id = WtWSMS_ahist_pots.6
+	desc = WtWSMS_ahist_pots.6.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_religion
+		
+	trigger = {
+		owner = {
+			culture = greek_persian
+			religion_group = pagan_group
+			is_feudal = yes
+			religion = ROOT
+		}
+		religion_group = pagan_group
+		county = {
+			is_feudal = yes
+		}
+		has_persian_culture_trigger = yes
+		NOR = {
+			any_province_holding = {
+				has_holding_modifier = recently_conquered
+			}
+		}
+		has_province_flag = melting_pot_target
+		culture = persian
+	}
+	
+	mean_time_to_happen = {
+		months = 720 # Testing placeholder
+		modifier = {
+			factor = 0.3
+			OR = {
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots
+				}
+				has_game_rule = {
+					name = culture_conversion
+					value = faster_melting_pots_and_slower_normal
+				}
+			}
+		}
+	}
+
+	option = {
+		name = WtWSMS_ahist_pots.6.a
+		culture = greek_persian
+	}
+}
+
+# Lack of strong persian realm remaining means last persian enclaves are removed
+province_event = {
+	id = WtWSMS_ahist_pots.7
+	title = WtWSMS_ahist_pots.7.name
+	desc = WtWSMS_ahist_pots.7.desc
+	picture = GFX_evt_stone_church # Placeholder
+	border = GFX_event_normal_frame_diplomacy
+
+	trigger = {
+		had_global_flag = {
+			flag = persian_melting_pot
+			days = 3650 # 10 years
+		}
+		NOT = { # Lack of strong persian realm remaining
+			any_independent_ruler = {
+				culture = persian
+				OR = {
+					higher_tier_than = duke
+					realm_size = 35
+					any_demesne_title = {
+						count = 3
+						tier = DUKE
+					}
+				}
+			}
+		}
+		NOT = {
+			owner = {
+				OR = {
+					culture = persian
+					top_liege = {
+						culture = persian
+					}
+					liege = {
+						culture = persian
+					}
+				}
+			}
+		}
+		culture = persian
+	}
+
+	mean_time_to_happen = {
+		months = 1200 # Testing placeholder
+	}
+	
+	option = {
+		name = WtWSMS_ahist_pots.6.a
+		culture = greek_persian
 	}
 }
