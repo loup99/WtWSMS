@@ -1,0 +1,79 @@
+decisions = {
+	raise_germanic_bands = {
+		only_playable = yes
+		is_high_prio = yes
+		potential = {
+			is_playable = yes
+			is_tribal = no
+			is_landed = yes
+			AND = {
+			OR = {
+			religion = arian
+			religion = germanic_pagan
+			}
+			has_germanic_culture_trigger = yes
+			}
+			OR = {
+				any_war = {
+					OR = {
+						any_defender = {
+							character = ROOT
+							is_primary_war_defender = yes
+						}
+						any_attacker = {
+							character = ROOT
+							is_primary_war_attacker = yes
+						}
+					}
+				}
+			}
+		}
+		
+		allow = {
+			war = yes
+			prestige = 100
+			age = 16
+		}
+		
+		effect = {
+			prestige = -100
+			
+			hidden_tooltip = {
+				capital_scope = {
+					PREV = {
+						spawn_unit = {
+							owner = ROOT
+							province = PREV
+							home = PREV
+							troops = {
+								light_infantry = { 1000 1000 }
+							}
+							attrition = 1.0
+							disband_on_peace = yes
+							maintenance_multiplier = 0.5
+						}
+					}
+				}
+				capital_scope = {
+					PREV = {
+						spawn_unit = {
+							owner = ROOT
+							province = PREV
+							home = PREV
+							troops = {
+								light_infantry = { 1000 1000 }
+							}
+							attrition = 1.0
+							disband_on_peace = yes
+							maintenance_multiplier = 0.5
+						}
+					}
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1 # decisions with the "is_mercenary" will not be calculated from the script
+		}
+	}
+}
