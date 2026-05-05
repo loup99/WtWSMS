@@ -545,6 +545,10 @@ set_flag_for_holy_order_modifiers_effect = {
 		limit = { has_character_modifier = borrowed_from_d_burning_blades }
 		set_character_flag = borrowed_from_d_burning_blades
 	}
+	if = {
+		limit = { has_character_modifier = borrowed_from_d_medjay }
+		set_character_flag = borrowed_from_d_medjay
+	}
 
 	# Expelled from the Realm
 	if = {
@@ -574,6 +578,10 @@ set_flag_for_holy_order_modifiers_effect = {
 	if = {
 		limit = { has_character_modifier = expelled_d_burning_blades }
 		set_character_flag = expelled_d_burning_blades
+	}
+	if = {
+		limit = { has_character_modifier = expelled_d_medjay }
+		set_character_flag = expelled_d_medjay
 	}
 }
 
@@ -659,6 +667,17 @@ set_character_modifier_for_holy_order_flags_effect = {
 			inherit = yes
 		}
 	}
+	if = {
+		limit = {
+			NOT = { has_character_modifier = borrowed_from_d_medjay }
+			has_character_flag = borrowed_from_d_medjay
+		}
+		add_character_modifier = { 
+			name = borrowed_from_d_medjay
+			duration = -1
+			inherit = yes
+		}
+	}
 
 	# Expelled from the Realm
 	if = {
@@ -738,6 +757,17 @@ set_character_modifier_for_holy_order_flags_effect = {
 			inherit = yes
 		}
 	}
+	if = {
+		limit = {
+			NOT = { has_character_modifier = expelled_d_medjay }
+			has_character_flag = expelled_d_medjay
+		}
+		add_character_modifier = { 
+			name = expelled_d_medjay
+			duration = -1
+			inherit = yes
+		}
+	}
 }
 
 # requires event_target:holy_order to be defined
@@ -755,6 +785,7 @@ clear_borrowed_from_holy_order_modifier_effect = {
 				d_legio_hellenica = { PREVPREV = { remove_character_modifier = borrowed_from_d_legio_hellenica } }
 				d_sacred_band = { PREVPREV = { remove_character_modifier = borrowed_from_d_sacred_band } }
 				d_burning_blades = { PREVPREV = { remove_character_modifier = borrowed_from_d_burning_blades } }
+				d_medjay = { PREVPREV = { remove_character_modifier = borrowed_from_d_medjay } }
 			}
 		}
 	}
@@ -775,6 +806,7 @@ clear_expelled_holy_order_modifier_effect = {
 				d_legio_hellenica = { PREVPREV = { remove_character_modifier = expelled_d_legio_hellenica } }
 				d_sacred_band = { PREVPREV = { remove_character_modifier = expelled_d_sacred_band } }
 				d_burning_blades = { PREVPREV = { remove_character_modifier = expelled_d_burning_blades } }
+				d_medjay = { PREVPREV = { remove_character_modifier = expelled_d_medjay } }
 			}
 		}
 	}

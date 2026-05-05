@@ -493,4 +493,69 @@ decisions = {
 			factor = 1
 		}
 	}
+	
+	organize_medjay = {
+		only_playable = yes
+		is_high_prio = yes
+		potential = {
+			is_playable = yes
+			higher_tier_than = duke # Tease the decision for kings
+			has_regent = no
+			religion = mandulis_pagan_reformed
+			NOT = { has_global_flag = medjay_founded }
+		}
+		allow = {
+			higher_tier_than = king
+			prestige = 300
+			wealth = 300
+		}
+		effect = {
+			set_global_flag = medjay_founded
+			prestige = -300
+			wealth = -300
+			activate_title = { title = d_medjay status = yes }
+			hidden_tooltip = {
+				set_character_flag = eventancrel.5006
+				narrative_event = { id = atenic.6 }
+				create_character = {
+					random_traits = yes
+					religion = mandulis_pagan_reformed
+					culture = ROOT
+					dynasty = NONE
+					age = 34
+					attributes = {
+						martial = 7
+						diplomacy = 5
+						intrigue = 2
+						learning = 2
+						stewardship = 2
+					}
+				}
+				new_character = {
+					add_trait = zealous
+					d_medjay = {
+						grant_title = PREV
+					}
+					set_government_type = order_government
+					set_defacto_liege = this
+					if = {
+						limit = { ROOT = { ai = no } }
+						ROOT = {
+							chronicle = {
+								entry = CHRONICLE_MEDJAY
+								portrait = [Prev.GetID]
+							}
+						}
+					}
+				}
+			}
+			religion_authority = {
+				modifier = religious_order_formed
+				years = 10
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
 }
